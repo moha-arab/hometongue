@@ -92,7 +92,18 @@ function startGame(type) {
   gameType = type;
   deck = shuffle(pool).slice(0, ROUNDS);
   round = 0; total = 0; roundLog = [];
+  warmDeck();
   nextRound();
+}
+
+// Warm the browser HTTP cache for small clips (SAA's server is slow cold) —
+// big spoken-article files stream fine on demand, so skip them.
+function warmDeck() {
+  for (const clip of deck) {
+    if ((clip.size || 0) > 0 && clip.size <= 3_000_000) {
+      fetch(clip.url, { mode: 'no-cors' }).catch(() => {});
+    }
+  }
 }
 
 function nextRound() {
