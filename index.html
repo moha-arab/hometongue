@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lahja — لهجة</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎙️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="map"></div>
+<div class="vignette"></div>
+
+<header class="brand">
+  <div class="logo">lahja <span class="logo-ar">لهجة</span></div>
+  <button class="how-btn" id="howBtn">how it works</button>
+</header>
+
+<div class="how-pop" id="howPop" hidden>
+  <p><strong>Honest version:</strong> this prototype listens to <em>what you say</em>, not how you sound. Every dialect has giveaway words (دلوقتي، هسا، دابا، وايد...) and Lahja catches them in your speech.</p>
+  <p>That's why there's no script to read — if everyone said the same words, there'd be nothing to catch. Just talk naturally.</p>
+  <p>Phase 2 is a real acoustic model that hears the <em>accent itself</em>. This is the demo that proves the idea.</p>
+</div>
+
+<main class="hud">
+
+  <!-- IDLE -->
+  <section class="card" id="idleCard">
+    <h1 class="tagline">Speak Arabic.<br><span class="accent">I'll tell you where your لهجة is from.</span></h1>
+    <p class="prompt-label">Don't read anything — just talk, like you're voice-noting a friend:</p>
+    <p class="prompt" id="promptText">"Tell me about your day."</p>
+    <button class="mic-btn" id="micBtn" aria-label="Start talking">
+      <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line></svg>
+    </button>
+    <div class="idle-foot">
+      <select id="locale" title="Tune the mic to your region for a better transcript">
+        <option value="ar-SA">🎙️ mic: Arabic (general)</option>
+        <option value="ar-JO">🎙️ mic: الشام Levant</option>
+        <option value="ar-EG">🎙️ mic: مصر Egypt</option>
+        <option value="ar-IQ">🎙️ mic: العراق Iraq</option>
+        <option value="ar-MA">🎙️ mic: المغرب Maghreb</option>
+      </select>
+      <button class="link-btn" id="typeModeBtn">no mic? type like you talk →</button>
+    </div>
+  </section>
+
+  <!-- LISTENING -->
+  <section class="card" id="liveCard" hidden>
+    <div class="wave" id="wave"></div>
+    <p class="live-status" id="liveStatus">listening…</p>
+    <div class="transcript" id="transcript" dir="rtl" lang="ar"></div>
+    <p class="live-hint">keep going — 15 seconds or more gives a better read</p>
+    <button class="stop-btn" id="stopBtn">that's enough — guess!</button>
+  </section>
+
+  <!-- TYPE MODE -->
+  <section class="card" id="typeCard" hidden>
+    <p class="prompt-label">Type the way you actually talk — voice-note energy, not essay energy:</p>
+    <textarea id="typeBox" dir="rtl" lang="ar" rows="4" placeholder="اكتب هون متل ما بتحكي..."></textarea>
+    <button class="stop-btn" id="analyzeTypedBtn">guess my dialect</button>
+    <p class="samples-label">or try a sample:</p>
+    <div class="samples" id="samples"></div>
+    <button class="link-btn" id="backToMicBtn">← back to mic</button>
+  </section>
+
+  <!-- ANALYZING -->
+  <section class="card" id="analyzingCard" hidden>
+    <div class="scan"><span></span><span></span><span></span></div>
+    <p class="live-status">reading your لهجة…</p>
+  </section>
+
+  <!-- RESULT -->
+  <section class="card result" id="resultCard" hidden>
+    <p class="result-kicker" id="resultKicker">your dialect sounds</p>
+    <h2 class="result-region" id="resultRegion"></h2>
+    <p class="result-country" id="resultCountry"></p>
+    <div class="conf">
+      <div class="conf-track"><div class="conf-fill" id="confFill"></div></div>
+      <span class="conf-label" id="confLabel"></span>
+    </div>
+    <div class="evidence" id="evidence"></div>
+    <div class="runners" id="runners"></div>
+    <div class="feedback" id="feedback">
+      <span>did I get it?</span>
+      <button class="fb-btn" id="fbYes">✓ nailed it</button>
+      <button class="fb-btn" id="fbNo">✗ nope</button>
+      <select id="fbActual" hidden></select>
+    </div>
+    <button class="stop-btn" id="againBtn">go again</button>
+  </section>
+
+</main>
+
+<div class="toast" id="toast" hidden></div>
+
+<footer class="foot">prototype · word-based detection · the acoustic model is phase 2</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/dialects.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
