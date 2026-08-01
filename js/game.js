@@ -90,10 +90,31 @@ function startGame(type) {
     return;
   }
   gameType = type;
-  deck = shuffle(pool).slice(0, ROUNDS);
+  deck = dealDeck(pool);
   round = 0; total = 0; roundLog = [];
   warmDeck();
   nextRound();
+}
+
+// Deal with country variety: one clip per country first, repeats only when countries run out.
+function dealDeck(pool) {
+  const byCountry = {};
+  for (const c of shuffle(pool)) {
+    const country = c.label.includes(',') ? c.label.split(',').pop().trim() : c.label;
+    (byCountry[country] = byCountry[country] || []).push(c);
+  }
+  const countries = shuffle(Object.keys(byCountry));
+  const out = [];
+  while (out.length < ROUNDS) {
+    let took = false;
+    for (const country of countries) {
+      if (out.length >= ROUNDS) break;
+      const c = (byCountry[country] || []).shift();
+      if (c) { out.push(c); took = true; }
+    }
+    if (!took) break; // pool exhausted
+  }
+  return out;
 }
 
 // Warm the browser HTTP cache for small clips (SAA's server is slow cold) —
@@ -262,6 +283,7 @@ function escapeHtml(s) {
 
 // ————— wire up —————
 initMap();
+$('#playArabic').onclick = () => startGame('arabic');
 $('#playLangs').onclick = () => startGame('languages');
 $('#playAccents').onclick = () => startGame('accents');
 $('#playBtn').onclick = playClip;

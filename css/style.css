@@ -347,7 +347,7 @@ textarea::placeholder { color: var(--muted); }
 .modes .soon { opacity: 0.45; cursor: default; }
 
 /* ——— pin it game ——— */
-.type-grid { margin-top: 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.type-grid { margin-top: 22px; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
 .type-btn {
   background: rgba(255, 255, 255, 0.04); border: 1px solid var(--stroke); border-radius: 18px;
   padding: 22px 16px; cursor: pointer; text-align: center;

@@ -3,7 +3,7 @@
 
 export const config = { maxDuration: 15 };
 
-const GAME_TYPES = new Set(['languages', 'accents']);
+const GAME_TYPES = new Set(['languages', 'accents', 'arabic']);
 const BANNED = ['fuck', 'shit', 'nigg', 'kys', 'hitler', 'rape', 'cunt', 'faggot', 'whore', 'شرموط', 'كس ام', 'منيك', 'زبي'];
 
 const buckets = new Map();
