@@ -20,11 +20,15 @@ You press the mic and talk naturally for 20–45 seconds. The AI guesses your di
 - The reveal screen is the app's shareable moment.
 
 ### Mode 2 — Pin It (the game)
-The app plays a real clip of a real speaker. You drop a pin on the map where you think they're from. Points scale with distance (GeoGuessr-style), 5 clips per round. Nickname + global leaderboard, no sign-up.
+The app plays a real clip of a real speaker. You drop a pin on the map where you think they're from. Points scale with distance (GeoGuessr-style), 5 clips per round. Nickname + global leaderboard, no sign-up. Two game types:
 
-- **v1 languages:** Arabic and English clips from day 1 (curated from free labeled datasets — no AI needed for this mode).
-- Difficulty tiers: Easy (guess the country/region) → Hard (city-level clips where labels exist).
-- This mode can never be "wrong" — the app knows the answer. It's also the natural TikTok challenge format.
+- **Language rounds** — a clip plays in a *random world language* (Uzbek, Wolof, Tagalog…) and you pin where on Earth it's spoken. Pure geography-nerd mode; the whole planet is the board. Content comes free from Common Voice's 100+ languages.
+- **Dialect rounds** — the player *chooses a language first* (Arabic or English at v1), then guesses where each speaker of that language is from. Tighter map, harder ear.
+
+Shared rules:
+- Distance scoring, 5 clips per round, no repeats; leaderboards per game type.
+- Difficulty tiers: Easy (country/region) → Hard (city-level clips where labels exist).
+- This mode can never be "wrong" — the app knows the answer. It's also the natural TikTok challenge format ("can you place Kazakh on a map?").
 
 ### Mode 3 — The Atlas (browse)
 A map you can wander. Each region has a card: what the accent sounds like (real curated clips), its giveaway words and sounds, and how to tell it from its neighbors. Arabic and English coverage at launch.
@@ -89,7 +93,7 @@ Static frontend (vanilla JS + Leaflet/CARTO dark tiles) + one Vercel serverless 
 - Frontend: consent checkbox on result card; wire "did I get it?" to the endpoint; `/privacy.html` in plain English.
 
 **P1 — game**
-- Clip pipeline (offline script, not serverless): pull Common Voice (accent-labeled subsets, CC0) + SAA (attributed), normalize to ~15–25s mp3/opus, manual review pass → `clips.json` manifest `{id, lang, country_code, city?, lat, lng, src, attribution}` + audio files in Supabase Storage behind CDN.
+- Clip pipeline (offline script, not serverless): pull Common Voice (CC0: accent-labeled English/Arabic subsets for dialect rounds, plus ~40–60 world languages for language rounds) + SAA (attributed), normalize to ~15–25s mp3/opus, manual review pass → `clips.json` manifest `{id, game_type: 'language'|'dialect', lang, country_code, city?, lat, lng, src, attribution}` + audio files in Supabase Storage behind CDN. Language-round truth = the language's home region centroid (multi-country languages get a generous scoring polygon, e.g. Spanish accepts the speaker's actual country).
 - Scoring: `points = round(5000 * exp(-km/1500))` (km = haversine pin→truth), +500 exact-country bonus; 5 clips/round, no repeats within round; seedable round IDs so two friends can play the same round.
 - `POST /api/score` (nickname, round_id, points, per-clip breakdown) → `scores` table; `GET /api/leaderboard?window=week` → top N + your rank. Profanity-filter nicknames; rate-limit by IP.
 - Frontend: mode picker home; game screen = audio player + pin-drop map + reveal animation (truth pin vs your pin, arc between them).
