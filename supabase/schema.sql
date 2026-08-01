@@ -28,3 +28,16 @@ alter table feedback enable row level security;
 
 -- Storage: create a PRIVATE bucket named "clips" in Storage -> New bucket.
 -- (Private = default. No public URL access; service role only.)
+
+-- ===== P1: Pin It game (run this block if you already ran the part above) =====
+
+create table if not exists scores (
+  id uuid primary key default gen_random_uuid(),
+  ts timestamptz not null default now(),
+  nickname text not null,
+  game_type text not null,
+  points int not null,
+  rounds jsonb
+);
+
+alter table scores enable row level security;

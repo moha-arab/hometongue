@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pin It — HomeTongue</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📍</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="map"></div>
+<div class="vignette"></div>
+
+<header class="brand">
+  <div class="logo">hometongue <span class="logo-ar">سمعناك</span></div>
+  <nav class="modes">
+    <a href="/">🎙 guess me</a>
+    <a href="/game.html" class="active">📍 pin it</a>
+    <span class="soon" title="coming soon">🗺 atlas</span>
+  </nav>
+</header>
+
+<main class="hud">
+
+  <!-- GAME TYPE PICKER -->
+  <section class="card" id="pickCard">
+    <h1 class="tagline">Hear it.<br><span class="accent">Pin where it's from.</span></h1>
+    <p class="prompt-label">Five clips, five pins. Points for distance — 5,000 max per round.</p>
+    <div class="type-grid">
+      <button class="type-btn" id="playLangs">
+        <span class="type-emoji">🌍</span>
+        <span class="type-name">World Languages</span>
+        <span class="type-desc">a random language plays — pin it anywhere on Earth</span>
+      </button>
+      <button class="type-btn" id="playAccents">
+        <span class="type-emoji">🗣️</span>
+        <span class="type-name">English Accents</span>
+        <span class="type-desc">everyone speaks English — pin where <em>they're</em> from</span>
+      </button>
+    </div>
+    <p class="samples-label">Arabic dialect rounds unlock next — your donated clips are literally building that level.</p>
+  </section>
+
+  <!-- ROUND -->
+  <section class="card round" id="roundCard" hidden>
+    <div class="round-head">
+      <span id="roundNum">Round 1/5</span>
+      <span id="scoreSoFar">0 pts</span>
+    </div>
+    <div class="player">
+      <button class="mic-btn play-btn" id="playBtn" aria-label="Play clip">
+        <svg id="playIcon" viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <div class="player-meta">
+        <div class="listens" id="listens">3 listens left</div>
+        <div class="player-bar"><div class="player-fill" id="playerFill"></div></div>
+      </div>
+    </div>
+    <p class="live-hint" id="pinHint">tap the map to drop your pin, drag to adjust</p>
+    <button class="stop-btn" id="lockBtn" disabled>lock it in 📍</button>
+  </section>
+
+  <!-- REVEAL -->
+  <section class="card round" id="revealCard" hidden>
+    <p class="result-kicker" id="revealKicker">it was</p>
+    <h2 class="result-region" id="revealLabel"></h2>
+    <p class="result-country" id="revealStats"></p>
+    <p class="reveal-hint" id="revealHint"></p>
+    <p class="attribution" id="revealAttribution"></p>
+    <button class="stop-btn" id="nextBtn">next clip →</button>
+  </section>
+
+  <!-- FINAL -->
+  <section class="card round" id="finalCard" hidden>
+    <p class="result-kicker">final score</p>
+    <h2 class="result-region" id="finalScore"></h2>
+    <div class="runners" id="roundList"></div>
+    <div class="fb-fix" id="nickRow">
+      <input type="text" id="nickname" placeholder="nickname for the board" maxlength="20">
+      <button class="fb-btn" id="submitScore">post score</button>
+    </div>
+    <div class="board" id="board" hidden>
+      <div class="board-head">🏆 leaderboard</div>
+      <ol id="boardList"></ol>
+    </div>
+    <div class="fb-row" style="margin-top:14px">
+      <button class="stop-btn" id="againSame">play again</button>
+      <button class="fb-btn" id="switchType">switch mode</button>
+    </div>
+  </section>
+
+</main>
+
+<div class="toast" id="toast" hidden></div>
+
+<footer class="foot">clips stream from their public archives · credits shown after each round</footer>
+
+<audio id="clipAudio" preload="none"></audio>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/clips.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>

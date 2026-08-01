@@ -125,7 +125,7 @@ async function transcribe(audioB64, mime) {
   form.append('model', 'whisper-large-v3');
   form.append('language', 'ar');
   form.append('temperature', '0');
-  form.append('response_format', 'json');
+  form.append('response_format', 'verbose_json'); // segments carry confidence for hallucination filtering
   // Style prompt: biases decoding toward colloquial verbatim transcription instead of MSA cleanup.
   form.append('prompt', 'حكي عفوي باللهجة العامية، مكتوب متل ما انقال بدون تصحيح للفصحى.');
 
@@ -139,7 +139,25 @@ async function transcribe(audioB64, mime) {
     throw Object.assign(new Error(`transcription failed: ${resp.status} ${detail.slice(0, 200)}`), { code: 'asr_failed' });
   }
   const data = await resp.json();
-  return (data.text || '').trim();
+  const segments = Array.isArray(data.segments) ? data.segments : null;
+  if (!segments) return (data.text || '').trim();
+  const kept = segments.filter((s) =>
+    !(s.no_speech_prob > 0.5) && !(s.avg_logprob < -1.2) && !isHallucination(s.text || ''));
+  return kept.map((s) => (s.text || '').trim()).join(' ').trim();
+}
+
+// Whisper dreams YouTube boilerplate when fed silence/noise — scrub the classics.
+const BOILERPLATE = [
+  'اشتركوا في القناة', 'اشترك في القناة', 'لا تنسوا الاشتراك', 'لا تنسى الاشتراك', 'فعلوا الجرس',
+  'شكرا للمشاهدة', 'شكرا على المشاهدة', 'شكراً للمشاهدة', 'نانسي قنقر', 'ترجمة',
+  'thanks for watching', 'subscribe to', 'like and subscribe',
+];
+function isHallucination(text) {
+  const t = text.trim();
+  if (!t) return true;
+  if (t.length > 80) return false; // real speech segments are rarely pure boilerplate at length
+  const low = t.toLowerCase();
+  return BOILERPLATE.some((p) => low.includes(p));
 }
 
 async function classify(transcript) {

@@ -9,6 +9,7 @@ let mediaStream = null, recorder = null, chunks = [], recMime = '';
 let recog = null, srFinal = '', srInterim = '';
 let audioCtx = null, analyser = null, rafId = null;
 let timerId = null, startedAt = 0;
+let micPeak = -1; // loudest rolling level seen this recording; -1 = meter unavailable
 
 // ————— map —————
 function initMap() {
@@ -103,8 +104,12 @@ function startMeter(stream) {
     src.connect(analyser);
     const data = new Uint8Array(analyser.frequencyBinCount);
     const bars = [...document.querySelectorAll('#wave i')];
+    micPeak = 0;
     const loop = () => {
       analyser.getByteFrequencyData(data);
+      let sum = 0;
+      for (let i = 0; i < data.length; i++) sum += data[i];
+      micPeak = Math.max(micPeak, sum / data.length / 255);
       bars.forEach((b, i) => {
         const v = data[Math.floor(i * data.length / bars.length / 2) + 2] / 255;
         b.style.transform = `scaleY(${0.15 + v * 1.1})`;
@@ -175,6 +180,7 @@ async function startListening() {
   if (state === 'listening' || state === 'analyzing' || state === 'starting') return; // double-tap guard
   state = 'starting';
   window._lastAudio = null;
+  micPeak = -1;
   const mime = pickMime();
   if (mime === null || !navigator.mediaDevices?.getUserMedia) {
     toast('This browser can\'t record audio — type mode instead 👇');
@@ -220,6 +226,21 @@ function stopListening() {
     show('idleCard');
     return;
   }
+  if (micPeak >= 0 && micPeak < 0.02) {
+    if (recorder && recorder.state !== 'inactive') { recorder.onstop = null; recorder.stop(); }
+    teardownRecording();
+    const srText = (srFinal + ' ' + srInterim).trim();
+    if (normText(srText).length >= 8) {
+      // recorder taped silence (wrong input device) but live captions caught the words — use them
+      toast('Your recorder mic was silent 🎤 so I used the live transcript instead — check Chrome\'s address-bar mic selection.');
+      runTextAnalysis(srText, false);
+    } else {
+      toast('Your mic barely picked anything up 🎤 — check Chrome\'s mic icon (address bar) is using the right microphone, then try again.');
+      state = 'idle';
+      show('idleCard');
+    }
+    return;
+  }
   show('analyzingCard');
   if (recorder && recorder.state !== 'inactive') recorder.stop(); // -> onRecordingReady
   else onRecordingReady();
@@ -243,6 +264,12 @@ async function onRecordingReady() {
     const resp = await postAnalyze({ audio, mime: mimeUsed });
     renderResult(normalizeServer(resp));
   } catch (err) {
+    const srText = (srFinal + ' ' + srInterim).trim();
+    if (err && err.message === 'no_speech' && normText(srText).length >= 8) {
+      // Whisper heard nothing usable but live captions did — analyze the caption text instead
+      toast('The recording came out silent 🎤 — using the live transcript instead. Check Chrome\'s mic selection.');
+      return runTextAnalysis(srText, false);
+    }
     fallbackOrFail(err && err.userMessage ? err.userMessage : 'The cloud engine is unreachable.');
   }
 }
@@ -277,7 +304,7 @@ async function postAnalyze(payload) {
   const data = await resp.json().catch(() => null);
   if (!resp.ok || !data || !data.ok) {
     const err = new Error((data && data.error) || `http_${resp.status}`);
-    if (data && data.error === 'no_speech') err.userMessage = 'I couldn\'t hear any speech in that.';
+    if (data && data.error === 'no_speech') err.userMessage = 'I couldn\'t hear any real speech in that — if the bars weren\'t moving while you talked, Chrome is probably using the wrong microphone (click the mic icon in the address bar).';
     throw err;
   }
   return data;
