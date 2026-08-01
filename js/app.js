@@ -2,7 +2,7 @@
 const $ = (s) => document.querySelector(s);
 
 const HOME_BOUNDS = [[8, -18], [40, 62]]; // whole Arab world
-const MAX_SECONDS = 30;
+const MAX_SECONDS = 45;
 let map, marker, glow;
 let state = 'idle';
 let mediaStream = null, recorder = null, chunks = [], recMime = '';
@@ -303,6 +303,8 @@ function normalizeServer(resp) {
     top: r.top_country !== 'none' && COUNTRIES[r.top_country] ? { code: r.top_country, ...COUNTRIES[r.top_country] } : null,
     regionKey: r.region !== 'none' && r.region !== 'msa' && REGIONS[r.region] ? r.region : null,
     conf: Math.max(0, Math.min(100, r.confidence | 0)),
+    city: r.city || '',
+    cityConf: Math.max(0, Math.min(100, r.city_confidence | 0)),
     evidence: (r.evidence || []).slice(0, 8).map((e) => ({ t: e.word, en: e.gloss })),
     ranked: (r.ranked || []).slice(0, 4).filter((x) => COUNTRIES[x.code]),
     note: r.note || '',
@@ -373,6 +375,7 @@ function renderResult(v) {
   kicker.textContent = 'your dialect sounds';
   region.textContent = reg ? `${reg.ar} · ${reg.en}` : v.top.en;
   let line = `${v.top.flag} Best guess: ${v.top.en} — ${v.top.ar}`;
+  if (v.city) line += `  ·  sounds like ${v.city} (${v.cityConf}%)`;
   if (v.note) line += `  ·  ${v.note}`;
   country.textContent = line;
   confFill.style.width = v.conf + '%';
