@@ -1,6 +1,6 @@
-# Earshot — سمعناك
+# HomeTongue — سمعناك
 
-Speak, and Earshot guesses your dialect, then flies the map to it. Arabic edition; more languages planned.
+Speak, and HomeTongue hears where home is — then flies the map there. Arabic edition; more languages planned.
 
 Works on **every device** — desktop, Android, iPhone — because recording uses MediaRecorder and analysis happens server-side.
 
@@ -29,11 +29,11 @@ Import the repo — static site + one serverless function, no build step. Then s
 - `ANTHROPIC_API_KEY`
 - `GROQ_API_KEY`
 
-That's it. HTTPS (automatic on Vercel) is required for mic access.
+Redeploy after adding them. HTTPS (automatic on Vercel) is required for mic access.
 
 ## The flywheel
 
-After every guess: "did I get it?" — corrections log to `localStorage` (`earshot_feedback`). In the real product this becomes labeled training data.
+After every guess: "did I get it?" — corrections log to `localStorage` (`hometongue_feedback`). In the real product this becomes labeled training data.
 
 ## Phase 2
 

@@ -33,4 +33,4 @@ http.createServer(async (req, res) => {
   }
   res.writeHead(200, { 'Content-Type': MIME[path.extname(file)] || 'application/octet-stream' });
   fs.createReadStream(file).pipe(res);
-}).listen(PORT, () => console.log(`earshot dev server: http://localhost:${PORT} (keys: groq=${!!process.env.GROQ_API_KEY} anthropic=${!!process.env.ANTHROPIC_API_KEY})`));
+}).listen(PORT, () => console.log(`hometongue dev server: http://localhost:${PORT} (keys: groq=${!!process.env.GROQ_API_KEY} anthropic=${!!process.env.ANTHROPIC_API_KEY})`));

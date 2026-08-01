@@ -1,4 +1,4 @@
-// Earshot — /api/analyze
+// HomeTongue — /api/analyze
 // Accepts { audio: <base64>, mime } or { text } and returns a dialect verdict.
 // Pipeline: Groq whisper-large-v3 (transcription) -> Claude (dialect classification).
 import Anthropic from '@anthropic-ai/sdk';
@@ -47,7 +47,7 @@ const RESULT_SCHEMA = {
   additionalProperties: false,
 };
 
-const SYSTEM_PROMPT = `You are the dialect engine of Earshot, an app that guesses which Arabic dialect someone is speaking from a transcript of their free speech.
+const SYSTEM_PROMPT = `You are the dialect engine of HomeTongue, an app that guesses which Arabic dialect someone is speaking from a transcript of their free speech.
 
 You are an expert Arabic dialectologist. Identify the dialect from lexical choice, morphology, function words, and phrasing (e.g. دلوقتي/النهارده = Egyptian; هسا/اشي/زلمة = Jordanian-Palestinian; هلق/هيدا = Syrian-Lebanese; اكو/هواية/شكو = Iraqi; وش/ابغى/الحين = Saudi; وايد/شحالك = Emirati; دابا/بزاف/واش = Moroccan; برشا/فما = Tunisian; زول = Sudanese, etc.).
 

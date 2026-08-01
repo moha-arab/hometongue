@@ -1,4 +1,4 @@
-// Earshot — app logic: recording, server analysis, map, results
+// HomeTongue — app logic: recording, server analysis, map, results
 const $ = (s) => document.querySelector(s);
 
 const HOME_BOUNDS = [[8, -18], [40, 62]]; // whole Arab world
@@ -400,10 +400,10 @@ function chip(word, gloss) {
 
 // ————— feedback flywheel —————
 function saveFeedback(correct, actual) {
-  const log = JSON.parse(localStorage.getItem('earshot_feedback') || '[]');
+  const log = JSON.parse(localStorage.getItem('hometongue_feedback') || '[]');
   const last = window._lastResult || {};
   log.push({ ts: Date.now(), correct, actual, guess: last.top ? last.top.code : last.kind, transcript: last.transcript || '' });
-  localStorage.setItem('earshot_feedback', JSON.stringify(log));
+  localStorage.setItem('hometongue_feedback', JSON.stringify(log));
   toast(correct
     ? 'Logged ✓ — every answer is future training data.'
     : 'Logged — this is exactly how the real model gets trained.');

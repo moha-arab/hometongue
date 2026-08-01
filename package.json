@@ -1,9 +1,9 @@
 {
-  "name": "earshot",
-  "version": "0.2.0",
+  "name": "hometongue",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
-  "description": "Speak, and Earshot guesses your dialect. Arabic edition.",
+  "description": "Speak, and HomeTongue hears where home is. Arabic edition.",
   "scripts": {
     "dev": "node dev-server.js"
   },
