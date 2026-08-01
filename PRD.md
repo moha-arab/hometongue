@@ -7,7 +7,7 @@
 | Phase | Status | Notes |
 |---|---|---|
 | P0 — Flywheel | ✅ shipped | Consent-gated clip donation to Supabase, anonymous scorecard otherwise, privacy page, prod-verified end to end |
-| P1 — Pin It | ✅ shipped (core) | World Languages (33 clips) + English Accents (21 SAA clips), distance scoring, nickname leaderboard. **Deferred from P1:** Arabic dialect rounds (blocked on ARCADE license review / flywheel data), seedable shared rounds, difficulty tiers, scoring polygons for multi-country languages (generous radius used instead) |
+| P1 — Pin It | ✅ shipped | Three game types: **Arabic Dialects** (51 city-labeled clips from the ARCADE corpus, CC BY 4.0, each QC'd via Whisper transcription — includes Aleppo, Damascus, Gaza, Irbid), World Languages (33 clips), English Accents (21 SAA clips). Distance scoring, country-aware deck dealing, nickname leaderboard. **Still deferred:** seedable shared rounds, difficulty tiers, scoring polygons for multi-country languages |
 | P2 — Atlas | ⏳ next | |
 | P3 — Acoustic model | ⏳ | Unlocks English Guess-Me + real Arabic dialect rounds |
 
