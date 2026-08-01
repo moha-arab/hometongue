@@ -1,124 +1,163 @@
 # HomeTongue — Product Requirements
 
-*Owner: Mohammad Arab · Aug 2026 · v1.1*
+*Owner: Mohammad Arab · v2.0 · updated 2026-08-01 (v1 written same day; this version reflects as-built reality)*
 
-## Status (updated 2026-08-01)
+## Status snapshot
 
-| Phase | Status | Notes |
+| Piece | Status | Where |
 |---|---|---|
-| P0 — Flywheel | ✅ shipped | Consent-gated clip donation to Supabase, anonymous scorecard otherwise, privacy page, prod-verified end to end |
-| P1 — Pin It | ✅ shipped | Three game types: **Arabic Dialects** (51 city-labeled clips from the ARCADE corpus, CC BY 4.0, each QC'd via Whisper transcription — includes Aleppo, Damascus, Gaza, Irbid), World Languages (33 clips), English Accents (21 SAA clips). Distance scoring, country-aware deck dealing, nickname leaderboard. **Still deferred:** seedable shared rounds, difficulty tiers, scoring polygons for multi-country languages |
-| P2 — Atlas | ⏳ next | |
-| P3 — Acoustic model | ⏳ | Unlocks English Guess-Me + real Arabic dialect rounds |
+| Guess Me (Arabic dialect AI) | ✅ live | [/](https://lahja-blush.vercel.app/) |
+| Pin It — Arabic Dialects (51 cities) | ✅ live | [/game.html](https://lahja-blush.vercel.app/game.html) |
+| Pin It — World Languages (33) + English Accents (21) | ✅ live | same |
+| Data flywheel (consent clip donation) | ✅ live, collecting | Supabase |
+| Nickname leaderboard | ✅ live | `/api/scores` |
+| Domain hometongue.me | ✅ DNS configured, propagating | Namecheap → Vercel |
+| The Atlas (mode 3) | ⏳ next (P2) | — |
+| Acoustic model / English Guess-Me | ⏳ P3 | — |
 
 ## What this is
 
-HomeTongue is a map-first web app about accents. You talk, and it hears where home is. It has three modes that share one map, one brand, and one idea: **your voice is a place.**
+HomeTongue is a map-first web app about accents: **your voice is a place.** Three modes share one map and one brand.
 
 Why it exists (priority order):
-1. **Resume.** A technically deep, live-demoable project: audio pipelines, LLM engineering, a real game backend, and eventually a trained speech model. A recruiter should be able to open the link, talk for 20 seconds, and see the map fly to their hometown within the first minute of an interview.
-2. **Fun.** It's a party trick, a game, and a geography nerd's toy in one.
-3. **Maybe viral.** If TikTok likes it, great — but the app must be worth building even if it never trends.
+1. **Resume.** Technically deep and live-demoable: audio pipelines, LLM engineering with calibrated structured output, a dataset-curation pipeline with automated QC, a game backend, and (P3) a trained speech model. A recruiter goes from link → talked → map flew to their hometown in under 90 seconds.
+2. **Fun.** A party trick, a geography game, and a field guide in one.
+3. **Maybe viral.** Welcome, not required.
 
-## The three modes
+## The modes (as built)
 
-### Mode 1 — Guess Me (built, live)
-You press the mic and talk naturally for 20–45 seconds. The AI guesses your dialect hierarchically — region → country → city when it has evidence — flies the map there, and shows the words that gave you away, with honest confidence. You tell it whether it was right.
+### 🎙 Guess Me — live
+Talk naturally in Arabic for ~20–45s. The engine guesses hierarchically — region → country → **city when evidence exists** — flies the map there, and shows the giveaway words with honestly calibrated confidence. Users answer "did I get it?" and can correct with country + city.
 
-- **v1 language:** Arabic only. English "Guess Me" ships later, once the acoustic model exists (English accents live in sound, not word choice).
-- The reveal screen is the app's shareable moment.
+Working today: hierarchical verdicts (e.g. Saudi 86%, "Najd (Riyadh/Qassim)"), evidence chips quoting the transcript, "what we heard" transcript display, close-call honesty (Jordanian vs Palestinian flagged as coin-flip). Defenses shipped after real-user testing: Whisper-hallucination filtering (silence produces YouTube boilerplate like اشتركوا في القناة — filtered by segment confidence + phrase scrub), client-side silent-mic detection, and automatic fallback to the live-caption transcript when the recorder tapes a dead microphone.
 
-### Mode 2 — Pin It (the game)
-The app plays a real clip of a real speaker. You drop a pin on the map where you think they're from. Points scale with distance (GeoGuessr-style), 5 clips per round. Nickname + global leaderboard, no sign-up. Two game types:
+**Type mode**: a full no-mic path — "type like you talk" textarea (RTL) with 7 one-tap sample texts (Egyptian, Jordanian, Syrian, Iraqi, Saudi, Moroccan, Fuṣḥa). It's also the automatic fallback when recording is unsupported or the mic is blocked.
 
-- **Language rounds** — a clip plays in a *random world language* (Uzbek, Wolof, Tagalog…) and you pin where on Earth it's spoken. Pure geography-nerd mode; the whole planet is the board. Content comes free from Common Voice's 100+ languages.
-- **Dialect rounds** — the player *chooses a language first* (Arabic or English at v1), then guesses where each speaker of that language is from. Tighter map, harder ear.
+Detection is **word-based** (vocabulary/morphology/phrasing), not acoustic — that ceiling holds until P3. No reading passage, ever: free speech is the signal.
 
-Shared rules:
-- Distance scoring, 5 clips per round, no repeats; leaderboards per game type.
-- Difficulty tiers: Easy (country/region) → Hard (city-level clips where labels exist).
-- This mode can never be "wrong" — the app knows the answer. It's also the natural TikTok challenge format ("can you place Kazakh on a map?").
+### 📍 Pin It — live
+Hear a real clip, drop a pin, score by distance. 5 rounds, 5,000 max each, three game types:
 
-### Mode 3 — The Atlas (browse)
-A map you can wander. Each region has a card: what the accent sounds like (real curated clips), its giveaway words and sounds, and how to tell it from its neighbors. Arabic and English coverage at launch.
+- **🕌 Arabic Dialects** — the flagship. Real local radio; players pin the *city*. 51 cities across 18 countries including Aleppo, Damascus, Amman, Irbid, Gaza, Jerusalem, Hebron, Cairo, Casablanca, Baghdad, Sanaa. As far as we know, the only playable experience anywhere built on city-level Arabic speech.
+- **🌍 World Languages** — a random language plays (Kazakh, Uzbek, Yoruba, Tagalog…); pin it anywhere on Earth.
+- **🗣 English Accents** — same paragraph read by speakers from London to Kingston to Singapore; pin the speaker's origin.
 
-- Think "field guide to accents." This is the geography-nerd mode and the app's depth/credibility anchor.
-- Later: community-submitted clips grow the atlas (not in v1).
+Shared mechanics: country-aware deck dealing (no three-Algerian-cities rounds), replay limit (3 listens), 20s playback window with random offsets into long recordings, reveal with distance + points + clip attribution + hint, nickname leaderboard per game type. Wrong answers can't embarrass the app here — it knows the truth.
 
-## The data flywheel (runs under everything)
+### 🗺 The Atlas — next (P2)
+A browsable map of accents: tap a region, get a card — what the accent sounds like (real clips), its giveaway words, how to tell it from neighbors. Launches on curated open-data clips (the game's manifest is already the seed); community submissions are a later phase.
 
-From day 1, users can opt in (checkbox + plain-language privacy page) to donate their clip and correction ("I'm actually from Irbid") to training. Consented audio + labels go to storage. This is what eventually trains the acoustic model that unlocks English Guess-Me and city-level accuracy — the dataset nobody else has.
+## The data flywheel (as built)
 
-- Opt-in only. Non-consented audio is processed in memory and discarded, as today.
-- Users can request deletion; we store no names/emails with clips.
+Runs under Guess Me. By default **nothing identifying is kept**: no consent = an anonymous scorecard only (guessed country vs corrected country, confidence, device class — no words, no audio, no cities). Ticking "donate this clip" stores the recording + transcript + correction (including city) for model training. Enforced server-side and stated in plain words at [/privacy.html](https://lahja-blush.vercel.app/privacy.html); deletion requests via GitHub issues.
 
-## What v1 is NOT
+Anti-abuse: clips are only accepted with a fresh HMAC token minted by the analyze endpoint itself (bots can't stuff the bucket), same-origin checks and per-IP rate limits on **all three** endpoints (analyze included — it spends real API credits), MIME allowlist, size caps. Console spending caps remain the final backstop.
 
-- No native mobile apps (responsive web only).
-- No accounts/auth (nickname-only leaderboard).
-- No English Guess-Me, no acoustic model yet.
-- No community uploads to the Atlas.
-- No monetization.
+Why it matters: research sweep (2026-08-01) confirmed **no public speech dataset separates city-level Arabic** (ARCADE, published Jan 2026, is the first attempt: minutes per city; nothing covers Homs at all; only the tiny text corpus Nabra separates Halabi from Homsi). A few thousand consented user clips would be the largest resource of its kind — the moat, and plausibly a workshop paper (NADI/ArabicNLP).
 
 ## What "good" looks like
 
-- **Demo test:** a stranger goes from link → talked → map flew → screenshot in under 90 seconds, on an iPhone.
-- **Game test:** a player finishes a 5-clip round and starts another without being asked.
-- **Atlas test:** 40+ region cards with at least 2 clips each across Arabic + English.
-- **Honesty test:** country-level accuracy feels right to native speakers; city guesses appear only with evidence and never fake confidence.
-- **Flywheel test:** ≥25% of Guess-Me users consent and answer "did I get it?"
+- **Demo test** ✅ passing: link → talk → map flies, on a phone, under 90s.
+- **Game test** ✅ passing: full rounds play end to end with scoring and reveals.
+- **Honesty test** ✅ passing by design: city guesses only appear with evidence; confidence is calibrated, not theatrical.
+- **Atlas test** ⏳: 40+ region cards, 2+ clips each (P2).
+- **Flywheel test** ⏳ measuring: ≥25% of Guess-Me users consent and answer.
 
-## Build phases (rough effort, in working sessions)
+## Explicitly not built (and honest about it)
 
-| Phase | What ships | Effort |
+- English/other-language **Guess Me** (needs the acoustic model — text barely distinguishes English accents)
+- The Atlas, community clip submissions, native mobile apps, accounts/auth, monetization
+- Deferred game features: seedable shared rounds ("play my round"), difficulty tiers, polygon scoring for multi-country languages (generous radius instead)
+- Leaderboard score submission is client-trusted (sum-validated but forgeable) — acceptable while stakes are bragging rights
+
+## Build phases
+
+| Phase | What | Status |
 |---|---|---|
-| **P0 — Flywheel** | Consent checkbox, privacy page, storage for consented clips + corrections. Do first: every day without it loses data. | 1 session |
-| **P1 — Pin It** | Clip curation pipeline (Arabic + English), game UI (clip player, pin drop, distance scoring, 5-round flow), nickname leaderboard. | 2–3 sessions |
-| **P2 — The Atlas** | Region cards + curated clips on the explorable map (reuses P1's clip pipeline). | 1–2 sessions |
-| **P3 — The ear** | Acoustic model: fine-tune a speech encoder head on ADI-17/ADI-20 + flywheel data; ensemble with the word engine; unlocks English Guess-Me. | 3–5 sessions |
+| P0 — Flywheel | Consent + privacy page + Supabase storage + anti-abuse | ✅ shipped & prod-verified 2026-08-01 |
+| P1 — Pin It | Three game types, curation pipelines, leaderboard | ✅ shipped 2026-08-01 |
+| P2 — Atlas | Region cards + clips on the explorable map (reuses clip manifest) | next, 1–2 sessions |
+| P3 — The ear | Acoustic model fine-tune, ensemble with word engine, unlocks English Guess-Me + city-level acoustics | 3–5 sessions, best started once flywheel has data |
 
-Home screen becomes a mode picker (three cards) — part of P1.
+## Risks and open questions
 
-## Risks and honest answers
-
-- **"The AI got me wrong" turns people off.** Mitigated three ways: calibrated confidence + self-aware copy in Mode 1; Mode 2 flips the guessing onto the user; close-call notes make near-misses feel fair.
-- **Clip licensing.** Common Voice is CC0 (safe). Speech Accent Archive is CC BY-NC-SA — fine for a free portfolio app with attribution, revisit if monetizing. ADI-17/20 audio is research-scoped: train on it, never republish its clips in the game/atlas.
-- **Clip quality/label noise.** Common Voice accents are self-reported; curate manually (listen before shipping a clip) — the pipeline outputs a reviewed allowlist.
-- **Scope creep.** Each phase ships alone and is useful alone. Nothing in P1–P3 blocks Mode 1, which is already live.
+- **Licensing per source** (all attribution shown in-product): Wikimedia Commons clips CC BY-SA/CC0, hotlinked. SAA clips CC BY-NC-SA, mirrored with attribution. ARCADE clips CC BY 4.0, mirrored with attribution. One VOA Swahili clip, US government work / public domain, hotlinked. **NC terms on SAA mean revisit before any monetization.**
+- **Dataset quality**: every game clip passed an automated Whisper QC gate (transcribe → require real Arabic/speech, reject music and hallucinations). Label noise from ARCADE's radio-station-city assumption remains possible; user feedback will surface bad clips.
+- **Trust in Guess Me**: mitigated three ways — calibrated confidence, self-aware copy, and the game modes carrying the fun when the AI misses.
+- **Single-maintainer attention** is the biggest real risk. Each phase ships alone and stays useful alone.
+- **Costs**: ~1¢ per Guess-Me analysis (Claude) + Groq free tier; game clips are static files. Spending caps in both consoles recommended before promotion.
 
 ---
 
-# Tech appendix
+# Tech appendix (as built)
 
-## Current stack (live)
+## Architecture
 
-Static frontend (vanilla JS + Leaflet/CARTO dark tiles) + one Vercel serverless function. `POST /api/analyze`: Groq whisper-large-v3 (Arabic, anti-MSA style prompt) → claude-opus-5 (effort high, cached dialectology system prompt, structured output: region/country/city + per-level confidence + evidence). Offline fallback: webkitSpeechRecognition + lexicon (`js/dialects.js`). Repo: `moha-arab/hometongue`. Deploy: Vercel, env keys `ANTHROPIC_API_KEY`, `GROQ_API_KEY`.
+Static vanilla-JS frontend (Leaflet + CARTO dark tiles, two pages: `index.html` Guess Me, `game.html` Pin It) + three Vercel serverless functions. No framework, no build step. Local dev: `node dev-server.js` (serves statics + mounts the same API handlers; reads `.env`).
 
-## New components by phase
+**Env vars** (local `.env` + Vercel): `ANTHROPIC_API_KEY`, `GROQ_API_KEY`, `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`, optional `FEEDBACK_SECRET` (HMAC secret override; falls back to `ANTHROPIC_API_KEY`, then `SUPABASE_SERVICE_KEY` — with none set, clip donation silently never validates).
 
-**P0 — storage (Supabase free tier: Postgres + Storage)**
-- `POST /api/feedback` — body: `{ session_id, guess, correct, actual_code, actual_city?, transcript, consent }`; if `consent && audio`, upload audio to Supabase Storage (`clips/` bucket, UUID name), row in `feedback` table. Keys server-side only (`SUPABASE_URL`, `SUPABASE_SERVICE_KEY`).
-- `feedback(id, ts, guess_code, correct bool, actual_code, actual_city, transcript, clip_path nullable, ua_coarse)` — no PII columns.
-- Frontend: consent checkbox on result card; wire "did I get it?" to the endpoint; `/privacy.html` in plain English.
+## `/api/analyze` (POST)
 
-**P1 — game**
-- Clip pipeline (offline script, not serverless): pull Common Voice (CC0: accent-labeled English/Arabic subsets for dialect rounds, plus ~40–60 world languages for language rounds) + SAA (attributed), normalize to ~15–25s mp3/opus, manual review pass → `clips.json` manifest `{id, game_type: 'language'|'dialect', lang, country_code, city?, lat, lng, src, attribution}` + audio files in Supabase Storage behind CDN. Language-round truth = the language's home region centroid (multi-country languages get a generous scoring polygon, e.g. Spanish accepts the speaker's actual country).
-- Scoring: `points = round(5000 * exp(-km/1500))` (km = haversine pin→truth), +500 exact-country bonus; 5 clips/round, no repeats within round; seedable round IDs so two friends can play the same round.
-- `POST /api/score` (nickname, round_id, points, per-clip breakdown) → `scores` table; `GET /api/leaderboard?window=week` → top N + your rank. Profanity-filter nicknames; rate-limit by IP.
-- Frontend: mode picker home; game screen = audio player + pin-drop map + reveal animation (truth pin vs your pin, arc between them).
+Same-origin check + per-IP rate limit (30/hr, per-instance) — this endpoint spends real Groq + Claude credits. Input caps: 8MB JSON body, decoded audio 1KB–6MB.
 
-**P2 — atlas**
-- `atlas.json`: per region `{code, name_en, name_ar, polygon_or_center, traits[], markers[{word, gloss}], clip_ids[], neighbors_confusable[]}` — content co-written with Claude, human-reviewed.
-- Frontend: browse mode on the same Leaflet map; region cards slide in on tap; clip playback inline. No backend needed (static JSON + CDN audio).
+`{audio: b64, mime}` or `{text}` →
+1. **ASR**: Groq `whisper-large-v3`, `language=ar`, anti-MSA style prompt, `verbose_json`. Segments filtered: drop `no_speech_prob > 0.5`, `avg_logprob < -1.2`, and known boilerplate phrases (hallucination scrub).
+2. **Classification**: `claude-opus-5`, effort `high`, structured output (JSON schema): `{kind, region, top_country, confidence, city, city_confidence, ranked[], evidence[], note}`. System prompt is a dialectology playbook (region/country/city marker tables, phonology-in-spelling rules, ASR-artifact awareness, strict calibration rules) with `cache_control` so repeat calls hit the prompt cache. City guesses require named evidence; capitals are never defaulted to.
+3. Response includes `fb_token` (timestamped HMAC) consumed by the feedback endpoint's clip path.
 
-**P3 — acoustic model**
-- Fine-tune: WavLM-large (or MMS-300M) + attention-pool + linear head on ADI-17/ADI-20 (country-level), then continue on flywheel clips. Train on rented GPU (Colab/Modal, hours not days). Eval: held-out by-speaker split, report per-country F1 + calibration curve — publish the eval in the repo README (resume artifact).
-- Serve: Modal/HF endpoint, `POST audio → {country_probs}`; ~1s/clip.
-- Ensemble: `/api/analyze` sends Claude the transcript + acoustic probs; prompt instructs arbitration (acoustic-dominant for English, word-dominant for Arabic until English head matures).
-- Unlocks: English Guess-Me; city-level heads once flywheel data crosses ~1–2k labeled clips/city.
+Latency ~6–20s; `maxDuration: 60`.
+
+## `/api/feedback` (POST)
+
+Same-origin check → per-IP rate limit (12/hr, per-instance) → Supabase configured check (degrades to `not_configured`; frontend keeps localStorage-only behavior).
+
+Consent semantics (privacy.html is the contract):
+| | stored |
+|---|---|
+| always | guess_code, region, confidence, correct, actual_code, source, platform, consent flag |
+| consent only | transcript, guess_city, actual_city |
+| consent + valid `fb_token` + MIME allowlist + ≤2.5MB | audio clip → private `clips` bucket, path + mime on the row |
+
+Errors are logged server-side, never echoed. Oversized bodies destroy the stream and 413.
+
+## `/api/scores` (GET/POST)
+
+GET: top-20 by points for `game_type` (`arabic | languages | accents`); upstream failures → `not_ready`.
+POST: same-origin + rate limit (40/hr) + validation: nickname 2–20 chars with profanity sanitization, exactly 5 rounds, per-round `pts ≤ 5000`, `sum(rounds.pts) === points ≤ 25000`. Returns rank via PostgREST count. Known limitation: client-trusted submission.
+
+## Frontend logic
+
+**`js/app.js` (Guess Me):** MediaRecorder (45s cap, mime negotiation for iOS), waveform + rolling mic-level meter, live-caption preview via webkitSpeechRecognition where available. Silent-recording detection: if peak level < threshold and captions caught ≥8 chars → analyze caption text instead (toast explains); if server returns `no_speech` with captions available → same fallback. Double-tap re-entry guard; offline fallback to the lexicon engine (`js/dialects.js`, ~120 weighted markers, 15 countries + MSA). Consent checkbox visible only when a clip exists; correction form = country select + optional city text.
+
+**`js/game.js` (Pin It):** country-aware dealing (one clip per country per lap), HTTP-cache warming for clips ≤3MB at deal time, metadata preload per round, playback window 20s with random offset into recordings >90s, listens counted only when audio actually starts, `NotAllowedError` retry UX, replacement clip on hard audio failure, haversine scoring `pts = km ≤ r ? 5000 : round(5000·e^{-(km−r)/1500})`, reveal with truth pin + dashed arc, leaderboard post/load.
+
+**`js/clips.js` manifest:** `{id, label, lang, url, lat, lng, r, size, hint, attribution}` per clip. Sources: Commons (hotlinked mp3 transcodes), SAA (mirrored `/clips/*.mp3`), ARCADE (mirrored `/clips/ar/*.mp3`), plus one VOA Swahili clip (US government work, public domain, hotlinked).
+
+**Local storage (on-device only):** every "did I get it?" answer is also logged to the user's own browser (`hometongue_feedback`, transcript included) regardless of consent — never leaves the device. The consent checkbox choice persists across visits (`ht_consent`), so returning donors stay opted in until they untick it.
+
+## Content pipeline (repeatable — scripts in session scratchpad)
+
+1. **Sweep**: page ARCADE metadata via HF datasets-server; filter `Keep` + `sure` + non-MSA + ≥18s + non-music → 3,023 eligible across 55 cities.
+2. **Select**: one clip per city with coordinates (52-city coords table), preferring single-speaker + longer.
+3. **QC gate**: download → Groq Whisper transcription → require ≥40 chars, >45% Arabic characters, confident segments; rejects music beds and hallucinated boilerplate. Groq free-tier throttling handled (4s spacing + 30s backoff on 429).
+4. **Emit** manifest entries with cleaned labels (Algiers not alger, UAE not United_Arab_Emirate) and attribution; prune rejected files.
+
+Result: 51/52 cities passed (1 music clip culled). Same recipe extends to more clips per city or new sources.
+
+## Supabase (`supabase/schema.sql`)
+
+`feedback` and `scores` tables, RLS enabled with no policies (service-role only). Private `clips` storage bucket. Service key lives server-side only.
+
+## P2 — Atlas (planned)
+
+`atlas.json`: per region `{code, names, center/polygon, traits[], markers[{word, gloss}], clip_ids[], confusable_neighbors[]}` — content co-written with Claude, human-reviewed, clips reused from the game manifest. Static JSON + same map; no new backend.
+
+## P3 — The ear (planned)
+
+Fine-tune a speech-encoder head (WavLM/MMS class) on ADI-17/ADI-20 (country-level) + flywheel clips; serve via small GPU endpoint (~1s/clip); ensemble in `/api/analyze` (Claude arbitrates transcript evidence + acoustic probabilities). Unlocks English Guess-Me (acoustics are the only signal for English accents) and eventually city-level acoustic ID as flywheel data accrues. Publish the eval (by-speaker split, per-country F1, calibration curve) in the repo.
 
 ## Non-goals / constraints
 
-- Stay on free tiers until usage forces otherwise (Vercel, Supabase, Groq free, Claude ~1¢/analysis).
-- No framework migration; vanilla JS is fine at this scope.
-- Keep `/api/analyze` under 60s Vercel cap (currently ~10–20s worst case).
+- Free tiers until usage forces otherwise; no framework migrations; `/api/analyze` stays under Vercel's 60s cap.
+- Never store non-consented audio. Never fake confidence.

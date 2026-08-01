@@ -177,12 +177,39 @@ async function classify(transcript) {
   return JSON.parse(text);
 }
 
+// Per-instance rate limit — a speed bump against credit-burning scripts, not a wall.
+const buckets = new Map();
+function rateLimited(ip) {
+  const now = Date.now();
+  const b = buckets.get(ip) || { count: 0, reset: now + 3600_000 };
+  if (now > b.reset) { b.count = 0; b.reset = now + 3600_000; }
+  b.count += 1;
+  buckets.set(ip, b);
+  if (buckets.size > 5000) buckets.clear();
+  return b.count > 30;
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.statusCode = 405;
     return res.end(JSON.stringify({ ok: false, error: 'method_not_allowed' }));
   }
   res.setHeader('Content-Type', 'application/json');
+
+  const origin = req.headers.origin || '';
+  const host = req.headers['x-forwarded-host'] || req.headers.host || '';
+  let originHost = '';
+  try { originHost = origin ? new URL(origin).host : ''; } catch { /* malformed */ }
+  if (!originHost || originHost !== host) {
+    res.statusCode = 403;
+    return res.end(JSON.stringify({ ok: false, error: 'bad_origin' }));
+  }
+  const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'unknown';
+  if (rateLimited(ip)) {
+    res.statusCode = 429;
+    return res.end(JSON.stringify({ ok: false, error: 'rate_limited', detail: 'Slow down a little — try again in a bit.' }));
+  }
+
   try {
     const body = await readJsonBody(req);
     let transcript = (body.text || '').trim();
