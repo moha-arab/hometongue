@@ -2,6 +2,7 @@
 // Accepts { audio: <base64>, mime } or { text } and returns a dialect verdict.
 // Pipeline: Groq whisper-large-v3 (transcription) -> Claude (hierarchical dialect classification).
 import Anthropic from '@anthropic-ai/sdk';
+import { mintToken } from './feedback.js';
 
 export const config = { maxDuration: 60 };
 
@@ -175,7 +176,7 @@ export default async function handler(req, res) {
       return res.end(JSON.stringify({ ok: false, error: 'no_speech', detail: 'No usable speech detected.' }));
     }
     const result = await classify(transcript);
-    return res.end(JSON.stringify({ ok: true, transcript, result }));
+    return res.end(JSON.stringify({ ok: true, transcript, result, fb_token: mintToken() }));
   } catch (err) {
     const code = err.code || 'server_error';
     res.statusCode = code === 'audio_too_large' || code === 'audio_too_short' ? 422 : 500;

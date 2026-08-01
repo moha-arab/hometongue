@@ -17,6 +17,7 @@ try {
 } catch { /* no .env — fallback mode only */ }
 
 const { default: analyze } = await import('./api/analyze.js');
+const { default: feedback } = await import('./api/feedback.js');
 
 const MIME = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript',
@@ -26,6 +27,7 @@ const MIME = {
 http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
   if (url.pathname === '/api/analyze') return analyze(req, res);
+  if (url.pathname === '/api/feedback') return feedback(req, res);
 
   let file = path.normalize(path.join(ROOT, url.pathname === '/' ? 'index.html' : url.pathname));
   if (!file.startsWith(ROOT) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {

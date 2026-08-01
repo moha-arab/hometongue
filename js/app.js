@@ -33,7 +33,10 @@ function ensureMapReady() {
   if (map.getSize().x === 0) map.invalidateSize();
 }
 
+let dropTimer = null, dropFn = null;
 function clearMapExtras() {
+  if (dropTimer) { clearTimeout(dropTimer); dropTimer = null; }
+  if (dropFn) { map.off('moveend', dropFn); dropFn = null; }
   if (marker) { map.removeLayer(marker); marker = null; }
   if (glow) { map.removeLayer(glow); glow = null; }
 }
@@ -41,15 +44,15 @@ function clearMapExtras() {
 function flyToCountry(c) {
   clearMapExtras();
   ensureMapReady();
-  const drop = () => {
+  dropFn = () => {
     if (marker) return;
     glow = L.circle([c.lat, c.lng], { radius: 90000, color: '#ffb24d', weight: 1, opacity: 0.35, fillColor: '#ffb24d', fillOpacity: 0.12 }).addTo(map);
     marker = L.marker([c.lat, c.lng], {
       icon: L.divIcon({ className: 'pulse-wrap', html: '<div class="pulse"></div><div class="pulse-dot"></div>', iconSize: [18, 18], iconAnchor: [9, 9] }),
     }).addTo(map);
   };
-  map.once('moveend', drop);
-  setTimeout(drop, 4000); // fallback if the flight was skipped
+  map.once('moveend', dropFn);
+  dropTimer = setTimeout(dropFn, 4000); // fallback if the flight was skipped
   map.flyTo([c.lat, c.lng], c.zoom, { duration: 2.6, easeLinearity: 0.15 });
 }
 
@@ -169,6 +172,9 @@ function pickMime() {
 }
 
 async function startListening() {
+  if (state === 'listening' || state === 'analyzing' || state === 'starting') return; // double-tap guard
+  state = 'starting';
+  window._lastAudio = null;
   const mime = pickMime();
   if (mime === null || !navigator.mediaDevices?.getUserMedia) {
     toast('This browser can\'t record audio — type mode instead 👇');
@@ -182,6 +188,7 @@ async function startListening() {
     enterTypeMode();
     return;
   }
+  if (state !== 'starting') { mediaStream.getTracks().forEach((t) => t.stop()); mediaStream = null; return; }
   state = 'listening';
   chunks = [];
   recMime = mime;
@@ -232,6 +239,7 @@ async function onRecordingReady() {
   }
   try {
     const audio = await blobToBase64(blob);
+    window._lastAudio = { audio, mime: mimeUsed }; // kept for the consent flywheel
     const resp = await postAnalyze({ audio, mime: mimeUsed });
     renderResult(normalizeServer(resp));
   } catch (err) {
@@ -277,6 +285,7 @@ async function postAnalyze(payload) {
 
 // ————— analysis paths —————
 function runTextAnalysis(text, typed) {
+  window._lastAudio = null;
   if (normText(text).length < 8) {
     toast('I barely got anything — give me a sentence or two.');
     state = 'idle';
@@ -298,9 +307,13 @@ function normText(t) { return t.replace(/\s+/g, ' ').trim(); }
 // Server result -> view model
 function normalizeServer(resp) {
   const r = resp.result;
+  window._fbToken = resp.fb_token || '';
+  const top = r.top_country !== 'none' && COUNTRIES[r.top_country] ? { code: r.top_country, ...COUNTRIES[r.top_country] } : null;
+  let kind = r.kind === 'unclear' ? 'weak' : r.kind;
+  if (kind === 'dialect' && !top) kind = 'weak'; // schema allows dialect+none; don't crash the renderer
   return {
-    kind: r.kind === 'unclear' ? 'weak' : r.kind,
-    top: r.top_country !== 'none' && COUNTRIES[r.top_country] ? { code: r.top_country, ...COUNTRIES[r.top_country] } : null,
+    kind,
+    top,
     regionKey: r.region !== 'none' && r.region !== 'msa' && REGIONS[r.region] ? r.region : null,
     conf: Math.max(0, Math.min(100, r.confidence | 0)),
     city: r.city || '',
@@ -335,8 +348,12 @@ function normalizeLocal(res, text, source) {
 function renderResult(v) {
   state = 'result';
   show('resultCard');
-  $('#fbActual').hidden = true;
+  $('#fbFix').hidden = true;
+  $('#fbActual').value = '';
+  $('#fbCity').value = '';
   $('#fbYes').disabled = false; $('#fbNo').disabled = false;
+  $('#consentBox').disabled = false;
+  $('#consentWrap').style.display = window._lastAudio ? '' : 'none'; // no clip to donate in type mode
 
   const kicker = $('#resultKicker'), region = $('#resultRegion'), country = $('#resultCountry');
   const confFill = $('#confFill'), confLabel = $('#confLabel');
@@ -402,14 +419,55 @@ function chip(word, gloss) {
 }
 
 // ————— feedback flywheel —————
-function saveFeedback(correct, actual) {
-  const log = JSON.parse(localStorage.getItem('hometongue_feedback') || '[]');
+function detectPlatform() {
+  const ua = navigator.userAgent;
+  return /iPhone|iPad|iPod/.test(ua) ? 'ios' : /Android/.test(ua) ? 'android' : 'desktop';
+}
+
+function saveFeedback(correct, actual, actualCity) {
   const last = window._lastResult || {};
-  log.push({ ts: Date.now(), correct, actual, guess: last.top ? last.top.code : last.kind, transcript: last.transcript || '' });
+  const consent = !!$('#consentBox').checked && !!window._lastAudio;
+
+  // local log (works offline, always)
+  const log = JSON.parse(localStorage.getItem('hometongue_feedback') || '[]');
+  log.push({ ts: Date.now(), correct, actual, actualCity, guess: last.top ? last.top.code : last.kind, transcript: last.transcript || '' });
   localStorage.setItem('hometongue_feedback', JSON.stringify(log));
-  toast(correct
+
+  // flywheel: fire-and-forget to the server
+  const payload = {
+    correct,
+    actual_code: actual || '',
+    actual_city: actualCity || '',
+    guess_code: last.top ? last.top.code : (last.kind || ''),
+    guess_city: last.city || '',
+    region: last.regionKey || '',
+    confidence: last.conf || 0,
+    transcript: last.transcript || '',
+    source: last.source || 'cloud',
+    platform: detectPlatform(),
+    consent,
+  };
+  if (consent && window._lastAudio) {
+    payload.audio = window._lastAudio.audio;
+    payload.mime = window._lastAudio.mime;
+    payload.token = window._fbToken || '';
+  }
+
+  const baseMsg = correct
     ? 'Logged ✓ — every answer is future training data.'
-    : 'Logged — this is exactly how the real model gets trained.');
+    : 'Logged — this is exactly how the real model gets trained.';
+  toast(baseMsg);
+
+  fetch('/api/feedback', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  })
+    .then((r) => r.json())
+    .then((d) => {
+      if (d.ok && d.stored === 'clip+labels') toast('Clip donated 🎁 shukran — that trains the real model.');
+    })
+    .catch(() => {});
 }
 
 // ————— type mode —————
@@ -447,9 +505,24 @@ function bindUI() {
     if (!$('#howPop').hidden && !e.target.closest('.how-pop') && !e.target.closest('.how-btn')) $('#howPop').hidden = true;
   });
 
-  $('#fbYes').onclick = () => { saveFeedback(true); $('#fbYes').disabled = true; $('#fbNo').disabled = true; };
-  $('#fbNo').onclick = () => { $('#fbActual').hidden = false; $('#fbNo').disabled = true; };
-  sel.onchange = () => { if (sel.value) { saveFeedback(false, sel.value); sel.hidden = true; sel.value = ''; $('#fbYes').disabled = true; } };
+  $('#fbYes').onclick = () => { saveFeedback(true, '', ''); lockFeedback(); };
+  $('#fbNo').onclick = () => { $('#fbFix').hidden = false; $('#fbNo').disabled = true; $('#fbYes').disabled = true; };
+  $('#fbSend').onclick = () => {
+    if (!sel.value) { toast('Pick the country first.'); return; }
+    saveFeedback(false, sel.value, $('#fbCity').value.trim());
+    lockFeedback();
+  };
+
+  const consentBox = $('#consentBox');
+  consentBox.checked = localStorage.getItem('ht_consent') === '1';
+  consentBox.onchange = () => localStorage.setItem('ht_consent', consentBox.checked ? '1' : '0');
+}
+
+function lockFeedback() {
+  $('#fbYes').disabled = true;
+  $('#fbNo').disabled = true;
+  $('#fbFix').hidden = true;
+  $('#consentBox').disabled = true;
 }
 
 initMap();

@@ -84,10 +84,17 @@
     </div>
     <div class="runners" id="runners"></div>
     <div class="feedback" id="feedback">
-      <span>did I get it?</span>
-      <button class="fb-btn" id="fbYes">✓ nailed it</button>
-      <button class="fb-btn" id="fbNo">✗ nope</button>
-      <select id="fbActual" hidden></select>
+      <label class="consent" id="consentWrap"><input type="checkbox" id="consentBox"> donate this clip to training — anonymous, helps the app learn your accent · <a href="/privacy.html" target="_blank">privacy</a></label>
+      <div class="fb-row">
+        <span>did I get it?</span>
+        <button class="fb-btn" id="fbYes">✓ nailed it</button>
+        <button class="fb-btn" id="fbNo">✗ nope</button>
+      </div>
+      <div class="fb-fix" id="fbFix" hidden>
+        <select id="fbActual"></select>
+        <input type="text" id="fbCity" placeholder="which city? (optional)" maxlength="60">
+        <button class="fb-btn" id="fbSend">send</button>
+      </div>
     </div>
     <button class="stop-btn" id="againBtn">go again</button>
   </section>

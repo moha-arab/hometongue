@@ -33,7 +33,15 @@ Redeploy after adding them. HTTPS (automatic on Vercel) is required for mic acce
 
 ## The flywheel
 
-After every guess: "did I get it?" — corrections log to `localStorage` (`hometongue_feedback`). In the real product this becomes labeled training data.
+After every guess: "did I get it?" — corrections always log locally, and with the **donate this clip** checkbox ticked, the clip + correction go to Supabase as future training data (see [privacy.html](privacy.html)). Without Supabase configured the app still works; feedback just stays local.
+
+### Flywheel setup (~5 min, one time)
+
+1. Create a free project at supabase.com.
+2. SQL Editor → paste [supabase/schema.sql](supabase/schema.sql) → Run.
+3. Storage → New bucket → name it `clips`, keep it **private**.
+4. Settings → API: copy the Project URL and the **service_role** key (not anon).
+5. Add `SUPABASE_URL` and `SUPABASE_SERVICE_KEY` to `.env` (local) and Vercel env vars, redeploy.
 
 ## Phase 2
 
