@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lahja — لهجة</title>
+<title>Earshot — your accent gives you away</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎙️</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,34 +17,28 @@
 <div class="vignette"></div>
 
 <header class="brand">
-  <div class="logo">lahja <span class="logo-ar">لهجة</span></div>
+  <div class="logo">earshot <span class="logo-ar">سمعناك</span></div>
   <button class="how-btn" id="howBtn">how it works</button>
 </header>
 
 <div class="how-pop" id="howPop" hidden>
-  <p><strong>Honest version:</strong> this prototype listens to <em>what you say</em>, not how you sound. Every dialect has giveaway words (دلوقتي، هسا، دابا، وايد...) and Lahja catches them in your speech.</p>
+  <p><strong>Honest version:</strong> your browser records ~15 seconds of you talking. A server transcribes it (Whisper) and Claude reads the dialect from your <em>word choices and phrasing</em> — دلوقتي، هسا، دابا، وايد all give you away.</p>
   <p>That's why there's no script to read — if everyone said the same words, there'd be nothing to catch. Just talk naturally.</p>
-  <p>Phase 2 is a real acoustic model that hears the <em>accent itself</em>. This is the demo that proves the idea.</p>
+  <p>Your audio is analyzed and discarded — nothing is stored. Phase 2 is an acoustic model that hears the <em>accent itself</em>.</p>
 </div>
 
 <main class="hud">
 
   <!-- IDLE -->
   <section class="card" id="idleCard">
-    <h1 class="tagline">Speak Arabic.<br><span class="accent">I'll tell you where your لهجة is from.</span></h1>
+    <h1 class="tagline">Speak Arabic.<br><span class="accent">I can hear where you're from.</span></h1>
     <p class="prompt-label">Don't read anything — just talk, like you're voice-noting a friend:</p>
     <p class="prompt" id="promptText">"Tell me about your day."</p>
     <button class="mic-btn" id="micBtn" aria-label="Start talking">
       <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line></svg>
     </button>
     <div class="idle-foot">
-      <select id="locale" title="Tune the mic to your region for a better transcript">
-        <option value="ar-SA">🎙️ mic: Arabic (general)</option>
-        <option value="ar-JO">🎙️ mic: الشام Levant</option>
-        <option value="ar-EG">🎙️ mic: مصر Egypt</option>
-        <option value="ar-IQ">🎙️ mic: العراق Iraq</option>
-        <option value="ar-MA">🎙️ mic: المغرب Maghreb</option>
-      </select>
+      <span class="foot-hint">works on your phone too 📱</span>
       <button class="link-btn" id="typeModeBtn">no mic? type like you talk →</button>
     </div>
   </section>
@@ -52,7 +46,7 @@
   <!-- LISTENING -->
   <section class="card" id="liveCard" hidden>
     <div class="wave" id="wave"></div>
-    <p class="live-status" id="liveStatus">listening…</p>
+    <p class="live-status">listening… <span id="timer">0:00</span></p>
     <div class="transcript" id="transcript" dir="rtl" lang="ar"></div>
     <p class="live-hint">keep going — 15 seconds or more gives a better read</p>
     <button class="stop-btn" id="stopBtn">that's enough — guess!</button>
@@ -84,6 +78,10 @@
       <span class="conf-label" id="confLabel"></span>
     </div>
     <div class="evidence" id="evidence"></div>
+    <div class="heard" id="heard" hidden>
+      <div class="heard-head"><span>what we heard</span><span class="src-badge" id="srcBadge"></span></div>
+      <p id="heardText" dir="rtl" lang="ar"></p>
+    </div>
     <div class="runners" id="runners"></div>
     <div class="feedback" id="feedback">
       <span>did I get it?</span>
@@ -98,7 +96,7 @@
 
 <div class="toast" id="toast" hidden></div>
 
-<footer class="foot">prototype · word-based detection · the acoustic model is phase 2</footer>
+<footer class="foot">prototype · whisper + claude · audio analyzed, never stored</footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="js/dialects.js"></script>

@@ -1,11 +1,14 @@
-// Lahja — app logic: mic, live transcript, map, results
+// Earshot — app logic: recording, server analysis, map, results
 const $ = (s) => document.querySelector(s);
 
 const HOME_BOUNDS = [[8, -18], [40, 62]]; // whole Arab world
+const MAX_SECONDS = 30;
 let map, marker, glow;
 let state = 'idle';
-let recog = null, finalT = '', interimT = '';
-let audioCtx = null, analyser = null, rafId = null, mediaStream = null;
+let mediaStream = null, recorder = null, chunks = [], recMime = '';
+let recog = null, srFinal = '', srInterim = '';
+let audioCtx = null, analyser = null, rafId = null;
+let timerId = null, startedAt = 0;
 
 // ————— map —————
 function initMap() {
@@ -67,7 +70,7 @@ function toast(msg) {
   t.textContent = msg;
   t.hidden = false;
   clearTimeout(t._timer);
-  t._timer = setTimeout(() => { t.hidden = true; }, 2600);
+  t._timer = setTimeout(() => { t.hidden = true; }, 3200);
 }
 
 const PROMPTS = [
@@ -86,12 +89,12 @@ setInterval(() => {
   setTimeout(() => { el.textContent = PROMPTS[promptIdx]; el.style.opacity = 1; }, 350);
 }, 5000);
 
-// ————— waveform —————
-async function startMeter() {
+// ————— waveform + timer —————
+function startMeter(stream) {
   try {
-    mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const src = audioCtx.createMediaStreamSource(mediaStream);
+    if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+    const src = audioCtx.createMediaStreamSource(stream);
     analyser = audioCtx.createAnalyser();
     analyser.fftSize = 256;
     src.connect(analyser);
@@ -111,84 +114,223 @@ async function startMeter() {
 
 function stopMeter() {
   if (rafId) cancelAnimationFrame(rafId), rafId = null;
-  if (mediaStream) mediaStream.getTracks().forEach(t => t.stop()), mediaStream = null;
   if (audioCtx) audioCtx.close().catch(() => {}), audioCtx = null;
 }
 
-// ————— speech —————
-function speechSupported() {
-  return !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+function startTimer() {
+  startedAt = Date.now();
+  timerId = setInterval(() => {
+    const s = Math.floor((Date.now() - startedAt) / 1000);
+    $('#timer').textContent = `0:${String(Math.min(s, 59)).padStart(2, '0')}`;
+    if (s >= MAX_SECONDS) stopListening();
+  }, 250);
 }
 
-function startListening() {
-  if (!speechSupported()) {
-    toast('Speech recognition needs Chrome or Edge — type mode instead 👇');
+function stopTimer() {
+  if (timerId) clearInterval(timerId), timerId = null;
+}
+
+// ————— optional live transcript preview (Chrome/Edge only, best-effort) —————
+function startPreviewSR() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) { $('#transcript').textContent = ''; return; }
+  srFinal = ''; srInterim = '';
+  try {
+    recog = new SR();
+    recog.lang = 'ar-SA';
+    recog.continuous = true;
+    recog.interimResults = true;
+    recog.onresult = (e) => {
+      srInterim = '';
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        const r = e.results[i];
+        if (r.isFinal) srFinal += r[0].transcript + ' ';
+        else srInterim += r[0].transcript;
+      }
+      $('#transcript').textContent = srFinal + srInterim;
+    };
+    recog.onend = () => { if (state === 'listening') { try { recog.start(); } catch {} } };
+    recog.onerror = () => {};
+    recog.start();
+  } catch { recog = null; }
+}
+
+function stopPreviewSR() {
+  if (recog) { recog.onend = null; try { recog.stop(); } catch {} recog = null; }
+}
+
+// ————— recording —————
+function pickMime() {
+  if (!window.MediaRecorder) return null;
+  for (const m of ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg;codecs=opus']) {
+    if (MediaRecorder.isTypeSupported(m)) return m;
+  }
+  return ''; // let the browser pick its default
+}
+
+async function startListening() {
+  const mime = pickMime();
+  if (mime === null || !navigator.mediaDevices?.getUserMedia) {
+    toast('This browser can\'t record audio — type mode instead 👇');
+    enterTypeMode();
+    return;
+  }
+  try {
+    mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  } catch {
+    toast('Mic blocked — allow the microphone, or use type mode.');
     enterTypeMode();
     return;
   }
   state = 'listening';
-  finalT = ''; interimT = '';
+  chunks = [];
+  recMime = mime;
   $('#transcript').textContent = '';
-  $('#liveStatus').textContent = 'listening…';
+  $('#timer').textContent = '0:00';
   show('liveCard');
-  startMeter();
+  startMeter(mediaStream);
+  startPreviewSR();
+  startTimer();
 
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  recog = new SR();
-  recog.lang = $('#locale').value;
-  recog.continuous = true;
-  recog.interimResults = true;
-
-  recog.onresult = (e) => {
-    interimT = '';
-    for (let i = e.resultIndex; i < e.results.length; i++) {
-      const r = e.results[i];
-      if (r.isFinal) finalT += r[0].transcript + ' ';
-      else interimT += r[0].transcript;
-    }
-    $('#transcript').textContent = finalT + interimT;
-  };
-  recog.onerror = (e) => {
-    if (state !== 'listening') return;
-    if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
-      toast('Mic blocked — allow the microphone, or use type mode.');
-      state = 'idle'; stopMeter(); show('idleCard');
-    } else if (e.error === 'network') {
-      toast('Speech service unreachable — try type mode.');
-      state = 'idle'; stopMeter(); enterTypeMode();
-    }
-  };
-  recog.onend = () => {
-    // Chrome stops on silence; keep the session alive until the user hits stop
-    if (state === 'listening') { try { recog.start(); } catch { /* restarting too fast */ } }
-  };
-  try { recog.start(); } catch { /* already started */ }
+  recorder = new MediaRecorder(mediaStream, mime ? { mimeType: mime } : undefined);
+  recorder.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
+  recorder.onstop = onRecordingReady;
+  recorder.start(500);
 }
 
 function stopListening() {
+  if (state !== 'listening') return;
   state = 'analyzing';
-  if (recog) { recog.onend = null; try { recog.stop(); } catch {} recog = null; }
+  stopTimer();
+  stopPreviewSR();
   stopMeter();
-  const text = (finalT + ' ' + interimT).trim();
-  runAnalysis(text, false);
+  const elapsed = (Date.now() - startedAt) / 1000;
+  if (elapsed < 2) {
+    toast('That was barely a breath — give me a sentence or two.');
+    state = 'idle';
+    if (recorder && recorder.state !== 'inactive') { recorder.onstop = null; recorder.stop(); }
+    teardownRecording();
+    show('idleCard');
+    return;
+  }
+  show('analyzingCard');
+  if (recorder && recorder.state !== 'inactive') recorder.stop(); // -> onRecordingReady
+  else onRecordingReady();
 }
 
-// ————— analysis + result —————
-function runAnalysis(text, typed) {
+function teardownRecording() {
+  if (mediaStream) mediaStream.getTracks().forEach((t) => t.stop()), mediaStream = null;
+  recorder = null;
+}
+
+async function onRecordingReady() {
+  const blob = new Blob(chunks, { type: recMime || 'audio/webm' });
+  const mimeUsed = (recorder && recorder.mimeType) || recMime || 'audio/webm';
+  teardownRecording();
+  if (blob.size < 2000) {
+    return fallbackOrFail('I didn\'t catch any audio.');
+  }
+  try {
+    const audio = await blobToBase64(blob);
+    const resp = await postAnalyze({ audio, mime: mimeUsed });
+    renderResult(normalizeServer(resp));
+  } catch (err) {
+    fallbackOrFail(err && err.userMessage ? err.userMessage : 'The cloud engine is unreachable.');
+  }
+}
+
+function fallbackOrFail(reason) {
+  const text = (srFinal + ' ' + srInterim).trim();
+  if (normText(text).length >= 8) {
+    toast(`${reason} Falling back to the offline word-engine.`);
+    renderResult(normalizeLocal(classify(text), text, 'offline'));
+  } else {
+    toast(`${reason} Try again, or use type mode.`);
+    state = 'idle';
+    show('idleCard');
+  }
+}
+
+function blobToBase64(blob) {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(String(r.result).split(',')[1]);
+    r.onerror = reject;
+    r.readAsDataURL(blob);
+  });
+}
+
+async function postAnalyze(payload) {
+  const resp = await fetch('/api/analyze', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  const data = await resp.json().catch(() => null);
+  if (!resp.ok || !data || !data.ok) {
+    const err = new Error((data && data.error) || `http_${resp.status}`);
+    if (data && data.error === 'no_speech') err.userMessage = 'I couldn\'t hear any speech in that.';
+    throw err;
+  }
+  return data;
+}
+
+// ————— analysis paths —————
+function runTextAnalysis(text, typed) {
   if (normText(text).length < 8) {
-    toast('I barely heard anything — give me a sentence or two.');
+    toast('I barely got anything — give me a sentence or two.');
     state = 'idle';
     show(typed ? 'typeCard' : 'idleCard');
     return;
   }
   show('analyzingCard');
   state = 'analyzing';
-  setTimeout(() => renderResult(classify(text)), 1100);
+  postAnalyze({ text })
+    .then((resp) => renderResult(normalizeServer(resp)))
+    .catch(() => {
+      // offline fallback: the local word-engine
+      setTimeout(() => renderResult(normalizeLocal(classify(text), text, 'offline')), 400);
+    });
 }
 
 function normText(t) { return t.replace(/\s+/g, ' ').trim(); }
 
-function renderResult(res) {
+// Server result -> view model
+function normalizeServer(resp) {
+  const r = resp.result;
+  return {
+    kind: r.kind === 'unclear' ? 'weak' : r.kind,
+    top: r.top_country !== 'none' && COUNTRIES[r.top_country] ? { code: r.top_country, ...COUNTRIES[r.top_country] } : null,
+    regionKey: r.region !== 'none' && r.region !== 'msa' && REGIONS[r.region] ? r.region : null,
+    conf: Math.max(0, Math.min(100, r.confidence | 0)),
+    evidence: (r.evidence || []).slice(0, 8).map((e) => ({ t: e.word, en: e.gloss })),
+    ranked: (r.ranked || []).slice(0, 4).filter((x) => COUNTRIES[x.code]),
+    note: r.note || '',
+    transcript: resp.transcript || '',
+    source: 'cloud',
+  };
+}
+
+// Local lexicon result -> view model
+function normalizeLocal(res, text, source) {
+  if (res.kind === 'weak') return { kind: 'weak', top: null, regionKey: null, conf: 8, evidence: [], ranked: [], note: '', transcript: text, source };
+  if (res.kind === 'msa') {
+    return { kind: 'msa', top: null, regionKey: null, conf: 90, evidence: res.hits.slice(0, 5).map((h) => ({ t: h.t, en: h.en })), ranked: [], note: '', transcript: text, source };
+  }
+  return {
+    kind: 'dialect',
+    top: { code: res.top.code, ...COUNTRIES[res.top.code] },
+    regionKey: res.top.region,
+    conf: res.conf,
+    evidence: res.hits.map((h) => ({ t: h.t, en: h.en })),
+    ranked: res.ranked.map((r) => ({ code: r.code, weight: r.score })),
+    note: res.closeCall && res.second ? `Close call with ${res.second.en}.` : '',
+    transcript: text, source,
+  };
+}
+
+// ————— result rendering —————
+function renderResult(v) {
   state = 'result';
   show('resultCard');
   $('#fbActual').hidden = true;
@@ -196,52 +338,57 @@ function renderResult(res) {
 
   const kicker = $('#resultKicker'), region = $('#resultRegion'), country = $('#resultCountry');
   const confFill = $('#confFill'), confLabel = $('#confLabel');
-  const evidence = $('#evidence'), runners = $('#runners');
+  const evidence = $('#evidence'), runners = $('#runners'), heard = $('#heard');
   evidence.innerHTML = ''; runners.innerHTML = '';
 
-  if (res.kind === 'weak') {
+  heard.hidden = !v.transcript;
+  if (v.transcript) $('#heardText').textContent = v.transcript;
+  $('#srcBadge').textContent = v.source === 'cloud' ? 'whisper + claude' : 'offline word-engine';
+
+  for (const e of v.evidence) evidence.appendChild(chip(e.t, e.en));
+
+  if (v.kind === 'weak') {
     kicker.textContent = 'hmm…';
     region.textContent = 'Not enough signal';
-    country.textContent = 'Talk more casually — slang, filler words, the way you text your friends. That\'s where your لهجة hides.';
+    country.textContent = v.note || 'Talk more casually — slang, filler words, the way you voice-note your friends. That\'s where your لهجة hides.';
     confFill.style.width = '8%';
     confLabel.textContent = 'keep talking';
     flyHome();
+    window._lastResult = v;
     return;
   }
 
-  if (res.kind === 'msa') {
+  if (v.kind === 'msa') {
     kicker.textContent = 'that\'s not a dialect —';
     region.textContent = 'الفصحى · Fuṣḥa';
-    country.textContent = 'Textbook Arabic, from the ocean to the Gulf. Beautiful. Now drop the formality and talk like you talk with your friends 😄';
+    country.textContent = v.note || 'Textbook Arabic, from the ocean to the Gulf. Now drop the formality and talk like you talk with your friends 😄';
     confFill.style.width = '90%';
     confLabel.textContent = 'very sure about this one';
-    for (const h of res.hits.slice(0, 5)) evidence.appendChild(chip(h.t, h.en));
     flyHome();
+    window._lastResult = v;
     return;
   }
 
-  const { top, second, closeCall, conf } = res;
-  const reg = REGIONS[top.region];
+  const reg = v.regionKey ? REGIONS[v.regionKey] : null;
   kicker.textContent = 'your dialect sounds';
-  region.textContent = `${reg.ar} · ${reg.en}`;
-  let line = `${top.flag} Best guess: ${top.en} — ${top.ar}`;
-  if (closeCall && second) line += `  (close call with ${second.flag} ${second.en})`;
+  region.textContent = reg ? `${reg.ar} · ${reg.en}` : v.top.en;
+  let line = `${v.top.flag} Best guess: ${v.top.en} — ${v.top.ar}`;
+  if (v.note) line += `  ·  ${v.note}`;
   country.textContent = line;
-  confFill.style.width = conf + '%';
-  confLabel.textContent = conf + '% — prototype confidence';
+  confFill.style.width = v.conf + '%';
+  confLabel.textContent = `${v.conf}% confidence`;
 
-  for (const h of res.hits) evidence.appendChild(chip(h.t, h.en));
-
-  const maxScore = res.ranked[0].score;
-  for (const r of res.ranked) {
+  const maxW = Math.max(...v.ranked.map((r) => r.weight), 1);
+  for (const r of v.ranked) {
+    const c = COUNTRIES[r.code];
     const row = document.createElement('div');
     row.className = 'runner';
-    row.innerHTML = `<span class="runner-name">${r.flag} ${r.en}</span><div class="runner-track"><div class="runner-fill" style="width:${Math.round(r.score / maxScore * 100)}%"></div></div>`;
+    row.innerHTML = `<span class="runner-name">${c.flag} ${c.en}</span><div class="runner-track"><div class="runner-fill" style="width:${Math.round(r.weight / maxW * 100)}%"></div></div>`;
     runners.appendChild(row);
   }
 
-  flyToCountry(top);
-  window._lastResult = res;
+  flyToCountry(v.top);
+  window._lastResult = v;
 }
 
 function chip(word, gloss) {
@@ -253,9 +400,10 @@ function chip(word, gloss) {
 
 // ————— feedback flywheel —————
 function saveFeedback(correct, actual) {
-  const log = JSON.parse(localStorage.getItem('lahja_feedback') || '[]');
-  log.push({ ts: Date.now(), correct, actual, guess: window._lastResult?.top?.code || window._lastResult?.kind });
-  localStorage.setItem('lahja_feedback', JSON.stringify(log));
+  const log = JSON.parse(localStorage.getItem('earshot_feedback') || '[]');
+  const last = window._lastResult || {};
+  log.push({ ts: Date.now(), correct, actual, guess: last.top ? last.top.code : last.kind, transcript: last.transcript || '' });
+  localStorage.setItem('earshot_feedback', JSON.stringify(log));
   toast(correct
     ? 'Logged ✓ — every answer is future training data.'
     : 'Logged — this is exactly how the real model gets trained.');
@@ -269,21 +417,18 @@ function enterTypeMode() {
 
 // ————— wire up —————
 function bindUI() {
-  // waveform bars
   const wave = $('#wave');
   for (let i = 0; i < 24; i++) wave.appendChild(document.createElement('i'));
 
-  // samples
   const samplesEl = $('#samples');
   for (const s of SAMPLES) {
     const b = document.createElement('button');
     b.className = 'sample-btn';
     b.textContent = s.label;
-    b.onclick = () => { $('#typeBox').value = s.text; runAnalysis(s.text, true); };
+    b.onclick = () => { $('#typeBox').value = s.text; runTextAnalysis(s.text, true); };
     samplesEl.appendChild(b);
   }
 
-  // feedback country picker
   const sel = $('#fbActual');
   sel.innerHTML = '<option value="">so what is it really?</option>' +
     Object.entries(COUNTRIES).map(([code, c]) => `<option value="${code}">${c.flag} ${c.en}</option>`).join('');
@@ -292,7 +437,7 @@ function bindUI() {
   $('#stopBtn').onclick = stopListening;
   $('#typeModeBtn').onclick = enterTypeMode;
   $('#backToMicBtn').onclick = () => { state = 'idle'; show('idleCard'); };
-  $('#analyzeTypedBtn').onclick = () => runAnalysis($('#typeBox').value, true);
+  $('#analyzeTypedBtn').onclick = () => runTextAnalysis($('#typeBox').value, true);
   $('#againBtn').onclick = () => { state = 'idle'; show('idleCard'); flyHome(); };
   $('#howBtn').onclick = () => { $('#howPop').hidden = !$('#howPop').hidden; };
   document.addEventListener('click', (e) => {
