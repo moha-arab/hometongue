@@ -46,8 +46,13 @@ export default async function handler(req, res) {
     const gameType = GAME_TYPES.has(q.get('game_type')) ? q.get('game_type') : 'languages';
     if (!url || !key) return res.end(JSON.stringify({ ok: false, error: 'not_configured' }));
     try {
-      const rows = await (await fetch(`${url}/rest/v1/scores?select=nickname,points,ts&game_type=eq.${gameType}&order=points.desc,ts.asc&limit=20`, { headers: H })).json();
-      return res.end(JSON.stringify({ ok: true, top: rows }));
+      const resp = await fetch(`${url}/rest/v1/scores?select=nickname,points,ts&game_type=eq.${gameType}&order=points.desc,ts.asc&limit=20`, { headers: H });
+      if (!resp.ok) {
+        console.error('leaderboard query failed:', resp.status, await resp.text().catch(() => ''));
+        return res.end(JSON.stringify({ ok: false, error: 'not_ready' }));
+      }
+      const rows = await resp.json();
+      return res.end(JSON.stringify({ ok: true, top: Array.isArray(rows) ? rows : [] }));
     } catch (err) {
       console.error('leaderboard error:', err);
       res.statusCode = 500;
