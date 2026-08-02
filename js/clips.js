@@ -1,7 +1,7 @@
 // Pin It clip manifest — curated + HEAD-verified by agents, 2026-08-01.
 // Languages stream from Wikimedia Commons; accent clips mirrored from the Speech Accent
 // Archive (CC BY-NC-SA); Arabic city clips mirrored from the ARCADE corpus (CC BY 4.0),
-// each QC-verified via Whisper transcription before inclusion.
+// each gated twice: Whisper QC + Claude dialect-vs-MSA and label-consistency judging.
 window.CLIPS = {
   "languages": [
     {
@@ -657,18 +657,6 @@ window.CLIPS = {
   ],
   "arabic": [
     {
-      "id": "ar-11",
-      "label": "Annaba, Algeria",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-11.mp3",
-      "lat": 36.9,
-      "lng": 7.77,
-      "r": 350,
-      "size": 481161,
-      "hint": "Local radio from Annaba — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
       "id": "ar-92",
       "label": "Djelfa, Algeria",
       "lang": "Arabic",
@@ -678,18 +666,6 @@ window.CLIPS = {
       "r": 350,
       "size": 481161,
       "hint": "Local radio from Djelfa — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-167",
-      "label": "Al-Hodeidah, Yemen",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-167.mp3",
-      "lat": 14.8,
-      "lng": 42.95,
-      "r": 350,
-      "size": 580956,
-      "hint": "Local radio from Al-Hodeidah — ARCADE corpus.",
       "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
     },
     {
@@ -717,30 +693,6 @@ window.CLIPS = {
       "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
     },
     {
-      "id": "ar-356",
-      "label": "Aden, Yemen",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-356.mp3",
-      "lat": 12.79,
-      "lng": 45.02,
-      "r": 350,
-      "size": 832748,
-      "hint": "Local radio from Aden — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-408",
-      "label": "Oran, Algeria",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-408.mp3",
-      "lat": 35.7,
-      "lng": -0.63,
-      "r": 350,
-      "size": 481161,
-      "hint": "Local radio from Oran — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
       "id": "ar-679",
       "label": "Baghdad, Iraq",
       "lang": "Arabic",
@@ -750,18 +702,6 @@ window.CLIPS = {
       "r": 350,
       "size": 506348,
       "hint": "Local radio from Baghdad — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-752",
-      "label": "Fes, Morocco",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-752.mp3",
-      "lat": 34.03,
-      "lng": -5,
-      "r": 350,
-      "size": 762764,
-      "hint": "Local radio from Fes — ARCADE corpus.",
       "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
     },
     {
@@ -786,42 +726,6 @@ window.CLIPS = {
       "r": 350,
       "size": 446204,
       "hint": "Local radio from Alexandria — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-987",
-      "label": "Rabat, Morocco",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-987.mp3",
-      "lat": 34.02,
-      "lng": -6.84,
-      "r": 350,
-      "size": 713132,
-      "hint": "Local radio from Rabat — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-1037",
-      "label": "Mecca, Saudi Arabia",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-1037.mp3",
-      "lat": 21.39,
-      "lng": 39.86,
-      "r": 350,
-      "size": 613196,
-      "hint": "Local radio from Mecca — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-1145",
-      "label": "Manama, Bahrain",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-1145.mp3",
-      "lat": 26.23,
-      "lng": 50.59,
-      "r": 350,
-      "size": 481456,
-      "hint": "Local radio from Manama — ARCADE corpus.",
       "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
     },
     {
@@ -897,66 +801,6 @@ window.CLIPS = {
       "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
     },
     {
-      "id": "ar-487",
-      "label": "Biskra, Algeria",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-487.mp3",
-      "lat": 34.85,
-      "lng": 5.73,
-      "r": 350,
-      "size": 481161,
-      "hint": "Local radio from Biskra — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-1602",
-      "label": "Casablanca, Morocco",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-1602.mp3",
-      "lat": 33.57,
-      "lng": -7.59,
-      "r": 350,
-      "size": 481410,
-      "hint": "Local radio from Casablanca — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-1730",
-      "label": "Jeddah, Saudi Arabia",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-1730.mp3",
-      "lat": 21.49,
-      "lng": 39.19,
-      "r": 350,
-      "size": 522332,
-      "hint": "Local radio from Jeddah — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-1871",
-      "label": "Port Sudan, Sudan",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-1871.mp3",
-      "lat": 19.62,
-      "lng": 37.22,
-      "r": 350,
-      "size": 480620,
-      "hint": "Local radio from Port Sudan — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-1901",
-      "label": "El Obeid, Sudan",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-1901.mp3",
-      "lat": 13.18,
-      "lng": 30.22,
-      "r": 350,
-      "size": 480620,
-      "hint": "Local radio from El Obeid — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
       "id": "ar-2082",
       "label": "Algiers, Algeria",
       "lang": "Arabic",
@@ -993,18 +837,6 @@ window.CLIPS = {
       "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
     },
     {
-      "id": "ar-2330",
-      "label": "Khartoum, Sudan",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-2330.mp3",
-      "lat": 15.5,
-      "lng": 32.56,
-      "r": 350,
-      "size": 557084,
-      "hint": "Local radio from Khartoum — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
       "id": "ar-2375",
       "label": "Constantine, Algeria",
       "lang": "Arabic",
@@ -1029,30 +861,6 @@ window.CLIPS = {
       "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
     },
     {
-      "id": "ar-2469",
-      "label": "Batna, Algeria",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-2469.mp3",
-      "lat": 35.56,
-      "lng": 6.17,
-      "r": 350,
-      "size": 481161,
-      "hint": "Local radio from Batna — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-2761",
-      "label": "Basra, Iraq",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-2761.mp3",
-      "lat": 30.51,
-      "lng": 47.78,
-      "r": 350,
-      "size": 639238,
-      "hint": "Local radio from Basra — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
       "id": "ar-2787",
       "label": "Riyadh, Saudi Arabia",
       "lang": "Arabic",
@@ -1062,42 +870,6 @@ window.CLIPS = {
       "r": 350,
       "size": 580556,
       "hint": "Local radio from Riyadh — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-2834",
-      "label": "Tangier, Morocco",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-2834.mp3",
-      "lat": 35.77,
-      "lng": -5.8,
-      "r": 350,
-      "size": 575756,
-      "hint": "Local radio from Tangier — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-2840",
-      "label": "Aleppo, Syria",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-2840.mp3",
-      "lat": 36.2,
-      "lng": 37.13,
-      "r": 350,
-      "size": 695468,
-      "hint": "Local radio from Aleppo — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-3102",
-      "label": "Benghazi, Libya",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-3102.mp3",
-      "lat": 32.12,
-      "lng": 20.07,
-      "r": 350,
-      "size": 481150,
-      "hint": "Local radio from Benghazi — ARCADE corpus.",
       "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
     },
     {
@@ -1149,42 +921,6 @@ window.CLIPS = {
       "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
     },
     {
-      "id": "ar-3692",
-      "label": "Taiz, Yemen",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-3692.mp3",
-      "lat": 13.58,
-      "lng": 44.02,
-      "r": 350,
-      "size": 644012,
-      "hint": "Local radio from Taiz — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-3721",
-      "label": "Abu Dhabi, UAE",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-3721.mp3",
-      "lat": 24.45,
-      "lng": 54.38,
-      "r": 350,
-      "size": 821036,
-      "hint": "Local radio from Abu Dhabi — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-3759",
-      "label": "Doha, Qatar",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-3759.mp3",
-      "lat": 25.29,
-      "lng": 51.53,
-      "r": 350,
-      "size": 480854,
-      "hint": "Local radio from Doha — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
       "id": "ar-3785",
       "label": "Wad Medani, Sudan",
       "lang": "Arabic",
@@ -1194,30 +930,6 @@ window.CLIPS = {
       "r": 350,
       "size": 480620,
       "hint": "Local radio from Wad Medani — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-5318",
-      "label": "Hebron, Palestine",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-5318.mp3",
-      "lat": 31.53,
-      "lng": 35.1,
-      "r": 350,
-      "size": 481114,
-      "hint": "Local radio from Hebron — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-4455",
-      "label": "Setif, Algeria",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-4455.mp3",
-      "lat": 36.19,
-      "lng": 5.41,
-      "r": 350,
-      "size": 481161,
-      "hint": "Local radio from Setif — ARCADE corpus.",
       "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
     },
     {
@@ -1254,18 +966,6 @@ window.CLIPS = {
       "r": 350,
       "size": 803564,
       "hint": "Local radio from Cairo — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-2616",
-      "label": "Marrakech, Morocco",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-2616.mp3",
-      "lat": 31.63,
-      "lng": -8.01,
-      "r": 350,
-      "size": 481300,
-      "hint": "Local radio from Marrakech — ARCADE corpus.",
       "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
     }
   ]
