@@ -57,9 +57,13 @@ function haversineKm(a, b) {
   return 2 * R * Math.asin(Math.sqrt(s));
 }
 
+// Decay tuned per mode: cities need precision, world languages forgive continental misses.
+const MODE_DECAY = { arabic: 500, accents: 900, languages: 1500 };
+
 function scoreFor(km, radius) {
   if (km <= radius) return 5000;
-  return Math.round(5000 * Math.exp(-(km - radius) / 1500));
+  const decay = MODE_DECAY[gameType] || 1200;
+  return Math.round(5000 * Math.exp(-(km - radius) / decay));
 }
 
 function shuffle(arr) {
@@ -218,6 +222,7 @@ function lockIn() {
   const km = Math.round(haversineKm(guess, truth));
   const pts = scoreFor(km, clip.r);
   total += pts;
+  $('#scoreSoFar').textContent = `${total.toLocaleString()} pts`; // pill reflects the round immediately
   roundLog.push({ id: clip.id, label: clip.label, km, pts });
 
   truthMarker = L.marker(truth, { icon: pinIcon('#7ee08a') }).addTo(map);
