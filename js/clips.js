@@ -1,7 +1,7 @@
 // Pin It clip manifest — curated + HEAD-verified by agents, 2026-08-01.
-// Languages stream from Wikimedia Commons; accent clips mirrored from the Speech Accent
-// Archive (CC BY-NC-SA); Arabic city clips mirrored from the ARCADE corpus (CC BY 4.0),
-// each gated twice: Whisper QC + Claude dialect-vs-MSA and label-consistency judging.
+// Languages + wild English clips stream from public archives (Commons/LOC/gov, free licenses);
+// SAA accent clips mirrored under CC BY-NC-SA; Arabic city clips mirrored from ARCADE (CC BY 4.0),
+// gated by Whisper QC + Claude dialect/label judging. wild:true = spontaneous speech, dealt first.
 window.CLIPS = {
   "languages": [
     {
@@ -402,6 +402,227 @@ window.CLIPS = {
     }
   ],
   "accents": [
+    {
+      "id": "wild-thomastown-county-kilkenny-ireland",
+      "label": "Thomastown, County Kilkenny, Ireland",
+      "lang": "English",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/9c/2024-09-16_Patrick_Lalor_Ladywell.opus/2024-09-16_Patrick_Lalor_Ladywell.opus.mp3",
+      "lat": 52.5264,
+      "lng": -7.137,
+      "r": 150,
+      "size": 24002324,
+      "wild": true,
+      "hint": "A 94-year-old lifelong local telling stories about the holy well behind his house (14:46 total, pick any segment)",
+      "attribution": "Oral history interview by A.-K. D., Wikimedia Commons (File:2024-09-16 Patrick Lalor Ladywell.opus), CC0"
+    },
+    {
+      "id": "wild-liverpool-england",
+      "label": "Liverpool, England",
+      "lang": "English",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/ef/John_bishop_bbc_radio4_desert_island_discs_24_06_2012.flac/John_bishop_bbc_radio4_desert_island_discs_24_06_2012.flac.mp3",
+      "lat": 53.4084,
+      "lng": -2.9916,
+      "r": 60,
+      "size": 1022640,
+      "wild": true,
+      "hint": "Comedian reminiscing about school; 33s interview speech",
+      "attribution": "BBC Radio 4 Desert Island Discs (24 June 2012), via Wikimedia Commons, CC BY 3.0"
+    },
+    {
+      "id": "wild-linlithgow-central-scotland-uk",
+      "label": "Linlithgow / Central Scotland, UK",
+      "lang": "English",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/77/Alex_Salmond_BBC_Radio4_Desert_Island_Discs_16_January_2011_b00xgs41.flac/Alex_Salmond_BBC_Radio4_Desert_Island_Discs_16_January_2011_b00xgs41.flac.mp3",
+      "lat": 55.9787,
+      "lng": -3.6019,
+      "r": 150,
+      "size": 939138,
+      "wild": true,
+      "hint": "Politician chatting about a Walter Scott book; 33s conversational Scots accent",
+      "attribution": "BBC Radio 4 Desert Island Discs (16 January 2011), via Wikimedia Commons, CC BY 3.0"
+    },
+    {
+      "id": "wild-huddersfield-west-yorkshire-england",
+      "label": "Huddersfield, West Yorkshire, England",
+      "lang": "English",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c6/Wilf%27_Lunn_voice_sample.wav/Wilf%27_Lunn_voice_sample.wav.mp3",
+      "lat": 53.6458,
+      "lng": -1.785,
+      "r": 80,
+      "size": 587158,
+      "wild": true,
+      "hint": "TV inventor interviewed at home, 28s of strong Yorkshire vowels",
+      "attribution": "Interview clip by Christian Payne (Documentally), Wikimedia Commons, CC BY 4.0"
+    },
+    {
+      "id": "wild-georgetown-south-carolina-usa-us-south",
+      "label": "Georgetown, South Carolina, USA (US South)",
+      "lang": "English",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b8/Bill_Oberst_Jr_voice.ogg/Bill_Oberst_Jr_voice.ogg.mp3",
+      "lat": 33.3768,
+      "lng": -79.2945,
+      "r": 400,
+      "size": 821961,
+      "wild": true,
+      "hint": "Actor introducing himself off the cuff, 42s",
+      "attribution": "Bill Oberst Jr., Wikimedia Commons (Voice intro project), CC BY-SA 4.0"
+    },
+    {
+      "id": "wild-the-bronx-new-york-city-usa",
+      "label": "The Bronx, New York City, USA",
+      "lang": "English",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/cc/Sonia_Sotomayor_Opening_Statement_to_the_Senate_Judiciary_Committee.ogg/Sonia_Sotomayor_Opening_Statement_to_the_Senate_Judiciary_Committee.ogg.mp3",
+      "lat": 40.8448,
+      "lng": -73.8648,
+      "r": 100,
+      "size": 8515726,
+      "wild": true,
+      "hint": "Judge telling her life story to the Senate; 7min, NY accent; skip the first ~30s of thank-yous",
+      "attribution": "US Senate Judiciary Committee hearing recording (2009), public domain"
+    },
+    {
+      "id": "wild-boston-massachusetts-usa",
+      "label": "Boston, Massachusetts, USA",
+      "lang": "English",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/d5/JFK_inaugural_address.ogg/JFK_inaugural_address.ogg.mp3",
+      "lat": 42.3601,
+      "lng": -71.0589,
+      "r": 120,
+      "size": 11601012,
+      "wild": true,
+      "hint": "1961 speech, the Boston non-rhotic 'vigah' is unmistakable — but the voice is world-famous, may be too easy",
+      "attribution": "John F. Kennedy Presidential Library & Museum, public domain"
+    },
+    {
+      "id": "wild-toronto-canada",
+      "label": "Toronto, Canada",
+      "lang": "English",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/04/Stephen_Harper_voice.ogg/Stephen_Harper_voice.ogg.mp3",
+      "lat": 43.6532,
+      "lng": -79.3832,
+      "r": 400,
+      "size": 8728589,
+      "wild": true,
+      "hint": "PM speaking at Davos; 6.5min, standard Canadian English",
+      "attribution": "World Economic Forum 2012 recording, via Wikimedia Commons, CC BY 3.0"
+    },
+    {
+      "id": "wild-melbourne-australia",
+      "label": "Melbourne, Australia",
+      "lang": "English",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/53/Shelley_Segal_voice_-_en.ogg/Shelley_Segal_voice_-_en.ogg.mp3",
+      "lat": -37.8136,
+      "lng": 144.9631,
+      "r": 500,
+      "size": 584236,
+      "wild": true,
+      "hint": "Musician introducing herself off the cuff, 38s",
+      "attribution": "Recording by Nederlandse Leeuw, Wikimedia Commons, CC BY-SA 4.0"
+    },
+    {
+      "id": "wild-mvezo-eastern-cape-south-africa",
+      "label": "Mvezo / Eastern Cape, South Africa",
+      "lang": "English",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/1f/Nelson_Mandela_voice.ogg/Nelson_Mandela_voice.ogg.mp3",
+      "lat": -31.93,
+      "lng": 28.48,
+      "r": 600,
+      "size": 10372846,
+      "wild": true,
+      "hint": "10.7min speech; unmistakable cadence — world-famous voice, may be too easy",
+      "attribution": "White House recording via Clinton Presidential Library, public domain"
+    },
+    {
+      "id": "wild-mbaise-imo-state-nigeria",
+      "label": "Mbaise, Imo State, Nigeria",
+      "lang": "English",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b2/Leo_Igwe_voice_-_en.ogg/Leo_Igwe_voice_-_en.ogg.mp3",
+      "lat": 5.52,
+      "lng": 7.26,
+      "r": 500,
+      "size": 775885,
+      "wild": true,
+      "hint": "Activist introducing himself, 48s, strong Nigerian English",
+      "attribution": "Recording by Nederlandse Leeuw, Wikimedia Commons, CC BY-SA 4.0"
+    },
+    {
+      "id": "wild-amritsar-punjab-india",
+      "label": "Amritsar / Punjab, India",
+      "lang": "English",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/08/Manmohan_Singh_voice.ogg/Manmohan_Singh_voice.ogg.mp3",
+      "lat": 31.634,
+      "lng": 74.8723,
+      "r": 800,
+      "size": 1439078,
+      "wild": true,
+      "hint": "Indian PM addressing the US Congress, 2.5min. Note: born in pre-Partition Punjab (now Pakistan), raised in Indian Punjab",
+      "attribution": "US Congress joint session recording (2005), public domain"
+    },
+    {
+      "id": "wild-singapore",
+      "label": "Singapore",
+      "lang": "English",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e5/Lawrence_Wong_on_the_Daily_Ketchup_Podcast.ogg/Lawrence_Wong_on_the_Daily_Ketchup_Podcast.ogg.mp3",
+      "lat": 1.3521,
+      "lng": 103.8198,
+      "r": 100,
+      "size": 905683,
+      "wild": true,
+      "hint": "PM chatting casually on a podcast, 45s of Singaporean English",
+      "attribution": "The Daily Ketchup Podcast (2025), via Wikimedia Commons, CC BY 3.0"
+    },
+    {
+      "id": "wild-texas-hill-country-stonewall-usa",
+      "label": "Texas Hill Country (Stonewall), USA",
+      "lang": "English",
+      "url": "https://archive.org/download/lbj631101/lbj_k6311_01a_01_Goldberg.mp3",
+      "lat": 30.2418,
+      "lng": -98.4439,
+      "r": 400,
+      "size": 5940224,
+      "wild": true,
+      "hint": "Unscripted phone conversation, 7:08; LBJ does most of the talking but the other party (Arthur Goldberg, Chicago) also speaks.",
+      "attribution": "LBJ White House telephone recordings, tape 6311.01 (Nov 1963), LBJ Presidential Library via Miller Center 'presidential_recordings' collection on Internet Archive (item lbj631101). U.S. federal government recording, public domain."
+    },
+    {
+      "id": "wild-new-york-city-manhattan-usa",
+      "label": "New York City (Manhattan), USA",
+      "lang": "English",
+      "url": "https://archive.org/download/EDIS-SRP-0014-17/EDIS-SRP-0014-17.mp3",
+      "lat": 40.7484,
+      "lng": -73.9857,
+      "r": 250,
+      "size": 3061867,
+      "wild": true,
+      "hint": "1912 campaign oration declaimed for the cylinder, 4:15; period audio quality, accent is old-fashioned upper-class New York.",
+      "attribution": "Theodore Roosevelt, 'The Right of the People to Rule', Edison Blue Amberol cylinder 3707 (recorded c. Aug 1912, released Sept 1912). Digitized by NPS Thomas Edison National Historical Park (EDIS 39850); Internet Archive item EDIS-SRP-0014-17, marked public domain (pre-1923 published recording)."
+    },
+    {
+      "id": "wild-st-ann-s-bay-jamaica",
+      "label": "St. Ann's Bay, Jamaica",
+      "lang": "English",
+      "url": "https://archive.org/download/MarcusGarveySpeech1921/marcus_garvey_speech_1921.mp3",
+      "lat": 18.4344,
+      "lng": -77.1969,
+      "r": 300,
+      "size": 3523427,
+      "wild": true,
+      "hint": "Declaimed oration recorded in a studio (not read from a shared script), 3:40; 1921 disc surface noise but voice is clear.",
+      "attribution": "Marcus Garvey, 'Explanation of the Objects of the Universal Negro Improvement Association', 78 rpm studio recording, New York, July 1921. Internet Archive item MarcusGarveySpeech1921, licensed public domain (published before 1923)."
+    },
+    {
+      "id": "wild-sarnia-milton-ontario-canada",
+      "label": "Sarnia / Milton, Ontario, Canada",
+      "lang": "English",
+      "url": "https://archive.org/download/nasa_tv-Space_Station_s_Hadfield_Connects_with_Canadian_Students/Space_Station_s_Hadfield_Connects_with_Canadian_Students.mp3",
+      "lat": 43.5183,
+      "lng": -79.8774,
+      "r": 500,
+      "size": 17519030,
+      "wild": true,
+      "hint": "Live unscripted Q&A downlink, 24:18 mp3; opening minutes may include Canadian event hosts (also Ontario voices) before/between Hadfield's long answers. All-English event.",
+      "attribution": "NASA TV, 'Space Station's Hadfield Connects with Canadian Students', Jan 30, 2013, via Internet Archive nasa_tv collection (item nasa_tv-Space_Station_s_Hadfield_Connects_with_Canadian_Students). NASA TV production, U.S. government work, public domain."
+    },
     {
       "id": "acc-london-england",
       "label": "London, England",

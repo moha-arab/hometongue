@@ -104,12 +104,14 @@ function startGame(type) {
 }
 
 // Deal with country variety: one clip per country first, repeats only when countries run out.
+// Spontaneous ("wild") clips outrank read-aloud ones within each country.
 function dealDeck(pool) {
   const byCountry = {};
   for (const c of shuffle(pool)) {
     const country = c.label.includes(',') ? c.label.split(',').pop().trim() : c.label;
     (byCountry[country] = byCountry[country] || []).push(c);
   }
+  for (const rows of Object.values(byCountry)) rows.sort((a, b) => (b.wild ? 1 : 0) - (a.wild ? 1 : 0));
   const countries = shuffle(Object.keys(byCountry));
   const out = [];
   while (out.length < ROUNDS) {
