@@ -5,18 +5,6 @@
 window.CLIPS = {
   "languages": [
     {
-      "id": "lang-kazakh",
-      "label": "Kazakh",
-      "lang": "Kazakh",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/08/Qazaqsha_zhyl_sanau.ogg/Qazaqsha_zhyl_sanau.ogg.mp3",
-      "lat": 48,
-      "lng": 66.9,
-      "r": 1000,
-      "size": 1893021,
-      "hint": "A spoken Kazakh Wikipedia article about the traditional 12-year animal calendar (duration ~78s).",
-      "attribution": "File:Qazaqsha zhyl sanau.ogg, Tmrtlght, CC BY-SA 4.0, Wikimedia Commons"
-    },
-    {
       "id": "lang-uzbek",
       "label": "Uzbek",
       "lang": "Uzbek",
@@ -27,18 +15,6 @@ window.CLIPS = {
       "size": 2716345,
       "hint": "A spoken Uzbek Wikipedia article about the Jadids, Central Asia's early-1900s reform movement (~156s).",
       "attribution": "File:Jadidlar.ogg, Panpanchik, CC BY-SA 4.0, Wikimedia Commons"
-    },
-    {
-      "id": "lang-kyrgyz",
-      "label": "Kyrgyz",
-      "lang": "Kyrgyz",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/57/An_example_of_a_dialogue_in_Kyrgyz._Two_friends_are_communicating.wav/An_example_of_a_dialogue_in_Kyrgyz._Two_friends_are_communicating.wav.mp3",
-      "lat": 41.7,
-      "lng": 74.5,
-      "r": 400,
-      "size": 402422,
-      "hint": "Two friends wishing each other good grades on their exams. NOTE: only 17.6s long, shorter than the 20s window.",
-      "attribution": "File:An example of a dialogue in Kyrgyz. Two friends are communicating.wav, user ПервыйЧеловекВКосмосн, CC0, Wikimedia Commons"
     },
     {
       "id": "lang-turkish",
@@ -185,18 +161,6 @@ window.CLIPS = {
       "attribution": "Voice of America Swahili Service (voaswahili.com), U.S. government work, public domain"
     },
     {
-      "id": "lang-yoruba",
-      "label": "Yoruba",
-      "lang": "Yoruba",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/0f/Yoruba_Wiki_Radio_Program.ogg/Yoruba_Wiki_Radio_Program.ogg.mp3",
-      "lat": 7.4,
-      "lng": 3.9,
-      "r": 500,
-      "size": 4664417,
-      "hint": "A radio program produced by the Yoruba Wikimedians User Group in Nigeria.",
-      "attribution": "File:Yoruba Wiki Radio Program.ogg, Yoruba Wikimedians User Group, Wikimedia Commons, CC BY-SA 4.0"
-    },
-    {
       "id": "lang-amharic",
       "label": "Amharic",
       "lang": "Amharic",
@@ -231,30 +195,6 @@ window.CLIPS = {
       "size": 13539544,
       "hint": "A Hausa Wikipedia article read aloud by a native speaker; Hausa is West Africa's biggest trade language.",
       "attribution": "File:Yan Ghana A Jamus.ogg, spoken by DaSupremo (Hausa Wikipedia), Wikimedia Commons, CC BY-SA 3.0"
-    },
-    {
-      "id": "lang-zulu",
-      "label": "Zulu",
-      "lang": "Zulu",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/9d/How_to_brew_traditional_zulu_beer.ogg/How_to_brew_traditional_zulu_beer.ogg.mp3",
-      "lat": -28.5,
-      "lng": 31,
-      "r": 400,
-      "size": 9231838,
-      "hint": "Two Zulu men explain how to brew umqombothi, traditional Zulu beer.",
-      "attribution": "File:How to brew traditional zulu beer.ogg, recorded by Rebekahn, translation by Thandeka, Wikimedia Commons, CC BY-SA 3.0 / GFDL"
-    },
-    {
-      "id": "lang-malagasy",
-      "label": "Malagasy",
-      "lang": "Malagasy",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/1d/Antemoro_dialect_sample.ogg/Antemoro_dialect_sample.ogg.mp3",
-      "lat": -21.5,
-      "lng": 47.5,
-      "r": 800,
-      "size": 2321142,
-      "hint": "Two women from Namorona in southeast Madagascar, speaking the Antemoro dialect of Malagasy.",
-      "attribution": "File:Antemoro dialect sample.ogg, by Gazetiko, Wikimedia Commons, CC0"
     },
     {
       "id": "lang-russian",
@@ -329,18 +269,6 @@ window.CLIPS = {
       "attribution": "File:Arquebuse.ogg, Michel, Wikimedia Commons, CC BY 3.0"
     },
     {
-      "id": "lang-spanish-colombia",
-      "label": "Spanish (Colombia)",
-      "lang": "Spanish",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/45/Comisi%C3%B3n_de_la_Verdad.wav/Comisi%C3%B3n_de_la_Verdad.wav.mp3",
-      "lat": 4.65,
-      "lng": -74.08,
-      "r": 1500,
-      "size": 4685455,
-      "hint": "The article is about Colombia's Truth Commission, read by a Colombian Wikipedia volunteer.",
-      "attribution": "File:Comisión de la Verdad.wav, Sebaskorrea5, Wikimedia Commons, CC BY-SA 4.0"
-    },
-    {
       "id": "lang-portuguese-brazil",
       "label": "Portuguese (Brazil)",
       "lang": "Portuguese",
@@ -377,18 +305,6 @@ window.CLIPS = {
       "attribution": "File:Sv-Rödeby-article.ogg, Arrowkiwi, Wikimedia Commons, CC BY-SA 3.0"
     },
     {
-      "id": "lang-finnish",
-      "label": "Finnish",
-      "lang": "Finnish",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/17/Fi-Suomi_johdanto.ogg/Fi-Suomi_johdanto.ogg.mp3",
-      "lat": 62,
-      "lng": 26,
-      "r": 400,
-      "size": 2759587,
-      "hint": "The speaker is reading the introduction of the Finnish Wikipedia article about Finland itself.",
-      "attribution": "File:Fi-Suomi johdanto.ogg, Vassilik, Wikimedia Commons, CC BY-SA 3.0"
-    },
-    {
       "id": "lang-hungarian",
       "label": "Hungarian",
       "lang": "Hungarian",
@@ -413,7 +329,8 @@ window.CLIPS = {
       "size": 24002324,
       "wild": true,
       "hint": "A 94-year-old lifelong local telling stories about the holy well behind his house (14:46 total, pick any segment)",
-      "attribution": "Oral history interview by A.-K. D., Wikimedia Commons (File:2024-09-16 Patrick Lalor Ladywell.opus), CC0"
+      "attribution": "Oral history interview by A.-K. D., Wikimedia Commons (File:2024-09-16 Patrick Lalor Ladywell.opus), CC0",
+      "start": 23
     },
     {
       "id": "wild-liverpool-england",
@@ -427,19 +344,6 @@ window.CLIPS = {
       "wild": true,
       "hint": "Comedian reminiscing about school; 33s interview speech",
       "attribution": "BBC Radio 4 Desert Island Discs (24 June 2012), via Wikimedia Commons, CC BY 3.0"
-    },
-    {
-      "id": "wild-linlithgow-central-scotland-uk",
-      "label": "Linlithgow / Central Scotland, UK",
-      "lang": "English",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/77/Alex_Salmond_BBC_Radio4_Desert_Island_Discs_16_January_2011_b00xgs41.flac/Alex_Salmond_BBC_Radio4_Desert_Island_Discs_16_January_2011_b00xgs41.flac.mp3",
-      "lat": 55.9787,
-      "lng": -3.6019,
-      "r": 150,
-      "size": 939138,
-      "wild": true,
-      "hint": "Politician chatting about a Walter Scott book; 33s conversational Scots accent",
-      "attribution": "BBC Radio 4 Desert Island Discs (16 January 2011), via Wikimedia Commons, CC BY 3.0"
     },
     {
       "id": "wild-huddersfield-west-yorkshire-england",
@@ -465,7 +369,8 @@ window.CLIPS = {
       "size": 821961,
       "wild": true,
       "hint": "Actor introducing himself off the cuff, 42s",
-      "attribution": "Bill Oberst Jr., Wikimedia Commons (Voice intro project), CC BY-SA 4.0"
+      "attribution": "Bill Oberst Jr., Wikimedia Commons (Voice intro project), CC BY-SA 4.0",
+      "start": 9
     },
     {
       "id": "wild-the-bronx-new-york-city-usa",
@@ -478,7 +383,8 @@ window.CLIPS = {
       "size": 8515726,
       "wild": true,
       "hint": "Judge telling her life story to the Senate; 7min, NY accent; skip the first ~30s of thank-yous",
-      "attribution": "US Senate Judiciary Committee hearing recording (2009), public domain"
+      "attribution": "US Senate Judiciary Committee hearing recording (2009), public domain",
+      "start": 11
     },
     {
       "id": "wild-boston-massachusetts-usa",
@@ -504,7 +410,8 @@ window.CLIPS = {
       "size": 8728589,
       "wild": true,
       "hint": "PM speaking at Davos; 6.5min, standard Canadian English",
-      "attribution": "World Economic Forum 2012 recording, via Wikimedia Commons, CC BY 3.0"
+      "attribution": "World Economic Forum 2012 recording, via Wikimedia Commons, CC BY 3.0",
+      "start": 4
     },
     {
       "id": "wild-melbourne-australia",
@@ -517,7 +424,8 @@ window.CLIPS = {
       "size": 584236,
       "wild": true,
       "hint": "Musician introducing herself off the cuff, 38s",
-      "attribution": "Recording by Nederlandse Leeuw, Wikimedia Commons, CC BY-SA 4.0"
+      "attribution": "Recording by Nederlandse Leeuw, Wikimedia Commons, CC BY-SA 4.0",
+      "start": 14
     },
     {
       "id": "wild-mvezo-eastern-cape-south-africa",
@@ -530,7 +438,8 @@ window.CLIPS = {
       "size": 10372846,
       "wild": true,
       "hint": "10.7min speech; unmistakable cadence — world-famous voice, may be too easy",
-      "attribution": "White House recording via Clinton Presidential Library, public domain"
+      "attribution": "White House recording via Clinton Presidential Library, public domain",
+      "start": 31
     },
     {
       "id": "wild-mbaise-imo-state-nigeria",
@@ -543,7 +452,8 @@ window.CLIPS = {
       "size": 775885,
       "wild": true,
       "hint": "Activist introducing himself, 48s, strong Nigerian English",
-      "attribution": "Recording by Nederlandse Leeuw, Wikimedia Commons, CC BY-SA 4.0"
+      "attribution": "Recording by Nederlandse Leeuw, Wikimedia Commons, CC BY-SA 4.0",
+      "start": 25
     },
     {
       "id": "wild-amritsar-punjab-india",
@@ -556,20 +466,8 @@ window.CLIPS = {
       "size": 1439078,
       "wild": true,
       "hint": "Indian PM addressing the US Congress, 2.5min. Note: born in pre-Partition Punjab (now Pakistan), raised in Indian Punjab",
-      "attribution": "US Congress joint session recording (2005), public domain"
-    },
-    {
-      "id": "wild-singapore",
-      "label": "Singapore",
-      "lang": "English",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e5/Lawrence_Wong_on_the_Daily_Ketchup_Podcast.ogg/Lawrence_Wong_on_the_Daily_Ketchup_Podcast.ogg.mp3",
-      "lat": 1.3521,
-      "lng": 103.8198,
-      "r": 100,
-      "size": 905683,
-      "wild": true,
-      "hint": "PM chatting casually on a podcast, 45s of Singaporean English",
-      "attribution": "The Daily Ketchup Podcast (2025), via Wikimedia Commons, CC BY 3.0"
+      "attribution": "US Congress joint session recording (2005), public domain",
+      "start": 97
     },
     {
       "id": "wild-texas-hill-country-stonewall-usa",
@@ -621,7 +519,8 @@ window.CLIPS = {
       "size": 17519030,
       "wild": true,
       "hint": "Live unscripted Q&A downlink, 24:18 mp3; opening minutes may include Canadian event hosts (also Ontario voices) before/between Hadfield's long answers. All-English event.",
-      "attribution": "NASA TV, 'Space Station's Hadfield Connects with Canadian Students', Jan 30, 2013, via Internet Archive nasa_tv collection (item nasa_tv-Space_Station_s_Hadfield_Connects_with_Canadian_Students). NASA TV production, U.S. government work, public domain."
+      "attribution": "NASA TV, 'Space Station's Hadfield Connects with Canadian Students', Jan 30, 2013, via Internet Archive nasa_tv collection (item nasa_tv-Space_Station_s_Hadfield_Connects_with_Canadian_Students). NASA TV production, U.S. government work, public domain.",
+      "start": 103
     },
     {
       "id": "acc-london-england",
@@ -878,18 +777,6 @@ window.CLIPS = {
   ],
   "arabic": [
     {
-      "id": "ar-92",
-      "label": "Djelfa, Algeria",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-92.mp3",
-      "lat": 34.67,
-      "lng": 3.25,
-      "r": 350,
-      "size": 481161,
-      "hint": "Local radio from Djelfa — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
       "id": "ar-249",
       "label": "Amman, Jordan",
       "lang": "Arabic",
@@ -899,18 +786,6 @@ window.CLIPS = {
       "r": 350,
       "size": 481210,
       "hint": "Local radio from Amman — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-328",
-      "label": "Fujairah, UAE",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-328.mp3",
-      "lat": 25.13,
-      "lng": 56.33,
-      "r": 350,
-      "size": 798956,
-      "hint": "Local radio from Fujairah — ARCADE corpus.",
       "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
     },
     {
@@ -935,18 +810,6 @@ window.CLIPS = {
       "r": 350,
       "size": 481161,
       "hint": "Local radio from Blida — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-881",
-      "label": "Alexandria, Egypt",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-881.mp3",
-      "lat": 31.2,
-      "lng": 29.92,
-      "r": 350,
-      "size": 446204,
-      "hint": "Local radio from Alexandria — ARCADE corpus.",
       "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
     },
     {
@@ -983,7 +846,8 @@ window.CLIPS = {
       "r": 350,
       "size": 480812,
       "hint": "Local radio from Ramallah — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
+      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution",
+      "start": 5
     },
     {
       "id": "ar-3190",
@@ -1031,18 +895,6 @@ window.CLIPS = {
       "r": 350,
       "size": 481161,
       "hint": "Local radio from Algiers — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-2277",
-      "label": "Damascus, Syria",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-2277.mp3",
-      "lat": 33.51,
-      "lng": 36.29,
-      "r": 350,
-      "size": 552908,
-      "hint": "Local radio from Damascus — ARCADE corpus.",
       "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
     },
     {
@@ -1118,30 +970,6 @@ window.CLIPS = {
       "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
     },
     {
-      "id": "ar-3475",
-      "label": "Sanaa, Yemen",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-3475.mp3",
-      "lat": 15.37,
-      "lng": 44.19,
-      "r": 350,
-      "size": 619340,
-      "hint": "Local radio from Sanaa — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-3658",
-      "label": "Tunis, Tunisia",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-3658.mp3",
-      "lat": 36.81,
-      "lng": 10.18,
-      "r": 350,
-      "size": 557605,
-      "hint": "Local radio from Tunis — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
       "id": "ar-3785",
       "label": "Wad Medani, Sudan",
       "lang": "Arabic",
@@ -1175,19 +1003,8 @@ window.CLIPS = {
       "r": 350,
       "size": 747884,
       "hint": "Local radio from Tripoli — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-2629",
-      "label": "Cairo, Egypt",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-2629.mp3",
-      "lat": 30.04,
-      "lng": 31.24,
-      "r": 350,
-      "size": 803564,
-      "hint": "Local radio from Cairo — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
+      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution",
+      "start": 9
     },
     {
       "id": "ar-39",
@@ -1214,18 +1031,6 @@ window.CLIPS = {
       "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
     },
     {
-      "id": "ar-753",
-      "label": "Fes, Morocco",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-753.mp3",
-      "lat": 34.03,
-      "lng": -5,
-      "r": 350,
-      "size": 754028,
-      "hint": "Local radio from Fes — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
       "id": "ar-1248",
       "label": "Manama, Bahrain",
       "lang": "Arabic",
@@ -1235,18 +1040,6 @@ window.CLIPS = {
       "r": 350,
       "size": 481114,
       "hint": "Local radio from Manama — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-1598",
-      "label": "Casablanca, Morocco",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-1598.mp3",
-      "lat": 33.57,
-      "lng": -7.59,
-      "r": 350,
-      "size": 481363,
-      "hint": "Local radio from Casablanca — ARCADE corpus.",
       "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
     },
     {
@@ -1271,18 +1064,6 @@ window.CLIPS = {
       "r": 350,
       "size": 480620,
       "hint": "Local radio from Port Sudan — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-1902",
-      "label": "El Obeid, Sudan",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-1902.mp3",
-      "lat": 13.18,
-      "lng": 30.22,
-      "r": 350,
-      "size": 480620,
-      "hint": "Local radio from El Obeid — ARCADE corpus.",
       "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
     },
     {
@@ -1334,18 +1115,6 @@ window.CLIPS = {
       "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
     },
     {
-      "id": "ar-3433",
-      "label": "Aleppo, Syria",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-3433.mp3",
-      "lat": 36.2,
-      "lng": 37.13,
-      "r": 350,
-      "size": 772652,
-      "hint": "Local radio from Aleppo — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
       "id": "ar-5408",
       "label": "Taiz, Yemen",
       "lang": "Arabic",
@@ -1355,18 +1124,6 @@ window.CLIPS = {
       "r": 350,
       "size": 591164,
       "hint": "Local radio from Taiz — ARCADE corpus.",
-      "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
-    },
-    {
-      "id": "ar-3735",
-      "label": "Abu Dhabi, UAE",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-3735.mp3",
-      "lat": 24.45,
-      "lng": 54.38,
-      "r": 350,
-      "size": 524876,
-      "hint": "Local radio from Abu Dhabi — ARCADE corpus.",
       "attribution": "ARCADE corpus (RIOTU Lab), CC BY 4.0, via Hugging Face — mirrored with attribution"
     },
     {

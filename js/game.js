@@ -168,10 +168,15 @@ function playClip() {
     return;
   }
   if (clip._offset === undefined) {
-    // long recordings (spoken articles): start somewhere in the first half, past the intro
-    clip._offset = (audio.duration && isFinite(audio.duration) && audio.duration > 90)
-      ? Math.min(15 + Math.random() * audio.duration * 0.4, audio.duration - 30)
-      : 0;
+    if (clip.start !== undefined) {
+      // curated fixed window (e.g. skips a location-revealing intro)
+      clip._offset = clip.start;
+    } else {
+      // long recordings (spoken articles): start somewhere in the first half, past the intro
+      clip._offset = (audio.duration && isFinite(audio.duration) && audio.duration > 90)
+        ? Math.min(15 + Math.random() * audio.duration * 0.4, audio.duration - 30)
+        : 0;
+    }
   }
   audio.currentTime = clip._offset;
   audio.play().then(() => {
