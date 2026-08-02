@@ -50,35 +50,6 @@
     </div>
   </section>
 
-  <!-- ROUND -->
-  <section class="card round" id="roundCard" hidden>
-    <div class="round-head">
-      <span id="roundNum">Round 1/5</span>
-      <span id="scoreSoFar">0 pts</span>
-    </div>
-    <div class="player">
-      <button class="mic-btn play-btn" id="playBtn" aria-label="Play clip">
-        <svg id="playIcon" viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-      </button>
-      <div class="player-meta">
-        <div class="listens" id="listens">3 listens left</div>
-        <div class="player-bar"><div class="player-fill" id="playerFill"></div></div>
-      </div>
-    </div>
-    <p class="live-hint" id="pinHint">tap the map to drop your pin, drag to adjust</p>
-    <button class="stop-btn" id="lockBtn" disabled>lock it in 📍</button>
-  </section>
-
-  <!-- REVEAL -->
-  <section class="card round" id="revealCard" hidden>
-    <p class="result-kicker" id="revealKicker">it was</p>
-    <h2 class="result-region" id="revealLabel"></h2>
-    <p class="result-country" id="revealStats"></p>
-    <p class="reveal-hint" id="revealHint"></p>
-    <p class="attribution" id="revealAttribution"></p>
-    <button class="stop-btn" id="nextBtn">next clip →</button>
-  </section>
-
   <!-- FINAL -->
   <section class="card round" id="finalCard" hidden>
     <p class="result-kicker">final score</p>
@@ -99,6 +70,33 @@
   </section>
 
 </main>
+
+<!-- ROUND: slim top pill + iTunes-style bottom dock — map stays fully free for pinning -->
+<div class="round-pill" id="roundPill" hidden>
+  <span id="roundNum">Round 1/5</span><span class="pill-sep">·</span><span id="scoreSoFar">0 pts</span>
+</div>
+
+<div class="dock" id="dock" hidden>
+  <button class="dock-play" id="playBtn" aria-label="Play clip">
+    <svg id="playIcon" viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+  </button>
+  <div class="dock-mid">
+    <div class="dock-hint" id="pinHint">▶ listen, then tap the map to drop your pin</div>
+    <div class="player-bar"><div class="player-fill" id="playerFill"></div></div>
+    <div class="listens" id="listens">3 listens left</div>
+  </div>
+  <button class="stop-btn dock-lock" id="lockBtn" disabled>lock it 📍</button>
+</div>
+
+<!-- REVEAL: bottom sheet -->
+<div class="sheet" id="sheet" hidden>
+  <p class="result-kicker" id="revealKicker">it was</p>
+  <h2 class="result-region" id="revealLabel"></h2>
+  <p class="result-country" id="revealStats"></p>
+  <p class="reveal-hint" id="revealHint"></p>
+  <p class="attribution" id="revealAttribution"></p>
+  <button class="stop-btn" id="nextBtn">next clip →</button>
+</div>
 
 <div class="toast" id="toast" hidden></div>
 

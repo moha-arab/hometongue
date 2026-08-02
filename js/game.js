@@ -26,11 +26,11 @@ function initMap() {
 }
 
 function onMapClick(e) {
-  if ($('#roundCard').hidden) return; // only during guessing
+  if ($('#dock').hidden) return; // only during guessing
   if (!guessMarker) {
     guessMarker = L.marker(e.latlng, { draggable: true, icon: pinIcon('#ffb24d') }).addTo(map);
     $('#lockBtn').disabled = false;
-    $('#pinHint').textContent = 'drag to adjust, then lock it in';
+    $('#pinHint').textContent = 'drag the pin to adjust, then lock it';
   } else {
     guessMarker.setLatLng(e.latlng);
   }
@@ -79,14 +79,21 @@ function toast(msg) {
   t._timer = setTimeout(() => { t.hidden = true; }, 3000);
 }
 
-const cards = ['pickCard', 'roundCard', 'revealCard', 'finalCard'];
-function show(id) { for (const c of cards) $('#' + c).hidden = c !== id; }
+// Views: 'pick' and 'final' are centered cards; 'round' is pill + bottom dock (map free);
+// 'reveal' is pill + bottom sheet.
+function setView(v) {
+  $('#pickCard').hidden = v !== 'pick';
+  $('#finalCard').hidden = v !== 'final';
+  $('#roundPill').hidden = v !== 'round' && v !== 'reveal';
+  $('#dock').hidden = v !== 'round';
+  $('#sheet').hidden = v !== 'reveal';
+}
 
 // ————— game flow —————
 function startGame(type) {
   const pool = (window.CLIPS && window.CLIPS[type]) || [];
   if (pool.length < ROUNDS) {
-    toast('This mode is still being stocked with clips — try the other one!');
+    toast('This mode is still being stocked with clips — try another one!');
     return;
   }
   gameType = type;
@@ -139,8 +146,8 @@ function nextRound() {
   $('#listens').textContent = `${listensLeft} listens left`;
   $('#playerFill').style.width = '0%';
   $('#lockBtn').disabled = true;
-  $('#pinHint').textContent = 'tap the map to drop your pin, drag to adjust';
-  show('roundCard');
+  $('#pinHint').textContent = '▶ listen, then tap the map to drop your pin';
+  setView('round');
   audio.src = deck[round].url; // preload metadata now so play starts instantly on tap
   audio.load();
 }
@@ -184,14 +191,21 @@ function replacementClip() {
   return pool.length ? pool[Math.floor(Math.random() * pool.length)] : deck[round];
 }
 
+const ICON_PLAY = '<path d="M8 5v14l11-7z"/>';
+const ICON_PAUSE = '<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>';
+function updatePlayIcon() {
+  $('#playIcon').innerHTML = playing ? ICON_PAUSE : ICON_PLAY;
+}
+
 audio.addEventListener('timeupdate', () => {
   if (!playing) return;
   const elapsed = audio.currentTime - playStart;
   $('#playerFill').style.width = `${Math.min(100, (elapsed / CLIP_WINDOW_S) * 100)}%`;
   if (elapsed >= CLIP_WINDOW_S) { audio.pause(); }
 });
-audio.addEventListener('pause', () => { playing = false; });
-audio.addEventListener('ended', () => { playing = false; });
+audio.addEventListener('play', () => { updatePlayIcon(); });
+audio.addEventListener('pause', () => { playing = false; updatePlayIcon(); });
+audio.addEventListener('ended', () => { playing = false; updatePlayIcon(); });
 
 function lockIn() {
   if (!guessMarker) return;
@@ -206,14 +220,15 @@ function lockIn() {
 
   truthMarker = L.marker(truth, { icon: pinIcon('#7ee08a') }).addTo(map);
   line = L.polyline([guess, truth], { color: '#ffb24d', weight: 2, dashArray: '6 8', opacity: 0.8 }).addTo(map);
-  map.fitBounds(L.latLngBounds([guess, truth]).pad(0.35));
+  // keep the arc visible above the bottom sheet
+  map.fitBounds(L.latLngBounds([guess, truth]), { paddingTopLeft: [60, 90], paddingBottomRight: [60, 300] });
 
   $('#revealLabel').textContent = clip.label;
   $('#revealStats').textContent = `${km.toLocaleString()} km away → +${pts.toLocaleString()} pts${pts === 5000 ? ' 🎯' : ''}`;
   $('#revealHint').textContent = clip.hint || '';
   $('#revealAttribution').textContent = clip.attribution;
   $('#nextBtn').textContent = round === ROUNDS - 1 ? 'see final score →' : 'next clip →';
-  show('revealCard');
+  setView('reveal');
 }
 
 function advance() {
@@ -238,7 +253,7 @@ function finishGame() {
   $('#nickRow').hidden = false;
   $('#board').hidden = true;
   $('#submitScore').disabled = false;
-  show('finalCard');
+  setView('final');
 }
 
 async function submitScore() {
@@ -286,10 +301,10 @@ initMap();
 $('#playArabic').onclick = () => startGame('arabic');
 $('#playLangs').onclick = () => startGame('languages');
 $('#playAccents').onclick = () => startGame('accents');
-$('#playBtn').onclick = playClip;
+$('#playBtn').onclick = () => { if (playing) audio.pause(); else playClip(); };
 $('#lockBtn').onclick = lockIn;
 $('#nextBtn').onclick = advance;
 $('#submitScore').onclick = submitScore;
 $('#againSame').onclick = () => startGame(gameType);
-$('#switchType').onclick = () => { clearRoundLayers(); map.fitBounds(WORLD); show('pickCard'); };
+$('#switchType').onclick = () => { clearRoundLayers(); map.fitBounds(WORLD); setView('pick'); };
 $('#nickname').value = localStorage.getItem('ht_nick') || '';
