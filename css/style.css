@@ -46,10 +46,10 @@
   --r-sm: 4px;
   --r: 10px;
 
-  --display: 'Instrument Serif', Georgia, serif;
-  --sans: 'Instrument Sans', system-ui, sans-serif;
+  --display: 'Familjen Grotesk', system-ui, sans-serif;
+  --sans: 'Familjen Grotesk', system-ui, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, monospace;
-  --arabic: 'IBM Plex Sans Arabic', 'Instrument Sans', sans-serif;
+  --arabic: 'IBM Plex Sans Arabic', 'Familjen Grotesk', sans-serif;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -113,7 +113,7 @@ body {
 }
 .logo {
   font-family: var(--display);
-  font-weight: 400; font-size: 26px; letter-spacing: -0.01em;
+  font-weight: 700; font-size: 23px; letter-spacing: -0.035em;
   color: var(--black);
 }
 .logo::after {
@@ -187,15 +187,15 @@ body {
 
 .tagline {
   font-family: var(--display);
-  font-weight: 400; font-size: 52px; line-height: 1.04; letter-spacing: -0.02em;
+  font-weight: 700; font-size: 43px; line-height: 1.06; letter-spacing: -0.035em;
   text-wrap: balance; color: var(--black);
 }
-.tagline .accent { color: var(--accent); display: block; font-style: italic; }
+.tagline .accent { color: var(--accent); display: block; }
 
 .prompt-label { margin-top: 18px; font-size: 13.5px; color: var(--grey); }
 .prompt {
   margin-top: 6px; font-size: 19px; min-height: 28px; color: var(--black);
-  font-family: var(--display); font-weight: 400; font-style: italic;
+  font-weight: 500; color: var(--black-2);
   transition: opacity 0.3s;
 }
 
@@ -297,8 +297,8 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .result-kicker { color: var(--grey-2); }
 .result-region {
   margin-top: 8px;
-  font-family: var(--display); font-weight: 400; font-size: 44px; line-height: 1.06;
-  letter-spacing: -0.02em; color: var(--black); text-wrap: balance;
+  font-family: var(--display); font-weight: 700; font-size: 36px; line-height: 1.08;
+  letter-spacing: -0.035em; color: var(--black); text-wrap: balance;
 }
 .result-country { margin-top: 8px; font-size: 15px; line-height: 1.55; color: var(--black-2); }
 
