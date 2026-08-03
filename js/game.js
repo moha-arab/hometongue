@@ -2,12 +2,25 @@
 const $ = (s) => document.querySelector(s);
 const WORLD = [[-55, -170], [72, 190]];
 const ROUNDS = 5;
-const MAX_LISTENS = 3;
+const LISTEN_BUDGET_S = 60; // seconds of actual listening per round — spend it in any number of plays
 const CLIP_WINDOW_S = 20;
 
-let map, guessMarker = null, truthMarker = null, line = null;
+// One card per deck; decks with fewer than ROUNDS clips show as "stocking" until filled.
+const MODES = [
+  { key: 'arabic', emoji: '🕌', name: 'Arabic Dialects', desc: 'real Arabic from real radio — pin the <em>city</em> it&#39;s from' },
+  { key: 'languages', emoji: '🌍', name: 'World Languages', desc: 'a random language plays — pin it anywhere on Earth' },
+  { key: 'accents', emoji: '🗣️', name: 'English Accents', desc: 'everyone speaks English — pin where <em>they&#39;re</em> from' },
+  { key: 'french', emoji: '🥐', name: 'French', desc: 'Paris or Montréal? Dakar or Brussels? pin the voice' },
+  { key: 'spanish', emoji: '💃', name: 'Spanish', desc: 'Madrid to Mexico City — pin the speaker&#39;s home' },
+  { key: 'chinese', emoji: '🐉', name: 'Chinese', desc: 'Mandarin, Cantonese and cousins — pin the city' },
+  { key: 'hindi-urdu', emoji: '🪷', name: 'Hindi–Urdu', desc: 'one spoken language, two countries — Delhi or Lahore?' },
+  { key: 'portuguese', emoji: '🌊', name: 'Portuguese', desc: 'Lisbon, Rio or Luanda — pin the speaker&#39;s home' },
+  { key: 'russian', emoji: '🪆', name: 'Russian', desc: 'Moscow to Almaty — pin where the speaker grew up' },
+];
+
+let map, guessMarker = null, truthMarker = null, line = null, extraDots = [];
 let gameType = null, deck = [], round = 0, total = 0, roundLog = [];
-let listensLeft = MAX_LISTENS, playing = false, playStart = 0;
+let budgetLeft = LISTEN_BUDGET_S, playing = false, lastTickT = 0;
 
 const audio = $('#clipAudio');
 
@@ -45,8 +58,9 @@ function pinIcon(color) {
 }
 
 function clearRoundLayers() {
-  for (const l of [guessMarker, truthMarker, line]) if (l) map.removeLayer(l);
+  for (const l of [guessMarker, truthMarker, line, ...extraDots]) if (l) map.removeLayer(l);
   guessMarker = truthMarker = line = null;
+  extraDots = [];
 }
 
 // ————— helpers —————
@@ -58,7 +72,10 @@ function haversineKm(a, b) {
 }
 
 // Decay tuned per mode: cities need precision, world languages forgive continental misses.
-const MODE_DECAY = { arabic: 500, accents: 900, languages: 1500 };
+const MODE_DECAY = {
+  arabic: 500, accents: 900, languages: 1500,
+  'hindi-urdu': 500, french: 700, chinese: 700, spanish: 900, portuguese: 900, russian: 900,
+};
 
 function scoreFor(km, radius) {
   if (km <= radius) return 5000;
@@ -140,17 +157,24 @@ function warmDeck() {
   }
 }
 
+function fmtBudget() {
+  const s = Math.ceil(budgetLeft);
+  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')} of listening left`;
+}
+
 function nextRound() {
   clearRoundLayers();
   map.fitBounds(WORLD);
   audio.pause();
   audio.removeAttribute('src');
-  listensLeft = MAX_LISTENS;
+  budgetLeft = LISTEN_BUDGET_S;
   playing = false;
+  lastTickT = 0;
   $('#roundNum').textContent = `Round ${round + 1}/${ROUNDS}`;
   $('#scoreSoFar').textContent = `${total.toLocaleString()} pts`;
-  $('#listens').textContent = `${listensLeft} listens left`;
+  $('#listens').textContent = fmtBudget();
   $('#playerFill').style.width = '0%';
+  $('#playBtn').disabled = false;
   $('#lockBtn').disabled = true;
   $('#pinHint').textContent = '▶ listen, then tap the map to drop your pin';
   setView('round');
@@ -158,8 +182,21 @@ function nextRound() {
   audio.load();
 }
 
+// The playable region is a fixed CLIP_WINDOW_S slice starting at _offset —
+// curated (clip.start, skips location-revealing intros) or random for long recordings.
+function ensureOffset(clip) {
+  if (clip._offset !== undefined) return;
+  if (clip.start !== undefined) {
+    clip._offset = clip.start;
+  } else {
+    clip._offset = (audio.duration && isFinite(audio.duration) && audio.duration > 90)
+      ? Math.min(15 + Math.random() * audio.duration * 0.4, audio.duration - 30)
+      : 0;
+  }
+}
+
 function playClip() {
-  if (playing || listensLeft <= 0) return;
+  if (playing || budgetLeft <= 0) return;
   const clip = deck[round];
   if (!audio.src) { audio.src = clip.url; audio.load(); }
   if (audio.readyState < 1) {
@@ -167,23 +204,14 @@ function playClip() {
     audio.addEventListener('loadedmetadata', playClip, { once: true });
     return;
   }
-  if (clip._offset === undefined) {
-    if (clip.start !== undefined) {
-      // curated fixed window (e.g. skips a location-revealing intro)
-      clip._offset = clip.start;
-    } else {
-      // long recordings (spoken articles): start somewhere in the first half, past the intro
-      clip._offset = (audio.duration && isFinite(audio.duration) && audio.duration > 90)
-        ? Math.min(15 + Math.random() * audio.duration * 0.4, audio.duration - 30)
-        : 0;
-    }
+  ensureOffset(clip);
+  // resume where the scrubber sits; rewind only if outside the window or at its end
+  if (audio.currentTime < clip._offset || audio.currentTime >= clip._offset + CLIP_WINDOW_S - 0.3) {
+    audio.currentTime = clip._offset;
   }
-  audio.currentTime = clip._offset;
   audio.play().then(() => {
     playing = true;
-    playStart = clip._offset;
-    listensLeft -= 1; // a listen only counts once sound actually starts
-    $('#listens').textContent = `${listensLeft} listen${listensLeft === 1 ? '' : 's'} left`;
+    lastTickT = audio.currentTime;
   }).catch((e) => {
     playing = false;
     if (e && e.name === 'NotAllowedError') {
@@ -208,35 +236,92 @@ function updatePlayIcon() {
   $('#playIcon').innerHTML = playing ? ICON_PAUSE : ICON_PLAY;
 }
 
+function updateFill() {
+  const clip = deck[round];
+  if (!clip || clip._offset === undefined) return;
+  const elapsed = audio.currentTime - clip._offset;
+  $('#playerFill').style.width = `${Math.min(100, Math.max(0, elapsed / CLIP_WINDOW_S) * 100)}%`;
+}
+
 audio.addEventListener('timeupdate', () => {
+  const clip = deck[round];
+  if (!clip || clip._offset === undefined) return;
+  updateFill();
   if (!playing) return;
-  const elapsed = audio.currentTime - playStart;
-  $('#playerFill').style.width = `${Math.min(100, (elapsed / CLIP_WINDOW_S) * 100)}%`;
-  if (elapsed >= CLIP_WINDOW_S) { audio.pause(); }
+  // the timer only burns while sound is actually playing; seeks don't cost anything
+  const delta = audio.currentTime - lastTickT;
+  if (delta > 0 && delta < 1.5) {
+    budgetLeft = Math.max(0, budgetLeft - delta);
+    $('#listens').textContent = fmtBudget();
+  }
+  lastTickT = audio.currentTime;
+  if (audio.currentTime - clip._offset >= CLIP_WINDOW_S) { audio.pause(); return; }
+  if (budgetLeft <= 0) {
+    audio.pause();
+    $('#playBtn').disabled = true;
+    $('#listens').textContent = 'listening time up — trust your ear, drop the pin';
+  }
 });
+audio.addEventListener('seeked', () => { lastTickT = audio.currentTime; updateFill(); });
 audio.addEventListener('play', () => { updatePlayIcon(); });
 audio.addEventListener('pause', () => { playing = false; updatePlayIcon(); });
 audio.addEventListener('ended', () => { playing = false; updatePlayIcon(); });
+
+// ————— scrubber: tap or drag anywhere on the bar to move inside the playable window —————
+const playerBar = $('#playerBar');
+let scrubbing = false;
+function scrubTo(clientX) {
+  const clip = deck[round];
+  if (!clip || audio.readyState < 1) return;
+  ensureOffset(clip);
+  const rect = playerBar.getBoundingClientRect();
+  if (!rect.width) return;
+  const frac = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+  const windowLen = Math.min(CLIP_WINDOW_S, (isFinite(audio.duration) ? audio.duration : Infinity) - clip._offset);
+  const target = clip._offset + frac * Math.max(0, windowLen - 0.1);
+  if (isFinite(target)) audio.currentTime = target;
+}
+playerBar.addEventListener('pointerdown', (e) => {
+  scrubbing = true;
+  try { playerBar.setPointerCapture(e.pointerId); } catch { /* capture is a nicety, seeking is the point */ }
+  scrubTo(e.clientX);
+});
+playerBar.addEventListener('pointermove', (e) => { if (scrubbing) scrubTo(e.clientX); });
+playerBar.addEventListener('pointerup', () => { scrubbing = false; });
+playerBar.addEventListener('pointercancel', () => { scrubbing = false; });
 
 function lockIn() {
   if (!guessMarker) return;
   audio.pause();
   const clip = deck[round];
   const guess = guessMarker.getLatLng();
-  const truth = { lat: clip.lat, lng: clip.lng };
-  const km = Math.round(haversineKm(guess, truth));
+  // Pluricentric languages accept any listed home region — you're scored to the nearest one.
+  const centers = [{ lat: clip.lat, lng: clip.lng, name: clip.label, primary: true }, ...(clip.alt || [])];
+  let best = centers[0], bestKm = haversineKm(guess, centers[0]);
+  for (const c of centers.slice(1)) {
+    const d = haversineKm(guess, c);
+    if (d < bestKm) { best = c; bestKm = d; }
+  }
+  const km = Math.round(bestKm);
   const pts = scoreFor(km, clip.r);
   total += pts;
   $('#scoreSoFar').textContent = `${total.toLocaleString()} pts`; // pill reflects the round immediately
   roundLog.push({ id: clip.id, label: clip.label, km, pts });
 
+  const truth = { lat: best.lat, lng: best.lng };
   truthMarker = L.marker(truth, { icon: pinIcon('#7ee08a') }).addTo(map);
+  for (const c of centers) {
+    if (c === best) continue;
+    extraDots.push(L.circleMarker([c.lat, c.lng], { radius: 6, color: '#7ee08a', weight: 2, fillColor: '#7ee08a', fillOpacity: 0.25 })
+      .addTo(map).bindTooltip(c.name));
+  }
   line = L.polyline([guess, truth], { color: '#ffb24d', weight: 2, dashArray: '6 8', opacity: 0.8 }).addTo(map);
   // keep the arc visible above the bottom sheet
   map.fitBounds(L.latLngBounds([guess, truth]), { paddingTopLeft: [60, 90], paddingBottomRight: [60, 300] });
 
   $('#revealLabel').textContent = clip.label;
-  $('#revealStats').textContent = `${km.toLocaleString()} km away → +${pts.toLocaleString()} pts${pts === 5000 ? ' 🎯' : ''}`;
+  const altNote = best.primary ? '' : ` · scored to ${best.name} — ${clip.lang} lives there too`;
+  $('#revealStats').textContent = `${km.toLocaleString()} km away → +${pts.toLocaleString()} pts${pts === 5000 ? ' 🎯' : ''}${altNote}`;
   $('#revealHint').textContent = clip.hint || '';
   $('#revealAttribution').textContent = clip.attribution;
   $('#nextBtn').textContent = round === ROUNDS - 1 ? 'see final score →' : 'next clip →';
@@ -308,11 +393,23 @@ function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
+function renderModeCards() {
+  const grid = $('#typeGrid');
+  grid.innerHTML = '';
+  for (const m of MODES) {
+    const pool = (window.CLIPS && window.CLIPS[m.key]) || [];
+    const ready = pool.length >= ROUNDS;
+    const b = document.createElement('button');
+    b.className = 'type-btn' + (ready ? '' : ' soon');
+    b.innerHTML = `<span class="type-emoji">${m.emoji}</span><span class="type-name">${m.name}</span><span class="type-desc">${m.desc}</span>${ready ? '' : '<span class="type-soon-note">stocking clips…</span>'}`;
+    if (ready) b.onclick = () => startGame(m.key);
+    grid.appendChild(b);
+  }
+}
+
 // ————— wire up —————
 initMap();
-$('#playArabic').onclick = () => startGame('arabic');
-$('#playLangs').onclick = () => startGame('languages');
-$('#playAccents').onclick = () => startGame('accents');
+renderModeCards();
 $('#playBtn').onclick = () => { if (playing) audio.pause(); else playClip(); };
 $('#lockBtn').onclick = lockIn;
 $('#nextBtn').onclick = advance;

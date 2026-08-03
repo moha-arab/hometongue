@@ -38,7 +38,19 @@ window.CLIPS = {
       "r": 1500,
       "size": 29750113,
       "hint": "A Persian Wikipedia reading of the article on Nowruz, the Persian New Year (~30 min).",
-      "attribution": "File:Nowruz-fa.ogg, Mehdi at Persian Wikipedia and fa.wikipedia contributors, CC BY-SA 3.0, Wikimedia Commons"
+      "attribution": "File:Nowruz-fa.ogg, Mehdi at Persian Wikipedia and fa.wikipedia contributors, CC BY-SA 3.0, Wikimedia Commons",
+      "alt": [
+        {
+          "name": "Kabul, Afghanistan (Dari)",
+          "lat": 34.5553,
+          "lng": 69.2075
+        },
+        {
+          "name": "Dushanbe, Tajikistan (Tajik)",
+          "lat": 38.5598,
+          "lng": 68.787
+        }
+      ]
     },
     {
       "id": "lang-hindi",
@@ -50,7 +62,14 @@ window.CLIPS = {
       "r": 800,
       "size": 11270282,
       "hint": "A Hindi Wikipedia reading about the Indo-European language family (~15.5 min).",
-      "attribution": "File:Hi-Hind-Europiya bhaashaa parivaar part1.ogg, Magicalsaumy at hi.wikipedia, CC BY-SA 3.0, Wikimedia Commons"
+      "attribution": "File:Hi-Hind-Europiya bhaashaa parivaar part1.ogg, Magicalsaumy at hi.wikipedia, CC BY-SA 3.0, Wikimedia Commons",
+      "alt": [
+        {
+          "name": "Delhi, India",
+          "lat": 28.6139,
+          "lng": 77.209
+        }
+      ]
     },
     {
       "id": "lang-bengali",
@@ -62,7 +81,14 @@ window.CLIPS = {
       "r": 400,
       "size": 547757,
       "hint": "A Bengali explanation of dengue fever symptoms, recorded at a 2012 Spoken Wikipedia workshop (~71s).",
-      "attribution": "File:Dengue Bengali symptoms.ogg, Priyanka Nag, CC BY-SA 3.0, Wikimedia Commons"
+      "attribution": "File:Dengue Bengali symptoms.ogg, Priyanka Nag, CC BY-SA 3.0, Wikimedia Commons",
+      "alt": [
+        {
+          "name": "Dhaka, Bangladesh",
+          "lat": 23.8103,
+          "lng": 90.4125
+        }
+      ]
     },
     {
       "id": "lang-thai",
@@ -110,7 +136,14 @@ window.CLIPS = {
       "r": 500,
       "size": 5442614,
       "hint": "A LibriVox reading of \"Piano\", a 1920s short story by colonial-era writer Hyun Jin-geon.",
-      "attribution": "File:LibriVox - 현진건 피아노.ogg, read by Jessie Yun for LibriVox, Wikimedia Commons, Public domain"
+      "attribution": "File:LibriVox - 현진건 피아노.ogg, read by Jessie Yun for LibriVox, Wikimedia Commons, Public domain",
+      "alt": [
+        {
+          "name": "Pyongyang, North Korea",
+          "lat": 39.0392,
+          "lng": 125.7625
+        }
+      ]
     },
     {
       "id": "lang-mandarin-chinese",
@@ -122,7 +155,19 @@ window.CLIPS = {
       "r": 1500,
       "size": 27007306,
       "hint": "A spoken Wikipedia recording of the article about the People's Republic of China.",
-      "attribution": "File:Zh-PRC-Part1.ogg, spoken by Blueberry Yogurt, Wikimedia Commons, CC BY-SA 3.0"
+      "attribution": "File:Zh-PRC-Part1.ogg, spoken by Blueberry Yogurt, Wikimedia Commons, CC BY-SA 3.0",
+      "alt": [
+        {
+          "name": "Taipei, Taiwan",
+          "lat": 25.033,
+          "lng": 121.5654
+        },
+        {
+          "name": "Singapore",
+          "lat": 1.3521,
+          "lng": 103.8198
+        }
+      ]
     },
     {
       "id": "lang-indonesian",
@@ -158,7 +203,19 @@ window.CLIPS = {
       "r": 1200,
       "size": 5929113,
       "hint": "A VOA Swahili radio feature about diseases that had major impact on Africa.",
-      "attribution": "Voice of America Swahili Service (voaswahili.com), U.S. government work, public domain"
+      "attribution": "Voice of America Swahili Service (voaswahili.com), U.S. government work, public domain",
+      "alt": [
+        {
+          "name": "Dar es Salaam, Tanzania",
+          "lat": -6.7924,
+          "lng": 39.2083
+        },
+        {
+          "name": "Nairobi, Kenya",
+          "lat": -1.2864,
+          "lng": 36.8172
+        }
+      ]
     },
     {
       "id": "lang-amharic",
@@ -182,7 +239,19 @@ window.CLIPS = {
       "r": 800,
       "size": 1277318,
       "hint": "Sheikh Ahmed Nur giving a speech in Standard Somali, broadcast on Somali TV in 2012.",
-      "attribution": "File:Shaxmednuradc1.ogg, SOMTV, Wikimedia Commons, CC BY-SA 3.0"
+      "attribution": "File:Shaxmednuradc1.ogg, SOMTV, Wikimedia Commons, CC BY-SA 3.0",
+      "alt": [
+        {
+          "name": "Hargeisa, Somaliland",
+          "lat": 9.56,
+          "lng": 44.065
+        },
+        {
+          "name": "Djibouti City, Djibouti",
+          "lat": 11.5721,
+          "lng": 43.1456
+        }
+      ]
     },
     {
       "id": "lang-hausa",
@@ -194,7 +263,14 @@ window.CLIPS = {
       "r": 800,
       "size": 13539544,
       "hint": "A Hausa Wikipedia article read aloud by a native speaker; Hausa is West Africa's biggest trade language.",
-      "attribution": "File:Yan Ghana A Jamus.ogg, spoken by DaSupremo (Hausa Wikipedia), Wikimedia Commons, CC BY-SA 3.0"
+      "attribution": "File:Yan Ghana A Jamus.ogg, spoken by DaSupremo (Hausa Wikipedia), Wikimedia Commons, CC BY-SA 3.0",
+      "alt": [
+        {
+          "name": "Niamey, Niger",
+          "lat": 13.5116,
+          "lng": 2.1254
+        }
+      ]
     },
     {
       "id": "lang-russian",
@@ -206,7 +282,24 @@ window.CLIPS = {
       "r": 1500,
       "size": 4165311,
       "hint": "The article being read is the Russian Wikipedia page about the video game Apex Legends.",
-      "attribution": "File:Ru-Apex Legends.ogg, speaker Sergey Nikolaev V., Wikimedia Commons, CC BY-SA 3.0"
+      "attribution": "File:Ru-Apex Legends.ogg, speaker Sergey Nikolaev V., Wikimedia Commons, CC BY-SA 3.0",
+      "alt": [
+        {
+          "name": "Minsk, Belarus",
+          "lat": 53.9006,
+          "lng": 27.559
+        },
+        {
+          "name": "Almaty, Kazakhstan",
+          "lat": 43.222,
+          "lng": 76.8512
+        },
+        {
+          "name": "Bishkek, Kyrgyzstan",
+          "lat": 42.8746,
+          "lng": 74.5698
+        }
+      ]
     },
     {
       "id": "lang-ukrainian",
@@ -242,7 +335,14 @@ window.CLIPS = {
       "r": 400,
       "size": 7772568,
       "hint": "The article being read is about chaos theory (Θεωρία του Χάους).",
-      "attribution": "File:Ell-article-Theoria tou Haous.ogg, GPoul, Wikimedia Commons, CC BY-SA 3.0"
+      "attribution": "File:Ell-article-Theoria tou Haous.ogg, GPoul, Wikimedia Commons, CC BY-SA 3.0",
+      "alt": [
+        {
+          "name": "Nicosia, Cyprus",
+          "lat": 35.1856,
+          "lng": 33.3823
+        }
+      ]
     },
     {
       "id": "lang-german",
@@ -254,7 +354,19 @@ window.CLIPS = {
       "r": 600,
       "size": 4744205,
       "hint": "The article is about the Ahlemer Turm, a historic tower in Hanover.",
-      "attribution": "File:De-Ahlemer Turm.ogg, speaker Jonsonr, Wikimedia Commons, CC BY-SA 4.0"
+      "attribution": "File:De-Ahlemer Turm.ogg, speaker Jonsonr, Wikimedia Commons, CC BY-SA 4.0",
+      "alt": [
+        {
+          "name": "Vienna, Austria",
+          "lat": 48.2082,
+          "lng": 16.3738
+        },
+        {
+          "name": "Zürich, Switzerland",
+          "lat": 47.3769,
+          "lng": 8.5417
+        }
+      ]
     },
     {
       "id": "lang-french",
@@ -266,7 +378,39 @@ window.CLIPS = {
       "r": 1500,
       "size": 6732125,
       "hint": "The article is about the arquebus, an early gunpowder firearm.",
-      "attribution": "File:Arquebuse.ogg, Michel, Wikimedia Commons, CC BY 3.0"
+      "attribution": "File:Arquebuse.ogg, Michel, Wikimedia Commons, CC BY 3.0",
+      "alt": [
+        {
+          "name": "Montréal, Canada",
+          "lat": 45.5019,
+          "lng": -73.5674
+        },
+        {
+          "name": "Brussels, Belgium",
+          "lat": 50.8503,
+          "lng": 4.3517
+        },
+        {
+          "name": "Geneva, Switzerland",
+          "lat": 46.2044,
+          "lng": 6.1432
+        },
+        {
+          "name": "Dakar, Senegal",
+          "lat": 14.7167,
+          "lng": -17.4677
+        },
+        {
+          "name": "Kinshasa, DR Congo",
+          "lat": -4.4419,
+          "lng": 15.2663
+        },
+        {
+          "name": "Abidjan, Côte d’Ivoire",
+          "lat": 5.36,
+          "lng": -4.0083
+        }
+      ]
     },
     {
       "id": "lang-portuguese-brazil",
@@ -278,7 +422,24 @@ window.CLIPS = {
       "r": 1500,
       "size": 4787500,
       "hint": "This is explicitly the Rio de Janeiro accent version of the article on Slavs of Asia Minor.",
-      "attribution": "File:Eslavos da Ásia Menor versão RJ.ogg, Eduardo P, Wikimedia Commons, CC BY-SA 3.0"
+      "attribution": "File:Eslavos da Ásia Menor versão RJ.ogg, Eduardo P, Wikimedia Commons, CC BY-SA 3.0",
+      "alt": [
+        {
+          "name": "Lisbon, Portugal",
+          "lat": 38.7223,
+          "lng": -9.1393
+        },
+        {
+          "name": "Luanda, Angola",
+          "lat": -8.839,
+          "lng": 13.2894
+        },
+        {
+          "name": "Maputo, Mozambique",
+          "lat": -25.9692,
+          "lng": 32.5732
+        }
+      ]
     },
     {
       "id": "lang-italian",
@@ -290,7 +451,14 @@ window.CLIPS = {
       "r": 500,
       "size": 2868482,
       "hint": "The article is about Fonni, the highest-altitude town on the island of Sardinia.",
-      "attribution": "File:Itwiki-Fonni.ogg, IDany97, Wikimedia Commons, CC BY-SA 4.0"
+      "attribution": "File:Itwiki-Fonni.ogg, IDany97, Wikimedia Commons, CC BY-SA 4.0",
+      "alt": [
+        {
+          "name": "Lugano, Switzerland",
+          "lat": 46.0037,
+          "lng": 8.9511
+        }
+      ]
     },
     {
       "id": "lang-swedish",
@@ -311,7 +479,7 @@ window.CLIPS = {
       "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3c/HunArtTorokorszag.ogg/HunArtTorokorszag.ogg.mp3",
       "lat": 47.5,
       "lng": 19.05,
-      "r": 300,
+      "r": 400,
       "size": 7503872,
       "hint": "A Hungarian reading of the Wikipedia article about Turkey (Törökország).",
       "attribution": "File:HunArtTorokorszag.ogg, Wikimedia Commons, CC BY-SA 3.0"

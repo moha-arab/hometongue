@@ -31,23 +31,7 @@
   <section class="card" id="pickCard">
     <h1 class="tagline">Hear it.<br><span class="accent">Pin where it's from.</span></h1>
     <p class="prompt-label">Five clips, five pins. Points for distance — 5,000 max per round.</p>
-    <div class="type-grid">
-      <button class="type-btn" id="playArabic">
-        <span class="type-emoji">🕌</span>
-        <span class="type-name">Arabic Dialects</span>
-        <span class="type-desc">real Arabic from real radio — pin the <em>city</em> it's from</span>
-      </button>
-      <button class="type-btn" id="playLangs">
-        <span class="type-emoji">🌍</span>
-        <span class="type-name">World Languages</span>
-        <span class="type-desc">a random language plays — pin it anywhere on Earth</span>
-      </button>
-      <button class="type-btn" id="playAccents">
-        <span class="type-emoji">🗣️</span>
-        <span class="type-name">English Accents</span>
-        <span class="type-desc">everyone speaks English — pin where <em>they're</em> from</span>
-      </button>
-    </div>
+    <div class="type-grid" id="typeGrid"></div>
   </section>
 
   <!-- FINAL -->
@@ -82,8 +66,8 @@
   </button>
   <div class="dock-mid">
     <div class="dock-hint" id="pinHint">▶ listen, then tap the map to drop your pin</div>
-    <div class="player-bar"><div class="player-fill" id="playerFill"></div></div>
-    <div class="listens" id="listens">3 listens left</div>
+    <div class="player-hit" id="playerBar"><div class="player-bar"><div class="player-fill" id="playerFill"></div></div></div>
+    <div class="listens" id="listens">1:00 of listening left</div>
   </div>
   <button class="stop-btn dock-lock" id="lockBtn" disabled>lock it 📍</button>
 </div>

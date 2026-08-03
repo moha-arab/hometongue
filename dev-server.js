@@ -23,6 +23,7 @@ const { default: scores } = await import('./api/scores.js');
 const MIME = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript',
   '.json': 'application/json', '.png': 'image/png', '.svg': 'image/svg+xml', '.ico': 'image/x-icon',
+  '.mp3': 'audio/mpeg', '.ogg': 'audio/ogg', '.opus': 'audio/ogg', '.m4a': 'audio/mp4', '.wav': 'audio/wav',
 };
 
 http.createServer(async (req, res) => {
@@ -35,6 +36,23 @@ http.createServer(async (req, res) => {
   if (!file.startsWith(ROOT) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {
     res.writeHead(404); return res.end('not found');
   }
-  res.writeHead(200, { 'Content-Type': MIME[path.extname(file)] || 'application/octet-stream' });
+  // Range support: <audio> seeking needs it (Vercel/CDN give it for free in prod)
+  const type = MIME[path.extname(file)] || 'application/octet-stream';
+  const total = fs.statSync(file).size;
+  const range = /^bytes=(\d*)-(\d*)$/.exec(req.headers.range || '');
+  if (range) {
+    const start = range[1] ? parseInt(range[1], 10) : Math.max(0, total - parseInt(range[2], 10));
+    const end = range[1] && range[2] ? Math.min(parseInt(range[2], 10), total - 1) : total - 1;
+    if (start >= total || start > end) {
+      res.writeHead(416, { 'Content-Range': `bytes */${total}` });
+      return res.end();
+    }
+    res.writeHead(206, {
+      'Content-Type': type, 'Accept-Ranges': 'bytes',
+      'Content-Range': `bytes ${start}-${end}/${total}`, 'Content-Length': end - start + 1,
+    });
+    return fs.createReadStream(file, { start, end }).pipe(res);
+  }
+  res.writeHead(200, { 'Content-Type': type, 'Accept-Ranges': 'bytes', 'Content-Length': total });
   fs.createReadStream(file).pipe(res);
 }).listen(PORT, () => console.log(`hometongue dev server: http://localhost:${PORT} (keys: groq=${!!process.env.GROQ_API_KEY} anthropic=${!!process.env.ANTHROPIC_API_KEY})`));
