@@ -6,22 +6,22 @@
 :root {
   color-scheme: light;
 
-  --paper: #ECEFEC;      /* chart ground — cool grey-green, deliberately not white or cream */
-  --paper-2: #E3E8E5;    /* recessed */
-  --surface: #FAFBFA;    /* panels */
+  --paper: #DFE5E2;      /* chart ground — cool grey-green, deliberately not white or cream */
+  --paper-2: #D2DAD6;    /* recessed */
+  --surface: #FBFCFB;    /* panels sit clearly above the ground */
   --ink: #121A1C;        /* near-black, blue-green bias */
   --ink-soft: #2C3A3C;
   --slate: #5D6B6F;      /* secondary text */
   --slate-2: #889696;
-  --rule: #CCD5D3;       /* hairlines */
-  --rule-soft: #DFE5E2;
+  --rule: #BCC8C4;       /* hairlines */
+  --rule-soft: #D6DEDA;
   --brand: #145C55;      /* petrol — structure, links, the true answer */
   --brand-soft: #E0EBE8;
   --mark: #C43D2B;       /* survey red — only for marks the player makes */
   --mark-soft: #F6E4E0;
 
   --shadow-1: 0 1px 2px rgba(18, 26, 28, 0.06), 0 8px 24px -12px rgba(18, 26, 28, 0.18);
-  --shadow-2: 0 2px 4px rgba(18, 26, 28, 0.06), 0 24px 48px -20px rgba(18, 26, 28, 0.30);
+  --shadow-2: 0 2px 6px rgba(18, 26, 28, 0.08), 0 24px 48px -18px rgba(18, 26, 28, 0.38);
 
   --r-sm: 4px;
   --r: 6px;
@@ -65,12 +65,14 @@ body {
 }
 
 /* ——— map ——— */
-#map { position: fixed; inset: 0; z-index: 0; background: var(--paper-2); filter: saturate(0.72); }
+#map { position: fixed; inset: 0; z-index: 0; background: var(--paper-2); filter: saturate(0.8) contrast(1.1) brightness(0.94); }
 
 /* A soft edge so panels sit on the chart without a heavy vignette. */
 .vignette {
   position: fixed; inset: 0; z-index: 1; pointer-events: none;
   background:
+    /* a flat wash so the basemap's near-white landmasses sit back behind the panels */
+    linear-gradient(color-mix(in srgb, var(--paper) 30%, transparent), color-mix(in srgb, var(--paper) 30%, transparent)),
     linear-gradient(to bottom, color-mix(in srgb, var(--paper) 78%, transparent), transparent 20%,
                     transparent 74%, color-mix(in srgb, var(--paper) 72%, transparent));
 }
