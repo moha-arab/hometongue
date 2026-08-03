@@ -25,6 +25,7 @@ let gameType = null, deck = [], round = 0, total = 0, roundLog = [];
 let budgetLeft = LISTEN_BUDGET_S, playing = false, lastTickT = 0;
 
 const audio = $('#clipAudio');
+const media = window.HT.media(audio, 'ytMount');
 const field = window.HT.contours();
 
 // ————— map —————
@@ -173,8 +174,7 @@ function fmtBudget() {
 function nextRound() {
   clearRoundLayers();
   map.fitBounds(WORLD);
-  audio.pause();
-  audio.removeAttribute('src');
+  media.clear();
   budgetLeft = LISTEN_BUDGET_S;
   playing = false;
   lastTickT = 0;
@@ -190,8 +190,7 @@ function nextRound() {
   era.hidden = !(y && y < 1990);
   if (!era.hidden) era.textContent = `archival recording · ${y} — accents move`;
   setView('round');
-  audio.src = deck[round].url; // preload metadata now so play starts instantly on tap
-  audio.load();
+  media.load(deck[round]); // preload now so play starts instantly on tap
 }
 
 // The playable region is a fixed CLIP_WINDOW_S slice starting at _offset —
@@ -201,8 +200,9 @@ function ensureOffset(clip) {
   if (clip.start !== undefined) {
     clip._offset = clip.start;
   } else {
-    clip._offset = (audio.duration && isFinite(audio.duration) && audio.duration > 90)
-      ? Math.min(15 + Math.random() * audio.duration * 0.4, audio.duration - 30)
+    const dur = media.duration();
+    clip._offset = (dur && isFinite(dur) && dur > 90)
+      ? Math.min(15 + Math.random() * dur * 0.4, dur - 30)
       : 0;
   }
 }
@@ -210,20 +210,19 @@ function ensureOffset(clip) {
 function playClip() {
   if (playing || budgetLeft <= 0) return;
   const clip = deck[round];
-  if (!audio.src) { audio.src = clip.url; audio.load(); }
-  if (audio.readyState < 1) {
+  if (!media.ready()) {
     toast('Clip is loading — one sec…');
-    audio.addEventListener('loadedmetadata', playClip, { once: true });
+    media.whenReady(playClip);
     return;
   }
   ensureOffset(clip);
   // resume where the scrubber sits; rewind only if outside the window or at its end
-  if (audio.currentTime < clip._offset || audio.currentTime >= clip._offset + CLIP_WINDOW_S - 0.3) {
-    audio.currentTime = clip._offset;
+  if (media.time() < clip._offset || media.time() >= clip._offset + CLIP_WINDOW_S - 0.3) {
+    media.seek(clip._offset);
   }
-  audio.play().then(() => {
+  media.play().then(() => {
     playing = true;
-    lastTickT = audio.currentTime;
+    lastTickT = media.time();
   }).catch((e) => {
     playing = false;
     if (e && e.name === 'NotAllowedError') {
@@ -231,7 +230,7 @@ function playClip() {
     } else {
       toast('That clip refused to play — swapping it for you.');
       deck[round] = replacementClip();
-      audio.removeAttribute('src');
+      media.clear();
     }
   });
 }
@@ -256,7 +255,7 @@ let rafId = 0;
 function updateFill() {
   const clip = deck[round];
   if (!clip || clip._offset === undefined) return;
-  const elapsed = dragFrac !== null ? dragFrac * CLIP_WINDOW_S : audio.currentTime - clip._offset;
+  const elapsed = dragFrac !== null ? dragFrac * CLIP_WINDOW_S : media.time() - clip._offset;
   const pct = Math.min(100, Math.max(0, elapsed / CLIP_WINDOW_S) * 100);
   $('#playerFill').style.width = `${pct}%`;
   $('#playerThumb').style.left = `${pct}%`;
@@ -285,18 +284,18 @@ function stopRaf() {
 // 'seeked' event, so a hand-rolled flag gets stuck true and silently breaks everything after it.
 let seekPending = null;
 function seekTo(t) {
-  if (audio.seeking) { seekPending = t; return; }
+  if (media.seeking()) { seekPending = t; return; }
   seekPending = null;
   // Move the budget baseline BEFORE the element's clock jumps. Otherwise the timeupdate that
   // follows sees a jump it can't distinguish from playback and charges you for scrubbing.
   lastTickT = t;
-  audio.currentTime = t;
+  media.seek(t);
 }
 function flushSeek() {
-  if (seekPending !== null && !audio.seeking) { const t = seekPending; seekPending = null; seekTo(t); }
+  if (seekPending !== null && !media.seeking()) { const t = seekPending; seekPending = null; seekTo(t); }
 }
-audio.addEventListener('seeked', () => {
-  lastTickT = audio.currentTime;
+media.on('seeked', () => {
+  lastTickT = media.time();
   flushSeek();
   updateFill();
 });
@@ -304,55 +303,56 @@ audio.addEventListener('seeked', () => {
 // Nudge the playhead within the window; used by the ±5s buttons and arrow keys.
 function seekBy(delta) {
   const clip = deck[round];
-  if (!clip || audio.readyState < 1) return;
+  if (!clip || !media.ready()) return;
   ensureOffset(clip);
   const max = clip._offset + CLIP_WINDOW_S - 0.2;
-  seekTo(Math.min(max, Math.max(clip._offset, audio.currentTime + delta)));
+  seekTo(Math.min(max, Math.max(clip._offset, media.time() + delta)));
   updateFill();
 }
 
-audio.addEventListener('timeupdate', () => {
+media.on('timeupdate', () => {
   const clip = deck[round];
   if (!clip || clip._offset === undefined) return;
   updateFill();
   if (!playing) return;
-  if (audio.seeking) { lastTickT = audio.currentTime; flushSeek(); return; } // mid-seek: free
+  if (media.seeking()) { lastTickT = media.time(); flushSeek(); return; } // mid-seek: free
   flushSeek();
   // the timer only burns while sound is actually playing; seeks don't cost anything
-  const delta = audio.currentTime - lastTickT;
+  const delta = media.time() - lastTickT;
   if (delta > 0 && delta < 1.5) {
     budgetLeft = Math.max(0, budgetLeft - delta);
     $('#listens').textContent = fmtBudget();
   }
-  lastTickT = audio.currentTime;
-  if (audio.currentTime - clip._offset >= CLIP_WINDOW_S) { audio.pause(); return; }
+  lastTickT = media.time();
+  if (media.time() - clip._offset >= CLIP_WINDOW_S) { media.pause(); return; }
   if (budgetLeft <= 0) {
-    audio.pause();
+    media.pause();
     $('#playBtn').disabled = true;
     $('#listens').textContent = 'listening time up — trust your ear, drop the pin';
   }
 });
-audio.addEventListener('play', () => {
+media.on('play', () => {
   updatePlayIcon(); startRaf();
   const b = $('#playBtn').getBoundingClientRect();
   field.pulse(b.left + b.width / 2, b.top + b.height / 2, 1);
 });
-audio.addEventListener('pause', () => { playing = false; updatePlayIcon(); stopRaf(); });
-audio.addEventListener('ended', () => { playing = false; updatePlayIcon(); stopRaf(); });
+media.on('pause', () => { playing = false; updatePlayIcon(); stopRaf(); });
+media.on('ended', () => { playing = false; updatePlayIcon(); stopRaf(); });
 
 // ————— scrubber: tap or drag anywhere on the bar to move inside the playable window —————
 const playerBar = $('#playerBar');
 let scrubbing = false;
 function scrubTo(clientX) {
   const clip = deck[round];
-  if (!clip || audio.readyState < 1) return;
+  if (!clip || !media.ready()) return;
   ensureOffset(clip);
   const rect = playerBar.getBoundingClientRect();
   if (!rect.width) return;
   const frac = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
   dragFrac = frac;          // paint here immediately
   updateFill();
-  const windowLen = Math.min(CLIP_WINDOW_S, (isFinite(audio.duration) ? audio.duration : Infinity) - clip._offset);
+  const d = media.duration();
+  const windowLen = Math.min(CLIP_WINDOW_S, (isFinite(d) ? d : Infinity) - clip._offset);
   const target = clip._offset + frac * Math.max(0, windowLen - 0.1);
   if (isFinite(target)) seekTo(target); // audio catches up on its own schedule
 }
@@ -370,7 +370,7 @@ const endScrub = () => {
   playerBar.classList.remove('dragging');
   // hand the bar back to the audio clock once the last seek has actually landed
   const release = () => { dragFrac = null; updateFill(); };
-  if (audio.seeking || seekPending !== null) audio.addEventListener('seeked', release, { once: true });
+  if (media.seeking() || seekPending !== null) media.on('seeked', release, true);
   else release();
 };
 playerBar.addEventListener('pointerup', endScrub);
@@ -383,14 +383,14 @@ playerBar.addEventListener('keydown', (e) => {
 // Whole-page shortcuts: space toggles play, arrows nudge — as long as you're not typing a nickname.
 document.addEventListener('keydown', (e) => {
   if ($('#dock').hidden || /^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)) return;
-  if (e.code === 'Space') { e.preventDefault(); if (playing) audio.pause(); else playClip(); }
+  if (e.code === 'Space') { e.preventDefault(); if (playing) media.pause(); else playClip(); }
   else if (e.key === 'ArrowLeft' && document.activeElement !== playerBar) { e.preventDefault(); seekBy(-5); }
   else if (e.key === 'ArrowRight' && document.activeElement !== playerBar) { e.preventDefault(); seekBy(5); }
 });
 
 function lockIn() {
   if (!guessMarker) return;
-  audio.pause();
+  media.pause();
   const clip = deck[round];
   const guess = guessMarker.getLatLng();
   // Pluricentric languages accept any listed home region — you're scored to the nearest one.
@@ -525,7 +525,7 @@ function renderModeCards() {
 // ————— wire up —————
 initMap();
 renderModeCards();
-$('#playBtn').onclick = () => { if (playing) audio.pause(); else playClip(); };
+$('#playBtn').onclick = () => { if (playing) media.pause(); else playClip(); };
 $('#backBtn').onclick = () => seekBy(-5);
 $('#fwdBtn').onclick = () => seekBy(5);
 $('#lockBtn').onclick = lockIn;

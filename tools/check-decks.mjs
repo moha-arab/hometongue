@@ -65,9 +65,16 @@ for (const [deck, clips] of Object.entries(window.CLIPS)) {
     else if (!s.who) note(`${c.id}: source has no "recording by" line`);
     // Loudness: sources arrive anywhere from -52 to -6 LUFS. Everything is normalized to -16
     // so one clip can't blow the player's ears out while the next is inaudible.
-    if (typeof c.lufs !== 'number') note(`${c.id}: no measured loudness — run the normalizer`);
-    else if (Math.abs(c.lufs - TARGET_LUFS) > LUFS_TOLERANCE) note(`${c.id}: ${c.lufs} LUFS is outside ${TARGET_LUFS}±${LUFS_TOLERANCE}`);
-    if (c.url.startsWith('/clips/') && !fs.existsSync(path.join(ROOT, c.url))) note(`${c.id}: file missing`);
+    if (c.kind !== 'yt' && typeof c.lufs !== 'number') note(`${c.id}: no measured loudness — run the normalizer`);
+    else if (c.kind !== 'yt' && Math.abs(c.lufs - TARGET_LUFS) > LUFS_TOLERANCE) note(`${c.id}: ${c.lufs} LUFS is outside ${TARGET_LUFS}±${LUFS_TOLERANCE}`);
+    if (c.kind === 'yt') {
+      // streamed from YouTube: no local file, and no transcript means it can't be leak-gated,
+      // so these must be human-reviewed before they are added
+      if (!c.videoId) note(`${c.id}: yt clip with no videoId`);
+      if (!c.reviewedBy) note(`${c.id}: yt clip needs a human listen (set reviewedBy)`);
+    } else if (c.url.startsWith('/clips/') && !fs.existsSync(path.join(ROOT, c.url))) {
+      note(`${c.id}: file missing`);
+    }
     if (STRUCTURAL_ONLY.has(deck)) continue;
     const region = c.label.includes(',') ? c.label.split(',').pop().trim() : c.label.trim();
     if (!allowed.includes(region)) note(`${c.id}: "${region}" is not a place where this deck's language is native or a main language`);

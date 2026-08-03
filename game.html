@@ -105,9 +105,13 @@
 <footer class="foot">clips stream from their public archives · credits shown after each round</footer>
 
 <audio id="clipAudio" preload="none"></audio>
+<!-- YouTube clips stream from YouTube; the frame is parked off-screen because the
+     video's title card would give away the answer -->
+<div class="yt-mount" aria-hidden="true"><div id="ytMount"></div></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="js/theme.js"></script>
+<script src="js/media.js"></script>
 <script src="js/clips.js"></script>
 <script src="js/game.js"></script>
 </body>
