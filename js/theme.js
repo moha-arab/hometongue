@@ -5,7 +5,7 @@ window.HT = window.HT || {};
 
 // A single light chart basemap — the design commits to one palette.
 window.HT.basemap = function basemap(map) {
-  return L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  return L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd', maxZoom: 19,
   }).addTo(map);
@@ -36,7 +36,7 @@ window.HT.contours = function contours() {
   window.addEventListener('load', resize);
   resize();
 
-  const line = () => getComputedStyle(document.documentElement).getPropertyValue('--ink').trim() || '#1B6B5A';
+  const line = () => getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#2A6B60';
 
   // three drifting centres, so the field never reads as one bullseye
   const centres = [
@@ -57,7 +57,7 @@ window.HT.contours = function contours() {
         const r = ((t + c.phase + i * 0.14) % 1) * Math.max(w, h) * 0.55;
         if (r < 8) continue;
         // petrol on a pale chart needs more weight than a light line on a dark one
-        const base = 0.34;
+        const base = 0.16;
         ctx.globalAlpha = base * (1 - r / (Math.max(w, h) * 0.55));
         ctx.beginPath();
         // slightly irregular circles read as terrain, not as ripples in a pond
@@ -122,4 +122,5 @@ window.HT.setDeck = function setDeck(deck, origin) {
   el.addEventListener('animationend', () => el.remove());
 };
 
-window.HT.ink = () => getComputedStyle(document.documentElement).getPropertyValue('--ink').trim();
+window.HT.ink = () => getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+window.HT.amber = () => getComputedStyle(document.documentElement).getPropertyValue('--amber').trim();

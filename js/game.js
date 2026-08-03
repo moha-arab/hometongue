@@ -407,13 +407,13 @@ function lockIn() {
   roundLog.push({ id: clip.id, label: clip.label, km, pts });
 
   const truth = { lat: best.lat, lng: best.lng };
-  truthMarker = L.marker(truth, { icon: pinIcon(window.HT.ink()) }).addTo(map);
+  truthMarker = L.marker(truth, { icon: pinIcon(window.HT.amber()) }).addTo(map);
   for (const c of centers) {
     if (c === best) continue;
-    extraDots.push(L.circleMarker([c.lat, c.lng], { radius: 6, color: window.HT.ink(), weight: 2, fillColor: window.HT.ink(), fillOpacity: 0.2 })
+    extraDots.push(L.circleMarker([c.lat, c.lng], { radius: 6, color: window.HT.amber(), weight: 2, fillColor: window.HT.amber(), fillOpacity: 0.2 })
       .addTo(map).bindTooltip(c.name));
   }
-  line = L.polyline([guess, truth], { color: window.HT.ink(), weight: 1.5, dashArray: '5 7', opacity: 0.9 }).addTo(map);
+  line = L.polyline([guess, truth], { color: token('--black-2'), weight: 1.5, dashArray: '4 6', opacity: 0.5 }).addTo(map);
   // keep the arc visible above the bottom sheet
   map.fitBounds(L.latLngBounds([guess, truth]), { paddingTopLeft: [60, 90], paddingBottomRight: [60, 300] });
 
