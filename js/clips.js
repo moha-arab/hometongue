@@ -1,7 +1,9 @@
-// Pin It clip manifest — curated + HEAD-verified by agents, 2026-08-01.
-// Languages + wild English clips stream from public archives (Commons/LOC/gov, free licenses);
-// SAA accent clips mirrored under CC BY-NC-SA; Arabic city clips mirrored from ARCADE (CC BY 4.0),
-// gated by Whisper QC + Claude dialect/label judging. wild:true = spontaneous speech, dealt first.
+// Pin It clip manifest.
+// DECK RULE: a dialect deck only contains speakers from places where that language is native
+// or a main/official language (Nigeria/South Africa/India/Jamaica belong in English; a Filipino
+// reading an English script, or a Latvian speaking Russian, do not). Enforced by tools/check-decks.mjs.
+// Clips are mirrored locally as mono mp3s, trimmed + re-encoded, each credited in the reveal sheet.
+// start = fixed playback offset, used when the opening seconds name the answer. wild = spontaneous speech.
 window.CLIPS = {
   "languages": [
     {
@@ -1746,19 +1748,6 @@ window.CLIPS = {
       "size": 294496,
       "wild": true,
       "hint": "The last Soviet leader shares a laugh about getting older on the radio - before the Kremlin, he was a farm-boy on the southern steppe, and you can still hear it in his vowels.",
-      "attribution": "Echo of Moscow radio program, via Wikimedia Commons WikiVoices project (CC BY 3.0) — trimmed + re-encoded for HomeTongue"
-    },
-    {
-      "id": "russian-riga-latvia-russian-latvia-riga",
-      "label": "Riga, Latvia",
-      "lang": "Russian (Latvia, Riga)",
-      "url": "/clips/russian/russian-riga-latvia-russian-latvia-riga.mp3",
-      "lat": 56.9496,
-      "lng": 24.1052,
-      "r": 120,
-      "size": 253745,
-      "wild": true,
-      "hint": "The composer behind dozens of Soviet-era pop hits explains why he writes catchy songs instead of symphonies - home is the Latvian capital on the Baltic.",
       "attribution": "Echo of Moscow radio program, via Wikimedia Commons WikiVoices project (CC BY 3.0) — trimmed + re-encoded for HomeTongue"
     },
     {
