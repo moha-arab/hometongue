@@ -1,13 +1,14 @@
 # HomeTongue — Product Requirements
 
-*Owner: Mohammad Arab · v3.0 · updated 2026-08-03 (reflects as-built reality)*
+*Owner: Mohammad Arab · v3.1 · updated 2026-08-03 (reflects as-built reality)*
 
 ## Status snapshot
 
 | Piece | Status | Where |
 |---|---|---|
 | Guess Me (Arabic dialect AI) | ✅ live | [hometongue.me](https://www.hometongue.me/) |
-| Pin It — 9 decks, 135 clips | ✅ live | [/game.html](https://www.hometongue.me/game.html) |
+| Pin It — 9 decks, 138 clips | ✅ live | [/game.html](https://www.hometongue.me/game.html) |
+| Installable app (PWA) | ✅ live | add to home screen, no App Store |
 | Data flywheel (consent clip donation) | ✅ live, collecting | Supabase |
 | Nickname leaderboard | ✅ live | `/api/scores` |
 | Domain hometongue.me | ✅ live (apex → www) | Namecheap → Vercel |
@@ -42,26 +43,26 @@ Detection is **word-based** (vocabulary/morphology/phrasing), not acoustic — t
 
 ### 📍 Pin It — live
 
-Hear a real clip, drop a pin, score by distance. 5 rounds, 5,000 points max each. **Nine decks, 135 clips:**
+Hear a real clip, drop a pin, score by distance. 5 rounds, 5,000 points max each. **Nine decks, 138 clips:**
 
 | Deck | Clips | Answer regions |
 |---|---|---|
-| 🕌 Arabic Dialects | 44 | 17 countries, city-level |
-| 🗣 English Accents | 20 | 15 |
+| 🕌 Arabic Dialects | 45 | 17 countries, city-level |
+| 🗣 English Accents | 21 | 15 |
 | 🌍 World Languages | 26 | 26 |
 | 💃 Spanish | 11 | 9 |
-| 🐉 Chinese (Mandarin + Cantonese + Wu) | 8 | 3 |
+| 🐉 Chinese (Mandarin + Cantonese + Wu) | 9 | 3 |
 | 🌊 Portuguese | 8 | 5 |
 | 🥐 French | 7 | 6 |
 | 🪆 Russian | 6 | city-level within Russia |
 | 🪷 Hindi–Urdu (India + Pakistan) | 5 | 2 countries |
 
-Arabic is the flagship: real local radio, players pin the *city*, 44 cities across 17 countries. As far as we know, the only playable experience anywhere built on city-level Arabic speech.
+Arabic is the flagship: real local radio and conversation, players pin the *city*, 45 places across 17 countries. As far as we know, the only playable experience anywhere built on city-level Arabic speech.
 
 **Three rules govern what may enter a deck.** All are enforced, not remembered:
 
 1. **The homeland rule** — a dialect deck only contains speakers from places where that language is native or a main/official language. Nigeria, South Africa, India and Jamaica belong in English; a Filipino reading an English script, or a Latvian speaking Russian, do not. Enforced by `tools/check-decks.mjs`, which fails the build on any violation.
-2. **No answer leaks** — a clip is rejected if the audible window names the speaker's own city, country, region, demonym, or a station ident that gives it away. Where the leak is only in the opening, the clip gets a fixed playback window instead (37 of 135 clips carry one). This gate cost 12 Arabic clips, 7 World Languages clips and 7 of 10 Spanish candidates in one sourcing round — the recurring failure was spoken-Wikipedia readings *about the reader's own city*.
+2. **No answer leaks** — a clip is rejected if the audible window names the speaker's own city, country, region, demonym, or a station ident that gives it away. Where the leak is only in the opening, the clip gets a fixed playback window instead (41 of 138 clips carry one). This gate cost 12 Arabic clips, 7 World Languages clips and 7 of 10 Spanish candidates in one sourcing round — the recurring failure was spoken-Wikipedia readings *about the reader's own city*.
 3. **Real speech** — spontaneous speech is preferred and dealt first. The 21 Speech Accent Archive clips, where every speaker reads the same "Please call Stella" paragraph, were removed after players noticed the repetition; English Accents is now 100% unscripted.
 
 Shared mechanics:
@@ -71,6 +72,7 @@ Shared mechanics:
 - **Pluricentric answers**: in World Languages a clip accepts every region where the language is genuinely at home and scores you to the nearest one. A French clip recorded in Paris gives full marks for a Montréal pin, and says so.
 - **Variety dealing**: one clip per region first, then draws from whichever region has the most unused clips, so no deal repeats a place.
 - **Readable credits**: each reveal shows who recorded it, where it lives, the licence, and a link to the original. People are curious; the credit line used to be an unreadable run-on.
+- **Two kinds of clip.** Most are hosted files: mirrored, trimmed, loudness-normalized, no ads. A clip can also be `kind: 'yt'`, streamed from YouTube through the IFrame API with the video hidden and only a chosen 20 seconds played. Nothing is copied for those — the creator gets the view. The game talks to one media interface and never knows which it is playing. **Limitation:** an embedded clip cannot be leak-gated, because gating needs a transcript and the audio is never downloaded; YouTube's caption endpoint returns empty for the videos tested. Embedded clips therefore require a human listen before they ship, and `tools/check-decks.mjs` refuses any that lack a `reviewedBy` field.
 - **One loudness for every clip**: sources arrived anywhere from −52 LUFS (inaudible) to −5.9 LUFS peaking at +5.3 dBTP (clipping, painful on headphones) — a 46 dB spread, because a radio rip, a podcast and a laptop-mic reading share no level convention. Every clip is now two-pass EBU R128 normalized to −16 LUFS with a −1.5 dBTP ceiling, leaving a 4.4 dB spread. The measured value is stored per clip and `tools/check-decks.mjs` fails on drift.
 
 ### 🗺 The Atlas — next (P2)
@@ -96,6 +98,7 @@ Why it matters: a research sweep confirmed **no public speech dataset separates 
 ## Explicitly not built (and honest about it)
 
 - English/other-language **Guess Me** (needs the acoustic model — text barely distinguishes English accents)
+- A native iOS app. Apple rejects thin web wrappers (Guideline 4.2) and nothing here needs native APIs; the PWA installs to the home screen for free. Revisit if an on-device acoustic model ships.
 - The Atlas, community clip submissions, native mobile apps, accounts/auth, monetization
 - Deferred game features: seedable shared rounds ("play my round"), difficulty tiers, polygon scoring for multi-country languages (generous radius instead)
 - Leaderboard score submission is client-trusted (sum-validated but forgeable) — acceptable while stakes are bragging rights

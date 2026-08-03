@@ -1281,6 +1281,26 @@ window.CLIPS = {
       "lufs": -16.8
     },
     {
+      "id": "arabic-baghdad-iraq-arabic-iraqi",
+      "label": "Baghdad, Iraq",
+      "lang": "Arabic (Iraqi)",
+      "url": "/clips/arabic/arabic-baghdad-iraq-arabic-iraqi.mp3",
+      "lat": 33.31,
+      "lng": 44.36,
+      "r": 220,
+      "size": 232132,
+      "wild": true,
+      "hint": "A Wikitongues speaker talking about their own life.",
+      "source": {
+        "who": "Local radio broadcast",
+        "host": "ARCADE corpus (RIOTU Lab)",
+        "license": "CC BY-SA 4.0",
+        "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
+        "note": "trimmed and re-encoded for the game"
+      },
+      "lufs": -16.5
+    },
+    {
       "id": "ar-2765",
       "label": "Basra, Iraq",
       "lang": "Arabic",
@@ -2430,6 +2450,27 @@ window.CLIPS = {
         "note": "trimmed and re-encoded for the game"
       },
       "lufs": -17.1
+    },
+    {
+      "id": "chinese-nanyang-china-zhongyuan-mandarin-henan",
+      "label": "Nanyang, China",
+      "lang": "Zhongyuan Mandarin (Henan)",
+      "url": "/clips/chinese/chinese-nanyang-china-zhongyuan-mandarin-henan.mp3",
+      "lat": 33,
+      "lng": 112.53,
+      "r": 260,
+      "size": 1743978,
+      "wild": true,
+      "start": 138,
+      "hint": "A Wikitongues speaker talking about their own life.",
+      "source": {
+        "who": "Wikitongues",
+        "host": "Wikimedia Commons",
+        "license": "CC BY-SA 4.0",
+        "page": "",
+        "note": "trimmed and re-encoded for the game"
+      },
+      "lufs": -16.6
     },
     {
       "id": "chinese-shanghainese-wu-standard-shanghai-accent-readi",

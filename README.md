@@ -3,7 +3,7 @@
 Your voice is a place. Live at **[hometongue.me](https://www.hometongue.me/)**.
 
 - **🎙 Guess Me** — speak Arabic for ~20s and the AI guesses your dialect (region → country → city when it has evidence), then flies the map home.
-- **📍 Pin It** ([game.html](game.html)) — GeoGuessr for ears: hear a real clip, drop a pin. **Nine decks, 135 clips**: Arabic Dialects (44 cities), English Accents, World Languages, Spanish, Chinese, Portuguese, French, Russian, Hindi–Urdu. Distance scoring, 5 rounds, nickname leaderboard.
+- **📍 Pin It** ([game.html](game.html)) — GeoGuessr for ears: hear a real clip, drop a pin. **Nine decks, 138 clips**: Arabic Dialects (45 places), English Accents, World Languages, Spanish, Chinese, Portuguese, French, Russian, Hindi–Urdu. Distance scoring, 5 rounds, nickname leaderboard.
 
 A third mode (**The Atlas**, a browsable accent map) is planned — see [PRD.md](PRD.md).
 
@@ -49,6 +49,22 @@ node tools/check-decks.mjs
 ```
 
 Fails with a non-zero exit if any clip breaks the homeland rule, is missing source credits, has a missing file, or leaves a deck under the 5 clips a round needs.
+
+## Two kinds of clip
+
+Most clips are files this repo hosts — trimmed, loudness-normalized, no ads. A clip can instead be streamed from YouTube:
+
+```js
+{ id, label, kind: 'yt', videoId, start, gain, reviewedBy, lat, lng, r, source }
+```
+
+Nothing is copied for those: the IFrame API plays a chosen 20 seconds with the video hidden, and the creator gets the view. `js/media.js` presents one interface over both, so `game.js` never knows which kind it is playing.
+
+The catch: an embedded clip **cannot pass the leak gate**, because that gate needs a transcript and the audio is never downloaded (YouTube's caption endpoint came back empty for every video tested). Embedded clips need a human to listen first, and the deck checker rejects any without a `reviewedBy` field.
+
+## Install it
+
+The site is a PWA — "Add to Home Screen" on iOS or Android gives it an icon and a standalone window. No App Store, no wrapper.
 
 ## Run locally
 
