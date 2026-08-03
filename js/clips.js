@@ -693,25 +693,58 @@ window.CLIPS = {
       "year": 2005
     },
     {
-      "id": "wild-boston-massachusetts-usa",
+      "id": "yt--djB-PWhdl0",
+      "kind": "yt",
+      "videoId": "-djB-PWhdl0",
       "label": "Boston, Massachusetts, USA",
       "lang": "English",
-      "url": "/clips/accents/wild-boston-massachusetts-usa.mp3",
       "lat": 42.3601,
       "lng": -71.0589,
-      "r": 120,
-      "size": 1920775,
+      "r": 130,
+      "start": 97,
+      "gain": 100,
       "wild": true,
-      "hint": "1961 speech, the Boston non-rhotic 'vigah' is unmistakable — but the voice is world-famous, may be too easy",
-      "source": {
-        "who": "John F. Kennedy Presidential Library & Museum",
-        "host": "Wikimedia Commons",
-        "license": "public domain",
-        "page": "https://commons.wikimedia.org/wiki/File:JFK_inaugural_address.ogg",
-        "note": ""
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "origin": "you're a third generation Bostonian — Yeah",
+        "originConfidence": "stated",
+        "quality": "good",
+        "lufs": -23.27
       },
-      "lufs": -15.6,
-      "year": 1961
+      "source": {
+        "who": "Tamron Hall Show",
+        "host": "YouTube",
+        "license": "standard YouTube licence — streamed, never copied",
+        "page": "https://www.youtube.com/watch?v=-djB-PWhdl0",
+        "note": "played from 97s, audio only"
+      }
+    },
+    {
+      "id": "yt-_3pnHcYuzOQ",
+      "kind": "yt",
+      "videoId": "_3pnHcYuzOQ",
+      "label": "Brooklyn, New York, USA",
+      "lang": "English",
+      "lat": 40.6015,
+      "lng": -73.993,
+      "r": 110,
+      "start": 41,
+      "gain": 60,
+      "wild": true,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "origin": "Bensonhurst, born and raised",
+        "originConfidence": "stated",
+        "quality": "good",
+        "lufs": -11.5
+      },
+      "source": {
+        "who": "News 12",
+        "host": "YouTube",
+        "license": "standard YouTube licence — streamed, never copied",
+        "page": "https://www.youtube.com/watch?v=_3pnHcYuzOQ",
+        "note": "played from 41s, audio only"
+      }
     },
     {
       "id": "wild-georgetown-south-carolina-usa-us-south",
@@ -733,6 +766,33 @@ window.CLIPS = {
         "note": ""
       },
       "lufs": -16.5
+    },
+    {
+      "id": "yt-j1Odp3B7qG4",
+      "kind": "yt",
+      "videoId": "j1Odp3B7qG4",
+      "label": "Ghana",
+      "lang": "English",
+      "lat": 7.95,
+      "lng": -1.03,
+      "r": 450,
+      "start": 86,
+      "gain": 100,
+      "wild": true,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "origin": "I am proud to come from Ghana",
+        "originConfidence": "stated",
+        "quality": "good",
+        "lufs": -18.67
+      },
+      "source": {
+        "who": "AccentBase",
+        "host": "YouTube",
+        "license": "standard YouTube licence — streamed, never copied",
+        "page": "https://www.youtube.com/watch?v=j1Odp3B7qG4",
+        "note": "played from 86s, audio only"
+      }
     },
     {
       "id": "wild-huddersfield-west-yorkshire-england",

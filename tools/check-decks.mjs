@@ -68,10 +68,12 @@ for (const [deck, clips] of Object.entries(window.CLIPS)) {
     if (c.kind !== 'yt' && typeof c.lufs !== 'number') note(`${c.id}: no measured loudness — run the normalizer`);
     else if (c.kind !== 'yt' && Math.abs(c.lufs - TARGET_LUFS) > LUFS_TOLERANCE) note(`${c.id}: ${c.lufs} LUFS is outside ${TARGET_LUFS}±${LUFS_TOLERANCE}`);
     if (c.kind === 'yt') {
-      // streamed from YouTube: no local file, and no transcript means it can't be leak-gated,
-      // so these must be human-reviewed before they are added
+      // Streamed from YouTube, so there is no local file — but it still went through the
+      // transcript gate (audio fetched, judged, deleted), and must carry that evidence.
       if (!c.videoId) note(`${c.id}: yt clip with no videoId`);
-      if (!c.reviewedBy) note(`${c.id}: yt clip needs a human listen (set reviewedBy)`);
+      if (!c.gate || !c.gate.originConfidence) note(`${c.id}: yt clip has no gate record — run yt-gate.mjs`);
+      else if (c.gate.originConfidence === 'unknown') note(`${c.id}: speaker's origin was never established`);
+      else if (typeof c.gain !== 'number') note(`${c.id}: no measured volume`);
     } else if (c.url.startsWith('/clips/') && !fs.existsSync(path.join(ROOT, c.url))) {
       note(`${c.id}: file missing`);
     }
