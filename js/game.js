@@ -185,6 +185,10 @@ function nextRound() {
   $('#playBtn').disabled = false;
   $('#lockBtn').disabled = true;
   $('#pinHint').textContent = 'listen, then tap the map to drop your pin';
+  const era = $('#eraChip');
+  const y = deck[round].year;
+  era.hidden = !(y && y < 1990);
+  if (!era.hidden) era.textContent = `archival recording · ${y} — accents move`;
   setView('round');
   audio.src = deck[round].url; // preload metadata now so play starts instantly on tap
   audio.load();
@@ -417,14 +421,14 @@ function lockIn() {
   const altNote = best.primary ? '' : ` · scored to ${best.name} — ${clip.lang} lives there too`;
   $('#revealStats').textContent = `${km.toLocaleString()} km away → +${pts.toLocaleString()} pts${pts === 5000 ? ' 🎯' : ''}${altNote}`;
   $('#revealHint').textContent = clip.hint || '';
-  renderSource(clip.source);
+  renderSource(clip.source, clip.year);
   $('#nextBtn').textContent = round === ROUNDS - 1 ? 'see final score' : 'next clip';
   setView('reveal');
 }
 
 // Credits people can actually read: who recorded it, where it lives, the licence, and a way in.
-function renderSource(src = {}) {
-  const rows = [['#srcWho', src.who], ['#srcHost', src.host], ['#srcLicense', src.license]];
+function renderSource(src = {}, year) {
+  const rows = [['#srcWho', src.who], ['#srcHost', src.host], ['#srcYear', year ? String(year) : ''], ['#srcLicense', src.license]];
   for (const [sel, val] of rows) {
     const el = $(sel);
     el.textContent = val || '—';

@@ -689,7 +689,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Manmohan_Singh_voice.ogg",
         "note": ""
       },
-      "lufs": -16.4
+      "lufs": -16.4,
+      "year": 2005
     },
     {
       "id": "wild-boston-massachusetts-usa",
@@ -709,7 +710,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:JFK_inaugural_address.ogg",
         "note": ""
       },
-      "lufs": -15.6
+      "lufs": -15.6,
+      "year": 1961
     },
     {
       "id": "wild-georgetown-south-carolina-usa-us-south",
@@ -750,7 +752,30 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Wilf%27_Lunn_voice_sample.wav",
         "note": ""
       },
-      "lufs": -16.6
+      "lufs": -16.6,
+      "year": 2011
+    },
+    {
+      "id": "accents-jamaica-english-jamaican-patois",
+      "label": "Jamaica",
+      "lang": "English / Jamaican Patois",
+      "url": "/clips/accents/accents-jamaica-english-jamaican-patois.mp3",
+      "lat": 18.11,
+      "lng": -77.3,
+      "r": 200,
+      "size": 1889219,
+      "wild": true,
+      "start": 111,
+      "hint": "He slides between English and Patois mid-sentence.",
+      "year": 2014,
+      "source": {
+        "who": "Wikitongues",
+        "host": "Wikimedia Commons",
+        "license": "CC BY 3.0",
+        "page": "https://commons.wikimedia.org/wiki/File:WIKITONGUES-_Omar_Speaking_English_and_Jamaican_Patois.webm",
+        "note": "trimmed and re-encoded for the game"
+      },
+      "lufs": -16.8
     },
     {
       "id": "accents-kenya-english-kenyan",
@@ -771,7 +796,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:2010-08-23_VOA_News_interview_with_David_Rudisha.ogg",
         "note": "trimmed and re-encoded for the game"
       },
-      "lufs": -16.6
+      "lufs": -16.6,
+      "year": 2010
     },
     {
       "id": "wild-liverpool-england",
@@ -791,7 +817,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:John_bishop_bbc_radio4_desert_island_discs_24_06_2012.flac",
         "note": ""
       },
-      "lufs": -16.6
+      "lufs": -16.6,
+      "year": 2012
     },
     {
       "id": "wild-mbaise-imo-state-nigeria",
@@ -812,7 +839,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Leo_Igwe_voice_-_en.ogg",
         "note": ""
       },
-      "lufs": -16.5
+      "lufs": -16.5,
+      "year": 2016
     },
     {
       "id": "wild-melbourne-australia",
@@ -833,7 +861,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Shelley_Segal_voice_-_en.ogg",
         "note": ""
       },
-      "lufs": -16.5
+      "lufs": -16.5,
+      "year": 2016
     },
     {
       "id": "wild-mvezo-eastern-cape-south-africa",
@@ -854,7 +883,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Nelson_Mandela_voice.ogg",
         "note": ""
       },
-      "lufs": -16.6
+      "lufs": -16.6,
+      "year": 1993
     },
     {
       "id": "accents-namibia-english-namibian",
@@ -875,27 +905,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:WIKITONGUES-_Musuweu_speaking_English_and_Subiya.webm",
         "note": "trimmed and re-encoded for the game"
       },
-      "lufs": -17.1
-    },
-    {
-      "id": "wild-new-york-city-manhattan-usa",
-      "label": "New York City (Manhattan), USA",
-      "lang": "English",
-      "url": "/clips/accents/wild-new-york-city-manhattan-usa.mp3",
-      "lat": 40.7484,
-      "lng": -73.9857,
-      "r": 250,
-      "size": 1921040,
-      "wild": true,
-      "hint": "1912 campaign oration declaimed for the cylinder, 4:15; period audio quality, accent is old-fashioned upper-class New York.",
-      "source": {
-        "who": "Theodore Roosevelt, 'The Right of the People to Rule', Edison Blue Amberol cylinder 3707 (recorded c. Aug 1912, released Sept 1912). Digitized by NPS Thomas Edison National Historical Park (EDIS 39850); item EDIS-SRP-0014-17, marked",
-        "host": "Internet Archive",
-        "license": "public domain",
-        "page": "",
-        "note": ""
-      },
-      "lufs": -16.9
+      "lufs": -17.1,
+      "year": 2017
     },
     {
       "id": "accents-new-zealand-english-new-zealand",
@@ -916,7 +927,30 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Jacinda_Ardern-_Harvard_Graduation_2022_Speech-_%22Democracy_is_Fragile%22.webm",
         "note": "trimmed and re-encoded for the game"
       },
-      "lufs": -16.7
+      "lufs": -16.7,
+      "year": 2022
+    },
+    {
+      "id": "accents-nigeria-nigerian-pidgin",
+      "label": "Nigeria",
+      "lang": "Nigerian Pidgin",
+      "url": "/clips/accents/accents-nigeria-nigerian-pidgin.mp3",
+      "lat": 9.08,
+      "lng": 8.68,
+      "r": 450,
+      "size": 1612112,
+      "wild": true,
+      "start": 150,
+      "hint": "Nigerian Pidgin, spoken the way it actually gets spoken.",
+      "year": 2024,
+      "source": {
+        "who": "Wikitongues oral histories project",
+        "host": "Wikimedia Commons",
+        "license": "CC0 (public domain)",
+        "page": "https://commons.wikimedia.org/wiki/File:Tochi_speaking_Nigerian_Pidgin.webm",
+        "note": "trimmed and re-encoded for the game"
+      },
+      "lufs": -16.6
     },
     {
       "id": "accents-aberdeenshire-scotland-english-northeast-scotl",
@@ -937,7 +971,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:WIKITONGUES-_David_speaking_Doric_Scots_and_English.webm",
         "note": "trimmed and re-encoded for the game"
       },
-      "lufs": -17
+      "lufs": -17,
+      "year": 2014
     },
     {
       "id": "wild-sarnia-milton-ontario-canada",
@@ -958,27 +993,30 @@ window.CLIPS = {
         "page": "",
         "note": ""
       },
-      "lufs": -16.7
+      "lufs": -16.7,
+      "year": 2013
     },
     {
-      "id": "wild-st-ann-s-bay-jamaica",
-      "label": "St. Ann's Bay, Jamaica",
-      "lang": "English",
-      "url": "/clips/accents/wild-st-ann-s-bay-jamaica.mp3",
-      "lat": 18.4344,
-      "lng": -77.1969,
-      "r": 300,
-      "size": 1762391,
+      "id": "accents-west-yorkshire-england-english-west-riding-yor",
+      "label": "Sheffield, England",
+      "lang": "English (West Riding Yorkshire)",
+      "url": "/clips/accents/accents-west-yorkshire-england-english-west-riding-yor.mp3",
+      "lat": 53.3811,
+      "lng": -1.4701,
+      "r": 150,
+      "size": 1920775,
       "wild": true,
-      "hint": "Declaimed oration recorded in a studio (not read from a shared script), 3:40; 1921 disc surface noise but voice is clear.",
+      "start": 110,
+      "hint": "Broad West Riding — the vowels do the work.",
+      "year": 2024,
       "source": {
-        "who": "Marcus Garvey, 'Explanation of the Objects of the Universal Negro Improvement Association', 78 rpm studio recording, New York, July 1921. item MarcusGarveySpeech1921, licensed",
-        "host": "Internet Archive",
-        "license": "public domain",
-        "page": "",
-        "note": ""
+        "who": "Wikitongues oral histories project",
+        "host": "Wikimedia Commons",
+        "license": "CC0 (public domain)",
+        "page": "https://commons.wikimedia.org/wiki/File:James_speaking_West_Riding_Yorkshire_English.webm",
+        "note": "trimmed and re-encoded for the game"
       },
-      "lufs": -16.4
+      "lufs": -17.7
     },
     {
       "id": "wild-texas-hill-country-stonewall-usa",
@@ -998,7 +1036,8 @@ window.CLIPS = {
         "page": "",
         "note": ""
       },
-      "lufs": -16.1
+      "lufs": -16.1,
+      "year": 1963
     },
     {
       "id": "wild-the-bronx-new-york-city-usa",
@@ -1019,7 +1058,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Sonia_Sotomayor_Opening_Statement_to_the_Senate_Judiciary_Committee.ogg",
         "note": ""
       },
-      "lufs": -16.9
+      "lufs": -16.9,
+      "year": 2009
     },
     {
       "id": "wild-thomastown-county-kilkenny-ireland",
@@ -1040,7 +1080,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:2024-09-16_Patrick_Lalor_Ladywell.opus",
         "note": ""
       },
-      "lufs": -16.6
+      "lufs": -16.6,
+      "year": 2024
     },
     {
       "id": "wild-toronto-canada",
@@ -1061,7 +1102,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Stephen_Harper_voice.ogg",
         "note": ""
       },
-      "lufs": -18.8
+      "lufs": -18.8,
+      "year": 2012
     },
     {
       "id": "accents-wales-english-welsh",
@@ -1081,7 +1123,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Mark_Drakeford%27s_speech_on_Welsh_National_Day_of_Reflection.webm",
         "note": "trimmed and re-encoded for the game"
       },
-      "lufs": -17
+      "lufs": -17,
+      "year": 2021
     }
   ],
   "arabic": [
@@ -2187,7 +2230,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Juan_José_Morosoli_lee_'La_Geografía'.ogg",
         "note": "trimmed and re-encoded for the game"
       },
-      "lufs": -16.4
+      "lufs": -16.4,
+      "year": 1946
     },
     {
       "id": "spanish-paniahue-santa-cruz-chile-spanish-chilean",
@@ -2325,7 +2369,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:%E5%85%A9%E7%A8%AE%E6%87%B7%E7%96%91%E5%BF%83%E7%90%86%E4%B9%8B%E8%A7%A3%E9%87%8B_%E6%B1%AA%E7%B2%BE%E8%A1%9B_%E7%B2%B5%E8%AA%9E.mp3",
         "note": "trimmed and re-encoded for the game"
       },
-      "lufs": -16.5
+      "lufs": -16.5,
+      "year": 1939
     },
     {
       "id": "chinese-guiyang-china-mandarin-guiyangese-southwestern",
@@ -2729,7 +2774,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:%D0%91%D0%BE%D1%80%D0%B8%D1%81_%D0%9D%D0%B8%D0%BA%D0%BE%D0%BB%D0%B0%D0%B5%D0%B2%D0%B8%D1%87_%D0%95%D0%BB%D1%8C%D1%86%D0%B8%D0%BD_%D0%9D%D0%BE%D0%B2%D0%BE%D0%B3%D0%BE%D0%B4%D0%BD%D0%B5%D0%B5_%D0%BE%D0%B1%D1%80%D0%B0%D1%89%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BA_%D0%BD%D0%B0%D1%80%D0%BE%D0%B4%D1%83_1999_%D0%B3.ogg",
         "note": "trimmed and re-encoded for the game"
       },
-      "lufs": -16.6
+      "lufs": -16.6,
+      "year": 1999
     },
     {
       "id": "russian-moscow-russia-russian-moscow",
