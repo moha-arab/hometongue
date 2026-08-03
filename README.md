@@ -55,12 +55,17 @@ Fails with a non-zero exit if any clip breaks the homeland rule, is missing sour
 Most clips are files this repo hosts — trimmed, loudness-normalized, no ads. A clip can instead be streamed from YouTube:
 
 ```js
-{ id, label, kind: 'yt', videoId, start, gain, reviewedBy, lat, lng, r, source }
+{ id, label, kind: 'yt', videoId, start, gain, gate: { origin, originConfidence }, lat, lng, r, source }
 ```
 
 Nothing is copied for those: the IFrame API plays a chosen 20 seconds with the video hidden, and the creator gets the view. `js/media.js` presents one interface over both, so `game.js` never knows which kind it is playing.
 
-The catch: an embedded clip **cannot pass the leak gate**, because that gate needs a transcript and the audio is never downloaded (YouTube's caption endpoint came back empty for every video tested). Embedded clips need a human to listen first, and the deck checker rejects any without a `reviewedBy` field.
+Embedded clips pass the **same gate**, automatically. `yt-gate.mjs` fetches a candidate's audio once, measures its loudness, transcribes it, has Claude rule on it, then **deletes the audio** — verification, not redistribution. Two things are specific to this source:
+
+- **Origin must be proved from the transcript.** YouTube metadata can't be trusted, but speakers usually say where they're from, and that same sentence is both the proof and the leak — so it's quoted as evidence and the playback window starts after it. Origin never established → dropped.
+- **Imitations are rejected.** Dialect coaches, actors putting a voice on, foreigners attempting one. The answer has to be true, and an impression makes it false.
+
+First run: 35 candidates in, 5 out. The rejects are kept in [`data/gate-rejects.json`](data/gate-rejects.json) — they're the seed for a planned "real or fake" mode.
 
 ## Install it
 
