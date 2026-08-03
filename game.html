@@ -4,24 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pin It — HomeTongue</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📍</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='none' stroke='%23145C55' stroke-width='2'/><circle cx='16' cy='16' r='8' fill='none' stroke='%23145C55' stroke-width='2'/><circle cx='16' cy='16' r='2.5' fill='%23C43D2B'/></svg>">
+<meta name="theme-color" content="#ECEFEC">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <div id="map"></div>
+<canvas id="contours"></canvas>
 <div class="vignette"></div>
 
 <header class="brand">
   <div class="logo">hometongue <span class="logo-ar">سمعناك</span></div>
   <nav class="modes">
-    <a href="/">🎙 guess me</a>
-    <a href="/game.html" class="active">📍 pin it</a>
-    <span class="soon" title="coming soon">🗺 atlas</span>
+    <a href="/">guess me</a>
+    <a href="/game.html" class="active">pin it</a>
+    <span class="soon" title="coming soon">atlas</span>
+    <button class="how-btn theme-btn" id="themeBtn" aria-label="Switch between light and dark" title="light / dark">
+      <span id="themeIcon"></span>
+    </button>
   </nav>
 </header>
 
@@ -29,6 +34,7 @@
 
   <!-- GAME TYPE PICKER -->
   <section class="card" id="pickCard">
+    <div class="card-eyebrow"><span>listening game</span><b id="deckCount">nine decks</b></div>
     <h1 class="tagline">Hear it.<br><span class="accent">Pin where it's from.</span></h1>
     <p class="prompt-label">Five clips, five pins. Points for distance — 5,000 max per round.</p>
     <div class="type-grid" id="typeGrid"></div>
@@ -44,7 +50,7 @@
       <button class="fb-btn" id="submitScore">post score</button>
     </div>
     <div class="board" id="board" hidden>
-      <div class="board-head">🏆 leaderboard</div>
+      <div class="board-head">leaderboard</div>
       <ol id="boardList"></ol>
     </div>
     <div class="fb-row" style="margin-top:14px">
@@ -71,13 +77,13 @@
     <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M13 6v12l8.5-6L13 6zm-.5 6L4 6v12l8.5-6z"/></svg>
   </button>
   <div class="dock-mid">
-    <div class="dock-hint" id="pinHint">▶ listen, then tap the map to drop your pin</div>
+    <div class="dock-hint" id="pinHint">listen, then tap the map to drop your pin</div>
     <div class="player-hit" id="playerBar" role="slider" tabindex="0" aria-label="Position in clip" aria-valuemin="0" aria-valuemax="20" aria-valuenow="0">
       <div class="player-bar"><div class="player-fill" id="playerFill"></div><div class="player-thumb" id="playerThumb"></div></div>
     </div>
     <div class="listens" id="listens">1:00 of listening left</div>
   </div>
-  <button class="stop-btn dock-lock" id="lockBtn" disabled>lock it 📍</button>
+  <button class="stop-btn dock-lock" id="lockBtn" disabled>lock it in</button>
 </div>
 
 <!-- REVEAL: bottom sheet -->
@@ -90,9 +96,9 @@
     <div class="source-row"><span class="source-key">recording</span><span class="source-val" id="srcWho"></span></div>
     <div class="source-row"><span class="source-key">from</span><span class="source-val" id="srcHost"></span></div>
     <div class="source-row"><span class="source-key">licence</span><span class="source-val" id="srcLicense"></span></div>
-    <a class="source-link" id="srcLink" target="_blank" rel="noopener noreferrer">open the original ↗</a>
+    <a class="source-link" id="srcLink" target="_blank" rel="noopener noreferrer">open the original</a>
   </div>
-  <button class="stop-btn" id="nextBtn">next clip →</button>
+  <button class="stop-btn" id="nextBtn">next clip</button>
 </div>
 
 <div class="toast" id="toast" hidden></div>
@@ -102,6 +108,7 @@
 <audio id="clipAudio" preload="none"></audio>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/theme.js"></script>
 <script src="js/clips.js"></script>
 <script src="js/game.js"></script>
 </body>

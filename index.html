@@ -4,24 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HomeTongue — your accent knows where home is</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎙️</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='none' stroke='%23145C55' stroke-width='2'/><circle cx='16' cy='16' r='8' fill='none' stroke='%23145C55' stroke-width='2'/><circle cx='16' cy='16' r='2.5' fill='%23C43D2B'/></svg>">
+<meta name="theme-color" content="#ECEFEC">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <div id="map"></div>
+<canvas id="contours"></canvas>
 <div class="vignette"></div>
 
 <header class="brand">
   <div class="logo">hometongue <span class="logo-ar">سمعناك</span></div>
   <nav class="modes">
-    <a href="/" class="active">🎙 guess me</a>
-    <a href="/game.html">📍 pin it</a>
+    <a href="/" class="active">guess me</a>
+    <a href="/game.html">pin it</a>
     <button class="how-btn" id="howBtn">how it works</button>
+    <button class="how-btn theme-btn" id="themeBtn" aria-label="Switch between light and dark" title="light / dark">
+      <span id="themeIcon"></span>
+    </button>
   </nav>
 </header>
 
@@ -35,6 +40,7 @@
 
   <!-- IDLE -->
   <section class="card" id="idleCard">
+    <div class="card-eyebrow"><span>dialect identification</span><b>arabic</b></div>
     <h1 class="tagline">Speak Arabic.<br><span class="accent">I can hear where home is.</span></h1>
     <p class="prompt-label">Don't read anything — just talk, like you're voice-noting a friend:</p>
     <p class="prompt" id="promptText">"Tell me about your day."</p>
@@ -42,8 +48,8 @@
       <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line></svg>
     </button>
     <div class="idle-foot">
-      <span class="foot-hint">works on your phone too 📱</span>
-      <button class="link-btn" id="typeModeBtn">no mic? type like you talk →</button>
+      <span class="foot-hint">works on your phone</span>
+      <button class="link-btn" id="typeModeBtn">no mic? type like you talk</button>
     </div>
   </section>
 
@@ -63,7 +69,7 @@
     <button class="stop-btn" id="analyzeTypedBtn">guess my dialect</button>
     <p class="samples-label">or try a sample:</p>
     <div class="samples" id="samples"></div>
-    <button class="link-btn" id="backToMicBtn">← back to mic</button>
+    <button class="link-btn" id="backToMicBtn">back to mic</button>
   </section>
 
   <!-- ANALYZING -->
@@ -91,8 +97,8 @@
       <label class="consent" id="consentWrap"><input type="checkbox" id="consentBox"> donate this clip to training — anonymous, helps the app learn your accent · <a href="/privacy.html" target="_blank">privacy</a></label>
       <div class="fb-row">
         <span>did I get it?</span>
-        <button class="fb-btn" id="fbYes">✓ nailed it</button>
-        <button class="fb-btn" id="fbNo">✗ nope</button>
+        <button class="fb-btn" id="fbYes">nailed it</button>
+        <button class="fb-btn" id="fbNo">nope</button>
       </div>
       <div class="fb-fix" id="fbFix" hidden>
         <select id="fbActual"></select>
@@ -110,6 +116,7 @@
 <footer class="foot">whisper + claude · audio never stored unless you donate it · <a href="/privacy.html" style="color:inherit">privacy</a></footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/theme.js"></script>
 <script src="js/dialects.js"></script>
 <script src="js/app.js"></script>
 </body>

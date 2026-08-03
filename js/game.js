@@ -1,21 +1,23 @@
 // HomeTongue — Pin It game engine
 const $ = (s) => document.querySelector(s);
+const token = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 const WORLD = [[-55, -170], [72, 190]];
 const ROUNDS = 5;
 const LISTEN_BUDGET_S = 60; // seconds of actual listening per round — spend it in any number of plays
 const CLIP_WINDOW_S = 20;
 
 // One card per deck; decks with fewer than ROUNDS clips show as "stocking" until filled.
+// The code is the language tag, which is real information, unlike an emoji.
 const MODES = [
-  { key: 'arabic', emoji: '🕌', name: 'Arabic Dialects', desc: 'real Arabic from real radio — pin the <em>city</em> it&#39;s from' },
-  { key: 'languages', emoji: '🌍', name: 'World Languages', desc: 'a random language plays — pin it anywhere on Earth' },
-  { key: 'accents', emoji: '🗣️', name: 'English Accents', desc: 'everyone speaks English — pin where <em>they&#39;re</em> from' },
-  { key: 'french', emoji: '🥐', name: 'French', desc: 'Paris or Montréal? Dakar or Brussels? pin the voice' },
-  { key: 'spanish', emoji: '💃', name: 'Spanish', desc: 'Madrid to Mexico City — pin the speaker&#39;s home' },
-  { key: 'chinese', emoji: '🐉', name: 'Chinese', desc: 'Mandarin, Cantonese and cousins — pin the city' },
-  { key: 'hindi-urdu', emoji: '🪷', name: 'Hindi–Urdu', desc: 'one spoken language, two countries — Delhi or Lahore?' },
-  { key: 'portuguese', emoji: '🌊', name: 'Portuguese', desc: 'Lisbon, Rio or Luanda — pin the speaker&#39;s home' },
-  { key: 'russian', emoji: '🪆', name: 'Russian', desc: 'Moscow to Almaty — pin where the speaker grew up' },
+  { key: 'arabic', code: 'ar', name: 'Arabic Dialects', desc: 'real local radio — pin the city it&#39;s from' },
+  { key: 'languages', code: 'world', name: 'World Languages', desc: 'a language you may not know — pin where it lives' },
+  { key: 'accents', code: 'en', name: 'English Accents', desc: 'everyone speaks English — pin where they&#39;re from' },
+  { key: 'french', code: 'fr', name: 'French', desc: 'Paris or Montréal, Dakar or Brussels' },
+  { key: 'spanish', code: 'es', name: 'Spanish', desc: 'Madrid to Montevideo, by ear' },
+  { key: 'chinese', code: 'zh · yue', name: 'Chinese', desc: 'Mandarin, Cantonese and cousins' },
+  { key: 'hindi-urdu', code: 'hi · ur', name: 'Hindi–Urdu', desc: 'one spoken language, two countries' },
+  { key: 'portuguese', code: 'pt', name: 'Portuguese', desc: 'Lisbon, Rio, Luanda, Praia' },
+  { key: 'russian', code: 'ru', name: 'Russian', desc: 'Moscow to the Pacific' },
 ];
 
 let map, guessMarker = null, truthMarker = null, line = null, extraDots = [];
@@ -23,15 +25,13 @@ let gameType = null, deck = [], round = 0, total = 0, roundLog = [];
 let budgetLeft = LISTEN_BUDGET_S, playing = false, lastTickT = 0;
 
 const audio = $('#clipAudio');
+const field = window.HT.contours();
 
 // ————— map —————
 function initMap() {
   map = L.map('map', { zoomControl: false, attributionControl: true, worldCopyJump: true, minZoom: 2 });
   map.fitBounds(WORLD);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    subdomains: 'abcd', maxZoom: 19,
-  }).addTo(map);
+  window.HT.basemap(map);
   map.on('click', onMapClick);
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden) setTimeout(() => map.invalidateSize(), 60);
@@ -41,7 +41,7 @@ function initMap() {
 function onMapClick(e) {
   if ($('#dock').hidden) return; // only during guessing
   if (!guessMarker) {
-    guessMarker = L.marker(e.latlng, { draggable: true, icon: pinIcon('#ffb24d') }).addTo(map);
+    guessMarker = L.marker(e.latlng, { draggable: true, icon: pinIcon(token('--mark')) }).addTo(map);
     $('#lockBtn').disabled = false;
     $('#pinHint').textContent = 'drag the pin to adjust, then lock it';
   } else {
@@ -52,8 +52,9 @@ function onMapClick(e) {
 function pinIcon(color) {
   return L.divIcon({
     className: 'pin-wrap',
-    html: `<svg width="30" height="40" viewBox="0 0 30 40"><path d="M15 0C6.7 0 0 6.7 0 15c0 11 15 25 15 25s15-14 15-25C30 6.7 23.3 0 15 0z" fill="${color}"/><circle cx="15" cy="14" r="6" fill="#0a0d13"/></svg>`,
-    iconSize: [30, 40], iconAnchor: [15, 40],
+    // survey marker: a stem with a ringed head, closer to a map annotation than a balloon
+    html: `<svg width="26" height="34" viewBox="0 0 26 34"><line x1="13" y1="12" x2="13" y2="33" stroke="${color}" stroke-width="1.5"/><circle cx="13" cy="9" r="7" fill="${token('--surface')}" stroke="${color}" stroke-width="2.5"/><circle cx="13" cy="9" r="2.5" fill="${color}"/></svg>`,
+    iconSize: [26, 34], iconAnchor: [13, 33],
   });
 }
 
@@ -183,7 +184,7 @@ function nextRound() {
   $('#playerFill').style.width = '0%';
   $('#playBtn').disabled = false;
   $('#lockBtn').disabled = true;
-  $('#pinHint').textContent = '▶ listen, then tap the map to drop your pin';
+  $('#pinHint').textContent = 'listen, then tap the map to drop your pin';
   setView('round');
   audio.src = deck[round].url; // preload metadata now so play starts instantly on tap
   audio.load();
@@ -327,7 +328,11 @@ audio.addEventListener('timeupdate', () => {
     $('#listens').textContent = 'listening time up — trust your ear, drop the pin';
   }
 });
-audio.addEventListener('play', () => { updatePlayIcon(); startRaf(); });
+audio.addEventListener('play', () => {
+  updatePlayIcon(); startRaf();
+  const b = $('#playBtn').getBoundingClientRect();
+  field.pulse(b.left + b.width / 2, b.top + b.height / 2, 1);
+});
 audio.addEventListener('pause', () => { playing = false; updatePlayIcon(); stopRaf(); });
 audio.addEventListener('ended', () => { playing = false; updatePlayIcon(); stopRaf(); });
 
@@ -398,13 +403,13 @@ function lockIn() {
   roundLog.push({ id: clip.id, label: clip.label, km, pts });
 
   const truth = { lat: best.lat, lng: best.lng };
-  truthMarker = L.marker(truth, { icon: pinIcon('#7ee08a') }).addTo(map);
+  truthMarker = L.marker(truth, { icon: pinIcon(token('--brand')) }).addTo(map);
   for (const c of centers) {
     if (c === best) continue;
-    extraDots.push(L.circleMarker([c.lat, c.lng], { radius: 6, color: '#7ee08a', weight: 2, fillColor: '#7ee08a', fillOpacity: 0.25 })
+    extraDots.push(L.circleMarker([c.lat, c.lng], { radius: 6, color: token('--brand'), weight: 2, fillColor: token('--brand'), fillOpacity: 0.2 })
       .addTo(map).bindTooltip(c.name));
   }
-  line = L.polyline([guess, truth], { color: '#ffb24d', weight: 2, dashArray: '6 8', opacity: 0.8 }).addTo(map);
+  line = L.polyline([guess, truth], { color: token('--mark'), weight: 1.5, dashArray: '5 7', opacity: 0.9 }).addTo(map);
   // keep the arc visible above the bottom sheet
   map.fitBounds(L.latLngBounds([guess, truth]), { paddingTopLeft: [60, 90], paddingBottomRight: [60, 300] });
 
@@ -413,7 +418,7 @@ function lockIn() {
   $('#revealStats').textContent = `${km.toLocaleString()} km away → +${pts.toLocaleString()} pts${pts === 5000 ? ' 🎯' : ''}${altNote}`;
   $('#revealHint').textContent = clip.hint || '';
   renderSource(clip.source);
-  $('#nextBtn').textContent = round === ROUNDS - 1 ? 'see final score →' : 'next clip →';
+  $('#nextBtn').textContent = round === ROUNDS - 1 ? 'see final score' : 'next clip';
   setView('reveal');
 }
 
@@ -507,7 +512,7 @@ function renderModeCards() {
     const ready = pool.length >= ROUNDS;
     const b = document.createElement('button');
     b.className = 'type-btn' + (ready ? '' : ' soon');
-    b.innerHTML = `<span class="type-emoji">${m.emoji}</span><span class="type-name">${m.name}</span><span class="type-desc">${m.desc}</span>${ready ? '' : '<span class="type-soon-note">stocking clips…</span>'}`;
+    b.innerHTML = `<span class="type-code">${m.code}</span><span class="type-name">${m.name}</span><span class="type-desc">${m.desc}</span>${ready ? '' : '<span class="type-soon-note">stocking clips</span>'}`;
     if (ready) b.onclick = () => startGame(m.key);
     grid.appendChild(b);
   }

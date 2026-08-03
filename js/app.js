@@ -11,14 +11,15 @@ let audioCtx = null, analyser = null, rafId = null;
 let timerId = null, startedAt = 0;
 let micPeak = -1; // loudest rolling level seen this recording; -1 = meter unavailable
 
+// the survey red, read from the stylesheet so themes stay in one place
+const MARK = () => getComputedStyle(document.documentElement).getPropertyValue('--mark').trim();
+const field = window.HT.contours();
+
 // ————— map —————
 function initMap() {
   map = L.map('map', { zoomControl: false, attributionControl: true, worldCopyJump: true });
   map.fitBounds(HOME_BOUNDS);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    subdomains: 'abcd', maxZoom: 19,
-  }).addTo(map);
+  window.HT.basemap(map);
 
   // if the page loads in a background tab, Leaflet caches a 0x0 size — fix on reveal
   document.addEventListener('visibilitychange', () => {
@@ -47,7 +48,7 @@ function flyToCountry(c) {
   ensureMapReady();
   dropFn = () => {
     if (marker) return;
-    glow = L.circle([c.lat, c.lng], { radius: 90000, color: '#ffb24d', weight: 1, opacity: 0.35, fillColor: '#ffb24d', fillOpacity: 0.12 }).addTo(map);
+    glow = L.circle([c.lat, c.lng], { radius: 90000, color: MARK(), weight: 1, opacity: 0.5, fillColor: MARK(), fillOpacity: 0.10 }).addTo(map);
     marker = L.marker([c.lat, c.lng], {
       icon: L.divIcon({ className: 'pulse-wrap', html: '<div class="pulse"></div><div class="pulse-dot"></div>', iconSize: [18, 18], iconAnchor: [9, 9] }),
     }).addTo(map);
@@ -114,6 +115,12 @@ function startMeter(stream) {
         const v = data[Math.floor(i * data.length / bars.length / 2) + 2] / 255;
         b.style.transform = `scaleY(${0.15 + v * 1.1})`;
       });
+      // your voice pushes isoglosses out across the map
+      const level = sum / data.length / 255;
+      if (level > 0.06 && Math.random() < level * 1.5) {
+        const btn = $('#micBtn')?.getBoundingClientRect();
+        field.pulse(btn ? btn.left + btn.width / 2 : undefined, btn ? btn.top + btn.height / 2 : undefined, Math.min(1, level * 3));
+      }
       rafId = requestAnimationFrame(loop);
     };
     loop();
