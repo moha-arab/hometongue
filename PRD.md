@@ -71,6 +71,7 @@ Shared mechanics:
 - **Pluricentric answers**: in World Languages a clip accepts every region where the language is genuinely at home and scores you to the nearest one. A French clip recorded in Paris gives full marks for a Montréal pin, and says so.
 - **Variety dealing**: one clip per region first, then draws from whichever region has the most unused clips, so no deal repeats a place.
 - **Readable credits**: each reveal shows who recorded it, where it lives, the licence, and a link to the original. People are curious; the credit line used to be an unreadable run-on.
+- **One loudness for every clip**: sources arrived anywhere from −52 LUFS (inaudible) to −5.9 LUFS peaking at +5.3 dBTP (clipping, painful on headphones) — a 46 dB spread, because a radio rip, a podcast and a laptop-mic reading share no level convention. Every clip is now two-pass EBU R128 normalized to −16 LUFS with a −1.5 dBTP ceiling, leaving a 4.4 dB spread. The measured value is stored per clip and `tools/check-decks.mjs` fails on drift.
 
 ### 🗺 The Atlas — next (P2)
 

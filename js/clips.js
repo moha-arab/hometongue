@@ -10,11 +10,11 @@ window.CLIPS = {
       "id": "lang-uzbek",
       "label": "Uzbek",
       "lang": "Uzbek",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a7/Jadidlar.ogg/Jadidlar.ogg.mp3",
+      "url": "/clips/languages/lang-uzbek.mp3",
       "lat": 41.3,
       "lng": 64.5,
       "r": 600,
-      "size": 2716345,
+      "size": 1246816,
       "hint": "A spoken Uzbek Wikipedia article about the Jadids, Central Asia's early-1900s reform movement (~156s).",
       "source": {
         "who": "Panpanchik",
@@ -22,17 +22,18 @@ window.CLIPS = {
         "license": "CC BY-SA 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:Jadidlar.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "lang-turkish",
       "label": "Turkish",
       "lang": "Turkish",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/df/Birle%C5%9Fmi%C5%9F_Milletler_G%C3%BCvenlik_Konseyi.ogg/Birle%C5%9Fmi%C5%9F_Milletler_G%C3%BCvenlik_Konseyi.ogg.mp3",
+      "url": "/clips/languages/lang-turkish.mp3",
       "lat": 39.5,
       "lng": 34.5,
       "r": 700,
-      "size": 5564119,
+      "size": 1920775,
       "hint": "A Turkish spoken-Wikipedia reading about the UN Security Council (~6.5 min).",
       "source": {
         "who": "narrated by Elmacenderesi (Turkish Spoken Wikipedia",
@@ -40,17 +41,18 @@ window.CLIPS = {
         "license": "CC BY-SA 2.5",
         "page": "https://commons.wikimedia.org/wiki/File:Birle%C5%9Fmi%C5%9F_Milletler_G%C3%BCvenlik_Konseyi.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "lang-persian-farsi",
       "label": "Persian (Farsi)",
       "lang": "Persian",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/48/Nowruz-fa.ogg/Nowruz-fa.ogg.mp3",
+      "url": "/clips/languages/lang-persian-farsi.mp3",
       "lat": 32.5,
       "lng": 53.7,
       "r": 1500,
-      "size": 29750113,
+      "size": 1920775,
       "hint": "A Persian Wikipedia reading of the article on Nowruz, the Persian New Year (~30 min).",
       "alt": [
         {
@@ -70,17 +72,18 @@ window.CLIPS = {
         "license": "CC BY-SA 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Nowruz-fa.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.2
     },
     {
       "id": "lang-hindi",
       "label": "Hindi",
       "lang": "Hindi",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/d8/Hi-Hind-Europiya_bhaashaa_parivaar_part1.ogg/Hi-Hind-Europiya_bhaashaa_parivaar_part1.ogg.mp3",
+      "url": "/clips/languages/lang-hindi.mp3",
       "lat": 26.8,
       "lng": 80.9,
       "r": 800,
-      "size": 11270282,
+      "size": 1920775,
       "hint": "A Hindi Wikipedia reading about the Indo-European language family (~15.5 min).",
       "alt": [
         {
@@ -95,17 +98,18 @@ window.CLIPS = {
         "license": "CC BY-SA 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Hi-Hind-Europiya_bhaashaa_parivaar_part1.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.8
     },
     {
       "id": "lang-bengali",
       "label": "Bengali",
       "lang": "Bengali",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e0/Dengue_Bengali_symptoms.ogg/Dengue_Bengali_symptoms.ogg.mp3",
+      "url": "/clips/languages/lang-bengali.mp3",
       "lat": 23.5,
       "lng": 89,
       "r": 400,
-      "size": 547757,
+      "size": 567005,
       "hint": "A Bengali explanation of dengue fever symptoms, recorded at a 2012 Spoken Wikipedia workshop (~71s).",
       "alt": [
         {
@@ -120,17 +124,18 @@ window.CLIPS = {
         "license": "CC BY-SA 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Dengue_Bengali_symptoms.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "lang-thai",
       "label": "Thai",
       "lang": "Thai",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/44/Th-Saman_Gunan.ogg/Th-Saman_Gunan.ogg.mp3",
+      "url": "/clips/languages/lang-thai.mp3",
       "lat": 15.5,
       "lng": 101,
       "r": 500,
-      "size": 7305995,
+      "size": 1920775,
       "hint": "A Thai spoken-Wikipedia article about Saman Kunan, the diver from the 2018 Tham Luang cave rescue (~11 min).",
       "source": {
         "who": "speaker B20180 (Thai Spoken Wikipedia",
@@ -138,17 +143,18 @@ window.CLIPS = {
         "license": "CC BY-SA 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:Th-Saman_Gunan.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.6
     },
     {
       "id": "lang-vietnamese",
       "label": "Vietnamese",
       "lang": "Vietnamese",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/8/87/B%C3%A0i_th%C6%A1_Ki%E1%BA%BFp_L%C6%B0u_Vong.wav/B%C3%A0i_th%C6%A1_Ki%E1%BA%BFp_L%C6%B0u_Vong.wav.mp3",
+      "url": "/clips/languages/lang-vietnamese.mp3",
       "lat": 16.5,
       "lng": 107.6,
       "r": 700,
-      "size": 1741427,
+      "size": 565988,
       "hint": "A recitation of the Vietnamese poem 'Kiếp Lưu Vong' (Life in Exile) (~71s).",
       "source": {
         "who": "Hoàng Kỳ bay (read by Nguyễn Viết Dũng",
@@ -156,17 +162,18 @@ window.CLIPS = {
         "license": "CC BY-SA 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:B%C3%A0i_th%C6%A1_Ki%E1%BA%BFp_L%C6%B0u_Vong.wav",
         "note": ""
-      }
+      },
+      "lufs": -18
     },
     {
       "id": "lang-japanese",
       "label": "Japanese",
       "lang": "Japanese",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/26/Ja-botchan_1-1_1-2.ogg/Ja-botchan_1-1_1-2.ogg.mp3",
+      "url": "/clips/languages/lang-japanese.mp3",
       "lat": 36,
       "lng": 138,
       "r": 700,
-      "size": 1200480,
+      "size": 787270,
       "hint": "This is the opening of Natsume Soseki's beloved 1906 novel Botchan, read aloud.",
       "source": {
         "who": "read by marsian",
@@ -174,17 +181,18 @@ window.CLIPS = {
         "license": "public domain",
         "page": "https://commons.wikimedia.org/wiki/File:Ja-botchan_1-1_1-2.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.7
     },
     {
       "id": "lang-korean",
       "label": "Korean",
       "lang": "Korean",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/1a/LibriVox_-_%ED%98%84%EC%A7%84%EA%B1%B4_%ED%94%BC%EC%95%84%EB%85%B8.ogg/LibriVox_-_%ED%98%84%EC%A7%84%EA%B1%B4_%ED%94%BC%EC%95%84%EB%85%B8.ogg.mp3",
+      "url": "/clips/languages/lang-korean.mp3",
       "lat": 36.5,
       "lng": 127.8,
       "r": 500,
-      "size": 5442614,
+      "size": 1920775,
       "hint": "A LibriVox reading of \"Piano\", a 1920s short story by colonial-era writer Hyun Jin-geon.",
       "alt": [
         {
@@ -199,17 +207,18 @@ window.CLIPS = {
         "license": "public domain",
         "page": "https://commons.wikimedia.org/wiki/File:LibriVox_-_%ED%98%84%EC%A7%84%EA%B1%B4_%ED%94%BC%EC%95%84%EB%85%B8.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.9
     },
     {
       "id": "lang-mandarin-chinese",
       "label": "Mandarin Chinese",
       "lang": "Mandarin Chinese",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/ed/Zh-PRC-Part1.ogg/Zh-PRC-Part1.ogg.mp3",
+      "url": "/clips/languages/lang-mandarin-chinese.mp3",
       "lat": 35,
       "lng": 110,
       "r": 1500,
-      "size": 27007306,
+      "size": 1920775,
       "hint": "A spoken Wikipedia recording of the article about the People's Republic of China.",
       "alt": [
         {
@@ -229,17 +238,18 @@ window.CLIPS = {
         "license": "CC BY-SA 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Zh-PRC-Part1.ogg",
         "note": ""
-      }
+      },
+      "lufs": -17
     },
     {
       "id": "lang-indonesian",
       "label": "Indonesian",
       "lang": "Indonesian",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b1/Akhsinatun_Aisyah_kartinah.ogg/Akhsinatun_Aisyah_kartinah.ogg.mp3",
+      "url": "/clips/languages/lang-indonesian.mp3",
       "lat": -4,
       "lng": 112,
       "r": 1500,
-      "size": 5287019,
+      "size": 1920775,
       "hint": "A spoken Indonesian Wikipedia article about Kartinah, recorded by a volunteer narrator.",
       "source": {
         "who": "by Akhsinatun Aisyah",
@@ -247,17 +257,18 @@ window.CLIPS = {
         "license": "CC BY-SA 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:Akhsinatun_Aisyah_kartinah.ogg",
         "note": ""
-      }
+      },
+      "lufs": -15.5
     },
     {
       "id": "lang-tagalog",
       "label": "Tagalog",
       "lang": "Tagalog",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/98/Hep_C_tl.ogg/Hep_C_tl.ogg.mp3",
+      "url": "/clips/languages/lang-tagalog.mp3",
       "lat": 14.6,
       "lng": 121,
       "r": 400,
-      "size": 2410225,
+      "size": 1262071,
       "hint": "A Tagalog Wikipedia health article about hepatitis C, read aloud for the Spoken Wikipedia project.",
       "source": {
         "who": "spoken by Sky Harbor",
@@ -265,17 +276,18 @@ window.CLIPS = {
         "license": "CC BY-SA 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:Hep_C_tl.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.4
     },
     {
       "id": "lang-swahili",
       "label": "Swahili",
       "lang": "Swahili",
-      "url": "https://voa-audio.voanews.eu/vsw/2024/12/30/5c65b6ce-21a8-489d-b57e-7ff41afeea48_48k.mp3",
+      "url": "/clips/languages/lang-swahili.mp3",
       "lat": -6.2,
       "lng": 39,
       "r": 1200,
-      "size": 5929113,
+      "size": 1920989,
       "hint": "A VOA Swahili radio feature about diseases that had major impact on Africa.",
       "alt": [
         {
@@ -295,17 +307,18 @@ window.CLIPS = {
         "license": "US government work (public domain)",
         "page": "",
         "note": ""
-      }
+      },
+      "lufs": -16.7
     },
     {
       "id": "lang-amharic",
       "label": "Amharic",
       "lang": "Amharic",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/da/Chegode_Meri_Biruh_1.wav/Chegode_Meri_Biruh_1.wav.mp3",
+      "url": "/clips/languages/lang-amharic.mp3",
       "lat": 9.03,
       "lng": 38.74,
       "r": 600,
-      "size": 11241379,
+      "size": 1920821,
       "hint": "An interview with a poet of Qene, Ethiopia's tradition of improvised double-meaning poetry.",
       "source": {
         "who": "Goethe-Institut Addis Ababa (qeneonnet.org",
@@ -313,17 +326,18 @@ window.CLIPS = {
         "license": "CC BY-SA 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:Chegode_Meri_Biruh_1.wav",
         "note": ""
-      }
+      },
+      "lufs": -16.1
     },
     {
       "id": "lang-somali",
       "label": "Somali",
       "lang": "Somali",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c9/Shaxmednuradc1.ogg/Shaxmednuradc1.ogg.mp3",
+      "url": "/clips/languages/lang-somali.mp3",
       "lat": 5,
       "lng": 46,
       "r": 800,
-      "size": 1277318,
+      "size": 496370,
       "hint": "Sheikh Ahmed Nur giving a speech in Standard Somali, broadcast on Somali TV in 2012.",
       "alt": [
         {
@@ -343,17 +357,18 @@ window.CLIPS = {
         "license": "CC BY-SA 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Shaxmednuradc1.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.8
     },
     {
       "id": "lang-hausa",
       "label": "Hausa",
       "lang": "Hausa",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/4d/Yan_Ghana_A_Jamus.ogg/Yan_Ghana_A_Jamus.ogg.mp3",
+      "url": "/clips/languages/lang-hausa.mp3",
       "lat": 12,
       "lng": 8.5,
       "r": 800,
-      "size": 13539544,
+      "size": 1920775,
       "hint": "A Hausa Wikipedia article read aloud by a native speaker; Hausa is West Africa's biggest trade language.",
       "alt": [
         {
@@ -368,17 +383,18 @@ window.CLIPS = {
         "license": "CC BY-SA 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Yan_Ghana_A_Jamus.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.3
     },
     {
       "id": "lang-russian",
       "label": "Russian",
       "lang": "Russian",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/d6/Ru-Apex_Legends.ogg/Ru-Apex_Legends.ogg.mp3",
+      "url": "/clips/languages/lang-russian.mp3",
       "lat": 55.75,
       "lng": 37.62,
       "r": 1500,
-      "size": 4165311,
+      "size": 1871038,
       "hint": "The article being read is the Russian Wikipedia page about the video game Apex Legends.",
       "alt": [
         {
@@ -403,17 +419,18 @@ window.CLIPS = {
         "license": "CC BY-SA 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Ru-Apex_Legends.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.6
     },
     {
       "id": "lang-ukrainian",
       "label": "Ukrainian",
       "lang": "Ukrainian",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/99/UA_Magnetic_bearing.ogg/UA_Magnetic_bearing.ogg.mp3",
+      "url": "/clips/languages/lang-ukrainian.mp3",
       "lat": 49,
       "lng": 31.4,
       "r": 600,
-      "size": 2003532,
+      "size": 898238,
       "hint": "A Ukrainian Wikipedia volunteer reading the article about magnetic bearings.",
       "source": {
         "who": "speaker User:Veeer",
@@ -421,17 +438,18 @@ window.CLIPS = {
         "license": "CC BY-SA 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:UA_Magnetic_bearing.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.6
     },
     {
       "id": "lang-polish",
       "label": "Polish",
       "lang": "Polish",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a6/Pl-Richard_Bourke-article.ogg/Pl-Richard_Bourke-article.ogg.mp3",
+      "url": "/clips/languages/lang-polish.mp3",
       "lat": 52.06,
       "lng": 19.48,
       "r": 400,
-      "size": 5631678,
+      "size": 1920775,
       "hint": "A Polish reading of the article about Richard Bourke, a 19th-century governor of New South Wales.",
       "source": {
         "who": "Powerek38",
@@ -439,17 +457,18 @@ window.CLIPS = {
         "license": "CC BY-SA 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Pl-Richard_Bourke-article.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.4
     },
     {
       "id": "lang-greek",
       "label": "Greek",
       "lang": "Greek",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/cf/Ell-article-Theoria_tou_Haous.ogg/Ell-article-Theoria_tou_Haous.ogg.mp3",
+      "url": "/clips/languages/lang-greek.mp3",
       "lat": 38.5,
       "lng": 23.5,
       "r": 400,
-      "size": 7772568,
+      "size": 1920775,
       "hint": "The article being read is about chaos theory (Θεωρία του Χάους).",
       "alt": [
         {
@@ -464,17 +483,18 @@ window.CLIPS = {
         "license": "CC BY-SA 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Ell-article-Theoria_tou_Haous.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.4
     },
     {
       "id": "lang-german",
       "label": "German",
       "lang": "German",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/27/De-Ahlemer_Turm.ogg/De-Ahlemer_Turm.ogg.mp3",
+      "url": "/clips/languages/lang-german.mp3",
       "lat": 50.9,
       "lng": 10,
       "r": 600,
-      "size": 4744205,
+      "size": 1920775,
       "hint": "The article is about the Ahlemer Turm, a historic tower in Hanover.",
       "alt": [
         {
@@ -494,17 +514,18 @@ window.CLIPS = {
         "license": "CC BY-SA 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:De-Ahlemer_Turm.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.4
     },
     {
       "id": "lang-french",
       "label": "French",
       "lang": "French",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e0/Arquebuse.ogg/Arquebuse.ogg.mp3",
+      "url": "/clips/languages/lang-french.mp3",
       "lat": 48.86,
       "lng": 2.35,
       "r": 1500,
-      "size": 6732125,
+      "size": 1920775,
       "hint": "The article is about the arquebus, an early gunpowder firearm.",
       "alt": [
         {
@@ -544,17 +565,18 @@ window.CLIPS = {
         "license": "CC BY 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Arquebuse.ogg",
         "note": ""
-      }
+      },
+      "lufs": -19.5
     },
     {
       "id": "lang-portuguese-brazil",
       "label": "Portuguese (Brazil)",
       "lang": "Portuguese",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/44/Eslavos_da_%C3%81sia_Menor_vers%C3%A3o_RJ.ogg/Eslavos_da_%C3%81sia_Menor_vers%C3%A3o_RJ.ogg.mp3",
+      "url": "/clips/languages/lang-portuguese-brazil.mp3",
       "lat": -22.91,
       "lng": -43.2,
       "r": 1500,
-      "size": 4787500,
+      "size": 1920775,
       "hint": "This is explicitly the Rio de Janeiro accent version of the article on Slavs of Asia Minor.",
       "alt": [
         {
@@ -579,17 +601,18 @@ window.CLIPS = {
         "license": "CC BY-SA 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Eslavos_da_%C3%81sia_Menor_vers%C3%A3o_RJ.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.4
     },
     {
       "id": "lang-italian",
       "label": "Italian",
       "lang": "Italian",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/95/Itwiki-Fonni.ogg/Itwiki-Fonni.ogg.mp3",
+      "url": "/clips/languages/lang-italian.mp3",
       "lat": 41.9,
       "lng": 12.5,
       "r": 500,
-      "size": 2868482,
+      "size": 1806045,
       "hint": "The article is about Fonni, the highest-altitude town on the island of Sardinia.",
       "alt": [
         {
@@ -604,17 +627,18 @@ window.CLIPS = {
         "license": "CC BY-SA 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:Itwiki-Fonni.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.4
     },
     {
       "id": "lang-swedish",
       "label": "Swedish",
       "lang": "Swedish",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/8/8d/Sv-R%C3%B6deby-article.ogg/Sv-R%C3%B6deby-article.ogg.mp3",
+      "url": "/clips/languages/lang-swedish.mp3",
       "lat": 59.33,
       "lng": 18.07,
       "r": 500,
-      "size": 2737700,
+      "size": 1182868,
       "hint": "The article is about Rödeby, a small town in Blekinge, southern Sweden.",
       "source": {
         "who": "Arrowkiwi",
@@ -622,17 +646,18 @@ window.CLIPS = {
         "license": "CC BY-SA 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Sv-R%C3%B6deby-article.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "lang-hungarian",
       "label": "Hungarian",
       "lang": "Hungarian",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3c/HunArtTorokorszag.ogg/HunArtTorokorszag.ogg.mp3",
+      "url": "/clips/languages/lang-hungarian.mp3",
       "lat": 47.5,
       "lng": 19.05,
       "r": 400,
-      "size": 7503872,
+      "size": 1920775,
       "hint": "A Hungarian reading of the Wikipedia article about Turkey (Törökország).",
       "source": {
         "who": "Commons contributor Dubaduba (Hungarian spoken Wikipedia)",
@@ -640,7 +665,8 @@ window.CLIPS = {
         "license": "CC BY-SA 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:HunArtTorokorszag.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.1
     }
   ],
   "accents": [
@@ -648,11 +674,11 @@ window.CLIPS = {
       "id": "wild-amritsar-punjab-india",
       "label": "Amritsar / Punjab, India",
       "lang": "English",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/08/Manmohan_Singh_voice.ogg/Manmohan_Singh_voice.ogg.mp3",
+      "url": "/clips/accents/wild-amritsar-punjab-india.mp3",
       "lat": 31.634,
       "lng": 74.8723,
       "r": 800,
-      "size": 1439078,
+      "size": 1186839,
       "wild": true,
       "hint": "Indian PM addressing the US Congress, 2.5min. Note: born in pre-Partition Punjab (now Pakistan), raised in Indian Punjab",
       "start": 97,
@@ -662,17 +688,18 @@ window.CLIPS = {
         "license": "public domain",
         "page": "https://commons.wikimedia.org/wiki/File:Manmohan_Singh_voice.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.4
     },
     {
       "id": "wild-boston-massachusetts-usa",
       "label": "Boston, Massachusetts, USA",
       "lang": "English",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/d5/JFK_inaugural_address.ogg/JFK_inaugural_address.ogg.mp3",
+      "url": "/clips/accents/wild-boston-massachusetts-usa.mp3",
       "lat": 42.3601,
       "lng": -71.0589,
       "r": 120,
-      "size": 11601012,
+      "size": 1920775,
       "wild": true,
       "hint": "1961 speech, the Boston non-rhotic 'vigah' is unmistakable — but the voice is world-famous, may be too easy",
       "source": {
@@ -681,17 +708,18 @@ window.CLIPS = {
         "license": "public domain",
         "page": "https://commons.wikimedia.org/wiki/File:JFK_inaugural_address.ogg",
         "note": ""
-      }
+      },
+      "lufs": -15.6
     },
     {
       "id": "wild-georgetown-south-carolina-usa-us-south",
       "label": "Georgetown, South Carolina, USA (US South)",
       "lang": "English",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b8/Bill_Oberst_Jr_voice.ogg/Bill_Oberst_Jr_voice.ogg.mp3",
+      "url": "/clips/accents/wild-georgetown-south-carolina-usa-us-south.mp3",
       "lat": 33.3768,
       "lng": -79.2945,
       "r": 400,
-      "size": 821961,
+      "size": 333366,
       "wild": true,
       "hint": "Actor introducing himself off the cuff, 42s",
       "start": 9,
@@ -701,17 +729,18 @@ window.CLIPS = {
         "license": "CC BY-SA 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:Bill_Oberst_Jr_voice.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "wild-huddersfield-west-yorkshire-england",
       "label": "Huddersfield, West Yorkshire, England",
       "lang": "English",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c6/Wilf%27_Lunn_voice_sample.wav/Wilf%27_Lunn_voice_sample.wav.mp3",
+      "url": "/clips/accents/wild-huddersfield-west-yorkshire-england.mp3",
       "lat": 53.6458,
       "lng": -1.785,
       "r": 80,
-      "size": 587158,
+      "size": 226577,
       "wild": true,
       "hint": "TV inventor interviewed at home, 28s of strong Yorkshire vowels",
       "source": {
@@ -720,7 +749,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:Wilf%27_Lunn_voice_sample.wav",
         "note": ""
-      }
+      },
+      "lufs": -16.6
     },
     {
       "id": "accents-kenya-english-kenyan",
@@ -740,17 +770,18 @@ window.CLIPS = {
         "license": "US government work (public domain)",
         "page": "https://commons.wikimedia.org/wiki/File:2010-08-23_VOA_News_interview_with_David_Rudisha.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.6
     },
     {
       "id": "wild-liverpool-england",
       "label": "Liverpool, England",
       "lang": "English",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/ef/John_bishop_bbc_radio4_desert_island_discs_24_06_2012.flac/John_bishop_bbc_radio4_desert_island_discs_24_06_2012.flac.mp3",
+      "url": "/clips/accents/wild-liverpool-england.mp3",
       "lat": 53.4084,
       "lng": -2.9916,
       "r": 60,
-      "size": 1022640,
+      "size": 268762,
       "wild": true,
       "hint": "Comedian reminiscing about school; 33s interview speech",
       "source": {
@@ -759,17 +790,18 @@ window.CLIPS = {
         "license": "CC BY 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:John_bishop_bbc_radio4_desert_island_discs_24_06_2012.flac",
         "note": ""
-      }
+      },
+      "lufs": -16.6
     },
     {
       "id": "wild-mbaise-imo-state-nigeria",
       "label": "Mbaise, Imo State, Nigeria",
       "lang": "English",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b2/Leo_Igwe_voice_-_en.ogg/Leo_Igwe_voice_-_en.ogg.mp3",
+      "url": "/clips/accents/wild-mbaise-imo-state-nigeria.mp3",
       "lat": 5.52,
       "lng": 7.26,
       "r": 500,
-      "size": 775885,
+      "size": 386447,
       "wild": true,
       "hint": "Activist introducing himself, 48s, strong Nigerian English",
       "start": 25,
@@ -779,17 +811,18 @@ window.CLIPS = {
         "license": "CC BY-SA 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:Leo_Igwe_voice_-_en.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "wild-melbourne-australia",
       "label": "Melbourne, Australia",
       "lang": "English",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/53/Shelley_Segal_voice_-_en.ogg/Shelley_Segal_voice_-_en.ogg.mp3",
+      "url": "/clips/accents/wild-melbourne-australia.mp3",
       "lat": -37.8136,
       "lng": 144.9631,
       "r": 500,
-      "size": 584236,
+      "size": 303691,
       "wild": true,
       "hint": "Musician introducing herself off the cuff, 38s",
       "start": 14,
@@ -799,17 +832,18 @@ window.CLIPS = {
         "license": "CC BY-SA 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:Shelley_Segal_voice_-_en.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "wild-mvezo-eastern-cape-south-africa",
       "label": "Mvezo / Eastern Cape, South Africa",
       "lang": "English",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/1f/Nelson_Mandela_voice.ogg/Nelson_Mandela_voice.ogg.mp3",
+      "url": "/clips/accents/wild-mvezo-eastern-cape-south-africa.mp3",
       "lat": -31.93,
       "lng": 28.48,
       "r": 600,
-      "size": 10372846,
+      "size": 1920775,
       "wild": true,
       "hint": "10.7min speech; unmistakable cadence — world-famous voice, may be too easy",
       "start": 31,
@@ -819,7 +853,8 @@ window.CLIPS = {
         "license": "public domain",
         "page": "https://commons.wikimedia.org/wiki/File:Nelson_Mandela_voice.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.6
     },
     {
       "id": "accents-namibia-english-namibian",
@@ -839,17 +874,18 @@ window.CLIPS = {
         "license": "CC BY-SA 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:WIKITONGUES-_Musuweu_speaking_English_and_Subiya.webm",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -17.1
     },
     {
       "id": "wild-new-york-city-manhattan-usa",
       "label": "New York City (Manhattan), USA",
       "lang": "English",
-      "url": "https://archive.org/download/EDIS-SRP-0014-17/EDIS-SRP-0014-17.mp3",
+      "url": "/clips/accents/wild-new-york-city-manhattan-usa.mp3",
       "lat": 40.7484,
       "lng": -73.9857,
       "r": 250,
-      "size": 3061867,
+      "size": 1921040,
       "wild": true,
       "hint": "1912 campaign oration declaimed for the cylinder, 4:15; period audio quality, accent is old-fashioned upper-class New York.",
       "source": {
@@ -858,7 +894,8 @@ window.CLIPS = {
         "license": "public domain",
         "page": "",
         "note": ""
-      }
+      },
+      "lufs": -16.9
     },
     {
       "id": "accents-new-zealand-english-new-zealand",
@@ -878,7 +915,8 @@ window.CLIPS = {
         "license": "CC BY 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Jacinda_Ardern-_Harvard_Graduation_2022_Speech-_%22Democracy_is_Fragile%22.webm",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.7
     },
     {
       "id": "accents-aberdeenshire-scotland-english-northeast-scotl",
@@ -898,17 +936,18 @@ window.CLIPS = {
         "license": "CC BY 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:WIKITONGUES-_David_speaking_Doric_Scots_and_English.webm",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -17
     },
     {
       "id": "wild-sarnia-milton-ontario-canada",
       "label": "Sarnia / Milton, Ontario, Canada",
       "lang": "English",
-      "url": "https://archive.org/download/nasa_tv-Space_Station_s_Hadfield_Connects_with_Canadian_Students/Space_Station_s_Hadfield_Connects_with_Canadian_Students.mp3",
+      "url": "/clips/accents/wild-sarnia-milton-ontario-canada.mp3",
       "lat": 43.5183,
       "lng": -79.8774,
       "r": 500,
-      "size": 17519030,
+      "size": 1920906,
       "wild": true,
       "hint": "Live unscripted Q&A downlink, 24:18 mp3; opening minutes may include Canadian event hosts (also Ontario voices) before/between Hadfield's long answers. All-English event.",
       "start": 103,
@@ -918,17 +957,18 @@ window.CLIPS = {
         "license": "US government work (public domain)",
         "page": "",
         "note": ""
-      }
+      },
+      "lufs": -16.7
     },
     {
       "id": "wild-st-ann-s-bay-jamaica",
       "label": "St. Ann's Bay, Jamaica",
       "lang": "English",
-      "url": "https://archive.org/download/MarcusGarveySpeech1921/marcus_garvey_speech_1921.mp3",
+      "url": "/clips/accents/wild-st-ann-s-bay-jamaica.mp3",
       "lat": 18.4344,
       "lng": -77.1969,
       "r": 300,
-      "size": 3523427,
+      "size": 1762391,
       "wild": true,
       "hint": "Declaimed oration recorded in a studio (not read from a shared script), 3:40; 1921 disc surface noise but voice is clear.",
       "source": {
@@ -937,17 +977,18 @@ window.CLIPS = {
         "license": "public domain",
         "page": "",
         "note": ""
-      }
+      },
+      "lufs": -16.4
     },
     {
       "id": "wild-texas-hill-country-stonewall-usa",
       "label": "Texas Hill Country (Stonewall), USA",
       "lang": "English",
-      "url": "https://archive.org/download/lbj631101/lbj_k6311_01a_01_Goldberg.mp3",
+      "url": "/clips/accents/wild-texas-hill-country-stonewall-usa.mp3",
       "lat": 30.2418,
       "lng": -98.4439,
       "r": 400,
-      "size": 5940224,
+      "size": 1920880,
       "wild": true,
       "hint": "Unscripted phone conversation, 7:08; LBJ does most of the talking but the other party (Arthur Goldberg, Chicago) also speaks.",
       "source": {
@@ -956,17 +997,18 @@ window.CLIPS = {
         "license": "public domain",
         "page": "",
         "note": ""
-      }
+      },
+      "lufs": -16.1
     },
     {
       "id": "wild-the-bronx-new-york-city-usa",
       "label": "The Bronx, New York City, USA",
       "lang": "English",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/cc/Sonia_Sotomayor_Opening_Statement_to_the_Senate_Judiciary_Committee.ogg/Sonia_Sotomayor_Opening_Statement_to_the_Senate_Judiciary_Committee.ogg.mp3",
+      "url": "/clips/accents/wild-the-bronx-new-york-city-usa.mp3",
       "lat": 40.8448,
       "lng": -73.8648,
       "r": 100,
-      "size": 8515726,
+      "size": 1920775,
       "wild": true,
       "hint": "Judge telling her life story to the Senate; 7min, NY accent; skip the first ~30s of thank-yous",
       "start": 11,
@@ -976,17 +1018,18 @@ window.CLIPS = {
         "license": "public domain",
         "page": "https://commons.wikimedia.org/wiki/File:Sonia_Sotomayor_Opening_Statement_to_the_Senate_Judiciary_Committee.ogg",
         "note": ""
-      }
+      },
+      "lufs": -16.9
     },
     {
       "id": "wild-thomastown-county-kilkenny-ireland",
       "label": "Thomastown, County Kilkenny, Ireland",
       "lang": "English",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/9c/2024-09-16_Patrick_Lalor_Ladywell.opus/2024-09-16_Patrick_Lalor_Ladywell.opus.mp3",
+      "url": "/clips/accents/wild-thomastown-county-kilkenny-ireland.mp3",
       "lat": 52.5264,
       "lng": -7.137,
       "r": 150,
-      "size": 24002324,
+      "size": 1920775,
       "wild": true,
       "hint": "A 94-year-old lifelong local telling stories about the holy well behind his house (14:46 total, pick any segment)",
       "start": 23,
@@ -996,17 +1039,18 @@ window.CLIPS = {
         "license": "CC0 (public domain)",
         "page": "https://commons.wikimedia.org/wiki/File:2024-09-16_Patrick_Lalor_Ladywell.opus",
         "note": ""
-      }
+      },
+      "lufs": -16.6
     },
     {
       "id": "wild-toronto-canada",
       "label": "Toronto, Canada",
       "lang": "English",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/04/Stephen_Harper_voice.ogg/Stephen_Harper_voice.ogg.mp3",
+      "url": "/clips/accents/wild-toronto-canada.mp3",
       "lat": 43.6532,
       "lng": -79.3832,
       "r": 400,
-      "size": 8728589,
+      "size": 1920775,
       "wild": true,
       "hint": "PM speaking at Davos; 6.5min, standard Canadian English",
       "start": 4,
@@ -1016,7 +1060,8 @@ window.CLIPS = {
         "license": "CC BY 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Stephen_Harper_voice.ogg",
         "note": ""
-      }
+      },
+      "lufs": -18.8
     },
     {
       "id": "accents-wales-english-welsh",
@@ -1035,7 +1080,8 @@ window.CLIPS = {
         "license": "Open Government Licence v3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Mark_Drakeford%27s_speech_on_Welsh_National_Day_of_Reflection.webm",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -17
     }
   ],
   "arabic": [
@@ -1047,7 +1093,7 @@ window.CLIPS = {
       "lat": 24.45,
       "lng": 54.38,
       "r": 350,
-      "size": 661292,
+      "size": 240788,
       "hint": "Local radio from Abu Dhabi — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1055,7 +1101,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "ar-6158",
@@ -1065,7 +1112,7 @@ window.CLIPS = {
       "lat": 25.41,
       "lng": 55.44,
       "r": 350,
-      "size": 941804,
+      "size": 240788,
       "hint": "Local radio from Ajman — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1073,7 +1120,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.3
     },
     {
       "id": "ar-3384",
@@ -1083,7 +1131,7 @@ window.CLIPS = {
       "lat": 36.2,
       "lng": 37.13,
       "r": 350,
-      "size": 942860,
+      "size": 240788,
       "hint": "Local radio from Aleppo — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1091,7 +1139,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -18.4
     },
     {
       "id": "ar-882",
@@ -1101,7 +1150,7 @@ window.CLIPS = {
       "lat": 31.2,
       "lng": 29.92,
       "r": 350,
-      "size": 445628,
+      "size": 240788,
       "hint": "Local radio from Alexandria — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1109,7 +1158,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.4
     },
     {
       "id": "ar-2082",
@@ -1119,7 +1169,7 @@ window.CLIPS = {
       "lat": 36.75,
       "lng": 3.06,
       "r": 350,
-      "size": 481161,
+      "size": 240835,
       "hint": "Local radio from Algiers — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1127,7 +1177,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.8
     },
     {
       "id": "ar-249",
@@ -1137,7 +1188,7 @@ window.CLIPS = {
       "lat": 31.95,
       "lng": 35.93,
       "r": 350,
-      "size": 481210,
+      "size": 240884,
       "hint": "Local radio from Amman — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1145,7 +1196,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "ar-39",
@@ -1155,7 +1207,7 @@ window.CLIPS = {
       "lat": 36.9,
       "lng": 7.77,
       "r": 350,
-      "size": 481161,
+      "size": 240835,
       "hint": "Local radio from Annaba — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1163,7 +1215,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.8
     },
     {
       "id": "ar-679",
@@ -1173,7 +1226,7 @@ window.CLIPS = {
       "lat": 33.31,
       "lng": 44.36,
       "r": 350,
-      "size": 506348,
+      "size": 240788,
       "hint": "Local radio from Baghdad — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1181,7 +1234,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.8
     },
     {
       "id": "ar-2765",
@@ -1191,7 +1245,7 @@ window.CLIPS = {
       "lat": 30.51,
       "lng": 47.78,
       "r": 350,
-      "size": 618403,
+      "size": 240678,
       "hint": "Local radio from Basra — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1199,7 +1253,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.8
     },
     {
       "id": "ar-2473",
@@ -1209,7 +1264,7 @@ window.CLIPS = {
       "lat": 35.56,
       "lng": 6.17,
       "r": 350,
-      "size": 481161,
+      "size": 240835,
       "hint": "Local radio from Batna — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1217,7 +1272,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -19.8
     },
     {
       "id": "ar-2446",
@@ -1227,7 +1283,7 @@ window.CLIPS = {
       "lat": 33.89,
       "lng": 35.5,
       "r": 350,
-      "size": 652071,
+      "size": 240887,
       "hint": "Local radio from Beirut — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1235,7 +1291,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.4
     },
     {
       "id": "ar-3107",
@@ -1245,7 +1302,7 @@ window.CLIPS = {
       "lat": 32.12,
       "lng": 20.07,
       "r": 350,
-      "size": 694892,
+      "size": 240788,
       "hint": "Local radio from Benghazi — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1253,7 +1310,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.6
     },
     {
       "id": "ar-809",
@@ -1263,7 +1321,7 @@ window.CLIPS = {
       "lat": 36.47,
       "lng": 2.83,
       "r": 350,
-      "size": 481161,
+      "size": 240835,
       "hint": "Local radio from Blida — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1271,7 +1329,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.7
     },
     {
       "id": "ar-2608",
@@ -1281,7 +1340,7 @@ window.CLIPS = {
       "lat": 30.04,
       "lng": 31.24,
       "r": 350,
-      "size": 758924,
+      "size": 240788,
       "hint": "Local radio from Cairo — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1289,7 +1348,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.4
     },
     {
       "id": "ar-1604",
@@ -1299,7 +1359,7 @@ window.CLIPS = {
       "lat": 33.57,
       "lng": -7.59,
       "r": 350,
-      "size": 481392,
+      "size": 241066,
       "hint": "Local radio from Casablanca — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1307,7 +1367,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "ar-2375",
@@ -1317,7 +1378,7 @@ window.CLIPS = {
       "lat": 36.37,
       "lng": 6.61,
       "r": 350,
-      "size": 481161,
+      "size": 240835,
       "hint": "Local radio from Constantine — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1325,7 +1386,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "ar-2278",
@@ -1335,7 +1397,7 @@ window.CLIPS = {
       "lat": 33.51,
       "lng": 36.29,
       "r": 350,
-      "size": 556412,
+      "size": 240788,
       "hint": "Local radio from Damascus — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1343,7 +1405,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16
     },
     {
       "id": "ar-94",
@@ -1353,7 +1416,7 @@ window.CLIPS = {
       "lat": 34.67,
       "lng": 3.25,
       "r": 350,
-      "size": 481161,
+      "size": 240835,
       "hint": "Local radio from Djelfa — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1361,7 +1424,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "ar-3345",
@@ -1371,7 +1435,7 @@ window.CLIPS = {
       "lat": 25.2,
       "lng": 55.27,
       "r": 350,
-      "size": 881579,
+      "size": 240887,
       "hint": "Local radio from Dubai — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1379,7 +1443,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.8
     },
     {
       "id": "ar-1907",
@@ -1389,7 +1454,7 @@ window.CLIPS = {
       "lat": 13.18,
       "lng": 30.22,
       "r": 350,
-      "size": 480620,
+      "size": 240788,
       "hint": "Local radio from El Obeid — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1397,7 +1462,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.4
     },
     {
       "id": "ar-754",
@@ -1407,7 +1473,7 @@ window.CLIPS = {
       "lat": 34.03,
       "lng": -5,
       "r": 350,
-      "size": 737900,
+      "size": 240788,
       "hint": "Local radio from Fes — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1415,7 +1481,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.4
     },
     {
       "id": "ar-3132",
@@ -1425,7 +1492,7 @@ window.CLIPS = {
       "lat": 31.5,
       "lng": 34.47,
       "r": 350,
-      "size": 947372,
+      "size": 240788,
       "hint": "Local radio from Gaza — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1433,7 +1500,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.3
     },
     {
       "id": "ar-3854",
@@ -1443,7 +1511,7 @@ window.CLIPS = {
       "lat": 31.53,
       "lng": 35.1,
       "r": 350,
-      "size": 765260,
+      "size": 240788,
       "hint": "Local radio from Hebron — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1451,7 +1519,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -17
     },
     {
       "id": "ar-4531",
@@ -1461,7 +1530,7 @@ window.CLIPS = {
       "lat": 32.56,
       "lng": 35.85,
       "r": 350,
-      "size": 628364,
+      "size": 240788,
       "hint": "Local radio from Irbid — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1469,7 +1538,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.4
     },
     {
       "id": "ar-1733",
@@ -1479,7 +1549,7 @@ window.CLIPS = {
       "lat": 21.49,
       "lng": 39.19,
       "r": 350,
-      "size": 531068,
+      "size": 240788,
       "hint": "Local radio from Jeddah — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1487,7 +1557,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -19.7
     },
     {
       "id": "ar-2316",
@@ -1497,7 +1568,7 @@ window.CLIPS = {
       "lat": 31.78,
       "lng": 35.22,
       "r": 350,
-      "size": 878732,
+      "size": 240788,
       "hint": "Local radio from Jerusalem — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1505,7 +1576,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "ar-1526",
@@ -1515,7 +1587,7 @@ window.CLIPS = {
       "lat": 29.38,
       "lng": 47.99,
       "r": 350,
-      "size": 488972,
+      "size": 240788,
       "hint": "Local radio from Kuwait City — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1523,7 +1595,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "ar-1248",
@@ -1533,7 +1606,7 @@ window.CLIPS = {
       "lat": 26.23,
       "lng": 50.59,
       "r": 350,
-      "size": 481114,
+      "size": 240788,
       "hint": "Local radio from Manama — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1541,7 +1614,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "ar-1623",
@@ -1551,7 +1625,7 @@ window.CLIPS = {
       "lat": 23.59,
       "lng": 58.41,
       "r": 350,
-      "size": 818540,
+      "size": 240788,
       "hint": "Local radio from Muscat — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1559,7 +1633,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "ar-3190",
@@ -1569,7 +1644,7 @@ window.CLIPS = {
       "lat": 32.22,
       "lng": 35.26,
       "r": 350,
-      "size": 481444,
+      "size": 241118,
       "hint": "Local radio from Nablus — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1577,7 +1652,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.4
     },
     {
       "id": "ar-5182",
@@ -1587,7 +1663,7 @@ window.CLIPS = {
       "lat": 15.64,
       "lng": 32.48,
       "r": 350,
-      "size": 480620,
+      "size": 240788,
       "hint": "Local radio from Omdurman — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1595,7 +1671,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -18.7
     },
     {
       "id": "ar-423",
@@ -1605,7 +1682,7 @@ window.CLIPS = {
       "lat": 35.7,
       "lng": -0.63,
       "r": 350,
-      "size": 481161,
+      "size": 240835,
       "hint": "Local radio from Oran — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1613,7 +1690,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.6
     },
     {
       "id": "ar-1879",
@@ -1623,7 +1701,7 @@ window.CLIPS = {
       "lat": 19.62,
       "lng": 37.22,
       "r": 350,
-      "size": 480620,
+      "size": 240788,
       "hint": "Local radio from Port Sudan — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1631,7 +1709,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.4
     },
     {
       "id": "ar-989",
@@ -1641,7 +1720,7 @@ window.CLIPS = {
       "lat": 34.02,
       "lng": -6.84,
       "r": 350,
-      "size": 669644,
+      "size": 240788,
       "hint": "Local radio from Rabat — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1649,7 +1728,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -15.6
     },
     {
       "id": "ar-1650",
@@ -1659,7 +1739,7 @@ window.CLIPS = {
       "lat": 31.9,
       "lng": 35.2,
       "r": 350,
-      "size": 480812,
+      "size": 240788,
       "hint": "Local radio from Ramallah — ARCADE corpus.",
       "start": 5,
       "source": {
@@ -1668,7 +1748,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "ar-2787",
@@ -1678,7 +1759,7 @@ window.CLIPS = {
       "lat": 24.71,
       "lng": 46.68,
       "r": 350,
-      "size": 580556,
+      "size": 240788,
       "hint": "Local radio from Riyadh — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1686,7 +1767,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "ar-3479",
@@ -1696,7 +1778,7 @@ window.CLIPS = {
       "lat": 15.37,
       "lng": 44.19,
       "r": 350,
-      "size": 627548,
+      "size": 240788,
       "hint": "Local radio from Sanaa — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1704,7 +1786,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.7
     },
     {
       "id": "ar-4464",
@@ -1714,7 +1797,7 @@ window.CLIPS = {
       "lat": 36.19,
       "lng": 5.41,
       "r": 350,
-      "size": 481161,
+      "size": 240835,
       "hint": "Local radio from Setif — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1722,7 +1805,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "ar-6196",
@@ -1732,7 +1816,7 @@ window.CLIPS = {
       "lat": 25.35,
       "lng": 55.42,
       "r": 350,
-      "size": 623948,
+      "size": 240788,
       "hint": "Local radio from Sharjah — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1740,7 +1824,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.4
     },
     {
       "id": "ar-5408",
@@ -1750,7 +1835,7 @@ window.CLIPS = {
       "lat": 13.58,
       "lng": 44.02,
       "r": 350,
-      "size": 591164,
+      "size": 240788,
       "hint": "Local radio from Taiz — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1758,7 +1843,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -15.9
     },
     {
       "id": "ar-3647",
@@ -1768,7 +1854,7 @@ window.CLIPS = {
       "lat": 35.77,
       "lng": -5.8,
       "r": 350,
-      "size": 481300,
+      "size": 240974,
       "hint": "Local radio from Tangier — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1776,7 +1862,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "ar-6858",
@@ -1786,7 +1873,7 @@ window.CLIPS = {
       "lat": 32.89,
       "lng": 13.19,
       "r": 350,
-      "size": 747884,
+      "size": 240788,
       "hint": "Local radio from Tripoli — ARCADE corpus.",
       "start": 9,
       "source": {
@@ -1795,7 +1882,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "ar-3660",
@@ -1805,7 +1893,7 @@ window.CLIPS = {
       "lat": 36.81,
       "lng": 10.18,
       "r": 350,
-      "size": 556773,
+      "size": 240887,
       "hint": "Local radio from Tunis — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1813,7 +1901,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "ar-3785",
@@ -1823,7 +1912,7 @@ window.CLIPS = {
       "lat": 14.4,
       "lng": 33.52,
       "r": 350,
-      "size": 480620,
+      "size": 240788,
       "hint": "Local radio from Wad Medani — ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
@@ -1831,7 +1920,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -17.1
     }
   ],
   "french": [
@@ -1853,7 +1943,8 @@ window.CLIPS = {
         "license": "US government work (public domain)",
         "page": "https://commons.wikimedia.org/wiki/File:S%C3%A9n%C3%A9gal_-_Bargny,_un_littoral_menac%C3%A9_par_la_pollution_et_l%27%C3%A9rosion_c%C3%B4ti%C3%A8re_(1).webm",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.8
     },
     {
       "id": "french-brussels-belgium-french-belgian",
@@ -1872,7 +1963,8 @@ window.CLIPS = {
         "license": "CC BY-SA 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Bibracte2.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.8
     },
     {
       "id": "french-yaounde-cameroon-french-cameroon",
@@ -1892,7 +1984,8 @@ window.CLIPS = {
         "license": "public domain",
         "page": "https://commons.wikimedia.org/wiki/File:R%C3%A9action_du_journaliste_Jean-Bruno_Tagne_%C3%A0_l%27%C3%A9lection_de_Samuel_Eto%27o_au_comit%C3%A9_ex%C3%A9cutif_de_la_CAF_20641161-ec1c-44c9-0756-08dd5c8b1668_hq.mp3",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.8
     },
     {
       "id": "french-abidjan-cote-d-ivoire-french-cote-d-ivoire",
@@ -1912,7 +2005,8 @@ window.CLIPS = {
         "license": "public domain",
         "page": "https://commons.wikimedia.org/wiki/File:Production_de_cacao_ivorienne_VOA_01000000-0aff-0242-01e6-08db257d93df_720p.webm",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.6
     },
     {
       "id": "french-paris-france-french-paris",
@@ -1931,7 +2025,8 @@ window.CLIPS = {
         "license": "CC BY-SA 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:British_Museum.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.6
     },
     {
       "id": "french-montreal-canada-french-quebecois",
@@ -1951,7 +2046,8 @@ window.CLIPS = {
         "license": "CC BY-SA 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:WIKITONGUES-_Maxime_speaking_Qu%C3%A9becois_French.webm",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.7
     },
     {
       "id": "french-marseille-france-french-southern-france",
@@ -1970,7 +2066,8 @@ window.CLIPS = {
         "license": "CC BY-SA 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:2018-11-10_%E2%80%93_Marseille_trois_immeubles_s%27%C3%A9croulent_dans_le_1er_arrondissement,_plusieurs_morts.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.6
     }
   ],
   "spanish": [
@@ -1991,7 +2088,8 @@ window.CLIPS = {
         "license": "CC BY-SA 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Es-Historia_de_Andaluc%C3%ADa-article.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.8
     },
     {
       "id": "spanish-argentine-spanish-reading-about-a-brazilian-to",
@@ -2010,7 +2108,8 @@ window.CLIPS = {
         "license": "CC BY-SA 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Es-ar_Andrel%C3%A2ndia.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.6
     },
     {
       "id": "spanish-venezuelan-spanish-introduction-to-the-big-ban",
@@ -2029,7 +2128,8 @@ window.CLIPS = {
         "license": "CC0 (public domain)",
         "page": "https://commons.wikimedia.org/wiki/File:Big_bang_introduction_article_wikipedia_spanish.flac",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.6
     },
     {
       "id": "spanish-mexico-city-mexico-spanish-mexican",
@@ -2048,7 +2148,8 @@ window.CLIPS = {
         "license": "public domain",
         "page": "https://commons.wikimedia.org/wiki/File:Es-Agruras-article.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -17
     },
     {
       "id": "spanish-mexican-spanish-schrodinger-s-cat-article-read",
@@ -2066,7 +2167,8 @@ window.CLIPS = {
         "license": "CC BY-SA 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Es-GATODESCHR%C3%96DINGER-article.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.6
     },
     {
       "id": "spanish-uruguayan-spanish-juan-jose-morosoli-reads-la-",
@@ -2084,7 +2186,8 @@ window.CLIPS = {
         "license": "public domain",
         "page": "https://commons.wikimedia.org/wiki/File:Juan_José_Morosoli_lee_'La_Geografía'.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.4
     },
     {
       "id": "spanish-paniahue-santa-cruz-chile-spanish-chilean",
@@ -2104,7 +2207,8 @@ window.CLIPS = {
         "license": "CC BY-SA 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Interview_with_Juana_Bustamante_(Full).ogv",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.7
     },
     {
       "id": "spanish-peruvian-spanish-richard-dawkins-biography-rea",
@@ -2122,7 +2226,8 @@ window.CLIPS = {
         "license": "CC BY-SA 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Es-Richard_Dawkins-article.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "spanish-puerto-rican-spanish-roman-emperor-claudius-ar",
@@ -2140,7 +2245,8 @@ window.CLIPS = {
         "license": "CC BY-SA 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Es-Claudio-article.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -17.8
     },
     {
       "id": "spanish-castilian-spanish-segismundo-s-soliloquy-calde",
@@ -2158,7 +2264,8 @@ window.CLIPS = {
         "license": "public domain",
         "page": "https://commons.wikimedia.org/wiki/File:Segismundo.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -17.1
     },
     {
       "id": "spanish-colombian-spanish-steven-pinker-biography-read",
@@ -2176,7 +2283,8 @@ window.CLIPS = {
         "license": "CC BY-SA 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Es-Steven-Pinker-article.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.3
     }
   ],
   "chinese": [
@@ -2196,7 +2304,8 @@ window.CLIPS = {
         "license": "CC BY-SA 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:%E6%88%90%E9%83%BD%E8%AF%9D_-_%E5%8C%97%E9%A3%8E%E5%92%8C%E5%A4%AA%E9%98%B3.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.7
     },
     {
       "id": "chinese-foshan-china-cantonese-guangdong-pearl-river-d",
@@ -2215,7 +2324,8 @@ window.CLIPS = {
         "license": "public domain",
         "page": "https://commons.wikimedia.org/wiki/File:%E5%85%A9%E7%A8%AE%E6%87%B7%E7%96%91%E5%BF%83%E7%90%86%E4%B9%8B%E8%A7%A3%E9%87%8B_%E6%B1%AA%E7%B2%BE%E8%A1%9B_%E7%B2%B5%E8%AA%9E.mp3",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "chinese-guiyang-china-mandarin-guiyangese-southwestern",
@@ -2235,7 +2345,8 @@ window.CLIPS = {
         "license": "CC BY-SA 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:WIKITONGUES-_Changjiu_and_Chaofen_speaking_Guiyangese_(Southwestern_Mandarin).oga",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.7
     },
     {
       "id": "chinese-hk-cantonese-george-washington-carver-spoken-w",
@@ -2253,7 +2364,8 @@ window.CLIPS = {
         "license": "CC BY-SA 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:喬治·華盛頓·卡弗_-_zh-yue.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.9
     },
     {
       "id": "chinese-hk-cantonese-ciguatoxin-stonefish-toxin-spoken",
@@ -2271,7 +2383,8 @@ window.CLIPS = {
         "license": "CC BY-SA 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:刺尾魚毒素_-_zh-yue.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -17.1
     },
     {
       "id": "chinese-shanghainese-wu-standard-shanghai-accent-readi",
@@ -2290,7 +2403,8 @@ window.CLIPS = {
         "license": "CC BY-SA 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Zh-wuu-岳阳楼记.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.8
     },
     {
       "id": "chinese-taipei-taiwan-mandarin-taiwan-guoyu",
@@ -2309,7 +2423,8 @@ window.CLIPS = {
         "license": "CC BY-SA 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:Zh-tw-%E9%AD%94%E8%A1%93%E5%B8%AB%E5%92%8C%E5%85%94%E5%AD%90.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.9
     },
     {
       "id": "chinese-taiwan-mandarin-good-cop-bad-dog-tv-episode-sp",
@@ -2327,7 +2442,8 @@ window.CLIPS = {
         "license": "CC BY-SA 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:Zh-tw-好警察壞狗狗.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.9
     }
   ],
   "hindi-urdu": [
@@ -2348,7 +2464,8 @@ window.CLIPS = {
         "license": "CC0 (public domain)",
         "page": "https://archive.org/details/RajivDixitAudioLecturesConvertInHindiTextSoftCopy",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.4
     },
     {
       "id": "hindi-urdu-spoken-hindi-wikipedia-indo-european-language-",
@@ -2366,7 +2483,8 @@ window.CLIPS = {
         "license": "CC BY-SA 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Hi-Hind-Europiya_bhaashaa_parivaar_part2.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.6
     },
     {
       "id": "hindi-urdu-karachi-pakistan-urdu",
@@ -2385,7 +2503,8 @@ window.CLIPS = {
         "license": "CC0 (public domain)",
         "page": "https://commons.wikimedia.org/wiki/File:A_rare_Interview_of_Mufti_Muhammad_Shafi.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.4
     },
     {
       "id": "hindi-urdu-mumbai-india-hindi-bambaiyya-adjacent",
@@ -2405,7 +2524,8 @@ window.CLIPS = {
         "license": "CC BY 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Saroj_Khan_Indian_Choreographer_voice_sample.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.4
     },
     {
       "id": "hindi-urdu-mufti-abul-qasim-nomani-talk-on-darul-uloom-de",
@@ -2423,7 +2543,8 @@ window.CLIPS = {
         "license": "CC BY-SA 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:Abul_Kasim_Nomani.flac",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.4
     }
   ],
   "portuguese": [
@@ -2445,7 +2566,8 @@ window.CLIPS = {
         "license": "public domain",
         "page": "https://commons.wikimedia.org/wiki/File:Um_artista_n%C3%A3o_morre,_um_artista_viaja_-_a_entrevista_com_Tito_Paris.webm",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.8
     },
     {
       "id": "portuguese-malanje-angola-portuguese-angola",
@@ -2465,7 +2587,8 @@ window.CLIPS = {
         "license": "public domain",
         "page": "https://commons.wikimedia.org/wiki/File:Angola-_Malanjinos_insatisfeitos_com_a_sua_situa%C3%A7%C3%A3o_social_-_VOA_Portugu%C3%AAs.webm",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.4
     },
     {
       "id": "portuguese-mozambique-portuguese-mozambique",
@@ -2485,7 +2608,8 @@ window.CLIPS = {
         "license": "CC BY-SA 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:WIKITONGUES-_Cristiano_speaking_Barwe_and_Portuguese.webm",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -17.2
     },
     {
       "id": "portuguese-parana-brazil-portuguese-brazilian-parana",
@@ -2503,7 +2627,8 @@ window.CLIPS = {
         "license": "CC BY 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Coelho_intro.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.8
     },
     {
       "id": "portuguese-porto-alegre-brazil-portuguese-brazilian-gauch",
@@ -2521,7 +2646,8 @@ window.CLIPS = {
         "license": "public domain",
         "page": "https://commons.wikimedia.org/wiki/File:Male,_Southern_Brazilian_(from_Porto_Alegre,_Rio_Grande_do_Sul).ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.8
     },
     {
       "id": "portuguese-porto-portugal-portuguese-european-porto-north",
@@ -2539,7 +2665,8 @@ window.CLIPS = {
         "license": "CC0 (public domain)",
         "page": "https://commons.wikimedia.org/wiki/File:Amor_entre_um_portuense_e_uma_galega_de_Daniel_Dias_e_narrado_por_Daniel_Dias.wav",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "portuguese-rio-de-janeiro-brazil-portuguese-brazilian-car",
@@ -2558,7 +2685,8 @@ window.CLIPS = {
         "license": "CC BY-SA 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Eslavos_da_%C3%81sia_Menor_vers%C3%A3o_RJ.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.6
     },
     {
       "id": "portuguese-sao-paulo-brazil-portuguese-brazilian-sao-paul",
@@ -2578,7 +2706,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:Entrevita_com_Tiago_Lubiana_sobre_bioinform%C3%A1tica_e_%C3%A9tica.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.7
     }
   ],
   "russian": [
@@ -2599,7 +2728,8 @@ window.CLIPS = {
         "license": "CC BY 4.0",
         "page": "https://commons.wikimedia.org/wiki/File:%D0%91%D0%BE%D1%80%D0%B8%D1%81_%D0%9D%D0%B8%D0%BA%D0%BE%D0%BB%D0%B0%D0%B5%D0%B2%D0%B8%D1%87_%D0%95%D0%BB%D1%8C%D1%86%D0%B8%D0%BD_%D0%9D%D0%BE%D0%B2%D0%BE%D0%B3%D0%BE%D0%B4%D0%BD%D0%B5%D0%B5_%D0%BE%D0%B1%D1%80%D0%B0%D1%89%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BA_%D0%BD%D0%B0%D1%80%D0%BE%D0%B4%D1%83_1999_%D0%B3.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.6
     },
     {
       "id": "russian-moscow-russia-russian-moscow",
@@ -2618,7 +2748,8 @@ window.CLIPS = {
         "license": "CC0 (public domain)",
         "page": "https://commons.wikimedia.org/wiki/File:Rubakov_Valeriy_Anatolyevich.ogg",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "russian-privolnoye-russia-russian-southern-russia-stav",
@@ -2637,7 +2768,8 @@ window.CLIPS = {
         "license": "CC BY 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Mihail_Gorbachev_voice.oga",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -17.6
     },
     {
       "id": "russian-saint-petersburg-russia-russian-st-petersburg-",
@@ -2656,7 +2788,8 @@ window.CLIPS = {
         "license": "CC BY 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Georgij_Grechko_voice.oga",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.5
     },
     {
       "id": "russian-zima-russia-russian-siberia-irkutsk",
@@ -2675,7 +2808,8 @@ window.CLIPS = {
         "license": "CC BY 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Evgenij_Evtushenko_voice.oga",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.7
     },
     {
       "id": "russian-zlatoust-russia-russian-ural-chelyabinsk",
@@ -2694,7 +2828,8 @@ window.CLIPS = {
         "license": "CC BY 3.0",
         "page": "https://commons.wikimedia.org/wiki/File:Anatolij_Karpov_voice.oga",
         "note": "trimmed and re-encoded for the game"
-      }
+      },
+      "lufs": -16.5
     }
   ]
 };

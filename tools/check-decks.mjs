@@ -14,6 +14,11 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 
+const TARGET_LUFS = -16;
+// 4 dB, not tighter: the -1.5 dBTP ceiling wins over the loudness target on clips with a high
+// crest factor (a shout, a door slam), so those legitimately land a few dB below -16.
+const LUFS_TOLERANCE = 4;
+
 const HOMELANDS = {
   arabic: ['Algeria', 'Bahrain', 'Egypt', 'Iraq', 'Jordan', 'Kuwait', 'Lebanon', 'Libya', 'Morocco',
     'Mauritania', 'Oman', 'Palestine', 'Qatar', 'Saudi Arabia', 'Sudan', 'Syria', 'Tunisia', 'UAE', 'Yemen'],
@@ -58,6 +63,10 @@ for (const [deck, clips] of Object.entries(window.CLIPS)) {
     const s = c.source;
     if (!s || !s.host || !s.license) note(`${c.id}: source is missing host or licence`);
     else if (!s.who) note(`${c.id}: source has no "recording by" line`);
+    // Loudness: sources arrive anywhere from -52 to -6 LUFS. Everything is normalized to -16
+    // so one clip can't blow the player's ears out while the next is inaudible.
+    if (typeof c.lufs !== 'number') note(`${c.id}: no measured loudness — run the normalizer`);
+    else if (Math.abs(c.lufs - TARGET_LUFS) > LUFS_TOLERANCE) note(`${c.id}: ${c.lufs} LUFS is outside ${TARGET_LUFS}±${LUFS_TOLERANCE}`);
     if (c.url.startsWith('/clips/') && !fs.existsSync(path.join(ROOT, c.url))) note(`${c.id}: file missing`);
     if (STRUCTURAL_ONLY.has(deck)) continue;
     const region = c.label.includes(',') ? c.label.split(',').pop().trim() : c.label.trim();

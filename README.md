@@ -40,6 +40,7 @@ Every clip passes the same gate, and the rules are enforced by code rather than 
 1. **Homeland rule** — a dialect deck only holds speakers from places where that language is native or a main/official language. Nigeria, South Africa, India and Jamaica belong in English Accents; a Filipino reading an English script, or a Latvian speaking Russian, do not.
 2. **No answer leaks** — a clip is rejected if the audible window names the speaker's own city, country, region, demonym, or a station ident. If the leak is only in the opening, the clip keeps a fixed playback window instead. The most common failure by far: spoken-Wikipedia recordings *about the reader's own city*.
 3. **Real speech** — spontaneous speech is preferred and dealt first. Clips where everyone reads the same elicitation paragraph were removed; English Accents is now entirely unscripted.
+4. **One loudness** — clips arrived spanning 46 dB, from −52 LUFS (inaudible) to one peaking at +5.3 dBTP (clipping, painful in headphones). All are two-pass EBU R128 normalized to −16 LUFS / −1.5 dBTP, and the checker fails if a clip drifts.
 
 The gate is: fetch → verify the URL yourself → extract audio (mono 64k mp3) → Whisper transcript with timestamps → Claude judges quality, leaks, language and label honesty → merge → check.
 
