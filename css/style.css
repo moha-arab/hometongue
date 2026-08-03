@@ -1,7 +1,7 @@
 /* HomeTongue — "Survey"
    The subject is dialect geography, so the design borrows from the linguistic atlas:
    a chart ground, hairline rules, mono field labels, and one survey red reserved for
-   the marks the player makes. Light by default; dark is a designed second state. */
+   the marks the player makes. One committed palette, no theme switching. */
 
 :root {
   color-scheme: light;
@@ -31,47 +31,6 @@
   --sans: 'IBM Plex Sans', system-ui, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, monospace;
   --arabic: 'IBM Plex Sans Arabic', 'IBM Plex Sans', sans-serif;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-    --paper: #0F1517;
-    --paper-2: #0A0F11;
-    --surface: #172020;
-    --ink: #E8EDEA;
-    --ink-soft: #C3CFCB;
-    --slate: #93A29F;
-    --slate-2: #6E7D7A;
-    --rule: #27332F;
-    --rule-soft: #1E2927;
-    --brand: #57C4B2;
-    --brand-soft: #12302C;
-    --mark: #F2705A;
-    --mark-soft: #35201C;
-    --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
-    --shadow-2: 0 2px 4px rgba(0, 0, 0, 0.4), 0 24px 48px -20px rgba(0, 0, 0, 0.7);
-  }
-}
-
-/* the viewer's own toggle wins over the OS preference, in both directions */
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --paper: #0F1517; --paper-2: #0A0F11; --surface: #172020;
-  --ink: #E8EDEA; --ink-soft: #C3CFCB; --slate: #93A29F; --slate-2: #6E7D7A;
-  --rule: #27332F; --rule-soft: #1E2927;
-  --brand: #57C4B2; --brand-soft: #12302C; --mark: #F2705A; --mark-soft: #35201C;
-  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
-  --shadow-2: 0 2px 4px rgba(0, 0, 0, 0.4), 0 24px 48px -20px rgba(0, 0, 0, 0.7);
-}
-:root[data-theme="light"] {
-  color-scheme: light;
-  --paper: #ECEFEC; --paper-2: #E3E8E5; --surface: #FAFBFA;
-  --ink: #121A1C; --ink-soft: #2C3A3C; --slate: #5D6B6F; --slate-2: #889696;
-  --rule: #CCD5D3; --rule-soft: #DFE5E2;
-  --brand: #145C55; --brand-soft: #E0EBE8; --mark: #C43D2B; --mark-soft: #F6E4E0;
-  --shadow-1: 0 1px 2px rgba(18, 26, 28, 0.06), 0 8px 24px -12px rgba(18, 26, 28, 0.18);
-  --shadow-2: 0 2px 4px rgba(18, 26, 28, 0.06), 0 24px 48px -20px rgba(18, 26, 28, 0.30);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -136,7 +95,6 @@ body {
   font-weight: 600; font-size: 23px; letter-spacing: -0.01em;
   color: var(--ink);
 }
-.logo-ar { font-family: var(--arabic); font-size: 15px; font-weight: 500; color: var(--brand); }
 
 .modes { display: flex; align-items: center; gap: 4px; }
 .modes a, .modes .soon, .how-btn {
@@ -149,9 +107,6 @@ body {
 .modes a.active { color: var(--ink); font-weight: 600; box-shadow: inset 0 -2px 0 var(--mark); border-radius: 0; }
 .modes .soon { color: var(--slate-2); cursor: default; }
 .how-btn { border-color: var(--rule); }
-.theme-btn { display: grid; place-items: center; width: 30px; height: 30px; padding: 0; color: var(--slate); }
-.theme-btn:hover { color: var(--ink); }
-.theme-btn svg { display: block; }
 
 .how-pop {
   position: fixed; top: 60px; right: 24px; z-index: 20;

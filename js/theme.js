@@ -3,44 +3,12 @@
 
 window.HT = window.HT || {};
 
-// —————— theme ——————
-const THEME_KEY = 'ht_theme';
-const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-
-function currentTheme() {
-  return document.documentElement.dataset.theme
-    || localStorage.getItem(THEME_KEY)
-    || (prefersDark.matches ? 'dark' : 'light');
-}
-
-function applyTheme(theme) {
-  document.documentElement.dataset.theme = theme;
-  localStorage.setItem(THEME_KEY, theme);
-  const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.content = theme === 'dark' ? '#0F1517' : '#ECEFEC';
-  document.dispatchEvent(new CustomEvent('ht:theme', { detail: { theme } }));
-}
-window.HT.applyTheme = applyTheme;
-window.HT.currentTheme = currentTheme;
-
-// apply the stored choice before first paint of the map
-applyTheme(currentTheme());
-prefersDark.addEventListener('change', (e) => {
-  if (!localStorage.getItem(THEME_KEY)) applyTheme(e.matches ? 'dark' : 'light');
-});
-
-// A light chart basemap in light mode; the dark one only when the viewer asked for dark.
+// A single light chart basemap — the design commits to one palette.
 window.HT.basemap = function basemap(map) {
-  const url = (t) => `https://{s}.basemaps.cartocdn.com/${t === 'dark' ? 'dark_all' : 'light_all'}/{z}/{x}/{y}{r}.png`;
-  const opts = {
+  return L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd', maxZoom: 19,
-  };
-  // One layer, re-pointed on theme change — adding/removing layers churns tiles and can
-  // leave stale ones behind if the swaps come faster than the removals.
-  const layer = L.tileLayer(url(currentTheme()), opts).addTo(map);
-  document.addEventListener('ht:theme', (e) => layer.setUrl(url(e.detail.theme)));
-  return layer;
+  }).addTo(map);
 };
 
 // —————— isogloss field ——————
@@ -89,7 +57,7 @@ window.HT.contours = function contours() {
         const r = ((t + c.phase + i * 0.14) % 1) * Math.max(w, h) * 0.55;
         if (r < 8) continue;
         // petrol on a pale chart needs more weight than a light line on a dark one
-        const base = currentTheme() === 'dark' ? 0.16 : 0.3;
+        const base = 0.3;
         ctx.globalAlpha = base * (1 - r / (Math.max(w, h) * 0.55));
         ctx.beginPath();
         // slightly irregular circles read as terrain, not as ripples in a pond
@@ -132,17 +100,3 @@ window.HT.contours = function contours() {
     },
   };
 };
-
-// —————— theme toggle ——————
-(function themeToggle() {
-  const btn = document.getElementById('themeBtn');
-  if (!btn) return;
-  const sun = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
-  const moon = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.7 6.7 0 0 0 10.5 10.5z"/></svg>';
-  const paint = () => { document.getElementById('themeIcon').innerHTML = window.HT.currentTheme() === 'dark' ? sun : moon; };
-  paint();
-  btn.addEventListener('click', () => {
-    window.HT.applyTheme(window.HT.currentTheme() === 'dark' ? 'light' : 'dark');
-    paint();
-  });
-})();
