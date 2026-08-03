@@ -3,7 +3,7 @@
 Your voice is a place. Live at **[hometongue.me](https://www.hometongue.me/)**.
 
 - **🎙 Guess Me** — speak Arabic for ~20s and the AI guesses your dialect (region → country → city when it has evidence), then flies the map home.
-- **📍 Pin It** ([game.html](game.html)) — GeoGuessr for ears: hear a real clip, drop a pin. **Nine decks, 138 clips**: Arabic Dialects (45 places), English Accents, World Languages, Spanish, Chinese, Portuguese, French, Russian, Hindi–Urdu. Distance scoring, 5 rounds, nickname leaderboard.
+- **📍 Pin It** ([game.html](game.html)) — GeoGuessr for ears: hear a real clip, drop a pin. **Nine decks, 140 clips**: Arabic Dialects (45 places), English Accents, World Languages, Spanish, Chinese, Portuguese, French, Russian, Hindi–Urdu. Distance scoring, 5 rounds, nickname leaderboard.
 
 A third mode (**The Atlas**, a browsable accent map) is planned — see [PRD.md](PRD.md).
 

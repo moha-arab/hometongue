@@ -7,7 +7,7 @@
 | Piece | Status | Where |
 |---|---|---|
 | Guess Me (Arabic dialect AI) | ✅ live | [hometongue.me](https://www.hometongue.me/) |
-| Pin It — 9 decks, 138 clips | ✅ live | [/game.html](https://www.hometongue.me/game.html) |
+| Pin It — 9 decks, 140 clips (3 streamed) | ✅ live | [/game.html](https://www.hometongue.me/game.html) |
 | Installable app (PWA) | ✅ live | add to home screen, no App Store |
 | Data flywheel (consent clip donation) | ✅ live, collecting | Supabase |
 | Nickname leaderboard | ✅ live | `/api/scores` |
@@ -43,12 +43,12 @@ Detection is **word-based** (vocabulary/morphology/phrasing), not acoustic — t
 
 ### 📍 Pin It — live
 
-Hear a real clip, drop a pin, score by distance. 5 rounds, 5,000 points max each. **Nine decks, 138 clips:**
+Hear a real clip, drop a pin, score by distance. 5 rounds, 5,000 points max each. **Nine decks, 140 clips:**
 
 | Deck | Clips | Answer regions |
 |---|---|---|
 | 🕌 Arabic Dialects | 45 | 17 countries, city-level |
-| 🗣 English Accents | 21 | 15 |
+| 🗣 English Accents | 23 | 15 |
 | 🌍 World Languages | 26 | 26 |
 | 💃 Spanish | 11 | 9 |
 | 🐉 Chinese (Mandarin + Cantonese + Wu) | 9 | 3 |
@@ -62,7 +62,7 @@ Arabic is the flagship: real local radio and conversation, players pin the *city
 **Three rules govern what may enter a deck.** All are enforced, not remembered:
 
 1. **The homeland rule** — a dialect deck only contains speakers from places where that language is native or a main/official language. Nigeria, South Africa, India and Jamaica belong in English; a Filipino reading an English script, or a Latvian speaking Russian, do not. Enforced by `tools/check-decks.mjs`, which fails the build on any violation.
-2. **No answer leaks** — a clip is rejected if the audible window names the speaker's own city, country, region, demonym, or a station ident that gives it away. Where the leak is only in the opening, the clip gets a fixed playback window instead (41 of 138 clips carry one). This gate cost 12 Arabic clips, 7 World Languages clips and 7 of 10 Spanish candidates in one sourcing round — the recurring failure was spoken-Wikipedia readings *about the reader's own city*.
+2. **No answer leaks** — a clip is rejected if the audible window names the speaker's own city, country, region, demonym, or a station ident that gives it away. Where the leak is only in the opening, the clip gets a fixed playback window instead (44 of 140 clips carry one). This gate cost 12 Arabic clips, 7 World Languages clips and 7 of 10 Spanish candidates in one sourcing round — the recurring failure was spoken-Wikipedia readings *about the reader's own city*.
 3. **Real speech** — spontaneous speech is preferred and dealt first. The 21 Speech Accent Archive clips, where every speaker reads the same "Please call Stella" paragraph, were removed after players noticed the repetition; English Accents is now 100% unscripted.
 
 Shared mechanics:
@@ -72,8 +72,23 @@ Shared mechanics:
 - **Pluricentric answers**: in World Languages a clip accepts every region where the language is genuinely at home and scores you to the nearest one. A French clip recorded in Paris gives full marks for a Montréal pin, and says so.
 - **Variety dealing**: one clip per region first, then draws from whichever region has the most unused clips, so no deal repeats a place.
 - **Readable credits**: each reveal shows who recorded it, where it lives, the licence, and a link to the original. People are curious; the credit line used to be an unreadable run-on.
-- **Two kinds of clip.** Most are hosted files: mirrored, trimmed, loudness-normalized, no ads. A clip can also be `kind: 'yt'`, streamed from YouTube through the IFrame API with the video hidden and only a chosen 20 seconds played. Nothing is copied for those — the creator gets the view. The game talks to one media interface and never knows which it is playing. **Limitation:** an embedded clip cannot be leak-gated, because gating needs a transcript and the audio is never downloaded; YouTube's caption endpoint returns empty for the videos tested. Embedded clips therefore require a human listen before they ship, and `tools/check-decks.mjs` refuses any that lack a `reviewedBy` field.
+- **Two kinds of clip.** Most are hosted files: mirrored, trimmed, loudness-normalized, no ads. A clip can also be `kind: 'yt'`, streamed from YouTube through the IFrame API with the video hidden and only a chosen 20 seconds played. Nothing is copied for those — the creator gets the view. The game talks to one media interface and never knows which it is playing. Embedded clips go through the **same gate**: `tools/../yt-gate.mjs` fetches the audio once, measures loudness, transcribes it, has Claude judge origin/leak/language/quality/imitation, then deletes the audio — verification, not redistribution. Two things are specific to this source: the speaker's origin has to be *proved from the transcript* (no trustworthy metadata on YouTube, so a clip whose origin is never established is dropped), and measured loudness becomes a player volume rather than a re-encode. `tools/check-decks.mjs` refuses any embed clip without that gate record.
 - **One loudness for every clip**: sources arrived anywhere from −52 LUFS (inaudible) to −5.9 LUFS peaking at +5.3 dBTP (clipping, painful on headphones) — a 46 dB spread, because a radio rip, a podcast and a laptop-mic reading share no level convention. Every clip is now two-pass EBU R128 normalized to −16 LUFS with a −1.5 dBTP ceiling, leaving a 4.4 dB spread. The measured value is stored per clip and `tools/check-decks.mjs` fails on drift.
+
+### 🎭 Real or Fake — planned (P2, cheap)
+
+Play 20 seconds. Is this person's accent **theirs**, or are they doing an impression?
+
+The idea came out of a rejection pile. When the YouTube gate ran its first 35 candidates it dropped 30, and most were dropped for the same reason: dialect coaches, actors putting a voice on, foreigners attempting one, people mocking a way of speaking. Useless for Pin It, where the answer must be true — but they are exactly half of a different game, and the gate has already labelled them. 26 rejects with reasons are kept in [`data/gate-rejects.json`](data/gate-rejects.json); 16 are performances.
+
+Why it is cheap: the clips, the player, the gate and the scoring loop all exist. What is missing is a second verdict field (`imitation: true/false`), a binary answer UI instead of a map, and enough volume of both halves.
+
+Why it is worth building: it is the only mode where being *wrong* teaches you the most — you find out that the voice you were sure was Cockney belongs to an actor from Surrey. It also gives every future gate rejection somewhere to go instead of the bin.
+
+Open questions before it ships:
+- **Fairness.** The real and fake halves must cover the same accents, or the answer becomes "the clip with music under it is the fake one."
+- **Taste.** Some imitation content is mockery. Anything demeaning stays out; the gate would need a rule for it, the way it has one for content that does not belong in the project.
+- **Scoring.** Binary right/wrong is thin. Probably confidence-weighted, so a confident wrong answer costs more than a hedged one.
 
 ### 🗺 The Atlas — next (P2)
 
@@ -110,6 +125,7 @@ Why it matters: a research sweep confirmed **no public speech dataset separates 
 | P0 — Flywheel | Consent + privacy page + Supabase storage + anti-abuse | ✅ shipped & prod-verified |
 | P1 — Pin It | Nine decks, curation pipeline, leaderboard, player UX | ✅ shipped |
 | P2 — Atlas | Region cards + clips on the explorable map (reuses clip manifest) | next, 1–2 sessions |
+| P2 — Real or Fake | Native vs impression, built on the gate's reject pile | cheap, ~1 session |
 | P3 — The ear | Acoustic model fine-tune, ensemble with word engine, unlocks English Guess-Me + city-level acoustics | 3–5 sessions, best started once flywheel has data |
 
 ## Risks and open questions
