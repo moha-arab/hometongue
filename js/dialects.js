@@ -1,33 +1,8 @@
 // Lahja dialect engine — word-marker based classifier (prototype).
 // All terms are stored pre-normalized: أإآ→ا, ى→ي, ة→ه, no diacritics.
 
-const COUNTRIES = {
-  eg: { en: 'Egyptian',    ar: 'مصري',     flag: '🇪🇬', lat: 26.9, lng: 30.9,  zoom: 6,   region: 'egyptian'  },
-  sd: { en: 'Sudanese',    ar: 'سوداني',   flag: '🇸🇩', lat: 15.6, lng: 32.5,  zoom: 6,   region: 'sudanese'  },
-  sy: { en: 'Syrian',      ar: 'سوري',     flag: '🇸🇾', lat: 35.0, lng: 38.3,  zoom: 6.5, region: 'levantine' },
-  lb: { en: 'Lebanese',    ar: 'لبناني',   flag: '🇱🇧', lat: 33.9, lng: 35.9,  zoom: 8,   region: 'levantine' },
-  jo: { en: 'Jordanian',   ar: 'أردني',    flag: '🇯🇴', lat: 31.4, lng: 36.6,  zoom: 7,   region: 'levantine' },
-  ps: { en: 'Palestinian', ar: 'فلسطيني',  flag: '🇵🇸', lat: 31.9, lng: 35.2,  zoom: 8,   region: 'levantine' },
-  iq: { en: 'Iraqi',       ar: 'عراقي',    flag: '🇮🇶', lat: 33.2, lng: 43.7,  zoom: 6,   region: 'iraqi'     },
-  sa: { en: 'Saudi',       ar: 'سعودي',    flag: '🇸🇦', lat: 24.0, lng: 44.5,  zoom: 5.5, region: 'gulf'      },
-  kw: { en: 'Kuwaiti',     ar: 'كويتي',    flag: '🇰🇼', lat: 29.3, lng: 47.6,  zoom: 8,   region: 'gulf'      },
-  ae: { en: 'Emirati',     ar: 'إماراتي',  flag: '🇦🇪', lat: 24.3, lng: 54.4,  zoom: 7,   region: 'gulf'      },
-  ye: { en: 'Yemeni',      ar: 'يمني',     flag: '🇾🇪', lat: 15.6, lng: 47.9,  zoom: 6,   region: 'yemeni'    },
-  ly: { en: 'Libyan',      ar: 'ليبي',     flag: '🇱🇾', lat: 27.1, lng: 17.2,  zoom: 5.5, region: 'maghrebi'  },
-  tn: { en: 'Tunisian',    ar: 'تونسي',    flag: '🇹🇳', lat: 34.1, lng: 9.6,   zoom: 7,   region: 'maghrebi'  },
-  dz: { en: 'Algerian',    ar: 'جزائري',   flag: '🇩🇿', lat: 28.2, lng: 2.6,   zoom: 5.5, region: 'maghrebi'  },
-  ma: { en: 'Moroccan',    ar: 'مغربي',    flag: '🇲🇦', lat: 31.8, lng: -6.5,  zoom: 6,   region: 'maghrebi'  },
-};
-
-const REGIONS = {
-  egyptian:  { en: 'Egyptian',  ar: 'مصرية'    },
-  levantine: { en: 'Levantine', ar: 'شامية'    },
-  iraqi:     { en: 'Iraqi',     ar: 'عراقية'   },
-  gulf:      { en: 'Gulf',      ar: 'خليجية'   },
-  yemeni:    { en: 'Yemeni',    ar: 'يمنية'    },
-  sudanese:  { en: 'Sudanese',  ar: 'سودانية'  },
-  maghrebi:  { en: 'Maghrebi',  ar: 'مغاربية'  },
-};
+// Countries and regions now live in places.js — this file is the Arabic marker engine.
+const { COUNTRIES, REGIONS } = window.HT_PLACES;
 
 // t: normalized term, w: {country: weight}, en: gloss shown as evidence
 const MARKERS = [

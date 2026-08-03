@@ -282,7 +282,7 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .transcript {
   margin-top: 16px; min-height: 76px; max-height: 180px; overflow-y: auto;
   padding: 13px 15px; background: var(--paper); border-left: 3px solid var(--accent); border-radius: 0 var(--r) var(--r) 0;
-  font-size: 18px; line-height: 1.8; text-align: right; color: var(--black);
+  font-size: 18px; line-height: 1.8; text-align: start; color: var(--black);
 }
 .transcript:empty::before { content: '…'; color: var(--grey-2); }
 .live-hint { margin-top: 12px; font-size: 12.5px; color: var(--grey); }
@@ -329,7 +329,7 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   background: var(--sheet); border: 1px solid var(--rule); color: var(--grey);
   border-radius: var(--r-sm); padding: 2px 7px; font-size: 9.5px; letter-spacing: 0.05em; text-transform: none;
 }
-.heard p { margin-top: 9px; font-size: 15px; line-height: 1.8; text-align: right; color: var(--black); }
+.heard p { margin-top: 9px; font-size: 15px; line-height: 1.8; text-align: start; color: var(--black); }
 
 .runners { margin-top: 18px; display: grid; gap: 8px; }
 .runner { display: flex; align-items: center; gap: 10px; }
@@ -532,4 +532,17 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   .how-pop { right: 12px; left: 12px; width: auto; }
   .runner-name { width: 100px; font-size: 12px; }
   .logo { font-size: 21px; }
+}
+
+/* ——— detected-language chip ———
+   Auto-detection keeps the "just talk" promise; this is how it owns being wrong. */
+.lang-chip { display: flex; align-items: center; gap: 8px; margin: -4px 0 10px; font-family: var(--mono); font-size: 11px; }
+.lang-heard { color: var(--grey); letter-spacing: 0.06em; text-transform: uppercase; }
+.lang-fix {
+  background: none; border: 0; padding: 0; cursor: pointer; color: var(--accent);
+  font-family: var(--mono); font-size: 11px; text-decoration: underline; text-underline-offset: 2px;
+}
+.lang-pick {
+  font-family: var(--mono); font-size: 11px; color: var(--black);
+  background: var(--sheet); border: 1px solid var(--rule); border-radius: 4px; padding: 3px 6px;
 }

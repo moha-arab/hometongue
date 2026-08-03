@@ -276,4 +276,7 @@ function isoCode(detected) {
   return ISO[key] || key;
 }
 
-export { LANGUAGES, ALIASES, SHARED_METHOD, resolveLanguage, isoCode };
+// What the "not this language?" picker offers.
+const CHOICES = Object.entries(LANGUAGES).map(([code, l]) => ({ code, name: l.name, native: l.native }));
+
+export { LANGUAGES, ALIASES, SHARED_METHOD, CHOICES, resolveLanguage, isoCode };

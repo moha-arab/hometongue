@@ -41,9 +41,9 @@
 
   <!-- IDLE -->
   <section class="card" id="idleCard">
-    <div class="card-eyebrow"><span>dialect identification</span><b>arabic</b></div>
-    <h1 class="tagline">Speak Arabic.<br><span class="accent">I can hear where home is.</span></h1>
-    <p class="prompt-label">Don't read anything — just talk, like you're voice-noting a friend:</p>
+    <div class="card-eyebrow"><span>dialect identification</span><b>eight languages</b></div>
+    <h1 class="tagline">Just talk.<br><span class="accent">I can hear where home is.</span></h1>
+    <p class="prompt-label">Any of eight languages. Don't read anything — just talk, like you're voice-noting a friend:</p>
     <p class="prompt" id="promptText">"Tell me about your day."</p>
     <button class="mic-btn" id="micBtn" aria-label="Start talking">
       <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line></svg>
@@ -58,7 +58,7 @@
   <section class="card" id="liveCard" hidden>
     <div class="wave" id="wave"></div>
     <p class="live-status">listening… <span id="timer">0:00</span></p>
-    <div class="transcript" id="transcript" dir="rtl" lang="ar"></div>
+    <div class="transcript" id="transcript"></div>
     <p class="live-hint">keep going — 20 seconds or more gives a better read</p>
     <button class="stop-btn" id="stopBtn">that's enough — guess!</button>
   </section>
@@ -76,12 +76,13 @@
   <!-- ANALYZING -->
   <section class="card" id="analyzingCard" hidden>
     <div class="scan"><span></span><span></span><span></span></div>
-    <p class="live-status">reading your لهجة…</p>
+    <p class="live-status">reading your accent…</p>
   </section>
 
   <!-- RESULT -->
   <section class="card result" id="resultCard" hidden>
     <p class="result-kicker" id="resultKicker">your dialect sounds</p>
+    <div class="lang-chip" id="langChip" hidden></div>
     <h2 class="result-region" id="resultRegion"></h2>
     <p class="result-country" id="resultCountry"></p>
     <div class="conf">
@@ -91,7 +92,7 @@
     <div class="evidence" id="evidence"></div>
     <div class="heard" id="heard" hidden>
       <div class="heard-head"><span>what we heard</span><span class="src-badge" id="srcBadge"></span></div>
-      <p id="heardText" dir="rtl" lang="ar"></p>
+      <p id="heardText"></p>
     </div>
     <div class="runners" id="runners"></div>
     <div class="feedback" id="feedback">
@@ -118,6 +119,7 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="js/theme.js"></script>
+<script src="js/places.js"></script>
 <script src="js/dialects.js"></script>
 <script src="js/app.js"></script>
 <script>

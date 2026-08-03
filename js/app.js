@@ -59,10 +59,20 @@ function flyToCountry(c) {
   map.flyTo([c.lat, c.lng], c.zoom, { duration: 2.6, easeLinearity: 0.15 });
 }
 
-function flyHome() {
+// Home depends on who's talking. Framing a Spanish speaker on the Arab world was a
+// leftover from when this only did Arabic.
+function langBounds(lang) {
+  if (!lang || !lang.countries) return HOME_BOUNDS;
+  const pts = lang.countries.filter((c) => COUNTRIES[c]).map((c) => [COUNTRIES[c].lat, COUNTRIES[c].lng]);
+  if (pts.length < 2) return HOME_BOUNDS;
+  const lats = pts.map((p) => p[0]); const lngs = pts.map((p) => p[1]);
+  return [[Math.min(...lats) - 4, Math.min(...lngs) - 4], [Math.max(...lats) + 4, Math.max(...lngs) + 4]];
+}
+
+function flyHome(lang) {
   clearMapExtras();
   ensureMapReady();
-  map.flyToBounds(HOME_BOUNDS, { duration: 1.8 });
+  map.flyToBounds(langBounds(lang || window._lang), { duration: 1.8 });
 }
 
 // ————— ui states —————
@@ -343,6 +353,11 @@ function normText(t) { return t.replace(/\s+/g, ' ').trim(); }
 function normalizeServer(resp) {
   const r = resp.result;
   window._fbToken = resp.fb_token || '';
+  window._lang = resp.language || null;
+  for (const id of ['#transcript', '#heardText']) {
+    const el = $(id);
+    if (el && resp.language) { el.dir = resp.language.dir; el.lang = resp.language.code; }
+  }
   const top = r.top_country !== 'none' && COUNTRIES[r.top_country] ? { code: r.top_country, ...COUNTRIES[r.top_country] } : null;
   let kind = r.kind === 'unclear' ? 'weak' : r.kind;
   if (kind === 'dialect' && !top) kind = 'weak'; // schema allows dialect+none; don't crash the renderer
@@ -357,6 +372,7 @@ function normalizeServer(resp) {
     ranked: (r.ranked || []).slice(0, 4).filter((x) => COUNTRIES[x.code]),
     note: r.note || '',
     transcript: resp.transcript || '',
+    lang: resp.language || null,
     source: 'cloud',
   };
 }
@@ -390,6 +406,9 @@ function renderResult(v) {
   $('#consentBox').disabled = false;
   $('#consentWrap').style.display = window._lastAudio ? '' : 'none'; // no clip to donate in type mode
 
+  renderLangChip(v.lang || window._lang);
+  fillCountryPicker(v.lang || window._lang);
+
   const kicker = $('#resultKicker'), region = $('#resultRegion'), country = $('#resultCountry');
   const confFill = $('#confFill'), confLabel = $('#confLabel');
   const evidence = $('#evidence'), runners = $('#runners'), heard = $('#heard');
@@ -407,26 +426,27 @@ function renderResult(v) {
     country.textContent = v.note || 'Talk more casually — slang, filler words, the way you voice-note your friends. That\'s where your لهجة hides.';
     confFill.style.width = '8%';
     confLabel.textContent = 'keep talking';
-    flyHome();
+    flyHome(v.lang || window._lang);
     window._lastResult = v;
     return;
   }
 
   if (v.kind === 'msa') {
     kicker.textContent = 'that\'s not a dialect —';
-    region.textContent = 'الفصحى · Fuṣḥa';
-    country.textContent = v.note || 'Textbook Arabic, from the ocean to the Gulf. Now drop the formality and talk like you talk with your friends 😄';
+    const ln = v.lang || window._lang;
+    region.textContent = ln && ln.code === 'ar' ? 'الفصحى · Fuṣḥa' : `Standard ${ln ? ln.name : ''}`.trim();
+    country.textContent = v.note || 'Textbook, unplaceable, could be anywhere. Drop the formality and talk like you talk with your friends.';
     confFill.style.width = '90%';
     confLabel.textContent = 'very sure about this one';
-    flyHome();
+    flyHome(v.lang || window._lang);
     window._lastResult = v;
     return;
   }
 
   const reg = v.regionKey ? REGIONS[v.regionKey] : null;
   kicker.textContent = 'your dialect sounds';
-  region.textContent = reg ? `${reg.ar} · ${reg.en}` : v.top.en;
-  let line = `${v.top.flag} Best guess: ${v.top.en} — ${v.top.ar}`;
+  region.textContent = reg ? (reg.ar ? `${reg.ar} · ${reg.en}` : reg.en) : v.top.en;
+  let line = `Best guess: ${v.top.en}${v.top.ar ? ` — ${v.top.ar}` : ''}`;
   if (v.city) line += `  ·  sounds like ${v.city} (${v.cityConf}%)`;
   if (v.note) line += `  ·  ${v.note}`;
   country.textContent = line;
@@ -438,7 +458,7 @@ function renderResult(v) {
     const c = COUNTRIES[r.code];
     const row = document.createElement('div');
     row.className = 'runner';
-    row.innerHTML = `<span class="runner-name">${c.flag} ${c.en}</span><div class="runner-track"><div class="runner-fill" style="width:${Math.round(r.weight / maxW * 100)}%"></div></div>`;
+    row.innerHTML = `<span class="runner-name">${c.en}</span><div class="runner-track"><div class="runner-fill" style="width:${Math.round(r.weight / maxW * 100)}%"></div></div>`;
     runners.appendChild(row);
   }
 
@@ -449,8 +469,68 @@ function renderResult(v) {
 function chip(word, gloss) {
   const el = document.createElement('span');
   el.className = 'chip';
-  el.innerHTML = `<b dir="rtl" lang="ar">${word}</b><small>${gloss}</small>`;
+  const ln = window._lang;
+  const b = document.createElement('b');
+  b.dir = ln ? ln.dir : 'rtl';
+  b.lang = ln ? ln.code : 'ar';
+  b.textContent = word;
+  const s = document.createElement('small');
+  s.textContent = gloss;
+  el.append(b, s);
   return el;
+}
+
+const LANG_CHOICES = [
+  ['ar', 'Arabic', 'العربية'], ['en', 'English', 'English'], ['es', 'Spanish', 'Español'],
+  ['fr', 'French', 'Français'], ['pt', 'Portuguese', 'Português'], ['ru', 'Russian', 'Русский'],
+  ['hi', 'Hindi–Urdu', 'हिन्दी · اردو'], ['zh', 'Chinese', '中文'],
+];
+
+// Auto-detection keeps the "just talk" promise, but it will sometimes be wrong — so it
+// says what it heard and lets you overrule it in one tap rather than making you choose
+// a language before you've said anything.
+function renderLangChip(lang) {
+  const el = $('#langChip');
+  if (!lang) { el.hidden = true; return; }
+  el.hidden = false;
+  el.innerHTML = '';
+  const said = document.createElement('span');
+  said.className = 'lang-heard';
+  said.textContent = `heard ${lang.name}`;
+  const fix = document.createElement('button');
+  fix.className = 'lang-fix';
+  fix.textContent = 'not right?';
+  fix.onclick = () => {
+    el.innerHTML = '';
+    const sel = document.createElement('select');
+    sel.className = 'lang-pick';
+    sel.innerHTML = '<option value="">it was actually…</option>'
+      + LANG_CHOICES.filter(([c]) => c !== lang.code)
+        .map(([c, n, nat]) => `<option value="${c}">${n} — ${nat}</option>`).join('');
+    sel.onchange = () => { if (sel.value) reanalyzeAs(sel.value); };
+    el.appendChild(sel);
+  };
+  el.append(said, fix);
+}
+
+// Re-run the same audio with the language the user insists on.
+function reanalyzeAs(code) {
+  if (!window._lastAudio) return;
+  show('analyzingCard');
+  postAnalyze({ audio: window._lastAudio.b64, mime: window._lastAudio.mime, lang: code })
+    .then((resp) => renderResult(normalizeServer(resp)))
+    .catch((e) => { toast(e.message || 'that did not work'); show('resultCard'); });
+}
+
+// The correction list follows the language we heard — offering Chile to an Arabic
+// speaker is noise, and offering all 79 countries to anyone is worse.
+function fillCountryPicker(lang) {
+  const sel = $('#fbActual');
+  const codes = lang && lang.countries ? lang.countries.filter((c) => c !== 'none' && COUNTRIES[c])
+    : Object.keys(COUNTRIES);
+  const names = codes.map((c) => [c, COUNTRIES[c].en]).sort((a, b) => a[1].localeCompare(b[1]));
+  sel.innerHTML = '<option value="">so what is it really?</option>'
+    + names.map(([code, en]) => `<option value="${code}">${en}</option>`).join('');
 }
 
 // ————— feedback flywheel —————
@@ -525,9 +605,7 @@ function bindUI() {
     samplesEl.appendChild(b);
   }
 
-  const sel = $('#fbActual');
-  sel.innerHTML = '<option value="">so what is it really?</option>' +
-    Object.entries(COUNTRIES).map(([code, c]) => `<option value="${code}">${c.flag} ${c.en}</option>`).join('');
+  fillCountryPicker(null);
 
   $('#micBtn').onclick = startListening;
   $('#stopBtn').onclick = stopListening;

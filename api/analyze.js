@@ -132,7 +132,7 @@ function joinSegments(data, echoes) {
 // language's colloquial prime, which is what keeps dialect markers from being tidied into
 // the standard register. Costs about two extra seconds; worth it, since the prime is the
 // difference between بيت and المنزل.
-async function transcribe(audioB64, mime) {
+async function transcribe(audioB64, mime, forced) {
   const bytes = Buffer.from(audioB64, 'base64');
   if (bytes.length < 2000) throw Object.assign(new Error('audio too short'), { code: 'audio_too_short' });
   if (bytes.length > 6 * 1024 * 1024) throw Object.assign(new Error('audio too large'), { code: 'audio_too_large' });
@@ -142,8 +142,9 @@ async function transcribe(audioB64, mime) {
       : (mime || '').includes('ogg') ? 'audio.ogg'
         : (mime || '').includes('wav') ? 'audio.wav' : 'audio.webm';
 
-  const first = await callWhisper(bytes, mime, ext, {});
-  const detected = (first.language || '').toLowerCase();
+  // A forced language means the user corrected us, so skip detection and believe them.
+  const first = await callWhisper(bytes, mime, ext, forced ? { language: isoCode(forced) } : {});
+  const detected = forced || (first.language || '').toLowerCase();
   const lang = resolveLanguage(detected);
   if (!lang) {
     throw Object.assign(new Error(`no playbook for "${detected}"`), { code: 'unsupported_language', detected });
@@ -227,7 +228,7 @@ export default async function handler(req, res) {
         return res.end(JSON.stringify({ ok: false, error: 'unsupported_language', detected }));
       }
     } else if (body.audio) {
-      ({ transcript, lang, detected } = await transcribe(body.audio, body.mime));
+      ({ transcript, lang, detected } = await transcribe(body.audio, body.mime, (body.lang || '').toLowerCase() || null));
     }
 
     if (!transcript || transcript.length < 4) {
@@ -239,7 +240,7 @@ export default async function handler(req, res) {
       ok: true,
       transcript,
       result,
-      language: { code: detected, name: lang.name, native: lang.native, dir: lang.dir },
+      language: { code: detected, name: lang.name, native: lang.native, dir: lang.dir, countries: lang.countries },
       fb_token: mintToken(),
     }));
   } catch (err) {
