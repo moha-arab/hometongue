@@ -19,7 +19,7 @@ const HOMELANDS = {
     'Mauritania', 'Oman', 'Palestine', 'Qatar', 'Saudi Arabia', 'Sudan', 'Syria', 'Tunisia', 'UAE', 'Yemen'],
   accents: ['England', 'Scotland', 'Wales', 'Northern Ireland', 'Ireland', 'USA', 'USA (US South)',
     'Canada', 'Australia', 'New Zealand', 'South Africa', 'Nigeria', 'Ghana', 'Kenya', 'Uganda',
-    'Zimbabwe', 'India', 'Pakistan', 'Singapore', 'Malta', 'Jamaica', 'Trinidad and Tobago',
+    'Zimbabwe', 'Namibia', 'Botswana', 'Zambia', 'India', 'Pakistan', 'Singapore', 'Malta', 'Jamaica', 'Trinidad and Tobago',
     'Barbados', 'Guyana', 'Belize', 'Bahamas'],
   french: ['France', 'Canada', 'Belgium', 'Switzerland', 'Monaco', 'Luxembourg', 'Haiti', 'Senegal',
     'Mali', 'Burkina Faso', 'Niger', 'Guinea', "Côte d'Ivoire", 'Togo', 'Benin', 'Cameroon', 'Gabon',
@@ -50,10 +50,14 @@ for (const [deck, clips] of Object.entries(window.CLIPS)) {
   const allowed = HOMELANDS[deck];
   if (!allowed && !STRUCTURAL_ONLY.has(deck)) { note(`no homeland list defined for deck "${deck}"`); continue; }
   for (const c of clips) {
-    if (!c.label || !c.attribution || typeof c.lat !== 'number' || typeof c.lng !== 'number') {
+    if (!c.label || typeof c.lat !== 'number' || typeof c.lng !== 'number') {
       note(`${c.id}: incomplete entry`);
       continue;
     }
+    // every clip must be able to tell the player where it came from
+    const s = c.source;
+    if (!s || !s.host || !s.license) note(`${c.id}: source is missing host or licence`);
+    else if (!s.who) note(`${c.id}: source has no "recording by" line`);
     if (c.url.startsWith('/clips/') && !fs.existsSync(path.join(ROOT, c.url))) note(`${c.id}: file missing`);
     if (STRUCTURAL_ONLY.has(deck)) continue;
     const region = c.label.includes(',') ? c.label.split(',').pop().trim() : c.label.trim();

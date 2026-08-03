@@ -412,9 +412,26 @@ function lockIn() {
   const altNote = best.primary ? '' : ` · scored to ${best.name} — ${clip.lang} lives there too`;
   $('#revealStats').textContent = `${km.toLocaleString()} km away → +${pts.toLocaleString()} pts${pts === 5000 ? ' 🎯' : ''}${altNote}`;
   $('#revealHint').textContent = clip.hint || '';
-  $('#revealAttribution').textContent = clip.attribution;
+  renderSource(clip.source);
   $('#nextBtn').textContent = round === ROUNDS - 1 ? 'see final score →' : 'next clip →';
   setView('reveal');
+}
+
+// Credits people can actually read: who recorded it, where it lives, the licence, and a way in.
+function renderSource(src = {}) {
+  const rows = [['#srcWho', src.who], ['#srcHost', src.host], ['#srcLicense', src.license]];
+  for (const [sel, val] of rows) {
+    const el = $(sel);
+    el.textContent = val || '—';
+    el.parentElement.hidden = !val;
+  }
+  if (src.note) {
+    $('#srcLicense').textContent = `${src.license || '—'} · ${src.note}`;
+    $('#srcLicense').parentElement.hidden = false;
+  }
+  const link = $('#srcLink');
+  link.hidden = !src.page;
+  if (src.page) link.href = src.page;
 }
 
 function advance() {

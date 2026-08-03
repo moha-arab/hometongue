@@ -452,6 +452,25 @@ textarea::placeholder { color: var(--muted); }
 
 .reveal-hint { margin-top: 10px; font-size: 13.5px; color: var(--muted); line-height: 1.55; }
 .attribution { margin-top: 10px; font-size: 10.5px; color: rgba(139, 144, 160, 0.65); line-height: 1.5; }
+
+/* Where the clip came from — people get curious, so make it legible instead of a run-on credit line. */
+.source-card {
+  margin-top: 14px; padding: 11px 13px; border-radius: 12px;
+  background: rgba(255, 255, 255, 0.035); border: 1px solid var(--stroke);
+  text-align: left;
+}
+.source-row { display: flex; gap: 10px; align-items: baseline; margin-bottom: 5px; }
+.source-row:last-of-type { margin-bottom: 0; }
+.source-key {
+  flex: 0 0 62px; font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(139, 144, 160, 0.75);
+}
+.source-val { flex: 1; font-size: 12px; color: var(--ink); line-height: 1.45; }
+.source-link {
+  display: inline-block; margin-top: 9px; font-size: 11.5px; font-weight: 500;
+  color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(255, 178, 77, 0.35);
+}
+.source-link:hover { border-bottom-color: var(--accent); }
 .runner-pts { font-size: 12px; color: var(--accent); min-width: 52px; text-align: right; }
 
 .board { margin-top: 16px; border-top: 1px solid var(--stroke); padding-top: 14px; }
