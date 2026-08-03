@@ -86,6 +86,25 @@ LIBYA/EGYPT border, SUDAN/EGYPT: use decisive markers only.
 - Place self-references ("هون بعمان", "احنا في جدة") are legitimate evidence — use them, but say so in the note.`,
   },
 
+  de: {
+    name: 'German',
+    native: 'Deutsch',
+    dir: 'ltr',
+    countries: ['de', 'at', 'ch', 'li', 'lu', 'it', 'none'],
+    regions: ['standard', 'northern', 'bavarian', 'saxon', 'rhinelandic', 'austrian', 'swiss', 'southtyrolean', 'none'],
+    standardLabel: 'neutral Hochdeutsch',
+    asrPrompt: 'Grüezi mitenand, ich nimm s Velo und s Natel, das isch chli komisch, gäll? '
+      + 'Servus, i geh heuer im Jänner zum Wirt, Paradeiser und Erdäpfel kauf i a no, oida. '
+      + 'Moin, ich hol mal eben Brötchen, ne? Passt scho, Semmel gibts auch.',
+    playbook: `GERMANY (de): Guten Tag, Tschüss, Brötchen, Januar, Handy, Fahrrad, Kartoffeln, Tomaten, "ne?", "halt", "mal eben", "doch". North: moin, Sonnabend (=Saturday), snacken, "mit dem Rad". Bavaria: Servus, Grüß Gott, Semmel, Bua/Madl, "passt scho", "a bissl". Saxony: nu (=yes), "gell", "ni" for nicht. Rhineland: tach, Alaaf/Helau, "am Arbeiten sein" progressive. Berlin: "icke", "wa?", Schrippe (=bread roll).
+AUSTRIA (at): Jänner (=January — DECISIVE vs German Januar), Feber, Paradeiser (=tomato), Erdäpfel (=potato), Marille (=apricot), Karfiol (=cauliflower), Semmel, Sackerl (=bag), Sessel (=chair), heuer (=this year), Servus, Grüß Gott, Oida, leiwand, "Ich bin gesessen/gestanden" (sein-perfect where Germany uses haben). Vienna: Oida, Beisl, Schmäh, Grießnockerl. Any of Jänner / Paradeiser / Erdäpfel is close to conclusive.
+SWITZERLAND (ch): Grüezi (DECISIVE), Velo (=bike, vs Fahrrad), Natel (=mobile, vs Handy), Rösti, Znüni/Zmittag/Zvieri, Guetzli, "chli" (=a little), "gäll", "merci vielmal", "es hät", "tschüss zäme", Portemonnaie, Billett, parkieren, grillieren, Trottoir. Swiss Standard German never writes ß. Zurich vs Bern vs Basel is hard in text — leave city empty unless named.
+LIECHTENSTEIN (li) and Austrian Vorarlberg: Alemannic, reads like Switzerland — split only on a place self-reference.
+LUXEMBOURG (lu): Luxembourgish loans, French mixing, "Moien".
+SOUTH TYROL (it): Marende, "Woll?", Italian loans (Targa, Patent, Carabinieri), Austrian vocabulary with Italian nouns.
+TRAPS: Whisper normalises Swiss German and Bavarian hard toward Standard German, so markers SURVIVING is strong evidence while their absence proves nothing — prefer kind=msa over guessing Germany by default. Germany is the majority speaker base, so do not treat "no Austrian or Swiss markers" as evidence FOR Germany; say it's unplaceable instead.`,
+  },
+
   es: {
     name: 'Spanish',
     native: 'Español',
@@ -254,14 +273,14 @@ const ALIASES = { ur: 'hi', yue: 'zh', 'zh-tw': 'zh', 'zh-cn': 'zh' };
 const NAMES = {
   arabic: 'ar', spanish: 'es', castilian: 'es', french: 'fr', portuguese: 'pt',
   russian: 'ru', hindi: 'hi', urdu: 'hi', chinese: 'zh', mandarin: 'zh',
-  cantonese: 'zh', english: 'en',
+  cantonese: 'zh', english: 'en', german: 'de',
 };
 
 // The ISO code to hand back to Whisper for the primed second pass.
 const ISO = {
   arabic: 'ar', spanish: 'es', castilian: 'es', french: 'fr', portuguese: 'pt',
   russian: 'ru', hindi: 'hi', urdu: 'ur', chinese: 'zh', mandarin: 'zh',
-  cantonese: 'zh', english: 'en',
+  cantonese: 'zh', english: 'en', german: 'de',
 };
 
 function resolveLanguage(code) {
@@ -276,7 +295,51 @@ function isoCode(detected) {
   return ISO[key] || key;
 }
 
+
+// Whisper identifies about 99 languages; we have hand-written playbooks for nine.
+// Rather than refuse the other ninety, fall back to what Claude already knows — it can
+// tell Grüezi from Guten Tag without being told. The generic tier gives up the curated
+// marker list, the tuned ASR prime, and the country enum that stops an implausible
+// answer, so it returns its own country name and coordinates and is told to be far more
+// conservative about confidence. Anything we can measure and tune graduates to LANGUAGES.
+const RTL = new Set(['ar', 'he', 'fa', 'ur', 'ps', 'sd', 'yi', 'dv', 'ku']);
+
+function genericLanguage(detected, iso) {
+  // Whisper hands back an English name ("hungarian"); the typed path hands back an ISO
+  // code ("hu"). Turn either into something a person would recognise.
+  let name = String(detected || 'that language');
+  if (/^[a-z]{2,3}$/i.test(name)) {
+    try { name = new Intl.DisplayNames(['en'], { type: 'language' }).of(name) || name; } catch { /* keep code */ }
+  }
+  name = name.replace(/\w/g, (c) => c.toUpperCase());
+  return {
+    generic: true,
+    name,
+    native: '',
+    dir: RTL.has(iso) ? 'rtl' : 'ltr',
+    countries: null,          // free-form: this tier names its own country
+    regions: null,
+    standardLabel: `neutral standard ${name}`,
+    asrPrompt: '',            // no colloquial prime exists for this one
+    playbook: `There is no curated marker playbook for ${name}. Use your own knowledge of its
+regional varieties: vocabulary splits, grammar differences, loanword sources, and any
+spelling that encodes pronunciation.
+
+Be honest about the shape of the language before you answer:
+- Some languages are spoken across many countries with sharp lexical splits (German:
+  Jänner vs Januar, Grüezi vs Guten Tag). Those are placeable.
+- Some are essentially one country with mild regional variation (Hungarian, Japanese,
+  Korean). There the honest answer is the country, with the region left empty unless a
+  real marker appears — do not invent a province.
+- Some split mainly by ACCENT rather than words. You are reading a transcript, so that
+  signal is not available to you at all. Say so rather than guessing.
+
+Because this language has not been tuned or measured, cap confidence at 75 unless a
+marker is genuinely decisive, and prefer kind=unclear over a thin guess.`,
+  };
+}
+
 // What the "not this language?" picker offers.
 const CHOICES = Object.entries(LANGUAGES).map(([code, l]) => ({ code, name: l.name, native: l.native }));
 
-export { LANGUAGES, ALIASES, SHARED_METHOD, CHOICES, resolveLanguage, isoCode };
+export { LANGUAGES, ALIASES, SHARED_METHOD, CHOICES, resolveLanguage, genericLanguage, isoCode };

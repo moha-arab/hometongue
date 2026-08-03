@@ -330,6 +330,7 @@ async function postAnalyze(payload) {
 
 // ————— analysis paths —————
 function runTextAnalysis(text, typed) {
+  const typeLang = $('#typeLang');
   window._lastAudio = null;
   if (normText(text).length < 8) {
     toast('I barely got anything — give me a sentence or two.');
@@ -339,7 +340,7 @@ function runTextAnalysis(text, typed) {
   }
   show('analyzingCard');
   state = 'analyzing';
-  postAnalyze({ text })
+  postAnalyze({ text, lang: typeLang ? typeLang.value : 'ar' })
     .then((resp) => renderResult(normalizeServer(resp)))
     .catch(() => {
       // offline fallback: the local word-engine
@@ -358,18 +359,25 @@ function normalizeServer(resp) {
     const el = $(id);
     if (el && resp.language) { el.dir = resp.language.dir; el.lang = resp.language.code; }
   }
-  const top = r.top_country !== 'none' && COUNTRIES[r.top_country] ? { code: r.top_country, ...COUNTRIES[r.top_country] } : null;
+  // Curated languages resolve against our table; the generic tier brings its own name
+  // and coordinates, so an answer of "Austria" works without Austria being in places.js.
+  const known = COUNTRIES[r.top_country];
+  const top = r.top_country === 'none' ? null
+    : known ? { code: r.top_country, ...known }
+      : r.country_name ? { code: r.top_country, en: r.country_name, lat: r.lat, lng: r.lng, zoom: 5 }
+        : null;
   let kind = r.kind === 'unclear' ? 'weak' : r.kind;
   if (kind === 'dialect' && !top) kind = 'weak'; // schema allows dialect+none; don't crash the renderer
   return {
     kind,
     top,
     regionKey: r.region !== 'none' && r.region !== 'msa' && REGIONS[r.region] ? r.region : null,
+    regionText: r.region && r.region !== 'none' && r.region !== 'msa' && !REGIONS[r.region] ? r.region : '',
     conf: Math.max(0, Math.min(100, r.confidence | 0)),
     city: r.city || '',
     cityConf: Math.max(0, Math.min(100, r.city_confidence | 0)),
     evidence: (r.evidence || []).slice(0, 8).map((e) => ({ t: e.word, en: e.gloss })),
-    ranked: (r.ranked || []).slice(0, 4).filter((x) => COUNTRIES[x.code]),
+    ranked: (r.ranked || []).slice(0, 4).filter((x) => COUNTRIES[x.code] || x.code === r.top_country),
     note: r.note || '',
     transcript: resp.transcript || '',
     lang: resp.language || null,
@@ -445,7 +453,7 @@ function renderResult(v) {
 
   const reg = v.regionKey ? REGIONS[v.regionKey] : null;
   kicker.textContent = 'your dialect sounds';
-  region.textContent = reg ? (reg.ar ? `${reg.ar} · ${reg.en}` : reg.en) : v.top.en;
+  region.textContent = reg ? (reg.ar ? `${reg.ar} · ${reg.en}` : reg.en) : (v.regionText || v.top.en);
   let line = `Best guess: ${v.top.en}${v.top.ar ? ` — ${v.top.ar}` : ''}`;
   if (v.city) line += `  ·  sounds like ${v.city} (${v.cityConf}%)`;
   if (v.note) line += `  ·  ${v.note}`;
@@ -455,7 +463,7 @@ function renderResult(v) {
 
   const maxW = Math.max(...v.ranked.map((r) => r.weight), 1);
   for (const r of v.ranked) {
-    const c = COUNTRIES[r.code];
+    const c = COUNTRIES[r.code] || { en: r.name || r.code };
     const row = document.createElement('div');
     row.className = 'runner';
     row.innerHTML = `<span class="runner-name">${c.en}</span><div class="runner-track"><div class="runner-fill" style="width:${Math.round(r.weight / maxW * 100)}%"></div></div>`;
@@ -480,10 +488,12 @@ function chip(word, gloss) {
   return el;
 }
 
+// The nine with hand-written playbooks. Anything else still works — it falls back to
+// Claude's own knowledge at lower confidence — these are just the ones worth offering.
 const LANG_CHOICES = [
   ['ar', 'Arabic', 'العربية'], ['en', 'English', 'English'], ['es', 'Spanish', 'Español'],
-  ['fr', 'French', 'Français'], ['pt', 'Portuguese', 'Português'], ['ru', 'Russian', 'Русский'],
-  ['hi', 'Hindi–Urdu', 'हिन्दी · اردو'], ['zh', 'Chinese', '中文'],
+  ['fr', 'French', 'Français'], ['de', 'German', 'Deutsch'], ['pt', 'Portuguese', 'Português'],
+  ['ru', 'Russian', 'Русский'], ['hi', 'Hindi–Urdu', 'हिन्दी · اردو'], ['zh', 'Chinese', '中文'],
 ];
 
 // Auto-detection keeps the "just talk" promise, but it will sometimes be wrong — so it
@@ -606,6 +616,18 @@ function bindUI() {
   }
 
   fillCountryPicker(null);
+
+  const tl = $('#typeLang');
+  if (tl) {
+    tl.innerHTML = LANG_CHOICES.map(([c, n, nat]) => `<option value="${c}">${n} — ${nat}</option>`).join('');
+    tl.value = 'ar';
+    tl.onchange = () => {
+      const box = $('#typeBox');
+      box.dir = tl.value === 'ar' ? 'rtl' : 'ltr';
+      box.lang = tl.value;
+    };
+    tl.onchange();
+  }
 
   $('#micBtn').onclick = startListening;
   $('#stopBtn').onclick = stopListening;

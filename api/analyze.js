@@ -3,19 +3,24 @@
 // Pipeline: Groq whisper-large-v3 (transcription) -> Claude (hierarchical dialect classification).
 import Anthropic from '@anthropic-ai/sdk';
 import { mintToken } from './feedback.js';
-import { SHARED_METHOD, resolveLanguage, isoCode } from './languages.js';
+import { SHARED_METHOD, resolveLanguage, genericLanguage, isoCode } from './languages.js';
 
 export const config = { maxDuration: 60 };
 
 // The schema is per-language: each entry declares the countries and regions we're
 // willing to name, so Claude can never return a country that language isn't spoken in.
 function buildSchema(lang) {
-  const countries = { type: 'string', enum: lang.countries };
+  // Curated languages get an enum, which is what stops an Arabic clip being answered
+  // with Australia. The generic tier has no vetted country list, so it names its own
+  // country and supplies coordinates for the map instead.
+  const countries = lang.countries
+    ? { type: 'string', enum: lang.countries }
+    : { type: 'string', description: "ISO 3166-1 alpha-2 code, lowercase, or 'none'" };
   return {
     type: 'object',
     properties: {
       kind: { type: 'string', enum: ['dialect', 'msa', 'unclear'] },
-      region: { type: 'string', enum: lang.regions },
+      region: lang.regions ? { type: 'string', enum: lang.regions } : { type: 'string', description: 'regional variety name in English, or empty' },
       top_country: countries,
       confidence: { type: 'integer', description: 'Country-level confidence 0-100, honestly calibrated' },
       city: { type: 'string', description: "Sub-country locale guess in English, e.g. 'Aleppo', 'Beirut', 'Upper Egypt', 'Medellin', 'Quebec City'. Empty string when the transcript does not support one." },
@@ -44,8 +49,14 @@ function buildSchema(lang) {
         },
       },
       note: { type: 'string', description: 'One or two honest, friendly sentences about the verdict, in English. Mention close calls and what pointed to the city guess.' },
+      ...(lang.countries ? {} : {
+        country_name: { type: 'string', description: 'English name of top_country, e.g. "Austria". Empty when top_country is none.' },
+        lat: { type: 'number', description: 'Approximate centre latitude of that country' },
+        lng: { type: 'number', description: 'Approximate centre longitude of that country' },
+      }),
     },
-    required: ['kind', 'region', 'top_country', 'confidence', 'city', 'city_confidence', 'ranked', 'evidence', 'note'],
+    required: ['kind', 'region', 'top_country', 'confidence', 'city', 'city_confidence', 'ranked', 'evidence', 'note']
+      .concat(lang.countries ? [] : ['country_name', 'lat', 'lng']),
     additionalProperties: false,
   };
 }
@@ -145,13 +156,14 @@ async function transcribe(audioB64, mime, forced) {
   // A forced language means the user corrected us, so skip detection and believe them.
   const first = await callWhisper(bytes, mime, ext, forced ? { language: isoCode(forced) } : {});
   const detected = forced || (first.language || '').toLowerCase();
-  const lang = resolveLanguage(detected);
-  if (!lang) {
-    throw Object.assign(new Error(`no playbook for "${detected}"`), { code: 'unsupported_language', detected });
-  }
+  // No curated playbook is not a refusal — fall back to what Claude already knows.
+  const lang = resolveLanguage(detected) || genericLanguage(detected, isoCode(detected));
 
-  const second = await callWhisper(bytes, mime, ext, { language: isoCode(detected), prompt: lang.asrPrompt })
-    .catch(() => null); // if the primed pass fails, the plain one is still usable
+  // Only worth a second pass when there is a prime to apply; the generic tier has none.
+  const second = lang.asrPrompt
+    ? await callWhisper(bytes, mime, ext, { language: isoCode(detected), prompt: lang.asrPrompt })
+      .catch(() => null) // if the primed pass fails, the plain one is still usable
+    : null;
   const echoes = echoFragments(lang);
   const primed = second ? joinSegments(second, echoes) : '';
   const plain = joinSegments(first, echoes);
@@ -220,13 +232,9 @@ export default async function handler(req, res) {
 
     if (transcript) {
       // Typed input has no audio to identify, so the client says which language it is.
-      // The type box is still Arabic-only, hence the default.
+      // The type box carries its own language picker; Arabic stays the default.
       detected = (body.lang || 'ar').toLowerCase();
-      lang = resolveLanguage(detected);
-      if (!lang) {
-        res.statusCode = 422;
-        return res.end(JSON.stringify({ ok: false, error: 'unsupported_language', detected }));
-      }
+      lang = resolveLanguage(detected) || genericLanguage(detected, isoCode(detected));
     } else if (body.audio) {
       ({ transcript, lang, detected } = await transcribe(body.audio, body.mime, (body.lang || '').toLowerCase() || null));
     }
@@ -240,7 +248,7 @@ export default async function handler(req, res) {
       ok: true,
       transcript,
       result,
-      language: { code: detected, name: lang.name, native: lang.native, dir: lang.dir, countries: lang.countries },
+      language: { code: detected, name: lang.name, native: lang.native, dir: lang.dir, countries: lang.countries, generic: !!lang.generic },
       fb_token: mintToken(),
     }));
   } catch (err) {

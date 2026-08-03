@@ -546,3 +546,11 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   font-family: var(--mono); font-size: 11px; color: var(--black);
   background: var(--sheet); border: 1px solid var(--rule); border-radius: 4px; padding: 3px 6px;
 }
+
+/* Typed input has no audio to identify, so this mode asks outright. */
+.type-lang { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-family: var(--mono); font-size: 11px; color: var(--grey); }
+.type-lang label { letter-spacing: 0.12em; text-transform: uppercase; }
+.type-lang select {
+  font-family: var(--mono); font-size: 11px; color: var(--black);
+  background: var(--sheet); border: 1px solid var(--rule); border-radius: 4px; padding: 3px 6px;
+}

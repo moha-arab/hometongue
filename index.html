@@ -32,18 +32,19 @@
 </header>
 
 <div class="how-pop" id="howPop" hidden>
-  <p><strong>Honest version:</strong> your browser records ~15 seconds of you talking. A server transcribes it (Whisper) and Claude reads the dialect from your <em>word choices and phrasing</em> — دلوقتي، هسا، دابا، وايد all give you away.</p>
+  <p><strong>Honest version:</strong> your browser records ~15 seconds of you talking. A server transcribes it (Whisper) and Claude reads the dialect from your <em>word choices and phrasing</em> — <em>Jänner</em> puts you in Austria, <em>cachai</em> in Chile, <em>هسا</em> in Jordan.</p>
   <p>That's why there's no script to read — if everyone said the same words, there'd be nothing to catch. Just talk naturally.</p>
-  <p>Your audio is analyzed and discarded — nothing is stored unless you tick the donate box on the result screen. Phase 2 is an acoustic model that hears the <em>accent itself</em>.</p>
+  <p>Your audio is analyzed and discarded — nothing is stored unless you tick the donate box on the result screen.</p>
+  <p>It reads <em>words</em>, not sound. We tested a phoneme model that hears pronunciation directly and measured it making things worse, so accents that differ only in sound — Boston vs Texas — are genuinely hard for it. That needs a model trained on labelled voices, which is what donated clips are for.</p>
 </div>
 
 <main class="hud">
 
   <!-- IDLE -->
   <section class="card" id="idleCard">
-    <div class="card-eyebrow"><span>dialect identification</span><b>eight languages</b></div>
+    <div class="card-eyebrow"><span>dialect identification</span><b>any language</b></div>
     <h1 class="tagline">Just talk.<br><span class="accent">I can hear where home is.</span></h1>
-    <p class="prompt-label">Any of eight languages. Don't read anything — just talk, like you're voice-noting a friend:</p>
+    <p class="prompt-label">Any language. Don't read anything — just talk, like you're voice-noting a friend:</p>
     <p class="prompt" id="promptText">"Tell me about your day."</p>
     <button class="mic-btn" id="micBtn" aria-label="Start talking">
       <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line></svg>
@@ -66,7 +67,8 @@
   <!-- TYPE MODE -->
   <section class="card" id="typeCard" hidden>
     <p class="prompt-label">Type the way you actually talk — voice-note energy, not essay energy:</p>
-    <textarea id="typeBox" dir="rtl" lang="ar" rows="4" placeholder="اكتب هون متل ما بتحكي..."></textarea>
+    <div class="type-lang"><label for="typeLang">language</label><select id="typeLang"></select></div>
+    <textarea id="typeBox" rows="4" placeholder="write the way you actually talk…"></textarea>
     <button class="stop-btn" id="analyzeTypedBtn">guess my dialect</button>
     <p class="samples-label">or try a sample:</p>
     <div class="samples" id="samples"></div>
