@@ -78,17 +78,21 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
 }
 
-/* ——— the map, left alone ——— */
+/* ——— the map ———
+   Voyager is a pastel style; at world zoom it goes almost to paper. A small
+   saturation lift puts the colour back without the contrast crush that flattened
+   the coastlines the last time. */
 #map { position: fixed; inset: 0; z-index: 0; background: var(--paper-2); }
+#map .leaflet-tile-pane { filter: saturate(1.22); }
 
 .vignette {
   position: fixed; inset: 0; z-index: 2; pointer-events: none;
   background:
-    radial-gradient(130% 100% at 32% 45%, transparent 45%, color-mix(in srgb, var(--paper) 38%, transparent) 100%),
-    linear-gradient(to bottom, color-mix(in srgb, var(--paper) 70%, transparent), transparent 18%,
-                    transparent 78%, color-mix(in srgb, var(--paper) 65%, transparent));
+    radial-gradient(130% 100% at 32% 45%, transparent 55%, color-mix(in srgb, var(--paper) 22%, transparent) 100%),
+    linear-gradient(to bottom, color-mix(in srgb, var(--paper) 45%, transparent), transparent 16%,
+                    transparent 82%, color-mix(in srgb, var(--paper) 40%, transparent));
 }
-#contours { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 3; pointer-events: none; opacity: 0.8; }
+#contours { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 3; pointer-events: none; opacity: 0.45; }
 
 /* The wash that floods the screen when you pick a deck. */
 .wash {

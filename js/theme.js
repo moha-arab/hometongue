@@ -4,11 +4,29 @@
 window.HT = window.HT || {};
 
 // A single light chart basemap — the design commits to one palette.
+// Labels ride on their own layer so they can be dropped at world zoom: down there
+// Voyager only has continent labels, and they arrive as every language at once
+// ("AMÉRICA DO SUL;AMÉRICA DEL SUR"), which reads as a rendering bug. Country
+// names start around z4 and those are the ones that actually help you pin.
+const CARTO = 'https://{s}.basemaps.cartocdn.com/rastertiles/{style}/{z}/{x}/{y}{r}.png';
+const LABEL_ZOOM = 4;
+
 window.HT.basemap = function basemap(map) {
-  return L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+  const opts = {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd', maxZoom: 19,
-  }).addTo(map);
+  };
+  const land = L.tileLayer(CARTO.replace('{style}', 'voyager_nolabels'), opts).addTo(map);
+  const names = L.tileLayer(CARTO.replace('{style}', 'voyager_only_labels'), { ...opts, attribution: '' });
+
+  const sync = () => {
+    const want = map.getZoom() >= LABEL_ZOOM;
+    if (want && !map.hasLayer(names)) names.addTo(map);
+    else if (!want && map.hasLayer(names)) map.removeLayer(names);
+  };
+  map.on('zoomend', sync);
+  sync();
+  return land;
 };
 
 // —————— isogloss field ——————
