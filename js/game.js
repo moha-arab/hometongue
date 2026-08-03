@@ -135,14 +135,21 @@ function dealDeck(pool) {
   for (const rows of Object.values(byCountry)) rows.sort((a, b) => (b.wild ? 1 : 0) - (a.wild ? 1 : 0));
   const countries = shuffle(Object.keys(byCountry));
   const out = [];
+  // one clip per country first, so a round never opens with two clips from the same place
+  for (const country of countries) {
+    if (out.length >= ROUNDS) break;
+    const c = byCountry[country].shift();
+    if (c) out.push(c);
+  }
+  // then keep drawing from whichever country still has the most unused clips — in a deck like
+  // Chinese, that spends the four China cities instead of repeating Hong Kong twice
   while (out.length < ROUNDS) {
-    let took = false;
-    for (const country of countries) {
-      if (out.length >= ROUNDS) break;
-      const c = (byCountry[country] || []).shift();
-      if (c) { out.push(c); took = true; }
-    }
-    if (!took) break; // pool exhausted
+    const next = countries
+      .map((k) => byCountry[k])
+      .filter((rows) => rows.length)
+      .sort((a, b) => b.length - a.length)[0];
+    if (!next) break; // pool exhausted
+    out.push(next.shift());
   }
   return out;
 }

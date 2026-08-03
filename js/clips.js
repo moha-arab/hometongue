@@ -1573,6 +1573,32 @@ window.CLIPS = {
       "attribution": "Loqu, Wikimedia Commons, CC BY-SA 3.0 — trimmed + re-encoded for HomeTongue"
     },
     {
+      "id": "spanish-argentine-spanish-reading-about-a-brazilian-to",
+      "label": "Argentina",
+      "lang": "es",
+      "url": "/clips/spanish/spanish-argentine-spanish-reading-about-a-brazilian-to.mp3",
+      "lat": -34.6037,
+      "lng": -58.3816,
+      "r": 250,
+      "size": 1286313,
+      "start": 30,
+      "hint": "Ideal case: topic is a Brazilian town, completely unconnected to Argentina. Country-level accent tag only, pinned at Buenos Aires with wide radius.",
+      "attribution": "Eduardo P, Wikimedia Commons — trimmed + re-encoded for HomeTongue"
+    },
+    {
+      "id": "spanish-venezuelan-spanish-introduction-to-the-big-ban",
+      "label": "Guatire, Venezuela",
+      "lang": "es",
+      "url": "/clips/spanish/spanish-venezuelan-spanish-introduction-to-the-big-ban.mp3",
+      "lat": 10.4753,
+      "lng": -66.5425,
+      "r": 120,
+      "size": 1920775,
+      "start": 30,
+      "hint": "Soft ambient background music plays low under the narration throughout the reading; speech remains dominant and intelligible. Used the transcoded MP3 (original FLAC was slightly over the 40M",
+      "attribution": "Wilfredor (Wilfredo Rafael Rodríguez Hernández), Wikimedia Commons — trimmed + re-encoded for HomeTongue"
+    },
+    {
       "id": "spanish-mexico-city-mexico-spanish-mexican",
       "label": "Mexico",
       "lang": "Spanish (Mexican)",
@@ -1584,6 +1610,30 @@ window.CLIPS = {
       "start": 10,
       "hint": "A quick home-remedy explainer on heartburn, read by a Wikipedia volunteer.",
       "attribution": "Guirrohl, Wikimedia Commons — trimmed + re-encoded for HomeTongue"
+    },
+    {
+      "id": "spanish-mexican-spanish-schrodinger-s-cat-article-read",
+      "label": "Mexico",
+      "lang": "es",
+      "url": "/clips/spanish/spanish-mexican-spanish-schrodinger-s-cat-article-read.mp3",
+      "lat": 22,
+      "lng": -101,
+      "r": 500,
+      "size": 772432,
+      "hint": "NOT the already-used Mexican medical-article reading — this is a different reader/topic. Short (1:36) but clean. Country-level tag only, no specific city, pinned at Mexico City with wide rad",
+      "attribution": "Luisrey89~commonswiki, Wikimedia Commons — trimmed + re-encoded for HomeTongue"
+    },
+    {
+      "id": "spanish-uruguayan-spanish-juan-jose-morosoli-reads-la-",
+      "label": "Minas, Uruguay",
+      "lang": "es",
+      "url": "/clips/spanish/spanish-uruguayan-spanish-juan-jose-morosoli-reads-la-.mp3",
+      "lat": -34.375,
+      "lng": -55.2379,
+      "r": 120,
+      "size": 674421,
+      "hint": "Checked full text on Wikisource: the story names no real places at all (only generic 'sierra,' 'valle,' 'mi terruño') — no Uruguay or Montevideo mention. Archival 1946 radio recording, PD un",
+      "attribution": "Juan José Morosoli / Museo de la Palabra del SODRE (Uruguay), via Wikimedia Commons — trimmed + re-encoded for HomeTongue"
     },
     {
       "id": "spanish-paniahue-santa-cruz-chile-spanish-chilean",
@@ -1598,6 +1648,54 @@ window.CLIPS = {
       "start": 56,
       "hint": "An earthquake survivor describing the tent city her neighborhood became.",
       "attribution": "Diego Grez / Wikinews, hosted on Wikimedia Commons, CC BY-SA 3.0 — trimmed + re-encoded for HomeTongue"
+    },
+    {
+      "id": "spanish-peruvian-spanish-richard-dawkins-biography-rea",
+      "label": "Peru",
+      "lang": "es",
+      "url": "/clips/spanish/spanish-peruvian-spanish-richard-dawkins-biography-rea.mp3",
+      "lat": -12.0464,
+      "lng": -77.0428,
+      "r": 250,
+      "size": 1265833,
+      "hint": "Only country-level origin is documented (no specific city), so the pin is placed at the capital, Lima, with a wide accept radius. Duration 2:38, verified via direct file-page fetch.",
+      "attribution": "César Anglas Rabines, Wikimedia Commons — trimmed + re-encoded for HomeTongue"
+    },
+    {
+      "id": "spanish-puerto-rican-spanish-roman-emperor-claudius-ar",
+      "label": "Puerto Rico",
+      "lang": "es",
+      "url": "/clips/spanish/spanish-puerto-rican-spanish-roman-emperor-claudius-ar.mp3",
+      "lat": 18.4655,
+      "lng": -66.1057,
+      "r": 120,
+      "size": 1904057,
+      "hint": "Ancient Roman history topic, nothing to do with the Caribbean. Duration 3:58, clean single male voice.",
+      "attribution": "Boricuaeddie, Wikimedia Commons — trimmed + re-encoded for HomeTongue"
+    },
+    {
+      "id": "spanish-castilian-spanish-segismundo-s-soliloquy-calde",
+      "label": "Spain",
+      "lang": "es",
+      "url": "/clips/spanish/spanish-castilian-spanish-segismundo-s-soliloquy-calde.mp3",
+      "lat": 40.4168,
+      "lng": -3.7038,
+      "r": 250,
+      "size": 993533,
+      "hint": "Classic Golden Age theatre monologue — geography-free content by nature, no Spain/Madrid references. Only regional-category documentation (no specific city), pinned at Madrid with wide radiu",
+      "attribution": "Txo, Wikimedia Commons — trimmed + re-encoded for HomeTongue"
+    },
+    {
+      "id": "spanish-colombian-spanish-steven-pinker-biography-read",
+      "label": "Turbaco, Colombia",
+      "lang": "es",
+      "url": "/clips/spanish/spanish-colombian-spanish-steven-pinker-biography-read.mp3",
+      "lat": 10.3306,
+      "lng": -75.4136,
+      "r": 120,
+      "size": 1920775,
+      "hint": "Scripted Wikipedia-article reading; clear single male voice, no background noise. Verified via direct fetch of the Commons file page (duration 8:22, CC BY-SA 3.0).",
+      "attribution": "Libardomm, Wikimedia Commons — trimmed + re-encoded for HomeTongue"
     }
   ],
   "chinese": [
@@ -1641,6 +1739,43 @@ window.CLIPS = {
       "attribution": "Wikitongues (speakers: Huang Chaofen & Wang Changjiu), \"Changjiu and Chaofen speaking Guiyangese (Southwestern Mandarin)\", CC BY-SA 4.0, via Wikimedia Commons — trimmed + re-encoded for HomeTongue"
     },
     {
+      "id": "chinese-hk-cantonese-george-washington-carver-spoken-w",
+      "label": "Hong Kong",
+      "lang": "yue",
+      "url": "/clips/chinese/chinese-hk-cantonese-george-washington-carver-spoken-w.mp3",
+      "lat": 22.3193,
+      "lng": 114.1694,
+      "r": 120,
+      "size": 1920775,
+      "hint": "Straight reading of the Wikipedia biography, no self-introduction. Any 20s window works; the first few seconds just name the article subject (an American scientist), not the speaker's locati",
+      "attribution": "Recording by Carrotkit, uploaded by 胡葡萄, Wikimedia Commons — trimmed + re-encoded for HomeTongue"
+    },
+    {
+      "id": "chinese-hk-cantonese-ciguatoxin-stonefish-toxin-spoken",
+      "label": "Hong Kong",
+      "lang": "yue",
+      "url": "/clips/chinese/chinese-hk-cantonese-ciguatoxin-stonefish-toxin-spoken.mp3",
+      "lat": 22.3193,
+      "lng": 114.1694,
+      "r": 120,
+      "size": 1920775,
+      "hint": "Dense science-article reading, no intro chit-chat. Any segment works. Same voice as the Carver clip above.",
+      "attribution": "Recording by Carrotkit, uploaded by 胡葡萄, Wikimedia Commons — trimmed + re-encoded for HomeTongue"
+    },
+    {
+      "id": "chinese-shanghainese-wu-standard-shanghai-accent-readi",
+      "label": "Shanghai, China",
+      "lang": "wuu",
+      "url": "/clips/chinese/chinese-shanghainese-wu-standard-shanghai-accent-readi.mp3",
+      "lat": 31.2304,
+      "lng": 121.4737,
+      "r": 120,
+      "size": 1764249,
+      "start": 60,
+      "hint": "Formal recitation of a famous classical-Chinese essay, no self-introduction. Good geography-free content since the essay's subject (Yueyang, Hunan) is a different province from the speaker's",
+      "attribution": "Recording by Wikimedia user Legolas1024, Wikimedia Commons — trimmed + re-encoded for HomeTongue"
+    },
+    {
       "id": "chinese-taipei-taiwan-mandarin-taiwan-guoyu",
       "label": "Taiwan",
       "lang": "Mandarin (Taiwan Guoyu)",
@@ -1652,9 +1787,46 @@ window.CLIPS = {
       "start": 33,
       "hint": "Tagged simply 'zh-tw' by the reader — softer retroflexes and no erhua is the giveaway that this is Taiwan Guoyu, not mainland Mandarin.",
       "attribution": "Spoken Chinese Wikipedia contributor, \"Zh-tw-魔術師和兔子.ogg\", CC BY-SA 4.0, via Wikimedia Commons — trimmed + re-encoded for HomeTongue"
+    },
+    {
+      "id": "chinese-taiwan-mandarin-good-cop-bad-dog-tv-episode-sp",
+      "label": "Taiwan",
+      "lang": "zh",
+      "url": "/clips/chinese/chinese-taiwan-mandarin-good-cop-bad-dog-tv-episode-sp.mp3",
+      "lat": 23.8,
+      "lng": 120.96,
+      "r": 220,
+      "size": 1920775,
+      "hint": "12-minute article reading, plenty of clean mid-file segments to pull a 20s window from.",
+      "attribution": "Recording by Wikimedia user Sharonlan1203, Wikimedia Commons — trimmed + re-encoded for HomeTongue"
     }
   ],
   "hindi-urdu": [
+    {
+      "id": "hindi-urdu-rajiv-dixit-aitihasik-bhulein-historical-mista",
+      "label": "Aligarh, India",
+      "lang": "hi",
+      "url": "/clips/hindi-urdu/hindi-urdu-rajiv-dixit-aitihasik-bhulein-historical-mista.mp3",
+      "lat": 27.8974,
+      "lng": 78.088,
+      "r": 250,
+      "size": 1920775,
+      "wild": true,
+      "hint": "4m48s, verified direct file, confirmed via Archive.org metadata API (exact length/size). This is the short 5th installment of a longer numbered lecture, so it picks up mid-argument.",
+      "attribution": "Rajiv Dixit lecture recording, Internet Archive, CC0 1.0 Public Domain Dedication — trimmed + re-encoded for HomeTongue"
+    },
+    {
+      "id": "hindi-urdu-spoken-hindi-wikipedia-indo-european-language-",
+      "label": "Delhi–Meerut Region, India",
+      "lang": "hi",
+      "url": "/clips/hindi-urdu/hindi-urdu-spoken-hindi-wikipedia-indo-european-language-.mp3",
+      "lat": 28.6139,
+      "lng": 77.209,
+      "r": 150,
+      "size": 1920775,
+      "hint": "9m42s, verified direct file. Origin evidence is a dialect tag (Khariboli/North Indian standard) rather than a single named city, so treat the pin location as the broad Delhi–Meerut belt, not",
+      "attribution": "Magicalsaumy, via Wikimedia Commons, dual CC BY-SA 3.0 / GFDL — trimmed + re-encoded for HomeTongue"
+    },
     {
       "id": "hindi-urdu-karachi-pakistan-urdu",
       "label": "Karachi, Pakistan",
@@ -1681,9 +1853,61 @@ window.CLIPS = {
       "start": 9,
       "hint": "Bollywood's most legendary dance mistress, born on the very film sets she'd spend seventy years choreographing.",
       "attribution": "Interview by Devang Bhatt; uploaded by Nizil Shah, via Wikimedia Commons — trimmed + re-encoded for HomeTongue"
+    },
+    {
+      "id": "hindi-urdu-mufti-abul-qasim-nomani-talk-on-darul-uloom-de",
+      "label": "Varanasi, India",
+      "lang": "ur",
+      "url": "/clips/hindi-urdu/hindi-urdu-mufti-abul-qasim-nomani-talk-on-darul-uloom-de.mp3",
+      "lat": 25.3176,
+      "lng": 82.9739,
+      "r": 120,
+      "size": 1578466,
+      "hint": "3m17s, verified direct file. Recorded in Urdu, which is the normal medium of instruction/address in Indian Deobandi seminaries, so an Indian speaker using Urdu here is expected, not a signal",
+      "attribution": "Owais Bin Elias, via Wikimedia Commons, CC BY-SA 4.0 — trimmed + re-encoded for HomeTongue"
     }
   ],
   "portuguese": [
+    {
+      "id": "portuguese-cape-verde-portuguese-cape-verde",
+      "label": "Cape Verde",
+      "lang": "Portuguese (Cape Verde)",
+      "url": "/clips/portuguese/portuguese-cape-verde-portuguese-cape-verde.mp3",
+      "lat": 16.8901,
+      "lng": -24.9804,
+      "r": 400,
+      "size": 1834466,
+      "wild": true,
+      "start": 53,
+      "hint": "A musician talking about art and travel; he left his islands for Lisbon decades ago but never lost the accent.",
+      "attribution": "VOA Português, via Wikimedia Commons (PD-USGov-VOA) — trimmed + re-encoded for HomeTongue"
+    },
+    {
+      "id": "portuguese-malanje-angola-portuguese-angola",
+      "label": "Malanje, Angola",
+      "lang": "Portuguese (Angola)",
+      "url": "/clips/portuguese/portuguese-malanje-angola-portuguese-angola.mp3",
+      "lat": -9.5402,
+      "lng": 16.341,
+      "r": 400,
+      "size": 1719319,
+      "wild": true,
+      "start": 28,
+      "hint": "Residents of an Angolan province talking about living without running water or reliable power.",
+      "attribution": "VOA Português, via Wikimedia Commons (PD-USGov-VOA) — trimmed + re-encoded for HomeTongue"
+    },
+    {
+      "id": "portuguese-parana-brazil-portuguese-brazilian-parana",
+      "label": "Paraná, Brazil",
+      "lang": "Portuguese (Brazilian — Paraná)",
+      "url": "/clips/portuguese/portuguese-parana-brazil-portuguese-brazilian-parana.mp3",
+      "lat": -25.4284,
+      "lng": -49.2733,
+      "r": 250,
+      "size": 1274610,
+      "hint": "A volunteer reading the Portuguese Wikipedia article about rabbits — the accent is from the south of Brazil.",
+      "attribution": "Deyvid Setti, Wikimedia Commons (CC BY 3.0) — trimmed + re-encoded for HomeTongue"
+    },
     {
       "id": "portuguese-porto-alegre-brazil-portuguese-brazilian-gauch",
       "label": "Porto Alegre, Brazil",
