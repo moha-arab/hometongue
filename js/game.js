@@ -508,6 +508,22 @@ function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
+
+// A deck's identity is its geography, not a flag — Arabic spans 17 countries and
+// English 15, so one flag would misrepresent every deck. Instead each row carries a
+// tiny equirectangular plot of where its own clips actually come from: Arabic reads as
+// a tight cluster, World Languages as scatter across the whole frame.
+function deckThumb(clips, hue) {
+  const W = 52, H = 30;
+  const dots = clips.map((c) => {
+    const x = ((c.lng + 180) / 360) * W, y = ((90 - c.lat) / 180) * H;
+    return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="1.7" fill="${hue}"/>`;
+  }).join('');
+  return `<svg class="deck-thumb" viewBox="0 0 ${W} ${H}" aria-hidden="true">`
+    + `<path d="${window.HT_WORLD || ''}" fill="currentColor" opacity="0.22"/>`
+    + `<g opacity="0.9">${dots}</g></svg>`;
+}
+
 function renderModeCards() {
   const grid = $('#typeGrid');
   grid.innerHTML = '';
@@ -516,7 +532,10 @@ function renderModeCards() {
     const ready = pool.length >= ROUNDS;
     const b = document.createElement('button');
     b.className = 'type-btn' + (ready ? '' : ' soon');
-    b.innerHTML = `<span class="type-code">${m.code}</span><span class="type-name">${m.name}</span><span class="type-desc">${m.desc}</span>${ready ? '' : '<span class="type-soon-note">stocking clips</span>'}`;
+    const hue = getComputedStyle(document.documentElement).getPropertyValue(`--hue-${m.key}`).trim() || '#2A6B60';
+    b.innerHTML = `<span class="deck-mark">${deckThumb(pool, hue)}<span class="type-code">${m.code}</span></span>`
+      + `<span class="type-name">${m.name}</span><span class="type-desc">${m.desc}</span>`
+      + (ready ? '' : '<span class="type-soon-note">stocking clips</span>');
     b.dataset.deck = m.key;
     if (ready) b.onclick = (e) => {
       window.HT.setDeck(m.key, { x: e.clientX, y: e.clientY });
