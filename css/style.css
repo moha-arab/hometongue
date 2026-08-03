@@ -407,9 +407,25 @@ textarea::placeholder { color: var(--muted); }
 .dock-play:hover { transform: scale(1.06); }
 .dock-mid { flex: 1; min-width: 0; display: grid; gap: 6px; }
 .dock-hint { font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.player-hit { padding: 7px 0; cursor: pointer; touch-action: none; }
-.player-bar { height: 6px; border-radius: 4px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }
-.player-fill { height: 100%; border-radius: 4px; background: var(--grad); width: 0%; transition: width 0.25s linear; }
+/* Generous grab zone: the visible bar is thin, but the whole 22px strip is draggable. */
+.player-hit { padding: 8px 0; cursor: pointer; touch-action: none; position: relative; outline: none; }
+.player-bar { height: 8px; border-radius: 5px; background: rgba(255, 255, 255, 0.10); position: relative; }
+.player-fill { height: 100%; border-radius: 5px; background: var(--grad); width: 0%; transition: width 0.12s linear; }
+.player-thumb {
+  position: absolute; top: 50%; left: 0; width: 16px; height: 16px; border-radius: 50%;
+  background: #fff; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
+  transform: translate(-50%, -50%); transition: left 0.12s linear, transform 0.12s ease;
+  pointer-events: none;
+}
+.player-hit:hover .player-thumb, .player-hit:focus-visible .player-thumb, .player-hit.dragging .player-thumb { transform: translate(-50%, -50%) scale(1.25); }
+.player-hit:focus-visible .player-bar { box-shadow: 0 0 0 2px rgba(255, 178, 77, 0.6); }
+.dock-skip {
+  flex-shrink: 0; width: 38px; height: 38px; border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06); border: 1px solid var(--stroke); color: var(--ink);
+  display: grid; place-items: center; cursor: pointer; transition: all 0.15s;
+}
+.dock-skip:hover { background: rgba(255, 178, 77, 0.14); border-color: rgba(255, 178, 77, 0.5); }
+.dock-skip:disabled { opacity: 0.3; cursor: default; }
 .listens { font-size: 11px; color: var(--muted); }
 .dock-lock { flex-shrink: 0; padding: 12px 18px; font-size: 14px; }
 

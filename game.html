@@ -61,12 +61,20 @@
 </div>
 
 <div class="dock" id="dock" hidden>
-  <button class="dock-play" id="playBtn" aria-label="Play clip">
+  <button class="dock-skip" id="backBtn" aria-label="Back 5 seconds" title="back 5s (←)">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z"/></svg>
+  </button>
+  <button class="dock-play" id="playBtn" aria-label="Play clip" title="play / pause (space)">
     <svg id="playIcon" viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+  </button>
+  <button class="dock-skip" id="fwdBtn" aria-label="Forward 5 seconds" title="forward 5s (→)">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M13 6v12l8.5-6L13 6zm-.5 6L4 6v12l8.5-6z"/></svg>
   </button>
   <div class="dock-mid">
     <div class="dock-hint" id="pinHint">▶ listen, then tap the map to drop your pin</div>
-    <div class="player-hit" id="playerBar"><div class="player-bar"><div class="player-fill" id="playerFill"></div></div></div>
+    <div class="player-hit" id="playerBar" role="slider" tabindex="0" aria-label="Position in clip" aria-valuemin="0" aria-valuemax="20" aria-valuenow="0">
+      <div class="player-bar"><div class="player-fill" id="playerFill"></div><div class="player-thumb" id="playerThumb"></div></div>
+    </div>
     <div class="listens" id="listens">1:00 of listening left</div>
   </div>
   <button class="stop-btn dock-lock" id="lockBtn" disabled>lock it 📍</button>

@@ -247,7 +247,20 @@ function updateFill() {
   const clip = deck[round];
   if (!clip || clip._offset === undefined) return;
   const elapsed = audio.currentTime - clip._offset;
-  $('#playerFill').style.width = `${Math.min(100, Math.max(0, elapsed / CLIP_WINDOW_S) * 100)}%`;
+  const pct = Math.min(100, Math.max(0, elapsed / CLIP_WINDOW_S) * 100);
+  $('#playerFill').style.width = `${pct}%`;
+  $('#playerThumb').style.left = `${pct}%`;
+  $('#playerBar').setAttribute('aria-valuenow', Math.round(Math.max(0, elapsed)));
+}
+
+// Nudge the playhead within the window; used by the ±5s buttons and arrow keys.
+function seekBy(delta) {
+  const clip = deck[round];
+  if (!clip || audio.readyState < 1) return;
+  ensureOffset(clip);
+  const max = clip._offset + CLIP_WINDOW_S - 0.2;
+  audio.currentTime = Math.min(max, Math.max(clip._offset, audio.currentTime + delta));
+  updateFill();
 }
 
 audio.addEventListener('timeupdate', () => {
@@ -290,12 +303,26 @@ function scrubTo(clientX) {
 }
 playerBar.addEventListener('pointerdown', (e) => {
   scrubbing = true;
+  playerBar.classList.add('dragging');
   try { playerBar.setPointerCapture(e.pointerId); } catch { /* capture is a nicety, seeking is the point */ }
   scrubTo(e.clientX);
 });
 playerBar.addEventListener('pointermove', (e) => { if (scrubbing) scrubTo(e.clientX); });
-playerBar.addEventListener('pointerup', () => { scrubbing = false; });
-playerBar.addEventListener('pointercancel', () => { scrubbing = false; });
+const endScrub = () => { scrubbing = false; playerBar.classList.remove('dragging'); };
+playerBar.addEventListener('pointerup', endScrub);
+playerBar.addEventListener('pointercancel', endScrub);
+playerBar.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowLeft') { seekBy(-2); e.preventDefault(); }
+  else if (e.key === 'ArrowRight') { seekBy(2); e.preventDefault(); }
+});
+
+// Whole-page shortcuts: space toggles play, arrows nudge — as long as you're not typing a nickname.
+document.addEventListener('keydown', (e) => {
+  if ($('#dock').hidden || /^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)) return;
+  if (e.code === 'Space') { e.preventDefault(); if (playing) audio.pause(); else playClip(); }
+  else if (e.key === 'ArrowLeft' && document.activeElement !== playerBar) { e.preventDefault(); seekBy(-5); }
+  else if (e.key === 'ArrowRight' && document.activeElement !== playerBar) { e.preventDefault(); seekBy(5); }
+});
 
 function lockIn() {
   if (!guessMarker) return;
@@ -418,6 +445,8 @@ function renderModeCards() {
 initMap();
 renderModeCards();
 $('#playBtn').onclick = () => { if (playing) audio.pause(); else playClip(); };
+$('#backBtn').onclick = () => seekBy(-5);
+$('#fwdBtn').onclick = () => seekBy(5);
 $('#lockBtn').onclick = lockIn;
 $('#nextBtn').onclick = advance;
 $('#submitScore').onclick = submitScore;

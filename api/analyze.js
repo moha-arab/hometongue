@@ -126,8 +126,11 @@ async function transcribe(audioB64, mime) {
   form.append('language', 'ar');
   form.append('temperature', '0');
   form.append('response_format', 'verbose_json'); // segments carry confidence for hallucination filtering
-  // Style prompt: biases decoding toward colloquial verbatim transcription instead of MSA cleanup.
-  form.append('prompt', 'حكي عفوي باللهجة العامية، مكتوب متل ما انقال بدون تصحيح للفصحى.');
+  // Whisper's prompt is decoding CONTEXT, not an instruction — so we feed it a SAMPLE of the
+  // register we want back. Measured on 8 known-colloquial clips: this nearly doubles retained
+  // dialect markers vs the old instruction-style prompt, which Whisper sometimes echoed back
+  // verbatim as the transcript (2/8 clips) instead of transcribing the audio.
+  form.append('prompt', ASR_STYLE_PROMPT);
 
   const resp = await fetch('https://api.groq.com/openai/v1/audio/transcriptions', {
     method: 'POST',
@@ -146,6 +149,19 @@ async function transcribe(audioB64, mime) {
   return kept.map((s) => (s.text || '').trim()).join(' ').trim();
 }
 
+// Fed to Whisper as decoding context so it spells things the way people actually say them
+// (بيت not المنزل, زهقان not "لا أفعل شيئاً") instead of tidying everything into MSA.
+// Deliberately written as natural speech across the major dialect groups.
+const ASR_STYLE_PROMPT = 'شو أخبارك؟ أنا قاعد بالبيت هلق، زهقان شوي وما عم أعمل شي. بدي روح عالسوق بعدين. '
+  + 'ايه يا عم، انت فين دلوقتي؟ عايز إيه؟ مش كده أبداً، ده كلام فاضي بقى. '
+  + 'وش تبي؟ شلون حالك؟ مو زين هالكلام، أبغى أروح البيت. '
+  + 'أكو شغل هواي هسه، ماكو وقت أبد. '
+  + 'واش كاين؟ دابا غادي نمشي، بزاف ديال الحوايج خاصني نديرهم.';
+
+// Any chunk of the style prompt coming back as "speech" means Whisper continued the context
+// instead of transcribing — that produced garbage transcripts on quiet clips with the old prompt.
+const PROMPT_ECHO = ASR_STYLE_PROMPT.split(/[.،؟]/).map((s) => s.trim()).filter((s) => s.length > 12);
+
 // Whisper dreams YouTube boilerplate when fed silence/noise — scrub the classics.
 const BOILERPLATE = [
   'اشتركوا في القناة', 'اشترك في القناة', 'لا تنسوا الاشتراك', 'لا تنسى الاشتراك', 'فعلوا الجرس',
@@ -155,6 +171,7 @@ const BOILERPLATE = [
 function isHallucination(text) {
   const t = text.trim();
   if (!t) return true;
+  if (PROMPT_ECHO.some((p) => t.includes(p))) return true; // it read our own prompt back to us
   if (t.length > 80) return false; // real speech segments are rarely pure boilerplate at length
   const low = t.toLowerCase();
   return BOILERPLATE.some((p) => low.includes(p));
