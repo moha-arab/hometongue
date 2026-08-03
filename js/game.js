@@ -42,7 +42,7 @@ function initMap() {
 function onMapClick(e) {
   if ($('#dock').hidden) return; // only during guessing
   if (!guessMarker) {
-    guessMarker = L.marker(e.latlng, { draggable: true, icon: pinIcon(token('--mark')) }).addTo(map);
+    guessMarker = L.marker(e.latlng, { draggable: true, icon: pinIcon(window.HT.ink()) }).addTo(map);
     $('#lockBtn').disabled = false;
     $('#pinHint').textContent = 'drag the pin to adjust, then lock it';
   } else {
@@ -54,7 +54,7 @@ function pinIcon(color) {
   return L.divIcon({
     className: 'pin-wrap',
     // survey marker: a stem with a ringed head, closer to a map annotation than a balloon
-    html: `<svg width="26" height="34" viewBox="0 0 26 34"><line x1="13" y1="12" x2="13" y2="33" stroke="${color}" stroke-width="1.5"/><circle cx="13" cy="9" r="7" fill="${token('--surface')}" stroke="${color}" stroke-width="2.5"/><circle cx="13" cy="9" r="2.5" fill="${color}"/></svg>`,
+    html: `<svg width="26" height="34" viewBox="0 0 26 34"><line x1="13" y1="12" x2="13" y2="33" stroke="${color}" stroke-width="1.5"/><circle cx="13" cy="9" r="7" fill="${token('--sheet')}" stroke="${color}" stroke-width="2.5"/><circle cx="13" cy="9" r="2.5" fill="${color}"/></svg>`,
     iconSize: [26, 34], iconAnchor: [13, 33],
   });
 }
@@ -407,13 +407,13 @@ function lockIn() {
   roundLog.push({ id: clip.id, label: clip.label, km, pts });
 
   const truth = { lat: best.lat, lng: best.lng };
-  truthMarker = L.marker(truth, { icon: pinIcon(token('--brand')) }).addTo(map);
+  truthMarker = L.marker(truth, { icon: pinIcon(window.HT.ink()) }).addTo(map);
   for (const c of centers) {
     if (c === best) continue;
-    extraDots.push(L.circleMarker([c.lat, c.lng], { radius: 6, color: token('--brand'), weight: 2, fillColor: token('--brand'), fillOpacity: 0.2 })
+    extraDots.push(L.circleMarker([c.lat, c.lng], { radius: 6, color: window.HT.ink(), weight: 2, fillColor: window.HT.ink(), fillOpacity: 0.2 })
       .addTo(map).bindTooltip(c.name));
   }
-  line = L.polyline([guess, truth], { color: token('--mark'), weight: 1.5, dashArray: '5 7', opacity: 0.9 }).addTo(map);
+  line = L.polyline([guess, truth], { color: window.HT.ink(), weight: 1.5, dashArray: '5 7', opacity: 0.9 }).addTo(map);
   // keep the arc visible above the bottom sheet
   map.fitBounds(L.latLngBounds([guess, truth]), { paddingTopLeft: [60, 90], paddingBottomRight: [60, 300] });
 
@@ -517,7 +517,11 @@ function renderModeCards() {
     const b = document.createElement('button');
     b.className = 'type-btn' + (ready ? '' : ' soon');
     b.innerHTML = `<span class="type-code">${m.code}</span><span class="type-name">${m.name}</span><span class="type-desc">${m.desc}</span>${ready ? '' : '<span class="type-soon-note">stocking clips</span>'}`;
-    if (ready) b.onclick = () => startGame(m.key);
+    b.dataset.deck = m.key;
+    if (ready) b.onclick = (e) => {
+      window.HT.setDeck(m.key, { x: e.clientX, y: e.clientY });
+      startGame(m.key);
+    };
     grid.appendChild(b);
   }
 }
@@ -532,5 +536,5 @@ $('#lockBtn').onclick = lockIn;
 $('#nextBtn').onclick = advance;
 $('#submitScore').onclick = submitScore;
 $('#againSame').onclick = () => startGame(gameType);
-$('#switchType').onclick = () => { clearRoundLayers(); map.fitBounds(WORLD); setView('pick'); };
+$('#switchType').onclick = () => { clearRoundLayers(); map.fitBounds(WORLD); window.HT.setDeck('languages'); setView('pick'); };
 $('#nickname').value = localStorage.getItem('ht_nick') || '';

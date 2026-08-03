@@ -36,7 +36,7 @@ window.HT.contours = function contours() {
   window.addEventListener('load', resize);
   resize();
 
-  const line = () => getComputedStyle(document.documentElement).getPropertyValue('--brand').trim() || '#145C55';
+  const line = () => getComputedStyle(document.documentElement).getPropertyValue('--ink').trim() || '#1B6B5A';
 
   // three drifting centres, so the field never reads as one bullseye
   const centres = [
@@ -57,7 +57,7 @@ window.HT.contours = function contours() {
         const r = ((t + c.phase + i * 0.14) % 1) * Math.max(w, h) * 0.55;
         if (r < 8) continue;
         // petrol on a pale chart needs more weight than a light line on a dark one
-        const base = 0.3;
+        const base = 0.34;
         ctx.globalAlpha = base * (1 - r / (Math.max(w, h) * 0.55));
         ctx.beginPath();
         // slightly irregular circles read as terrain, not as ripples in a pond
@@ -100,3 +100,26 @@ window.HT.contours = function contours() {
     },
   };
 };
+
+// —————— the live ink ——————
+// Each deck owns a colour. Setting it on <html> re-inks every surface at once:
+// the map plate, the pin, the dock, the type. The wash is the moment of change.
+window.HT.setDeck = function setDeck(deck, origin) {
+  const root = document.documentElement;
+  if (root.dataset.deck === deck) return;
+  root.dataset.deck = deck || 'languages';
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const el = document.createElement('div');
+  el.className = 'wash';
+  const x = origin?.x ?? window.innerWidth / 2;
+  const y = origin?.y ?? window.innerHeight / 2;
+  // big enough to reach the far corner from wherever it started
+  const r = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+  Object.assign(el.style, { left: `${x - r}px`, top: `${y - r}px`, width: `${r * 2}px`, height: `${r * 2}px` });
+  document.body.appendChild(el);
+  el.style.animation = 'washOut 0.85s cubic-bezier(0.3, 0, 0.2, 1) forwards';
+  el.addEventListener('animationend', () => el.remove());
+};
+
+window.HT.ink = () => getComputedStyle(document.documentElement).getPropertyValue('--ink').trim();

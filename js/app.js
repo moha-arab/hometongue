@@ -12,7 +12,8 @@ let timerId = null, startedAt = 0;
 let micPeak = -1; // loudest rolling level seen this recording; -1 = meter unavailable
 
 // the survey red, read from the stylesheet so themes stay in one place
-const MARK = () => getComputedStyle(document.documentElement).getPropertyValue('--mark').trim();
+const MARK = () => window.HT.ink();
+window.HT.setDeck('arabic');
 const field = window.HT.contours();
 
 // ————— map —————
