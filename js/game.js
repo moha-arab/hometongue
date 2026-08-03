@@ -243,15 +243,58 @@ function updatePlayIcon() {
   $('#playIcon').innerHTML = playing ? ICON_PAUSE : ICON_PLAY;
 }
 
+// While dragging, the bar follows the pointer directly (dragFrac) instead of waiting for the
+// audio element to finish seeking — otherwise the thumb visibly trails your finger.
+let dragFrac = null;
+let rafId = 0;
+
 function updateFill() {
   const clip = deck[round];
   if (!clip || clip._offset === undefined) return;
-  const elapsed = audio.currentTime - clip._offset;
+  const elapsed = dragFrac !== null ? dragFrac * CLIP_WINDOW_S : audio.currentTime - clip._offset;
   const pct = Math.min(100, Math.max(0, elapsed / CLIP_WINDOW_S) * 100);
   $('#playerFill').style.width = `${pct}%`;
   $('#playerThumb').style.left = `${pct}%`;
   $('#playerBar').setAttribute('aria-valuenow', Math.round(Math.max(0, elapsed)));
 }
+
+// timeupdate only fires ~4x/second, which looks steppy. Paint on every frame instead.
+function startRaf() {
+  if (rafId) return;
+  const tick = () => {
+    updateFill();
+    rafId = (playing || dragFrac !== null) ? requestAnimationFrame(tick) : 0;
+  };
+  rafId = requestAnimationFrame(tick);
+}
+function stopRaf() {
+  if (!rafId) return;
+  cancelAnimationFrame(rafId);
+  rafId = 0;
+  updateFill();
+}
+
+// Seeks are queued, never stacked: a fresh drag position replaces the pending one instead of
+// asking the audio element for a dozen seeks it has to service one by one. State comes from
+// audio.seeking rather than our own flag — seeking to where the clip already is fires no
+// 'seeked' event, so a hand-rolled flag gets stuck true and silently breaks everything after it.
+let seekPending = null;
+function seekTo(t) {
+  if (audio.seeking) { seekPending = t; return; }
+  seekPending = null;
+  // Move the budget baseline BEFORE the element's clock jumps. Otherwise the timeupdate that
+  // follows sees a jump it can't distinguish from playback and charges you for scrubbing.
+  lastTickT = t;
+  audio.currentTime = t;
+}
+function flushSeek() {
+  if (seekPending !== null && !audio.seeking) { const t = seekPending; seekPending = null; seekTo(t); }
+}
+audio.addEventListener('seeked', () => {
+  lastTickT = audio.currentTime;
+  flushSeek();
+  updateFill();
+});
 
 // Nudge the playhead within the window; used by the ±5s buttons and arrow keys.
 function seekBy(delta) {
@@ -259,7 +302,7 @@ function seekBy(delta) {
   if (!clip || audio.readyState < 1) return;
   ensureOffset(clip);
   const max = clip._offset + CLIP_WINDOW_S - 0.2;
-  audio.currentTime = Math.min(max, Math.max(clip._offset, audio.currentTime + delta));
+  seekTo(Math.min(max, Math.max(clip._offset, audio.currentTime + delta)));
   updateFill();
 }
 
@@ -268,6 +311,8 @@ audio.addEventListener('timeupdate', () => {
   if (!clip || clip._offset === undefined) return;
   updateFill();
   if (!playing) return;
+  if (audio.seeking) { lastTickT = audio.currentTime; flushSeek(); return; } // mid-seek: free
+  flushSeek();
   // the timer only burns while sound is actually playing; seeks don't cost anything
   const delta = audio.currentTime - lastTickT;
   if (delta > 0 && delta < 1.5) {
@@ -282,10 +327,9 @@ audio.addEventListener('timeupdate', () => {
     $('#listens').textContent = 'listening time up — trust your ear, drop the pin';
   }
 });
-audio.addEventListener('seeked', () => { lastTickT = audio.currentTime; updateFill(); });
-audio.addEventListener('play', () => { updatePlayIcon(); });
-audio.addEventListener('pause', () => { playing = false; updatePlayIcon(); });
-audio.addEventListener('ended', () => { playing = false; updatePlayIcon(); });
+audio.addEventListener('play', () => { updatePlayIcon(); startRaf(); });
+audio.addEventListener('pause', () => { playing = false; updatePlayIcon(); stopRaf(); });
+audio.addEventListener('ended', () => { playing = false; updatePlayIcon(); stopRaf(); });
 
 // ————— scrubber: tap or drag anywhere on the bar to move inside the playable window —————
 const playerBar = $('#playerBar');
@@ -297,18 +341,29 @@ function scrubTo(clientX) {
   const rect = playerBar.getBoundingClientRect();
   if (!rect.width) return;
   const frac = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+  dragFrac = frac;          // paint here immediately
+  updateFill();
   const windowLen = Math.min(CLIP_WINDOW_S, (isFinite(audio.duration) ? audio.duration : Infinity) - clip._offset);
   const target = clip._offset + frac * Math.max(0, windowLen - 0.1);
-  if (isFinite(target)) audio.currentTime = target;
+  if (isFinite(target)) seekTo(target); // audio catches up on its own schedule
 }
 playerBar.addEventListener('pointerdown', (e) => {
   scrubbing = true;
   playerBar.classList.add('dragging');
   try { playerBar.setPointerCapture(e.pointerId); } catch { /* capture is a nicety, seeking is the point */ }
   scrubTo(e.clientX);
+  startRaf(); // keep painting every frame for the whole drag, playing or not
 });
 playerBar.addEventListener('pointermove', (e) => { if (scrubbing) scrubTo(e.clientX); });
-const endScrub = () => { scrubbing = false; playerBar.classList.remove('dragging'); };
+const endScrub = () => {
+  if (!scrubbing) return;
+  scrubbing = false;
+  playerBar.classList.remove('dragging');
+  // hand the bar back to the audio clock once the last seek has actually landed
+  const release = () => { dragFrac = null; updateFill(); };
+  if (audio.seeking || seekPending !== null) audio.addEventListener('seeked', release, { once: true });
+  else release();
+};
 playerBar.addEventListener('pointerup', endScrub);
 playerBar.addEventListener('pointercancel', endScrub);
 playerBar.addEventListener('keydown', (e) => {

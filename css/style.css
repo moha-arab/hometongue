@@ -410,12 +410,14 @@ textarea::placeholder { color: var(--muted); }
 /* Generous grab zone: the visible bar is thin, but the whole 22px strip is draggable. */
 .player-hit { padding: 8px 0; cursor: pointer; touch-action: none; position: relative; outline: none; }
 .player-bar { height: 8px; border-radius: 5px; background: rgba(255, 255, 255, 0.10); position: relative; }
-.player-fill { height: 100%; border-radius: 5px; background: var(--grad); width: 0%; transition: width 0.12s linear; }
+/* No positional easing: position is repainted every frame from requestAnimationFrame, so a
+   transition here would only make the thumb trail the pointer while dragging. */
+.player-fill { height: 100%; border-radius: 5px; background: var(--grad); width: 0%; }
 .player-thumb {
   position: absolute; top: 50%; left: 0; width: 16px; height: 16px; border-radius: 50%;
   background: #fff; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
-  transform: translate(-50%, -50%); transition: left 0.12s linear, transform 0.12s ease;
-  pointer-events: none;
+  transform: translate(-50%, -50%); transition: transform 0.12s ease;
+  pointer-events: none; will-change: left;
 }
 .player-hit:hover .player-thumb, .player-hit:focus-visible .player-thumb, .player-hit.dragging .player-thumb { transform: translate(-50%, -50%) scale(1.25); }
 .player-hit:focus-visible .player-bar { box-shadow: 0 0 0 2px rgba(255, 178, 77, 0.6); }
