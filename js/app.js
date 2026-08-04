@@ -275,6 +275,18 @@ function blobToBase64(blob) {
   });
 }
 
+// One place that turns a server error code into something a person can act on.
+const ERRORS = {
+  no_speech: "I couldn't hear any real speech in that — if the bars weren't moving while you talked, Chrome is probably using the wrong microphone (click the mic icon in the address bar).",
+  not_configured: 'The server is missing its API key, so nothing can be analyzed. That is a setup problem, not your recording.',
+  busy: 'The model is busy right now — give it a few seconds and try again.',
+  upstream_failed: "The model didn't answer. Try again in a moment.",
+  audio_too_short: 'That was too short to read anything from — give me a sentence or two.',
+  audio_too_large: 'That recording was too long. Keep it under about 45 seconds.',
+  rate_limited: 'Slow down a little — try again in a bit.',
+  bad_origin: 'That request was blocked as coming from the wrong domain.',
+};
+
 async function postAnalyze(payload) {
   const resp = await fetch('/api/analyze', {
     method: 'POST',
@@ -284,7 +296,10 @@ async function postAnalyze(payload) {
   const data = await resp.json().catch(() => null);
   if (!resp.ok || !data || !data.ok) {
     const err = new Error((data && data.error) || `http_${resp.status}`);
-    if (data && data.error === 'no_speech') err.userMessage = 'I couldn\'t hear any real speech in that — if the bars weren\'t moving while you talked, Chrome is probably using the wrong microphone (click the mic icon in the address bar).';
+    // Say what actually went wrong. "The cloud engine is unreachable" was shown for a server
+    // that was up and knew exactly what was missing, which made a one-line config fix look
+    // like a mystery outage.
+    err.userMessage = ERRORS[data && data.error] || '';
     throw err;
   }
   return data;
