@@ -145,3 +145,49 @@ for it.
 
 French (8 km) and Portuguese (1 km) did improve, so a per-language prompt is not ruled out —
 but a global expert prompt is.
+
+# Run 4 — the Syria specialist route (shipped, opt-in only)
+
+A researched Syria-only appendix, reachable at hometongue.me/?expert=syria and nowhere else.
+Every claim looked up and cross-referenced; claims that failed checking were cut, not softened.
+
+## It cannot be validated on Syria
+
+The benchmark holds two Syrian clips and the general prompt already scores 0.45 km and 1.3 km.
+With the route: 0 km and 1.3 km. There is no headroom to win. Only a human who speaks the
+dialect can judge whether the route is better, and that is now Mohammad's call, not the eval's.
+
+## What the eval CAN say, and it is the interesting part
+
+Arabic deck, n=45: 28 km -> 43 km median, better on 1, worse on 5.
+
+No false Syria pull — not one non-Syrian clip was answered as Syria or Lebanon. The prompt's
+"ignore this section unless Levantine" instruction held. So the damage is not topical bleed.
+
+Every regression is the model retreating to a coarser, more canonical answer:
+
+| clip | general | +syria | answered |
+| --- | --- | --- | --- |
+| Basra, Iraq | 0 km | 448 km | Baghdad |
+| Manama, Bahrain | 10 km | 434 km | Kuwait City |
+| Ajman, UAE | 28 km | 858 km | Kuwait City |
+| Tangier, Morocco | 216 km | 294 km | Casablanca |
+| Oran, Algeria | 184 km | 323 km | "Northern Algeria" (no city at all) |
+
+## The mechanism, now identified
+
+Basra (448 km) and Manama (434 km) broke by the SAME amount under the global expert prompt in
+run 3. A Syria-only appendix contains zero claims about Iraq or Bahrain, yet does identical
+damage. So the cause is not the content of the notes. It is their PRESENCE.
+
+A long specialist preamble dilutes attention. Outside the region it covers, the model stops
+discriminating finely and falls back to the country's most obvious city. That single mechanism
+explains run 3 and run 4, and it predicts that ANY per-language prompt will coarsen every
+language it does not cover — which is the answer to whether per-language routing is worth
+building. It is not, unless the routing is exact, and exact routing needs a language-detection
+call that does not fit inside the 60 s Vercel cap.
+
+## Standing rule
+
+An expert appendix may ship as an opt-in route. It must never become the default, and it must
+never be applied to a language it was not written for.

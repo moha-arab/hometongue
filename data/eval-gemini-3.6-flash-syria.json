@@ -1,0 +1,732 @@
+{
+  "model": "gemini-3.6-flash",
+  "overall": {
+    "n": 45,
+    "median": 43,
+    "within100": 58,
+    "within250": 69,
+    "within500": 87,
+    "within1000": 98
+  },
+  "byDeck": {
+    "arabic": {
+      "n": 45,
+      "median": 43,
+      "within100": 58,
+      "within250": 69,
+      "within500": 87,
+      "within1000": 98
+    }
+  },
+  "results": [
+    {
+      "id": "ar-3736",
+      "deck": "arabic",
+      "label": "Abu Dhabi, UAE",
+      "km": 0.5125946917364709,
+      "guess": "Abu Dhabi, United Arab Emirates",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 80,
+      "evidence": [
+        "Gulf demonstrative pronoun 'هذيلة' (hathaylah)",
+        "Emirati intonation and cadence",
+        "Gulf verb prefix 'بيتم' (beytem) in semi-formal broadcast speech",
+        "Pronunciation of /q/ as voiced [g] in 'يدقر' (yidgir)"
+      ]
+    },
+    {
+      "id": "ar-3384",
+      "deck": "arabic",
+      "label": "Aleppo, Syria",
+      "km": 0,
+      "guess": "Aleppo, Syria",
+      "radius": 100,
+      "language": "Arabic",
+      "confidence": 88,
+      "evidence": [
+        "Hard jīm [d͡ʒ] in 'jibt' rather than soft Damascene [ʒ]",
+        "Glottal stop [ʔ] for qāf in 'qālūlu'",
+        "Distinctive Aleppine rhythm and vowel quality"
+      ]
+    },
+    {
+      "id": "ar-6158",
+      "deck": "arabic",
+      "label": "Ajman, UAE",
+      "km": 858.3082099766494,
+      "guess": "Kuwait City, Kuwait",
+      "radius": 350,
+      "language": "Arabic",
+      "confidence": 80,
+      "evidence": [
+        "Khaleeji demonstrative/adverb 'هني' (hinnī) for 'here'",
+        "Gulf verbal forms like 'سووا لهم' (sawwalhum)",
+        "Standard Khaleeji vowel quality and relaxed speech cadence"
+      ]
+    },
+    {
+      "id": "ar-882",
+      "deck": "arabic",
+      "label": "Alexandria, Egypt",
+      "km": 179.88943224210266,
+      "guess": "Cairo, Egypt",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 92,
+      "evidence": [
+        "jīm pronounced consistently as a hard 'g' [ɡ]",
+        "Egyptian phrasing 'أول إمبارح' (day before yesterday)",
+        "Egyptian verbal suffixing 'بنعملوه' (bina'malūh)"
+      ]
+    },
+    {
+      "id": "ar-2082",
+      "deck": "arabic",
+      "label": "Algiers, Algeria",
+      "km": 0.4358563874508199,
+      "guess": "Algiers, Algeria",
+      "radius": 100,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "Mentions ETUSA (Algiers transport authority)",
+        "Algerian dialect syntax ('rah yitlaqaw')",
+        "North African Arabic phonology and cadence"
+      ]
+    },
+    {
+      "id": "ar-249",
+      "deck": "arabic",
+      "label": "Amman, Jordan",
+      "km": 1.8870006195580828,
+      "guess": "Amman, Jordan",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 80,
+      "evidence": [
+        "Levantine vocabulary ('هلا', 'بحكيلكم', 'شو')",
+        "Glottal stop [ʔ] for historical qāf",
+        "Third-person masculine object suffix -o ('آخده', 'أغسّلو')",
+        "Intonation typical of urban Amman/Central Levant"
+      ]
+    },
+    {
+      "id": "ar-679",
+      "deck": "arabic",
+      "label": "Baghdad, Iraq",
+      "km": 0.8097130714394724,
+      "guess": "Baghdad, Iraq",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 92,
+      "evidence": [
+        "Iraqi continuous aspect prefix 'da-' (da-ya'bur)",
+        "Iraqi indefinite modifier 'fad/fard'",
+        "Use of 'shlon' for 'how' and 'g' for qāf (yigdar)",
+        "Iraqi word 'dhowwa' for traffic light/illumination",
+        "Rhetorical 'mo tamam?' tag"
+      ]
+    },
+    {
+      "id": "arabic-baghdad-iraq-arabic-iraqi",
+      "deck": "arabic",
+      "label": "Baghdad, Iraq",
+      "km": 0.8097130714394724,
+      "guess": "Baghdad, Iraq",
+      "radius": 250,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Use of 'treed' (تريد) for 'want'",
+        "Iraqi phrase 'sh-tsawwi' (شتسوي) for 'what do you do'",
+        "Mesopotamian consonant reflexes and intonation"
+      ]
+    },
+    {
+      "id": "ar-39",
+      "deck": "arabic",
+      "label": "Annaba, Algeria",
+      "km": 419.59726784520205,
+      "guess": "Algiers, Algeria",
+      "radius": 250,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Possessive particles 'ta'i' and 'ta'na'",
+        "Algerian copula 'rahou' and preposition 'kima'",
+        "Purpose marker 'bah' ('bah ybarred')",
+        "Natural Algerian-French code-switching ('donc', 'les muscles')"
+      ]
+    },
+    {
+      "id": "ar-2473",
+      "deck": "arabic",
+      "label": "Batna, Algeria",
+      "km": 309.2368845208195,
+      "guess": "Algiers, Algeria",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Algerian Arabic 'kima' meaning 'like' or 'as'",
+        "Maghrebi Arabic dialect rhythm and vowel deletion",
+        "Traditional Chaabi mandole accompaniment",
+        "Classic Algerian Melhoun poetic phrasing ('ma bqet fihom')"
+      ]
+    },
+    {
+      "id": "ar-2765",
+      "deck": "arabic",
+      "label": "Basra, Iraq",
+      "km": 448.4160857832393,
+      "guess": "Baghdad, Iraq",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "Iraqi first-person pronoun 'āni'",
+        "Central Iraqi cadence and vowel shortening",
+        "Hard [g] sound in words like 'ḥagg'",
+        "Reference to Rafidain Bank (Maṣraf al-Rāfidēn)"
+      ]
+    },
+    {
+      "id": "ar-2446",
+      "deck": "arabic",
+      "label": "Beirut, Lebanon",
+      "km": 0.4540311775486809,
+      "guess": "Beirut, Lebanon",
+      "radius": 80,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "glottal stop [ʔ] for qāf in 'mnob'oḍ'",
+        "soft French [ʒ] sound for jīm in 'miḥtājīn'",
+        "Lebanese phrasing 'aḥsan min hēk بكثير'",
+        "Lebanese expression 'ma mnob'oḍ šī' (we don't get paid anything)"
+      ]
+    },
+    {
+      "id": "ar-3107",
+      "deck": "arabic",
+      "label": "Benghazi, Libya",
+      "km": 650.5594274476152,
+      "guess": "Tripoli, Libya",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Use of classic Libyan verb 'tig'ammez' (to sit down)",
+        "Use of 'tawwa' for 'now'",
+        "Voiced 'g' realization of qāf in 'argām'",
+        "Tripolitanian / Western Libyan cadence and vowel qualities"
+      ]
+    },
+    {
+      "id": "ar-2608",
+      "deck": "arabic",
+      "label": "Cairo, Egypt",
+      "km": 0.6408504363881136,
+      "guess": "Cairo, Egypt",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "Egyptian continuous marker 'b-' in 'ebtektib'",
+        "Typical Egyptian 'delwa'ti' (now)",
+        "Egyptian particle 'ba'a'",
+        "Standard Egyptian verbal negation 'ma...sh'"
+      ]
+    },
+    {
+      "id": "ar-809",
+      "deck": "arabic",
+      "label": "Blida, Algeria",
+      "km": 36.80977069652067,
+      "guess": "Algiers, Algeria",
+      "radius": 300,
+      "language": "Algerian Arabic",
+      "confidence": 92,
+      "evidence": [
+        "Algerian possessive word 'تاعو' (ta'ou)",
+        "Maghrebi negation and verbs ('ماقدرناش', 'باش', 'كاين')",
+        "French vocabulary integrated into Arabic ('يبريفيريو' - préférer, 'لي كومبا' - les combats)",
+        "Northern Algerian phonetics and intonation"
+      ]
+    },
+    {
+      "id": "ar-1604",
+      "deck": "arabic",
+      "label": "Casablanca, Morocco",
+      "km": 85.41884526228158,
+      "guess": "Rabat, Morocco",
+      "radius": 400,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Moroccan possessive particle 'dial-hum'",
+        "Diminutive noun form 'wlidat'",
+        "Maghrebi Arabic syntax and speech cadence"
+      ]
+    },
+    {
+      "id": "ar-2375",
+      "deck": "arabic",
+      "label": "Constantine, Algeria",
+      "km": 320.00825092820435,
+      "guess": "Algiers, Algeria",
+      "radius": 250,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Algerian Darja verb 'تقعد' (tgo'ad) meaning to remain/stay",
+        "Algerian phrasing 'هكذا' (hakda)",
+        "Northern Algerian cadence and short vowel elision",
+        "Maghrebi pronunciation of 'كتافك' (ktafek)"
+      ]
+    },
+    {
+      "id": "ar-2278",
+      "deck": "arabic",
+      "label": "Damascus, Syria",
+      "km": 1.3210010052944758,
+      "guess": "Damascus, Syria",
+      "radius": 120,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "glottal stop for qāf in 'aw'āt' and 'bta'leb'",
+        "soft [ʒ] sound for jīm in 'jiddiyya' and 'bijzbak'",
+        "flattened vowels and standard Damascene intonation",
+        "urban Levantine vocabulary like 'biddak' and 'ktīr'"
+      ]
+    },
+    {
+      "id": "ar-94",
+      "deck": "arabic",
+      "label": "Djelfa, Algeria",
+      "km": 232.32348304038138,
+      "guess": "Algiers, Algeria",
+      "radius": 350,
+      "language": "Arabic",
+      "confidence": 80,
+      "evidence": [
+        "Interrogative 'shkoon' for 'who'",
+        "Quantifier 'chhal' for 'how much'",
+        "Maghrebi lexicon 'twahashtak' (I missed you)",
+        "North African vowel reduction and intonation"
+      ]
+    },
+    {
+      "id": "ar-3345",
+      "deck": "arabic",
+      "label": "Dubai, UAE",
+      "km": 0.5397704002767842,
+      "guess": "Dubai, United Arab Emirates",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Use of typical Emirati expression 'ما يبونا' (they don't want us)",
+        "Distinctive Gulf verb form 'نبغي' (we want)",
+        "Emirati prosody and gentle pitch cadence"
+      ]
+    },
+    {
+      "id": "ar-1907",
+      "deck": "arabic",
+      "label": "El Obeid, Sudan",
+      "km": 360.7246105866816,
+      "guess": "Khartoum, Sudan",
+      "radius": 250,
+      "language": "Arabic",
+      "confidence": 92,
+      "evidence": [
+        "Sudanese regional words 'zay shino' (like what?) and 'hassa' (now)",
+        "Distinctive Central Sudanese pronunciation and cadence",
+        "Soft Sudanese guttural reflexes and vowel quality"
+      ]
+    },
+    {
+      "id": "ar-754",
+      "deck": "arabic",
+      "label": "Fes, Morocco",
+      "km": 244.62257053315452,
+      "guess": "Casablanca, Morocco",
+      "radius": 250,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Moroccan possessive pronoun 'dyali'",
+        "Use of 'bash' meaning 'in order to'",
+        "Moroccan verbal negation and continuous prefix 'ma...sh' / 'kaykounsh'",
+        "Characteristic Maghrebi phonology and consonant clustering"
+      ]
+    },
+    {
+      "id": "ar-3854",
+      "deck": "arabic",
+      "label": "Hebron, Palestine",
+      "km": 42.69985979874176,
+      "guess": "Ramallah, West Bank, Palestine",
+      "radius": 120,
+      "language": "Arabic",
+      "confidence": 80,
+      "evidence": [
+        "Glottal stop [ʔ] for historical qāf ('it'a' for qita')",
+        "Central Levantine vocabulary ('bidna', 'hon')",
+        "Palestinian suffix pattern ('jāybītha')",
+        "Soft Levantine intonation and vowel quality"
+      ]
+    },
+    {
+      "id": "ar-4531",
+      "deck": "arabic",
+      "label": "Irbid, Jordan",
+      "km": 67.65663321538844,
+      "guess": "Amman, Jordan",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Levantine dialect typical of Jordan",
+        "Reference to 'جلالة الملك' (His Majesty the King)",
+        "Mention of 'مجلس النواب' (House of Representatives)",
+        "Jordanian cadence and vowel quality"
+      ]
+    },
+    {
+      "id": "ar-3132",
+      "deck": "arabic",
+      "label": "Gaza, Palestine",
+      "km": 0.357458329128916,
+      "guess": "Gaza City, Gaza Strip, Palestine",
+      "radius": 40,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "hard [g] reflex for qāf in 'gissas' and 'b-gader-sh'",
+        "South Levantine vocabulary (biddhu, esh, bingawwzu)",
+        "currency reference to Dinars",
+        "typical Gazan intonation and vowel shaping"
+      ]
+    },
+    {
+      "id": "ar-1733",
+      "deck": "arabic",
+      "label": "Jeddah, Saudi Arabia",
+      "km": 845.1234551732181,
+      "guess": "Riyadh, Saudi Arabia",
+      "radius": 400,
+      "language": "Arabic",
+      "confidence": 80,
+      "evidence": [
+        "Gulf/Peninsular Arabic intonation and speech rhythm",
+        "Use of future verbal prefix in 'أبدرس' (I will study)",
+        "Peninsular pronunciation of 'راح آخذ' and soft dental fricatives",
+        "Educated Saudi lexical choices blending formal Arabic with regional idiom"
+      ]
+    },
+    {
+      "id": "ar-2316",
+      "deck": "arabic",
+      "label": "Jerusalem, Palestine",
+      "km": 15.334754118831079,
+      "guess": "West Bank, Palestine",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 75,
+      "evidence": [
+        "Glottal stop for qāf in 'ma'la'a' (معلقة)",
+        "Plural suffix '-kum' in 'barja'kum' rather than Syrian '-kon'",
+        "Imāla on feminine construct forms ('kāset ṭḥīn')",
+        "Southern Levantine intonation and vocabulary"
+      ]
+    },
+    {
+      "id": "ar-1526",
+      "deck": "arabic",
+      "label": "Kuwait City, Kuwait",
+      "km": 1.3032274652669673,
+      "guess": "Kuwait City, Kuwait",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 88,
+      "evidence": [
+        "Pronunciation of 'hini' for 'here'",
+        "Use of 'taww-hum' to mean 'just now'",
+        "Gulf continuous particle 'gā'dīn' with [g]",
+        "Distinctive Kuwaiti speech cadence"
+      ]
+    },
+    {
+      "id": "ar-1248",
+      "deck": "arabic",
+      "label": "Manama, Bahrain",
+      "km": 434.012403870105,
+      "guess": "Kuwait City, Kuwait",
+      "radius": 300,
+      "language": "Arabic",
+      "confidence": 80,
+      "evidence": [
+        "Use of Gulf demonstrative 'chidhī' (چذي)",
+        "Hard [g] pronunciation for qāf in 'gawi' (قوي)",
+        "Gulf vocabulary like 'al-umoor tayyiba' (الامور طيبة)",
+        "Characteristic Gulf Arabian intonation and verb forms ('tḥassoon')"
+      ]
+    },
+    {
+      "id": "ar-1623",
+      "deck": "arabic",
+      "label": "Muscat, Oman",
+      "km": 2.760365682192294,
+      "guess": "Muscat, Oman",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Omani Arabic intonation and pitch cadence",
+        "Use of Gulf/Omani vocabulary like 'ويش' (weesh)",
+        "Explicit mention of Muscat Club ('نادي مسقط')"
+      ]
+    },
+    {
+      "id": "ar-5182",
+      "deck": "arabic",
+      "label": "Omdurman, Sudan",
+      "km": 1255.0195812783204,
+      "guess": "Sanaa, Yemen",
+      "radius": 300,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Traditional Yemeni singing style and rhythm",
+        "Highland Yemeni Arabic vocal ornamentation",
+        "Regional Yemeni dialectal phrasing"
+      ]
+    },
+    {
+      "id": "ar-3190",
+      "deck": "arabic",
+      "label": "Nablus, Palestine",
+      "km": 68.06060211229641,
+      "guess": "Amman, Jordan",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Urban Levantine intonation and speech rhythm",
+        "Soft jīm [ʒ] in 'الجامعات' (al-jāmi'āt)",
+        "Glottal stop [ʔ] replacing historical qāf",
+        "Use of Levantine 'biddhum' (they want) and future prefix 'raḥ'"
+      ]
+    },
+    {
+      "id": "ar-1879",
+      "deck": "arabic",
+      "label": "Port Sudan, Sudan",
+      "km": 673.590539653092,
+      "guess": "Khartoum, Sudan",
+      "radius": 400,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Sudanese vocabulary such as 'سفروق' (safarog) and 'ناس الخلا'",
+        "Classic Sudanese connector 'عشان كدا' (ashan kida)",
+        "Characteristic Sudanese Arabic pitch contours and vowel quality"
+      ]
+    },
+    {
+      "id": "ar-989",
+      "deck": "arabic",
+      "label": "Rabat, Morocco",
+      "km": 0,
+      "guess": "Rabat, Morocco",
+      "radius": 250,
+      "language": "Arabic",
+      "confidence": 92,
+      "evidence": [
+        "Moroccan possessive 'dyal' (ديال)",
+        "Present continuous verb prefix 'kan-' in 'kantqarrab'",
+        "Maghrebi past tense form 'dert' (درت) for 'I did'",
+        "Natural French code-switching ('curiosité', 'apprendre')",
+        "Maghrebi short vowel elision and speech rhythm"
+      ]
+    },
+    {
+      "id": "ar-423",
+      "deck": "arabic",
+      "label": "Oran, Algeria",
+      "km": 323.4679809760575,
+      "guess": "Northern Algeria",
+      "radius": 350,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Maghrebi Arabic syntax using 'ta'e' (تاع) for possession",
+        "Algerian institutional terminology 'المقاولاتية'",
+        "Use of French educational phrase 'bac plus un' in native Darija",
+        "Northern Algerian phonetic rhythm and vowel reduction"
+      ]
+    },
+    {
+      "id": "ar-1650",
+      "deck": "arabic",
+      "label": "Ramallah, Palestine",
+      "km": 14.701450184308921,
+      "guess": "Jerusalem, Palestine",
+      "radius": 40,
+      "language": "Arabic",
+      "confidence": 92,
+      "evidence": [
+        "explicit mention of Jerusalem municipality",
+        "glottal stop [ʔ] for qāf in 'al-Quds'",
+        "Southern Levantine Palestinian syntax ('hinne mesh murakhasāt')",
+        "typical central West Bank / Jerusalem vowel quality"
+      ]
+    },
+    {
+      "id": "ar-3479",
+      "deck": "arabic",
+      "label": "Sanaa, Yemen",
+      "km": 2.4688872239826694,
+      "guess": "Sana'a, Yemen",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "distinctive Yemeni phrase 'قد هو'",
+        "use of 'دحين' (now) with Yemeni cadence",
+        "mention of regional terms like 'عاقل الحارة'",
+        "characteristic Central Yemeni speech rhythm and vocal pitch"
+      ]
+    },
+    {
+      "id": "ar-2787",
+      "deck": "arabic",
+      "label": "Riyadh, Saudi Arabia",
+      "km": 534.483276239021,
+      "guess": "Kuwait City, Kuwait",
+      "radius": 300,
+      "language": "Arabic",
+      "confidence": 80,
+      "evidence": [
+        "Gulf Arabic intonation and cadence",
+        "Second-person pronominal suffix pronunciation (-ik/-ak)",
+        "Future marker 'rah' with Gulf verb conjugation ('rah nitkallam')",
+        "Kuwaiti broadcasting/formal conversational style"
+      ]
+    },
+    {
+      "id": "ar-5408",
+      "deck": "arabic",
+      "label": "Taiz, Yemen",
+      "km": 0.13844344095932032,
+      "guess": "Taiz, Yemen",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Mention of the city siege ('الحصار المفروض على المدينة')",
+        "Yemeni Arabic intonation and pitch accent",
+        "Yemeni pronunciation of voiced consonants"
+      ]
+    },
+    {
+      "id": "ar-6196",
+      "deck": "arabic",
+      "label": "Sharjah, UAE",
+      "km": 22.039294059815372,
+      "guess": "Dubai, United Arab Emirates",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Gulf Arabic vocabulary like 'ما عليه' and 'أبغى'",
+        "Feminine second-person suffix in 'تحصلين' and 'قدامج'",
+        "Emirati intonation and melodic cadence",
+        "Local terminology regarding state housing ('الإسكان')"
+      ]
+    },
+    {
+      "id": "ar-4464",
+      "deck": "arabic",
+      "label": "Setif, Algeria",
+      "km": 220.01791134483392,
+      "guess": "Algiers, Algeria",
+      "radius": 300,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Algerian Arabic verb 'nehdro' (to speak)",
+        "Maghrebi negation pattern 'ma ... -sh'",
+        "Northern Algerian vowel reduction and intonation"
+      ]
+    },
+    {
+      "id": "ar-6858",
+      "deck": "arabic",
+      "label": "Tripoli, Libya",
+      "km": 0.33417158874973535,
+      "guess": "Tripoli, Libya",
+      "radius": 100,
+      "language": "Arabic",
+      "confidence": 92,
+      "evidence": [
+        "Tripoli accent with characteristic cadence and vowel harmony",
+        "Pronunciation of qāf as [g] in words like 'tagseemaat'",
+        "Direct mention of local geography (Ayn Zara)",
+        "Libyan vocabulary and phrasing ('اللي إنت عارف', 'بعد الثورة')"
+      ]
+    },
+    {
+      "id": "ar-3647",
+      "deck": "arabic",
+      "label": "Tangier, Morocco",
+      "km": 293.959805090022,
+      "guess": "Casablanca, Morocco",
+      "radius": 250,
+      "language": "Moroccan Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Moroccan Darija grammatical structures like 'kattmchi' and 'dyalha'",
+        "French sports loanwords embedded in Arabic commentary ('la passe', 'le pressing')",
+        "Moroccan accent intonation and consonant articulation",
+        "Reference to Moroccan national football team players (Sakina Ouzraoui, Najat Badri, Ghizlane Chebbak)"
+      ]
+    },
+    {
+      "id": "ar-3660",
+      "deck": "arabic",
+      "label": "Tunis, Tunisia",
+      "km": 0.41145613824090027,
+      "guess": "Tunis, Tunisia",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 92,
+      "evidence": [
+        "Frequent use of classic Tunisian 'barsha' (a lot)",
+        "Use of Tunisian 'khouya' (brother) and 'afsha' (ugly/bad)",
+        "Tunisian verb forms like 'mbahhar' (swimming at the beach)",
+        "French loanword 'Janvier' (January)",
+        "Urban Tunisian melody and fast-paced rhythm"
+      ]
+    },
+    {
+      "id": "ar-3785",
+      "deck": "arabic",
+      "label": "Wad Medani, Sudan",
+      "km": 160.05695590022535,
+      "guess": "Khartoum, Sudan",
+      "radius": 300,
+      "language": "Arabic",
+      "confidence": 88,
+      "evidence": [
+        "Sudanese Arabic pitch accent and cadence",
+        "Use of 'bitā'at' and 'khasheyt'",
+        "Sudanese song excerpt playing at the end"
+      ]
+    }
+  ]
+}
