@@ -92,3 +92,28 @@ drifted schema.
 - One clip is likely mislabelled the other way: accents/"Amritsar, Punjab" is
   Vajpayee's 2000 US Congress address, and the model answered Gwalior — his actual
   birthplace. The model may be more right than the label.
+
+# Deck design: which languages support a city-level round
+
+Judgment call, 2026-08-04, from the eval plus known dialectology.
+
+**City-level works** — Arabic, English, German, Italian, Norwegian. The Levantine result is the
+proof: Aleppo 0 km, Beirut 0 km, Damascus 1 km, Amman 2 km, Jerusalem 12 km. Those cities are
+all within 300 km and all Levantine Arabic, and every clip landed in the right city or the
+next one over.
+
+**City-level does NOT work, so scope these decks to countries or regions:**
+- Russian across Russia. Soviet schooling, broadcasting and internal migration levelled it.
+  Surviving regional dialects are rural and elderly. Moscow vs Novosibirsk is a coin flip —
+  the model answered "Moscow" for a Siberian speaker, 3980 km off, and was not wrong to.
+  RE-SCOPED: the deck is now the Russian-speaking WORLD (Odesa, Almaty, Tbilisi, Minsk,
+  Moscow, Petersburg), where Ukrainian, Kazakh, Georgian and Belarusian substrate is audible.
+- Polish — post-1945 population transfers erased regional dialects.
+- Hebrew — revived language, small country, one dominant standard.
+- Turkish — heavily levelled toward the Istanbul standard.
+- French inside France — the Parisian norm dominates. Québec vs France is enormous; Lille vs
+  Lyon is faint.
+- Standard Mandarin — putonghua itself is levelled, though Sichuan and Dongbei accents are not.
+
+The rule: a deck is only fair if the accents genuinely differ. Where they do not, widen the
+deck rather than delete it — the Russian-speaking world is a good round, Russian cities is not.
