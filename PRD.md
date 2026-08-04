@@ -211,9 +211,76 @@ POST: same-origin + rate limit (40/hr) + validation: nickname 2–20 chars with 
 
 `atlas.json`: per region `{code, names, center/polygon, traits[], markers[{word, gloss}], clip_ids[], confusable_neighbors[]}` — content co-written with Claude, human-reviewed, clips reused from the game manifest. Static JSON + same map; no new backend.
 
-## P3 — The ear (planned)
+## P3 — The ear (superseded, see P3b)
 
-Fine-tune a speech-encoder head (WavLM/MMS class) on ADI-17/ADI-20 (country-level) + flywheel clips; serve via a small GPU endpoint (~1s/clip); ensemble in `/api/analyze`. Unlocks English Guess-Me and eventually city-level acoustic ID. Publish the eval (by-speaker split, per-country F1, calibration curve) in the repo.
+Original plan: fine-tune a speech-encoder head (WavLM/MMS class) on ADI-17/ADI-20 + flywheel
+clips, serve on a small GPU endpoint, ensemble into `/api/analyze`.
+
+Measured Aug 2026 and **abandoned**. An audio-native LLM reaches the same goal today with no
+training, no dataset and no GPU. Building our own encoder would mean months of work to land
+*behind* an API call — the published state of the art for this exact task, a purpose-built
+XLS-R + Whisper-encoder + MFCC fusion model trained on 2,329 labelled recordings, scores a
+median 481 km. We measured 33 km zero-shot.
+
+## P3b — Audio-native Guess Me (next build)
+
+Replace the cascade with a single audio call.
+
+    now:  audio -> Whisper -> text -> Claude -> country
+    next: audio -> Gemini 3.6 Flash -> { lat, lng, radius_km, evidence }
+
+Three changes, measured on the 45 labelled Arabic clips and 20 English ones:
+
+| | Arabic | English |
+| --- | --- | --- |
+| Whisper -> Claude (shipped) | 58% country | 50% |
+| Gemini audio, country labels | 82% country | 80% |
+| Gemini audio, coordinates | **68 km median** | not yet run |
+| Gemini audio, coordinates, phone-degraded | **33 km median** | not yet run |
+
+**Drop the transcript.** Speech-to-text deletes the accent by design; three separate attempts
+to recover it downstream (phoneme recogniser on Arabic, on English, and prime-as-detector) all
+measured null or negative.
+
+**Drop countries.** Dialects do not stop at borders. Country labels scored a 14 km miss
+(Ramallah answered as Jerusalem) as flatly wrong. Kilometres score it honestly, and Pin It is
+already distance-scored — one metric for both halves of the app.
+
+**Emit a point and a radius, not a label.** The model already returns 50 km for Taiz and 300 km
+for Oran. That is calibrated uncertainty, and it draws a circle on the map instead of a
+percentage nobody can interpret.
+
+Verified before committing: phone-quality audio (band-limited 300-3400 Hz, 24 kbps, compressed)
+scores *better* than studio, which also rules out the model having memorised these public
+recordings — memorisation would collapse under degradation.
+
+## Later — things that might improve Guess Me
+
+Unranked, none blocking. Revisit when the audio-native rewrite has shipped and there is usage
+data to argue from.
+
+- **Better or cheaper models.** Only Gemini has been tested on our own clips. GPT-Audio and
+  Qwen Omni are untested here; an OpenRouter key would settle it. Published third-party
+  benchmarks put Gemini ahead (83.5% vs 78.6% Qwen on dialect ID) but that is someone else's
+  test set, and this whole rewrite exists because an unverified default turned out to be wrong.
+  Re-run the 45-clip harness whenever a new audio model ships — it costs cents.
+- **Ensemble.** Two models voting, or one model sampled several times, with disagreement
+  widening the confidence radius rather than being hidden.
+- **Speaker embeddings alongside the LLM.** Audio LLMs are measurably weak on pure speaker
+  identity (>20% EER on VoxCeleb) while ECAPA-TDNN embeddings are strong. Unproven for accent,
+  but a projection layer feeding embeddings into the prompt is the obvious hybrid if accuracy
+  plateaus.
+- **The flywheel, repurposed.** Donated clips were originally to train our own model. Better
+  use now: an evaluation set. Real phone audio from real users, labelled by correction, is what
+  tells us whether accuracy holds outside broadcast recordings.
+- **Prompt and elicitation.** Longer speech should help; spontaneous speech beats read speech.
+  Worth testing whether the prompt shown to the user ("describe your last meal") changes
+  accuracy, and whether 30 seconds beats 15.
+- **Harder cases, named.** Neighbouring varieties are where it still fails: Gaza/Jerusalem
+  answered as Jordan, Toronto as the US, Namibia as Kenya. These are the honest limit, not a
+  bug — worth surfacing in the UI as a wider circle rather than a wrong pin.
+- **City level.** 31% exact city, and misses default to the nearest capital. Coordinates plus a
+  radius already communicate this better than a city name would.
 
 ## Non-goals / constraints
 
