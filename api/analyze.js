@@ -73,8 +73,13 @@ async function locate(parts) {
       if (attempt === 2) throw Object.assign(new Error('upstream timeout'), { code: 'upstream_failed' });
       continue;
     }
-    if (resp.status === 429 || resp.status === 503) {
-      if (attempt === 2) throw Object.assign(new Error('model busy'), { code: 'busy' });
+    // Gemini returns a transient 400 "invalid argument" on a random subset of otherwise
+    // identical requests — measured on production: two of four identical payloads failed in
+    // ~1.4s while the others succeeded. Treating any non-429 as fatal meant giving up
+    // instantly on a request that would have worked, which is what users saw as the app
+    // erroring out at random. Retry anything retryable inside the budget.
+    if (resp.status === 429 || resp.status === 503 || resp.status === 400 || resp.status >= 500) {
+      if (attempt === 2) throw Object.assign(new Error('the model kept refusing the request'), { code: 'upstream_failed' });
       await new Promise((r) => setTimeout(r, Math.min(1500 * (attempt + 1), Math.max(0, deadline - Date.now() - 8000))));
       continue;
     }
