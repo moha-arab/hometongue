@@ -91,6 +91,10 @@ const all = [];
 for (const [deck, clips] of Object.entries(window.CLIPS)) {
   if (decks.length ? !decks.includes(deck) : EVAL_EXCLUDE.has(deck)) continue;
   for (const c of clips) {
+    // Sourced clips were chosen by this same model agreeing with the video's claimed origin.
+    // Scoring against them would be scoring a model on a test set it picked — it would look
+    // brilliant and mean nothing. Hand-labelled clips are the only honest benchmark.
+    if (c.evalExclude) continue;
     if (!c.url || c.lat == null) continue;
     const file = path.join(ROOT, c.url.replace(/^\//, ''));
     if (fs.existsSync(file)) all.push({ deck, ...c, file });
