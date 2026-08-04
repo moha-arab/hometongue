@@ -1,0 +1,48 @@
+[
+  { "deck": "accents", "label": "Kingston, Jamaica", "lang": "English", "lat": 17.9714, "lng": -76.7931, "r": 60, "want": 2,
+    "queries": ["jamaican patois vlog kingston daily life", "jamaica street interview kingston people", "jamaican man talking about growing up in kingston"] },
+  { "deck": "accents", "label": "Lagos, Nigeria", "lang": "English", "lat": 6.5244, "lng": 3.3792, "r": 80, "want": 2,
+    "queries": ["lagos street interview nigerians talking", "nigerian vlogger lagos daily life talking", "lagos market vendor interview english"] },
+  { "deck": "accents", "label": "Glasgow, Scotland", "lang": "English", "lat": 55.8642, "lng": -4.2518, "r": 60, "want": 2,
+    "queries": ["glaswegian accent interview glasgow locals", "glasgow street interview scottish people talking", "scottish man from glasgow telling a story"] },
+  { "deck": "accents", "label": "Singapore", "lang": "English", "lat": 1.3521, "lng": 103.8198, "r": 40, "want": 2,
+    "queries": ["singlish singapore street interview locals", "singapore hawker centre interview english", "singaporean talking about growing up here"] },
+
+  { "deck": "french", "label": "Marseille, France", "lang": "French", "lat": 43.2965, "lng": 5.3698, "r": 60, "want": 2,
+    "queries": ["marseille micro trottoir habitants", "interview rue marseille accent marseillais", "marseillais raconte son quartier"] },
+  { "deck": "french", "label": "Brussels, Belgium", "lang": "French", "lat": 50.8503, "lng": 4.3517, "r": 50, "want": 1,
+    "queries": ["micro trottoir bruxelles habitants francophone", "interview rue bruxelles belge francophone"] },
+  { "deck": "french", "label": "Abidjan, Côte d'Ivoire", "lang": "French", "lat": 5.3600, "lng": -4.0083, "r": 70, "want": 1,
+    "queries": ["micro trottoir abidjan ivoiriens", "interview rue abidjan nouchi habitants"] },
+
+  { "deck": "russian", "label": "Odesa, Ukraine", "lang": "Russian", "lat": 46.4825, "lng": 30.7233, "r": 60, "want": 1,
+    "queries": ["одесса опрос на улице жители", "одесский говор интервью"] },
+  { "deck": "russian", "label": "Novosibirsk, Russia", "lang": "Russian", "lat": 55.0084, "lng": 82.9357, "r": 80, "want": 1,
+    "queries": ["новосибирск опрос на улице жители", "новосибирск интервью прохожие"] },
+  { "deck": "russian", "label": "Almaty, Kazakhstan", "lang": "Russian", "lat": 43.2220, "lng": 76.8512, "r": 70, "want": 1,
+    "queries": ["алматы опрос на улице на русском", "алматы интервью прохожие русский язык"] },
+
+  { "deck": "portuguese", "label": "Recife, Brazil", "lang": "Portuguese", "lat": -8.0476, "lng": -34.8770, "r": 70, "want": 1,
+    "queries": ["recife entrevista de rua pernambucano sotaque", "recife povo falando na rua"] },
+  { "deck": "portuguese", "label": "Salvador, Brazil", "lang": "Portuguese", "lat": -12.9777, "lng": -38.5016, "r": 70, "want": 1,
+    "queries": ["salvador bahia entrevista de rua baiano", "baiano falando sotaque salvador"] },
+  { "deck": "portuguese", "label": "Lisbon, Portugal", "lang": "Portuguese", "lat": 38.7223, "lng": -9.1393, "r": 50, "want": 1,
+    "queries": ["lisboa entrevista de rua portugueses", "lisboa pessoas na rua a falar"] },
+
+  { "deck": "spanish", "label": "Buenos Aires, Argentina", "lang": "Spanish", "lat": -34.6037, "lng": -58.3816, "r": 60, "want": 2,
+    "queries": ["buenos aires entrevista callejera porteños", "porteño hablando en la calle buenos aires"] },
+  { "deck": "spanish", "label": "Bogotá, Colombia", "lang": "Spanish", "lat": 4.7110, "lng": -74.0721, "r": 60, "want": 1,
+    "queries": ["bogota entrevista en la calle rolos", "bogotanos hablando en la calle"] },
+  { "deck": "spanish", "label": "Havana, Cuba", "lang": "Spanish", "lat": 23.1136, "lng": -82.3666, "r": 50, "want": 1,
+    "queries": ["la habana entrevista en la calle cubanos", "cubanos hablando en la habana calle"] },
+
+  { "deck": "hindi-urdu", "label": "Lahore, Pakistan", "lang": "Hindi–Urdu", "lat": 31.5204, "lng": 74.3587, "r": 60, "want": 1,
+    "queries": ["lahore street interview urdu locals", "لاہور سٹریٹ انٹرویو"] },
+  { "deck": "hindi-urdu", "label": "Hyderabad, India", "lang": "Hindi–Urdu", "lat": 17.3850, "lng": 78.4867, "r": 60, "want": 1,
+    "queries": ["hyderabadi hindi street interview old city", "hyderabad deccani street interview"] },
+
+  { "deck": "chinese", "label": "Beijing, China", "lang": "Chinese", "lat": 39.9042, "lng": 116.4074, "r": 60, "want": 1,
+    "queries": ["北京街头采访 市民", "北京胡同 采访 老北京话"] },
+  { "deck": "chinese", "label": "Chengdu, China", "lang": "Chinese", "lat": 30.5728, "lng": 104.0668, "r": 60, "want": 1,
+    "queries": ["成都街头采访 四川话", "成都市民 采访 方言"] }
+]

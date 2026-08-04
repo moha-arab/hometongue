@@ -1,0 +1,31 @@
+{
+  "accepted": [
+    {
+      "id": "yt-DpnUurJvGWs",
+      "kind": "yt",
+      "videoId": "DpnUurJvGWs",
+      "label": "Glasgow, Scotland",
+      "lang": "English",
+      "lat": 55.8642,
+      "lng": -4.2518,
+      "r": 60,
+      "start": 48,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Glasgow, Scotland, United Kingdom",
+        "offBy": 0,
+        "confidence": 88,
+        "evidence": [
+          "distinct Scottish rhoticity with tapped/approximant R",
+          "monophthongal long vowels in words like 'hopeless' and 'romantic'",
+          "glottal stops for /t/ in 'little'"
+        ],
+        "title": "People Make Glass Gow",
+        "author": "Paul Black"
+      }
+    }
+  ],
+  "rejected": []
+}

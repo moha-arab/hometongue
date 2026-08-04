@@ -45,13 +45,28 @@ function* candidates() {
   }
 }
 
+// A bare "ffmpeg.exe" found on PATH is not enough: callers pass this to other tools, and
+// yt-dlp's --ffmpeg-location needs a real directory. path.dirname('ffmpeg.exe') is '.', which
+// sent yt-dlp looking in the working folder and made every download fail with "ffmpeg is not
+// installed" while ffmpeg was in fact installed and working.
+function absolutise(exe) {
+  if (path.isAbsolute(exe)) return exe;
+  try {
+    const cmd = process.platform === 'win32' ? 'where' : 'which';
+    const out = execFileSync(cmd, [exe], { encoding: 'utf8', timeout: 10000 });
+    const found = out.split(String.fromCharCode(10)).map((l) => l.trim()).filter(Boolean)[0];
+    if (found && fs.existsSync(found)) return found;
+  } catch { /* fall through */ }
+  return exe;
+}
+
 let cached = null;
 
 export function ffmpegPath() {
   if (cached) return cached;
   for (const [source, exe] of candidates()) {
     if (source !== 'PATH' && source !== 'env FFMPEG_PATH' && !fs.existsSync(exe)) continue;
-    if (works(exe)) { cached = { exe, source }; return cached; }
+    if (works(exe)) { cached = { exe: absolutise(exe), source }; return cached; }
   }
   throw new Error(
     'ffmpeg not found. Install it with:  winget install --id Gyan.FFmpeg --scope user\n'
