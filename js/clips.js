@@ -2876,29 +2876,9 @@ window.CLIPS = {
     }
   ],
   "russian": [
+    {"id":"yt-cMwIxeSpM4g","kind":"yt","videoId":"cMwIxeSpM4g","label":"Minsk, Belarus","lang":"Russian","lat":53.9006,"lng":27.559,"r":70,"start":60,"gain":100,"hint":"Streamed from YouTube — the creator gets the view.","gate":{"model":"gemini-3.6-flash","heard":"Minsk, Belarus","offBy":0,"confidence":95,"evidence":["Speakers explicitly state they are in Minsk, Belarus","Soft Belarusian Russian pronunciation and intonation","Mentions of local Belarusian cities such as Bobruysk"],"title":"Откуда родом жители Минска: опрос Onliner","author":"Onliner"},"evalExclude":true,"source":{"who":"Onliner","host":"YouTube","license":"Streamed from YouTube — the creator keeps the view","page":"https://www.youtube.com/watch?v=cMwIxeSpM4g","note":"Откуда родом жители Минска: опрос Onliner"}},
     {"id":"yt-rATB9avPssE","kind":"yt","videoId":"rATB9avPssE","label":"Novosibirsk, Russia","lang":"Russian","lat":55.0084,"lng":82.9357,"r":80,"start":67,"gain":100,"hint":"Streamed from YouTube — the creator gets the view.","gate":{"model":"gemini-3.6-flash","heard":"Novosibirsk, Russia","offBy":3,"confidence":85,"evidence":["Mention of living in 'Strizhi' (В Стрижах мы живем), a prominent microdistrict in Novosibirsk","Standard urban Siberian Russian pronunciation and intonation","Discussion of local district cleanup (субботник) in their neighborhood"],"title":"Опрос жителей Новосибирска: как вы провели субботник","author":"КПРФ Новосибирск"},"evalExclude":true,"source":{"who":"КПРФ Новосибирск","host":"YouTube","license":"Streamed from YouTube — the creator keeps the view","page":"https://www.youtube.com/watch?v=rATB9avPssE","note":"Опрос жителей Новосибирска: как вы провели субботник"}},
     {"id":"yt-gRaokqJX1c8","kind":"yt","videoId":"gRaokqJX1c8","label":"Almaty, Kazakhstan","lang":"Russian","lat":43.222,"lng":76.8512,"r":70,"start":131,"gain":100,"hint":"Streamed from YouTube — the creator gets the view.","gate":{"model":"gemini-3.6-flash","heard":"Almaty, Kazakhstan","offBy":6,"confidence":85,"evidence":["Mention of Almaty ('в Алма-Ате')","Kazakhstani Russian vowel cadence and intonation","Urban Kazakh Russian speech mannerisms and lexical choices"],"title":"Опрос: Хочет ли молодежь уехать из Казахстана","author":"KOCHETKOV reporter"},"evalExclude":true,"source":{"who":"KOCHETKOV reporter","host":"YouTube","license":"Streamed from YouTube — the creator keeps the view","page":"https://www.youtube.com/watch?v=gRaokqJX1c8","note":"Опрос: Хочет ли молодежь уехать из Казахстана"}},
-    {
-      "id": "russian-butka-russia-russian-ural-sverdlovsk",
-      "label": "Butka, Russia",
-      "lang": "Russian (Ural / Sverdlovsk)",
-      "url": "/clips/russian/russian-butka-russia-russian-ural-sverdlovsk.mp3",
-      "lat": 56.85,
-      "lng": 63.65,
-      "r": 150,
-      "size": 1920775,
-      "start": 26,
-      "hint": "This is Yeltsin's famous 'I am tired, I am leaving' resignation address from 31 December 1999 - a scripted TV speech, but the man reading it was a Urals village kid who studied construction ",
-      "source": {
-        "who": "Press Service of the President of Russia / kremlin.ru",
-        "host": "Wikimedia Commons",
-        "license": "CC BY 4.0",
-        "page": "https://commons.wikimedia.org/wiki/File:%D0%91%D0%BE%D1%80%D0%B8%D1%81_%D0%9D%D0%B8%D0%BA%D0%BE%D0%BB%D0%B0%D0%B5%D0%B2%D0%B8%D1%87_%D0%95%D0%BB%D1%8C%D1%86%D0%B8%D0%BD_%D0%9D%D0%BE%D0%B2%D0%BE%D0%B3%D0%BE%D0%B4%D0%BD%D0%B5%D0%B5_%D0%BE%D0%B1%D1%80%D0%B0%D1%89%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BA_%D0%BD%D0%B0%D1%80%D0%BE%D0%B4%D1%83_1999_%D0%B3.ogg",
-        "note": "trimmed and re-encoded for the game"
-      },
-      "lufs": -16.6,
-      "year": 1999
-    },
     {
       "id": "russian-moscow-russia-russian-moscow",
       "label": "Moscow, Russia",
@@ -2920,26 +2900,6 @@ window.CLIPS = {
       "lufs": -16.5
     },
     {
-      "id": "russian-privolnoye-russia-russian-southern-russia-stav",
-      "label": "Privolnoye, Russia",
-      "lang": "Russian (Southern Russia / Stavropol accent)",
-      "url": "/clips/russian/russian-privolnoye-russia-russian-southern-russia-stav.mp3",
-      "lat": 45.75,
-      "lng": 43.05,
-      "r": 120,
-      "size": 294496,
-      "wild": true,
-      "hint": "The last Soviet leader shares a laugh about getting older on the radio - before the Kremlin, he was a farm-boy on the southern steppe, and you can still hear it in his vowels.",
-      "source": {
-        "who": "Echo of Moscow radio program",
-        "host": "Wikimedia Commons",
-        "license": "CC BY 3.0",
-        "page": "https://commons.wikimedia.org/wiki/File:Mihail_Gorbachev_voice.oga",
-        "note": "trimmed and re-encoded for the game"
-      },
-      "lufs": -17.6
-    },
-    {
       "id": "russian-saint-petersburg-russia-russian-st-petersburg-",
       "label": "Saint Petersburg, Russia",
       "lang": "Russian (St Petersburg / Leningrad)",
@@ -2959,45 +2919,5 @@ window.CLIPS = {
       },
       "lufs": -16.5
     },
-    {
-      "id": "russian-zima-russia-russian-siberia-irkutsk",
-      "label": "Zima, Russia",
-      "lang": "Russian (Siberia / Irkutsk)",
-      "url": "/clips/russian/russian-zima-russia-russian-siberia-irkutsk.mp3",
-      "lat": 53.9167,
-      "lng": 102.05,
-      "r": 120,
-      "size": 384148,
-      "wild": true,
-      "hint": "This Nobel-nominated poet's whole public image was built around his Siberian hometown - a railway station literally named 'Winter'.",
-      "source": {
-        "who": "Echo of Moscow radio program",
-        "host": "Wikimedia Commons",
-        "license": "CC BY 3.0",
-        "page": "https://commons.wikimedia.org/wiki/File:Evgenij_Evtushenko_voice.oga",
-        "note": "trimmed and re-encoded for the game"
-      },
-      "lufs": -16.7
-    },
-    {
-      "id": "russian-zlatoust-russia-russian-ural-chelyabinsk",
-      "label": "Zlatoust, Russia",
-      "lang": "Russian (Ural / Chelyabinsk)",
-      "url": "/clips/russian/russian-zlatoust-russia-russian-ural-chelyabinsk.mp3",
-      "lat": 55.1706,
-      "lng": 59.6569,
-      "r": 120,
-      "size": 274225,
-      "wild": true,
-      "hint": "The 12th World Chess Champion weighs in on computers at the board - he first learned the game at a steelworks club in a Ural mountain town.",
-      "source": {
-        "who": "Echo of Moscow radio program",
-        "host": "Wikimedia Commons",
-        "license": "CC BY 3.0",
-        "page": "https://commons.wikimedia.org/wiki/File:Anatolij_Karpov_voice.oga",
-        "note": "trimmed and re-encoded for the game"
-      },
-      "lufs": -16.5
-    }
-  ]
+    ]
 };

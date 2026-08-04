@@ -96,58 +96,6 @@
     ]
   },
   {
-    "deck": "russian",
-    "label": "Tbilisi, Georgia",
-    "lang": "Russian",
-    "lat": 41.7151,
-    "lng": 44.8271,
-    "r": 60,
-    "want": 1,
-    "queries": [
-      "тбилиси опрос на улице на русском",
-      "тбилиси интервью русскоязычные жители"
-    ]
-  },
-  {
-    "deck": "russian",
-    "label": "Minsk, Belarus",
-    "lang": "Russian",
-    "lat": 53.9006,
-    "lng": 27.559,
-    "r": 60,
-    "want": 1,
-    "queries": [
-      "минск опрос на улице жители",
-      "минск интервью прохожие"
-    ]
-  },
-  {
-    "deck": "russian",
-    "label": "Odesa, Ukraine",
-    "lang": "Russian",
-    "lat": 46.4825,
-    "lng": 30.7233,
-    "r": 60,
-    "want": 1,
-    "queries": [
-      "одесса опрос на улице жители",
-      "одесский говор интервью"
-    ]
-  },
-  {
-    "deck": "russian",
-    "label": "Almaty, Kazakhstan",
-    "lang": "Russian",
-    "lat": 43.222,
-    "lng": 76.8512,
-    "r": 70,
-    "want": 1,
-    "queries": [
-      "алматы опрос на улице на русском",
-      "алматы интервью прохожие русский язык"
-    ]
-  },
-  {
     "deck": "portuguese",
     "label": "Recife, Brazil",
     "lang": "Portuguese",
@@ -275,6 +223,58 @@
     "queries": [
       "成都街头采访 四川话",
       "成都市民 采访 方言"
+    ]
+  },
+  {
+    "deck": "russian",
+    "label": "Tbilisi, Georgia",
+    "lang": "Russian",
+    "lat": 41.7151,
+    "lng": 44.8271,
+    "r": 70,
+    "want": 1,
+    "queries": [
+      "тбилиси опрос русскоязычные жители интервью",
+      "грузия русский язык опрос на улице"
+    ]
+  },
+  {
+    "deck": "russian",
+    "label": "Minsk, Belarus",
+    "lang": "Russian",
+    "lat": 53.9006,
+    "lng": 27.559,
+    "r": 70,
+    "want": 1,
+    "queries": [
+      "минск опрос на улице жители",
+      "беларусь опрос прохожих на русском"
+    ]
+  },
+  {
+    "deck": "russian",
+    "label": "Odesa, Ukraine",
+    "lang": "Russian",
+    "lat": 46.4825,
+    "lng": 30.7233,
+    "r": 70,
+    "want": 1,
+    "queries": [
+      "одесса опрос жителей на улице",
+      "одесский юмор говор интервью"
+    ]
+  },
+  {
+    "deck": "russian",
+    "label": "Yerevan, Armenia",
+    "lang": "Russian",
+    "lat": 40.1792,
+    "lng": 44.4991,
+    "r": 70,
+    "want": 1,
+    "queries": [
+      "ереван опрос на улице на русском",
+      "армения русскоязычные интервью прохожие"
     ]
   }
 ]
