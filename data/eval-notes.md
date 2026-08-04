@@ -50,3 +50,45 @@ confidence analysis.
 - Re-pin the `languages` deck to real speaker origins, or drop it from km scoring.
 - Widen the radius guidance in the prompt and re-measure calibration.
 - Rerun with the fixed schema.
+
+# Run 2 — 2026-08-04, shared prompt + widened radius
+
+111 clips (languages deck excluded), 0 failures.
+
+| deck | n | median | <100km | <250km |
+| --- | --- | --- | --- | --- |
+| hindi-urdu | 5 | 0 km | 60% | 60% |
+| chinese | 9 | 11 km | 78% | 100% |
+| arabic | 45 | 28 km | 64% | 80% |
+| accents (English) | 20 | 28 km | 75% | 80% |
+| french | 7 | 35 km | 71% | 71% |
+| portuguese | 8 | 339 km | 50% | 50% |
+| spanish | 11 | 345 km | 18% | 36% |
+| russian | 6 | 632 km | 17% | 33% |
+| **OVERALL** | **111** | **44 km** | **59%** | **71%** |
+
+Overall median 57 km -> 44 km from the prompt change alone. Arabic 68 -> 28,
+Chinese 38 -> 11, French 83 -> 35. Nothing else changed: same model, same clips,
+same metric. This is the third time prompt wording has moved results more than any
+component swap, and it is now the main tuning surface.
+
+## Calibration is fixed
+
+Truth inside the model's own stated radius: 59% -> **72%**, against its stated 70%.
+Median radius 200 km. Naming the failure mode explicitly ("most models get this wrong
+by being too brave") plus concrete distance bands did it.
+
+Confidence values now span 65-100 instead of the bimodal 4-10 / 75-100 junk from the
+drifted schema.
+
+## Still weak, and they are not the same problem
+
+- **russian 632 km** — genuine. Russian varies little regionally across an enormous
+  country. Zima (Siberia) answered "Moscow". Not fixable by prompting.
+- **spanish 345 km / portuguese 339 km** — mixed labels. Several clips are tagged
+  only "Argentina" or "Mozambique" and pinned at a capital, so a correct regional
+  answer still scores as a large error. Worth re-labelling the country-level ones to
+  actual speaker cities before trusting these two numbers.
+- One clip is likely mislabelled the other way: accents/"Amritsar, Punjab" is
+  Vajpayee's 2000 US Congress address, and the model answered Gwalior — his actual
+  birthplace. The model may be more right than the label.
