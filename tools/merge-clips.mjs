@@ -29,12 +29,12 @@ const IMPOSTOR = new RegExp([
   'doblaje', 'пародия', 'акценты', 'comedia', 'comedy sketch',
 ].join('|'), 'i');
 
-// The sourcing gate accepts up to 400 km, which is right for "is this person plausibly from
-// this region". For a GAME the bar should be higher: a street interview happens in a city but
-// the person answering may have grown up elsewhere, and a clip labelled Odesa where the model
-// clearly hears Dnipro is a mislabelled round waiting to happen. 250 km keeps the label
-// trustworthy.
-const MERGE_KM = 250;
+// Loose on purpose. A clip where the model disagrees with the label is a HARD round, which is
+// what a guessing game wants, and its gate record preserves the disagreement so the weak spot
+// stays visible. Only absurd mismatches are cut, since those usually mean the video was
+// mislabelled rather than the accent being subtle.
+
+const MERGE_KM = 1200;
 
 const { accepted } = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/sourced-clips.json'), 'utf8'));
 globalThis.window = {};

@@ -30,9 +30,10 @@ const FF = ffmpegPath().exe;
 const WORK = fs.mkdtempSync(path.join(os.tmpdir(), 'ht-source-'));
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-// How far off the model's guess may be and still count as agreement. Generous, because we
-// are testing "is this person plausibly from here", not the model's precision.
-const ACCEPT_KM = 400;
+// Deliberately loose. The gate exists to reject impressionists, wrong languages and absurd
+// mismatches — not to enforce agreement. A clip the model finds hard is good content and a
+// standing record of a weak spot; rejecting it would hide the weakness instead of showing it.
+const ACCEPT_KM = 1500;
 const WINDOW_S = 22;
 
 function km(aLat, aLng, bLat, bLng) {

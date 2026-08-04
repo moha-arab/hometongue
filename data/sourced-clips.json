@@ -18,64 +18,12 @@
         "offBy": 0,
         "confidence": 85,
         "evidence": [
-          "Distinctive Georgian pitch contours and intonation cadence in Russian",
-          "Syllable-timed rhythm typical of native Georgian speakers",
-          "Refers to Russians escaping to 'here' (Georgia)"
+          "distinctive Georgian intonation contour in Russian",
+          "slightly aspirated/glottalized voiceless stops",
+          "characteristic cadence and pitch movement on phrase endings"
         ],
         "title": "Притворился УКРАИНЦЕМ, чтобы узнать, как относятся к РУССКИМ в Грузии / Тбилиси Опрос",
         "author": "Дима Путешествует"
-      }
-    },
-    {
-      "id": "yt-cMwIxeSpM4g",
-      "kind": "yt",
-      "videoId": "cMwIxeSpM4g",
-      "label": "Minsk, Belarus",
-      "lang": "Russian",
-      "lat": 53.9006,
-      "lng": 27.559,
-      "r": 70,
-      "start": 60,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Minsk, Belarus",
-        "offBy": 0,
-        "confidence": 95,
-        "evidence": [
-          "Speakers explicitly state they are in Minsk, Belarus",
-          "Soft Belarusian Russian pronunciation and intonation",
-          "Mentions of local Belarusian cities such as Bobruysk"
-        ],
-        "title": "Откуда родом жители Минска: опрос Onliner",
-        "author": "Onliner"
-      }
-    },
-    {
-      "id": "yt-KYCzYHQgulE",
-      "kind": "yt",
-      "videoId": "KYCzYHQgulE",
-      "label": "Odesa, Ukraine",
-      "lang": "Russian",
-      "lat": 46.4825,
-      "lng": 30.7233,
-      "r": 70,
-      "start": 85,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Dnipro, Ukraine",
-        "offBy": 393,
-        "confidence": 85,
-        "evidence": [
-          "Ukrainian Russian phonetic features including the voiced glottal fricative g",
-          "Intonation typical of Central and Eastern Ukraine",
-          "Explicit mention of Ukraine and our country"
-        ],
-        "title": "Опрос \"Как война изменила вашу жизнь?\" Одесса. 20.04.2022",
-        "author": "Думская Нет"
       }
     },
     {
@@ -94,14 +42,66 @@
         "model": "gemini-3.6-flash",
         "heard": "Yerevan, Armenia",
         "offBy": 0,
-        "confidence": 90,
+        "confidence": 85,
         "evidence": [
-          "Eastern Armenian phonology and vocabulary",
-          "Standard contemporary Yerevan accent and prosody",
-          "Clear distinction of Eastern Armenian soft consonant reflexes"
+          "Standard Eastern Armenian phonology and vocabulary",
+          "Melodic intonation characteristic of modern Yerevan speech",
+          "Clear distinction between aspirated and voiceless stops"
         ],
         "title": "Что такое свобода? Опрос на улицах в Ереване",
         "author": "JAMnews на русском"
+      }
+    },
+    {
+      "id": "yt-EYUJ5fQmipw",
+      "kind": "yt",
+      "videoId": "EYUJ5fQmipw",
+      "label": "Chișinău, Moldova",
+      "lang": "Russian",
+      "lat": 47.0105,
+      "lng": 28.8638,
+      "r": 70,
+      "start": 89,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Chișinău, Moldova",
+        "offBy": 0,
+        "confidence": 85,
+        "evidence": [
+          "Speaks Russian with Moldovan regional phonetics",
+          "Mentions 'Национальное агентство по регулированию в энергетике' (ANRE, Moldova's energy agency)",
+          "Discusses local protests against electricity and gas tariff increases"
+        ],
+        "title": "Социальный опрос - молодежи Кишинева",
+        "author": "Гренада MD"
+      }
+    },
+    {
+      "id": "yt-KYCzYHQgulE",
+      "kind": "yt",
+      "videoId": "KYCzYHQgulE",
+      "label": "Odesa, Ukraine",
+      "lang": "Russian",
+      "lat": 46.4825,
+      "lng": 30.7233,
+      "r": 70,
+      "start": 85,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Northern Ukraine",
+        "offBy": 493,
+        "confidence": 85,
+        "evidence": [
+          "Speaker states they are from Northern Ukraine",
+          "Surzhyk influence with Ukrainian word choices like \"тому\"",
+          "Voiced glottal fricative [ɦ] typical of Ukrainian Russian"
+        ],
+        "title": "Опрос \"Как война изменила вашу жизнь?\" Одесса. 20.04.2022",
+        "author": "Думская Нет"
       }
     }
   ],
@@ -112,19 +112,14 @@
       "why": "audio fetch failed"
     },
     {
-      "id": "x09Evd3xPYU",
-      "label": "Minsk, Belarus",
-      "why": "model heard Moscow, Russia — 676 km away"
-    },
-    {
-      "id": "X79M8kR1PFU",
-      "label": "Odesa, Ukraine",
-      "why": "not embeddable"
-    },
-    {
       "id": "4I4v9KWvYWc",
       "label": "Yerevan, Armenia",
-      "why": "model heard Bishkek, Kyrgyzstan — 2508 km away"
+      "why": "audio fetch failed"
+    },
+    {
+      "id": "4FUbO2iT-pY",
+      "label": "Yerevan, Armenia",
+      "why": "audio fetch failed"
     }
   ]
 }
