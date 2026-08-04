@@ -1,76 +1,71 @@
 // HomeTongue — /api/analyze
-// Accepts { audio: <base64>, mime } or { text } and returns a dialect verdict.
-// Pipeline: Groq whisper-large-v3 (transcription) -> Claude (hierarchical dialect classification).
-import Anthropic from '@anthropic-ai/sdk';
+//
+// Accepts { audio: <base64>, mime } and returns a point on Earth.
+//
+//   audio -> Gemini 3.6 Flash -> { lat, lng, radius_km, place, evidence, transcript }
+//
+// This replaced a cascade (Whisper -> text -> Claude -> country code) on 2026-08-04 after
+// measuring both on 45 labelled Arabic clips and 20 English ones. The cascade scored 58% and
+// 50% at country level; this scores a 33 km median error. Speech-to-text deletes the accent
+// by design — standard spelling is used no matter how a word was said — so the transcript was
+// throwing away the entire signal before the reasoning even started. Three separate attempts
+// to recover it downstream (phoneme recogniser on Arabic, on English, prime-as-detector) all
+// measured null or negative. See PRD "P3b".
+//
+// Measured and deliberately NOT included, each changing the answer on <10% of clips and
+// splitting evenly in both directions:
+//   - feeding a Whisper transcript alongside the audio (38 km vs 43 km, better on 3, worse on 4)
+//   - feeding hand-written dialect marker playbooks (69 km vs 43 km, better on 2, worse on 3)
+// Both cost a call and latency for noise. Do not re-add without re-running tools/eval.
 import { mintToken } from './feedback.js';
-import { SHARED_METHOD, resolveLanguage, genericLanguage, isoCode } from './languages.js';
 
 export const config = { maxDuration: 60 };
 
-// The schema is per-language: each entry declares the countries and regions we're
-// willing to name, so Claude can never return a country that language isn't spoken in.
-function buildSchema(lang) {
-  // Curated languages get an enum, which is what stops an Arabic clip being answered
-  // with Australia. The generic tier has no vetted country list, so it names its own
-  // country and supplies coordinates for the map instead.
-  const countries = lang.countries
-    ? { type: 'string', enum: lang.countries }
-    : { type: 'string', description: "ISO 3166-1 alpha-2 code, lowercase, or 'none'" };
-  return {
-    type: 'object',
-    properties: {
-      kind: { type: 'string', enum: ['dialect', 'msa', 'unclear'] },
-      region: lang.regions ? { type: 'string', enum: lang.regions } : { type: 'string', description: 'regional variety name in English, or empty' },
-      top_country: countries,
-      confidence: { type: 'integer', description: 'Country-level confidence 0-100, honestly calibrated' },
-      city: { type: 'string', description: "Sub-country locale guess in English, e.g. 'Aleppo', 'Beirut', 'Upper Egypt', 'Medellin', 'Quebec City'. Empty string when the transcript does not support one." },
-      city_confidence: { type: 'integer', description: '0-100 for the city/sub-region guess; 0 when city is empty' },
-      ranked: {
-        type: 'array',
-        description: 'Up to 4 candidate countries, best first, weight 0-100',
-        items: {
-          type: 'object',
-          properties: { code: countries, weight: { type: 'integer' } },
-          required: ['code', 'weight'],
-          additionalProperties: false,
-        },
-      },
-      evidence: {
-        type: 'array',
-        description: 'Up to 8 giveaway words/phrases actually present in the transcript',
-        items: {
-          type: 'object',
-          properties: {
-            word: { type: 'string', description: `The ${lang.name} word/phrase from the transcript` },
-            gloss: { type: 'string', description: "Short English gloss, e.g. \"hassa — 'now', Jordanian giveaway\"" },
-          },
-          required: ['word', 'gloss'],
-          additionalProperties: false,
-        },
-      },
-      note: { type: 'string', description: 'One or two honest, friendly sentences about the verdict, in English. Mention close calls and what pointed to the city guess.' },
-      ...(lang.countries ? {} : {
-        country_name: { type: 'string', description: 'English name of top_country, e.g. "Austria". Empty when top_country is none.' },
-        lat: { type: 'number', description: 'Approximate centre latitude of that country' },
-        lng: { type: 'number', description: 'Approximate centre longitude of that country' },
-      }),
+const MODEL = 'gemini-3.6-flash';
+
+// Coordinates, not country labels. Dialects do not stop at borders: asked for a country, the
+// model called Ramallah "Jordan" — 14 km away, scored as flatly wrong. A point plus an honest
+// radius says the same thing truthfully, and Pin It is already scored by distance, so both
+// halves of the app finally share one metric.
+//
+// Prompt wording moved results more than any component swap did (33-68 km across three
+// phrasings on identical audio), so treat this text as tuned and re-measure before editing.
+const SYSTEM = `You hear a recording of someone speaking. Predict WHERE THEY GREW UP as a single point on Earth.
+
+Do not think in countries. Dialects vary continuously and do not stop at borders, so give the
+coordinates of the centre of the accent region you actually hear, plus an honest radius: small
+when a city is unmistakable, large when you can only place a broad region. A wide circle in the
+right place is a better answer than a narrow one in the wrong place.
+
+Judge from what a transcript could never carry: consonant reflexes, vowel quality, rhythm,
+intonation, stress, and any regional vocabulary you hear. The audio may be low quality — it is
+usually a phone microphone in a room — so work with whatever survives.
+
+If someone states where they are from, you may use it, but say so in the evidence rather than
+passing it off as something you heard in their accent.
+
+Give the evidence as short, specific, human-readable phrases naming what you heard. Write them
+for a curious person, not a linguist.`;
+
+const SCHEMA = {
+  type: 'object',
+  properties: {
+    lat: { type: 'number', description: 'latitude of the single best guess' },
+    lng: { type: 'number', description: 'longitude of the single best guess' },
+    radius_km: { type: 'integer', description: 'radius you are about 70% confident they grew up within' },
+    place: { type: 'string', description: 'human-readable name of that point, e.g. "Aleppo, Syria"' },
+    language: { type: 'string', description: 'the language they are speaking, in English' },
+    confidence: { type: 'integer', description: '0-100, honestly calibrated' },
+    evidence: {
+      type: 'array',
+      description: 'up to 5 short phrases naming what you heard that placed them',
+      items: { type: 'string' },
     },
-    required: ['kind', 'region', 'top_country', 'confidence', 'city', 'city_confidence', 'ranked', 'evidence', 'note']
-      .concat(lang.countries ? [] : ['country_name', 'lat', 'lng']),
-    additionalProperties: false,
-  };
-}
-
-function buildSystemPrompt(lang) {
-  return `You are the dialect engine of HomeTongue, an app that guesses where someone is from by how they speak. This speaker is speaking ${lang.name}. You are an expert ${lang.name} dialectologist. Work hierarchically: region -> country -> city/sub-region, with honestly calibrated confidence at each level.
-
-${SHARED_METHOD}
-
-Note: for this language, "kind=msa" means ${lang.standardLabel} — the neutral register with no regional markers.
-
-## Marker playbook for ${lang.name} (not exhaustive — use your full knowledge)
-${lang.playbook}`;
-}
+    transcript: { type: 'string', description: 'what they said, in its own script' },
+    note: { type: 'string', description: 'one or two warm, honest sentences for the user about the verdict' },
+  },
+  required: ['lat', 'lng', 'radius_km', 'place', 'language', 'confidence', 'evidence', 'transcript', 'note'],
+};
 
 function readJsonBody(req) {
   if (req.body !== undefined && req.body !== null) {
@@ -84,111 +79,70 @@ function readJsonBody(req) {
   });
 }
 
-async function callWhisper(bytes, mime, ext, { language, prompt }) {
-  const form = new FormData();
-  form.append('file', new Blob([bytes], { type: mime || 'audio/webm' }), ext);
-  form.append('model', 'whisper-large-v3');
-  form.append('temperature', '0');
-  form.append('response_format', 'verbose_json'); // segments carry confidence for hallucination filtering
-  if (language) form.append('language', language);
-  if (prompt) form.append('prompt', prompt);
+async function locate(parts) {
+  const key = process.env.GEMINI_API_KEY;
+  if (!key) throw Object.assign(new Error('GEMINI_API_KEY not set'), { code: 'not_configured' });
 
-  const resp = await fetch('https://api.groq.com/openai/v1/audio/transcriptions', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${process.env.GROQ_API_KEY}` },
-    body: form,
-  });
-  if (!resp.ok) {
-    const detail = await resp.text().catch(() => '');
-    throw Object.assign(new Error(`transcription failed: ${resp.status} ${detail.slice(0, 200)}`), { code: 'asr_failed' });
+  for (let attempt = 0; attempt < 3; attempt++) {
+    let resp;
+    try {
+      resp = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`,
+        {
+          method: 'POST',
+          headers: { 'x-goog-api-key': key, 'content-type': 'application/json' },
+          body: JSON.stringify({
+            systemInstruction: { parts: [{ text: SYSTEM }] },
+            contents: [{ role: 'user', parts }],
+            generationConfig: {
+              temperature: 0,
+              responseMimeType: 'application/json',
+              responseSchema: SCHEMA,
+            },
+          }),
+          // a hung request once froze a 45-clip batch for 90 minutes; never wait forever
+          signal: AbortSignal.timeout(45000),
+        },
+      );
+    } catch {
+      if (attempt === 2) throw Object.assign(new Error('upstream timeout'), { code: 'upstream_failed' });
+      continue;
+    }
+    if (resp.status === 429 || resp.status === 503) {
+      if (attempt === 2) throw Object.assign(new Error('model busy'), { code: 'busy' });
+      await new Promise((r) => setTimeout(r, 1500 * (attempt + 1)));
+      continue;
+    }
+    if (!resp.ok) {
+      const detail = await resp.text().catch(() => '');
+      throw Object.assign(new Error(`analysis failed: ${resp.status} ${detail.slice(0, 200)}`), { code: 'upstream_failed' });
+    }
+    const data = await resp.json();
+    const text = data.candidates?.[0]?.content?.parts?.map((p) => p.text).join('') || '';
+    if (!text) throw Object.assign(new Error('empty response'), { code: 'upstream_failed' });
+    try { return JSON.parse(text); } catch {
+      throw Object.assign(new Error('unparseable response'), { code: 'upstream_failed' });
+    }
   }
-  return resp.json();
+  throw Object.assign(new Error('model busy'), { code: 'busy' });
 }
 
-// Whisper's prompt is decoding CONTEXT, not an instruction, so each language primes it
-// with a SAMPLE of the colloquial register we want back. But that means Whisper can
-// continue the sample instead of transcribing, and hand us our own prompt as "speech" —
-// measured on 2 of 8 clips with the old instruction-style prompt. Drop any segment that
-// quotes it back.
-function echoFragments(lang) {
-  return lang.asrPrompt.split(/[.،؟?!。]/).map((s) => s.trim()).filter((s) => s.length > 12);
-}
-
-// Whisper dreams platform boilerplate when fed silence or noise — scrub the classics.
-const BOILERPLATE = [
-  'اشتركوا في القناة', 'اشترك في القناة', 'لا تنسوا الاشتراك', 'لا تنسى الاشتراك', 'فعلوا الجرس',
-  'شكرا للمشاهدة', 'شكرا على المشاهدة', 'شكراً للمشاهدة', 'نانسي قنقر', 'ترجمة',
-  'thanks for watching', 'subscribe to', 'like and subscribe', '请不吝点赞', '字幕由',
-  'sous-titres', 'subtítulos', 'legendas', 'субтитры',
-];
-function isHallucination(text, echoes) {
-  const t = text.trim();
-  if (!t) return true;
-  if (echoes.some((p) => t.includes(p))) return true; // it read our own prompt back to us
-  if (t.length > 80) return false; // real speech segments are rarely pure boilerplate at length
-  const low = t.toLowerCase();
-  return BOILERPLATE.some((p) => low.includes(p));
-}
-
-function joinSegments(data, echoes) {
-  const segments = Array.isArray(data.segments) ? data.segments : null;
-  if (!segments) return (data.text || '').trim();
-  const kept = segments.filter((s) =>
-    !(s.no_speech_prob > 0.5) && !(s.avg_logprob < -1.2) && !isHallucination(s.text || '', echoes));
-  return kept.map((s) => (s.text || '').trim()).join(' ').trim();
-}
-
-// Two passes. The first has no language and no prompt, so Whisper is free to identify the
-// language itself and there is nothing for it to echo. The second re-runs with that
-// language's colloquial prime, which is what keeps dialect markers from being tidied into
-// the standard register. Costs about two extra seconds; worth it, since the prime is the
-// difference between بيت and المنزل.
-async function transcribe(audioB64, mime, forced) {
-  const bytes = Buffer.from(audioB64, 'base64');
-  if (bytes.length < 2000) throw Object.assign(new Error('audio too short'), { code: 'audio_too_short' });
-  if (bytes.length > 6 * 1024 * 1024) throw Object.assign(new Error('audio too large'), { code: 'audio_too_large' });
-
-  const ext = (mime || '').includes('mp4') ? 'audio.mp4'
-    : (mime || '').includes('mpeg') ? 'audio.mp3'
-      : (mime || '').includes('ogg') ? 'audio.ogg'
-        : (mime || '').includes('wav') ? 'audio.wav' : 'audio.webm';
-
-  // A forced language means the user corrected us, so skip detection and believe them.
-  const first = await callWhisper(bytes, mime, ext, forced ? { language: isoCode(forced) } : {});
-  const detected = forced || (first.language || '').toLowerCase();
-  // No curated playbook is not a refusal — fall back to what Claude already knows.
-  const lang = resolveLanguage(detected) || genericLanguage(detected, isoCode(detected));
-
-  // Only worth a second pass when there is a prime to apply; the generic tier has none.
-  const second = lang.asrPrompt
-    ? await callWhisper(bytes, mime, ext, { language: isoCode(detected), prompt: lang.asrPrompt })
-      .catch(() => null) // if the primed pass fails, the plain one is still usable
-    : null;
-  const echoes = echoFragments(lang);
-  const primed = second ? joinSegments(second, echoes) : '';
-  const plain = joinSegments(first, echoes);
-
-  // The prime can occasionally cost us the whole transcript; keep whichever is real.
-  return { transcript: primed.length >= plain.length * 0.6 && primed ? primed : plain, lang, detected };
-}
-
-async function classify(transcript, lang) {
-  const client = new Anthropic();
-  const response = await client.messages.create({
-    model: 'claude-opus-5',
-    max_tokens: 6000,
-    output_config: { effort: 'high', format: { type: 'json_schema', schema: buildSchema(lang) } },
-    system: [{ type: 'text', text: buildSystemPrompt(lang), cache_control: { type: 'ephemeral' } }],
-    messages: [{ role: 'user', content: `Transcript of the speaker:
-
-${transcript}` }],
-  });
-  if (response.stop_reason === 'refusal') {
-    throw Object.assign(new Error('classification refused'), { code: 'classify_failed' });
-  }
-  const text = response.content.find((b) => b.type === 'text')?.text;
-  if (!text) throw Object.assign(new Error('empty classification'), { code: 'classify_failed' });
-  return JSON.parse(text);
+// A model can return anything; the map should never be asked to fly to null island.
+function sane(r) {
+  const num = (v) => (typeof v === 'number' && Number.isFinite(v));
+  if (!num(r.lat) || !num(r.lng)) return null;
+  if (r.lat < -90 || r.lat > 90 || r.lng < -180 || r.lng > 180) return null;
+  return {
+    lat: r.lat,
+    lng: r.lng,
+    radius_km: Math.min(5000, Math.max(10, Math.round(r.radius_km || 300))),
+    place: String(r.place || '').slice(0, 120),
+    language: String(r.language || '').slice(0, 40),
+    confidence: Math.min(100, Math.max(0, Math.round(r.confidence || 0))),
+    evidence: (Array.isArray(r.evidence) ? r.evidence : []).slice(0, 5).map((e) => String(e).slice(0, 200)),
+    transcript: String(r.transcript || '').slice(0, 4000),
+    note: String(r.note || '').slice(0, 500),
+  };
 }
 
 // Per-instance rate limit — a speed bump against credit-burning scripts, not a wall.
@@ -226,38 +180,42 @@ export default async function handler(req, res) {
 
   try {
     const body = await readJsonBody(req);
-    let transcript = (body.text || '').trim();
-    let lang = null;
-    let detected = '';
+    const typed = (body.text || '').trim();
+    let parts;
 
-    if (transcript) {
-      // Typed input has no audio to identify, so the client says which language it is.
-      // The type box carries its own language picker; Arabic stays the default.
-      detected = (body.lang || 'ar').toLowerCase();
-      lang = resolveLanguage(detected) || genericLanguage(detected, isoCode(detected));
-    } else if (body.audio) {
-      ({ transcript, lang, detected } = await transcribe(body.audio, body.mime, (body.lang || '').toLowerCase() || null));
-    }
-
-    if (!transcript || transcript.length < 4) {
+    if (body.audio) {
+      const bytes = Buffer.from(body.audio, 'base64');
+      if (bytes.length < 2000) throw Object.assign(new Error('audio too short'), { code: 'audio_too_short' });
+      if (bytes.length > 6 * 1024 * 1024) throw Object.assign(new Error('audio too large'), { code: 'audio_too_large' });
+      parts = [
+        { inlineData: { mimeType: body.mime || 'audio/webm', data: body.audio } },
+        { text: 'Where did this person grow up?' },
+      ];
+    } else if (typed.length >= 8) {
+      // Type mode has no accent to hear, so it can only read vocabulary. Much weaker, and
+      // the prompt says so rather than letting the model sound equally sure.
+      parts = [{
+        text: `There is no audio, only text this person typed the way they talk:\n\n${typed}\n\n`
+          + 'You cannot hear their accent, so judge from vocabulary and phrasing alone and widen '
+          + 'the radius accordingly. Where did this person grow up?',
+      }];
+    } else {
       res.statusCode = 422;
       return res.end(JSON.stringify({ ok: false, error: 'no_speech', detail: 'No usable speech detected.' }));
     }
-    const result = await classify(transcript, lang);
-    return res.end(JSON.stringify({
-      ok: true,
-      transcript,
-      result,
-      language: { code: detected, name: lang.name, native: lang.native, dir: lang.dir, countries: lang.countries, generic: !!lang.generic },
-      fb_token: mintToken(),
-    }));
+
+    const raw = await locate(parts);
+    const result = sane(raw);
+    if (!result) throw Object.assign(new Error('no location returned'), { code: 'upstream_failed' });
+
+    return res.end(JSON.stringify({ ok: true, result, fb_token: mintToken() }));
   } catch (err) {
     const code = err.code || 'server_error';
-    res.statusCode = code === 'audio_too_large' || code === 'audio_too_short' || code === 'unsupported_language' ? 422 : 500;
+    res.statusCode = ['audio_too_large', 'audio_too_short', 'no_speech'].includes(code) ? 422
+      : code === 'busy' ? 429 : 500;
     return res.end(JSON.stringify({
       ok: false,
       error: code,
-      detected: err.detected,
       detail: String(err.message || err).slice(0, 300),
     }));
   }

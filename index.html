@@ -32,20 +32,20 @@
 </header>
 
 <div class="how-pop" id="howPop" hidden>
-  <p><strong>Honest version:</strong> your browser records ~15 seconds of you talking. A server transcribes it (Whisper) and Claude reads the dialect from your <em>word choices and phrasing</em> — <em>Jänner</em> puts you in Austria, <em>cachai</em> in Chile, <em>هسا</em> in Jordan.</p>
-  <p>That's why there's no script to read — if everyone said the same words, there'd be nothing to catch. Just talk naturally.</p>
-  <p>Your audio is analyzed and discarded — nothing is stored unless you tick the donate box on the result screen.</p>
-  <p>It reads <em>words</em>, not sound. We tested a phoneme model that hears pronunciation directly and measured it making things worse, so accents that differ only in sound — Boston vs Texas — are genuinely hard for it. That needs a model trained on labelled voices, which is what donated clips are for.</p>
+  <p><strong>Honest version:</strong> your browser records about 15 seconds of you talking, and sends it to a model that <em>listens</em> to it. No transcript in the middle.</p>
+  <p>That matters. Speech-to-text writes standard spelling no matter how you said something — an Egyptian saying <em>gamal</em> and a Levantine saying <em>jamal</em> both come out as جمال. Reading text throws the accent away before anything can judge it.</p>
+  <p>So it hears the sound itself: which consonants you soften, how your vowels sit, your rhythm. Then it answers with a point on the map and a circle it's honestly confident about, rather than a country and a percentage.</p>
+  <p>Measured on 45 recordings with known origins: a median miss of 33 km. The old text-based version got the country right 58% of the time.</p>
+  <p>Your audio is analyzed and discarded. Nothing is stored unless you tick the donate box.</p>
 </div>
 
 <main class="hud">
 
   <!-- IDLE -->
   <section class="card" id="idleCard">
-    <div class="card-eyebrow"><span>dialect identification</span><b id="langCount">nine languages</b></div>
-    <h1 class="tagline">Just talk.<br><span class="accent">I can hear where home is.</span></h1>
-    <div class="lang-field"><span class="lang-label">I'm speaking</span><div class="lang-pills" id="speakPills"></div></div>
-    <p class="prompt-label">Don't read anything — just talk, like you're voice-noting a friend:</p>
+    <div class="card-eyebrow"><span>accent geolocation</span><b>any language</b></div>
+    <h1 class="tagline">Just talk.<br><span class="accent">I'll find where you grew up.</span></h1>
+    <p class="prompt-label">Any language, any dialect. Don't read anything — just talk, like you're voice-noting a friend:</p>
     <p class="prompt" id="promptText">"Tell me about your day."</p>
     <button class="mic-btn" id="micBtn" aria-label="Start talking">
       <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line></svg>
@@ -60,7 +60,6 @@
   <section class="card" id="liveCard" hidden>
     <div class="wave" id="wave"></div>
     <p class="live-status">listening… <span id="timer">0:00</span></p>
-    <div class="transcript" id="transcript"></div>
     <p class="live-hint">keep going — 20 seconds or more gives a better read</p>
     <button class="stop-btn" id="stopBtn">that's enough — guess!</button>
   </section>
@@ -68,7 +67,6 @@
   <!-- TYPE MODE -->
   <section class="card" id="typeCard" hidden>
     <p class="prompt-label">Type the way you actually talk — voice-note energy, not essay energy:</p>
-    <div class="lang-field"><span class="lang-label">language</span><div class="lang-pills compact" id="typePills"></div></div>
     <textarea id="typeBox" rows="4" placeholder="write the way you actually talk…"></textarea>
     <button class="stop-btn" id="analyzeTypedBtn">guess my dialect</button>
     <p class="samples-label">or try a sample:</p>
@@ -85,7 +83,6 @@
   <!-- RESULT -->
   <section class="card result" id="resultCard" hidden>
     <p class="result-kicker" id="resultKicker">your dialect sounds</p>
-    <div class="lang-chip" id="langChip" hidden></div>
     <h2 class="result-region" id="resultRegion"></h2>
     <p class="result-country" id="resultCountry"></p>
     <div class="conf">
@@ -118,12 +115,11 @@
 
 <div class="toast" id="toast" hidden></div>
 
-<footer class="foot">whisper + claude · audio never stored unless you donate it · <a href="/privacy.html" style="color:inherit">privacy</a></footer>
+<footer class="foot">it listens to your accent, not your words · audio never stored unless you donate it · <a href="/privacy.html" style="color:inherit">privacy</a></footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="js/theme.js"></script>
 <script src="js/places.js"></script>
-<script src="js/dialects.js"></script>
 <script src="js/app.js"></script>
 <script>
   // installable + instant on repeat visits; harmless if the browser has no support

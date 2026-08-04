@@ -1,0 +1,171 @@
+// HomeTongue accuracy harness.
+//
+// Runs every labelled clip in the manifest through the live geolocation prompt and scores it
+// the way the research does: kilometres between the guess and the truth. Median error, not
+// accuracy, because "country correct" scored a 14 km miss (Ramallah answered as Jerusalem) as
+// flatly wrong and a 900 km miss inside a big country as right.
+//
+//   node tools/eval.mjs                 all decks
+//   node tools/eval.mjs arabic accents  named decks only
+//   node tools/eval.mjs --model gemini-3.5-flash
+//
+// Re-run this whenever the model, the prompt, or the clip set changes. It is the only thing
+// standing between a considered decision and another unverified default.
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+for (const line of fs.readFileSync(path.join(ROOT, '.env'), 'utf8').split(/\r?\n/)) {
+  const m = line.match(/^([A-Z_]+)=(.*)$/);
+  if (m && !process.env[m[1]]) process.env[m[1]] = m[2];
+}
+globalThis.window = {};
+await import(pathToFileURL(path.join(ROOT, 'js/clips.js')).href);
+
+const argv = process.argv.slice(2);
+const modelFlag = argv.indexOf('--model');
+const MODEL = modelFlag >= 0 ? argv[modelFlag + 1] : 'gemini-3.6-flash';
+const decks = argv.filter((a) => !a.startsWith('--') && a !== MODEL);
+const CONCURRENCY = 3;
+
+// Kept in step with api/analyze.js by hand. Measured: prompt wording moves results more than
+// swapping model or adding components does (33-68 km across three phrasings), so if these
+// two drift apart the eval stops meaning anything.
+const SYSTEM = `You hear a recording of someone speaking. Predict WHERE THEY GREW UP as a single point on Earth.
+
+Do not think in countries. Dialects vary continuously and do not stop at borders, so give the
+coordinates of the centre of the accent region you actually hear, plus an honest radius: small
+when a city is unmistakable, large when you can only place a broad region. A wide circle in the
+right place is a better answer than a narrow one in the wrong place.
+
+Judge from what a transcript could never carry: consonant reflexes, vowel quality, rhythm,
+intonation, stress, and any regional vocabulary you hear. The audio may be low quality — it is
+usually a phone microphone in a room — so work with whatever survives.
+
+If someone states where they are from, you may use it, but say so in the evidence rather than
+passing it off as something you heard in their accent.
+
+Give the evidence as short, specific, human-readable phrases naming what you heard.`;
+
+const SCHEMA = {
+  type: 'object',
+  properties: {
+    lat: { type: 'number' },
+    lng: { type: 'number' },
+    radius_km: { type: 'integer' },
+    place: { type: 'string' },
+    language: { type: 'string' },
+    confidence: { type: 'integer' },
+    evidence: { type: 'array', items: { type: 'string' } },
+  },
+  required: ['lat', 'lng', 'radius_km', 'place', 'language', 'confidence', 'evidence'],
+};
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+async function locate(b64, mime) {
+  for (let i = 0; i < 5; i++) {
+    let r;
+    try {
+      r = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`,
+        {
+          method: 'POST',
+          headers: { 'x-goog-api-key': process.env.GEMINI_API_KEY, 'content-type': 'application/json' },
+          body: JSON.stringify({
+            systemInstruction: { parts: [{ text: SYSTEM }] },
+            contents: [{ role: 'user', parts: [{ inlineData: { mimeType: mime, data: b64 } }, { text: 'Where did this person grow up?' }] }],
+            generationConfig: { temperature: 0, responseMimeType: 'application/json', responseSchema: SCHEMA },
+          }),
+          signal: AbortSignal.timeout(60000),
+        },
+      );
+    } catch { await sleep(3000); continue; }
+    if (r.status === 429 || r.status === 503) { await sleep(8000 * (i + 1)); continue; }
+    if (!r.ok) return null;
+    const j = await r.json();
+    const t = j.candidates?.[0]?.content?.parts?.map((p) => p.text).join('') || '';
+    try { return JSON.parse(t); } catch { return null; }
+  }
+  return null;
+}
+
+function km(aLat, aLng, bLat, bLng) {
+  const R = 6371; const rad = (x) => (x * Math.PI) / 180;
+  const h = Math.sin(rad(bLat - aLat) / 2) ** 2
+    + Math.cos(rad(aLat)) * Math.cos(rad(bLat)) * Math.sin(rad(bLng - aLng) / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
+}
+
+function stats(list) {
+  const d = list.filter((x) => x != null).sort((a, b) => a - b);
+  if (!d.length) return null;
+  const pc = (t) => Math.round((d.filter((x) => x <= t).length / d.length) * 100);
+  return {
+    n: d.length,
+    median: Math.round(d[Math.floor(d.length / 2)]),
+    within100: pc(100), within250: pc(250), within500: pc(500), within1000: pc(1000),
+  };
+}
+
+// Local files only: YouTube-embedded clips have no bytes to send.
+const all = [];
+for (const [deck, clips] of Object.entries(window.CLIPS)) {
+  if (decks.length && !decks.includes(deck)) continue;
+  for (const c of clips) {
+    if (!c.url || c.lat == null) continue;
+    const file = path.join(ROOT, c.url.replace(/^\//, ''));
+    if (fs.existsSync(file)) all.push({ deck, ...c, file });
+  }
+}
+
+const OUT = path.join(ROOT, 'data', `eval-${MODEL}.json`);
+const prior = fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, 'utf8')) : { results: [] };
+const done = new Map(prior.results.map((r) => [r.id, r]));
+const results = [];
+
+console.log(`${MODEL} · ${all.length} clips · ${new Set(all.map((c) => c.deck)).size} decks\n`);
+
+let i = 0;
+async function worker() {
+  while (i < all.length) {
+    const c = all[i]; i += 1;
+    if (done.has(c.id)) { results.push(done.get(c.id)); continue; }
+    const mime = c.file.endsWith('.wav') ? 'audio/wav' : 'audio/mpeg';
+    const g = await locate(fs.readFileSync(c.file).toString('base64'), mime);
+    if (!g || typeof g.lat !== 'number') {
+      console.log(`  FAIL  ${c.deck}/${c.label}`);
+      results.push({ id: c.id, deck: c.deck, label: c.label, km: null });
+      continue;
+    }
+    const d = km(c.lat, c.lng, g.lat, g.lng);
+    results.push({
+      id: c.id, deck: c.deck, label: c.label, km: d,
+      guess: g.place, radius: g.radius_km, language: g.language, confidence: g.confidence,
+      evidence: g.evidence,
+    });
+    console.log(`${String(Math.round(d)).padStart(5)} km  ${c.deck.padEnd(11)} ${c.label.slice(0, 30).padEnd(31)} -> ${(g.place || '').slice(0, 34)}`);
+  }
+}
+await Promise.all(Array.from({ length: CONCURRENCY }, worker));
+
+const byDeck = {};
+for (const r of results) (byDeck[r.deck] ||= []).push(r.km);
+
+console.log('\n────────────────────────────────────────────────────────────────');
+console.log('deck          n   median   <100km  <250km  <500km');
+for (const [deck, list] of Object.entries(byDeck).sort()) {
+  const s = stats(list);
+  if (!s) { console.log(`${deck.padEnd(13)} all failed`); continue; }
+  console.log(`${deck.padEnd(13)}${String(s.n).padStart(3)}  ${String(s.median).padStart(6)} km  ${String(s.within100).padStart(5)}%  ${String(s.within250).padStart(5)}%  ${String(s.within500).padStart(5)}%`);
+}
+const overall = stats(results.map((r) => r.km));
+console.log('────────────────────────────────────────────────────────────────');
+console.log(`OVERALL      ${String(overall.n).padStart(3)}  ${String(overall.median).padStart(6)} km  ${String(overall.within100).padStart(5)}%  ${String(overall.within250).padStart(5)}%  ${String(overall.within500).padStart(5)}%`);
+console.log(`failed: ${results.filter((r) => r.km == null).length}`);
+console.log('published SOTA for this task: 481 km median');
+
+fs.mkdirSync(path.join(ROOT, 'data'), { recursive: true });
+fs.writeFileSync(OUT, JSON.stringify({ model: MODEL, overall, byDeck: Object.fromEntries(Object.entries(byDeck).map(([k, v]) => [k, stats(v)])), results }, null, 2));
+console.log(`\nwrote ${path.relative(ROOT, OUT)}`);

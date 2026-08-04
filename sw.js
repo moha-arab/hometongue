@@ -11,7 +11,6 @@ const SHELL = [
   '/js/clips.js',
   '/js/game.js',
   '/js/app.js',
-  '/js/dialects.js',
   '/manifest.webmanifest',
   '/icon-192.png',
 ];

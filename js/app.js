@@ -1,12 +1,11 @@
 // HomeTongue — app logic: recording, server analysis, map, results
 const $ = (s) => document.querySelector(s);
 
-const HOME_BOUNDS = [[8, -18], [40, 62]]; // whole Arab world
+const HOME_BOUNDS = [[-50, -140], [65, 160]]; // the whole inhabited world
 const MAX_SECONDS = 45;
 let map, marker, glow;
 let state = 'idle';
 let mediaStream = null, recorder = null, chunks = [], recMime = '';
-let recog = null, srFinal = '', srInterim = '';
 let audioCtx = null, analyser = null, rafId = null;
 let timerId = null, startedAt = 0;
 let micPeak = -1; // loudest rolling level seen this recording; -1 = meter unavailable
@@ -15,6 +14,10 @@ let micPeak = -1; // loudest rolling level seen this recording; -1 = meter unava
 const MARK = () => window.HT.ink();
 window.HT.setDeck('arabic');
 const field = window.HT.contours();
+
+// Country reference data, used only for the feedback picker now that the answer is a
+// point rather than a country code.
+const { COUNTRIES } = window.HT_PLACES;
 
 // ————— map —————
 function initMap() {
@@ -44,35 +47,35 @@ function clearMapExtras() {
   if (glow) { map.removeLayer(glow); glow = null; }
 }
 
-function flyToCountry(c) {
+// The answer is a point plus a radius, so the map draws exactly that: a pin where the
+// model thinks you grew up, inside a circle it is about 70% confident contains you. A wide
+// circle in the right place is an honest answer; a narrow one in the wrong place is not.
+function flyToGuess(g) {
   clearMapExtras();
   ensureMapReady();
+  const r = Math.max(10, g.radius_km || 300) * 1000;
   dropFn = () => {
     if (marker) return;
-    glow = L.circle([c.lat, c.lng], { radius: 90000, color: MARK(), weight: 1, opacity: 0.5, fillColor: MARK(), fillOpacity: 0.10 }).addTo(map);
-    marker = L.marker([c.lat, c.lng], {
+    glow = L.circle([g.lat, g.lng], {
+      radius: r, color: MARK(), weight: 1, opacity: 0.55,
+      fillColor: MARK(), fillOpacity: 0.10,
+    }).addTo(map);
+    marker = L.marker([g.lat, g.lng], {
       icon: L.divIcon({ className: 'pulse-wrap', html: '<div class="pulse"></div><div class="pulse-dot"></div>', iconSize: [18, 18], iconAnchor: [9, 9] }),
     }).addTo(map);
   };
   map.once('moveend', dropFn);
   dropTimer = setTimeout(dropFn, 4000); // fallback if the flight was skipped
-  map.flyTo([c.lat, c.lng], c.zoom, { duration: 2.6, easeLinearity: 0.15 });
+  // frame the whole circle rather than a fixed zoom, so a 30km guess and a 2000km guess
+  // both read correctly
+  map.flyToBounds(L.latLng(g.lat, g.lng).toBounds(r * 2.6), { duration: 2.4, easeLinearity: 0.15 });
 }
 
-// Home depends on who's talking. Framing a Spanish speaker on the Arab world was a
-// leftover from when this only did Arabic.
-function langBounds(lang) {
-  if (!lang || !lang.countries) return HOME_BOUNDS;
-  const pts = lang.countries.filter((c) => COUNTRIES[c]).map((c) => [COUNTRIES[c].lat, COUNTRIES[c].lng]);
-  if (pts.length < 2) return HOME_BOUNDS;
-  const lats = pts.map((p) => p[0]); const lngs = pts.map((p) => p[1]);
-  return [[Math.min(...lats) - 4, Math.min(...lngs) - 4], [Math.max(...lats) + 4, Math.max(...lngs) + 4]];
-}
-
-function flyHome(lang) {
+// The answer can be anywhere on Earth, so "home" is the world.
+function flyHome() {
   clearMapExtras();
   ensureMapReady();
-  map.flyToBounds(langBounds(lang || window._lang), { duration: 1.8 });
+  map.flyToBounds(HOME_BOUNDS, { duration: 1.8 });
 }
 
 // ————— ui states —————
@@ -156,36 +159,10 @@ function stopTimer() {
   if (timerId) clearInterval(timerId), timerId = null;
 }
 
-// ————— optional live transcript preview (Chrome/Edge only, best-effort) —————
-function startPreviewSR() {
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SR) { $('#transcript').textContent = ''; return; }
-  const tr = $('#transcript');
-  if (tr) { tr.dir = currentLang() === 'ar' ? 'rtl' : 'ltr'; tr.lang = currentLang(); }
-  srFinal = ''; srInterim = '';
-  try {
-    recog = new SR();
-    recog.lang = langTag(currentLang());
-    recog.continuous = true;
-    recog.interimResults = true;
-    recog.onresult = (e) => {
-      srInterim = '';
-      for (let i = e.resultIndex; i < e.results.length; i++) {
-        const r = e.results[i];
-        if (r.isFinal) srFinal += r[0].transcript + ' ';
-        else srInterim += r[0].transcript;
-      }
-      $('#transcript').textContent = srFinal + srInterim;
-    };
-    recog.onend = () => { if (state === 'listening') { try { recog.start(); } catch {} } };
-    recog.onerror = () => {};
-    recog.start();
-  } catch { recog = null; }
-}
-
-function stopPreviewSR() {
-  if (recog) { recog.onend = null; try { recog.stop(); } catch {} recog = null; }
-}
+// The live transcript preview is gone. It used the browser's own recogniser, which must be
+// told a language up front — impossible now that the whole point is "talk in anything".
+// Guessing wrong rendered French in Arabic letters, and it was only ever decoration: the
+// real answer comes from the audio after you stop.
 
 // ————— recording —————
 function pickMime() {
@@ -222,7 +199,6 @@ async function startListening() {
   $('#timer').textContent = '0:00';
   show('liveCard');
   startMeter(mediaStream);
-  startPreviewSR();
   startTimer();
 
   recorder = new MediaRecorder(mediaStream, mime ? { mimeType: mime } : undefined);
@@ -235,7 +211,6 @@ function stopListening() {
   if (state !== 'listening') return;
   state = 'analyzing';
   stopTimer();
-  stopPreviewSR();
   stopMeter();
   const elapsed = (Date.now() - startedAt) / 1000;
   if (elapsed < 2) {
@@ -281,7 +256,7 @@ async function onRecordingReady() {
   try {
     const audio = await blobToBase64(blob);
     window._lastAudio = { audio, mime: mimeUsed }; // kept for the consent flywheel
-    const resp = await postAnalyze({ audio, mime: mimeUsed, lang: currentLang() });
+    const resp = await postAnalyze({ audio, mime: mimeUsed });
     renderResult(normalizeServer(resp));
   } catch (err) {
     const srText = (srFinal + ' ' + srInterim).trim();
@@ -298,7 +273,8 @@ function fallbackOrFail(reason) {
   const text = (srFinal + ' ' + srInterim).trim();
   if (normText(text).length >= 8) {
     toast(`${reason} Falling back to the offline word-engine.`);
-    renderResult(normalizeLocal(classify(text), text, 'offline'));
+    toast("Can't reach the server right now — try again in a moment.");
+    state = 'idle'; show('idleCard');
   } else {
     toast(`${reason} Try again, or use type mode.`);
     state = 'idle';
@@ -341,11 +317,12 @@ function runTextAnalysis(text, typed) {
   }
   show('analyzingCard');
   state = 'analyzing';
-  postAnalyze({ text, lang: currentLang() })
+  postAnalyze({ text })
     .then((resp) => renderResult(normalizeServer(resp)))
     .catch(() => {
       // offline fallback: the local word-engine
-      setTimeout(() => renderResult(normalizeLocal(classify(text), text, 'offline')), 400);
+      toast(e.userMessage || "That didn't work — try again.");
+      state = 'idle'; show('idleCard');
     });
 }
 
@@ -355,54 +332,27 @@ function normText(t) { return t.replace(/\s+/g, ' ').trim(); }
 function normalizeServer(resp) {
   const r = resp.result;
   window._fbToken = resp.fb_token || '';
-  window._lang = resp.language || null;
+  const tr = $('#transcript');
+  const rtl = /[؀-ۿ֐-׿]/.test(r.transcript || '');
   for (const id of ['#transcript', '#heardText']) {
     const el = $(id);
-    if (el && resp.language) { el.dir = resp.language.dir; el.lang = resp.language.code; }
+    if (el) { el.dir = rtl ? 'rtl' : 'ltr'; }
   }
-  // Curated languages resolve against our table; the generic tier brings its own name
-  // and coordinates, so an answer of "Austria" works without Austria being in places.js.
-  const known = COUNTRIES[r.top_country];
-  const top = r.top_country === 'none' ? null
-    : known ? { code: r.top_country, ...known }
-      : r.country_name ? { code: r.top_country, en: r.country_name, lat: r.lat, lng: r.lng, zoom: 5 }
-        : null;
-  let kind = r.kind === 'unclear' ? 'weak' : r.kind;
-  if (kind === 'dialect' && !top) kind = 'weak'; // schema allows dialect+none; don't crash the renderer
+  if (tr) tr.dir = rtl ? 'rtl' : 'ltr';
   return {
-    kind,
-    top,
-    regionKey: r.region !== 'none' && r.region !== 'msa' && REGIONS[r.region] ? r.region : null,
-    regionText: r.region && r.region !== 'none' && r.region !== 'msa' && !REGIONS[r.region] ? r.region : '',
+    place: r.place,
+    lat: r.lat,
+    lng: r.lng,
+    radius_km: r.radius_km,
+    language: r.language,
     conf: Math.max(0, Math.min(100, r.confidence | 0)),
-    city: r.city || '',
-    cityConf: Math.max(0, Math.min(100, r.city_confidence | 0)),
-    evidence: (r.evidence || []).slice(0, 8).map((e) => ({ t: e.word, en: e.gloss })),
-    ranked: (r.ranked || []).slice(0, 4).filter((x) => COUNTRIES[x.code] || x.code === r.top_country),
+    evidence: r.evidence || [],
     note: r.note || '',
-    transcript: resp.transcript || '',
-    lang: resp.language || null,
+    transcript: r.transcript || '',
     source: 'cloud',
   };
 }
 
-// Local lexicon result -> view model
-function normalizeLocal(res, text, source) {
-  if (res.kind === 'weak') return { kind: 'weak', top: null, regionKey: null, conf: 8, evidence: [], ranked: [], note: '', transcript: text, source };
-  if (res.kind === 'msa') {
-    return { kind: 'msa', top: null, regionKey: null, conf: 90, evidence: res.hits.slice(0, 5).map((h) => ({ t: h.t, en: h.en })), ranked: [], note: '', transcript: text, source };
-  }
-  return {
-    kind: 'dialect',
-    top: { code: res.top.code, ...COUNTRIES[res.top.code] },
-    regionKey: res.top.region,
-    conf: res.conf,
-    evidence: res.hits.map((h) => ({ t: h.t, en: h.en })),
-    ranked: res.ranked.map((r) => ({ code: r.code, weight: r.score })),
-    note: res.closeCall && res.second ? `Close call with ${res.second.en}.` : '',
-    transcript: text, source,
-  };
-}
 
 // ————— result rendering —————
 function renderResult(v) {
@@ -414,78 +364,44 @@ function renderResult(v) {
   $('#fbYes').disabled = false; $('#fbNo').disabled = false;
   $('#consentBox').disabled = false;
   $('#consentWrap').style.display = window._lastAudio ? '' : 'none'; // no clip to donate in type mode
+  fillCountryPicker();
 
-  renderLangChip(v.lang || window._lang);
-  fillCountryPicker(v.lang || window._lang);
-
-  const kicker = $('#resultKicker'), region = $('#resultRegion'), country = $('#resultCountry');
+  const kicker = $('#resultKicker'), place = $('#resultRegion'), sub = $('#resultCountry');
   const confFill = $('#confFill'), confLabel = $('#confLabel');
   const evidence = $('#evidence'), runners = $('#runners'), heard = $('#heard');
   evidence.innerHTML = ''; runners.innerHTML = '';
 
   heard.hidden = !v.transcript;
   if (v.transcript) $('#heardText').textContent = v.transcript;
-  $('#srcBadge').textContent = v.source === 'cloud' ? 'whisper + claude' : 'offline word-engine';
+  $('#srcBadge').textContent = v.language ? v.language.toLowerCase() : 'heard';
 
-  for (const e of v.evidence) evidence.appendChild(chip(e.t, e.en));
+  kicker.textContent = 'sounds like you grew up around';
+  place.textContent = v.place;
 
-  if (v.kind === 'weak') {
-    kicker.textContent = 'hmm…';
-    region.textContent = 'Not enough signal';
-    country.textContent = v.note || 'Talk more casually — slang, filler words, the way you voice-note your friends. That\'s where your لهجة hides.';
-    confFill.style.width = '8%';
-    confLabel.textContent = 'keep talking';
-    flyHome(v.lang || window._lang);
-    window._lastResult = v;
-    return;
-  }
+  // The radius is the honest part of the answer, so say it in words rather than burying it
+  // in a percentage. "within about 30 km" means something; "92% confident" does not.
+  const r = v.radius_km;
+  const near = r <= 50 ? `within about ${r} km — that's a specific place`
+    : r <= 200 ? `within about ${r} km`
+      : r <= 600 ? `somewhere within about ${r} km — the accent narrows it to a region, not a town`
+        : `only to within about ${r} km — this one is broad`;
+  sub.textContent = v.note ? `${near}. ${v.note}` : near;
 
-  if (v.kind === 'msa') {
-    kicker.textContent = 'that\'s not a dialect —';
-    const ln = v.lang || window._lang;
-    region.textContent = ln && ln.code === 'ar' ? 'الفصحى · Fuṣḥa' : `Standard ${ln ? ln.name : ''}`.trim();
-    country.textContent = v.note || 'Textbook, unplaceable, could be anywhere. Drop the formality and talk like you talk with your friends.';
-    confFill.style.width = '90%';
-    confLabel.textContent = 'very sure about this one';
-    flyHome(v.lang || window._lang);
-    window._lastResult = v;
-    return;
-  }
+  confFill.style.width = `${v.conf}%`;
+  confLabel.textContent = `${v.conf}% sure`;
 
-  const reg = v.regionKey ? REGIONS[v.regionKey] : null;
-  kicker.textContent = 'your dialect sounds';
-  region.textContent = reg ? (reg.ar ? `${reg.ar} · ${reg.en}` : reg.en) : (v.regionText || v.top.en);
-  let line = `Best guess: ${v.top.en}${v.top.ar ? ` — ${v.top.ar}` : ''}`;
-  if (v.city) line += `  ·  sounds like ${v.city} (${v.cityConf}%)`;
-  if (v.note) line += `  ·  ${v.note}`;
-  country.textContent = line;
-  confFill.style.width = v.conf + '%';
-  confLabel.textContent = `${v.conf}% confidence`;
+  for (const e of v.evidence) evidence.appendChild(chip(e));
 
-  const maxW = Math.max(...v.ranked.map((r) => r.weight), 1);
-  for (const r of v.ranked) {
-    const c = COUNTRIES[r.code] || { en: r.name || r.code };
-    const row = document.createElement('div');
-    row.className = 'runner';
-    row.innerHTML = `<span class="runner-name">${c.en}</span><div class="runner-track"><div class="runner-fill" style="width:${Math.round(r.weight / maxW * 100)}%"></div></div>`;
-    runners.appendChild(row);
-  }
-
-  flyToCountry(v.top);
+  flyToGuess(v);
   window._lastResult = v;
 }
 
-function chip(word, gloss) {
+function chip(text) {
   const el = document.createElement('span');
   el.className = 'chip';
-  const ln = window._lang;
   const b = document.createElement('b');
-  b.dir = ln ? ln.dir : 'rtl';
-  b.lang = ln ? ln.code : 'ar';
-  b.textContent = word;
-  const s = document.createElement('small');
-  s.textContent = gloss;
-  el.append(b, s);
+  b.textContent = text;          // already a human-readable phrase from the model
+  el.appendChild(b);
   return el;
 }
 
@@ -493,112 +409,34 @@ function chip(word, gloss) {
 // identifies, but detection is unreliable enough on short clips that asking beats
 // guessing — so the UI offers the tuned ones and the rest wait until they're measured.
 // Third value is the BCP-47 tag for the browser's live-preview recogniser.
-const LANG_CHOICES = [
-  ['ar', 'Arabic', 'العربية', 'ar-SA'], ['en', 'English', 'English', 'en-US'],
-  ['es', 'Spanish', 'Español', 'es-ES'], ['fr', 'French', 'Français', 'fr-FR'],
-  ['de', 'German', 'Deutsch', 'de-DE'], ['pt', 'Portuguese', 'Português', 'pt-BR'],
-  ['ru', 'Russian', 'Русский', 'ru-RU'], ['hi', 'Hindi–Urdu', 'हिन्दी · اردو', 'hi-IN'],
-  ['zh', 'Chinese', '中文', 'zh-CN'],
+// Type-mode examples, one per curated language, kept here now that the Arabic lexicon
+// engine that used to own them is gone.
+const SAMPLES = [
+  { label: 'مصري', text: 'ايه يا عم عامل ايه؟ انا دلوقتي في البيت، مش عايز اعمل حاجة خالص، النهارده تعبان اوي بصراحة.' },
+  { label: 'شامي', text: 'شو أخبارك؟ أنا قاعد بالبيت هلق، زهقان شوي وما عم أعمل شي. بدي روح عالسوق بعدين.' },
+  { label: 'Español', text: 'Che boludo, ¿vos qué hacés? Acá en el laburo, un quilombo bárbaro, después te llamo.' },
+  { label: 'Deutsch', text: 'Servus! I geh heuer im Jänner zum Wirt, dann kauf i no Paradeiser und Erdäpfel.' },
+  { label: 'English', text: "Yeah nah mate, I reckon it's heaps good, gonna head to the servo this arvo." },
 ];
-const LANG_KEY = 'ht_lang';
+
 
 // One source of truth for "what am I speaking", remembered between visits.
 let pickedLang = null;
-function currentLang() {
-  return pickedLang || localStorage.getItem(LANG_KEY) || 'ar';
-}
 
 // A row of pills, each carrying the language's own script — العربية, Русский, 中文.
 // The script IS the icon, which beats a flag (a language is not a country) and beats a
 // dropdown (nine options do not need to be hidden behind a click).
-function renderLangPills(mount, onPick) {
-  if (!mount) return;
-  const active = currentLang();
-  mount.innerHTML = '';
-  for (const [code, name, native] of LANG_CHOICES) {
-    const b = document.createElement('button');
-    b.type = 'button';
-    b.className = 'lang-pill';
-    b.textContent = native;
-    b.lang = code;                     // lets the Arabic face apply to العربية only
-    b.title = name;
-    b.setAttribute('aria-pressed', String(code === active));
-    b.onclick = () => {
-      setLang(code);
-      if (onPick) onPick(code);
-    };
-    mount.appendChild(b);
-  }
-}
 
 // Changing it anywhere changes it everywhere: the recogniser tag, the Whisper language,
 // the type box direction, and every other pill row on the page.
-function setLang(code) {
-  pickedLang = code;
-  localStorage.setItem(LANG_KEY, code);
-  for (const id of ['#speakPills', '#typePills', '#langPills']) {
-    const el = $(id);
-    if (!el) continue;
-    for (const b of el.querySelectorAll('.lang-pill')) {
-      b.setAttribute('aria-pressed', String(b.title === langName(code)));
-    }
-  }
-  const box = $('#typeBox');
-  if (box) { box.dir = code === 'ar' ? 'rtl' : 'ltr'; box.lang = code; }
-  const tr = $('#transcript');
-  if (tr) { tr.dir = code === 'ar' ? 'rtl' : 'ltr'; tr.lang = code; }
-}
-function langTag(code) {
-  const row = LANG_CHOICES.find(([c]) => c === code);
-  return row ? row[3] : 'en-US';
-}
-function langName(code) {
-  const row = LANG_CHOICES.find(([c]) => c === code);
-  return row ? row[1] : code;
-}
 
-// Auto-detection keeps the "just talk" promise, but it will sometimes be wrong — so it
-// says what it heard and lets you overrule it in one tap rather than making you choose
-// a language before you've said anything.
-function renderLangChip(lang) {
-  const el = $('#langChip');
-  if (!lang) { el.hidden = true; return; }
-  el.hidden = false;
-  el.innerHTML = '';
-  const said = document.createElement('span');
-  said.className = 'lang-heard';
-  said.textContent = `read as ${lang.name}`;
-  const fix = document.createElement('button');
-  fix.className = 'lang-fix';
-  fix.textContent = 'wrong language?';
-  fix.onclick = () => {
-    el.innerHTML = '';
-    const row = document.createElement('div');
-    row.className = 'lang-pills compact';
-    row.id = 'langPills';
-    el.appendChild(row);
-    // picking here also updates the idle picker — nobody should fix this twice
-    renderLangPills(row, (code) => reanalyzeAs(code));
-  };
-  el.append(said, fix);
-}
 
-// Re-run the same audio with the language the user insists on.
-function reanalyzeAs(code) {
-  if (!window._lastAudio) return;
-  show('analyzingCard');
-  postAnalyze({ audio: window._lastAudio.b64, mime: window._lastAudio.mime, lang: code })
-    .then((resp) => renderResult(normalizeServer(resp)))
-    .catch((e) => { toast(e.message || 'that did not work'); show('resultCard'); });
-}
 
-// The correction list follows the language we heard — offering Chile to an Arabic
-// speaker is noise, and offering all 79 countries to anyone is worse.
-function fillCountryPicker(lang) {
+// The "so where are you actually from?" list. The answer is a point now, so this is only
+// for the feedback record — every country we know, alphabetical.
+function fillCountryPicker() {
   const sel = $('#fbActual');
-  const codes = lang && lang.countries ? lang.countries.filter((c) => c !== 'none' && COUNTRIES[c])
-    : Object.keys(COUNTRIES);
-  const names = codes.map((c) => [c, COUNTRIES[c].en]).sort((a, b) => a[1].localeCompare(b[1]));
+  const names = Object.keys(COUNTRIES).map((c) => [c, COUNTRIES[c].en]).sort((a, b) => a[1].localeCompare(b[1]));
   sel.innerHTML = '<option value="">so what is it really?</option>'
     + names.map(([code, en]) => `<option value="${code}">${en}</option>`).join('');
 }
@@ -675,13 +513,7 @@ function bindUI() {
     samplesEl.appendChild(b);
   }
 
-  fillCountryPicker(null);
-
-  renderLangPills($('#speakPills'));
-  renderLangPills($('#typePills'));
-  setLang(currentLang());
-  const lc = $('#langCount');
-  if (lc) lc.textContent = `${LANG_CHOICES.length} languages`;
+  fillCountryPicker();
 
   $('#micBtn').onclick = startListening;
   $('#stopBtn').onclick = stopListening;
