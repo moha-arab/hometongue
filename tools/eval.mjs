@@ -11,6 +11,7 @@
 //
 // Re-run this whenever the model, the prompt, or the clip set changes. It is the only thing
 // standing between a considered decision and another unverified default.
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -110,7 +111,19 @@ for (const [deck, clips] of Object.entries(window.CLIPS)) {
 }
 
 const OUT = path.join(ROOT, 'data', `eval-${MODEL}${EXPERT ? `-${EXPERT}` : ''}.json`);
-const prior = fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, 'utf8')) : { results: [] };
+
+// The resume cache exists so an interrupted run can pick up where it stopped. It also,
+// silently, made prompt experiments meaningless: re-running after editing the prompt replayed
+// every cached answer and issued no API calls at all. A 10k-character rewrite of the Syria
+// notes "measured" byte-identical to the version it replaced — same distances, same evidence
+// strings — and only that impossible identity gave it away. So the cache is now keyed to the
+// exact prompt text. Change one character and the whole file is discarded and re-run.
+const PROMPT_HASH = crypto.createHash('sha256').update(SYSTEM).digest('hex').slice(0, 12);
+const priorRaw = fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, 'utf8')) : null;
+const stale = priorRaw && priorRaw.promptHash !== PROMPT_HASH;
+if (stale) console.log(`prompt changed (${priorRaw.promptHash || 'unhashed'} -> ${PROMPT_HASH}) — ignoring ${priorRaw.results.length} cached results
+`);
+const prior = stale || !priorRaw ? { results: [] } : priorRaw;
 const done = new Map(prior.results.map((r) => [r.id, r]));
 const results = [];
 
@@ -156,5 +169,5 @@ console.log(`failed: ${results.filter((r) => r.km == null).length}`);
 console.log('published SOTA for this task: 481 km median');
 
 fs.mkdirSync(path.join(ROOT, 'data'), { recursive: true });
-fs.writeFileSync(OUT, JSON.stringify({ model: MODEL, overall, byDeck: Object.fromEntries(Object.entries(byDeck).map(([k, v]) => [k, stats(v)])), results }, null, 2));
+fs.writeFileSync(OUT, JSON.stringify({ model: MODEL, promptHash: PROMPT_HASH, overall, byDeck: Object.fromEntries(Object.entries(byDeck).map(([k, v]) => [k, stats(v)])), results }, null, 2));
 console.log(`\nwrote ${path.relative(ROOT, OUT)}`);
