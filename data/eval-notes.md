@@ -117,3 +117,31 @@ next one over.
 
 The rule: a deck is only fair if the accents genuinely differ. Where they do not, widen the
 deck rather than delete it — the Russian-speaking world is a good round, Russian cities is not.
+
+# Run 3 — the expert-linguist prompt, REVERTED
+
+Rewrote the prompt to name phonological variables explicitly: rhoticity, cot-caught,
+TRAP-BATH, FOOT-STRUT, PIN-PEN, Canadian raising, KIT centralisation for English; qaf and
+jim reflexes, interdentals, imala for Arabic; equivalent sets for Spanish, French,
+Portuguese, Russian, Chinese and Hindi-Urdu. Added a five-step method (language, consonants,
+vowels, prosody, place) and asked evidence to name the variable and what it rules out.
+
+It reads far better. It measures worse.
+
+Paired on the same 106 clips:
+
+| | median | <100km | <250km |
+| --- | --- | --- | --- |
+| short prompt | **37 km** | **62%** | **74%** |
+| expert prompt | 49 km | 58% | 71% |
+
+Better on 7 clips, worse on 18, unchanged on 81. Arabic regressed hardest, 28 -> 71 km.
+
+REVERTED. The likely cause is that naming variables turns listening into checklist-matching:
+the model looks for the features it was handed instead of using everything it hears, which is
+the same failure as the hand-written dialect playbooks (43 -> 69 km). Twice now, giving this
+model MORE domain knowledge has made it worse. Its own latent knowledge beats anything written
+for it.
+
+French (8 km) and Portuguese (1 km) did improve, so a per-language prompt is not ruled out —
+but a global expert prompt is.
