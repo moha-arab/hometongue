@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Web Speech dialect probe</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px;
+         background: #F3F1EC; color: #1B1C19; line-height: 1.55; }
+  h1 { font-size: 26px; letter-spacing: -0.02em; }
+  p.lede { color: #74766D; max-width: 62ch; }
+  button { font: inherit; font-weight: 600; padding: 10px 18px; border-radius: 8px; cursor: pointer;
+           background: #2A6B60; color: #fff; border: 0; }
+  button.stop { background: #A8563F; }
+  button:disabled { opacity: 0.45; cursor: default; }
+  .row { display: grid; grid-template-columns: 120px 1fr; gap: 12px; align-items: start;
+         padding: 12px 0; border-bottom: 1px solid #DEDAD1; }
+  .tag { font-family: ui-monospace, monospace; font-size: 12px; color: #2A6B60; }
+  .tag small { display: block; color: #A2A498; }
+  .txt { font-size: 17px; direction: rtl; text-align: right; min-height: 1.6em; }
+  .txt:empty::before { content: '—'; color: #A2A498; }
+  .meta { font-family: ui-monospace, monospace; font-size: 11px; color: #74766D; margin-top: 4px; direction: ltr; text-align: left; }
+  #status { font-family: ui-monospace, monospace; font-size: 12px; color: #74766D; margin: 14px 0; }
+  #verdict { margin-top: 22px; padding: 14px 16px; background: #E4EDEA; border-radius: 8px; font-size: 14px; white-space: pre-wrap; }
+</style>
+</head>
+<body>
+<h1>Can Chrome run several Arabic dialects at once?</h1>
+<p class="lede">
+  The Web Speech API takes a dialect as an <em>input</em> — you tell it <code>ar-EG</code> and it
+  decodes as if you were Egyptian. It never reports which dialect it heard. The only way to turn
+  that into a detector is to run every dialect over the same speech and see which transcript comes
+  out cleanest.
+</p>
+<p class="lede">
+  It only accepts a live microphone, so this is the one thing that might work: five recognisers
+  started at once on the same mic. Nobody documents whether Chrome allows that. Speak Arabic for
+  ten seconds and find out.
+</p>
+
+<p><button id="go">start</button> <button id="stop" class="stop" disabled>stop</button></p>
+<div id="status">idle</div>
+<div id="rows"></div>
+<div id="verdict" hidden></div>
+
+<script>
+const LOCALES = [
+  ['ar-SA', 'Saudi'], ['ar-EG', 'Egypt'], ['ar-LB', 'Lebanon'],
+  ['ar-MA', 'Morocco'], ['ar-IQ', 'Iraq'],
+];
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+const rows = document.getElementById('rows');
+const status = document.getElementById('status');
+const verdict = document.getElementById('verdict');
+const state = {};
+
+for (const [tag, place] of LOCALES) {
+  const div = document.createElement('div');
+  div.className = 'row';
+  div.innerHTML = `<div class="tag">${tag}<small>${place}</small></div>`
+    + `<div><div class="txt" id="t-${tag}"></div><div class="meta" id="m-${tag}">not started</div></div>`;
+  rows.appendChild(div);
+  state[tag] = { text: '', conf: [], events: 0, error: '' };
+}
+
+if (!SR) status.textContent = 'This browser has no Web Speech API — use Chrome or Edge.';
+
+let recogs = [];
+
+document.getElementById('go').onclick = () => {
+  if (!SR) return;
+  verdict.hidden = true;
+  recogs = LOCALES.map(([tag]) => {
+    const r = new SR();
+    r.lang = tag;
+    r.continuous = true;
+    r.interimResults = true;
+    r.maxAlternatives = 3;
+    r.onstart = () => { document.getElementById('m-' + tag).textContent = 'listening'; };
+    r.onresult = (e) => {
+      const s = state[tag];
+      s.events++;
+      let finalTxt = '';
+      let interim = '';
+      for (let i = 0; i < e.results.length; i++) {
+        const res = e.results[i];
+        if (res.isFinal) {
+          finalTxt += res[0].transcript + ' ';
+          if (typeof res[0].confidence === 'number') s.conf.push(res[0].confidence);
+        } else interim += res[0].transcript;
+      }
+      s.text = (finalTxt + interim).trim();
+      document.getElementById('t-' + tag).textContent = s.text;
+      const avg = s.conf.length ? (s.conf.reduce((a, b) => a + b, 0) / s.conf.length).toFixed(3) : 'n/a';
+      document.getElementById('m-' + tag).textContent =
+        `events ${s.events} · confidence ${avg} · ${s.text.length} chars`;
+    };
+    r.onerror = (e) => {
+      state[tag].error = e.error;
+      document.getElementById('m-' + tag).textContent = 'ERROR: ' + e.error;
+    };
+    r.onend = () => {
+      const m = document.getElementById('m-' + tag);
+      if (!state[tag].error) m.textContent = m.textContent.replace('listening', 'ended');
+    };
+    try { r.start(); } catch (err) {
+      state[tag].error = 'start_threw:' + err.name;
+      document.getElementById('m-' + tag).textContent = 'ERROR: could not start (' + err.name + ')';
+    }
+    return r;
+  });
+  status.textContent = 'started ' + recogs.length + ' recognisers — talk in Arabic for ~10 seconds';
+  document.getElementById('go').disabled = true;
+  document.getElementById('stop').disabled = false;
+};
+
+document.getElementById('stop').onclick = () => {
+  for (const r of recogs) { try { r.stop(); } catch {} }
+  document.getElementById('go').disabled = false;
+  document.getElementById('stop').disabled = true;
+  status.textContent = 'stopped';
+
+  // The question is not "did it work" but "did the dialects disagree". Identical
+  // transcripts mean one model behind five labels, and no signal to mine.
+  const live = LOCALES.filter(([t]) => !state[t].error && state[t].text);
+  const texts = new Set(live.map(([t]) => state[t].text));
+  const dead = LOCALES.filter(([t]) => state[t].error);
+  let out = `${live.length}/${LOCALES.length} recognisers produced text.\n`;
+  if (dead.length) out += `failed: ${dead.map(([t]) => t + ' (' + state[t].error + ')').join(', ')}\n`;
+  out += `distinct transcripts: ${texts.size}\n\n`;
+  if (live.length < 2) out += 'VERDICT: Chrome will not run them concurrently. Dead end — the idea needs one recogniser per recording, so the user would have to repeat themselves five times.';
+  else if (texts.size === 1) out += 'VERDICT: they ran, but every locale returned the SAME text. One model behind five labels — no dialect signal to extract.';
+  else out += 'VERDICT: they ran AND disagreed. That disagreement is real signal — worth feeding all five transcripts to Claude and asking which reads as native. Copy this page output back.';
+  verdict.textContent = out + '\n\n' + LOCALES.map(([t, p]) => `${t} (${p}): ${state[t].text || '—'}`).join('\n');
+  verdict.hidden = false;
+};
+</script>
+</body>
+</html>
