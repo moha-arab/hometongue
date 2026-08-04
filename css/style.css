@@ -542,25 +542,35 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   background: none; border: 0; padding: 0; cursor: pointer; color: var(--accent);
   font-family: var(--mono); font-size: 11px; text-decoration: underline; text-underline-offset: 2px;
 }
-.lang-pick {
-  font-family: var(--mono); font-size: 11px; color: var(--black);
-  background: var(--sheet); border: 1px solid var(--rule); border-radius: 4px; padding: 3px 6px;
-}
 
-/* Typed input has no audio to identify, so this mode asks outright. */
-.type-lang { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-family: var(--mono); font-size: 11px; color: var(--grey); }
-.type-lang label { letter-spacing: 0.12em; text-transform: uppercase; }
-.type-lang select {
-  font-family: var(--mono); font-size: 11px; color: var(--black);
-  background: var(--sheet); border: 1px solid var(--rule); border-radius: 4px; padding: 3px 6px;
-}
 
-/* Whisper's language detection is unreliable on 15 seconds of speech, so the app asks
-   instead of guessing. It also drives the browser's live-preview recogniser. */
-.speak-lang { display: flex; align-items: center; gap: 8px; margin: 18px 0 16px; font-family: var(--mono); font-size: 11px; color: var(--grey); }
-.speak-lang label { letter-spacing: 0.12em; text-transform: uppercase; }
-.speak-lang select {
-  font-family: var(--mono); font-size: 11px; color: var(--black); cursor: pointer;
-  background: var(--sheet); border: 1px solid var(--rule); border-radius: 4px; padding: 4px 7px;
+
+/* ——— language picker ———
+   Whisper's detection is unreliable on 15 seconds of casual speech, so the app asks.
+   Each pill carries the language's own script, which does the work a flag can't: a
+   language is not a country, and العربية belongs to seventeen of them. Nine options
+   don't need hiding behind a dropdown either — they're the first real choice you make,
+   so they sit out in the open. */
+.lang-field { margin: 18px 0 20px; }
+.lang-label {
+  display: block; margin-bottom: 9px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--grey-2);
 }
-.speak-lang select:hover { border-color: var(--accent); }
+.lang-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.lang-pill {
+  font-family: var(--sans); font-size: 14px; font-weight: 500; line-height: 1.2;
+  padding: 7px 13px; border-radius: 999px; cursor: pointer;
+  background: var(--paper); color: var(--grey);
+  border: 1px solid var(--rule);
+  transition: color 0.16s, background 0.16s, border-color 0.16s, transform 0.16s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+.lang-pill[lang="ar"], .lang-pill[lang="hi"] { font-size: 15px; }
+.lang-pill:hover { color: var(--black); border-color: var(--accent-line); transform: translateY(-1px); }
+.lang-pill[aria-pressed="true"] {
+  background: var(--accent); border-color: var(--accent); color: #FCFBF8; font-weight: 600;
+}
+.lang-pill[aria-pressed="true"]:hover { color: #FCFBF8; transform: none; }
+
+.lang-pills.compact .lang-pill { font-size: 12.5px; padding: 5px 10px; }

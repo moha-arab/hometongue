@@ -332,7 +332,6 @@ async function postAnalyze(payload) {
 
 // ————— analysis paths —————
 function runTextAnalysis(text, typed) {
-  const typeLang = $('#typeLang');
   window._lastAudio = null;
   if (normText(text).length < 8) {
     toast('I barely got anything — give me a sentence or two.');
@@ -342,7 +341,7 @@ function runTextAnalysis(text, typed) {
   }
   show('analyzingCard');
   state = 'analyzing';
-  postAnalyze({ text, lang: typeLang ? typeLang.value : currentLang() })
+  postAnalyze({ text, lang: currentLang() })
     .then((resp) => renderResult(normalizeServer(resp)))
     .catch(() => {
       // offline fallback: the local word-engine
@@ -504,9 +503,50 @@ const LANG_CHOICES = [
 const LANG_KEY = 'ht_lang';
 
 // One source of truth for "what am I speaking", remembered between visits.
+let pickedLang = null;
 function currentLang() {
-  const sel = $('#speakLang');
-  return (sel && sel.value) || localStorage.getItem(LANG_KEY) || 'ar';
+  return pickedLang || localStorage.getItem(LANG_KEY) || 'ar';
+}
+
+// A row of pills, each carrying the language's own script — العربية, Русский, 中文.
+// The script IS the icon, which beats a flag (a language is not a country) and beats a
+// dropdown (nine options do not need to be hidden behind a click).
+function renderLangPills(mount, onPick) {
+  if (!mount) return;
+  const active = currentLang();
+  mount.innerHTML = '';
+  for (const [code, name, native] of LANG_CHOICES) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'lang-pill';
+    b.textContent = native;
+    b.lang = code;                     // lets the Arabic face apply to العربية only
+    b.title = name;
+    b.setAttribute('aria-pressed', String(code === active));
+    b.onclick = () => {
+      setLang(code);
+      if (onPick) onPick(code);
+    };
+    mount.appendChild(b);
+  }
+}
+
+// Changing it anywhere changes it everywhere: the recogniser tag, the Whisper language,
+// the type box direction, and every other pill row on the page.
+function setLang(code) {
+  pickedLang = code;
+  localStorage.setItem(LANG_KEY, code);
+  for (const id of ['#speakPills', '#typePills', '#langPills']) {
+    const el = $(id);
+    if (!el) continue;
+    for (const b of el.querySelectorAll('.lang-pill')) {
+      b.setAttribute('aria-pressed', String(b.title === langName(code)));
+    }
+  }
+  const box = $('#typeBox');
+  if (box) { box.dir = code === 'ar' ? 'rtl' : 'ltr'; box.lang = code; }
+  const tr = $('#transcript');
+  if (tr) { tr.dir = code === 'ar' ? 'rtl' : 'ltr'; tr.lang = code; }
 }
 function langTag(code) {
   const row = LANG_CHOICES.find(([c]) => c === code);
@@ -533,19 +573,12 @@ function renderLangChip(lang) {
   fix.textContent = 'wrong language?';
   fix.onclick = () => {
     el.innerHTML = '';
-    const sel = document.createElement('select');
-    sel.className = 'lang-pick';
-    sel.innerHTML = '<option value="">it was actually…</option>'
-      + LANG_CHOICES.filter(([c]) => c !== lang.code)
-        .map(([c, n, nat]) => `<option value="${c}">${n} — ${nat}</option>`).join('');
-    sel.onchange = () => {
-      if (!sel.value) return;
-      localStorage.setItem(LANG_KEY, sel.value);          // don't make them fix it twice
-      const sl3 = $('#speakLang');
-      if (sl3) sl3.value = sel.value;
-      reanalyzeAs(sel.value);
-    };
-    el.appendChild(sel);
+    const row = document.createElement('div');
+    row.className = 'lang-pills compact';
+    row.id = 'langPills';
+    el.appendChild(row);
+    // picking here also updates the idle picker — nobody should fix this twice
+    renderLangPills(row, (code) => reanalyzeAs(code));
   };
   el.append(said, fix);
 }
@@ -644,33 +677,11 @@ function bindUI() {
 
   fillCountryPicker(null);
 
-  const sl = $('#speakLang');
-  if (sl) {
-    sl.innerHTML = LANG_CHOICES.map(([c, n, nat]) => `<option value="${c}">${n} — ${nat}</option>`).join('');
-    sl.value = localStorage.getItem(LANG_KEY) || 'ar';
-    sl.onchange = () => {
-      localStorage.setItem(LANG_KEY, sl.value);
-      const tl2 = $('#typeLang');
-      if (tl2) { tl2.value = sl.value; tl2.onchange(); }
-    };
-  }
+  renderLangPills($('#speakPills'));
+  renderLangPills($('#typePills'));
+  setLang(currentLang());
   const lc = $('#langCount');
   if (lc) lc.textContent = `${LANG_CHOICES.length} languages`;
-
-  const tl = $('#typeLang');
-  if (tl) {
-    tl.innerHTML = LANG_CHOICES.map(([c, n, nat]) => `<option value="${c}">${n} — ${nat}</option>`).join('');
-    tl.value = localStorage.getItem(LANG_KEY) || 'ar';
-    tl.onchange = () => {
-      localStorage.setItem(LANG_KEY, tl.value);
-      const box = $('#typeBox');
-      box.dir = tl.value === 'ar' ? 'rtl' : 'ltr';
-      box.lang = tl.value;
-      const sl2 = $('#speakLang');
-      if (sl2) sl2.value = tl.value;
-    };
-    tl.onchange();
-  }
 
   $('#micBtn').onclick = startListening;
   $('#stopBtn').onclick = stopListening;

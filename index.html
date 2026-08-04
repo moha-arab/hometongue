@@ -44,7 +44,7 @@
   <section class="card" id="idleCard">
     <div class="card-eyebrow"><span>dialect identification</span><b id="langCount">nine languages</b></div>
     <h1 class="tagline">Just talk.<br><span class="accent">I can hear where home is.</span></h1>
-    <div class="speak-lang"><label for="speakLang">I'm speaking</label><select id="speakLang"></select></div>
+    <div class="lang-field"><span class="lang-label">I'm speaking</span><div class="lang-pills" id="speakPills"></div></div>
     <p class="prompt-label">Don't read anything — just talk, like you're voice-noting a friend:</p>
     <p class="prompt" id="promptText">"Tell me about your day."</p>
     <button class="mic-btn" id="micBtn" aria-label="Start talking">
@@ -68,7 +68,7 @@
   <!-- TYPE MODE -->
   <section class="card" id="typeCard" hidden>
     <p class="prompt-label">Type the way you actually talk — voice-note energy, not essay energy:</p>
-    <div class="type-lang"><label for="typeLang">language</label><select id="typeLang"></select></div>
+    <div class="lang-field"><span class="lang-label">language</span><div class="lang-pills compact" id="typePills"></div></div>
     <textarea id="typeBox" rows="4" placeholder="write the way you actually talk…"></textarea>
     <button class="stop-btn" id="analyzeTypedBtn">guess my dialect</button>
     <p class="samples-label">or try a sample:</p>
