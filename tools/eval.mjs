@@ -22,45 +22,22 @@ for (const line of fs.readFileSync(path.join(ROOT, '.env'), 'utf8').split(/\r?\n
 }
 globalThis.window = {};
 await import(pathToFileURL(path.join(ROOT, 'js/clips.js')).href);
+// same prompt and schema the app uses, imported not copied
+const { SYSTEM, SCHEMA, MODEL: DEFAULT_MODEL } = await import(pathToFileURL(path.join(ROOT, 'api/prompt.js')).href);
 
 const argv = process.argv.slice(2);
 const modelFlag = argv.indexOf('--model');
-const MODEL = modelFlag >= 0 ? argv[modelFlag + 1] : 'gemini-3.6-flash';
+const MODEL = modelFlag >= 0 ? argv[modelFlag + 1] : DEFAULT_MODEL;
 const decks = argv.filter((a) => !a.startsWith('--') && a !== MODEL);
 const CONCURRENCY = 3;
 
-// Kept in step with api/analyze.js by hand. Measured: prompt wording moves results more than
-// swapping model or adding components does (33-68 km across three phrasings), so if these
-// two drift apart the eval stops meaning anything.
-const SYSTEM = `You hear a recording of someone speaking. Predict WHERE THEY GREW UP as a single point on Earth.
-
-Do not think in countries. Dialects vary continuously and do not stop at borders, so give the
-coordinates of the centre of the accent region you actually hear, plus an honest radius: small
-when a city is unmistakable, large when you can only place a broad region. A wide circle in the
-right place is a better answer than a narrow one in the wrong place.
-
-Judge from what a transcript could never carry: consonant reflexes, vowel quality, rhythm,
-intonation, stress, and any regional vocabulary you hear. The audio may be low quality — it is
-usually a phone microphone in a room — so work with whatever survives.
-
-If someone states where they are from, you may use it, but say so in the evidence rather than
-passing it off as something you heard in their accent.
-
-Give the evidence as short, specific, human-readable phrases naming what you heard.`;
-
-const SCHEMA = {
-  type: 'object',
-  properties: {
-    lat: { type: 'number', description: 'latitude of the single best guess' },
-    lng: { type: 'number', description: 'longitude of the single best guess' },
-    radius_km: { type: 'integer', description: 'radius you are about 70% confident they grew up within' },
-    place: { type: 'string', description: 'human-readable name of that point, e.g. "Aleppo, Syria"' },
-    language: { type: 'string', description: 'the language they are speaking, in English' },
-    confidence: { type: 'integer', description: '0-100, honestly calibrated' },
-    evidence: { type: 'array', items: { type: 'string' } },
-  },
-  required: ['lat', 'lng', 'radius_km', 'place', 'language', 'confidence', 'evidence'],
-};
+// The 'languages' deck asks a different question. Its clips are spoken-Wikipedia recordings
+// pinned at the LANGUAGE's home region, not at the reader's hometown — Persian sits in the
+// middle of Iran because that is where Persian lives, and the uploader's actual origin is
+// not recorded anywhere. That makes it a fine game deck ("hear a language, pin where it is
+// spoken") and a meaningless accuracy benchmark: the model answered "Tehran" for Persian and
+// scored 414 km wrong for being right. Excluded unless asked for by name.
+const EVAL_EXCLUDE = new Set(['languages']);
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -112,7 +89,7 @@ function stats(list) {
 // Local files only: YouTube-embedded clips have no bytes to send.
 const all = [];
 for (const [deck, clips] of Object.entries(window.CLIPS)) {
-  if (decks.length && !decks.includes(deck)) continue;
+  if (decks.length ? !decks.includes(deck) : EVAL_EXCLUDE.has(deck)) continue;
   for (const c of clips) {
     if (!c.url || c.lat == null) continue;
     const file = path.join(ROOT, c.url.replace(/^\//, ''));

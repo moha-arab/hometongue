@@ -18,54 +18,9 @@
 //   - feeding hand-written dialect marker playbooks (69 km vs 43 km, better on 2, worse on 3)
 // Both cost a call and latency for noise. Do not re-add without re-running tools/eval.
 import { mintToken } from './feedback.js';
+import { SYSTEM, SCHEMA, MODEL } from './prompt.js';
 
 export const config = { maxDuration: 60 };
-
-const MODEL = 'gemini-3.6-flash';
-
-// Coordinates, not country labels. Dialects do not stop at borders: asked for a country, the
-// model called Ramallah "Jordan" — 14 km away, scored as flatly wrong. A point plus an honest
-// radius says the same thing truthfully, and Pin It is already scored by distance, so both
-// halves of the app finally share one metric.
-//
-// Prompt wording moved results more than any component swap did (33-68 km across three
-// phrasings on identical audio), so treat this text as tuned and re-measure before editing.
-const SYSTEM = `You hear a recording of someone speaking. Predict WHERE THEY GREW UP as a single point on Earth.
-
-Do not think in countries. Dialects vary continuously and do not stop at borders, so give the
-coordinates of the centre of the accent region you actually hear, plus an honest radius: small
-when a city is unmistakable, large when you can only place a broad region. A wide circle in the
-right place is a better answer than a narrow one in the wrong place.
-
-Judge from what a transcript could never carry: consonant reflexes, vowel quality, rhythm,
-intonation, stress, and any regional vocabulary you hear. The audio may be low quality — it is
-usually a phone microphone in a room — so work with whatever survives.
-
-If someone states where they are from, you may use it, but say so in the evidence rather than
-passing it off as something you heard in their accent.
-
-Give the evidence as short, specific, human-readable phrases naming what you heard. Write them
-for a curious person, not a linguist.`;
-
-const SCHEMA = {
-  type: 'object',
-  properties: {
-    lat: { type: 'number', description: 'latitude of the single best guess' },
-    lng: { type: 'number', description: 'longitude of the single best guess' },
-    radius_km: { type: 'integer', description: 'radius you are about 70% confident they grew up within' },
-    place: { type: 'string', description: 'human-readable name of that point, e.g. "Aleppo, Syria"' },
-    language: { type: 'string', description: 'the language they are speaking, in English' },
-    confidence: { type: 'integer', description: '0-100, honestly calibrated' },
-    evidence: {
-      type: 'array',
-      description: 'up to 5 short phrases naming what you heard that placed them',
-      items: { type: 'string' },
-    },
-    transcript: { type: 'string', description: 'what they said, in its own script' },
-    note: { type: 'string', description: 'one or two warm, honest sentences for the user about the verdict' },
-  },
-  required: ['lat', 'lng', 'radius_km', 'place', 'language', 'confidence', 'evidence', 'transcript', 'note'],
-};
 
 function readJsonBody(req) {
   if (req.body !== undefined && req.body !== null) {

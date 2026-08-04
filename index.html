@@ -82,16 +82,21 @@
 
   <!-- RESULT -->
   <section class="card result" id="resultCard" hidden>
-    <p class="result-kicker" id="resultKicker">your dialect sounds</p>
+    <p class="result-kicker" id="resultKicker">sounds like you grew up around</p>
     <h2 class="result-region" id="resultRegion"></h2>
-    <p class="result-country" id="resultCountry"></p>
-    <div class="conf">
-      <div class="conf-track"><div class="conf-fill" id="confFill"></div></div>
-      <span class="conf-label" id="confLabel"></span>
+    <!-- The radius IS the confidence, so it is the headline figure rather than a
+         percentage bar nobody can act on. -->
+    <div class="verdict">
+      <div class="verdict-radius"><b id="radiusNum">—</b><span>km</span></div>
+      <div class="verdict-say">
+        <span class="verdict-lead" id="radiusLead"></span>
+        <span class="verdict-lang" id="srcBadge"></span>
+      </div>
     </div>
+    <p class="result-country" id="resultCountry"></p>
     <div class="evidence" id="evidence"></div>
     <div class="heard" id="heard" hidden>
-      <div class="heard-head"><span>what we heard</span><span class="src-badge" id="srcBadge"></span></div>
+      <div class="heard-head"><span>what we heard</span></div>
       <p id="heardText"></p>
     </div>
     <div class="runners" id="runners"></div>

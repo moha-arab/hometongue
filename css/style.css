@@ -574,3 +574,30 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .lang-pill[aria-pressed="true"]:hover { color: #FCFBF8; transform: none; }
 
 .lang-pills.compact .lang-pill { font-size: 12.5px; padding: 5px 10px; }
+
+/* ——— the verdict ———
+   The answer is a circle on a map, so the radius is the honest headline: "within 40 km"
+   is something a person can picture, where "92% confident" is not. The old percentage
+   bar measured the same thing twice and communicated neither. */
+.verdict {
+  display: flex; align-items: center; gap: 14px;
+  margin: 14px 0 4px; padding: 12px 14px;
+  background: var(--paper); border: 1px solid var(--rule-soft); border-radius: var(--r);
+}
+.verdict-radius {
+  display: flex; align-items: baseline; gap: 3px;
+  font-family: var(--display); color: var(--accent);
+}
+.verdict-radius b { font-size: 32px; font-weight: 700; letter-spacing: -0.04em; line-height: 1; }
+.verdict-radius span { font-family: var(--mono); font-size: 11px; color: var(--grey); }
+.verdict-say { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.verdict-lead { font-size: 13.5px; line-height: 1.35; color: var(--black-2); }
+.verdict-lang {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--grey-2);
+}
+
+/* Evidence is now one plain phrase per chip, so it reads as a list of what it heard
+   rather than a word/gloss table. */
+.evidence .chip { display: block; width: 100%; }
+.evidence .chip b { font-weight: 500; font-size: 13.5px; }

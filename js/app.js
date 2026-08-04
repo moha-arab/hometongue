@@ -347,28 +347,26 @@ function renderResult(v) {
   fillCountryPicker();
 
   const kicker = $('#resultKicker'), place = $('#resultRegion'), sub = $('#resultCountry');
-  const confFill = $('#confFill'), confLabel = $('#confLabel');
   const evidence = $('#evidence'), runners = $('#runners'), heard = $('#heard');
   evidence.innerHTML = ''; runners.innerHTML = '';
 
   heard.hidden = !v.transcript;
   if (v.transcript) $('#heardText').textContent = v.transcript;
-  $('#srcBadge').textContent = v.language ? v.language.toLowerCase() : 'heard';
+  $('#srcBadge').textContent = v.language ? v.language.toLowerCase() : '';
 
   kicker.textContent = 'sounds like you grew up around';
   place.textContent = v.place;
 
-  // The radius is the honest part of the answer, so say it in words rather than burying it
-  // in a percentage. "within about 30 km" means something; "92% confident" does not.
+  // The radius is the answer's honesty, so it gets the big number and a plain-English
+  // reading of what that distance actually means.
   const r = v.radius_km;
-  const near = r <= 50 ? `within about ${r} km — that's a specific place`
-    : r <= 200 ? `within about ${r} km`
-      : r <= 600 ? `somewhere within about ${r} km — the accent narrows it to a region, not a town`
-        : `only to within about ${r} km — this one is broad`;
-  sub.textContent = v.note ? `${near}. ${v.note}` : near;
-
-  confFill.style.width = `${v.conf}%`;
-  confLabel.textContent = `${v.conf}% sure`;
+  $('#radiusNum').textContent = r >= 1000 ? `${(r / 1000).toFixed(1)}k` : r;
+  $('#radiusLead').textContent = r <= 50 ? 'and I mean that specifically — a town, not a region'
+    : r <= 200 ? 'a confident guess at the area'
+      : r <= 600 ? 'the accent gives me a region, not a town'
+        : 'broad strokes — this accent is hard to place finely';
+  sub.textContent = v.note || '';
+  sub.hidden = !v.note;
 
   for (const e of v.evidence) evidence.appendChild(chip(e));
 
