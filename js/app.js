@@ -195,7 +195,6 @@ async function startListening() {
   state = 'listening';
   chunks = [];
   recMime = mime;
-  $('#transcript').textContent = '';
   $('#timer').textContent = '0:00';
   show('liveCard');
   startMeter(mediaStream);
@@ -224,16 +223,12 @@ function stopListening() {
   if (micPeak >= 0 && micPeak < 0.02) {
     if (recorder && recorder.state !== 'inactive') { recorder.onstop = null; recorder.stop(); }
     teardownRecording();
-    const srText = (srFinal + ' ' + srInterim).trim();
-    if (normText(srText).length >= 8) {
-      // recorder taped silence (wrong input device) but live captions caught the words — use them
-      toast('Your recorder mic was silent 🎤 so I used the live transcript instead — check Chrome\'s address-bar mic selection.');
-      runTextAnalysis(srText, false);
-    } else {
-      toast('Your mic barely picked anything up 🎤 — check Chrome\'s mic icon (address bar) is using the right microphone, then try again.');
-      state = 'idle';
-      show('idleCard');
-    }
+    // There used to be a rescue here that fell back to the browser's live captions when the
+    // recorder taped silence. Those captions are gone with the preview, so a dead mic is now
+    // simply a dead mic — say so plainly instead of referencing variables that no longer exist.
+    toast('Your mic barely picked anything up 🎤 — check Chrome\'s mic icon (address bar) is using the right microphone, then try again.');
+    state = 'idle';
+    show('idleCard');
     return;
   }
   show('analyzingCard');
@@ -259,27 +254,16 @@ async function onRecordingReady() {
     const resp = await postAnalyze({ audio, mime: mimeUsed });
     renderResult(normalizeServer(resp));
   } catch (err) {
-    const srText = (srFinal + ' ' + srInterim).trim();
-    if (err && err.message === 'no_speech' && normText(srText).length >= 8) {
-      // Whisper heard nothing usable but live captions did — analyze the caption text instead
-      toast('The recording came out silent 🎤 — using the live transcript instead. Check Chrome\'s mic selection.');
-      return runTextAnalysis(srText, false);
-    }
     fallbackOrFail(err && err.userMessage ? err.userMessage : 'The cloud engine is unreachable.');
   }
 }
 
+// There is no offline fallback any more: the Arabic lexicon engine is gone and there are
+// no live captions to salvage, so a failure is just a failure. Say so and let them retry.
 function fallbackOrFail(reason) {
-  const text = (srFinal + ' ' + srInterim).trim();
-  if (normText(text).length >= 8) {
-    toast(`${reason} Falling back to the offline word-engine.`);
-    toast("Can't reach the server right now — try again in a moment.");
-    state = 'idle'; show('idleCard');
-  } else {
-    toast(`${reason} Try again, or use type mode.`);
-    state = 'idle';
-    show('idleCard');
-  }
+  toast(`${reason} Try again, or use type mode.`);
+  state = 'idle';
+  show('idleCard');
 }
 
 function blobToBase64(blob) {
@@ -332,13 +316,9 @@ function normText(t) { return t.replace(/\s+/g, ' ').trim(); }
 function normalizeServer(resp) {
   const r = resp.result;
   window._fbToken = resp.fb_token || '';
-  const tr = $('#transcript');
   const rtl = /[؀-ۿ֐-׿]/.test(r.transcript || '');
-  for (const id of ['#transcript', '#heardText']) {
-    const el = $(id);
-    if (el) { el.dir = rtl ? 'rtl' : 'ltr'; }
-  }
-  if (tr) tr.dir = rtl ? 'rtl' : 'ltr';
+  const heard = $('#heardText');
+  if (heard) heard.dir = rtl ? 'rtl' : 'ltr';
   return {
     place: r.place,
     lat: r.lat,
@@ -453,7 +433,7 @@ function saveFeedback(correct, actual, actualCity) {
 
   // local log (works offline, always)
   const log = JSON.parse(localStorage.getItem('hometongue_feedback') || '[]');
-  log.push({ ts: Date.now(), correct, actual, actualCity, guess: last.top ? last.top.code : last.kind, transcript: last.transcript || '' });
+  log.push({ ts: Date.now(), correct, actual, actualCity, guess: last.place || '', km_radius: last.radius_km || 0, transcript: last.transcript || '' });
   localStorage.setItem('hometongue_feedback', JSON.stringify(log));
 
   // flywheel: fire-and-forget to the server
@@ -461,7 +441,7 @@ function saveFeedback(correct, actual, actualCity) {
     correct,
     actual_code: actual || '',
     actual_city: actualCity || '',
-    guess_code: last.top ? last.top.code : (last.kind || ''),
+    guess_code: last.place || '',
     guess_city: last.city || '',
     region: last.regionKey || '',
     confidence: last.conf || 0,
