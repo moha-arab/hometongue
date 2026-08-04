@@ -2903,25 +2903,5 @@ window.CLIPS = {
       },
       "lufs": -16.5
     },
-    {
-      "id": "russian-saint-petersburg-russia-russian-st-petersburg-",
-      "label": "Saint Petersburg, Russia",
-      "lang": "Russian (St Petersburg / Leningrad)",
-      "url": "/clips/russian/russian-saint-petersburg-russia-russian-st-petersburg-.mp3",
-      "lat": 59.9311,
-      "lng": 30.3609,
-      "r": 120,
-      "size": 269627,
-      "wild": true,
-      "hint": "A two-time-flown cosmonaut jokes about crew fatigue on the Salyut stations - he trained as an engineer in the city that was called Leningrad when he was born there.",
-      "source": {
-        "who": "Echo of Moscow radio program",
-        "host": "Wikimedia Commons",
-        "license": "CC BY 3.0",
-        "page": "https://commons.wikimedia.org/wiki/File:Georgij_Grechko_voice.oga",
-        "note": "trimmed and re-encoded for the game"
-      },
-      "lufs": -16.5
-    },
     ]
 };

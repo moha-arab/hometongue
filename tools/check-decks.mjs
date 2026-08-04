@@ -17,6 +17,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { staleEvals } from './stale-check.mjs';
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 
@@ -105,6 +106,10 @@ for (const [deck, clips] of Object.entries(window.CLIPS)) {
     if (!allowed.includes(region)) note(`${c.id}: "${region}" is not a place where this deck's language is native or a main language`);
   }
   if (clips.length < 5) note(`only ${clips.length} clips — deck cannot be dealt (needs 5)`);
+}
+
+for (const f of staleEvals(ROOT)) {
+  note(`data/${f} predates js/clips.js — re-run tools/eval.mjs before citing it`);
 }
 
 console.log(problems ? `\n${problems} problem(s) found` : '\nAll decks satisfy the homeland rule.');
