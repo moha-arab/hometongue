@@ -2,7 +2,7 @@
 const $ = (s) => document.querySelector(s);
 
 const HOME_BOUNDS = [[-50, -140], [65, 160]]; // the whole inhabited world
-const MAX_SECONDS = 45;
+const MAX_SECONDS = 60;
 let map, marker, glow;
 let state = 'idle';
 let mediaStream = null, recorder = null, chunks = [], recMime = '';
@@ -150,7 +150,19 @@ function startTimer() {
   startedAt = Date.now();
   timerId = setInterval(() => {
     const s = Math.floor((Date.now() - startedAt) / 1000);
-    $('#timer').textContent = `0:${String(Math.min(s, 59)).padStart(2, '0')}`;
+    // A countdown, not a stopwatch. The cap used to fire with no warning, which read as the
+    // app crashing mid-sentence rather than a deliberate limit.
+    const left = Math.max(0, MAX_SECONDS - s);
+    $('#timer').textContent = `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
+    const fill = $('#countFill');
+    if (fill) fill.style.width = `${(s / MAX_SECONDS) * 100}%`;
+    // Longer speech reads better, so say when there is enough instead of leaving them guessing.
+    const hint = $('#countHint');
+    if (hint) {
+      hint.textContent = s < 8 ? 'left — keep going, I need a few sentences'
+        : s < 20 ? 'left — good, more is better'
+          : 'left — plenty to work with, stop whenever';
+    }
     if (s >= MAX_SECONDS) stopListening();
   }, 250);
 }
@@ -195,7 +207,7 @@ async function startListening() {
   state = 'listening';
   chunks = [];
   recMime = mime;
-  $('#timer').textContent = '0:00';
+  $('#timer').textContent = '1:00';
   show('liveCard');
   startMeter(mediaStream);
   startTimer();

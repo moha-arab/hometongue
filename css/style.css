@@ -601,3 +601,16 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
    rather than a word/gloss table. */
 .evidence .chip { display: block; width: 100%; }
 .evidence .chip b { font-weight: 500; font-size: 13.5px; }
+
+/* ——— recording countdown ———
+   The cap used to fire with no warning, which read as the app crashing mid-sentence. A
+   countdown plus a progress bar makes the limit visible, and the hint says when there is
+   enough speech to work with so nobody stops after three words. */
+.count { display: flex; align-items: baseline; gap: 9px; margin: 16px 0 8px; }
+.count b {
+  font-family: var(--display); font-size: 30px; font-weight: 700;
+  letter-spacing: -0.03em; color: var(--accent); font-variant-numeric: tabular-nums;
+}
+.count span { font-size: 13px; color: var(--grey); }
+.count-track { height: 3px; border-radius: 2px; background: var(--rule-soft); overflow: hidden; margin-bottom: 20px; }
+.count-fill { height: 100%; width: 0; background: var(--accent); opacity: 0.75; transition: width 0.25s linear; }
