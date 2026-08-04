@@ -125,7 +125,16 @@ async function askModel(file) {
 
 // A title that gives the answer away is a leak: the player sees nothing, but if a clip is
 // only placeable because the speaker announces their city, it is not testing an ear.
-const IMPOSTOR = /\b(accent challenge|imitat|impression|impersonat|trying to speak|teaching|lesson|tutorial|learn \w+ in|how to speak|ai voice|text to speech)\b/i;
+// Word boundaries let an impressionist straight through: imitat never matches the
+// Portuguese "IMITANDO" or the Spanish "imitando", and one such clip was accepted before this
+// was caught. Match stems without a trailing boundary, and cover the other languages the decks
+// actually use rather than only English.
+const IMPOSTOR = new RegExp([
+  'accent challenge', 'imitat', 'imitan', 'imita\b', 'impression', 'impersonat', 'parod',
+  'sotaques', 'sotaque[s]? d[eo]', 'acentos', 'imitando', 'haciendo el acento',
+  'trying to speak', 'teaching', 'lesson', 'tutorial', 'learn ', 'how to speak',
+  'ai voice', 'text to speech', 'dublagem', 'doblaje', 'пародия', 'акценты',
+].join('|'), 'i');
 
 const targets = JSON.parse(fs.readFileSync(process.argv[3] || path.join(ROOT, 'tools/targets.json'), 'utf8'))
   .filter((t) => (process.argv[2] && !process.argv[2].startsWith('--') ? t.deck === process.argv[2] : true));
