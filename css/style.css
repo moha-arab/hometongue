@@ -554,3 +554,13 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   font-family: var(--mono); font-size: 11px; color: var(--black);
   background: var(--sheet); border: 1px solid var(--rule); border-radius: 4px; padding: 3px 6px;
 }
+
+/* Whisper's language detection is unreliable on 15 seconds of speech, so the app asks
+   instead of guessing. It also drives the browser's live-preview recogniser. */
+.speak-lang { display: flex; align-items: center; gap: 8px; margin: 18px 0 16px; font-family: var(--mono); font-size: 11px; color: var(--grey); }
+.speak-lang label { letter-spacing: 0.12em; text-transform: uppercase; }
+.speak-lang select {
+  font-family: var(--mono); font-size: 11px; color: var(--black); cursor: pointer;
+  background: var(--sheet); border: 1px solid var(--rule); border-radius: 4px; padding: 4px 7px;
+}
+.speak-lang select:hover { border-color: var(--accent); }

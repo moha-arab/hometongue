@@ -160,10 +160,12 @@ function stopTimer() {
 function startPreviewSR() {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SR) { $('#transcript').textContent = ''; return; }
+  const tr = $('#transcript');
+  if (tr) { tr.dir = currentLang() === 'ar' ? 'rtl' : 'ltr'; tr.lang = currentLang(); }
   srFinal = ''; srInterim = '';
   try {
     recog = new SR();
-    recog.lang = 'ar-SA';
+    recog.lang = langTag(currentLang());
     recog.continuous = true;
     recog.interimResults = true;
     recog.onresult = (e) => {
@@ -279,7 +281,7 @@ async function onRecordingReady() {
   try {
     const audio = await blobToBase64(blob);
     window._lastAudio = { audio, mime: mimeUsed }; // kept for the consent flywheel
-    const resp = await postAnalyze({ audio, mime: mimeUsed });
+    const resp = await postAnalyze({ audio, mime: mimeUsed, lang: currentLang() });
     renderResult(normalizeServer(resp));
   } catch (err) {
     const srText = (srFinal + ' ' + srInterim).trim();
@@ -340,7 +342,7 @@ function runTextAnalysis(text, typed) {
   }
   show('analyzingCard');
   state = 'analyzing';
-  postAnalyze({ text, lang: typeLang ? typeLang.value : 'ar' })
+  postAnalyze({ text, lang: typeLang ? typeLang.value : currentLang() })
     .then((resp) => renderResult(normalizeServer(resp)))
     .catch(() => {
       // offline fallback: the local word-engine
@@ -488,13 +490,32 @@ function chip(word, gloss) {
   return el;
 }
 
-// The nine with hand-written playbooks. Anything else still works — it falls back to
-// Claude's own knowledge at lower confidence — these are just the ones worth offering.
+// The nine with hand-written playbooks. The backend can handle any language Whisper
+// identifies, but detection is unreliable enough on short clips that asking beats
+// guessing — so the UI offers the tuned ones and the rest wait until they're measured.
+// Third value is the BCP-47 tag for the browser's live-preview recogniser.
 const LANG_CHOICES = [
-  ['ar', 'Arabic', 'العربية'], ['en', 'English', 'English'], ['es', 'Spanish', 'Español'],
-  ['fr', 'French', 'Français'], ['de', 'German', 'Deutsch'], ['pt', 'Portuguese', 'Português'],
-  ['ru', 'Russian', 'Русский'], ['hi', 'Hindi–Urdu', 'हिन्दी · اردو'], ['zh', 'Chinese', '中文'],
+  ['ar', 'Arabic', 'العربية', 'ar-SA'], ['en', 'English', 'English', 'en-US'],
+  ['es', 'Spanish', 'Español', 'es-ES'], ['fr', 'French', 'Français', 'fr-FR'],
+  ['de', 'German', 'Deutsch', 'de-DE'], ['pt', 'Portuguese', 'Português', 'pt-BR'],
+  ['ru', 'Russian', 'Русский', 'ru-RU'], ['hi', 'Hindi–Urdu', 'हिन्दी · اردو', 'hi-IN'],
+  ['zh', 'Chinese', '中文', 'zh-CN'],
 ];
+const LANG_KEY = 'ht_lang';
+
+// One source of truth for "what am I speaking", remembered between visits.
+function currentLang() {
+  const sel = $('#speakLang');
+  return (sel && sel.value) || localStorage.getItem(LANG_KEY) || 'ar';
+}
+function langTag(code) {
+  const row = LANG_CHOICES.find(([c]) => c === code);
+  return row ? row[3] : 'en-US';
+}
+function langName(code) {
+  const row = LANG_CHOICES.find(([c]) => c === code);
+  return row ? row[1] : code;
+}
 
 // Auto-detection keeps the "just talk" promise, but it will sometimes be wrong — so it
 // says what it heard and lets you overrule it in one tap rather than making you choose
@@ -506,10 +527,10 @@ function renderLangChip(lang) {
   el.innerHTML = '';
   const said = document.createElement('span');
   said.className = 'lang-heard';
-  said.textContent = `heard ${lang.name}`;
+  said.textContent = `read as ${lang.name}`;
   const fix = document.createElement('button');
   fix.className = 'lang-fix';
-  fix.textContent = 'not right?';
+  fix.textContent = 'wrong language?';
   fix.onclick = () => {
     el.innerHTML = '';
     const sel = document.createElement('select');
@@ -517,7 +538,13 @@ function renderLangChip(lang) {
     sel.innerHTML = '<option value="">it was actually…</option>'
       + LANG_CHOICES.filter(([c]) => c !== lang.code)
         .map(([c, n, nat]) => `<option value="${c}">${n} — ${nat}</option>`).join('');
-    sel.onchange = () => { if (sel.value) reanalyzeAs(sel.value); };
+    sel.onchange = () => {
+      if (!sel.value) return;
+      localStorage.setItem(LANG_KEY, sel.value);          // don't make them fix it twice
+      const sl3 = $('#speakLang');
+      if (sl3) sl3.value = sel.value;
+      reanalyzeAs(sel.value);
+    };
     el.appendChild(sel);
   };
   el.append(said, fix);
@@ -617,14 +644,30 @@ function bindUI() {
 
   fillCountryPicker(null);
 
+  const sl = $('#speakLang');
+  if (sl) {
+    sl.innerHTML = LANG_CHOICES.map(([c, n, nat]) => `<option value="${c}">${n} — ${nat}</option>`).join('');
+    sl.value = localStorage.getItem(LANG_KEY) || 'ar';
+    sl.onchange = () => {
+      localStorage.setItem(LANG_KEY, sl.value);
+      const tl2 = $('#typeLang');
+      if (tl2) { tl2.value = sl.value; tl2.onchange(); }
+    };
+  }
+  const lc = $('#langCount');
+  if (lc) lc.textContent = `${LANG_CHOICES.length} languages`;
+
   const tl = $('#typeLang');
   if (tl) {
     tl.innerHTML = LANG_CHOICES.map(([c, n, nat]) => `<option value="${c}">${n} — ${nat}</option>`).join('');
-    tl.value = 'ar';
+    tl.value = localStorage.getItem(LANG_KEY) || 'ar';
     tl.onchange = () => {
+      localStorage.setItem(LANG_KEY, tl.value);
       const box = $('#typeBox');
       box.dir = tl.value === 'ar' ? 'rtl' : 'ltr';
       box.lang = tl.value;
+      const sl2 = $('#speakLang');
+      if (sl2) sl2.value = tl.value;
     };
     tl.onchange();
   }
