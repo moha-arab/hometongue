@@ -34,11 +34,21 @@ function readJsonBody(req) {
   });
 }
 
+// Vercel kills this function at 60s. Retrying three times at a 45s timeout each could ask
+// for 135s, so a single slow call guaranteed a hard kill and a meaningless error rather than
+// a real answer. Measured latency on identical payloads ranged 10s to 57s, so slow calls are
+// normal, not exceptional. Budget every attempt against one shared deadline instead.
+const BUDGET_MS = 50_000;
+
 async function locate(parts) {
   const key = process.env.GEMINI_API_KEY;
   if (!key) throw Object.assign(new Error('GEMINI_API_KEY not set'), { code: 'not_configured' });
 
+  const deadline = Date.now() + BUDGET_MS;
   for (let attempt = 0; attempt < 3; attempt++) {
+    const left = deadline - Date.now();
+    // Under 8s left is not enough for a real answer; fail honestly rather than burn the cap.
+    if (left < 8000) throw Object.assign(new Error('ran out of time'), { code: 'busy' });
     let resp;
     try {
       resp = await fetch(
@@ -55,8 +65,8 @@ async function locate(parts) {
               responseSchema: SCHEMA,
             },
           }),
-          // a hung request once froze a 45-clip batch for 90 minutes; never wait forever
-          signal: AbortSignal.timeout(45000),
+          // never wait past the shared budget — a hung request once froze a batch for 90 min
+          signal: AbortSignal.timeout(left),
         },
       );
     } catch {
@@ -65,7 +75,7 @@ async function locate(parts) {
     }
     if (resp.status === 429 || resp.status === 503) {
       if (attempt === 2) throw Object.assign(new Error('model busy'), { code: 'busy' });
-      await new Promise((r) => setTimeout(r, 1500 * (attempt + 1)));
+      await new Promise((r) => setTimeout(r, Math.min(1500 * (attempt + 1), Math.max(0, deadline - Date.now() - 8000))));
       continue;
     }
     if (!resp.ok) {
