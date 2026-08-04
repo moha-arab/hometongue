@@ -23,12 +23,20 @@ for (const line of fs.readFileSync(path.join(ROOT, '.env'), 'utf8').split(/\r?\n
 globalThis.window = {};
 await import(pathToFileURL(path.join(ROOT, 'js/clips.js')).href);
 // same prompt and schema the app uses, imported not copied
-const { SYSTEM, SCHEMA, MODEL: DEFAULT_MODEL } = await import(pathToFileURL(path.join(ROOT, 'api/prompt.js')).href);
+const { SYSTEM: BASE, SCHEMA, MODEL: DEFAULT_MODEL } = await import(pathToFileURL(path.join(ROOT, 'api/prompt.js')).href);
 
 const argv = process.argv.slice(2);
 const modelFlag = argv.indexOf('--model');
 const MODEL = modelFlag >= 0 ? argv[modelFlag + 1] : DEFAULT_MODEL;
 const decks = argv.filter((a) => !a.startsWith('--') && a !== MODEL);
+
+// --syria runs the opt-in specialist route instead of the default prompt. Results are written
+// to a separate file so an experimental run can never be mistaken for the real benchmark.
+const EXPERT = argv.includes('--syria') ? 'syria' : '';
+const { SYRIA_APPENDIX } = EXPERT
+  ? await import(pathToFileURL(path.join(ROOT, 'api/prompt-syria.js')).href)
+  : { SYRIA_APPENDIX: '' };
+const SYSTEM = BASE + (EXPERT ? SYRIA_APPENDIX : '');
 const CONCURRENCY = 3;
 
 // The 'languages' deck asks a different question. Its clips are spoken-Wikipedia recordings
@@ -101,7 +109,7 @@ for (const [deck, clips] of Object.entries(window.CLIPS)) {
   }
 }
 
-const OUT = path.join(ROOT, 'data', `eval-${MODEL}.json`);
+const OUT = path.join(ROOT, 'data', `eval-${MODEL}${EXPERT ? `-${EXPERT}` : ''}.json`);
 const prior = fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, 'utf8')) : { results: [] };
 const done = new Map(prior.results.map((r) => [r.id, r]));
 const results = [];
