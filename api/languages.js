@@ -18,9 +18,16 @@
 //     per 100 phones for rhotic varieties vs 6.4 for non-rhotic ones, with non-rhotic
 //     Australia highest of all. The model is trained on American English and renders every
 //     accent into it, so Claude defaulted to "us" whenever it saw the stream.
-// It is the same failure as Whisper, one layer down: Whisper flattens dialect into standard
-// spelling, the phoneme model flattens accent into its own. Real accent identification needs
-// a model trained on dialect-labelled audio, which needs the donated-clip dataset.
+//   - Using the prime itself as a DETECTOR also fails. Running five dialect-specific primes
+//     and taking the highest avg_logprob scored 6/25 against a chance baseline of 5/25, and
+//     the Levantine prime never won once across eight Levantine clips. Between-prime gaps on
+//     one clip are ~0.02; between-clip gaps run to 0.55. Logprob measures how clean the audio
+//     is, not whose dialect it matches. (The prime stays as a STYLE hint — that was measured
+//     separately and nearly doubles retained dialect markers.)
+// Three attempts, one shared cause: every off-the-shelf speech model is trained to normalise
+// away the variation we want to measure. Whisper flattens dialect into standard spelling; the
+// phoneme model flattens accent into its own. Real accent identification needs a model trained
+// on dialect-labelled audio, which needs the donated-clip dataset.
 
 const SHARED_METHOD = `## Method
 1. Scan the transcript for dialect markers: function words, negation, demonstratives, interrogatives, tense/aspect marking, intensifiers, loanwords, and any pronunciation that survives in spelling.
