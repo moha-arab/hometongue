@@ -182,7 +182,11 @@ export default async function handler(req, res) {
       return res.end(JSON.stringify({ ok: false, error: 'no_speech', detail: raw.note || 'No speech detected.' }));
     }
     const result = sane(raw);
-    if (!result) throw Object.assign(new Error('no location returned'), { code: 'upstream_failed' });
+    if (!result) {
+      // No coordinate now means the model declined, not that the call broke.
+      res.statusCode = 422;
+      return res.end(JSON.stringify({ ok: false, error: 'no_speech', detail: raw?.note || 'Could not place that.' }));
+    }
 
     return res.end(JSON.stringify({ ok: true, result, fb_token: mintToken() }));
   } catch (err) {

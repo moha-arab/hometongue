@@ -64,7 +64,7 @@ export const SCHEMA = {
     transcript: { type: 'string', description: 'what they said, in its own script' },
     note: { type: 'string', description: 'one or two warm, honest sentences for the user about the verdict' },
   },
-  required: ['has_speech', 'lat', 'lng', 'radius_km', 'place', 'language', 'confidence', 'evidence', 'transcript', 'note'],
+  required: ['has_speech', 'note'],
 };
 
 export const MODEL = 'gemini-3.6-flash';
