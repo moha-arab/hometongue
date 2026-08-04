@@ -256,6 +256,26 @@ recordings — memorisation would collapse under degradation.
 
 ## Later — things that might improve Guess Me
 
+- **Speak the explanation (ElevenLabs).** The model already returns evidence phrases like
+  "hard g for jim" and "glottal qaf". Reading them aloud in a natural voice turns the reveal
+  from a list into an explanation, and is the single cheapest way to make the app feel expert
+  rather than mechanical. Explain simply — for a curious person, not a linguist.
+- **Study Zay's TikToks for reference.** He does live what Guess Me does: hears an accent and
+  places it, with a very high hit rate. Worth watching for two things — which features he
+  names out loud when he commits to a guess, and how he phrases confidence when unsure. Both
+  feed directly into the prompt, which is the strongest tuning lever measured so far.
+- **Make it name the phonology it hears.** The goal is expert-linguist output: cot-caught
+  merger, pin-pen merger, rhoticity, the BATH split, Canadian raising, yod-dropping. Gemini
+  knows all of these from training, but the prompt never asks for them by name, so it answers
+  in generalities. Naming them should be tested against tools/eval.mjs — prompt wording has
+  moved accuracy more than any component swap so far (57 km -> 44 km from one edit).
+
+- **Hallucination on empty audio.** A silent file returned "Toronto, Canada" at 75% confidence
+  citing Canadian raising on the word "night". The prompt now demands a has_speech check and
+  the API refuses when it is false, which catches noise but NOT silence — the model still
+  claims it hears speech. Real users are protected upstream by the client mic-level check, so
+  this is defence-in-depth, but a server-side energy check would close it properly.
+
 Unranked, none blocking. Revisit when the audio-native rewrite has shipped and there is usage
 data to argue from.
 

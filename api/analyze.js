@@ -175,6 +175,12 @@ export default async function handler(req, res) {
     }
 
     const raw = await locate(parts);
+    // A silent file once came back as Toronto at 75% with invented phonetic evidence. If the
+    // model says there is no speech, believe it rather than rendering a fabricated pin.
+    if (raw && raw.has_speech === false) {
+      res.statusCode = 422;
+      return res.end(JSON.stringify({ ok: false, error: 'no_speech', detail: raw.note || 'No speech detected.' }));
+    }
     const result = sane(raw);
     if (!result) throw Object.assign(new Error('no location returned'), { code: 'upstream_failed' });
 

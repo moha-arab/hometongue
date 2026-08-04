@@ -29,6 +29,13 @@ As a calibration guide:
 - 400-800 km when you know the country or dialect area but nothing finer
 - 1500 km+  when you can only say "somewhere in this part of the world"
 
+FIRST, CHECK THERE IS SPEECH AT ALL. Silence, music, noise, or a few disconnected sounds are
+not something you can place. If you cannot hear connected human speech, set has_speech to
+false, set confidence to 0, and say so in the note — do NOT pick a place and do NOT describe
+phonetic features you did not hear. Measured failure: given a completely silent file this
+returned "Toronto, Canada" at 75% confidence citing Canadian raising in the word "night".
+Inventing evidence is far worse than admitting you heard nothing.
+
 Judge from what a transcript could never carry: consonant reflexes, vowel quality, rhythm,
 intonation, stress, and any regional vocabulary you hear. The audio may be low quality — it is
 usually a phone microphone in a room — so work with whatever survives.
@@ -42,6 +49,7 @@ for a curious person, not a linguist.`;
 export const SCHEMA = {
   type: 'object',
   properties: {
+    has_speech: { type: 'boolean', description: 'false if the audio has no connected human speech at all' },
     lat: { type: 'number', description: 'latitude of the single best guess' },
     lng: { type: 'number', description: 'longitude of the single best guess' },
     radius_km: { type: 'integer', description: 'distance you are genuinely ~70% confident they grew up within — err wider, not narrower' },
@@ -56,7 +64,7 @@ export const SCHEMA = {
     transcript: { type: 'string', description: 'what they said, in its own script' },
     note: { type: 'string', description: 'one or two warm, honest sentences for the user about the verdict' },
   },
-  required: ['lat', 'lng', 'radius_km', 'place', 'language', 'confidence', 'evidence', 'transcript', 'note'],
+  required: ['has_speech', 'lat', 'lng', 'radius_km', 'place', 'language', 'confidence', 'evidence', 'transcript', 'note'],
 };
 
 export const MODEL = 'gemini-3.6-flash';
