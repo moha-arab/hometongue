@@ -186,8 +186,11 @@ const rejected = prior.rejected || [];
 const decided = new Set([...accepted, ...rejected].map((r) => r.id.replace(/^yt-/, '')));
 if (decided.size) console.log(`resuming — ${accepted.length} accepted, ${rejected.length} rejected already decided`);
 
+const save = () => fs.writeFileSync(OUT, JSON.stringify({ gate: 'blind-quality-only', model: MODEL, accepted, rejected }, null, 2));
+
 for (const t of targets) {
   console.log(`\n── ${t.label}  (want ${t.want || 2})`);
+  if (accepted.filter((a) => a.label === t.label).length >= (t.want || 2)) { console.log('   already satisfied'); continue; }
   const seen = new Set();
   for (const q of t.queries) {
     if (accepted.filter((a) => a.label === t.label).length >= (t.want || 2)) break;
@@ -250,6 +253,7 @@ for (const t of targets) {
       console.log(`   ✓ ${v.title.slice(0, 52)}  [q${g.audio_quality} · ${emb.author}]`);
       save();
     }
+    save();   // rejections cost a download too; do not pay for them twice on a resume
   }
 }
 
