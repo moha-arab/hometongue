@@ -191,3 +191,55 @@ call that does not fit inside the 60 s Vercel cap.
 
 An expert appendix may ship as an opt-in route. It must never become the default, and it must
 never be applied to a language it was not written for.
+
+# Run 5 — the deep Syria route, and a correction to run 4's conclusion
+
+First attempt at this run was invalid: the eval's resume cache replayed all 45 answers from
+run 4 and made no API calls. Caught only because the evidence strings were byte-identical
+across two different prompts. The cache is now keyed to a hash of the prompt text. Re-ran for
+real.
+
+Arabic deck, n=45:
+
+| prompt | median | <100km | <250km |
+| --- | --- | --- | --- |
+| general (no appendix) | **28 km** | **64%** | **80%** |
+| syria, shallow, no ordering rule | 43 km | 58% | 69% |
+| syria, deep, place-first rule | 38 km | 62% | 78% |
+
+## The ordering rule is what mattered, not the research depth
+
+Run 4 concluded the damage came from an appendix's PRESENCE rather than its content, because
+a nine-language prompt and a Syria-only appendix broke Basra and Manama by identical amounts.
+That was true of those two prompts but the generalisation was wrong. Adding one instruction —
+place the speaker first the normal way, then read the notes only to sharpen, never to
+override — recovered most of it:
+
+| clip | general | shallow | deep + ordering |
+| --- | --- | --- | --- |
+| Basra, Iraq | 0 km | 448 km | **0 km** |
+| Manama, Bahrain | 10 km | 434 km | **1 km** |
+| Tangier, Morocco | 216 km | 294 km | 222 km |
+| Ajman, UAE | 28 km | 858 km | 858 km (not fixed) |
+| Oran, Algeria | 184 km | 323 km | 350 km (not fixed) |
+
+Three of the five retreat-to-a-bigger-city failures reversed completely. So the coarsening is
+caused by the notes competing with the model's own judgement for primacy, and telling it
+which comes first is a real, cheap countermeasure. That is the transferable finding: any
+future specialist route must carry the place-first instruction or it will coarsen everything
+it does not cover.
+
+## Still a net cost outside the Levant
+
+38 km against the general prompt's 28 km, better on 2 clips and worse on 4. The route stays
+opt-in and must not become the default.
+
+## Levant and Syria
+
+Damascus 1 -> 0 km, Aleppo 0 -> 0 km, Beirut 0 km, Amman 2 km. Gaza 61 -> 0 km is the largest
+single gain anywhere in the run. Jerusalem regressed 12 -> 68 km, answered as Amman, and
+Nablus stayed at 68 km, also Amman — the notes' southern-Levantine material is thinner than
+the Syrian material and it shows.
+
+The two Syrian clips remain at the ceiling, so this run STILL cannot say whether the route is
+better at Syria. That question needs a speaker of the dialect, or more Syrian clips.
