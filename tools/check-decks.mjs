@@ -71,7 +71,16 @@ for (const [deck, clips] of Object.entries(window.CLIPS)) {
       // Streamed from YouTube, so there is no local file — but it still went through the
       // transcript gate (audio fetched, judged, deleted), and must carry that evidence.
       if (!c.videoId) note(`${c.id}: yt clip with no videoId`);
-      if (!c.gate || !c.gate.originConfidence) note(`${c.id}: yt clip has no gate record — run yt-gate.mjs`);
+      // Two gate shapes exist. The old one proved origin from a transcript and recorded
+      // originConfidence. The new one (tools/source-clips.mjs) has the app's own model listen
+      // blind and records how far its independent guess landed from the claimed place, which
+      // is stronger evidence — an impressionist does not survive it.
+      if (!c.gate) note(`${c.id}: yt clip has no gate record — run tools/source-clips.mjs`);
+      else if (c.gate.heard !== undefined) {
+        if (typeof c.gate.offBy !== 'number') note(`${c.id}: model gate record is missing offBy`);
+        else if (c.gate.offBy > 250) note(`${c.id}: model heard ${c.gate.heard}, ${c.gate.offBy} km from the label`);
+        if (!c.evalExclude) note(`${c.id}: model-gated clip must be evalExclude — it cannot score the model that chose it`);
+      } else if (!c.gate.originConfidence) note(`${c.id}: yt clip has no gate record — run tools/source-clips.mjs`);
       else if (c.gate.originConfidence === 'unknown') note(`${c.id}: speaker's origin was never established`);
       else if (typeof c.gain !== 'number') note(`${c.id}: no measured volume`);
     } else if (c.url.startsWith('/clips/') && !fs.existsSync(path.join(ROOT, c.url))) {

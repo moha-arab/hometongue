@@ -29,6 +29,13 @@ const IMPOSTOR = new RegExp([
   'doblaje', 'пародия', 'акценты', 'comedia', 'comedy sketch',
 ].join('|'), 'i');
 
+// The sourcing gate accepts up to 400 km, which is right for "is this person plausibly from
+// this region". For a GAME the bar should be higher: a street interview happens in a city but
+// the person answering may have grown up elsewhere, and a clip labelled Odesa where the model
+// clearly hears Dnipro is a mislabelled round waiting to happen. 250 km keeps the label
+// trustworthy.
+const MERGE_KM = 250;
+
 const { accepted } = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/sourced-clips.json'), 'utf8'));
 globalThis.window = {};
 await import(pathToFileURL(path.join(ROOT, 'js/clips.js')).href);
@@ -40,7 +47,23 @@ for (const c of accepted) {
   const title = c.gate?.title || '';
   if (IMPOSTOR.test(title)) { dropped.push({ label: c.label, title, why: 'impostor title' }); continue; }
   if (existing.has(c.videoId)) { dropped.push({ label: c.label, title, why: 'already in manifest' }); continue; }
-  keep.push({ ...c, evalExclude: true });
+  if ((c.gate?.offBy ?? 999) > MERGE_KM) {
+    dropped.push({ label: c.label, title, why: `model heard ${c.gate.heard} — ${c.gate.offBy} km off` });
+    continue;
+  }
+  // The reveal screen credits every clip, and check-decks enforces it. Embedded clips are
+  // served by YouTube under its own terms, so the creator and the video are the credit.
+  keep.push({
+    ...c,
+    evalExclude: true,
+    source: {
+      who: c.gate?.author || 'YouTube creator',
+      host: 'YouTube',
+      license: 'Streamed from YouTube — the creator keeps the view',
+      page: `https://www.youtube.com/watch?v=${c.videoId}`,
+      note: c.gate?.title || '',
+    },
+  });
 }
 
 const byDeck = {};
@@ -64,10 +87,15 @@ if (DRY) { console.log('\n--dry: nothing written'); process.exit(0); }
 
 let src = fs.readFileSync(path.join(ROOT, 'js/clips.js'), 'utf8');
 for (const [deck, list] of Object.entries(byDeck)) {
-  const marker = new RegExp(`(${deck.replace('-', '\\-')}:\\s*\\[)`);
-  if (!marker.test(src)) { console.log(`!! deck ${deck} not found in clips.js — skipped`); continue; }
-  const block = list.map((c) => `    ${JSON.stringify(c)},`).join('\n');
-  src = src.replace(marker, `$1\n${block}`);
+  // Plain string search, not a regex: the deck keys are quoted ("accents": [) and every
+  // attempt to express that as an escaped pattern got mangled, silently matching nothing
+  // while the tool reported success.
+  const key = JSON.stringify(deck) + ": [";
+  const at = src.indexOf(key);
+  if (at < 0) { console.log(`!! deck ${deck} not found in clips.js — skipped`); continue; }
+  const NL = String.fromCharCode(10);
+  const block = list.map((c) => `    ${JSON.stringify(c)},`).join(NL);
+  src = src.slice(0, at + key.length) + NL + block + src.slice(at + key.length);
 }
 fs.writeFileSync(path.join(ROOT, 'js/clips.js'), src);
 console.log(`\nwrote js/clips.js — run: node tools/check-decks.mjs`);

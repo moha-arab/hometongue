@@ -1,6 +1,136 @@
 {
   "accepted": [
     {
+      "id": "yt-SS9bBuF0w4w",
+      "kind": "yt",
+      "videoId": "SS9bBuF0w4w",
+      "label": "Kingston, Jamaica",
+      "lang": "English",
+      "lat": 17.9714,
+      "lng": -76.7931,
+      "r": 60,
+      "start": 343,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Kingston, Jamaica",
+        "offBy": 0,
+        "confidence": 95,
+        "evidence": [
+          "distinct Jamaican English prosody and pitch contours",
+          "th-stopping ('dis', 'dey')",
+          "word order typical of Jamaican Creole influenced English ('Downtown Kingston we are')"
+        ],
+        "title": "DOWNTOWN KINGSTON MARKET VYBZ | INTERRACIAL FAMILY VLOG | JAMAICAN LIVING IN FRANCE",
+        "author": "The Delaveaus"
+      }
+    },
+    {
+      "id": "yt-wt24nLiNa8I",
+      "kind": "yt",
+      "videoId": "wt24nLiNa8I",
+      "label": "Kingston, Jamaica",
+      "lang": "English",
+      "lat": 17.9714,
+      "lng": -76.7931,
+      "r": 60,
+      "start": 166,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Kingston, Jamaica",
+        "offBy": 4,
+        "confidence": 85,
+        "evidence": [
+          "Distinctive Jamaican melodic pitch contours and syllable timing",
+          "Non-rhotic Caribbean vowels in words like 'early'",
+          "Grammatical structures like 'everybody have to'"
+        ],
+        "title": "A DAY IN MY LIFE | MARKET TOUR 2021 | PRICE CHECK",
+        "author": "JAMAICAN KIM"
+      }
+    },
+    {
+      "id": "yt-T67YveenFvU",
+      "kind": "yt",
+      "videoId": "T67YveenFvU",
+      "label": "Lagos, Nigeria",
+      "lang": "English",
+      "lat": 6.5244,
+      "lng": 3.3792,
+      "r": 80,
+      "start": 63,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Lagos, Nigeria",
+        "offBy": 0,
+        "confidence": 95,
+        "evidence": [
+          "Mention of local Lagos landmarks (Lekki, Berger, Chisco, Chevron)",
+          "West African / Nigerian English accent and rhythm",
+          "Typical Lagos pitch contours and vowel pronunciations"
+        ],
+        "title": "RBPro Chat: Lagos Traffick Craze | street interview | Naija gist | Funny Video",
+        "author": "Ruggedboots TV"
+      }
+    },
+    {
+      "id": "yt-tI8FBKscgQ4",
+      "kind": "yt",
+      "videoId": "tI8FBKscgQ4",
+      "label": "Lagos, Nigeria",
+      "lang": "English",
+      "lat": 6.5244,
+      "lng": 3.3792,
+      "r": 80,
+      "start": 220,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Lagos, Nigeria",
+        "offBy": 0,
+        "confidence": 85,
+        "evidence": [
+          "Nigerian West African English phonology",
+          "Syllable-timed speech rhythm",
+          "Local Nigerian street interview context"
+        ],
+        "title": "Nigeria is in what PLANET? | Street Quiz Nigeria (Ep. 18) | Funny African Videos |",
+        "author": "RakGhana"
+      }
+    },
+    {
+      "id": "yt-LhMvmH_uodE",
+      "kind": "yt",
+      "videoId": "LhMvmH_uodE",
+      "label": "Glasgow, Scotland",
+      "lang": "English",
+      "lat": 55.8642,
+      "lng": -4.2518,
+      "r": 60,
+      "start": 240,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Glasgow, Scotland, United Kingdom",
+        "offBy": 0,
+        "confidence": 95,
+        "evidence": [
+          "States explicitly 'I'm Glaswegian, aye. I am Glasgow'",
+          "Broad Glaswegian vowels and phonology",
+          "Use of regional slang 'Weegie' and Scottish affirmative 'aye'"
+        ],
+        "title": "When Scottish People Speak English.. | 當蘇格蘭人說英文時...我投降了!!",
+        "author": "Torres Pit托哥"
+      }
+    },
+    {
       "id": "yt-DpnUurJvGWs",
       "kind": "yt",
       "videoId": "DpnUurJvGWs",
@@ -16,16 +146,682 @@
         "model": "gemini-3.6-flash",
         "heard": "Glasgow, Scotland, United Kingdom",
         "offBy": 0,
-        "confidence": 88,
+        "confidence": 85,
         "evidence": [
-          "distinct Scottish rhoticity with tapped/approximant R",
-          "monophthongal long vowels in words like 'hopeless' and 'romantic'",
-          "glottal stops for /t/ in 'little'"
+          "Scottish monophthongal vowels and tapped /r/ sounds",
+          "References to Scottish history/culture and local Scottish slang in background",
+          "Distinct central belt Scottish intonation and rhythm"
         ],
         "title": "People Make Glass Gow",
         "author": "Paul Black"
       }
+    },
+    {
+      "id": "yt-HylaY5e1awo",
+      "kind": "yt",
+      "videoId": "HylaY5e1awo",
+      "label": "Singapore",
+      "lang": "English",
+      "lat": 1.3521,
+      "lng": 103.8198,
+      "r": 40,
+      "start": 186,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Singapore",
+        "offBy": 0,
+        "confidence": 95,
+        "evidence": [
+          "Distinctive Singaporean English (Singlish) intonation and rhythm",
+          "Syllable-timed prosody characteristic of Singapore and Malaysia",
+          "Speaker explicitly mentions 'Singlish' in the conversation"
+        ],
+        "title": "The Singaporean White Boy - The Shan and Rozz Show: EP7",
+        "author": "Clicknetwork"
+      }
+    },
+    {
+      "id": "yt-HpTfmxkXU1A",
+      "kind": "yt",
+      "videoId": "HpTfmxkXU1A",
+      "label": "Singapore",
+      "lang": "English",
+      "lat": 1.3521,
+      "lng": 103.8198,
+      "r": 40,
+      "start": 131,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Singapore",
+        "offBy": 0,
+        "confidence": 95,
+        "evidence": [
+          "Use of local Singlish term 'ang moh' referring to Caucasians",
+          "Explicit discussion of local identity in Singapore",
+          "Syllable-timed rhythm and prosody typical of Singaporean English"
+        ],
+        "title": "What Do People Think Of Singaporeans With \"Angmoh\" Accents? | Word On The Street",
+        "author": "TheSmartLocal"
+      }
+    },
+    {
+      "id": "yt--NT24O3IfPs",
+      "kind": "yt",
+      "videoId": "-NT24O3IfPs",
+      "label": "Marseille, France",
+      "lang": "French",
+      "lat": 43.2965,
+      "lng": 5.3698,
+      "r": 60,
+      "start": 115,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Provence-Alpes-Côte d'Azur, France",
+        "offBy": 27,
+        "confidence": 75,
+        "evidence": [
+          "Metropolitan French speech",
+          "Distinct Southern French (Méridional) cadence in the second speaker",
+          "Slightly open vowel quality on final syllables"
+        ],
+        "title": "Micro-Trottoir : Municipales 2026",
+        "author": "AnonymalTV"
+      }
+    },
+    {
+      "id": "yt-0xDjLQpsmUM",
+      "kind": "yt",
+      "videoId": "0xDjLQpsmUM",
+      "label": "Marseille, France",
+      "lang": "French",
+      "lat": 43.2965,
+      "lng": 5.3698,
+      "r": 60,
+      "start": 149,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Marseille, France",
+        "offBy": 0,
+        "confidence": 85,
+        "evidence": [
+          "Distinct Southern French / Provençal intonation and rhythm",
+          "Pronunciation of final schwas ('farce-u', 'mercantile-u')",
+          "Street interview topic concerning rivalry with Parisians ('les Parisiens')"
+        ],
+        "title": "Ce que les Marseillais pensent des Parisiens",
+        "author": "Monsieur Alex +"
+      }
+    },
+    {
+      "id": "yt-F53zsQIKlrw",
+      "kind": "yt",
+      "videoId": "F53zsQIKlrw",
+      "label": "Brussels, Belgium",
+      "lang": "French",
+      "lat": 50.8503,
+      "lng": 4.3517,
+      "r": 50,
+      "start": 225,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Paris, France",
+        "offBy": 264,
+        "confidence": 75,
+        "evidence": [
+          "Standard Metropolitan French accent and vowel qualities",
+          "Guttural Parisian-style uvular fricative r",
+          "Informal Hexagonal French vocabulary like grande gueule and resto"
+        ],
+        "title": "Ce que les BELGES pensent des FRANCAIS (Micro-trottoir)",
+        "author": "TITAN - Le média"
+      }
+    },
+    {
+      "id": "yt-SFh4sdSqR60",
+      "kind": "yt",
+      "videoId": "SFh4sdSqR60",
+      "label": "Abidjan, Côte d'Ivoire",
+      "lang": "French",
+      "lat": 5.36,
+      "lng": -4.0083,
+      "r": 70,
+      "start": 118,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Abidjan, Côte d'Ivoire",
+        "offBy": 0,
+        "confidence": 90,
+        "evidence": [
+          "Explicit mention of 'wôro-wôro' (Abidjan's iconic shared taxis)",
+          "Characteristic Ivorian grammar and idioms ('toi là', 'même pas même')",
+          "Ivorian French / Nouchi accent and speech cadence"
+        ],
+        "title": "MICRO TROTTOIR //ABIDJAN ABOBO #INOV_TV",
+        "author": "Inov TV"
+      }
+    },
+    {
+      "id": "yt-KYCzYHQgulE",
+      "kind": "yt",
+      "videoId": "KYCzYHQgulE",
+      "label": "Odesa, Ukraine",
+      "lang": "Russian",
+      "lat": 46.4825,
+      "lng": 30.7233,
+      "r": 60,
+      "start": 85,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Dnipro, Ukraine",
+        "offBy": 393,
+        "confidence": 85,
+        "evidence": [
+          "Phrases in Russian mixed with Ukrainian lexical items (Surzhyk)",
+          "Ukrainian voiced glottal fricative 'h' sound replacing Russian 'g'",
+          "Soft Ukrainian-influenced intonation and vowel reductions"
+        ],
+        "title": "Опрос \"Как война изменила вашу жизнь?\" Одесса. 20.04.2022",
+        "author": "Думская Нет"
+      }
+    },
+    {
+      "id": "yt-rATB9avPssE",
+      "kind": "yt",
+      "videoId": "rATB9avPssE",
+      "label": "Novosibirsk, Russia",
+      "lang": "Russian",
+      "lat": 55.0084,
+      "lng": 82.9357,
+      "r": 80,
+      "start": 67,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Novosibirsk, Russia",
+        "offBy": 3,
+        "confidence": 85,
+        "evidence": [
+          "Mention of living in 'Strizhi' (В Стрижах мы живем), a prominent microdistrict in Novosibirsk",
+          "Standard urban Siberian Russian pronunciation and intonation",
+          "Discussion of local district cleanup (субботник) in their neighborhood"
+        ],
+        "title": "Опрос жителей Новосибирска: как вы провели субботник",
+        "author": "КПРФ Новосибирск"
+      }
+    },
+    {
+      "id": "yt-gRaokqJX1c8",
+      "kind": "yt",
+      "videoId": "gRaokqJX1c8",
+      "label": "Almaty, Kazakhstan",
+      "lang": "Russian",
+      "lat": 43.222,
+      "lng": 76.8512,
+      "r": 70,
+      "start": 131,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Almaty, Kazakhstan",
+        "offBy": 6,
+        "confidence": 85,
+        "evidence": [
+          "Mention of Almaty ('в Алма-Ате')",
+          "Kazakhstani Russian vowel cadence and intonation",
+          "Urban Kazakh Russian speech mannerisms and lexical choices"
+        ],
+        "title": "Опрос: Хочет ли молодежь уехать из Казахстана",
+        "author": "KOCHETKOV reporter"
+      }
+    },
+    {
+      "id": "yt-scibhUUAf8M",
+      "kind": "yt",
+      "videoId": "scibhUUAf8M",
+      "label": "Recife, Brazil",
+      "lang": "Portuguese",
+      "lat": -8.0476,
+      "lng": -34.877,
+      "r": 70,
+      "start": 49,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Northeastern Region, Brazil",
+        "offBy": 200,
+        "confidence": 85,
+        "evidence": [
+          "Characteristic Northeastern Brazilian melodic cadence and rhythm",
+          "Open vowel quality in unstressed syllables",
+          "Soft, glottal realization of syllable-final /r/"
+        ],
+        "title": "ED GAMA IMITANDO e os 9 sotaques nordestinos no Flow",
+        "author": "Melhores Cortes [OFICIAL]"
+      }
+    },
+    {
+      "id": "yt-GqUWj0x6OUc",
+      "kind": "yt",
+      "videoId": "GqUWj0x6OUc",
+      "label": "Salvador, Brazil",
+      "lang": "Portuguese",
+      "lat": -12.9777,
+      "lng": -38.5016,
+      "r": 70,
+      "start": 30,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Salvador, Bahia, Brazil",
+        "offBy": 1,
+        "confidence": 75,
+        "evidence": [
+          "Northeastern Brazilian Portuguese cadence and open vowel qualities",
+          "Use of regional expressions like 'não deu conta' and double negation ('não... não')",
+          "Distinctive intonation pattern typical of Bahia and the wider Brazilian Northeast"
+        ],
+        "title": "vídeo engraçado! eles não entenderam nada",
+        "author": "Escanio Oficial"
+      }
+    },
+    {
+      "id": "yt-7KxxEb_Gs5I",
+      "kind": "yt",
+      "videoId": "7KxxEb_Gs5I",
+      "label": "Lisbon, Portugal",
+      "lang": "Portuguese",
+      "lat": 38.7223,
+      "lng": -9.1393,
+      "r": 50,
+      "start": 289,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Lisbon, Portugal",
+        "offBy": 0,
+        "confidence": 80,
+        "evidence": [
+          "European Portuguese vowel reduction and stress-timing",
+          "Sibilant consonant production typical of continental Portugal",
+          "Use of the term 'ordenado' for monthly salary"
+        ],
+        "title": "Vida na Rua Lisboa Entrevista: Luis, 60, Uma questão de tempo",
+        "author": "Vida na Rua"
+      }
+    },
+    {
+      "id": "yt-1tdOI0X0phE",
+      "kind": "yt",
+      "videoId": "1tdOI0X0phE",
+      "label": "Buenos Aires, Argentina",
+      "lang": "Spanish",
+      "lat": -34.6037,
+      "lng": -58.3816,
+      "r": 60,
+      "start": 33,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Buenos Aires, Argentina",
+        "offBy": 0,
+        "confidence": 95,
+        "evidence": [
+          "distinctive Rioplatense intonation and speech rhythm",
+          "use of Argentine regional vocabulary like 'colectivo' (bus) and 're mal'",
+          "word choice including 'buena onda' and 'lío'"
+        ],
+        "title": "Así era el acento porteño en los años '90 en Argentina",
+        "author": "GLH HaxBall"
+      }
+    },
+    {
+      "id": "yt-zcasomU6Ios",
+      "kind": "yt",
+      "videoId": "zcasomU6Ios",
+      "label": "Buenos Aires, Argentina",
+      "lang": "Spanish",
+      "lat": -34.6037,
+      "lng": -58.3816,
+      "r": 60,
+      "start": 122,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Buenos Aires, Argentina",
+        "offBy": 0,
+        "confidence": 92,
+        "evidence": [
+          "Distinctive Rioplatense intonation and speech rhythm",
+          "Use of regional slang \"chorro\" for thief",
+          "Frequent tag question \"viste\""
+        ],
+        "title": "\"Mato al chorro, mato al juez\" ENTREVISTA COMPLETA ORIGINAL.",
+        "author": "Sentidos Audiovisuales"
+      }
+    },
+    {
+      "id": "yt-CprjAdAO11s",
+      "kind": "yt",
+      "videoId": "CprjAdAO11s",
+      "label": "Bogotá, Colombia",
+      "lang": "Spanish",
+      "lat": 4.711,
+      "lng": -74.0721,
+      "r": 60,
+      "start": 50,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Bogotá, Colombia",
+        "offBy": 0,
+        "confidence": 80,
+        "evidence": [
+          "Crisp preservation of final 's' sounds",
+          "Gentle, musical pitch cadence characteristic of interior Colombian Spanish",
+          "Soft 'y' sound without heavy friction"
+        ],
+        "title": "BOGOTA, Colombia l Entrevistas por la calle",
+        "author": "New CITYzens"
+      }
+    },
+    {
+      "id": "yt-ZWNYZJONaWQ",
+      "kind": "yt",
+      "videoId": "ZWNYZJONaWQ",
+      "label": "Havana, Cuba",
+      "lang": "Spanish",
+      "lat": 23.1136,
+      "lng": -82.3666,
+      "r": 50,
+      "start": 171,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Havana, Cuba",
+        "offBy": 0,
+        "confidence": 95,
+        "evidence": [
+          "Use of Cuban slang 'fula' to mean dollars",
+          "Reference to 'preuniversitario' (Cuban high school system)",
+          "Classic Western Cuban intonation and cadence"
+        ],
+        "title": "Cual Sería tu Último Deseo - Robertico Comediante Entrevistas en la Calle, Cuba - Parte 1",
+        "author": "Robertico Comediante"
+      }
+    },
+    {
+      "id": "yt-d-d3BjN5ksc",
+      "kind": "yt",
+      "videoId": "d-d3BjN5ksc",
+      "label": "Lahore, Pakistan",
+      "lang": "Hindi–Urdu",
+      "lat": 31.5204,
+      "lng": 74.3587,
+      "r": 60,
+      "start": 35,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Peshawar, Khyber Pakhtunkhwa, Pakistan",
+        "offBy": 384,
+        "confidence": 85,
+        "evidence": [
+          "Pashto-accented Urdu vowel quality and cadence",
+          "Phonetic reflexes typical of native Pashto speakers",
+          "Interviewer explicitly addresses the speaker as a Pathan (Pashtun)"
+        ],
+        "title": "pakistani pathan funny interview 😂 Part - 5 🫡",
+        "author": "King 2M"
+      }
+    },
+    {
+      "id": "yt-520zmm5qVh0",
+      "kind": "yt",
+      "videoId": "520zmm5qVh0",
+      "label": "Hyderabad, India",
+      "lang": "Hindi–Urdu",
+      "lat": 17.385,
+      "lng": 78.4867,
+      "r": 60,
+      "start": 99,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Hyderabad, Telangana, India",
+        "offBy": 3,
+        "confidence": 85,
+        "evidence": [
+          "Mentions Charminar and Irani Chai",
+          "Distinct Hyderabadi Hindi/Dakhni rhythm and intonation",
+          "Local street jargon and cadence typical of Old City Hyderabad"
+        ],
+        "title": "Hyderabad on Being Hyderabadi",
+        "author": "BeingIndian"
+      }
+    },
+    {
+      "id": "yt-1iMMUDdCjso",
+      "kind": "yt",
+      "videoId": "1iMMUDdCjso",
+      "label": "Beijing, China",
+      "lang": "Chinese",
+      "lat": 39.9042,
+      "lng": 116.4074,
+      "r": 60,
+      "start": 75,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Beijing, China",
+        "offBy": 0,
+        "confidence": 75,
+        "evidence": [
+          "Standard Putonghua standard rhythm and soft retroflexes",
+          "Northern Chinese vowel quality on 'xuéli' and 'shíxí'",
+          "Clear distinction between alveolar and retroflex consonants"
+        ],
+        "title": "北京街头采访Beijing Street Interview: 行政Administration",
+        "author": "北京360行"
+      }
+    },
+    {
+      "id": "yt-6yRcJ-BUVDg",
+      "kind": "yt",
+      "videoId": "6yRcJ-BUVDg",
+      "label": "Chengdu, China",
+      "lang": "Chinese",
+      "lat": 30.5728,
+      "lng": 104.0668,
+      "r": 60,
+      "start": 84,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.6-flash",
+        "heard": "Chengdu, Sichuan, China",
+        "offBy": 10,
+        "confidence": 85,
+        "evidence": [
+          "Use of Southwestern Mandarin modal particle \"噻\" (sai)",
+          "Characteristic Sichuan tone contours and vowel quality",
+          "Sichuanese sentence-final intonation patterns"
+        ],
+        "title": "【方言挑战】两个老外挑战四川话，哪个瓜娃子学得最像呢？？",
+        "author": "口语老炮儿马思瑞 Laoma Chris"
+      }
     }
   ],
-  "rejected": []
+  "rejected": [
+    {
+      "id": "kNp0Pdz7scU",
+      "label": "Kingston, Jamaica",
+      "why": "model heard Lagos, Nigeria — 8748 km away"
+    },
+    {
+      "id": "zFfbO2XBLsE",
+      "label": "Kingston, Jamaica",
+      "why": "audio fetch failed"
+    },
+    {
+      "id": "dXhMfl3eYus",
+      "label": "Kingston, Jamaica",
+      "why": "audio fetch failed"
+    },
+    {
+      "id": "xAd9iyGGuYU",
+      "label": "Kingston, Jamaica",
+      "why": "audio fetch failed"
+    },
+    {
+      "id": "FVoKVrmMGvI",
+      "label": "Glasgow, Scotland",
+      "why": "audio fetch failed"
+    },
+    {
+      "id": "FQhIPchN-AQ",
+      "label": "Singapore",
+      "why": "audio fetch failed"
+    },
+    {
+      "id": "Q8M57uJbVZo",
+      "label": "Singapore",
+      "why": "audio fetch failed"
+    },
+    {
+      "id": "7SL0VeD6QGE",
+      "label": "Marseille, France",
+      "why": "audio fetch failed"
+    },
+    {
+      "id": "oSH-QXhJnQw",
+      "label": "Marseille, France",
+      "why": "audio fetch failed"
+    },
+    {
+      "id": "VNILIMZx9JA",
+      "label": "Marseille, France",
+      "why": "audio fetch failed"
+    },
+    {
+      "id": "dmvjrG2fZto",
+      "label": "Marseille, France",
+      "why": "audio fetch failed"
+    },
+    {
+      "id": "c2WGRjUxRDw",
+      "label": "Novosibirsk, Russia",
+      "why": "model heard Nizhny Novgorod, Russia — 2413 km away"
+    },
+    {
+      "id": "z4HXnhMezUQ",
+      "label": "Almaty, Kazakhstan",
+      "why": "model heard Moscow, Russia — 3103 km away"
+    },
+    {
+      "id": "7SyWoMm3Tuc",
+      "label": "Almaty, Kazakhstan",
+      "why": "model heard Grozny, Chechen Republic, Russia — 2508 km away"
+    },
+    {
+      "id": "Lwi1wOrjLYo",
+      "label": "Almaty, Kazakhstan",
+      "why": "model heard Makhachkala, Republic of Dagestan, Russia — 2371 km away"
+    },
+    {
+      "id": "IV_gLqxrdx8",
+      "label": "Almaty, Kazakhstan",
+      "why": "model heard Moscow, Russia — 3103 km away"
+    },
+    {
+      "id": "X-rmUjtxpTs",
+      "label": "Salvador, Brazil",
+      "why": "audio fetch failed"
+    },
+    {
+      "id": "NrEnUMxpKH8",
+      "label": "Bogotá, Colombia",
+      "why": "model heard San Juan, Puerto Rico — 1757 km away"
+    },
+    {
+      "id": "HM5_6MmBbOA",
+      "label": "Bogotá, Colombia",
+      "why": "model gave no answer"
+    },
+    {
+      "id": "U_3_s9Wm_QM",
+      "label": "Havana, Cuba",
+      "why": "audio fetch failed"
+    },
+    {
+      "id": "ZmFhxz1Vm5A",
+      "label": "Lahore, Pakistan",
+      "why": "audio fetch failed"
+    },
+    {
+      "id": "lEcNbmb5QHQ",
+      "label": "Beijing, China",
+      "why": "model heard Sydney, New South Wales, Australia — 8948 km away"
+    },
+    {
+      "id": "gHgz_FO7_LE",
+      "label": "Beijing, China",
+      "why": "audio fetch failed"
+    },
+    {
+      "id": "y8TY8e18mX8",
+      "label": "Beijing, China",
+      "why": "model heard Changsha, Hunan, China — 1337 km away"
+    },
+    {
+      "id": "7TPAXwQ6Xig",
+      "label": "Chengdu, China",
+      "why": "audio fetch failed"
+    },
+    {
+      "id": "puQNuqGsogc",
+      "label": "Chengdu, China",
+      "why": "model heard Taipei, Taiwan — 1826 km away"
+    },
+    {
+      "id": "1Gaq-wYjDX8",
+      "label": "Chengdu, China",
+      "why": "audio fetch failed"
+    },
+    {
+      "id": "Y60PwYel4kA",
+      "label": "Chengdu, China",
+      "why": "model heard Shenyang, Liaoning, China — 2129 km away"
+    },
+    {
+      "id": "WnGBGoRlkrA",
+      "label": "Chengdu, China",
+      "why": "audio fetch failed"
+    }
+  ]
 }
