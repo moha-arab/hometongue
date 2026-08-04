@@ -51,12 +51,12 @@ Give the evidence as short, specific, human-readable phrases naming what you hea
 const SCHEMA = {
   type: 'object',
   properties: {
-    lat: { type: 'number' },
-    lng: { type: 'number' },
-    radius_km: { type: 'integer' },
-    place: { type: 'string' },
-    language: { type: 'string' },
-    confidence: { type: 'integer' },
+    lat: { type: 'number', description: 'latitude of the single best guess' },
+    lng: { type: 'number', description: 'longitude of the single best guess' },
+    radius_km: { type: 'integer', description: 'radius you are about 70% confident they grew up within' },
+    place: { type: 'string', description: 'human-readable name of that point, e.g. "Aleppo, Syria"' },
+    language: { type: 'string', description: 'the language they are speaking, in English' },
+    confidence: { type: 'integer', description: '0-100, honestly calibrated' },
     evidence: { type: 'array', items: { type: 'string' } },
   },
   required: ['lat', 'lng', 'radius_km', 'place', 'language', 'confidence', 'evidence'],
