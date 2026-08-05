@@ -243,3 +243,49 @@ the Syrian material and it shows.
 
 The two Syrian clips remain at the ceiling, so this run STILL cannot say whether the route is
 better at Syria. That question needs a speaker of the dialect, or more Syrian clips.
+
+# Sourcing a Syrian benchmark from YouTube — stopped, and why
+
+Goal: Syrian sub-regional clips the model had no hand in choosing, so the Syria route could
+finally be measured. Twelve places, blind quality-only gate, labels from the source video.
+
+Result: 2 accepted, 21 rejected. Both accepted clips are Damascus. Ten of twelve places empty.
+
+The rejection breakdown is the finding:
+
+     11  audio fetch failed
+      4  broadcaster channel
+      2  not natural speech
+      1  speaker states their own origin
+      1  reporter or narrator
+      1  international newsroom
+
+Over half were fetch failures, and they are not a code bug. Diagnosed by re-testing a video
+that had downloaded fine ten minutes earlier: same URL, same command, same machine, now 460
+bytes and an empty file. YouTube is rate-limiting the IP after a few dozen requests. yt-dlp is
+current (2026.03.17), --force-keyframes-at-cuts is not the cause, seeking early instead of
+35% in does not help, and the android player client does not carry the format.
+
+I spent two rounds rewriting search queries — first toward street interviews, then toward
+vlogs and market walks — on the theory that the corpus was the problem. The corpus was a real
+but secondary problem. The wall was bot detection, and the query rewrites could not have fixed
+it. Read the rejection reasons before theorising about the ones that are not the biggest.
+
+## What is not the answer
+
+Passing a browser session via --cookies-from-browser would likely bypass the throttling. It
+also means driving YouTube with a real account from an automated script, which is what account
+flags are for. Not doing that without an explicit decision, and it is not worth the risk here.
+
+## What is the answer
+
+The app already has the pipeline. api/feedback.js stores the voice clip plus the correction
+with consent, and the result card already asks "did I get it?" with a city field. Syrians using
+hometongue.me with the donate box ticked produce exactly what YouTube could not: real speech
+labelled by the speaker with the city they actually grew up in. Better provenance than any
+scraped clip, and no bot detection in the way.
+
+The tooling built for this run is not wasted and stays in the repo: the blind gate in
+tools/source-benchmark.mjs never asks where anyone is from, and tools/eval-benchmark.mjs scores
+any clip set twice on identical audio, general prompt against the Syria route. Both work the
+moment a clip set exists, wherever it comes from.
