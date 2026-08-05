@@ -106,10 +106,23 @@ async function embeddable(id) {
 // regional accent and are usually not from the place they are standing in — the first smoke
 // test accepted a BBC piece about a DAMASCUS neighbourhood off a Tartus query, which is
 // exactly the label noise this whole file exists to avoid. Local channels are fine.
+// Matched against the CHANNEL only. These words are far too common in ordinary Arabic titles
+// — الشارع العربي, أخبار الحي — to be safe as title filters.
 const NEWSROOM = new RegExp([
-  'bbc', 'aljazeera', 'al jazeera', 'الجزيرة', 'العربية', 'سكاي نيوز', 'skynews', 'sky news',
-  'france ?24', 'فرانس', 'dw', 'الحدث', 'الشرق', 'رويترز', 'reuters', 'afp', 'الميادين',
-  'روسيا اليوم', 'rt arabic', 'trt', 'العالم', 'المشهد', 'الحرة', 'alhurra',
+  'bbc', 'aljazeera', 'al jazeera', 'الجزيرة', 'العربية', 'العربي', 'سكاي نيوز', 'skynews',
+  'sky news', 'france ?24', 'فرانس', '\\bdw\\b', 'الحدث', 'الشرق', 'رويترز', 'reuters', 'afp',
+  'الميادين', 'روسيا اليوم', 'rt arabic', 'trt', 'المشهد', 'الحرة', 'alhurra', 'سبوتنيك',
+  'الإخبارية', 'الاخبارية', 'نيوز', 'news', 'قناة', 'تلفزيون', 'فضائية', 'tv\\b',
+].join('|'), 'i');
+
+// Matched against the TITLE. The audio gate cannot see any of this: a presenter breaking down
+// live is unscripted, emotional, single-speaker, clean audio — it passed every question the
+// gate asks and is still worthless, because a broadcaster's register hides where they grew up.
+// That clip is exactly why this exists.
+const BROADCAST = new RegExp([
+  'مذيع', 'مذيعة', 'نشرة', 'مراسل', 'تقرير', 'بث مباشر', 'على الهواء', 'استوديو',
+  'برنامج', 'حلقة', 'ضيف', 'الوزير', 'وزير', 'رئيس', 'مؤتمر صحفي', 'تصريح', 'خطاب',
+  'انchor', 'live broadcast', 'press conference',
 ].join('|'), 'i');
 
 function grabWindow(id, startS) {
@@ -201,9 +214,14 @@ for (const t of targets) {
       if (seen.has(v.id) || decided.has(v.id)) continue;
       seen.add(v.id);
       if (IMPOSTOR.test(v.title)) { rejected.push({ id: v.id, label: t.label, title: v.title, why: 'title suggests lesson or imitation' }); continue; }
-      if (NEWSROOM.test(v.channel) || NEWSROOM.test(v.title)) {
-        rejected.push({ id: v.id, label: t.label, title: v.title, why: `international newsroom (${v.channel})` });
-        console.log(`   ✗ ${v.title.slice(0, 52)} — newsroom`);
+      if (NEWSROOM.test(v.channel)) {
+        rejected.push({ id: v.id, label: t.label, title: v.title, why: `broadcaster channel (${v.channel})` });
+        console.log(`   ✗ ${v.title.slice(0, 44)} — broadcaster: ${v.channel.slice(0, 20)}`);
+        continue;
+      }
+      if (BROADCAST.test(v.title)) {
+        rejected.push({ id: v.id, label: t.label, title: v.title, why: 'title indicates broadcast or official speech' });
+        console.log(`   ✗ ${v.title.slice(0, 52)} — broadcast title`);
         continue;
       }
       const emb = await embeddable(v.id);

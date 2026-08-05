@@ -1,0 +1,73 @@
+{
+  "gate": "blind-quality-only",
+  "model": "gemini-3.6-flash",
+  "accepted": [
+    {
+      "id": "yt-w2yTVSdmCwM",
+      "kind": "yt",
+      "videoId": "w2yTVSdmCwM",
+      "label": "Damascus, Syria",
+      "lang": "Arabic",
+      "lat": 33.5138,
+      "lng": 36.2765,
+      "r": 40,
+      "start": 80,
+      "gain": 100,
+      "deck": "syria",
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "source": {
+        "title": "دمشق - سكان العاصمة دمشق يحمّلون التجّار مسؤولية رفع الأسعار – نورث برس",
+        "author": "North Press Agency",
+        "query": "مقابلات الشارع دمشق أهالي العاصمة",
+        "frac": 35,
+        "quality": 4,
+        "speakers": 1,
+        "speech_s": 22
+      }
+    }
+  ],
+  "rejected": [
+    {
+      "id": "IaVY-g6_b-0",
+      "label": "Damascus, Syria",
+      "title": "اللقاء الكامل للسيد الرئيس أحمد الشرع مع وفد من أبناء دمشق بمناسبة الذكرى السنوية الأولى للتحرير",
+      "why": "audio fetch failed"
+    },
+    {
+      "id": "kQe14FJRGuE",
+      "label": "Damascus, Syria",
+      "title": "حقيقة الحياة في سوريا بعد سقوط الأسد 💚  الجزء الأول",
+      "why": "audio fetch failed"
+    },
+    {
+      "id": "XncExuP2Ybg",
+      "label": "Damascus, Syria",
+      "title": "بين الفرح والدهشة.. التلفزيون العربي يرصد ردود فعل السوريين في دمشق بعد سقوط نظام الأسد",
+      "why": "speaker states their own origin — would leak the answer"
+    },
+    {
+      "id": "W70e0Q8ooHI",
+      "label": "Damascus, Syria",
+      "title": "استطلاع حول انتخابات الرئاسة في أحياء دمشق",
+      "why": "international newsroom (AlJazeera Arabic  قناة الجزيرة)"
+    },
+    {
+      "id": "yVNfCINm-ak",
+      "label": "Damascus, Syria",
+      "title": "Residents of the Daf al-Shawk neighborhood in #Damascus appeal to the authorities to hear their v...",
+      "why": "reporter or narrator, not an ordinary speaker"
+    },
+    {
+      "id": "6AS1qIT_X6I",
+      "label": "Damascus, Syria",
+      "title": "مدينة الحجر الأسود.. جرحٌ مفتوح جنوب دمشق",
+      "why": "not natural speech — Scripted news narration / reporter voice"
+    },
+    {
+      "id": "dfqggI7hNIc",
+      "label": "Damascus, Syria",
+      "title": "شاهد تأثر وبكاء مذيعة التلفزيون العربي على الهواء مباشرة بعد عودتها إلى دمشق عقب سقوط نظام الأسد",
+      "why": "purged: broadcaster or presenter"
+    }
+  ]
+}
