@@ -81,7 +81,7 @@ const GATE_SCHEMA = {
   required: ['arabic_speech', 'natural', 'audio_quality', 'states_origin'],
 };
 
-function ytSearch(query, n = 8) {
+function ytSearch(query, n = 10) {
   try {
     const out = execFileSync('yt-dlp', [
       `ytsearch${n}:${query}`, '--flat-playlist', '--dump-json', '--no-warnings', '--skip-download',
@@ -231,7 +231,7 @@ for (const t of targets) {
       // smoke-test rejections were "no connected Arabic speech" from videos full of speech.
       // Sample three points across the video before giving up on it.
       let g = null; let start = 0; let lastWhy = 'audio fetch failed';
-      for (const frac of [0.35, 0.6, 0.15]) {
+      for (const frac of [0.4, 0.65]) {
         start = Math.max(20, Math.floor(v.duration * frac));
         const file = grabWindow(v.id, start);
         await sleep(1200);                    // yt-dlp starts returning 403 when hit hard
