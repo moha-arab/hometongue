@@ -349,3 +349,38 @@ last 30 seconds were pure waiting. Cap is now 35s, which takes the worst-case jo
 The remaining wait is real and irreducible without changing models, so it is now legible
 instead: the analyzing card counts elapsed seconds and moves through what it is doing. A frozen
 spinner for 29 s reads as a crash.
+
+# Length sweep: 20/30/45/60s — and the run that ran out of money
+
+Ran 20/30/45/60s on the clips long enough to hold a real 60s window. Two things to record:
+the result, and the fact that half the run failed.
+
+| audio | n | median err | <100km | median latency | p90 | payload |
+| --- | --- | --- | --- | --- | --- | --- |
+| 20s | 27 | 317 km | 44% | 8.8 s | 15.3 s | 118 KB |
+| 30s | 27 | **72 km** | 52% | 11.2 s | 19.6 s | 177 KB |
+| 45s | 28 | 90 km | 54% | 10.5 s | 17.6 s | 264 KB |
+| 60s | 28 | 85 km | **57%** | 12.0 s | 19.3 s | 352 KB |
+
+20s is far worse than anything longer. 30, 45 and 60 are close on the median, with a slow
+gain out to 60s on the share within 100 km. That supports keeping the 60s cap with an early
+stop, and it supports the 10/20/30s thresholds behind the recording quality meter.
+
+## Read this before quoting the numbers
+
+27 of 54 FAILED. Every Portuguese, Russian, Chinese and Hindi-Urdu clip returned nothing, and
+the failures are contiguous from the Spanish deck onward — the signature of a run dying
+partway, not of hard clips. Cause: the Gemini prepay balance was exhausted mid-run.
+
+So this is a ~28-clip sample weighted to accents, arabic, french and spanish, NOT the 54-clip
+run it was designed as. The 20s-is-bad finding is large enough to survive that. The 45-vs-60
+difference is not — do not treat it as settled.
+
+## The failure was invisible at the point it mattered
+
+A depleted balance arrives as HTTP 429, which the retry logic treated as "busy". Three
+attempts and a 50-second wait later, production told users "the model kept refusing the
+request" — indistinguishable from a transient blip, and it sent me looking for a bug that was
+really an empty wallet. api/analyze.js now reads the 429 body, and RESOURCE_EXHAUSTED becomes
+its own error code that does not retry, returns 503, and says plainly that the account is out
+of credit and the recording was fine.

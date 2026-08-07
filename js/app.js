@@ -384,6 +384,7 @@ function blobToBase64(blob) {
 const ERRORS = {
   no_speech: "I couldn't hear any real speech in that — if the bars weren't moving while you talked, Chrome is probably using the wrong microphone (click the mic icon in the address bar).",
   not_configured: 'The server is missing its API key, so nothing can be analyzed. That is a setup problem, not your recording.',
+  out_of_credit: 'The analysis account has run out of credit, so nothing can be read right now. Nothing is wrong with your recording — top up the Gemini billing and it works again immediately.',
   busy: 'The model is busy right now — give it a few seconds and try again.',
   upstream_failed: "The model didn't answer. Try again in a moment.",
   audio_too_short: 'That was too short to read anything from — give me a sentence or two.',

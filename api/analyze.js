@@ -78,6 +78,16 @@ async function locate(parts) {
     // ~1.4s while the others succeeded. Treating any non-429 as fatal meant giving up
     // instantly on a request that would have worked, which is what users saw as the app
     // erroring out at random. Retry anything retryable inside the budget.
+    // A depleted prepay balance also arrives as 429, and retrying it is pointless — three
+    // attempts and a 50-second wait end in "the model kept refusing the request", which sounds
+    // like a transient blip and sent me hunting a bug that was really an empty wallet. Read the
+    // body and separate out-of-credit from genuinely busy, because the fixes are unrelated.
+    if (resp.status === 429) {
+      const body = await resp.text().catch(() => '');
+      if (/RESOURCE_EXHAUSTED|credits? (are )?depleted|quota|billing/i.test(body)) {
+        throw Object.assign(new Error('the analysis account is out of credit'), { code: 'out_of_credit' });
+      }
+    }
     if (resp.status === 429 || resp.status === 503 || resp.status === 400 || resp.status >= 500) {
       if (attempt === 2) throw Object.assign(new Error('the model kept refusing the request'), { code: 'upstream_failed' });
       await new Promise((r) => setTimeout(r, Math.min(1500 * (attempt + 1), Math.max(0, deadline - Date.now() - 8000))));
@@ -192,7 +202,9 @@ export default async function handler(req, res) {
   } catch (err) {
     const code = err.code || 'server_error';
     res.statusCode = ['audio_too_large', 'audio_too_short', 'no_speech'].includes(code) ? 422
-      : code === 'busy' ? 429 : 500;
+      : code === 'busy' ? 429
+        : code === 'out_of_credit' ? 503   // the service is genuinely unavailable, not broken
+          : 500;
     return res.end(JSON.stringify({
       ok: false,
       error: code,
