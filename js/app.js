@@ -38,12 +38,17 @@ const { COUNTRIES } = window.HT_PLACES;
 
 // ————— map —————
 function initMap() {
-  map = L.map('map', { zoomControl: false, attributionControl: true, worldCopyJump: true });
+  // The zoom floor is a map OPTION, so fitBounds already respects it. Applying it afterwards
+  // interrupted the tile fade and left the map invisible. Zooming out used to paint four
+  // copies of Earth; the floor is computed from the window so one world always fills it.
+  const mapEl = document.getElementById('map');
+  map = L.map('map', {
+    zoomControl: false, attributionControl: true, worldCopyJump: true,
+    minZoom: window.HT.minZoomFor(mapEl),
+  });
   map.fitBounds(HOME_BOUNDS);
   window.HT.basemap(map);
-  // Zooming out used to paint four copies of Earth across the screen. The floor is computed
-  // from the window rather than hard-coded, so one world always fills it exactly.
-  window.HT.fitMinZoom(map);
+  window.HT.keepMinZoom(map, mapEl);
 
   // if the page loads in a background tab, Leaflet caches a 0x0 size — fix on reveal
   document.addEventListener('visibilitychange', () => {

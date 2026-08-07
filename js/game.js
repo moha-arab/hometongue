@@ -30,10 +30,14 @@ const field = window.HT.contours();
 
 // ————— map —————
 function initMap() {
-  map = L.map('map', { zoomControl: false, attributionControl: true, worldCopyJump: true });
+  const mapEl = document.getElementById('map');
+  map = L.map('map', {
+    zoomControl: false, attributionControl: true, worldCopyJump: true,
+    minZoom: window.HT.minZoomFor(mapEl),   // one world, always filling the window
+  });
   map.fitBounds(WORLD);
   window.HT.basemap(map);
-  window.HT.fitMinZoom(map);   // one world, always filling the window
+  window.HT.keepMinZoom(map, mapEl);
   map.on('click', onMapClick);
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden) setTimeout(() => map.invalidateSize(), 60);
