@@ -31,13 +31,7 @@ const modelFlag = argv.indexOf('--model');
 const MODEL = modelFlag >= 0 ? argv[modelFlag + 1] : DEFAULT_MODEL;
 const decks = argv.filter((a) => !a.startsWith('--') && a !== MODEL);
 
-// --syria runs the opt-in specialist route instead of the default prompt. Results are written
-// to a separate file so an experimental run can never be mistaken for the real benchmark.
-const EXPERT = argv.includes('--syria') ? 'syria' : '';
-const { SYRIA_APPENDIX } = EXPERT
-  ? await import(pathToFileURL(path.join(ROOT, 'api/prompt-syria.js')).href)
-  : { SYRIA_APPENDIX: '' };
-const SYSTEM = BASE + (EXPERT ? SYRIA_APPENDIX : '');
+const SYSTEM = BASE;
 const CONCURRENCY = 3;
 
 // The 'languages' deck asks a different question. Its clips are spoken-Wikipedia recordings
@@ -110,7 +104,7 @@ for (const [deck, clips] of Object.entries(window.CLIPS)) {
   }
 }
 
-const OUT = path.join(ROOT, 'data', `eval-${MODEL}${EXPERT ? `-${EXPERT}` : ''}.json`);
+const OUT = path.join(ROOT, 'data', `eval-${MODEL}.json`);
 
 // The resume cache exists so an interrupted run can pick up where it stopped. It also,
 // silently, made prompt experiments meaningless: re-running after editing the prompt replayed

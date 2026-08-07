@@ -299,21 +299,11 @@ const ERRORS = {
   bad_origin: 'That request was blocked as coming from the wrong domain.',
 };
 
-// Opt-in specialist prompt, e.g. hometongue.me/?expert=syria. Off unless the URL asks for it,
-// so an experiment can be tried on the live site without changing what anyone else gets.
-const EXPERT = new URLSearchParams(location.search).get('expert') || '';
-// Without a visible marker there is no way to tell an experimental route apart from the
-// normal one, which makes an A/B comparison worthless.
-if (EXPERT) {
-  const eyebrow = document.querySelector('#idleCard .card-eyebrow b');
-  if (eyebrow) { eyebrow.textContent = `${EXPERT} expert · experimental`; eyebrow.style.color = '#C43D2B'; }
-}
-
 async function postAnalyze(payload) {
   const resp = await fetch('/api/analyze', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(EXPERT ? { ...payload, expert: EXPERT } : payload),
+    body: JSON.stringify(payload),
   });
   const data = await resp.json().catch(() => null);
   if (!resp.ok || !data || !data.ok) {

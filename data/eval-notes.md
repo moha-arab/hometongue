@@ -289,3 +289,38 @@ The tooling built for this run is not wasted and stays in the repo: the blind ga
 tools/source-benchmark.mjs never asks where anyone is from, and tools/eval-benchmark.mjs scores
 any clip set twice on identical audio, general prompt against the Syria route. Both work the
 moment a clip set exists, wherever it comes from.
+
+# The Syria route is deleted
+
+Removed api/prompt-syria.js, tools/targets-syria.json, tools/source-benchmark.mjs,
+tools/eval-benchmark.mjs, tools/yt-audio.mjs, the ?expert= plumbing in api/analyze.js and
+js/app.js, and the --syria flag in tools/eval.mjs. Kept: the prompt-hash cache key in
+tools/eval.mjs, and these notes.
+
+The reason is the one that was visible before the work started. The general prompt already
+scores 0.45 km on Aleppo and 1.3 km on Damascus. There was no headroom, so no version of a
+specialist could show a gain — and it measurably cost accuracy elsewhere in Arabic, 38 km
+against 28 km. It was also an opt-in URL parameter no real user would ever type.
+
+## The whole record of trying to beat the short prompt
+
+| addition | result |
+| --- | --- |
+| Whisper transcript alongside the audio | null (38 vs 43, split evenly) |
+| hand-written dialect playbooks | 69 vs 43 — worse |
+| phoneme recogniser, Arabic and English | null/negative |
+| nine-language expert prompt | 49 vs 37 — worse |
+| researched Syria appendix | 38 vs 28 on Arabic — worse |
+
+Five independent attempts to add domain knowledge, every one null or negative. THE PROMPT
+LAYER IS SATURATED. Do not spend more time here. The 2,136-character prompt in api/prompt.js
+is the best configuration measured, and anything that makes it longer should be assumed
+harmful until an eval says otherwise.
+
+## What survived and is worth keeping
+
+- The prompt-hash cache key. tools/eval.mjs was replaying cached answers after a prompt change
+  and reporting them as a measurement; it nearly produced a confident false finding.
+- "Place first, then sharpen". If a specialist prompt is ever tried again, ordering the model
+  to form its answer BEFORE reading the notes recovered Basra 448 -> 0 km and Manama 434 -> 1 km.
+- The knowledge that YouTube sourcing dies to IP-level bot detection, not to bad queries.

@@ -19,13 +19,6 @@
 // Both cost a call and latency for noise. Do not re-add without re-running tools/eval.
 import { mintToken } from './feedback.js';
 import { SYSTEM, SCHEMA, MODEL } from './prompt.js';
-import { SYRIA_APPENDIX } from './prompt-syria.js';
-
-// Experimental specialist routes, opt-in per request. The client only asks for one when the
-// page is loaded with ?expert=syria, so the default path is byte-identical to before and an
-// experiment cannot regress everyone. Each appends to SYSTEM rather than replacing it, so the
-// radius calibration and the anti-hallucination rules stay in one place.
-const EXPERTS = { syria: SYRIA_APPENDIX };
 
 export const config = { maxDuration: 60 };
 
@@ -47,8 +40,7 @@ function readJsonBody(req) {
 // normal, not exceptional. Budget every attempt against one shared deadline instead.
 const BUDGET_MS = 50_000;
 
-async function locate(parts, expert) {
-  const system = SYSTEM + (EXPERTS[expert] || '');
+async function locate(parts) {
   const key = process.env.GEMINI_API_KEY;
   if (!key) throw Object.assign(new Error('GEMINI_API_KEY not set'), { code: 'not_configured' });
 
@@ -65,7 +57,7 @@ async function locate(parts, expert) {
           method: 'POST',
           headers: { 'x-goog-api-key': key, 'content-type': 'application/json' },
           body: JSON.stringify({
-            systemInstruction: { parts: [{ text: system }] },
+            systemInstruction: { parts: [{ text: SYSTEM }] },
             contents: [{ role: 'user', parts }],
             generationConfig: {
               temperature: 0,
@@ -182,7 +174,7 @@ export default async function handler(req, res) {
       return res.end(JSON.stringify({ ok: false, error: 'no_speech', detail: 'No usable speech detected.' }));
     }
 
-    const raw = await locate(parts, String(body.expert || ''));
+    const raw = await locate(parts);
     // A silent file once came back as Toronto at 75% with invented phonetic evidence. If the
     // model says there is no speech, believe it rather than rendering a fabricated pin.
     if (raw && raw.has_speech === false) {
