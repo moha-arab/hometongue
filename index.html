@@ -80,7 +80,10 @@
   <!-- ANALYZING -->
   <section class="card" id="analyzingCard" hidden>
     <div class="scan"><span></span><span></span><span></span></div>
-    <p class="live-status">reading your accent…</p>
+    <p class="live-status" id="scanStatus">reading your accent…</p>
+    <!-- The call is ~12s at the median and ~29s at p90. A frozen spinner for that long reads
+         as a crash, so the copy moves and an elapsed counter proves it is still alive. -->
+    <p class="scan-note"><span id="scanNote">listening to how you shape your vowels</span><b id="scanElapsed"></b></p>
   </section>
 
   <!-- RESULT -->

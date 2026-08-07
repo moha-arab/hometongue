@@ -324,3 +324,28 @@ harmful until an eval says otherwise.
 - "Place first, then sharpen". If a specialist prompt is ever tried again, ordering the model
   to form its answer BEFORE reading the notes recovered Basra 448 -> 0 km and Manama 434 -> 1 km.
 - The knowledge that YouTube sourcing dies to IP-level bot detection, not to bad queries.
+
+# Latency: the audio is not the problem
+
+Hypothesis: the benchmark scores 28 km on ~30s clips while the app records up to 60s, so
+shortening the recording should cut the wait for free. Tested on 24 benchmark clips at four
+truncations, 96 calls.
+
+| audio | median error | <100km | median latency | p90 latency | payload |
+| --- | --- | --- | --- | --- | --- |
+| 30s | **67 km** | **57%** | 11.8 s | 28.7 s | 177 KB |
+| 20s | 157 km | 50% | 10.2 s | 17.3 s | 118 KB |
+| 12s | 157 km | 48% | 8.2 s | 21.3 s | 71 KB |
+| 8s | 345 km | 25% | 6.2 s | 15.5 s | 48 KB |
+
+The hypothesis was wrong. Cutting audio from 30s to 8s saves 5.6 s and takes the error from
+67 km to 345 km. Latency is model inference, not upload, so there is nothing to buy there.
+Length buys real accuracy up to ~30s and the app should keep asking for it.
+
+What the numbers DO justify: the 60s recording cap. Nothing measures better past ~30s, so the
+last 30 seconds were pure waiting. Cap is now 35s, which takes the worst-case journey from
+60 s of talking plus a 29 s call down to 35 s plus the same call.
+
+The remaining wait is real and irreducible without changing models, so it is now legible
+instead: the analyzing card counts elapsed seconds and moves through what it is doing. A frozen
+spinner for 29 s reads as a crash.

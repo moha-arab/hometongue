@@ -614,3 +614,8 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .count span { font-size: 13px; color: var(--grey); }
 .count-track { height: 3px; border-radius: 2px; background: var(--rule-soft); overflow: hidden; margin-bottom: 20px; }
 .count-fill { height: 100%; width: 0; background: var(--accent); opacity: 0.75; transition: width 0.25s linear; }
+
+/* the analyzing wait: ~12s median, ~29s p90, so it needs to look alive */
+.scan-note { font-family: 'IBM Plex Mono', monospace; font-size: .72rem; letter-spacing: .02em;
+  color: var(--ink-soft, #6b7570); margin-top: .35rem; opacity: .85; }
+.scan-note b { font-weight: 500; opacity: .6; }

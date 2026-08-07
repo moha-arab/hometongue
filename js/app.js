@@ -2,13 +2,26 @@
 const $ = (s) => document.querySelector(s);
 
 const HOME_BOUNDS = [[-50, -140], [65, 160]]; // the whole inhabited world
-const MAX_SECONDS = 60;
+// 35s, not 60s. Measured on 24 benchmark clips at four truncations: 30s scores 67 km median
+// and 57% within 100 km, 20s drops to 157 km, 8s collapses to 345 km and 25%. So length buys
+// real accuracy up to ~30s. It does NOT buy latency: median call time only moves 11.8s -> 6.2s
+// across that whole range, because the wait is model inference, not upload. Recording past ~30s
+// therefore adds pure waiting for no measured gain, and the old cap made the worst case
+// 60s of talking plus a 29s p90 call. See data/length-latency.json.
+const MAX_SECONDS = 35;
 let map, marker, glow;
 let state = 'idle';
 let mediaStream = null, recorder = null, chunks = [], recMime = '';
 let audioCtx = null, analyser = null, rafId = null;
 let timerId = null, startedAt = 0;
 let micPeak = -1; // loudest rolling level seen this recording; -1 = meter unavailable
+// Peak alone cannot tell speech from a door slam. A single cough clears a peak threshold and
+// a whole recording of room tone then goes to the model, which answered one silent file with
+// "Toronto, 75%, Canadian raising on 'night'" — invented phonetic evidence for audio that had
+// none. Counting how many frames actually carried voice-level energy catches that case.
+let micFrames = 0, micVoiced = 0;
+const VOICE_LEVEL = 0.05;   // mean spectral level that ordinary speech clears
+const MIN_VOICED_S = 1.5;   // less real speech than this is not placeable by anyone
 
 // the survey red, read from the stylesheet so themes stay in one place
 const MARK = () => window.HT.ink();
@@ -82,6 +95,10 @@ function flyHome() {
 const cards = ['idleCard', 'liveCard', 'typeCard', 'analyzingCard', 'resultCard'];
 function show(cardId) {
   for (const id of cards) $('#' + id).hidden = id !== cardId;
+  // Stopping the ticker here rather than at each call site means no error path can leave it
+  // running behind the result card. There are seven ways back to idle and only one of them
+  // is success.
+  if (cardId !== 'analyzingCard') stopScan();
 }
 
 function toast(msg) {
@@ -119,12 +136,14 @@ function startMeter(stream) {
     src.connect(analyser);
     const data = new Uint8Array(analyser.frequencyBinCount);
     const bars = [...document.querySelectorAll('#wave i')];
-    micPeak = 0;
+    micPeak = 0; micFrames = 0; micVoiced = 0;
     const loop = () => {
       analyser.getByteFrequencyData(data);
       let sum = 0;
       for (let i = 0; i < data.length; i++) sum += data[i];
       micPeak = Math.max(micPeak, sum / data.length / 255);
+      micFrames += 1;
+      if (sum / data.length / 255 > VOICE_LEVEL) micVoiced += 1;
       bars.forEach((b, i) => {
         const v = data[Math.floor(i * data.length / bars.length / 2) + 2] / 255;
         b.style.transform = `scaleY(${0.15 + v * 1.1})`;
@@ -160,8 +179,8 @@ function startTimer() {
     const hint = $('#countHint');
     if (hint) {
       hint.textContent = s < 8 ? 'left — keep going, I need a few sentences'
-        : s < 20 ? 'left — good, more is better'
-          : 'left — plenty to work with, stop whenever';
+        : s < 18 ? 'left — good, a bit more helps'
+          : 'left — that\'s plenty, hit done whenever';
     }
     if (s >= MAX_SECONDS) stopListening();
   }, 250);
@@ -169,6 +188,37 @@ function startTimer() {
 
 function stopTimer() {
   if (timerId) clearInterval(timerId), timerId = null;
+}
+
+// ————— the wait —————
+// Measured: median 11.8s to a verdict, p90 28.7s. Nothing about that is fixable by sending
+// less audio (8s of audio still takes 6.2s and wrecks accuracy, 67km -> 345km), so the wait
+// is real and the job is to make it legible rather than to pretend it is short.
+const SCAN_NOTES = [
+  'listening to how you shape your vowels',
+  'checking which consonants you soften',
+  'weighing your rhythm and stress',
+  'narrowing down the region',
+  'still going — a long look usually means a close call',
+];
+let scanId = null;
+function startScan() {
+  const t0 = Date.now();
+  let i = 0;
+  const note = $('#scanNote'), el = $('#scanElapsed');
+  if (note) note.textContent = SCAN_NOTES[0];
+  if (el) el.textContent = '';
+  scanId = setInterval(() => {
+    const s = Math.round((Date.now() - t0) / 1000);
+    if (el) el.textContent = ` · ${s}s`;
+    // Advance roughly every 5s, then hold on the last line rather than looping forever,
+    // because a cycling message eventually reads as broken too.
+    const next = Math.min(SCAN_NOTES.length - 1, Math.floor(s / 5));
+    if (next !== i && note) { i = next; note.textContent = SCAN_NOTES[i]; }
+  }, 250);
+}
+function stopScan() {
+  if (scanId) clearInterval(scanId), scanId = null;
 }
 
 // The live transcript preview is gone. It used the browser's own recogniser, which must be
@@ -189,7 +239,7 @@ async function startListening() {
   if (state === 'listening' || state === 'analyzing' || state === 'starting') return; // double-tap guard
   state = 'starting';
   window._lastAudio = null;
-  micPeak = -1;
+  micPeak = -1; micFrames = 0; micVoiced = 0;
   const mime = pickMime();
   if (mime === null || !navigator.mediaDevices?.getUserMedia) {
     toast('This browser can\'t record audio — type mode instead 👇');
@@ -232,6 +282,9 @@ function stopListening() {
     show('idleCard');
     return;
   }
+  // Two different failures, two different fixes, so they get two different messages.
+  // A dead mic is a settings problem; a quiet room is a "say more" problem.
+  const voicedS = micFrames ? (micVoiced / micFrames) * elapsed : -1;
   if (micPeak >= 0 && micPeak < 0.02) {
     if (recorder && recorder.state !== 'inactive') { recorder.onstop = null; recorder.stop(); }
     teardownRecording();
@@ -243,7 +296,17 @@ function stopListening() {
     show('idleCard');
     return;
   }
-  show('analyzingCard');
+  // The mic works but almost nothing in the recording was voice. Refuse here rather than
+  // spend a call and a 20-second wait on audio that can only produce a fabricated answer.
+  if (voicedS >= 0 && voicedS < MIN_VOICED_S) {
+    if (recorder && recorder.state !== 'inactive') { recorder.onstop = null; recorder.stop(); }
+    teardownRecording();
+    toast('I could hardly hear any talking 🤫 — get closer and say a couple of sentences.');
+    state = 'idle';
+    show('idleCard');
+    return;
+  }
+  show('analyzingCard'); startScan();
   if (recorder && recorder.state !== 'inactive') recorder.stop(); // -> onRecordingReady
   else onRecordingReady();
 }
@@ -326,7 +389,7 @@ function runTextAnalysis(text, typed) {
     show(typed ? 'typeCard' : 'idleCard');
     return;
   }
-  show('analyzingCard');
+  show('analyzingCard'); startScan();
   state = 'analyzing';
   postAnalyze({ text })
     .then((resp) => renderResult(normalizeServer(resp)))
