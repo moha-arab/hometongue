@@ -517,11 +517,11 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 @media (max-width: 620px) {
   .modes a { padding: 6px 9px; font-size: 12px; }
   .brand { padding: 13px 15px; }
-  .tagline { font-size: 33px; }
+  .tagline { font-size: 38px; line-height: 1.04; }
 }
 @media (max-width: 560px) {
   .card { padding: 24px 21px; }
-  .result-region { font-size: 31px; }
+  .result-region { font-size: 35px; }
   .runner-name { width: 100px; font-size: 12px; }
   .logo { font-size: 21px; }
 }
