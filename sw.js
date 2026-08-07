@@ -1,7 +1,11 @@
 // Service worker: makes the app installable and instant on repeat visits.
 // Deliberately conservative — the shell is cached, audio and API calls are not, because a
 // stale clip manifest paired with fresh clip files (or vice versa) breaks rounds.
-const VERSION = 'ht-v1';
+// Bump on every release that changes a shell asset. The fetch handler is network-first, so a
+// stale cache never wins on a live connection, but the version is what evicts the old entries
+// on activate — leaving it fixed means yesterday's CSS sits in storage forever as the offline
+// fallback. Bumped for the two-mode nav, the serif headlines and the map zoom fix.
+const VERSION = 'ht-v2';
 const SHELL = [
   '/',
   '/game.html',
@@ -11,6 +15,7 @@ const SHELL = [
   '/js/clips.js',
   '/js/game.js',
   '/js/app.js',
+  '/js/places.js',
   '/manifest.webmanifest',
   '/icon-192.png',
 ];
