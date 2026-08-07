@@ -2,13 +2,17 @@
 const $ = (s) => document.querySelector(s);
 
 const HOME_BOUNDS = [[-50, -140], [65, 160]]; // the whole inhabited world
-// 35s, not 60s. Measured on 24 benchmark clips at four truncations: 30s scores 67 km median
-// and 57% within 100 km, 20s drops to 157 km, 8s collapses to 345 km and 25%. So length buys
-// real accuracy up to ~30s. It does NOT buy latency: median call time only moves 11.8s -> 6.2s
-// across that whole range, because the wait is model inference, not upload. Recording past ~30s
-// therefore adds pure waiting for no measured gain, and the old cap made the worst case
-// 60s of talking plus a 29s p90 call. See data/length-latency.json.
-const MAX_SECONDS = 35;
+// 60s, with a prominent "done" button so nobody has to wait it out.
+// What is measured: on 24 clips, accuracy climbs monotonically with length — 8s scores 345 km,
+// 12s and 20s 157 km, 30s 67 km — and latency barely moves across that range (6.2s to 11.8s)
+// because the wait is model inference, not upload. Nothing in that curve has flattened, so
+// there is no evidence 30s is the ceiling, and a sweep of 20/30/45/60 on the 54 clips long
+// enough to hold it is what decides whether longer keeps helping.
+// This was briefly capped at 35s on the reasoning that the benchmark clips are ~30s so nothing
+// past that was tested. Mohammad's call to put it back: a cap that truncates someone
+// mid-sentence costs accuracy for certain, while a longer cap only costs time, and only for
+// people who choose not to press done.
+const MAX_SECONDS = 60;
 let map, marker, glow;
 let state = 'idle';
 let mediaStream = null, recorder = null, chunks = [], recMime = '';
