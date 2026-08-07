@@ -24,7 +24,7 @@ function rateLimited(ip) {
 }
 
 function tokenSecret() {
-  return process.env.FEEDBACK_SECRET || process.env.ANTHROPIC_API_KEY || process.env.SUPABASE_SERVICE_KEY || '';
+  return process.env.FEEDBACK_SECRET || process.env.SUPABASE_SERVICE_KEY || '';
 }
 
 export function mintToken() {

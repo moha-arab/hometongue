@@ -1,5 +1,5 @@
 // Local dev server — mirrors Vercel: serves static files + mounts /api/analyze.
-// Run: node dev-server.js  (reads .env for GROQ_API_KEY / ANTHROPIC_API_KEY)
+// Run: node dev-server.js  (reads .env for GEMINI_API_KEY)
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -55,4 +55,4 @@ http.createServer(async (req, res) => {
   }
   res.writeHead(200, { 'Content-Type': type, 'Accept-Ranges': 'bytes', 'Content-Length': total });
   fs.createReadStream(file).pipe(res);
-}).listen(PORT, () => console.log(`hometongue dev server: http://localhost:${PORT} (keys: groq=${!!process.env.GROQ_API_KEY} anthropic=${!!process.env.ANTHROPIC_API_KEY})`));
+}).listen(PORT, () => console.log(`hometongue dev server: http://localhost:${PORT} (gemini key: ${!!process.env.GEMINI_API_KEY})`));
