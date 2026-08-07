@@ -38,7 +38,9 @@ const { COUNTRIES } = window.HT_PLACES;
 
 // ————— map —————
 function initMap() {
-  map = L.map('map', { zoomControl: false, attributionControl: true, worldCopyJump: true });
+  // minZoom 2 stops the world repeating four times across the viewport when zoomed out.
+  // game.js always had this floor; index.html did not, so only Guess Me showed the bug.
+  map = L.map('map', { zoomControl: false, attributionControl: true, worldCopyJump: true, minZoom: 2 });
   map.fitBounds(HOME_BOUNDS);
   window.HT.basemap(map);
 
@@ -171,6 +173,12 @@ function stopMeter() {
 
 function startTimer() {
   startedAt = Date.now();
+  // Reset, or a second recording starts still wearing the first one's badge.
+  const q0 = $('#quality');
+  if (q0) {
+    q0.dataset.tier = '';
+    q0.querySelectorAll('.q-dots i').forEach((d) => d.classList.remove('on'));
+  }
   timerId = setInterval(() => {
     const s = Math.floor((Date.now() - startedAt) / 1000);
     // A countdown, not a stopwatch. The cap used to fire with no warning, which read as the
@@ -185,6 +193,18 @@ function startTimer() {
       hint.textContent = s < 8 ? 'left — keep going, I need a few sentences'
         : s < 18 ? 'left — good, a bit more helps'
           : 'left — that\'s plenty, hit done whenever';
+    }
+    // Thresholds are the measured accuracy steps, not round numbers: the benchmark median is
+    // 345 km at 8s, 157 km from 12-20s, and 67 km by 30s.
+    const tier = s < 10 ? 0 : s < 20 ? 1 : s < 30 ? 2 : 3;
+    const q = $('#quality');
+    if (q && q.dataset.tier !== String(tier)) {
+      q.dataset.tier = String(tier);
+      q.querySelectorAll('.q-dots i').forEach((d, k) => d.classList.toggle('on', k < Math.max(1, tier)));
+      $('#qLabel').textContent = ['rough — keep talking',
+        'getting there — 10 more seconds helps a lot',
+        'good read — you can stop here',
+        'sharp — this is as good as it gets'][tier];
     }
     if (s >= MAX_SECONDS) stopListening();
   }, 250);
@@ -593,10 +613,6 @@ function bindUI() {
   $('#backToMicBtn').onclick = () => { state = 'idle'; show('idleCard'); };
   $('#analyzeTypedBtn').onclick = () => runTextAnalysis($('#typeBox').value, true);
   $('#againBtn').onclick = () => { state = 'idle'; show('idleCard'); flyHome(); };
-  $('#howBtn').onclick = () => { $('#howPop').hidden = !$('#howPop').hidden; };
-  document.addEventListener('click', (e) => {
-    if (!$('#howPop').hidden && !e.target.closest('.how-pop') && !e.target.closest('.how-btn')) $('#howPop').hidden = true;
-  });
 
   $('#fbYes').onclick = () => { saveFeedback(true, '', ''); lockFeedback(); };
   $('#fbNo').onclick = () => { $('#fbFix').hidden = false; $('#fbNo').disabled = true; $('#fbYes').disabled = true; };

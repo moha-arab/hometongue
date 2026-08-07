@@ -2,14 +2,14 @@
 
 Your voice is a place. Live at **[hometongue.me](https://www.hometongue.me/)**.
 
-- **🎙 Guess Me** — speak Arabic for ~20s and the AI guesses your dialect (region → country → city when it has evidence), then flies the map home.
-- **📍 Pin It** ([game.html](game.html)) — GeoGuessr for ears: hear a real clip, drop a pin. **Nine decks, 140 clips**: Arabic Dialects (45 places), English Accents, World Languages, Spanish, Chinese, Portuguese, French, Russian, Hindi–Urdu. Distance scoring, 5 rounds, nickname leaderboard.
+- **🎙 Read My Accent** — talk in any language for ~30s and it places where you grew up as a point on the map, with a radius it is honestly confident about.
+- **📍 Guess the Voice** ([game.html](game.html)) — GeoGuessr for ears: hear a real clip, drop a pin. **Nine decks, 161 clips**: Arabic Dialects (45 places), English Accents, World Languages, Spanish, Chinese, Portuguese, French, Russian, Hindi–Urdu. Distance scoring, 5 rounds, nickname leaderboard.
 
 A third mode (**The Atlas**, a browsable accent map) is planned — see [PRD.md](PRD.md).
 
 Works on **every device** — desktop, Android, iPhone — because recording uses MediaRecorder and analysis happens server-side.
 
-## How Guess Me works
+## How Read My Accent works
 
 1. The browser records ~15–45s of free speech (no reading passage — word choice *is* the signal).
 2. `/api/analyze` transcribes it with **Whisper large-v3** (Groq) and has **Claude** classify the dialect from vocabulary, morphology, and phrasing.
@@ -33,7 +33,7 @@ Other defences: hallucination filtering via segment confidence (`no_speech_prob`
 
 Audio is analyzed in-memory and never stored (unless the user opts in — see below).
 
-## How clips get into Pin It
+## How clips get into Guess the Voice
 
 Every clip passes the same gate, and the rules are enforced by code rather than by memory:
 

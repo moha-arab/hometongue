@@ -15,6 +15,9 @@ window.HT.basemap = function basemap(map) {
   const opts = {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd', maxZoom: 19,
+    // Without noWrap, Leaflet paints a fresh copy of Earth for every 360 degrees of pan,
+    // so zooming out showed four side-by-side worlds and dragging sideways went on forever.
+    noWrap: true, bounds: [[-90, -180], [90, 180]],
   };
   const land = L.tileLayer(CARTO.replace('{style}', 'voyager_nolabels'), opts).addTo(map);
   const names = L.tileLayer(CARTO.replace('{style}', 'voyager_only_labels'), { ...opts, attribution: '' });
