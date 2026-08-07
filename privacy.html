@@ -38,10 +38,10 @@
 <body>
 <main>
   <h1>Privacy, in plain words</h1>
-  <p class="muted">HomeTongue guesses where your Arabic dialect is from. Here's exactly what happens to your voice.</p>
+  <p class="muted">HomeTongue listens to your accent and guesses where you grew up, in any language. Here's exactly what happens to your voice.</p>
 
   <h2>By default: your voice and words are never kept</h2>
-  <p>When you talk, your audio goes to our server, gets transcribed and analyzed in memory, and is discarded. No account, no name, no email, no tracking pixels. If you answer "did I get it?", we keep an <strong>anonymous scorecard only</strong>: which country we guessed, which country you said was right, the confidence score, and a coarse device type (phone/desktop). Never your recording, never your words, never a city.</p>
+  <p>When you talk, your recording is sent to Google's Gemini model, held in memory long enough to answer one question about it, and discarded. It is never written to disk. There is no transcription step and no separate speech-to-text service — the model listens to the audio directly. No account, no name, no email, no tracking pixels. If you answer "did I get it?", we keep an <strong>anonymous scorecard only</strong>: the country code we guessed, the broad region, the confidence score, whether you said we were right, the country you corrected us to, and a coarse device type (phone or desktop). Never your recording, never your words, never a city.</p>
 
   <h2>If you tick the "donate this clip" box</h2>
   <p>We additionally keep that one recording, its transcript, your correction including the city if you typed one, and the guess details above, with a timestamp. We use it for one purpose: training a model that recognizes accents better, especially at the city level where no data exists anywhere in the world. Donated clips may become part of a research dataset; they are never sold, never used for ads, and never linked to your identity — we don't know who you are.</p>
@@ -50,7 +50,7 @@
   <p>Since there are no accounts, tell us roughly when you donated (date, time, and the guess the app made) and we'll find and delete it: <a href="https://github.com/moha-arab/hometongue/issues" target="_blank">open an issue here</a>.</p>
 
   <h2>Third parties we use</h2>
-  <p>Transcription runs on Groq (Whisper), dialect analysis runs on Anthropic (Claude), hosting is Vercel, and donated clips live in Supabase storage. Each processes your audio only to provide the service.</p>
+  <p>Accent analysis runs on Google (Gemini). Hosting is Vercel, and donated clips live in Supabase storage. Each processes your audio only to provide the service. HomeTongue used to send audio to Groq (Whisper) for transcription and Anthropic (Claude) for analysis; that pipeline was replaced in August 2026 and neither receives your audio any more.</p>
 
   <p class="muted">Last updated August 2026 · <a href="/">back to HomeTongue</a></p>
 </main>
