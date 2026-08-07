@@ -30,9 +30,10 @@ const field = window.HT.contours();
 
 // ————— map —————
 function initMap() {
-  map = L.map('map', { zoomControl: false, attributionControl: true, worldCopyJump: true, minZoom: 2 });
+  map = L.map('map', { zoomControl: false, attributionControl: true, worldCopyJump: true });
   map.fitBounds(WORLD);
   window.HT.basemap(map);
+  window.HT.fitMinZoom(map);   // one world, always filling the window
   map.on('click', onMapClick);
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden) setTimeout(() => map.invalidateSize(), 60);

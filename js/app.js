@@ -38,11 +38,12 @@ const { COUNTRIES } = window.HT_PLACES;
 
 // ————— map —————
 function initMap() {
-  // minZoom 2 stops the world repeating four times across the viewport when zoomed out.
-  // game.js always had this floor; index.html did not, so only Guess Me showed the bug.
-  map = L.map('map', { zoomControl: false, attributionControl: true, worldCopyJump: true, minZoom: 2 });
+  map = L.map('map', { zoomControl: false, attributionControl: true, worldCopyJump: true });
   map.fitBounds(HOME_BOUNDS);
   window.HT.basemap(map);
+  // Zooming out used to paint four copies of Earth across the screen. The floor is computed
+  // from the window rather than hard-coded, so one world always fills it exactly.
+  window.HT.fitMinZoom(map);
 
   // if the page loads in a background tab, Leaflet caches a 0x0 size — fix on reveal
   document.addEventListener('visibilitychange', () => {

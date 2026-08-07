@@ -11,6 +11,25 @@ window.HT = window.HT || {};
 const CARTO = 'https://{s}.basemaps.cartocdn.com/rastertiles/{style}/{z}/{x}/{y}{r}.png';
 const LABEL_ZOOM = 4;
 
+// The world is 256px square at zoom 0 and doubles each level, so below a certain zoom it is
+// narrower than the window. Before noWrap that was invisible because Leaflet just painted more
+// copies of Earth side by side — which is exactly the "four maps" bug. With noWrap on, the
+// same zoom leaves bare grey gutters instead. Neither is acceptable, so the floor is derived
+// from the container rather than hard-coded: pick the smallest zoom whose world still covers
+// the longest side of the viewport. Recomputed on resize, because a phone rotating from
+// portrait to landscape changes the answer.
+window.HT.fitMinZoom = function fitMinZoom(map) {
+  const apply = () => {
+    const { x, y } = map.getSize();
+    if (!x || !y) return;
+    const z = Math.ceil(Math.log2(Math.max(x, y) / 256));
+    map.setMinZoom(Math.max(1, z));
+    if (map.getZoom() < map.getMinZoom()) map.setZoom(map.getMinZoom());
+  };
+  apply();
+  map.on('resize', apply);
+};
+
 window.HT.basemap = function basemap(map) {
   const opts = {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
