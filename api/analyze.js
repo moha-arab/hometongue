@@ -107,6 +107,32 @@ async function locate(parts) {
   throw Object.assign(new Error('model busy'), { code: 'busy' });
 }
 
+// A name is not evidence of where someone grew up, and the model uses it anyway.
+//
+// Reported case: a North American speaker with no Slavic features said "my name is Vladislav"
+// and got Moscow at a 1000 km radius, with "Slavic name Vladislav" listed as the first piece
+// of evidence and invented "Eastern European vowel tensing" as the second. The transcript was
+// plain North American slang. That is the same failure as the silent file that came back
+// "Toronto, Canadian raising on 'night'": the model reaches a conclusion by one route and then
+// manufactures acoustic evidence for it.
+//
+// This CANNOT be fixed in the prompt. Two attempts were measured against the 106-clip
+// benchmark and both cost accuracy without changing the behaviour at all:
+//   - explicit, detailed instruction (2738 chars): 37 -> 58 km, name citations 31 -> unchanged
+//   - one short sentence (2227 chars):             37 -> 44 km, name citations 31 -> 32
+// Telling this model that a name is not evidence does not stop it using names. So the guard
+// lives here instead, and it does not argue with the model — it detects the tell and is honest
+// with the user about it, which costs no accuracy at all.
+const NAME_EVIDENCE = /(name|named|surname|forename|patronymic)/i;
+
+function nameLed(result) {
+  const ev = result.evidence || [];
+  if (!ev.length) return false;
+  // Only the FIRST item matters. A name mentioned in passing behind real acoustic evidence is
+  // a harmless observation; a name at the top is what the verdict was built on.
+  return NAME_EVIDENCE.test(ev[0]);
+}
+
 // A model can return anything; the map should never be asked to fly to null island.
 function sane(r) {
   const num = (v) => (typeof v === 'number' && Number.isFinite(v));
@@ -198,6 +224,13 @@ export default async function handler(req, res) {
       return res.end(JSON.stringify({ ok: false, error: 'no_speech', detail: raw?.note || 'Could not place that.' }));
     }
 
+    // Say so, rather than quietly presenting a name-derived guess as an accent reading. The
+    // radius widens too, because a guess resting on a name genuinely is less certain than one
+    // resting on 30 seconds of phonology.
+    if (nameLed(result)) {
+      result.name_led = true;
+      result.radius_km = Math.min(5000, Math.max(result.radius_km, 1500));
+    }
     return res.end(JSON.stringify({ ok: true, result, fb_token: mintToken() }));
   } catch (err) {
     const code = err.code || 'server_error';

@@ -1,0 +1,1723 @@
+{
+  "model": "gemini-3.6-flash",
+  "promptHash": "3575622ce943",
+  "overall": {
+    "n": 105,
+    "median": 58,
+    "within100": 56,
+    "within250": 70,
+    "within500": 83,
+    "within1000": 94
+  },
+  "byDeck": {
+    "accents": {
+      "n": 20,
+      "median": 47,
+      "within100": 70,
+      "within250": 80,
+      "within500": 90,
+      "within1000": 100
+    },
+    "arabic": {
+      "n": 44,
+      "median": 70,
+      "within100": 55,
+      "within250": 68,
+      "within500": 84,
+      "within1000": 98
+    },
+    "french": {
+      "n": 7,
+      "median": 72,
+      "within100": 57,
+      "within250": 71,
+      "within500": 86,
+      "within1000": 100
+    },
+    "spanish": {
+      "n": 11,
+      "median": 345,
+      "within100": 18,
+      "within250": 36,
+      "within500": 64,
+      "within1000": 73
+    },
+    "chinese": {
+      "n": 9,
+      "median": 45,
+      "within100": 67,
+      "within250": 89,
+      "within500": 89,
+      "within1000": 89
+    },
+    "hindi-urdu": {
+      "n": 5,
+      "median": 0,
+      "within100": 60,
+      "within250": 60,
+      "within500": 60,
+      "within1000": 80
+    },
+    "portuguese": {
+      "n": 8,
+      "median": 2,
+      "within100": 63,
+      "within250": 75,
+      "within500": 88,
+      "within1000": 100
+    },
+    "russian": {
+      "n": 1,
+      "median": 0,
+      "within100": 100,
+      "within250": 100,
+      "within500": 100,
+      "within1000": 100
+    }
+  },
+  "results": [
+    {
+      "id": "wild-huddersfield-west-yorkshire-england",
+      "deck": "accents",
+      "label": "Huddersfield, West Yorkshire, England",
+      "km": 0.011119492664825002,
+      "guess": "Huddersfield, West Yorkshire, England, United Kingdom",
+      "radius": 40,
+      "language": "English",
+      "confidence": 92,
+      "evidence": [
+        "Northern English short 'a' and flat vowels",
+        "West Yorkshire intonation and pitch patterns",
+        "Glottal stops and characteristic consonant articulation",
+        "Self-identification as Wilf Lunn"
+      ]
+    },
+    {
+      "id": "wild-amritsar-punjab-india",
+      "deck": "accents",
+      "label": "Amritsar / Punjab, India",
+      "km": 682.8559368570287,
+      "guess": "Gwalior, Madhya Pradesh, India",
+      "radius": 400,
+      "language": "English",
+      "confidence": 85,
+      "evidence": [
+        "retroflex t and d stops",
+        "syllable-timed rhythmic cadence",
+        "labiodental approximant for v/w",
+        "typical Indian English vowel qualities"
+      ]
+    },
+    {
+      "id": "wild-georgetown-south-carolina-usa-us-south",
+      "deck": "accents",
+      "label": "Georgetown, South Carolina, USA (US South)",
+      "km": 157.26879509432953,
+      "guess": "South Carolina, USA",
+      "radius": 200,
+      "language": "English",
+      "confidence": 95,
+      "evidence": [
+        "Direct statement: 'I grew up in rural South Carolina'",
+        "Gentle Southern US vocal rhythm and relaxed vowels",
+        "General American phonology with subtle Southern regional coloring"
+      ]
+    },
+    {
+      "id": "accents-jamaica-english-jamaican-patois",
+      "deck": "accents",
+      "label": "Jamaica",
+      "km": 53.02407030937349,
+      "guess": "Northeast Jamaica",
+      "radius": 120,
+      "language": "English",
+      "confidence": 92,
+      "evidence": [
+        "Direct statement: \"I'm from... Jamaica\"",
+        "Jamaican English vowels and syllable-timed rhythm",
+        "Use of Jamaican lexicon (\"Patois\", \"from the yard\")",
+        "Creole phrasing (\"me ago go down the street\")",
+        "Jamaican melodic intonation contour"
+      ]
+    },
+    {
+      "id": "accents-kenya-english-kenyan",
+      "deck": "accents",
+      "label": "Kenya",
+      "km": 181.9420550946423,
+      "guess": "Kilgoris, Rift Valley, Kenya",
+      "radius": 250,
+      "language": "English",
+      "confidence": 90,
+      "evidence": [
+        "Syllable-timed speech rhythm",
+        "Monophthongization of 'face' and 'train' vowels",
+        "Unaspirated voiceless stops",
+        "Kenyan English pitch and intonation patterns"
+      ]
+    },
+    {
+      "id": "wild-liverpool-england",
+      "deck": "accents",
+      "label": "Liverpool, England",
+      "km": 0,
+      "guess": "Liverpool, England, United Kingdom",
+      "radius": 30,
+      "language": "English",
+      "confidence": 95,
+      "evidence": [
+        "Distinctive Scouse melodic intonation and voice quality",
+        "Lenition and frication of stop consonants like /t/ and /k/",
+        "Use of 'me dad' and 'me mum' for 'my dad/mum'",
+        "British education terms (O Levels, CSEs, A Levels)"
+      ]
+    },
+    {
+      "id": "wild-melbourne-australia",
+      "deck": "accents",
+      "label": "Melbourne, Australia",
+      "km": 0,
+      "guess": "Melbourne, Victoria, Australia",
+      "radius": 50,
+      "language": "English",
+      "confidence": 95,
+      "evidence": [
+        "Stated direct birth place: Melbourne, Victoria, Australia",
+        "General Australian vowel pronunciations",
+        "Non-rhotic 'r' sounds",
+        "Australian intonation and cadence"
+      ]
+    },
+    {
+      "id": "wild-mbaise-imo-state-nigeria",
+      "deck": "accents",
+      "label": "Mbaise, Imo State, Nigeria",
+      "km": 48.1327664539763,
+      "guess": "Southeast Nigeria",
+      "radius": 150,
+      "language": "English",
+      "confidence": 95,
+      "evidence": [
+        "Stated directly: 'I am from Southeast Nigeria'",
+        "Distinctive West African / Nigerian English accent",
+        "Vowel quality and rhythm typical of Igbo native speakers",
+        "Non-rhotic pronunciation and crisp syllable timing"
+      ]
+    },
+    {
+      "id": "wild-mvezo-eastern-cape-south-africa",
+      "deck": "accents",
+      "label": "Mvezo / Eastern Cape, South Africa",
+      "km": 33.82966093265536,
+      "guess": "Qunu, Eastern Cape, South Africa",
+      "radius": 100,
+      "language": "English",
+      "confidence": 95,
+      "evidence": [
+        "distinctive syllable-timed South African cadence",
+        "classic Eastern Cape African English vowel qualities",
+        "non-rhotic speech with precise consonant articulation",
+        "unmistakable voice of Nelson Mandela"
+      ]
+    },
+    {
+      "id": "accents-new-zealand-english-new-zealand",
+      "deck": "accents",
+      "label": "New Zealand",
+      "km": 365.2997475292848,
+      "guess": "Waikato, New Zealand",
+      "radius": 150,
+      "language": "English",
+      "confidence": 95,
+      "evidence": [
+        "New Zealand short 'i' vowel shift",
+        "Fronted 'e' sound in words like 'different'",
+        "Distinctive Kiwi intonation pattern"
+      ]
+    },
+    {
+      "id": "accents-namibia-english-namibian",
+      "deck": "accents",
+      "label": "Namibia",
+      "km": 938.3869319396014,
+      "guess": "Katima Mulilo, Zambezi Region, Namibia",
+      "radius": 150,
+      "language": "English",
+      "confidence": 85,
+      "evidence": [
+        "Direct statement: 'I come from Namibia'",
+        "Direct statement: speaks Subiya from the Panhandle of Namibia",
+        "Southern African English vowel traits and rhythm",
+        "Subiya language phonology discussion"
+      ]
+    },
+    {
+      "id": "accents-nigeria-nigerian-pidgin",
+      "deck": "accents",
+      "label": "Nigeria",
+      "km": 374.32682646624005,
+      "guess": "Igboland, Southeastern Nigeria",
+      "radius": 200,
+      "language": "Nigerian Pidgin",
+      "confidence": 95,
+      "evidence": [
+        "Explicit statement of growing up in the Igbo-speaking region of Southeastern Nigeria",
+        "Fluent Nigerian Pidgin vocabulary and syntax",
+        "Igbo-influenced West African English phonetics and intonation"
+      ]
+    },
+    {
+      "id": "accents-aberdeenshire-scotland-english-northeast-scotl",
+      "deck": "accents",
+      "label": "Northeast Scotland, Scotland",
+      "km": 6.015361125979861,
+      "guess": "Aberdeenshire, Scotland, United Kingdom",
+      "radius": 100,
+      "language": "English",
+      "confidence": 92,
+      "evidence": [
+        "Direct statement of growing up in North East Scotland",
+        "Scottish dialect words like 'loon', 'quines', and 'fit about'",
+        "Classic Scottish vowel sound in 'boat', 'home', 'water'",
+        "Glottal stops and distinct Scottish rhoticity"
+      ]
+    },
+    {
+      "id": "wild-sarnia-milton-ontario-canada",
+      "deck": "accents",
+      "label": "Sarnia / Milton, Ontario, Canada",
+      "km": 0.6051472492842261,
+      "guess": "Milton, Ontario, Canada",
+      "radius": 150,
+      "language": "English",
+      "confidence": 90,
+      "evidence": [
+        "General Canadian English phonology",
+        "Canadian vowel space",
+        "Unrounded open-back vowels",
+        "Rhotic accent with smooth cadence"
+      ]
+    },
+    {
+      "id": "accents-west-yorkshire-england-english-west-riding-yor",
+      "deck": "accents",
+      "label": "Sheffield, England",
+      "km": 0,
+      "guess": "Sheffield, South Yorkshire, England",
+      "radius": 30,
+      "language": "English",
+      "confidence": 95,
+      "evidence": [
+        "South Yorkshire vowel sounds and intonation",
+        "Traditional Sheffield dialect phrases like 'out turn' (all the time)",
+        "Non-standard grammatical forms ('me mum', 'there were')",
+        "Stated explicitly that he was born and raised in Sheffield"
+      ]
+    },
+    {
+      "id": "wild-texas-hill-country-stonewall-usa",
+      "deck": "accents",
+      "label": "Texas Hill Country (Stonewall), USA",
+      "km": 4.520440977087763,
+      "guess": "Johnson City, Texas, United States",
+      "radius": 100,
+      "language": "English",
+      "confidence": 95,
+      "evidence": [
+        "Monophthongal 'I' vowel sound",
+        "Classic Texan cadence and drawl",
+        "Inland Southern / Central Texas vowel shifts",
+        "Distinct speech patterns of the Texas Hill Country"
+      ]
+    },
+    {
+      "id": "wild-toronto-canada",
+      "deck": "accents",
+      "label": "Toronto, Canada",
+      "km": 0,
+      "guess": "Toronto, Ontario, Canada",
+      "radius": 100,
+      "language": "English",
+      "confidence": 95,
+      "evidence": [
+        "Canadian English pronunciation with Canadian raising",
+        "Bilingual Canadian French code-switching",
+        "Voice of Stephen Harper"
+      ]
+    },
+    {
+      "id": "wild-the-bronx-new-york-city-usa",
+      "deck": "accents",
+      "label": "The Bronx, New York City, USA",
+      "km": 0,
+      "guess": "The Bronx, New York, United States",
+      "radius": 30,
+      "language": "English",
+      "confidence": 95,
+      "evidence": [
+        "Stated directly: 'I grew up in... a Bronx housing project'",
+        "New York English vowel system and cadence",
+        "Latino New York dialect features"
+      ]
+    },
+    {
+      "id": "wild-thomastown-county-kilkenny-ireland",
+      "deck": "accents",
+      "label": "Thomastown, County Kilkenny, Ireland",
+      "km": 46.72219492542635,
+      "guess": "County Laois, Ireland",
+      "radius": 35,
+      "language": "English",
+      "confidence": 95,
+      "evidence": [
+        "Rural Irish melodic intonation and cadence",
+        "Dental stops replacing th-fricatives ('dere' for 'there')",
+        "Midlands Irish vowel fronting and diphthong qualities",
+        "Direct mention of living in County Laois"
+      ]
+    },
+    {
+      "id": "ar-3736",
+      "deck": "arabic",
+      "label": "Abu Dhabi, UAE",
+      "km": 0.5125946917364709,
+      "guess": "Abu Dhabi, United Arab Emirates",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Gulf Arabic pronunciation of 'qaf' as 'g' (e.g., 'yilsag')",
+        "Local Gulf idiom 'ydaggir' (tailgating / bugging)",
+        "Emirati intonation and cadence"
+      ]
+    },
+    {
+      "id": "accents-wales-english-welsh",
+      "deck": "accents",
+      "label": "Wales",
+      "km": 57.76330161516662,
+      "guess": "South Wales, United Kingdom",
+      "radius": 100,
+      "language": "English",
+      "confidence": 92,
+      "evidence": [
+        "Welsh English intonation and rhythm",
+        "Fluent switching into Welsh phrases",
+        "Open Welsh vowel quality in 'nation' and 'first'",
+        "Direct mention of 'across Wales'"
+      ]
+    },
+    {
+      "id": "ar-6158",
+      "deck": "arabic",
+      "label": "Ajman, UAE",
+      "km": 858.3298689602166,
+      "guess": "Kuwait City, Kuwait",
+      "radius": 400,
+      "language": "Arabic",
+      "confidence": 75,
+      "evidence": [
+        "Gulf Arabic intonation and speech rhythm",
+        "Use of the Gulf regional word 'هني' (here)",
+        "Dialectal verb form 'سووا لهم' (they made for them)",
+        "Standard Gulf consonant reflexes"
+      ]
+    },
+    {
+      "id": "ar-882",
+      "deck": "arabic",
+      "label": "Alexandria, Egypt",
+      "km": 179.88943224210266,
+      "guess": "Cairo, Egypt",
+      "radius": 250,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Hard 'g' pronunciation of Jim (e.g. 'gineh')",
+        "Egyptian vocabulary ('إمبارح' for yesterday)",
+        "Egyptian dialectal grammar and phrasing",
+        "Egyptian intonation and vocal cadence"
+      ]
+    },
+    {
+      "id": "ar-2082",
+      "deck": "arabic",
+      "label": "Algiers, Algeria",
+      "km": 1.633630565772663,
+      "guess": "Algiers, Algeria",
+      "radius": 100,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "Algerian Darija dialect and pronunciation",
+        "Mention of ETUSA (Algiers public transport network)",
+        "North African Arabic cadence and French-influenced rhythm"
+      ]
+    },
+    {
+      "id": "ar-3384",
+      "deck": "arabic",
+      "label": "Aleppo, Syria",
+      "km": 0.45099223827351786,
+      "guess": "Aleppo, Syria",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Northern Syrian Levantine Arabic",
+        "Phrasing like 'ta'a bukra' (come tomorrow)",
+        "Vowel quality and intonation typical of Aleppo",
+        "Use of ' 'rift shlōn' (you know how?)"
+      ]
+    },
+    {
+      "id": "ar-249",
+      "deck": "arabic",
+      "label": "Amman, Jordan",
+      "km": null
+    },
+    {
+      "id": "ar-39",
+      "deck": "arabic",
+      "label": "Annaba, Algeria",
+      "km": 419.59726784520205,
+      "guess": "Algiers, Algeria",
+      "radius": 300,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Algerian possessive marker 'ta'i'",
+        "Eastern/Central Algerian dialect particle 'bah' (meaning 'in order to')",
+        "Algerian intonation and rhythm",
+        "Natural code-switching with French ('donc', 'au lieu', 'les muscles')"
+      ]
+    },
+    {
+      "id": "arabic-baghdad-iraq-arabic-iraqi",
+      "deck": "arabic",
+      "label": "Baghdad, Iraq",
+      "km": 0.8097130714394724,
+      "guess": "Baghdad, Iraq",
+      "radius": 300,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Iraqi word 'kilish' meaning 'very'",
+        "Use of 'treed' for 'you want'",
+        "Mesopotamian Arabic phrasing 'sho tsawwi' (what to do)",
+        "Iraqi Arabic stress patterns and cadence"
+      ]
+    },
+    {
+      "id": "ar-679",
+      "deck": "arabic",
+      "label": "Baghdad, Iraq",
+      "km": 0.8097130714394724,
+      "guess": "Baghdad, Iraq",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "Iraqi continuous prefix 'da-' (ديعبر)",
+        "Indefinite particle 'fad' (فد)",
+        "Iraqi word 'dhowwa' for light (الضوه)",
+        "Affrication of 'k' to 'ch' in 'chan' (چان)",
+        "Hard 'g' reflex for qaf in 'yigdar' and 'sayig'"
+      ]
+    },
+    {
+      "id": "ar-2765",
+      "deck": "arabic",
+      "label": "Basra, Iraq",
+      "km": 448.4160857832393,
+      "guess": "Baghdad, Iraq",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 92,
+      "evidence": [
+        "Iraqi Arabic phonology and cadence",
+        "Use of Iraqi phrasing like 'أروح للدوام'",
+        "Specific regional pronunciation of vowels and consonants"
+      ]
+    },
+    {
+      "id": "ar-2473",
+      "deck": "arabic",
+      "label": "Batna, Algeria",
+      "km": 1208.1267168788165,
+      "guess": "Beni Mellal, Morocco",
+      "radius": 300,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Moroccan Arabic (Darija) vocabulary and grammar",
+        "Traditional vocal timbre typical of Central Moroccan folk/Aita",
+        "Pronominal suffix '-o' in 'watno'",
+        "Phonetic realization of pharyngeals and emphatic consonants"
+      ]
+    },
+    {
+      "id": "ar-2446",
+      "deck": "arabic",
+      "label": "Beirut, Lebanon",
+      "km": 0.4540311775486809,
+      "guess": "Beirut, Lebanon",
+      "radius": 250,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Levantine dialect particle 'عم'",
+        "Phonetic realization of 'هيك' (heik)",
+        "Levantine verb 'جرب' (jarrib)",
+        "Glottal stop replacement for qaf in 'أقول' (ʾūl)"
+      ]
+    },
+    {
+      "id": "ar-3107",
+      "deck": "arabic",
+      "label": "Benghazi, Libya",
+      "km": 650.5594274476152,
+      "guess": "Tripoli, Libya",
+      "radius": 350,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Libyan Arabic vocabulary ('تقعمز')",
+        "Libyan Arabic word 'توا' (now)",
+        "North African vowel shortening and consonant reflexes",
+        "Guttural 'g' pronunciation for qaf in 'تقعمز' and 'قلت'"
+      ]
+    },
+    {
+      "id": "ar-809",
+      "deck": "arabic",
+      "label": "Blida, Algeria",
+      "km": 36.6715332528646,
+      "guess": "Algiers, Algeria",
+      "radius": 300,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Phrasing like 'باش ما نكذبوش على بعضانا' (bash ma nkdboush 3la ba3dana)",
+        "French verb adaptation 'يبـريـفيريوا' (préfèrent)",
+        "North African vowel reduction and speech rhythm",
+        "Use of 'باش' (bash) as a conjunction"
+      ]
+    },
+    {
+      "id": "ar-2608",
+      "deck": "arabic",
+      "label": "Cairo, Egypt",
+      "km": 0.6408504363881136,
+      "guess": "Cairo, Egypt",
+      "radius": 100,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "Egyptian hard 'g' sound in words like 'haga'",
+        "Egyptian negation suffix '-sh' in 'ma tiktebsh'",
+        "Typical Cairene vocabulary like 'bardo' and 'keda'",
+        "Egyptian future prefix 'ha-' in 'hanesma'ha'"
+      ]
+    },
+    {
+      "id": "ar-1604",
+      "deck": "arabic",
+      "label": "Casablanca, Morocco",
+      "km": 0.3452019342259213,
+      "guess": "Casablanca, Morocco",
+      "radius": 400,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Moroccan Darija grammar and vocabulary",
+        "Distinctive Moroccan Arabic intonation and pitch movement",
+        "Short vowel deletion characteristic of Maghrebi Arabic"
+      ]
+    },
+    {
+      "id": "ar-2375",
+      "deck": "arabic",
+      "label": "Constantine, Algeria",
+      "km": 320.73891066998345,
+      "guess": "Algiers, Algeria",
+      "radius": 300,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Algerian Arabic dialect features",
+        "Use of the Maghrebi verb 'تقعد' (tge'ed)",
+        "North African vowel reduction and rhythm"
+      ]
+    },
+    {
+      "id": "ar-94",
+      "deck": "arabic",
+      "label": "Djelfa, Algeria",
+      "km": 668.9909799126303,
+      "guess": "Tunis, Tunisia",
+      "radius": 250,
+      "language": "Arabic",
+      "confidence": 80,
+      "evidence": [
+        "Maghrebi question word ('شكون')",
+        "Distinctive Tunisian expression ('شبيها')",
+        "North African phrasing ('شحال اتوحشتك')",
+        "Tunisian poetic cadence and vowel qualities"
+      ]
+    },
+    {
+      "id": "ar-2278",
+      "deck": "arabic",
+      "label": "Damascus, Syria",
+      "km": 1.3210010052944758,
+      "guess": "Damascus, Syria",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Syrian dialectal vocabulary like 'hal-aṣaṣ' (these things)",
+        "Levantine verb forms with 'b-' prefix ('bashōf', 'byeḥḍaro')",
+        "Urban Levantine vowel quality ('hōn', 'bashōf')"
+      ]
+    },
+    {
+      "id": "ar-3345",
+      "deck": "arabic",
+      "label": "Dubai, UAE",
+      "km": 122.46930641379014,
+      "guess": "Abu Dhabi, United Arab Emirates",
+      "radius": 350,
+      "language": "Arabic",
+      "confidence": 75,
+      "evidence": [
+        "Gulf Arabic verb 'يبون' (yaboon)",
+        "Gulf phrase 'نبغي نسويها' (we want to do it)",
+        "Gulf demonstrative 'هالأشياء' (these things)",
+        "Emirati/Gulf pitch and melodic intonation"
+      ]
+    },
+    {
+      "id": "ar-1907",
+      "deck": "arabic",
+      "label": "El Obeid, Sudan",
+      "km": 360.7246105866816,
+      "guess": "Khartoum, Sudan",
+      "radius": 300,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "Sudanese word for now ('هسه')",
+        "Sudanese expression 'زي شنو' (like what)",
+        "Sudanese intonation and cadence",
+        "Melodic vocal tone typical of Sudanese speakers"
+      ]
+    },
+    {
+      "id": "ar-754",
+      "deck": "arabic",
+      "label": "Fes, Morocco",
+      "km": 245.4881364145618,
+      "guess": "Casablanca, Morocco",
+      "radius": 300,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Moroccan Darija possessive \"dyalek\"",
+        "Northwest African Arabic phonology and rhythm",
+        "Moroccan verb prefixing and sentence structure"
+      ]
+    },
+    {
+      "id": "ar-3854",
+      "deck": "arabic",
+      "label": "Hebron, Palestine",
+      "km": 28.60006250667821,
+      "guess": "Jerusalem, Palestine",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 80,
+      "evidence": [
+        "Use of South Levantine 'biddnā' for 'we want'",
+        "Levantine vocabulary like 'hōn' (here) and 'shuwayye' (a little)",
+        "Glottal stop for qāf in 'qiṭaʿ'",
+        "Characteristic South Levantine vowel endings and intonation"
+      ]
+    },
+    {
+      "id": "ar-3132",
+      "deck": "arabic",
+      "label": "Gaza, Palestine",
+      "km": 118.0084167666546,
+      "guess": "West Bank / Amman Region",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Levantine dialect grammar (e.g., 'بقدرش', 'بدي')",
+        "Palestinian/Jordanian vowel quality and intonation",
+        "Mention of currency in Dinars ('دينار')"
+      ]
+    },
+    {
+      "id": "ar-4531",
+      "deck": "arabic",
+      "label": "Irbid, Jordan",
+      "km": 68.06315695107648,
+      "guess": "Amman, Jordan",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 92,
+      "evidence": [
+        "Jordanian Levantine accent and intonation",
+        "References to His Majesty the King (جلالة الملك)",
+        "Mention of the House of Representatives (مجلس النواب)",
+        "Regional verb forms and syntax (بحط, بعتبرها)"
+      ]
+    },
+    {
+      "id": "ar-1733",
+      "deck": "arabic",
+      "label": "Jeddah, Saudi Arabia",
+      "km": 845.1234551732181,
+      "guess": "Riyadh, Saudi Arabia",
+      "radius": 400,
+      "language": "Arabic",
+      "confidence": 75,
+      "evidence": [
+        "Gulf Arabic vowel quality and intonation",
+        "Use of the voiced velar plosive /g/ for ق in 'أقول' (agool)",
+        "Regional phrasing such as 'أدرس الموضوع' and 'أوقف عند حده'"
+      ]
+    },
+    {
+      "id": "ar-1526",
+      "deck": "arabic",
+      "label": "Kuwait City, Kuwait",
+      "km": 1.3032274652669673,
+      "guess": "Kuwait City, Kuwait",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Gulf Arabic progressive marker ('قاعدين')",
+        "Use of 'هني' (here)",
+        "Use of 'توهم' (just now)",
+        "Gulf Arabic pronunciation of /q/ as /g/",
+        "Fluid English code-switching characteristic of urban Gulf speakers"
+      ]
+    },
+    {
+      "id": "ar-2316",
+      "deck": "arabic",
+      "label": "Jerusalem, Palestine",
+      "km": 69.66394488152606,
+      "guess": "Amman, Jordan",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 80,
+      "evidence": [
+        "South Levantine Arabic dialect features",
+        "Use of glottal stop for qaf in 'ma'la'a' (spoon)",
+        "Everyday dialect words like 'kaseh' (cup) and 'mayya' (water)",
+        "Intonation typical of Palestinian and Jordanian broadcasting"
+      ]
+    },
+    {
+      "id": "ar-1248",
+      "deck": "arabic",
+      "label": "Manama, Bahrain",
+      "km": 434.012403870105,
+      "guess": "Kuwait City, Kuwait",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 80,
+      "evidence": [
+        "Gulf Arabic dialect with Kuwaiti features",
+        "Pronunciation of 'khedi/chidi' (like this)",
+        "Common regional expressions like 'alamoor tayyiba'"
+      ]
+    },
+    {
+      "id": "ar-1623",
+      "deck": "arabic",
+      "label": "Muscat, Oman",
+      "km": 2.7705230214475436,
+      "guess": "Muscat, Oman",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Omani Arabic dialect phrase 'ويش يحتاج'",
+        "Distinctive Omani melodic intonation",
+        "Gulf Arabic pronunciation and vocabulary"
+      ]
+    },
+    {
+      "id": "ar-3190",
+      "deck": "arabic",
+      "label": "Nablus, Palestine",
+      "km": 68.0995631545214,
+      "guess": "Amman, Jordan",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Levantine 'biddhum' for 'they want'",
+        "Future marker 'raḥ'",
+        "Urban Levantine vowel quality and intonation",
+        "Soft guttural reflexes typical of Amman/Jerusalem region"
+      ]
+    },
+    {
+      "id": "ar-5182",
+      "deck": "arabic",
+      "label": "Omdurman, Sudan",
+      "km": 17.69660471670891,
+      "guess": "Khartoum, Sudan",
+      "radius": 1000,
+      "language": "Arabic",
+      "confidence": 0,
+      "evidence": []
+    },
+    {
+      "id": "ar-423",
+      "deck": "arabic",
+      "label": "Oran, Algeria",
+      "km": 350.9872288353766,
+      "guess": "Algiers, Algeria",
+      "radius": 350,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Algerian Darja dialect and intonation",
+        "French-influenced academic terms like 'bac plus un'",
+        "Maghrebi Arabic pronunciation of short vowels and consonants"
+      ]
+    },
+    {
+      "id": "ar-1879",
+      "deck": "arabic",
+      "label": "Port Sudan, Sudan",
+      "km": 672.1667388820536,
+      "guess": "Khartoum, Sudan",
+      "radius": 350,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Distinctive Sudanese Arabic intonation and speech rhythm",
+        "Sudanese regional vocabulary like \"ناس الخلا\"",
+        "Relaxed, lowered vowel quality typical of central Sudan"
+      ]
+    },
+    {
+      "id": "ar-1650",
+      "deck": "arabic",
+      "label": "Ramallah, Palestine",
+      "km": 14.701450184308921,
+      "guess": "Jerusalem, Palestine",
+      "radius": 75,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Palestinian Levantine dialect features",
+        "Use of local terms like 'hon' (here) and 'mesh' (not)",
+        "Mention of 'baladiyat al-Quds' (Jerusalem municipality) in a local context"
+      ]
+    },
+    {
+      "id": "ar-989",
+      "deck": "arabic",
+      "label": "Rabat, Morocco",
+      "km": 85.26291019048776,
+      "guess": "Casablanca, Morocco",
+      "radius": 300,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Moroccan Darija vocabulary (e.g. 'dyal', 'fash', 'bghit', 'dert')",
+        "Moroccan grammar particle 'bash' used for time elapsed",
+        "Natural insertion of French terms ('la curiosité')",
+        "Maghrebi vowel reduction and speech rhythm"
+      ]
+    },
+    {
+      "id": "ar-2787",
+      "deck": "arabic",
+      "label": "Riyadh, Saudi Arabia",
+      "km": 534.483276239021,
+      "guess": "Kuwait City, Kuwait",
+      "radius": 400,
+      "language": "Arabic",
+      "confidence": 80,
+      "evidence": [
+        "Gulf Arabic vocabulary and verb forms (\"راح نتكلم\")",
+        "Soft Gulf pronunciation of jīm in \"توجعك\"",
+        "Distinctive Arabian Gulf intonation and speech rhythm"
+      ]
+    },
+    {
+      "id": "ar-3479",
+      "deck": "arabic",
+      "label": "Sanaa, Yemen",
+      "km": 2.4621833841756944,
+      "guess": "Sana'a, Yemen",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Sana'ani Yemeni intonation and sentence rhythm",
+        "Use of regional verb 'tabsar' (to see)",
+        "Central Yemeni lexical items like 'Aql al-Harah'",
+        "Characteristic voicing and vowel qualities of Highland Yemen"
+      ]
+    },
+    {
+      "id": "ar-4464",
+      "deck": "arabic",
+      "label": "Setif, Algeria",
+      "km": 219.3787749695758,
+      "guess": "Algiers, Algeria",
+      "radius": 250,
+      "language": "Arabic",
+      "confidence": 92,
+      "evidence": [
+        "Algerian Darija vocabulary ('makanesh')",
+        "Use of 'wesh rah' and 'nahdrou'",
+        "Maghrebi vowel reduction and speech rhythm",
+        "North African French-influenced intonation patterns"
+      ]
+    },
+    {
+      "id": "ar-6196",
+      "deck": "arabic",
+      "label": "Sharjah, UAE",
+      "km": 22.039294059815372,
+      "guess": "Dubai, United Arab Emirates",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Use of 'أبى' (abā) for 'I want'",
+        "Feminine second-person suffix pronounced '-ij/ich' in 'قدامج'",
+        "Use of 'لين' (leyn) meaning 'until'",
+        "Emirati rhythm and intonation"
+      ]
+    },
+    {
+      "id": "ar-5408",
+      "deck": "arabic",
+      "label": "Taiz, Yemen",
+      "km": 0,
+      "guess": "Taiz, Yemen",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Southwestern Yemeni dialect intonation",
+        "Yemeni vowel quality and cadence",
+        "Distinct pronunciation of pharyngeal and emphatic consonants"
+      ]
+    },
+    {
+      "id": "ar-3647",
+      "deck": "arabic",
+      "label": "Tangier, Morocco",
+      "km": 294.03413599777815,
+      "guess": "Casablanca, Morocco",
+      "radius": 300,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "Moroccan Arabic (Darija) dialect features",
+        "North African vowel reduction and rhythm",
+        "French sports loanwords pronounced with Maghrebi phonology",
+        "Mention of Moroccan national team players"
+      ]
+    },
+    {
+      "id": "ar-6858",
+      "deck": "arabic",
+      "label": "Tripoli, Libya",
+      "km": 0.33417158874973535,
+      "guess": "Tripoli, Libya",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Tripolitanian Arabic intonation and vowel sounds",
+        "Mention of Ain Zara, a district in Tripoli",
+        "Distinctive Western Libyan vocabulary and phrasing"
+      ]
+    },
+    {
+      "id": "ar-3660",
+      "deck": "arabic",
+      "label": "Tunis, Tunisia",
+      "km": 0.41145613824090027,
+      "guess": "Tunis, Tunisia",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "Tunisian vocabulary like \"barcha\" (meaning a lot)",
+        "Maghrebi intonation and sentence rhythm",
+        "Tunisian expressions like \"eyh khouya\""
+      ]
+    },
+    {
+      "id": "ar-3785",
+      "deck": "arabic",
+      "label": "Wad Medani, Sudan",
+      "km": 166.31433002275293,
+      "guess": "Khartoum, Sudan",
+      "radius": 300,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Sudanese Arabic dialect vocabulary and pronunciation",
+        "Melodic cadence and pitch range typical of Sudan",
+        "Sudanese pentatonic singing style at the end"
+      ]
+    },
+    {
+      "id": "french-bargny-senegal-french-senegal",
+      "deck": "french",
+      "label": "Bargny, Senegal",
+      "km": 0.8802527424540627,
+      "guess": "Bargny, Senegal",
+      "radius": 100,
+      "language": "French",
+      "confidence": 95,
+      "evidence": [
+        "West African French phonetic features",
+        "Explicit mention of Bargny near Dakar",
+        "Reporter sign-off from Dakar"
+      ]
+    },
+    {
+      "id": "french-brussels-belgium-french-belgian",
+      "deck": "french",
+      "label": "Belgium",
+      "km": 258.7915964311609,
+      "guess": "Paris, France",
+      "radius": 400,
+      "language": "French",
+      "confidence": 80,
+      "evidence": [
+        "Native Metropolitan French phonology",
+        "Standard non-regional French vowels",
+        "Guttural French r sound ([ʁ])"
+      ]
+    },
+    {
+      "id": "french-yaounde-cameroon-french-cameroon",
+      "deck": "french",
+      "label": "Cameroon",
+      "km": 72.49946622529396,
+      "guess": "Yaoundé, Cameroon",
+      "radius": 250,
+      "language": "French",
+      "confidence": 85,
+      "evidence": [
+        "Cameroonian French intonation and rhythmic prosody",
+        "Uvular/voiced fricative 'r' typical of Francophone West/Central Africa",
+        "Vowel quality characteristic of Southern Cameroon",
+        "Fluent Cameroonian French cadence"
+      ]
+    },
+    {
+      "id": "french-abidjan-cote-d-ivoire-french-cote-d-ivoire",
+      "deck": "french",
+      "label": "Côte d'Ivoire",
+      "km": 7.808389172079909,
+      "guess": "Yamassoukro, Côte d'Ivoire",
+      "radius": 250,
+      "language": "French",
+      "confidence": 92,
+      "evidence": [
+        "Ivorian French accent and intonation patterns",
+        "Pacing and vowel qualities typical of Ivory Coast French",
+        "Explicit mention of Côte d'Ivoire and the Bandama region"
+      ]
+    },
+    {
+      "id": "french-paris-france-french-paris",
+      "deck": "french",
+      "label": "Paris, France",
+      "km": 0,
+      "guess": "Paris, France",
+      "radius": 300,
+      "language": "French",
+      "confidence": 85,
+      "evidence": [
+        "Standard Metropolitan French uvular rhotic",
+        "Typical Northern French nasal vowel realizations",
+        "Standard Metropolitan French prosody and cadence",
+        "Standard pronunciation of numbers and dates"
+      ]
+    },
+    {
+      "id": "french-montreal-canada-french-quebecois",
+      "deck": "french",
+      "label": "Québec, Canada",
+      "km": 104.59962418333998,
+      "guess": "Quebec, Canada",
+      "radius": 250,
+      "language": "French",
+      "confidence": 95,
+      "evidence": [
+        "Affrication of /t/ and /d/ before high vowels ('petit', 'tu')",
+        "Quebec French colloquial terms like 'pis' and 'choker'",
+        "Distinctive Canadian French vowel laxing and intonation",
+        "Stated directly: 'je viens du Québec'"
+      ]
+    },
+    {
+      "id": "french-marseille-france-french-southern-france",
+      "deck": "french",
+      "label": "Southern France, France",
+      "km": 596.606697618851,
+      "guess": "Paris, France",
+      "radius": 400,
+      "language": "French",
+      "confidence": 80,
+      "evidence": [
+        "Standard Metropolitan French phonetic features",
+        "Uvular fricative 'r' articulation",
+        "Unbalanced nasal vowels typical of standard French",
+        "Fluent native French reading intonation"
+      ]
+    },
+    {
+      "id": "spanish-seville-andalusia-spain-spanish-andalusian-spa",
+      "deck": "spanish",
+      "label": "Andalusia, Spain",
+      "km": 337.8907771926988,
+      "guess": "Madrid, Spain",
+      "radius": 250,
+      "language": "Spanish",
+      "confidence": 85,
+      "evidence": [
+        "Standard Peninsular Spanish 'distinción' between /s/ and /θ/",
+        "Apico-alveolar /s/ typical of Central/Northern Spain",
+        "Clear preservation of syllable-final consonants",
+        "European Spanish vowel qualities and rhythm"
+      ]
+    },
+    {
+      "id": "spanish-venezuelan-spanish-introduction-to-the-big-ban",
+      "deck": "spanish",
+      "label": "Guatire, Venezuela",
+      "km": 39.48733980817749,
+      "guess": "Caracas, Venezuela",
+      "radius": 400,
+      "language": "Spanish",
+      "confidence": 75,
+      "evidence": [
+        "Spanish spoken with syllable-final 's' aspiration",
+        "Soft debuccalization of /s/ before consonants",
+        "Clear yeísmo and smooth consonant weakening",
+        "Cadence and intonation characteristic of Venezuelan Spanish"
+      ]
+    },
+    {
+      "id": "spanish-mexico-city-mexico-spanish-mexican",
+      "deck": "spanish",
+      "label": "Mexico",
+      "km": 345.2354831161112,
+      "guess": "Mexico City, Mexico",
+      "radius": 300,
+      "language": "Spanish",
+      "confidence": 80,
+      "evidence": [
+        "Seseo with clear, non-aspirated syllable-final /s/",
+        "Cadence and intonation typical of Highland Mexico",
+        "Standard Mexican Spanish vowel qualities"
+      ]
+    },
+    {
+      "id": "spanish-argentine-spanish-reading-about-a-brazilian-to",
+      "deck": "spanish",
+      "label": "Argentina",
+      "km": 4670.520317363774,
+      "guess": "Bogotá, Colombia",
+      "radius": 500,
+      "language": "Spanish",
+      "confidence": 70,
+      "evidence": [
+        "Clear seseo (pronouncing 'c'/'z' as /s/)",
+        "Fully preserved coda /s/ consonants without aspiration",
+        "Soft voiced palatal fricative for 'll' and 'y'",
+        "Strong, clear alveolar trills (/r/)",
+        "Neutral Andean Spanish cadence and prosody"
+      ]
+    },
+    {
+      "id": "spanish-mexican-spanish-schrodinger-s-cat-article-read",
+      "deck": "spanish",
+      "label": "Mexico",
+      "km": 345.2354831161112,
+      "guess": "Mexico City, Mexico",
+      "radius": 500,
+      "language": "Spanish",
+      "confidence": 75,
+      "evidence": [
+        "Seseo (no distinction between /s/ and /θ/)",
+        "Laminal /s/ sound typical of Latin America",
+        "Soft velar 'j' sound (/x/)",
+        "Neutral Mexican reading cadence"
+      ]
+    },
+    {
+      "id": "spanish-paniahue-santa-cruz-chile-spanish-chilean",
+      "deck": "spanish",
+      "label": "Paniahue, Chile",
+      "km": 145.93897659671143,
+      "guess": "Santiago, Chile",
+      "radius": 300,
+      "language": "Spanish",
+      "confidence": 85,
+      "evidence": [
+        "Chilean Spanish intonation and pitch contour",
+        "Aspiration of 's' sound before consonants and at word ends",
+        "Vocabulary and phrasing typical of Central Chile",
+        "Rapid speech tempo with characteristic vowel reductions"
+      ]
+    },
+    {
+      "id": "spanish-uruguayan-spanish-juan-jose-morosoli-reads-la-",
+      "deck": "spanish",
+      "label": "Minas, Uruguay",
+      "km": 102.06033233901329,
+      "guess": "Montevideo, Uruguay",
+      "radius": 300,
+      "language": "Spanish",
+      "confidence": 85,
+      "evidence": [
+        "Pronunciation of 'y' and 'll' as 'sh' (sheísmo)",
+        "Rioplatense melodic cadence and intonation",
+        "S-aspiration before consonants",
+        "Regional vocabulary ('yuyo', 'pago', 'chaparrón')"
+      ]
+    },
+    {
+      "id": "spanish-peruvian-spanish-richard-dawkins-biography-rea",
+      "deck": "spanish",
+      "label": "Peru",
+      "km": 0,
+      "guess": "Lima, Peru",
+      "radius": 300,
+      "language": "Spanish",
+      "confidence": 80,
+      "evidence": [
+        "Unaspirated syllable-final /s/",
+        "Clear, unreduced vowel production",
+        "Soft glottal fricative for 'j'",
+        "Peruvian rhythmic cadence"
+      ]
+    },
+    {
+      "id": "spanish-puerto-rican-spanish-roman-emperor-claudius-ar",
+      "deck": "spanish",
+      "label": "Puerto Rico",
+      "km": 1766.3265616737108,
+      "guess": "Havana, Cuba",
+      "radius": 300,
+      "language": "Spanish",
+      "confidence": 75,
+      "evidence": [
+        "Clear seseo throughout",
+        "Complete dropping of final syllable 's' (e.g., 'e.wikipedia', 'lo pretoriano')",
+        "Weakened/deleted coda 'r' (e.g., 'sobreviví' for 'sobrevivir')",
+        "Melodic Caribbean intonation and phrasing cadence"
+      ]
+    },
+    {
+      "id": "spanish-castilian-spanish-segismundo-s-soliloquy-calde",
+      "deck": "spanish",
+      "label": "Spain",
+      "km": 9062.653609872843,
+      "guess": "Mexico City, Mexico",
+      "radius": 400,
+      "language": "Spanish",
+      "confidence": 75,
+      "evidence": [
+        "Consistent seseo ('condición', 'cenizas')",
+        "Fully retained syllable-final /s/ without aspiration",
+        "Soft velar fricative [x] for /j/ and /g/",
+        "Highland Latin American vocalic stability"
+      ]
+    },
+    {
+      "id": "spanish-colombian-spanish-steven-pinker-biography-read",
+      "deck": "spanish",
+      "label": "Turbaco, Colombia",
+      "km": 642.1202927397453,
+      "guess": "Bogotá, Colombia",
+      "radius": 350,
+      "language": "Spanish",
+      "confidence": 80,
+      "evidence": [
+        "Fully preserved syllable-final /s/ without aspiration",
+        "Melodic intonation characteristic of Andean Colombian Spanish",
+        "Clear, precise vowel articulation and standard Latin American seseo"
+      ]
+    },
+    {
+      "id": "chinese-chengdu-china-mandarin-sichuanese-chengdu-dial",
+      "deck": "chinese",
+      "label": "Chengdu, China",
+      "km": 1660.7034898971458,
+      "guess": "Shanghai, China",
+      "radius": 150,
+      "language": "Wu Chinese",
+      "confidence": 85,
+      "evidence": [
+        "Spoken in Taihu Wu Chinese",
+        "Characteristic voiced consonants and glottal stop word endings",
+        "Wu lexical items such as '罩衫' (coat) and '脱落' (take off)",
+        "Vowel shifts typical of the Shanghai and lower Yangtze Delta region"
+      ]
+    },
+    {
+      "id": "chinese-foshan-china-cantonese-guangdong-pearl-river-d",
+      "deck": "chinese",
+      "label": "Foshan, China",
+      "km": 45.442080012605516,
+      "guess": "Pearl River Delta, Guangdong, China",
+      "radius": 200,
+      "language": "Cantonese",
+      "confidence": 85,
+      "evidence": [
+        "Native Cantonese pronunciation and tonal system",
+        "Pearl River Delta vowel qualities and initial consonants",
+        "Fluent Yue Chinese speech discussing mid-20th century political history"
+      ]
+    },
+    {
+      "id": "chinese-guiyang-china-mandarin-guiyangese-southwestern",
+      "deck": "chinese",
+      "label": "Guiyang, China",
+      "km": 0.01987690791111443,
+      "guess": "Guiyang, Guizhou, China",
+      "radius": 50,
+      "language": "Mandarin Chinese",
+      "confidence": 95,
+      "evidence": [
+        "Direct statement: 'We come from Guiyang City, Guizhou Province'",
+        "Southwestern Mandarin with Guiyang dialect phonology",
+        "Local dialectal terms and expressions"
+      ]
+    },
+    {
+      "id": "chinese-hk-cantonese-george-washington-carver-spoken-w",
+      "deck": "chinese",
+      "label": "Hong Kong",
+      "km": 0,
+      "guess": "Hong Kong",
+      "radius": 150,
+      "language": "Cantonese",
+      "confidence": 80,
+      "evidence": [
+        "Fluent Cantonese language",
+        "Hong Kong Cantonese phonology and tone system",
+        "Natural Cantonese pronunciation of proper names"
+      ]
+    },
+    {
+      "id": "chinese-hk-cantonese-ciguatoxin-stonefish-toxin-spoken",
+      "deck": "chinese",
+      "label": "Hong Kong",
+      "km": 0,
+      "guess": "Hong Kong",
+      "radius": 100,
+      "language": "Cantonese",
+      "confidence": 85,
+      "evidence": [
+        "Cantonese language",
+        "Hong Kong Cantonese tone contours and phonology",
+        "Hong Kong English pronunciation of letter names ('J-K')"
+      ]
+    },
+    {
+      "id": "chinese-nanyang-china-zhongyuan-mandarin-henan",
+      "deck": "chinese",
+      "label": "Nanyang, China",
+      "km": 44.06534862099094,
+      "guess": "Tanghe County, Nanyang, Henan, China",
+      "radius": 50,
+      "language": "Chinese",
+      "confidence": 95,
+      "evidence": [
+        "Stated explicitly: '我来自河南省南阳市唐河县'",
+        "Demonstrates Central Plains Mandarin (Zhongyuan Mandarin) features",
+        "Uses local Tanghe lexical items (e.g., 得劲, 搁溜儿, 叫摩)",
+        "Henan dialect intonation patterns and tonal shifts"
+      ]
+    },
+    {
+      "id": "chinese-taipei-taiwan-mandarin-taiwan-guoyu",
+      "deck": "chinese",
+      "label": "Taiwan",
+      "km": 111.62086978899963,
+      "guess": "Hsinchu, Taiwan",
+      "radius": 150,
+      "language": "Mandarin",
+      "confidence": 95,
+      "evidence": [
+        "pronunciation of 和 as 'hàn'",
+        "characteristic Taiwanese Mandarin intonation",
+        "softened retroflex consonants",
+        "stated affiliation with National Chiao Tung University"
+      ]
+    },
+    {
+      "id": "chinese-shanghainese-wu-standard-shanghai-accent-readi",
+      "deck": "chinese",
+      "label": "Shanghai, China",
+      "km": 85.29469442837453,
+      "guess": "Suzhou, Jiangsu, China",
+      "radius": 150,
+      "language": "Wu Chinese",
+      "confidence": 85,
+      "evidence": [
+        "Northern Wu (Taihu Wu) phonology",
+        "Voiced initial consonants",
+        "Literary literary readings (文读) of Classical Chinese text",
+        "Vowel quality and pitch accents typical of Jiangnan Wu dialects"
+      ]
+    },
+    {
+      "id": "chinese-taiwan-mandarin-good-cop-bad-dog-tv-episode-sp",
+      "deck": "chinese",
+      "label": "Taiwan",
+      "km": 150.16466817975666,
+      "guess": "Taipei, Taiwan",
+      "radius": 200,
+      "language": "Mandarin Chinese",
+      "confidence": 85,
+      "evidence": [
+        "Taiwanese Mandarin prosody and cadence",
+        "Softened retroflex consonants (zh, ch, sh into z, c, s)",
+        "Typical Taiwanese syllable timing and vowel qualities"
+      ]
+    },
+    {
+      "id": "hindi-urdu-spoken-hindi-wikipedia-indo-european-language-",
+      "deck": "hindi-urdu",
+      "label": "Delhi–Meerut Region, India",
+      "km": 0,
+      "guess": "Delhi, India",
+      "radius": 400,
+      "language": "Hindi",
+      "confidence": 85,
+      "evidence": [
+        "Standard Modern Hindi phonology",
+        "Clear Indian English sound adaptations for terms like 'section'",
+        "Fluent Devanagari reading cadence"
+      ]
+    },
+    {
+      "id": "hindi-urdu-rajiv-dixit-aitihasik-bhulein-historical-mista",
+      "deck": "hindi-urdu",
+      "label": "Aligarh, India",
+      "km": 0,
+      "guess": "Aligarh, Uttar Pradesh, India",
+      "radius": 150,
+      "language": "Hindi",
+      "confidence": 85,
+      "evidence": [
+        "Standard Khari Boli Hindi pronunciation",
+        "Western Uttar Pradesh stress and intonation patterns",
+        "Enunciated retroflex consonants typical of UP speech"
+      ]
+    },
+    {
+      "id": "hindi-urdu-mumbai-india-hindi-bambaiyya-adjacent",
+      "deck": "hindi-urdu",
+      "label": "Mumbai, India",
+      "km": 0,
+      "guess": "Mumbai, Maharashtra, India",
+      "radius": 100,
+      "language": "Hindi",
+      "confidence": 95,
+      "evidence": [
+        "Said directly: \"main Bombay mein paida hui 48 mein\"",
+        "Mumbai Hindi grammar (\"dal dene ka\")",
+        "Indian English/Hindi phonology"
+      ]
+    },
+    {
+      "id": "hindi-urdu-karachi-pakistan-urdu",
+      "deck": "hindi-urdu",
+      "label": "Karachi, Pakistan",
+      "km": 1412.0213016843668,
+      "guess": "Lucknow, Uttar Pradesh, India",
+      "radius": 300,
+      "language": "Urdu",
+      "confidence": 80,
+      "evidence": [
+        "Classical Northern Indian Urdu phonology",
+        "Precise preservation of Nastaliq/Perso-Arabic consonantal contrasts",
+        "Formal scholarly register and intonation typical of UP seminary tradition"
+      ]
+    },
+    {
+      "id": "hindi-urdu-mufti-abul-qasim-nomani-talk-on-darul-uloom-de",
+      "deck": "hindi-urdu",
+      "label": "Varanasi, India",
+      "km": 720.4837744211326,
+      "guess": "Deoband, Uttar Pradesh, India",
+      "radius": 250,
+      "language": "Urdu",
+      "confidence": 85,
+      "evidence": [
+        "Formal Hindustani/Urdu register",
+        "Clear retroflex consonants and standard North Indian vowel quality",
+        "Traditional Islamic scholarly cadence (Khariboli-based Urdu)"
+      ]
+    },
+    {
+      "id": "portuguese-cape-verde-portuguese-cape-verde",
+      "deck": "portuguese",
+      "label": "Cape Verde",
+      "km": 0.6832147721068641,
+      "guess": "Mindelo, São Vicente, Cape Verde",
+      "radius": 50,
+      "language": "Portuguese",
+      "confidence": 95,
+      "evidence": [
+        "Cape Verdean Portuguese phonology and intonation",
+        "References to prominent Cape Verdean musicians Bana and Paulino Vieira",
+        "S-softening and characteristic vowel rhythm of São Vicente"
+      ]
+    },
+    {
+      "id": "portuguese-malanje-angola-portuguese-angola",
+      "deck": "portuguese",
+      "label": "Malanje, Angola",
+      "km": 0.11188944764488114,
+      "guess": "Malanje, Angola",
+      "radius": 150,
+      "language": "Portuguese",
+      "confidence": 85,
+      "evidence": [
+        "Angolan Portuguese phonetic cadence and vowel quality",
+        "Direct statements regarding living in Malanje and Kangandala",
+        "Mentions of local geography such as the Kwanza River and Cangandala"
+      ]
+    },
+    {
+      "id": "portuguese-mozambique-portuguese-mozambique",
+      "deck": "portuguese",
+      "label": "Mozambique",
+      "km": 1.9892789964625648,
+      "guess": "Maputo, Mozambique",
+      "radius": 400,
+      "language": "Portuguese",
+      "confidence": 85,
+      "evidence": [
+        "syllable-timed rhythm typical of Mozambican Portuguese",
+        "fully voiced open vowels without European Portuguese reduction",
+        "soft alveolar tap for soft r sounds",
+        "distinct pronunciation of final sibilants"
+      ]
+    },
+    {
+      "id": "portuguese-porto-portugal-portuguese-european-porto-north",
+      "deck": "portuguese",
+      "label": "Porto, Portugal",
+      "km": 191.90666849226383,
+      "guess": "Central Portugal",
+      "radius": 250,
+      "language": "Portuguese",
+      "confidence": 85,
+      "evidence": [
+        "European Portuguese vowel reduction in unstressed syllables",
+        "Shushing sibilants at word endings",
+        "Stress-timed rhythm typical of mainland Portugal",
+        "Guttural and flapped r-sounds characteristic of European Portuguese"
+      ]
+    },
+    {
+      "id": "portuguese-porto-alegre-brazil-portuguese-brazilian-gauch",
+      "deck": "portuguese",
+      "label": "Porto Alegre, Brazil",
+      "km": 546.7371315185663,
+      "guess": "Curitiba, Paraná, Brazil",
+      "radius": 600,
+      "language": "Portuguese",
+      "confidence": 85,
+      "evidence": [
+        "Vocalized final /l/ as [w] in 'Portugal'",
+        "Palatalized /t/ as [tʃ] in 'morte' and 'sétimo'",
+        "Alveolar /s/ in syllable codas ('Avis', 'anos')",
+        "R-tapping [ɾ] in syllable codas ('morte', 'terceiro')",
+        "Open vowel quality characteristic of Brazilian Portuguese"
+      ]
+    },
+    {
+      "id": "portuguese-parana-brazil-portuguese-brazilian-parana",
+      "deck": "portuguese",
+      "label": "Paraná, Brazil",
+      "km": 0,
+      "guess": "Curitiba, Paraná, Brazil",
+      "radius": 350,
+      "language": "Portuguese",
+      "confidence": 80,
+      "evidence": [
+        "Palatalization of /t/ and /d/ before /i/",
+        "Alveolar tap [ɾ] for coda 'r' in words like 'curta' and 'pernas'",
+        "Unshushed alveolar 's' at syllable codas",
+        "Vocalization of syllable-final 'l' to [w]"
+      ]
+    },
+    {
+      "id": "russian-moscow-russia-russian-moscow",
+      "deck": "russian",
+      "label": "Moscow, Russia",
+      "km": 0,
+      "guess": "Moscow, Russia",
+      "radius": 500,
+      "language": "Russian",
+      "confidence": 75,
+      "evidence": [
+        "Standard Russian phonology and stress patterns",
+        "Reduction of unstowels typical of standard Central Russian",
+        "Hard voiced velar plosive [ɡ] sound"
+      ]
+    },
+    {
+      "id": "portuguese-rio-de-janeiro-brazil-portuguese-brazilian-car",
+      "deck": "portuguese",
+      "label": "Rio de Janeiro, Brazil",
+      "km": 0,
+      "guess": "Rio de Janeiro, Brazil",
+      "radius": 100,
+      "language": "Portuguese",
+      "confidence": 85,
+      "evidence": [
+        "Syllable-final 's' pronounced as 'sh'/'zh' (chiando)",
+        "Palatalization of 't' and 'd' before 'i'",
+        "Glottal/guttural 'r' in syllable coda and onset",
+        "Brazilian Portuguese rhythm and vowel values"
+      ]
+    },
+    {
+      "id": "portuguese-sao-paulo-brazil-portuguese-brazilian-sao-paul",
+      "deck": "portuguese",
+      "label": "São Paulo, Brazil",
+      "km": 360.74882490989955,
+      "guess": "Rio de Janeiro, Brazil",
+      "radius": 150,
+      "language": "Portuguese",
+      "confidence": 85,
+      "evidence": [
+        "Palatalization of coda /s/ to [ʃ] (e.g., 'USP', 'mestrado', 'bastante')",
+        "Carioca vowel opening and melodic cadence",
+        "Brazilian Portuguese syntax and academic vocabulary"
+      ]
+    }
+  ]
+}

@@ -384,3 +384,64 @@ request" — indistinguishable from a transient blip, and it sent me looking for
 really an empty wallet. api/analyze.js now reads the 429 body, and RESOURCE_EXHAUSTED becomes
 its own error code that does not retry, returns 503, and says plainly that the account is out
 of credit and the recording was fine.
+
+# The name bug — and why it cannot be fixed in the prompt
+
+Reported by Mohammad: plain North American English, no Slavic features, one sentence
+"my name is Vladislav". Verdict: Moscow, 1000 km radius. Evidence, in order:
+
+  1. "Slavic name Vladislav"
+  2. "Eastern European vowel tensing and consonant quality"
+  3. "North American slang and cadence layered over Slavic phonology"
+
+He confirms there is nothing Slavic in how he speaks, and the transcript the app itself printed
+is plain North American slang. So item 2 is FABRICATED — the model concluded from the name and
+then manufactured phonetic evidence to support it. Identical to the silent file that returned
+"Toronto, 75%, Canadian raising on 'night'". Same defect, different trigger.
+
+## The benchmark is structurally blind to this
+
+All 111 clips have accent and content AGREEING. Nothing tests the case where the words point
+somewhere the voice does not, so the eval can score 44 km and never see it.
+
+Worse, a related measurement fell out of checking: **30 of 111 clips leak their own answer**
+and the model reads it.
+
+| | n | median | <100km |
+| --- | --- | --- | --- |
+| clips whose evidence cites content | 30 | 35 km | 70% |
+| clips judged on sound alone | 81 | **49 km** | **56%** |
+| headline | 111 | 44 km | 59% |
+
+The 44 km headline is partly measuring reading comprehension. **49 km / 56% is the honest
+figure** for a speaker who does not announce anything.
+
+## Two prompt fixes, both measured, both rejected
+
+| attempt | size | all | sound-only clips | name citations |
+| --- | --- | --- | --- | --- |
+| baseline | 2136 ch | **37 km** | **44 km** | 31 |
+| explicit instruction | 2738 ch | 58 km | 85 km | 31 (unchanged) |
+| one short sentence | 2227 ch | 44 km | 68 km | 32 (unchanged) |
+
+Both cost accuracy. NEITHER changed the behaviour — name citations stayed flat at 31-32. The
+long version nearly doubled the error on exactly the honest clips it was written to protect.
+Telling this model that a name is not evidence does not stop it using names. That is seven
+prompt additions now, every one null or negative.
+
+## What shipped instead
+
+A guard in api/analyze.js. It does not argue with the model: it checks whether the FIRST
+evidence item names a name, and if so flags `name_led`, widens the radius to at least 1500 km,
+and the result card says the guess leaned on a name rather than the accent. Costs no accuracy
+because it changes no input — it just stops presenting a name-derived guess as an ear reading.
+
+Only the first evidence item counts. A name behind real acoustic evidence is a harmless
+observation; a name at the top is what the verdict was built on.
+
+## The general lesson
+
+A benchmark only tests what someone thought to put in it, so its blind spots are invisible by
+construction. Mohammad found this in one try by using the product like a person. Known
+remaining blind spots: real-world noise, heritage speakers, L2 speakers, code-switching, and
+deliberately performed accents.

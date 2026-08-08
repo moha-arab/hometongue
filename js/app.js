@@ -478,6 +478,17 @@ function renderResult(v) {
   kicker.textContent = 'sounds like you grew up around';
   place.textContent = v.place;
 
+  // The server flags a verdict whose top evidence is the speaker's NAME rather than any sound.
+  // Measured case: plain North American speech plus "my name is Vladislav" returned Moscow,
+  // citing the name first and inventing Slavic vowels second. Two prompt fixes were measured
+  // and both cost accuracy without changing the behaviour, so the honest move is to show the
+  // user what the guess actually rested on instead of dressing it up as an accent reading.
+  const warn = $('#nameWarn');
+  if (warn) {
+    warn.hidden = !v.name_led;
+    if (v.name_led) warn.textContent = 'Heads up — this guess leaned on your name, not your accent. Try again without saying it.';
+  }
+
   // The radius is the answer's honesty, so it gets the big number and a plain-English
   // reading of what that distance actually means.
   const r = v.radius_km;

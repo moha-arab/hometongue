@@ -626,3 +626,11 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 }
 .q-dots i.on { background: var(--accent); }
 .q-label { font-family: var(--mono); font-size: 11px; color: var(--grey); letter-spacing: .01em; }
+
+/* Shown when the verdict leaned on a name instead of the voice. Deliberately looks like a
+   correction rather than decoration — it is telling the user the answer is weaker than it looks. */
+.name-warn {
+  margin-top: 10px; padding: 9px 11px; border-radius: var(--r-sm);
+  background: var(--accent-soft); border-left: 2px solid var(--accent);
+  font-family: var(--mono); font-size: 11px; line-height: 1.5; color: var(--black);
+}
