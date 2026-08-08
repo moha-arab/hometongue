@@ -445,3 +445,58 @@ A benchmark only tests what someone thought to put in it, so its blind spots are
 construction. Mohammad found this in one try by using the product like a person. Known
 remaining blind spots: real-world noise, heritage speakers, L2 speakers, code-switching, and
 deliberately performed accents.
+
+# THE NOISE FLOOR — read this before trusting anything above
+
+Ran the IDENTICAL prompt over the same 106 clips twice, changing nothing.
+
+| | median | <100km |
+| --- | --- | --- |
+| run 1 | 37 km | 62% |
+| run 2 | **51 km** | 59% |
+
+**A 14 km swing from nothing.** 13 of 106 clips differ by more than 100 km between identical
+runs: Basra 0 vs 448, Manama 10 vs 434, Guatire 1048 vs 39, Andalusia 338 vs 105.
+
+## What this invalidates
+
+Basra and Manama are the two clips that "the nine-language expert prompt broke", then "the
+Syria route broke identically", and the coincidence became a whole theory: that a long
+preamble makes the model retreat to bigger, safer cities. Those two clips do that on their own,
+with no prompt change at all. The theory was pattern-matching on noise.
+
+Anything decided on a gap under ~14 km today was decided on nothing. That includes rejecting
+the name line, at 37 vs 44 km — half the noise floor.
+
+What survives, because the effect is far larger than the floor:
+- speech length: 20s scores 317 km against 30s at 72 km
+- the cascade replacement: 58% to 86% country accuracy
+- the name bug itself, which is a controlled A/B, not a benchmark median
+
+## How to measure from now on
+
+- Single-run comparisons at n=106 cannot resolve anything under ~14 km. Re-run both arms.
+- For a targeted behaviour, build a CONTROLLED probe instead of reading the aggregate. The name
+  question was settled in nine calls by holding the audio fixed and changing one sentence —
+  after two full 106-clip runs had failed to answer it.
+- tools/eval.mjs now prints the noise floor after every run so the next comparison starts
+  honest.
+
+# The name line is back in the prompt
+
+Controlled probe, identical synthetic US English, only the name differing:
+
+| prompt | no name | "my name is Vladislav" | "my name is Jake" |
+| --- | --- | --- | --- |
+| baseline | United States | **Moscow, Russia** | United States |
+| + one line | United States | unplaceable, refuses | United States |
+| + emphatic paragraph | broke | **Moscow, Russia** | Lebanon, Kansas |
+
+Baseline cites "Stated name Vladislav" and invents "East Slavic vowel production and timing"
+for a Microsoft US text-to-speech voice. The one-line version stops it. The emphatic paragraph
+does NOT — more forceful wording was worse than less, and it broke the no-name control.
+
+Jake never moved the answer, so the trigger is foreign names, not names.
+
+The server-side guard in api/analyze.js stays as a backstop: the prompt reduces the behaviour,
+the guard catches what gets through and tells the user the guess leaned on a name.
