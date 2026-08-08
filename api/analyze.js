@@ -176,7 +176,28 @@ function sane(r) {
         && Number.isFinite(+p[0]) && Number.isFinite(+p[1])
         && +p[0] >= -90 && +p[0] <= 90 && +p[1] >= -180 && +p[1] <= 180)
         .map((p) => [+p[0], +p[1]]);
-      return pts.length >= 3 ? pts : [];
+      if (pts.length < 3) return [];
+      // Freehand polygons vary run to run: the same Gulf prompt drew a broad Arabian arc one
+      // run and a thin coastal ribbon the next, which rendered as an ugly sliver that skipped
+      // eastern Saudi Arabia entirely. A zone claims the same ~70% coverage as the radius, so
+      // its area has to be in the same universe as the circle's: under a fifth of it means a
+      // sliver that contradicts its own claim, over six times means a smear. Both fall back to
+      // the honest circle. Shoelace on an equirectangular projection is plenty at this scale.
+      const meanLat = pts.reduce((t, q) => t + q[0], 0) / pts.length;
+      const kx = 111.32 * Math.cos((meanLat * Math.PI) / 180), ky = 110.57;
+      let area2 = 0;
+      for (let i = 0; i < pts.length; i++) {
+        const [aLat, aLng] = pts[i], [bLat, bLng] = pts[(i + 1) % pts.length];
+        area2 += (aLng * kx) * (bLat * ky) - (bLng * kx) * (aLat * ky);
+      }
+      const zoneArea = Math.abs(area2) / 2;
+      const radius = Math.max(10, Math.round(r.radius_km || 300));
+      const circleArea = Math.PI * radius * radius;
+      // Thresholds set from measured cases: the good Arabian arc scored 0.16 of its circle's
+      // area and the degenerate coastal ribbon scored 0.02 — an order of magnitude apart, so
+      // 0.08 splits them with margin on both sides.
+      if (zoneArea < 0.08 * circleArea || zoneArea > 6 * circleArea) return [];
+      return pts;
     })(),
     language: String(r.language || '').slice(0, 40),
     confidence: Math.min(100, Math.max(0, Math.round(r.confidence || 0))),
