@@ -381,7 +381,7 @@ function blobToBase64(blob) {
 
 // One place that turns a server error code into something a person can act on.
 const ERRORS = {
-  no_speech: "I couldn't hear any real speech in that. If the bars weren't moving while you talked, Chrome is probably using the wrong microphone (click the mic icon in the address bar).",
+  no_speech: "I couldn't hear any real speech in that. If the bars weren't moving while you talked, your browser is probably using the wrong microphone (click the mic icon in the address bar).",
   not_configured: 'The server is missing its API key, so nothing can be analyzed. That is a setup problem, not your recording.',
   out_of_credit: 'The analysis account has run out of credit, so nothing can be read right now. Nothing is wrong with your recording.',
   busy: 'The model is busy right now. Give it a few seconds and try again.',
@@ -551,12 +551,9 @@ function chip(text) {
   return el;
 }
 
-// The nine with hand-written playbooks. The backend can handle any language Whisper
-// identifies, but detection is unreliable enough on short clips that asking beats
-// guessing — so the UI offers the tuned ones and the rest wait until they're measured.
-// Third value is the BCP-47 tag for the browser's live-preview recogniser.
-// Type-mode examples, one per curated language, kept here now that the Arabic lexicon
-// engine that used to own them is gone.
+// Type-mode samples: one believable voice-note per language, dialect markers intact —
+// Egyptian dalwa'ti, Levantine hallaq, Rioplatense che boludo, Austrian Paradeiser,
+// Australian servo. Each should land in its home region, which the sweep verifies.
 const SAMPLES = [
   { label: 'مصري', text: 'ايه يا عم عامل ايه؟ انا دلوقتي في البيت، مش عايز اعمل حاجة خالص، النهارده تعبان اوي بصراحة.' },
   { label: 'شامي', text: 'شو أخبارك؟ أنا قاعد بالبيت هلق، زهقان شوي وما عم أعمل شي. بدي روح عالسوق بعدين.' },
@@ -564,18 +561,6 @@ const SAMPLES = [
   { label: 'Deutsch', text: 'Servus! I geh heuer im Jänner zum Wirt, dann kauf i no Paradeiser und Erdäpfel.' },
   { label: 'English', text: "Yeah nah mate, I reckon it's heaps good, gonna head to the servo this arvo." },
 ];
-
-
-// One source of truth for "what am I speaking", remembered between visits.
-let pickedLang = null;
-
-// A row of pills, each carrying the language's own script — العربية, Русский, 中文.
-// The script IS the icon, which beats a flag (a language is not a country) and beats a
-// dropdown (nine options do not need to be hidden behind a click).
-
-// Changing it anywhere changes it everywhere: the recogniser tag, the Whisper language,
-// the type box direction, and every other pill row on the page.
-
 
 
 // The "so where are you actually from?" list. The answer is a point now, so this is only
