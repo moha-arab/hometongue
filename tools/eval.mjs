@@ -162,6 +162,15 @@ console.log(`OVERALL      ${String(overall.n).padStart(3)}  ${String(overall.med
 console.log(`failed: ${results.filter((r) => r.km == null).length}`);
 console.log('published SOTA for this task: 481 km median');
 
+// Printed every run because it was learned the hard way. Two runs of the IDENTICAL prompt over
+// these clips gave 37 km and 51 km, with 13 of 106 clips moving over 100 km between them —
+// Basra 0 vs 448, Manama 10 vs 434. Prompt changes were accepted and rejected on gaps smaller
+// than that before anyone checked, and a whole theory about long prompts "coarsening" answers
+// rested on the two clips that swing hardest on their own.
+console.log('\nnoise floor: repeat runs of the SAME prompt differ by ~14 km median.');
+console.log('a gap smaller than that is not a result — re-run both arms, or build a controlled');
+console.log('probe that holds the audio fixed and changes one thing.');
+
 fs.mkdirSync(path.join(ROOT, 'data'), { recursive: true });
 fs.writeFileSync(OUT, JSON.stringify({ model: MODEL, promptHash: PROMPT_HASH, overall, byDeck: Object.fromEntries(Object.entries(byDeck).map(([k, v]) => [k, stats(v)])), results }, null, 2));
 console.log(`\nwrote ${path.relative(ROOT, OUT)}`);
