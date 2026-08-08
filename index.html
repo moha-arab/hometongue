@@ -3,9 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HomeTongue — your accent knows where home is</title>
+<title>HomeTongue · your accent knows where home is</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='none' stroke='%23145C55' stroke-width='2'/><circle cx='16' cy='16' r='8' fill='none' stroke='%23145C55' stroke-width='2'/><circle cx='16' cy='16' r='2.5' fill='%23C43D2B'/></svg>">
 <meta name="theme-color" content="#F3F1EC">
+<meta name="description" content="Talk for thirty seconds in any language. It places where you grew up on the map.">
+<meta property="og:title" content="HomeTongue">
+<meta property="og:description" content="Just talk. It finds where you grew up.">
+<meta property="og:url" content="https://www.hometongue.me/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,7 +42,7 @@
   <section class="card" id="idleCard">
     <div class="card-eyebrow"><span>accent geolocation</span><b>any language</b></div>
     <h1 class="tagline">Just talk.<br><span class="accent">I'll find where you grew up.</span></h1>
-    <p class="prompt-label">Any language, any dialect. Don't read anything — just talk, like you're voice-noting a friend:</p>
+    <p class="prompt-label">Any language, any dialect. Don't read anything, just talk like you're voice-noting a friend:</p>
     <p class="prompt" id="promptText">"Tell me about your day."</p>
     <button class="mic-btn" id="micBtn" aria-label="Start talking">
       <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line></svg>
@@ -61,14 +67,14 @@
          when they have said enough far better than a bare clock does. -->
     <div class="quality" id="quality">
       <span class="q-dots"><i></i><i></i><i></i></span>
-      <span class="q-label" id="qLabel">rough — keep talking</span>
+      <span class="q-label" id="qLabel">rough, keep talking</span>
     </div>
-    <button class="stop-btn" id="stopBtn">done — guess now</button>
+    <button class="stop-btn" id="stopBtn">done, guess now</button>
   </section>
 
   <!-- TYPE MODE -->
   <section class="card" id="typeCard" hidden>
-    <p class="prompt-label">Type the way you actually talk — voice-note energy, not essay energy:</p>
+    <p class="prompt-label">Type the way you actually talk. Voice-note energy, not essay energy:</p>
     <textarea id="typeBox" rows="4" placeholder="write the way you actually talk…"></textarea>
     <button class="stop-btn" id="analyzeTypedBtn">guess my dialect</button>
     <p class="samples-label">or try a sample:</p>
@@ -108,7 +114,7 @@
     </div>
     <div class="runners" id="runners"></div>
     <div class="feedback" id="feedback">
-      <label class="consent" id="consentWrap"><input type="checkbox" id="consentBox"> donate this clip to training — anonymous, helps the app learn your accent · <a href="/privacy.html" target="_blank">privacy</a></label>
+      <label class="consent" id="consentWrap"><input type="checkbox" id="consentBox"> donate this clip to training. anonymous, helps it learn your accent · <a href="/privacy.html" target="_blank">privacy</a></label>
       <div class="fb-row">
         <span>did I get it?</span>
         <button class="fb-btn" id="fbYes">nailed it</button>

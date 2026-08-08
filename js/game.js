@@ -9,9 +9,9 @@ const CLIP_WINDOW_S = 20;
 // One card per deck; decks with fewer than ROUNDS clips show as "stocking" until filled.
 // The code is the language tag, which is real information, unlike an emoji.
 const MODES = [
-  { key: 'arabic', code: 'ar', name: 'Arabic Dialects', desc: 'real local radio — pin the city it&#39;s from' },
-  { key: 'languages', code: 'world', name: 'World Languages', desc: 'a language you may not know — pin where it lives' },
-  { key: 'accents', code: 'en', name: 'English Accents', desc: 'everyone speaks English — pin where they&#39;re from' },
+  { key: 'arabic', code: 'ar', name: 'Arabic Dialects', desc: 'real local radio. Pin the city it&#39;s from' },
+  { key: 'languages', code: 'world', name: 'World Languages', desc: 'a language you may not know. Pin where it lives' },
+  { key: 'accents', code: 'en', name: 'English Accents', desc: 'everyone speaks English. Pin where they&#39;re from' },
   { key: 'french', code: 'fr', name: 'French', desc: 'Paris or Montréal, Dakar or Brussels' },
   { key: 'spanish', code: 'es', name: 'Spanish', desc: 'Madrid to Montevideo, by ear' },
   { key: 'chinese', code: 'zh · yue', name: 'Chinese', desc: 'Mandarin, Cantonese and cousins' },
@@ -121,7 +121,7 @@ function setView(v) {
 function startGame(type) {
   const pool = (window.CLIPS && window.CLIPS[type]) || [];
   if (pool.length < ROUNDS) {
-    toast('This mode is still being stocked with clips — try another one!');
+    toast('This mode is still being stocked with clips. Try another one!');
     return;
   }
   gameType = type;
@@ -193,7 +193,7 @@ function nextRound() {
   const era = $('#eraChip');
   const y = deck[round].year;
   era.hidden = !(y && y < 1990);
-  if (!era.hidden) era.textContent = `archival recording · ${y} — accents move`;
+  if (!era.hidden) era.textContent = `archival recording · ${y} · accents move`;
   setView('round');
   media.load(deck[round]); // preload now so play starts instantly on tap
 }
@@ -216,7 +216,7 @@ function playClip() {
   if (playing || budgetLeft <= 0) return;
   const clip = deck[round];
   if (!media.ready()) {
-    toast('Clip is loading — one sec…');
+    toast('Clip is loading, one sec…');
     media.whenReady(playClip);
     return;
   }
@@ -333,7 +333,7 @@ media.on('timeupdate', () => {
   if (budgetLeft <= 0) {
     media.pause();
     $('#playBtn').disabled = true;
-    $('#listens').textContent = 'listening time up — trust your ear, drop the pin';
+    $('#listens').textContent = 'listening time up. Trust your ear, drop the pin';
   }
 });
 media.on('play', () => {
@@ -423,7 +423,7 @@ function lockIn() {
   map.fitBounds(L.latLngBounds([guess, truth]), { paddingTopLeft: [60, 90], paddingBottomRight: [60, 300] });
 
   $('#revealLabel').textContent = clip.label;
-  const altNote = best.primary ? '' : ` · scored to ${best.name} — ${clip.lang} lives there too`;
+  const altNote = best.primary ? '' : ` · scored to ${best.name}, ${clip.lang} lives there too`;
   $('#revealStats').textContent = `${km.toLocaleString()} km away → +${pts.toLocaleString()} pts${pts === 5000 ? ' 🎯' : ''}${altNote}`;
   $('#revealHint').textContent = clip.hint || '';
   renderSource(clip.source, clip.year);
@@ -490,7 +490,7 @@ async function submitScore() {
     await loadBoard();
   } catch (e) {
     // "score saved locally" was a false claim — nothing persisted the score. Say what is true.
-    toast(e.message === 'not_configured' ? 'Leaderboard isn\'t set up yet — your score didn\'t post.' : 'Couldn\'t post the score — but you played it, that\'s what counts.');
+    toast(e.message === 'not_configured' ? 'Leaderboard isn\'t set up yet, so your score didn\'t post.' : 'Couldn\'t post the score. But you played it, that\'s what counts.');
     $('#submitScore').disabled = false;
   }
 }

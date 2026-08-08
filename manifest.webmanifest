@@ -1,7 +1,7 @@
 {
   "name": "HomeTongue",
   "short_name": "HomeTongue",
-  "description": "Your voice is a place. Speak Arabic and the map finds home, or play the listening game across nine decks.",
+  "description": "Your voice is a place. Talk in any language and the map finds where you grew up, or play the listening game across nine decks.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -15,7 +15,7 @@
     { "src": "/icon-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
   "shortcuts": [
-    { "name": "Guess my dialect", "url": "/", "description": "Record and let the map find home" },
-    { "name": "Play Pin It", "url": "/game.html", "description": "Hear a clip, pin where it's from" }
+    { "name": "Read my accent", "url": "/", "description": "Talk and let the map find home" },
+    { "name": "Guess the voice", "url": "/game.html", "description": "Hear a clip, pin where it is from" }
   ]
 }

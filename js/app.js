@@ -206,10 +206,10 @@ function startTimer() {
     if (q && q.dataset.tier !== String(tier)) {
       q.dataset.tier = String(tier);
       q.querySelectorAll('.q-dots i').forEach((d, k) => d.classList.toggle('on', k < Math.max(1, tier)));
-      $('#qLabel').textContent = ['rough — keep talking',
-        'getting there — 10 more seconds helps a lot',
-        'good read — you can stop here',
-        'sharp — this is as good as it gets'][tier];
+      $('#qLabel').textContent = ['rough, keep talking',
+        'getting there, 10 more seconds helps a lot',
+        'good read, you can stop here',
+        'sharp, as good as it gets'][tier];
     }
     if (s >= MAX_SECONDS) stopListening();
   }, 250);
@@ -228,7 +228,7 @@ const SCAN_NOTES = [
   'checking which consonants you soften',
   'weighing your rhythm and stress',
   'narrowing down the region',
-  'still going — a long look usually means a close call',
+  'still going, a long look usually means a close call',
 ];
 let scanId = null;
 function startScan() {
@@ -271,14 +271,14 @@ async function startListening() {
   micPeak = -1; micFrames = 0; micVoiced = 0;
   const mime = pickMime();
   if (mime === null || !navigator.mediaDevices?.getUserMedia) {
-    toast('This browser can\'t record audio — type mode instead 👇');
+    toast('This browser can\'t record audio. Type instead 👇');
     enterTypeMode();
     return;
   }
   try {
     mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
   } catch {
-    toast('Mic blocked — allow the microphone, or use type mode.');
+    toast('Mic blocked. Allow the microphone, or type instead.');
     enterTypeMode();
     return;
   }
@@ -304,7 +304,7 @@ function stopListening() {
   stopMeter();
   const elapsed = (Date.now() - startedAt) / 1000;
   if (elapsed < 2) {
-    toast('That was barely a breath — give me a sentence or two.');
+    toast('That was barely a breath. Give me a sentence or two.');
     state = 'idle';
     if (recorder && recorder.state !== 'inactive') { recorder.onstop = null; recorder.stop(); }
     teardownRecording();
@@ -320,7 +320,7 @@ function stopListening() {
     // There used to be a rescue here that fell back to the browser's live captions when the
     // recorder taped silence. Those captions are gone with the preview, so a dead mic is now
     // simply a dead mic — say so plainly instead of referencing variables that no longer exist.
-    toast('Your mic barely picked anything up 🎤 — check Chrome\'s mic icon (address bar) is using the right microphone, then try again.');
+    toast('Your mic barely picked anything up 🎤, check Chrome\'s mic icon (address bar) is using the right microphone, then try again.');
     state = 'idle';
     show('idleCard');
     return;
@@ -330,7 +330,7 @@ function stopListening() {
   if (voicedS >= 0 && voicedS < MIN_VOICED_S) {
     if (recorder && recorder.state !== 'inactive') { recorder.onstop = null; recorder.stop(); }
     teardownRecording();
-    toast('I could hardly hear any talking 🤫 — get closer and say a couple of sentences.');
+    toast('I could hardly hear any talking 🤫 get closer and say a couple of sentences.');
     state = 'idle';
     show('idleCard');
     return;
@@ -381,14 +381,14 @@ function blobToBase64(blob) {
 
 // One place that turns a server error code into something a person can act on.
 const ERRORS = {
-  no_speech: "I couldn't hear any real speech in that — if the bars weren't moving while you talked, Chrome is probably using the wrong microphone (click the mic icon in the address bar).",
+  no_speech: "I couldn't hear any real speech in that. If the bars weren't moving while you talked, Chrome is probably using the wrong microphone (click the mic icon in the address bar).",
   not_configured: 'The server is missing its API key, so nothing can be analyzed. That is a setup problem, not your recording.',
-  out_of_credit: 'The analysis account has run out of credit, so nothing can be read right now. Nothing is wrong with your recording — top up the Gemini billing and it works again immediately.',
-  busy: 'The model is busy right now — give it a few seconds and try again.',
+  out_of_credit: 'The analysis account has run out of credit, so nothing can be read right now. Nothing is wrong with your recording.',
+  busy: 'The model is busy right now. Give it a few seconds and try again.',
   upstream_failed: "The model didn't answer. Try again in a moment.",
-  audio_too_short: 'That was too short to read anything from — give me a sentence or two.',
+  audio_too_short: 'That was too short to read anything from. Give me a sentence or two.',
   audio_too_large: 'That recording was too big to send. Try a slightly shorter take.',
-  rate_limited: 'Slow down a little — try again in a bit.',
+  rate_limited: 'Slow down a little, try again in a bit.',
   bad_origin: 'That request was blocked as coming from the wrong domain.',
 };
 
@@ -417,7 +417,7 @@ async function postAnalyze(payload) {
 function runTextAnalysis(text, typed) {
   window._lastAudio = null;
   if (normText(text).length < 8) {
-    toast('I barely got anything — give me a sentence or two.');
+    toast('I barely got anything. Give me a sentence or two.');
     state = 'idle';
     show(typed ? 'typeCard' : 'idleCard');
     return;
@@ -529,10 +529,10 @@ function renderResult(v) {
   // reading of what that distance actually means.
   const r = v.radius_km;
   $('#radiusNum').textContent = r >= 1000 ? `${(r / 1000).toFixed(1)}k` : r;
-  $('#radiusLead').textContent = r <= 50 ? 'and I mean that specifically — a town, not a region'
+  $('#radiusLead').textContent = r <= 50 ? 'and I mean that specifically. A town, not a region'
     : r <= 200 ? 'a confident guess at the area'
       : r <= 600 ? 'the accent gives me a region, not a town'
-        : 'broad strokes — this accent is hard to place finely';
+        : 'broad strokes, this accent is hard to place finely';
   sub.textContent = v.note || '';
   sub.hidden = !v.note;
 
@@ -623,8 +623,8 @@ function saveFeedback(correct, actual, actualCity) {
   }
 
   const baseMsg = correct
-    ? 'Logged ✓ — every answer is future training data.'
-    : 'Logged — this is exactly how the real model gets trained.';
+    ? 'Logged ✓ every answer makes it sharper.'
+    : 'Logged. This is exactly how it learns.';
   toast(baseMsg);
 
   fetch('/api/feedback', {
@@ -634,7 +634,7 @@ function saveFeedback(correct, actual, actualCity) {
   })
     .then((r) => r.json())
     .then((d) => {
-      if (d.ok && d.stored === 'clip+labels') toast('Clip donated 🎁 shukran — that trains the real model.');
+      if (d.ok && d.stored === 'clip+labels') toast('Clip donated 🎁 shukran, that trains the real model.');
     })
     .catch(() => {});
 }
@@ -671,6 +671,9 @@ function bindUI() {
   $('#fbYes').onclick = () => { saveFeedback(true, '', ''); lockFeedback(); };
   $('#fbNo').onclick = () => { $('#fbFix').hidden = false; $('#fbNo').disabled = true; $('#fbYes').disabled = true; };
   $('#fbSend').onclick = () => {
+    // `sel` used to be read from a variable that only ever existed inside fillCountryPicker,
+    // so this handler threw a ReferenceError and every "nope" correction silently vanished.
+    const sel = $('#fbActual');
     if (!sel.value) { toast('Pick the country first.'); return; }
     saveFeedback(false, sel.value, $('#fbCity').value.trim());
     lockFeedback();
