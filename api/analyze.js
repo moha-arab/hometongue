@@ -166,6 +166,18 @@ function sane(r) {
     radius_km: Math.min(5000, Math.max(10, Math.round(r.radius_km || 300))),
     place: String(r.place || '').slice(0, 120),
     region: String(r.region || '').slice(0, 60),
+    // The dialect's real footprint, drawn by the model: a Gulf accent gets the Arabian arc,
+    // not a disc whose far side lands in Tehran. Validated hard because it renders directly:
+    // 3-12 points, every one a finite in-range [lat, lng] pair, or the whole thing is dropped
+    // and the map falls back to the honest circle.
+    zone: (() => {
+      const z = Array.isArray(r.zone) ? r.zone.slice(0, 12) : [];
+      const pts = z.filter((p) => Array.isArray(p) && p.length === 2
+        && Number.isFinite(+p[0]) && Number.isFinite(+p[1])
+        && +p[0] >= -90 && +p[0] <= 90 && +p[1] >= -180 && +p[1] <= 180)
+        .map((p) => [+p[0], +p[1]]);
+      return pts.length >= 3 ? pts : [];
+    })(),
     language: String(r.language || '').slice(0, 40),
     confidence: Math.min(100, Math.max(0, Math.round(r.confidence || 0))),
     evidence: (Array.isArray(r.evidence) ? r.evidence : []).slice(0, 5).map((e) => String(e).slice(0, 200)),
@@ -265,6 +277,9 @@ export default async function handler(req, res) {
     if (lead) {
       result.content_led = lead;   // 'origin' | 'name'
       result.radius_km = Math.min(5000, Math.max(result.radius_km, 1500));
+      // A contaminated verdict widens; a tight zone drawn for it would contradict the widened
+      // honesty, so the map falls back to the circle.
+      result.zone = [];
     }
     return res.end(JSON.stringify({ ok: true, result, fb_token: mintToken() }));
   } catch (err) {

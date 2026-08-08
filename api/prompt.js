@@ -71,6 +71,11 @@ export const SCHEMA = {
     radius_km: { type: 'integer', description: 'distance you are genuinely ~70% confident they grew up within — err wider, not narrower' },
     place: { type: 'string', description: 'human-readable name of that point, e.g. "Aleppo, Syria"' },
     region: { type: 'string', description: 'the TIGHTEST named accent region that covers your circle, one a local would accept: "the Gulf" not "the Middle East", "the Levant" not "the Arab world", "the American South" not "the United States", "West Africa" not "Africa". Continental or catch-all names are wrong answers here.' },
+    zone: {
+      type: 'array',
+      description: 'five to ten [latitude, longitude] corner points tracing the area where speakers of this accent actually live, covering the same roughly-70% confidence as radius_km. Follow the real geography: coastlines, river valleys, language borders. NEVER include territory where the language is not natively spoken. For a Gulf Arabic accent that means the coast arc from Kuwait through eastern Saudi Arabia, Bahrain, Qatar and the UAE to Oman, and NOT Iran.',
+      items: { type: 'array', items: { type: 'number' } },
+    },
     language: { type: 'string', description: 'the language they are speaking, in English' },
     confidence: { type: 'integer', description: '0-100, honestly calibrated' },
     evidence: {

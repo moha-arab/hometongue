@@ -79,12 +79,22 @@ function flyToGuess(g) {
   clearMapExtras();
   ensureMapReady();
   const r = Math.max(10, g.radius_km || 300) * 1000;
+  // The model draws the dialect's real footprint when it can: a Gulf accent gets the Arabian
+  // coast arc instead of a disc whose far side lands in Tehran, because dialects follow
+  // coastlines and language borders, not compasses. The circle remains the fallback whenever
+  // no valid zone arrives, and for content-led verdicts, which widen instead.
+  const hasZone = Array.isArray(g.zone) && g.zone.length >= 3;
   dropFn = () => {
     if (marker) return;
-    glow = L.circle([g.lat, g.lng], {
-      radius: r, color: MARK(), weight: 1, opacity: 0.55,
-      fillColor: MARK(), fillOpacity: 0.10,
-    }).addTo(map);
+    glow = hasZone
+      ? L.polygon(g.zone, {
+        color: MARK(), weight: 1, opacity: 0.55,
+        fillColor: MARK(), fillOpacity: 0.10, smoothFactor: 1.5,
+      }).addTo(map)
+      : L.circle([g.lat, g.lng], {
+        radius: r, color: MARK(), weight: 1, opacity: 0.55,
+        fillColor: MARK(), fillOpacity: 0.10,
+      }).addTo(map);
     marker = L.marker([g.lat, g.lng], {
       icon: L.divIcon({ className: 'pulse-wrap', html: '<div class="pulse"></div><div class="pulse-dot"></div>', iconSize: [18, 18], iconAnchor: [9, 9] }),
     }).addTo(map);
@@ -93,7 +103,8 @@ function flyToGuess(g) {
   dropTimer = setTimeout(dropFn, 4000); // fallback if the flight was skipped
   // frame the whole circle rather than a fixed zoom, so a 30km guess and a 2000km guess
   // both read correctly
-  map.flyToBounds(L.latLng(g.lat, g.lng).toBounds(r * 2.6), { duration: 2.4, easeLinearity: 0.15 });
+  const bounds = hasZone ? L.latLngBounds(g.zone).pad(0.25) : L.latLng(g.lat, g.lng).toBounds(r * 2.6);
+  map.flyToBounds(bounds, { duration: 2.4, easeLinearity: 0.15 });
 }
 
 // The answer can be anywhere on Earth, so "home" is the world.
@@ -447,6 +458,7 @@ function normalizeServer(resp) {
   return {
     place: r.place,
     region: r.region || '',
+    zone: Array.isArray(r.zone) ? r.zone : [],
     lat: r.lat,
     lng: r.lng,
     radius_km: r.radius_km,
