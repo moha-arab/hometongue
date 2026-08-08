@@ -161,6 +161,7 @@ function sane(r) {
     lng: r.lng,
     radius_km: Math.min(5000, Math.max(10, Math.round(r.radius_km || 300))),
     place: String(r.place || '').slice(0, 120),
+    region: String(r.region || '').slice(0, 60),
     language: String(r.language || '').slice(0, 40),
     confidence: Math.min(100, Math.max(0, Math.round(r.confidence || 0))),
     evidence: (Array.isArray(r.evidence) ? r.evidence : []).slice(0, 5).map((e) => String(e).slice(0, 200)),

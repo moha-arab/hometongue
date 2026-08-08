@@ -44,6 +44,20 @@
     <h1 class="tagline">Hear it.<br><span class="accent">Pin where it's from.</span></h1>
     <p class="prompt-label">Five clips, five pins. Points for distance, 5,000 max per round.</p>
     <div class="type-grid" id="typeGrid"></div>
+    <button class="link-btn boards-link" id="boardsBtn">see the leaderboards</button>
+  </section>
+
+  <!-- LEADERBOARDS: standing view, one deck at a time. Before this, the board only ever
+       appeared after posting a score, which made it effectively invisible. -->
+  <section class="card" id="boardsCard" hidden>
+    <div class="card-eyebrow"><span>leaderboards</span><b>top ten</b></div>
+    <h1 class="tagline">The best ears.</h1>
+    <div class="board-tabs" id="boardTabs"></div>
+    <div class="board" id="boardsPanel">
+      <ol id="boardsList"></ol>
+      <p class="board-empty" id="boardsEmpty" hidden>no scores here yet. be the first.</p>
+    </div>
+    <button class="stop-btn" id="boardsBack">back to the decks</button>
   </section>
 
   <!-- FINAL -->

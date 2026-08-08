@@ -70,6 +70,7 @@ export const SCHEMA = {
     lng: { type: 'number', description: 'longitude of the single best guess' },
     radius_km: { type: 'integer', description: 'distance you are genuinely ~70% confident they grew up within — err wider, not narrower' },
     place: { type: 'string', description: 'human-readable name of that point, e.g. "Aleppo, Syria"' },
+    region: { type: 'string', description: 'the wider accent region a stranger would recognise, e.g. "the Gulf", "the Levant", "the American South", "West Africa"' },
     language: { type: 'string', description: 'the language they are speaking, in English' },
     confidence: { type: 'integer', description: '0-100, honestly calibrated' },
     evidence: {

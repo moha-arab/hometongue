@@ -111,6 +111,7 @@ function toast(msg) {
 // 'reveal' is pill + bottom sheet.
 function setView(v) {
   $('#pickCard').hidden = v !== 'pick';
+  $('#boardsCard').hidden = v !== 'boards';
   $('#finalCard').hidden = v !== 'final';
   $('#roundPill').hidden = v !== 'round' && v !== 'reveal';
   $('#dock').hidden = v !== 'round';
@@ -636,6 +637,41 @@ async function sendFlagNote() {
 $('#flagNoteSend').onclick = sendFlagNote;
 $('#flagNote').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); sendFlagNote(); } });
 
+// ————— standing leaderboards —————
+// One deck at a time, tabs across the top. Fetches on open and on tab change; a deck with no
+// scores says so instead of rendering an empty box.
+let boardDeck = null;
+
+async function showBoards(deckKey) {
+  boardDeck = deckKey || boardDeck || 'arabic';
+  setView('boards');
+  const tabs = $('#boardTabs');
+  tabs.innerHTML = '';
+  for (const m of MODES) {
+    const b = document.createElement('button');
+    b.className = 'board-tab' + (m.key === boardDeck ? ' active' : '');
+    b.textContent = m.name;
+    b.onclick = () => showBoards(m.key);
+    tabs.appendChild(b);
+  }
+  const ol = $('#boardsList');
+  ol.innerHTML = '';
+  $('#boardsEmpty').hidden = true;
+  try {
+    const d = await (await fetch(`/api/scores?game_type=${boardDeck}`)).json();
+    const rows = (d.ok && d.top) || [];
+    if (!rows.length) { $('#boardsEmpty').hidden = false; return; }
+    for (const row of rows) {
+      const li = document.createElement('li');
+      li.innerHTML = `<span>${escapeHtml(row.nickname)}</span><b>${(+row.points).toLocaleString()}</b>`;
+      ol.appendChild(li);
+    }
+  } catch {
+    $('#boardsEmpty').hidden = false;
+    $('#boardsEmpty').textContent = "couldn't reach the leaderboard. try again in a moment.";
+  }
+}
+
 // ————— wire up —————
 initMap();
 renderModeCards();
@@ -648,3 +684,5 @@ $('#submitScore').onclick = submitScore;
 $('#againSame').onclick = () => startGame(gameType);
 $('#switchType').onclick = () => { clearRoundLayers(); map.fitBounds(WORLD); window.HT.setDeck('languages'); setView('pick'); };
 $('#nickname').value = localStorage.getItem('ht_nick') || '';
+$('#boardsBtn').onclick = () => showBoards();
+$('#boardsBack').onclick = () => setView('pick');

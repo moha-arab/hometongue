@@ -446,6 +446,7 @@ function normalizeServer(resp) {
   if (heard) heard.dir = rtl ? 'rtl' : 'ltr';
   return {
     place: r.place,
+    region: r.region || '',
     lat: r.lat,
     lng: r.lng,
     radius_km: r.radius_km,
@@ -489,7 +490,20 @@ function renderResult(v) {
   // catch: he said "I grew up in Japan" in heavy North American English, got Tokyo, and the
   // card still claimed it SOUNDED like Tokyo. If they told us, the headline says so.
   kicker.textContent = v.content_led === 'origin' ? 'you told me you grew up around' : 'sounds like you grew up around';
-  place.textContent = v.place;
+  // The billing matches the certainty. A tight circle has earned the city as the headline; a
+  // wide one used to headline "Dubai" while the honest answer was "the Gulf, best fit Dubai",
+  // and a Kuwaiti reading the wrong specific city trusts the tool less, not more. The point
+  // guess is never hidden, it just stops claiming top billing it has not earned.
+  const wide = (v.radius_km || 0) > 250;
+  const fit = $('#closestFit');
+  if (wide && v.region) {
+    place.textContent = v.region;
+    fit.hidden = false;
+    fit.textContent = 'closest fit: ' + v.place;
+  } else {
+    place.textContent = v.place;
+    fit.hidden = true;
+  }
 
   // The server flags any recording where the speaker introduced themselves by name, because
   // the model reads foreign names as origin and will not admit it. Controlled test: identical
