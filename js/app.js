@@ -619,7 +619,7 @@ function saveFeedback(correct, actual, actualCity) {
   })
     .then((r) => r.json())
     .then((d) => {
-      if (d.ok && d.stored === 'clip+labels') toast('Clip donated 🎁 shukran, that trains the real model.');
+      if (d.ok && d.stored === 'clip+labels') toast('Clip donated 🎁 shukran. It joins the pile future versions learn from.');
     })
     .catch(() => {});
 }
