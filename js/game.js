@@ -507,7 +507,10 @@ async function submitScore() {
     await loadBoard();
   } catch (e) {
     // "score saved locally" was a false claim — nothing persisted the score. Say what is true.
-    toast(e.message === 'not_configured' ? 'Leaderboard isn\'t set up yet, so your score didn\'t post.' : 'Couldn\'t post the score. But you played it, that\'s what counts.');
+    const msg = e.message === 'not_configured' ? 'Leaderboard isn\'t set up yet, so your score didn\'t post.'
+      : (e.message === 'too_fast' || e.message === 'invalid_token') ? 'Scores only post for a full game, start to finish. Play one through and try again.'
+        : 'Couldn\'t post the score. But you played it, that\'s what counts.';
+    toast(msg);
     $('#submitScore').disabled = false;
   }
 }
