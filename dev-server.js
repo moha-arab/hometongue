@@ -19,6 +19,7 @@ try {
 const { default: analyze } = await import('./api/analyze.js');
 const { default: feedback } = await import('./api/feedback.js');
 const { default: scores } = await import('./api/scores.js');
+const { default: clipReport } = await import('./api/clip-report.js');
 
 const MIME = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript',
@@ -30,6 +31,7 @@ http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
   if (url.pathname === '/api/analyze') return analyze(req, res);
   if (url.pathname === '/api/feedback') return feedback(req, res);
+  if (url.pathname === '/api/clip-report') return clipReport(req, res);
   if (url.pathname === '/api/scores') return scores(req, res);
 
   let file = path.normalize(path.join(ROOT, url.pathname === '/' ? 'index.html' : url.pathname));

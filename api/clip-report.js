@@ -20,7 +20,7 @@ function readJsonBody(req) {
   }
   return new Promise((resolve, reject) => {
     let data = '';
-    req.on('data', (c) => { data += c; if (data.length > 64 * 1024) reject(new Error('too_large')); });
+    req.on('data', (c) => { data += c; if (data.length > 64 * 1024) { req.destroy(); reject(new Error('too_large')); } });
     req.on('end', () => { try { resolve(JSON.parse(data || '{}')); } catch (e) { reject(e); } });
     req.on('error', reject);
   });
@@ -55,7 +55,9 @@ export default async function handler(req, res) {
     res.statusCode = 403;
     return res.end(JSON.stringify({ ok: false, error: 'bad_origin' }));
   }
-  const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'unknown';
+  // x-real-ip is set by the platform; the leftmost x-forwarded-for entry is client-writable
+  // and would let a scripted client rotate identities past the limiter.
+  const ip = (req.headers['x-real-ip'] || (req.headers['x-forwarded-for'] || '').split(',')[0]).trim() || 'unknown';
   if (rateLimited(ip)) {
     res.statusCode = 429;
     return res.end(JSON.stringify({ ok: false, error: 'rate_limited' }));
@@ -77,7 +79,7 @@ export default async function handler(req, res) {
       label: clean(b.label, 80),
       reason: REASONS.has(b.reason) ? b.reason : null,
       note: clean(b.note, 240) || null,
-      km: Number.isFinite(+b.km) ? Math.round(+b.km) : null,
+      km: Number.isFinite(+b.km) ? Math.min(20040, Math.max(0, Math.round(+b.km))) : null,
     };
     // A note-only follow-up rides the same endpoint with reason 'note' resolved to null +
     // text; require at least one of the two so an empty POST stores nothing.
@@ -95,10 +97,12 @@ export default async function handler(req, res) {
       body: JSON.stringify(row),
     });
     if (!ins.ok) {
-      // Most likely the table has not been created yet; say so instead of a generic 500.
       console.error('clip report insert failed:', ins.status, await ins.text().catch(() => ''));
-      res.statusCode = 503;
-      return res.end(JSON.stringify({ ok: false, error: 'not_configured' }));
+      // A 400 from PostgREST means this row was bad; anything else means the table is missing
+      // or the service is down. Collapsing both to not_configured once made malformed input
+      // read as an outage.
+      res.statusCode = ins.status === 400 ? 422 : 503;
+      return res.end(JSON.stringify({ ok: false, error: ins.status === 400 ? 'invalid_report' : 'not_configured' }));
     }
     return res.end(JSON.stringify({ ok: true }));
   } catch (err) {

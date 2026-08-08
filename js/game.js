@@ -565,12 +565,20 @@ function renderModeCards() {
 // ————— flagging a bad clip —————
 // One report per round. The chips are the reasons a listener can actually judge; the gate
 // already screened for silence and noise, so this catches what only an ear can catch.
-let flagSentFor = null;
+// Every UI mutation after an await re-checks that the same reveal is still on screen: a slow
+// send racing "next clip" used to mark the NEXT round as flagged, hide its chips, pop the
+// keyboard mid-round, and attribute a typed note to the previous clip.
+let flagClip = null;   // the clip the open thanks-row belongs to
 
 function resetClipFlag() {
+  flagClip = null;
+  $('#flagQ').hidden = false;
   $('#flagThanks').hidden = true;
   $('#flagChips').hidden = false;
   $('#flagNote').value = '';
+  $('#flagNote').hidden = false;
+  $('#flagNoteSend').hidden = false;
+  $('#flagNoteSend').disabled = false;
   for (const b of document.querySelectorAll('#flagChips .flag-chip')) b.disabled = false;
 }
 
@@ -580,6 +588,8 @@ async function sendClipReport(body) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
+      // a dangling fetch on flaky mobile once left the send button dead for the whole game
+      signal: AbortSignal.timeout(8000),
     });
     return (await r.json()).ok === true;
   } catch { return false; }
@@ -591,12 +601,13 @@ for (const btn of document.querySelectorAll('#flagChips .flag-chip')) {
     if (!clip) return;
     for (const b of document.querySelectorAll('#flagChips .flag-chip')) b.disabled = true;
     const last = roundLog[roundLog.length - 1] || {};
-    flagSentFor = clip.id;
     const ok = await sendClipReport({ clip_id: clip.id, deck: gameType, label: clip.label, reason: btn.dataset.reason, km: last.km });
+    if (deck[round] !== clip) return; // the reveal moved on; the report is stored, say nothing
     if (ok) {
+      flagClip = clip;
       $('#flagChips').hidden = true;
       $('#flagThanks').hidden = false;
-      $('#flagNote').focus();
+      // no autofocus: summoning a phone keyboard for an optional field is hostile
     } else {
       toast("Couldn't send that right now.");
       for (const b of document.querySelectorAll('#flagChips .flag-chip')) b.disabled = false;
@@ -604,15 +615,26 @@ for (const btn of document.querySelectorAll('#flagChips .flag-chip')) {
   };
 }
 
-$('#flagNoteSend').onclick = async () => {
+async function sendFlagNote() {
   const note = $('#flagNote').value.trim();
-  if (!note || !flagSentFor) { $('#flagThanks').hidden = true; return; }
+  const clip = flagClip;
+  if (!clip) return;
+  if (!note) { $('#flagNote').hidden = true; $('#flagNoteSend').hidden = true; return; }
   $('#flagNoteSend').disabled = true;
-  const ok = await sendClipReport({ clip_id: flagSentFor, deck: gameType, note });
-  toast(ok ? 'Got it.' : "Couldn't send that right now.");
+  const ok = await sendClipReport({ clip_id: clip.id, deck: gameType, note });
+  if (flagClip !== clip) return; // reveal moved on mid-flight
   $('#flagNoteSend').disabled = false;
-  if (ok) { $('#flagNote').value = ''; $('#flagThanks').hidden = true; }
-};
+  if (ok) {
+    toast('Got it.');
+    // keep the "noted" line, retire the input: no dangling header, no dead controls
+    $('#flagNote').hidden = true;
+    $('#flagNoteSend').hidden = true;
+  } else {
+    toast("Couldn't send that right now.");
+  }
+}
+$('#flagNoteSend').onclick = sendFlagNote;
+$('#flagNote').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); sendFlagNote(); } });
 
 // ————— wire up —————
 initMap();

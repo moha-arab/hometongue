@@ -106,10 +106,12 @@
     <div class="source-row"><span class="source-key">licence</span><span class="source-val" id="srcLicense"></span></div>
     <a class="source-link" id="srcLink" target="_blank" rel="noopener noreferrer">open the original</a>
   </div>
-  <!-- Listener quality control. The blind gate can hear that speech exists; only a player can
+  <button class="stop-btn" id="nextBtn">next clip</button>
+  <!-- Listener quality control, below the primary action so "next clip" never sinks under
+       the fold on a phone. The blind gate can hear that speech exists; only a player can
        hear that it is the wrong place, or that the speaker says the answer out loud. -->
   <div class="clip-flag" id="clipFlag">
-    <span class="flag-q">something off with this clip?</span>
+    <span class="flag-q" id="flagQ">something off with this clip?</span>
     <div class="flag-chips" id="flagChips">
       <button class="flag-chip" data-reason="audio">hard to hear</button>
       <button class="flag-chip" data-reason="label">doesn't fit the place</button>
@@ -122,7 +124,6 @@
       <button class="flag-chip" id="flagNoteSend">send</button>
     </div>
   </div>
-  <button class="stop-btn" id="nextBtn">next clip</button>
 </div>
 
 <div class="toast" id="toast" hidden></div>
