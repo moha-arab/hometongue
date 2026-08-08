@@ -454,6 +454,12 @@ function normalizeServer(resp) {
     evidence: r.evidence || [],
     note: r.note || '',
     transcript: r.transcript || '',
+    // These two were silently dropped here at first: the renderer read v.name_led and
+    // v.influences while this whitelist never passed them through, so the server flagged the
+    // name and shipped the mix and the card showed neither. The view model is a whitelist —
+    // every new API field must be added here or it dies invisibly between fetch and render.
+    name_led: !!r.name_led,
+    influences: Array.isArray(r.influences) ? r.influences : [],
     source: 'cloud',
   };
 }
