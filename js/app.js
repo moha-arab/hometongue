@@ -454,11 +454,11 @@ function normalizeServer(resp) {
     evidence: r.evidence || [],
     note: r.note || '',
     transcript: r.transcript || '',
-    // These two were silently dropped here at first: the renderer read v.name_led and
-    // v.influences while this whitelist never passed them through, so the server flagged the
-    // name and shipped the mix and the card showed neither. The view model is a whitelist —
-    // every new API field must be added here or it dies invisibly between fetch and render.
-    name_led: !!r.name_led,
+    // These fields were silently dropped here at first: the renderer read them off a view
+    // model whose whitelist never passed them through, so the server flagged the name and
+    // shipped the mix and the card showed neither. The view model is a whitelist — every new
+    // API field must be added here or it dies invisibly between fetch and render.
+    content_led: r.content_led || null,   // 'origin' | 'name' | null
     influences: Array.isArray(r.influences) ? r.influences : [],
     source: 'cloud',
   };
@@ -485,7 +485,10 @@ function renderResult(v) {
   if (v.transcript) $('#heardText').textContent = v.transcript;
   $('#srcBadge').textContent = v.language ? v.language.toLowerCase() : '';
 
-  kicker.textContent = 'sounds like you grew up around';
+  // "Sounds like" is a lie when the verdict came from the speaker's own words. Mohammad's
+  // catch: he said "I grew up in Japan" in heavy North American English, got Tokyo, and the
+  // card still claimed it SOUNDED like Tokyo. If they told us, the headline says so.
+  kicker.textContent = v.content_led === 'origin' ? 'you told me you grew up around' : 'sounds like you grew up around';
   place.textContent = v.place;
 
   // The server flags any recording where the speaker introduced themselves by name, because
@@ -494,8 +497,11 @@ function renderResult(v) {
   // while the same audio with no name, or with "Jake", answered United States.
   const warn = $('#nameWarn');
   if (warn) {
-    warn.hidden = !v.name_led;
-    if (v.name_led) warn.textContent = 'You gave your name. Names drag the guess toward the name\'s home country, so take this one lightly and try again without it.';
+    warn.hidden = !v.content_led;
+    // Two different contaminations, two different confessions. Telling the app the answer is
+    // worse than a name: the verdict below may be nothing but your own words read back.
+    if (v.content_led === 'origin') warn.textContent = 'You told me where you grew up, so this guess leans on your words. The whole game is what your voice gives away: go again without telling me.';
+    else if (v.content_led === 'name') warn.textContent = 'You gave your name. Names drag the guess toward the name\'s home country, so take this one lightly and try again without it.';
   }
 
   // The accent as a recipe, rendered with the existing runner bars. For anyone who moved, or

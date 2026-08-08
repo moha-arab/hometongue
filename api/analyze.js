@@ -131,8 +131,20 @@ async function locate(parts) {
 // parts are plain substring matches. Covers the deck languages plus German.
 const INTRODUCES_SELF = /\b(my name is|my name's|i'?m called|i am called|they call me|call me|je m'appelle|me llamo|mi nombre es|meu nome [ée]|me chamo|ich hei[ßs]e)\b|اسمي|إسمي|меня зовут|мене звати|मेरा नाम|میرا نام|我叫|我的名字/i;
 
-function saidTheirName(result) {
-  return INTRODUCES_SELF.test(result.transcript || '');
+// A speaker who announces where they grew up gets an answer built from their words, not their
+// voice — measured case: heavy North American English plus "I grew up in Japan" returned
+// Tokyo, with the statement as the first evidence, under a headline that still read "sounds
+// like you grew up around". The inference is defensible (a Tokyo international-school kid
+// sounds exactly like that); the framing is not. The app's one promise is that it listens,
+// so a words-led verdict must say it is one.
+const STATES_ORIGIN = /\b(i grew up (in|around|near)|i was (born|raised) (in|and raised)|born and raised in|i'?m from|i am from|i come from|je viens de|j'ai grandi [àa]|je suis n[ée]e? [àa]|soy de|crec[íi] en|nac[íi] en|sou de|cresci em|ich (komme|bin) aus|ich bin in .{1,30} aufgewachsen)\b|أنا من|نشأت في|تربيت في|ولدت في|я вырос|я выросла|я из|родом из|मैं .{0,20}से हूं|میں .{0,20}سے ہوں|我来自|我在.{0,12}长大|我是.{0,12}人/i;
+
+// Origin outranks name: telling the app the answer is a stronger contamination than a name.
+function contentLead(result) {
+  const t = result.transcript || '';
+  if (STATES_ORIGIN.test(t)) return 'origin';
+  if (INTRODUCES_SELF.test(t)) return 'name';
+  return null;
 }
 
 // A model can return anything; the map should never be asked to fly to null island.
@@ -239,8 +251,9 @@ export default async function handler(req, res) {
     // Say so, rather than quietly presenting a name-derived guess as an accent reading. The
     // radius widens too, because a guess resting on a name genuinely is less certain than one
     // resting on 30 seconds of phonology.
-    if (saidTheirName(result)) {
-      result.name_led = true;
+    const lead = contentLead(result);
+    if (lead) {
+      result.content_led = lead;   // 'origin' | 'name'
       result.radius_km = Math.min(5000, Math.max(result.radius_km, 1500));
     }
     return res.end(JSON.stringify({ ok: true, result, fb_token: mintToken() }));
