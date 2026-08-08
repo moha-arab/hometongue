@@ -358,7 +358,7 @@ async function onRecordingReady() {
     const resp = await postAnalyze({ audio, mime: mimeUsed });
     renderResult(normalizeServer(resp));
   } catch (err) {
-    fallbackOrFail(err && err.userMessage ? err.userMessage : 'The cloud engine is unreachable.');
+    fallbackOrFail(err && err.userMessage ? err.userMessage : 'Something went wrong on our end.');
   }
 }
 
@@ -387,7 +387,7 @@ const ERRORS = {
   busy: 'The model is busy right now — give it a few seconds and try again.',
   upstream_failed: "The model didn't answer. Try again in a moment.",
   audio_too_short: 'That was too short to read anything from — give me a sentence or two.',
-  audio_too_large: 'That recording was too long. Keep it under a minute.',
+  audio_too_large: 'That recording was too big to send. Try a slightly shorter take.',
   rate_limited: 'Slow down a little — try again in a bit.',
   bad_origin: 'That request was blocked as coming from the wrong domain.',
 };
@@ -404,7 +404,10 @@ async function postAnalyze(payload) {
     // Say what actually went wrong. "The cloud engine is unreachable" was shown for a server
     // that was up and knew exactly what was missing, which made a one-line config fix look
     // like a mystery outage.
-    err.userMessage = ERRORS[data && data.error] || '';
+    // Prefer the map's wording, then the server's own detail string — the server often knows
+    // exactly what went wrong (out of credit, too large) and hiding that behind a generic
+    // "unreachable" once made a one-line config fix look like a mystery outage.
+    err.userMessage = ERRORS[data && data.error] || (data && data.detail) || '';
     throw err;
   }
   return data;
@@ -423,9 +426,11 @@ function runTextAnalysis(text, typed) {
   state = 'analyzing';
   postAnalyze({ text })
     .then((resp) => renderResult(normalizeServer(resp)))
-    .catch(() => {
-      // offline fallback: the local word-engine
-      toast(e.userMessage || "That didn't work — try again.");
+    .catch((e) => {
+      // The old handler took no parameter but read `e`, so any type-mode failure threw a
+      // ReferenceError inside the catch: no toast, state never reset, and the user sat on
+      // "reading your accent…" forever. Audit catch, fixed with a bound parameter.
+      toast((e && e.userMessage) || "That didn't work. Try again in a moment.");
       state = 'idle'; show('idleCard');
     });
 }
@@ -484,7 +489,7 @@ function renderResult(v) {
   const warn = $('#nameWarn');
   if (warn) {
     warn.hidden = !v.name_led;
-    if (v.name_led) warn.textContent = 'You said your name. Names drag the guess toward the name\'s home country, so take this one lightly and go again without saying it.';
+    if (v.name_led) warn.textContent = 'You gave your name. Names drag the guess toward the name\'s home country, so take this one lightly and try again without it.';
   }
 
   // The accent as a recipe, rendered with the existing runner bars. For anyone who moved, or

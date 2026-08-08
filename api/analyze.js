@@ -149,11 +149,16 @@ function sane(r) {
     confidence: Math.min(100, Math.max(0, Math.round(r.confidence || 0))),
     evidence: (Array.isArray(r.evidence) ? r.evidence : []).slice(0, 5).map((e) => String(e).slice(0, 200)),
     transcript: String(r.transcript || '').slice(0, 4000),
+    // Measured on 25 clips: populated every time, blends sane (Bronx 80 / Puerto Rico 20) —
+    // except one degenerate item whose `place` was ~3000 repeated '0's with the real text
+    // buried at the end. Length caps alone would ship 80 zeros to the screen, so an item is
+    // dropped outright when its place carries a long repeated-character run or it lacks a
+    // usable percent. Losing one bar beats rendering garbage.
     influences: (Array.isArray(r.influences) ? r.influences : []).slice(0, 3).map((i) => ({
       place: String(i.place || '').slice(0, 80),
       percent: Math.min(100, Math.max(0, Math.round(i.percent || 0))),
       cue: String(i.cue || '').slice(0, 160),
-    })),
+    })).filter((i) => i.place && i.percent >= 1 && !/(.)\1{7,}/.test(i.place)),
     note: String(r.note || '').slice(0, 500),
   };
 }

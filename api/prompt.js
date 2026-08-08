@@ -78,6 +78,18 @@ export const SCHEMA = {
       items: { type: 'string' },
     },
     transcript: { type: 'string', description: 'what they said, in its own script' },
+    influences: {
+      type: 'array',
+      description: 'the accent as a recipe: up to 3 regions whose sound is audibly present in this voice, strongest first, each with a rough integer percent (totalling about 100) and the one sound that gives it away. A pure single-origin accent is one entry at 100.',
+      items: {
+        type: 'object',
+        properties: {
+          place: { type: 'string', description: 'region or city, e.g. "Ontario, Canada"' },
+          percent: { type: 'integer', description: 'rough share of the accent, by ear' },
+          cue: { type: 'string', description: 'the sound that betrays this influence, phrased for a curious person' },
+        },
+      },
+    },
     note: { type: 'string', description: 'one or two warm, honest sentences for the user about the verdict' },
   },
   required: ['has_speech', 'note'],

@@ -485,10 +485,12 @@ async function submitScore() {
     });
     const d = await resp.json();
     if (!d.ok) throw new Error(d.error);
-    toast(`Posted! You're #${d.rank} on ${gameType}.`);
+    const deckName = (MODES.find((m) => m.key === gameType) || {}).name || gameType;
+    toast(`Posted! You're #${d.rank} on ${deckName}.`);
     await loadBoard();
   } catch (e) {
-    toast(e.message === 'not_configured' ? 'Leaderboard is warming up — score saved locally.' : 'Couldn\'t post the score — but you played it, that\'s what counts.');
+    // "score saved locally" was a false claim — nothing persisted the score. Say what is true.
+    toast(e.message === 'not_configured' ? 'Leaderboard isn\'t set up yet — your score didn\'t post.' : 'Couldn\'t post the score — but you played it, that\'s what counts.');
     $('#submitScore').disabled = false;
   }
 }
