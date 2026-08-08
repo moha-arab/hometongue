@@ -14,6 +14,8 @@ export function staleEvals(root) {
   if (!fs.existsSync(dataDir)) return [];
   const clipsAt = fs.statSync(path.join(root, 'js/clips.js')).mtimeMs;
   return fs.readdirSync(dataDir)
+    // archive-eval-* files are frozen records of superseded configurations, kept for the
+    // notes to cite; they are permanently 'stale' by definition and not live evidence.
     .filter((f) => f.startsWith('eval-') && f.endsWith('.json'))
     .filter((f) => fs.statSync(path.join(dataDir, f)).mtimeMs < clipsAt);
 }

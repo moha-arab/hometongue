@@ -712,7 +712,7 @@ window.CLIPS = {
       "start": 97,
       "gain": 100,
       "wild": true,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "origin": "you're a third generation Bostonian — Yeah",
         "originConfidence": "stated",
@@ -722,7 +722,7 @@ window.CLIPS = {
       "source": {
         "who": "Tamron Hall Show",
         "host": "YouTube",
-        "license": "standard YouTube licence — streamed, never copied",
+        "license": "standard YouTube licence · streamed, never copied",
         "page": "https://www.youtube.com/watch?v=-djB-PWhdl0",
         "note": "played from 97s, audio only"
       }
@@ -739,7 +739,7 @@ window.CLIPS = {
       "start": 41,
       "gain": 60,
       "wild": true,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "origin": "Bensonhurst, born and raised",
         "originConfidence": "stated",
@@ -749,7 +749,7 @@ window.CLIPS = {
       "source": {
         "who": "News 12",
         "host": "YouTube",
-        "license": "standard YouTube licence — streamed, never copied",
+        "license": "standard YouTube licence · streamed, never copied",
         "page": "https://www.youtube.com/watch?v=_3pnHcYuzOQ",
         "note": "played from 41s, audio only"
       }
@@ -787,7 +787,7 @@ window.CLIPS = {
       "start": 86,
       "gain": 100,
       "wild": true,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "origin": "I am proud to come from Ghana",
         "originConfidence": "stated",
@@ -797,7 +797,7 @@ window.CLIPS = {
       "source": {
         "who": "AccentBase",
         "host": "YouTube",
-        "license": "standard YouTube licence — streamed, never copied",
+        "license": "standard YouTube licence · streamed, never copied",
         "page": "https://www.youtube.com/watch?v=j1Odp3B7qG4",
         "note": "played from 86s, audio only"
       }
@@ -942,7 +942,7 @@ window.CLIPS = {
       "r": 600,
       "size": 1920775,
       "wild": true,
-      "hint": "10.7min speech; unmistakable cadence — world-famous voice, may be too easy",
+      "hint": "10.7min speech; unmistakable cadence · world-famous voice, may be too easy",
       "start": 31,
       "source": {
         "who": "White House recording via Clinton Presidential Library",
@@ -1075,7 +1075,7 @@ window.CLIPS = {
       "size": 1920775,
       "wild": true,
       "start": 110,
-      "hint": "Broad West Riding — the vowels do the work.",
+      "hint": "Broad West Riding · the vowels do the work.",
       "year": 2024,
       "source": {
         "who": "Wikitongues oral histories project",
@@ -1205,7 +1205,7 @@ window.CLIPS = {
       "lng": 54.38,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Abu Dhabi — ARCADE corpus.",
+      "hint": "Local radio from Abu Dhabi · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1224,7 +1224,7 @@ window.CLIPS = {
       "lng": 55.44,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Ajman — ARCADE corpus.",
+      "hint": "Local radio from Ajman · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1243,7 +1243,7 @@ window.CLIPS = {
       "lng": 37.13,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Aleppo — ARCADE corpus.",
+      "hint": "Local radio from Aleppo · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1262,7 +1262,7 @@ window.CLIPS = {
       "lng": 29.92,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Alexandria — ARCADE corpus.",
+      "hint": "Local radio from Alexandria · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1281,7 +1281,7 @@ window.CLIPS = {
       "lng": 3.06,
       "r": 350,
       "size": 240835,
-      "hint": "Local radio from Algiers — ARCADE corpus.",
+      "hint": "Local radio from Algiers · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1300,7 +1300,7 @@ window.CLIPS = {
       "lng": 35.93,
       "r": 350,
       "size": 240884,
-      "hint": "Local radio from Amman — ARCADE corpus.",
+      "hint": "Local radio from Amman · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1319,7 +1319,7 @@ window.CLIPS = {
       "lng": 7.77,
       "r": 350,
       "size": 240835,
-      "hint": "Local radio from Annaba — ARCADE corpus.",
+      "hint": "Local radio from Annaba · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1338,7 +1338,7 @@ window.CLIPS = {
       "lng": 44.36,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Baghdad — ARCADE corpus.",
+      "hint": "Local radio from Baghdad · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1377,7 +1377,7 @@ window.CLIPS = {
       "lng": 47.78,
       "r": 350,
       "size": 240678,
-      "hint": "Local radio from Basra — ARCADE corpus.",
+      "hint": "Local radio from Basra · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1396,7 +1396,7 @@ window.CLIPS = {
       "lng": 6.17,
       "r": 350,
       "size": 240835,
-      "hint": "Local radio from Batna — ARCADE corpus.",
+      "hint": "Local radio from Batna · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1415,7 +1415,7 @@ window.CLIPS = {
       "lng": 35.5,
       "r": 350,
       "size": 240887,
-      "hint": "Local radio from Beirut — ARCADE corpus.",
+      "hint": "Local radio from Beirut · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1434,7 +1434,7 @@ window.CLIPS = {
       "lng": 20.07,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Benghazi — ARCADE corpus.",
+      "hint": "Local radio from Benghazi · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1453,7 +1453,7 @@ window.CLIPS = {
       "lng": 2.83,
       "r": 350,
       "size": 240835,
-      "hint": "Local radio from Blida — ARCADE corpus.",
+      "hint": "Local radio from Blida · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1472,7 +1472,7 @@ window.CLIPS = {
       "lng": 31.24,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Cairo — ARCADE corpus.",
+      "hint": "Local radio from Cairo · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1491,7 +1491,7 @@ window.CLIPS = {
       "lng": -7.59,
       "r": 350,
       "size": 241066,
-      "hint": "Local radio from Casablanca — ARCADE corpus.",
+      "hint": "Local radio from Casablanca · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1510,7 +1510,7 @@ window.CLIPS = {
       "lng": 6.61,
       "r": 350,
       "size": 240835,
-      "hint": "Local radio from Constantine — ARCADE corpus.",
+      "hint": "Local radio from Constantine · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1529,7 +1529,7 @@ window.CLIPS = {
       "lng": 36.29,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Damascus — ARCADE corpus.",
+      "hint": "Local radio from Damascus · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1548,7 +1548,7 @@ window.CLIPS = {
       "lng": 3.25,
       "r": 350,
       "size": 240835,
-      "hint": "Local radio from Djelfa — ARCADE corpus.",
+      "hint": "Local radio from Djelfa · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1567,7 +1567,7 @@ window.CLIPS = {
       "lng": 55.27,
       "r": 350,
       "size": 240887,
-      "hint": "Local radio from Dubai — ARCADE corpus.",
+      "hint": "Local radio from Dubai · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1586,7 +1586,7 @@ window.CLIPS = {
       "lng": 30.22,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from El Obeid — ARCADE corpus.",
+      "hint": "Local radio from El Obeid · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1605,7 +1605,7 @@ window.CLIPS = {
       "lng": -5,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Fes — ARCADE corpus.",
+      "hint": "Local radio from Fes · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1624,7 +1624,7 @@ window.CLIPS = {
       "lng": 34.47,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Gaza — ARCADE corpus.",
+      "hint": "Local radio from Gaza · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1643,7 +1643,7 @@ window.CLIPS = {
       "lng": 35.1,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Hebron — ARCADE corpus.",
+      "hint": "Local radio from Hebron · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1662,7 +1662,7 @@ window.CLIPS = {
       "lng": 35.85,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Irbid — ARCADE corpus.",
+      "hint": "Local radio from Irbid · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1681,7 +1681,7 @@ window.CLIPS = {
       "lng": 39.19,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Jeddah — ARCADE corpus.",
+      "hint": "Local radio from Jeddah · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1700,7 +1700,7 @@ window.CLIPS = {
       "lng": 35.22,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Jerusalem — ARCADE corpus.",
+      "hint": "Local radio from Jerusalem · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1719,7 +1719,7 @@ window.CLIPS = {
       "lng": 47.99,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Kuwait City — ARCADE corpus.",
+      "hint": "Local radio from Kuwait City · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1738,7 +1738,7 @@ window.CLIPS = {
       "lng": 50.59,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Manama — ARCADE corpus.",
+      "hint": "Local radio from Manama · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1757,7 +1757,7 @@ window.CLIPS = {
       "lng": 58.41,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Muscat — ARCADE corpus.",
+      "hint": "Local radio from Muscat · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1776,7 +1776,7 @@ window.CLIPS = {
       "lng": 35.26,
       "r": 350,
       "size": 241118,
-      "hint": "Local radio from Nablus — ARCADE corpus.",
+      "hint": "Local radio from Nablus · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1795,7 +1795,7 @@ window.CLIPS = {
       "lng": 32.48,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Omdurman — ARCADE corpus.",
+      "hint": "Local radio from Omdurman · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1814,7 +1814,7 @@ window.CLIPS = {
       "lng": -0.63,
       "r": 350,
       "size": 240835,
-      "hint": "Local radio from Oran — ARCADE corpus.",
+      "hint": "Local radio from Oran · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1833,7 +1833,7 @@ window.CLIPS = {
       "lng": 37.22,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Port Sudan — ARCADE corpus.",
+      "hint": "Local radio from Port Sudan · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1852,7 +1852,7 @@ window.CLIPS = {
       "lng": -6.84,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Rabat — ARCADE corpus.",
+      "hint": "Local radio from Rabat · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1871,7 +1871,7 @@ window.CLIPS = {
       "lng": 35.2,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Ramallah — ARCADE corpus.",
+      "hint": "Local radio from Ramallah · ARCADE corpus.",
       "start": 5,
       "source": {
         "who": "Local radio broadcast",
@@ -1891,7 +1891,7 @@ window.CLIPS = {
       "lng": 46.68,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Riyadh — ARCADE corpus.",
+      "hint": "Local radio from Riyadh · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1910,7 +1910,7 @@ window.CLIPS = {
       "lng": 44.19,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Sanaa — ARCADE corpus.",
+      "hint": "Local radio from Sanaa · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1929,7 +1929,7 @@ window.CLIPS = {
       "lng": 5.41,
       "r": 350,
       "size": 240835,
-      "hint": "Local radio from Setif — ARCADE corpus.",
+      "hint": "Local radio from Setif · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1948,7 +1948,7 @@ window.CLIPS = {
       "lng": 55.42,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Sharjah — ARCADE corpus.",
+      "hint": "Local radio from Sharjah · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1967,7 +1967,7 @@ window.CLIPS = {
       "lng": 44.02,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Taiz — ARCADE corpus.",
+      "hint": "Local radio from Taiz · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1986,7 +1986,7 @@ window.CLIPS = {
       "lng": -5.8,
       "r": 350,
       "size": 240974,
-      "hint": "Local radio from Tangier — ARCADE corpus.",
+      "hint": "Local radio from Tangier · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -2005,7 +2005,7 @@ window.CLIPS = {
       "lng": 13.19,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Tripoli — ARCADE corpus.",
+      "hint": "Local radio from Tripoli · ARCADE corpus.",
       "start": 9,
       "source": {
         "who": "Local radio broadcast",
@@ -2025,7 +2025,7 @@ window.CLIPS = {
       "lng": 10.18,
       "r": 350,
       "size": 240887,
-      "hint": "Local radio from Tunis — ARCADE corpus.",
+      "hint": "Local radio from Tunis · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -2044,7 +2044,7 @@ window.CLIPS = {
       "lng": 33.52,
       "r": 350,
       "size": 240788,
-      "hint": "Local radio from Wad Medani — ARCADE corpus.",
+      "hint": "Local radio from Wad Medani · ARCADE corpus.",
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -2297,7 +2297,7 @@ window.CLIPS = {
       "lng": -101,
       "r": 500,
       "size": 772432,
-      "hint": "NOT the already-used Mexican medical-article reading — this is a different reader/topic. Short (1:36) but clean. Country-level tag only, no specific city, pinned at Mexico City with wide rad",
+      "hint": "NOT the already-used Mexican medical-article reading · this is a different reader/topic. Short (1:36) but clean. Country-level tag only, no specific city, pinned at Mexico City with wide rad",
       "source": {
         "who": "Luisrey89~commonswiki",
         "host": "Wikimedia Commons",
@@ -2316,7 +2316,7 @@ window.CLIPS = {
       "lng": -55.2379,
       "r": 120,
       "size": 674421,
-      "hint": "Checked full text on Wikisource: the story names no real places at all (only generic 'sierra,' 'valle,' 'mi terruño') — no Uruguay or Montevideo mention. Archival 1946 radio recording, PD un",
+      "hint": "Checked full text on Wikisource: the story names no real places at all (only generic 'sierra,' 'valle,' 'mi terruño') · no Uruguay or Montevideo mention. Archival 1946 radio recording, PD un",
       "source": {
         "who": "Juan José Morosoli / Museo de la Palabra del SODRE (Uruguay",
         "host": "Wikimedia Commons",
@@ -2395,7 +2395,7 @@ window.CLIPS = {
       "lng": -3.7038,
       "r": 250,
       "size": 993533,
-      "hint": "Classic Golden Age theatre monologue — geography-free content by nature, no Spain/Madrid references. Only regional-category documentation (no specific city), pinned at Madrid with wide radiu",
+      "hint": "Classic Golden Age theatre monologue · geography-free content by nature, no Spain/Madrid references. Only regional-category documentation (no specific city), pinned at Madrid with wide radiu",
       "source": {
         "who": "Txo",
         "host": "Wikimedia Commons",
@@ -2437,7 +2437,7 @@ window.CLIPS = {
       "lng": 104.0668,
       "r": 120,
       "size": 265030,
-      "hint": "Just over half a minute — the same fable linguists use worldwide to sample accents, this time in full Chengdu Sichuanese.",
+      "hint": "Just over half a minute · the same fable linguists use worldwide to sample accents, this time in full Chengdu Sichuanese.",
       "source": {
         "who": "contributor, \"成都话 - 北风和太阳\" (The North Wind and the Sun, Chengdu dialect",
         "host": "Wikimedia Commons",
@@ -2479,7 +2479,7 @@ window.CLIPS = {
       "size": 1920775,
       "wild": true,
       "start": 23,
-      "hint": "Two grandparents genuinely reminiscing, not reading a script — pure Southwest China drawl, a thousand km from the capital.",
+      "hint": "Two grandparents genuinely reminiscing, not reading a script · pure Southwest China drawl, a thousand km from the capital.",
       "source": {
         "who": "Wikitongues (speakers: Huang Chaofen & Wang Changjiu), \"Changjiu and Chaofen speaking Guiyangese (Southwestern Mandarin)\"",
         "host": "Wikimedia Commons",
@@ -2578,7 +2578,7 @@ window.CLIPS = {
       "r": 220,
       "size": 1920775,
       "start": 33,
-      "hint": "Tagged simply 'zh-tw' by the reader — softer retroflexes and no erhua is the giveaway that this is Taiwan Guoyu, not mainland Mandarin.",
+      "hint": "Tagged simply 'zh-tw' by the reader · softer retroflexes and no erhua is the giveaway that this is Taiwan Guoyu, not mainland Mandarin.",
       "source": {
         "who": "Spoken Chinese Wikipedia contributor, \"Zh-tw-魔術師和兔子.ogg\"",
         "host": "Wikimedia Commons",
@@ -2779,13 +2779,13 @@ window.CLIPS = {
     {
       "id": "portuguese-parana-brazil-portuguese-brazilian-parana",
       "label": "Paraná, Brazil",
-      "lang": "Portuguese (Brazilian — Paraná)",
+      "lang": "Portuguese (Brazilian · Paraná)",
       "url": "/clips/portuguese/portuguese-parana-brazil-portuguese-brazilian-parana.mp3",
       "lat": -25.4284,
       "lng": -49.2733,
       "r": 250,
       "size": 1274610,
-      "hint": "A volunteer reading the Portuguese Wikipedia article about rabbits — the accent is from the south of Brazil.",
+      "hint": "A volunteer reading the Portuguese Wikipedia article about rabbits · the accent is from the south of Brazil.",
       "source": {
         "who": "Deyvid Setti",
         "host": "Wikimedia Commons",
@@ -2798,13 +2798,13 @@ window.CLIPS = {
     {
       "id": "portuguese-porto-alegre-brazil-portuguese-brazilian-gauch",
       "label": "Porto Alegre, Brazil",
-      "lang": "Portuguese (Brazilian — Gaúcho / Rio Grande do Sul)",
+      "lang": "Portuguese (Brazilian · Gaúcho / Rio Grande do Sul)",
       "url": "/clips/portuguese/portuguese-porto-alegre-brazil-portuguese-brazilian-gauch.mp3",
       "lat": -30.0346,
       "lng": -51.2177,
       "r": 120,
       "size": 431586,
-      "hint": "Brazil's southernmost gaúcho capital — closer to Uruguay than to Rio, and it shows in the vowels.",
+      "hint": "Brazil's southernmost gaúcho capital · closer to Uruguay than to Rio, and it shows in the vowels.",
       "source": {
         "who": "Native-speaker recording credited to Russell Walker (learningportuguese.co.uk",
         "host": "Wikimedia Commons",
@@ -2817,13 +2817,13 @@ window.CLIPS = {
     {
       "id": "portuguese-porto-portugal-portuguese-european-porto-north",
       "label": "Porto, Portugal",
-      "lang": "Portuguese (European — Porto/North)",
+      "lang": "Portuguese (European · Porto/North)",
       "url": "/clips/portuguese/portuguese-porto-portugal-portuguese-european-porto-north.mp3",
       "lat": 41.1579,
       "lng": -8.6291,
       "r": 120,
       "size": 1201676,
-      "hint": "A self-published novelist reading his own book about a portuense falling for a Galician — he'd know, he IS a portuense.",
+      "hint": "A self-published novelist reading his own book about a portuense falling for a Galician · he'd know, he IS a portuense.",
       "source": {
         "who": "Daniel Dias reading his own novel \"Amor entre um portuense e uma galega\"",
         "host": "Wikimedia Commons",
@@ -2836,14 +2836,14 @@ window.CLIPS = {
     {
       "id": "portuguese-rio-de-janeiro-brazil-portuguese-brazilian-car",
       "label": "Rio de Janeiro, Brazil",
-      "lang": "Portuguese (Brazilian — Carioca)",
+      "lang": "Portuguese (Brazilian · Carioca)",
       "url": "/clips/portuguese/portuguese-rio-de-janeiro-brazil-portuguese-brazilian-car.mp3",
       "lat": -22.9068,
       "lng": -43.1729,
       "r": 120,
       "size": 1920775,
       "start": 5,
-      "hint": "Reading Wikipedia deliberately in a carioca accent — listen for Rio's soft, hissy S's.",
+      "hint": "Reading Wikipedia deliberately in a carioca accent · listen for Rio's soft, hissy S's.",
       "source": {
         "who": "\"Eslavos da Ásia Menor versão RJ\" read by user \"Eduardo P\"",
         "host": "Wikimedia Commons",
@@ -2856,7 +2856,7 @@ window.CLIPS = {
     {
       "id": "portuguese-sao-paulo-brazil-portuguese-brazilian-sao-paul",
       "label": "São Paulo, Brazil",
-      "lang": "Portuguese (Brazilian — São Paulo)",
+      "lang": "Portuguese (Brazilian · São Paulo)",
       "url": "/clips/portuguese/portuguese-sao-paulo-brazil-portuguese-brazilian-sao-paul.mp3",
       "lat": -23.5505,
       "lng": -46.6333,
@@ -2864,7 +2864,7 @@ window.CLIPS = {
       "size": 1920775,
       "wild": true,
       "start": 33,
-      "hint": "A USP bioinformatician and Wikimedian talking ethics and open science — Paulistano through and through.",
+      "hint": "A USP bioinformatician and Wikimedian talking ethics and open science · Paulistano through and through.",
       "source": {
         "who": "Interview with Tiago Lubiana, recorded by user \"Clari reche\"",
         "host": "Wikimedia Commons",

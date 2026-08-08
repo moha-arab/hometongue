@@ -395,6 +395,12 @@ document.addEventListener('keydown', (e) => {
 
 function lockIn() {
   if (!guessMarker) return;
+  // One score per round. The dock hides on reveal so a user can't normally click lock twice,
+  // but a double-tap racing the view switch (or anything scripted) could land a second call:
+  // that logged round five twice, made a six-row final in a five-round game, and the summed
+  // total then failed the server's sum-equals-points check, so the score never posted. The
+  // leaderboard 'failure' was really this.
+  if (roundLog.length > round) return;
   media.pause();
   const clip = deck[round];
   const guess = guessMarker.getLatLng();
