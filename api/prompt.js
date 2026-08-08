@@ -78,6 +78,7 @@ export const SCHEMA = {
       items: { type: 'string' },
     },
     transcript: { type: 'string', description: 'what they said, in its own script' },
+    stated_origin: { type: 'boolean', description: 'true only if the speaker says where they grew up or where they are from, in any language ("I grew up in X", "I am from X"). Talking about a place they visited or like does not count.' },
     influences: {
       type: 'array',
       description: 'the accent as a recipe: up to 3 regions whose sound is audibly present in this voice, strongest first, each with a rough integer percent (totalling about 100) and the one sound that gives it away. A pure single-origin accent is one entry at 100.',

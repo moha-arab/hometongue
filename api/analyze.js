@@ -140,9 +140,13 @@ const INTRODUCES_SELF = /\b(my name is|my name's|i'?m called|i am called|they ca
 const STATES_ORIGIN = /\b(i grew up (in|around|near)|i was (born|raised) (in|and raised)|born and raised in|i'?m from|i am from|i come from|je viens de|j'ai grandi [àa]|je suis n[ée]e? [àa]|soy de|crec[íi] en|nac[íi] en|sou de|cresci em|ich (komme|bin) aus|ich bin in .{1,30} aufgewachsen)\b|أنا من|نشأت في|تربيت في|ولدت في|я вырос|я выросла|я из|родом из|मैं .{0,20}से हूं|میں .{0,20}سے ہوں|我来自|我在.{0,12}长大|我是.{0,12}人/i;
 
 // Origin outranks name: telling the app the answer is a stronger contamination than a name.
+// Two detectors, OR'd. The regex is deterministic and covers the app's ten main languages;
+// the model's own stated_origin boolean covers every other language on Earth. Asking the
+// model to REPORT a fact about the transcript is not the same as asking it to IGNORE one —
+// the second was sabotaged five measured times, the first is how schema fields behave.
 function contentLead(result) {
   const t = result.transcript || '';
-  if (STATES_ORIGIN.test(t)) return 'origin';
+  if (STATES_ORIGIN.test(t) || result.stated_origin === true) return 'origin';
   if (INTRODUCES_SELF.test(t)) return 'name';
   return null;
 }
@@ -161,6 +165,7 @@ function sane(r) {
     confidence: Math.min(100, Math.max(0, Math.round(r.confidence || 0))),
     evidence: (Array.isArray(r.evidence) ? r.evidence : []).slice(0, 5).map((e) => String(e).slice(0, 200)),
     transcript: String(r.transcript || '').slice(0, 4000),
+    stated_origin: r.stated_origin === true,
     // Measured on 25 clips: populated every time, blends sane (Bronx 80 / Puerto Rico 20) —
     // except one degenerate item whose `place` was ~3000 repeated '0's with the real text
     // buried at the end. Length caps alone would ship 80 zeros to the screen, so an item is
