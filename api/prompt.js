@@ -18,11 +18,14 @@
 // whole theory about long prompts "coarsening" answers was built on Basra and Manama, two of
 // the clips that swing hardest on their own.
 //
-// The name line is here because a CONTROLLED test says it works, not because the benchmark
-// does. Identical synthetic US speech, one sentence different: baseline answers "United
-// States" with no name and "Moscow, Russia" when the speaker says "my name is Vladislav",
-// inventing "East Slavic vowel production" to justify it. With this line, Moscow stops. A
-// control name (Jake) never moved the answer either way, so this is foreign names, not names.
+// A line saying "a name is not evidence" was tried here and REMOVED, because it made things
+// worse in a way that is easy to miss. It did not stop the model reading the name — six of six
+// runs still answered Moscow or Kyiv for identical synthetic US speech saying "my name is
+// Vladislav". What it changed was the model's honesty: with the line, evidence stopped saying
+// "Stated name Vladislav" and started saying "Slavic vowel qualities and timing" instead. The
+// behaviour was unchanged and the tell was gone, which also blinded the guard in analyze.js
+// that keys on the model citing a name. Teaching a model to hide its reasoning is worse than
+// leaving it visible. The guard now reads the TRANSCRIPT, which the model cannot edit.
 
 export const SYSTEM = `You hear a recording of someone speaking. Predict WHERE THEY GREW UP as a single point on Earth.
 
@@ -52,9 +55,6 @@ Inventing evidence is far worse than admitting you heard nothing.
 Judge from what a transcript could never carry: consonant reflexes, vowel quality, rhythm,
 intonation, stress, and any regional vocabulary you hear. The audio may be low quality — it is
 usually a phone microphone in a room — so work with whatever survives.
-
-Someone's name is not evidence of where they grew up. If the sound and the words disagree,
-follow the sound.
 
 If someone states where they are from, you may use it, but say so in the evidence rather than
 passing it off as something you heard in their accent.

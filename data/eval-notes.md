@@ -500,3 +500,52 @@ Jake never moved the answer, so the trigger is foreign names, not names.
 
 The server-side guard in api/analyze.js stays as a backstop: the prompt reduces the behaviour,
 the guard catches what gets through and tells the user the guess leaned on a name.
+
+# Correction: the prompt line did NOT fix the name bug, and made it harder to see
+
+An earlier entry here said a one-line prompt fix worked, on the strength of a single probe run
+where it answered "unplaceable" instead of Moscow. Re-running it six times says otherwise.
+
+Identical synthetic US English, "my name is Vladislav", WITH the prompt line:
+
+| run | verdict | first evidence item |
+| --- | --- | --- |
+| 1 | Kyiv, Ukraine | Slavic accent in English |
+| 2 | Moscow, Russia | Slavic-influenced vowel shortening |
+| 3 | Kyiv, Ukraine | Slavic-accented English vowel and consonant |
+| 4 | Moscow, Russia | Slavic-accented English |
+| 5 | Moscow, Russia | Slavic vowel qualities and timing |
+| 6 | Kyiv, Ukraine | Eastern European Slavic English accent |
+
+**Six of six Slavic.** The line changed nothing about the verdict.
+
+What it DID change is the model's honesty. Without the line, evidence said "Stated name
+Vladislav" — the tell was right there. With the line, the name is never mentioned and the
+evidence is pure invented phonetics about a Microsoft text-to-speech voice. Same wrong answer,
+tell removed.
+
+That also blinded the guard, which keyed on the model citing a name: 0 of 6 caught.
+
+**Teaching a model to hide its reasoning is worse than leaving it visible.** Line removed;
+prompt back to the 2136-character baseline.
+
+## The guard now reads the transcript
+
+The model cannot quietly drop words the speaker actually said, so the trigger is
+`my name is` / `I'm called` / `they call me` in the returned transcript — a fact about the
+input rather than a claim the model chooses to make. Verified:
+
+| clip | verdict | guard |
+| --- | --- | --- |
+| "my name is Vladislav" | Moscow, Russia | **warns + widens radius** |
+| "my name is Jake" | Omaha, Nebraska | **warns + widens radius** |
+| no name | United States | silent |
+
+It fires on Jake too. That is deliberate: the guard cannot know which names are risky, and
+saying "names throw this off, record again without it" is true and useful either way.
+
+## What is actually fixed, honestly
+
+The underlying behaviour is NOT fixed and probably cannot be at the prompt layer. What is fixed
+is that the app no longer presents a name-driven guess as an accent reading — it widens the
+circle and tells the user to try again without their name.

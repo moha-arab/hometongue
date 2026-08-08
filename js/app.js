@@ -478,15 +478,14 @@ function renderResult(v) {
   kicker.textContent = 'sounds like you grew up around';
   place.textContent = v.place;
 
-  // The server flags a verdict whose top evidence is the speaker's NAME rather than any sound.
-  // Measured case: plain North American speech plus "my name is Vladislav" returned Moscow,
-  // citing the name first and inventing Slavic vowels second. Two prompt fixes were measured
-  // and both cost accuracy without changing the behaviour, so the honest move is to show the
-  // user what the guess actually rested on instead of dressing it up as an accent reading.
+  // The server flags any recording where the speaker introduced themselves by name, because
+  // the model reads foreign names as origin and will not admit it. Controlled test: identical
+  // synthetic US speech, "my name is Vladislav" answered Moscow or Kyiv six times out of six,
+  // while the same audio with no name, or with "Jake", answered United States.
   const warn = $('#nameWarn');
   if (warn) {
     warn.hidden = !v.name_led;
-    if (v.name_led) warn.textContent = 'Heads up — this guess leaned on your name, not your accent. Try again without saying it.';
+    if (v.name_led) warn.textContent = 'You said your name, and names throw this off badly — it reads a foreign name as a place. Record again without it for a real answer.';
   }
 
   // The radius is the answer's honesty, so it gets the big number and a plain-English

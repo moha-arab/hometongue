@@ -109,28 +109,28 @@ async function locate(parts) {
 
 // A name is not evidence of where someone grew up, and the model uses it anyway.
 //
-// Reported case: a North American speaker with no Slavic features said "my name is Vladislav"
-// and got Moscow at a 1000 km radius, with "Slavic name Vladislav" listed as the first piece
-// of evidence and invented "Eastern European vowel tensing" as the second. The transcript was
-// plain North American slang. That is the same failure as the silent file that came back
-// "Toronto, Canadian raising on 'night'": the model reaches a conclusion by one route and then
-// manufactures acoustic evidence for it.
+// Reported case: plain North American speech plus "my name is Vladislav" returned Moscow at a
+// 1000 km radius. Reproduced under control — three clips of identical synthetic US English
+// differing only in one sentence. No name and "my name is Jake" both answer United States;
+// "my name is Vladislav" answers Moscow or Kyiv in SIX of six runs. The trigger is foreign
+// names specifically, not names.
 //
-// This CANNOT be fixed in the prompt. Two attempts were measured against the 106-clip
-// benchmark and both cost accuracy without changing the behaviour at all:
-//   - explicit, detailed instruction (2738 chars): 37 -> 58 km, name citations 31 -> unchanged
-//   - one short sentence (2227 chars):             37 -> 44 km, name citations 31 -> 32
-// Telling this model that a name is not evidence does not stop it using names. So the guard
-// lives here instead, and it does not argue with the model — it detects the tell and is honest
-// with the user about it, which costs no accuracy at all.
-const NAME_EVIDENCE = /(name|named|surname|forename|patronymic)/i;
+// Two things that did NOT work, both measured:
+//  1. A prompt line saying a name is not evidence. It did not change the verdict (still 6/6
+//     Slavic) — it changed the model's honesty. Evidence stopped saying "Stated name
+//     Vladislav" and started saying "Slavic vowel qualities and timing" for a Microsoft
+//     text-to-speech voice. Same wrong answer, tell removed.
+//  2. Keying this guard on the model citing a name in its evidence. That worked until (1)
+//     taught it not to, and it was always fragile: the model only mentions the name sometimes,
+//     and when it does it is often the third item rather than the first.
+//
+// So the guard reads the TRANSCRIPT instead. The model returns what it heard, and it cannot
+// quietly drop the words the speaker actually said. If someone introduces themselves, that is
+// a fact about the input, not a claim the model gets to withhold.
+const INTRODUCES_SELF = /\b(my name is|my name's|i'm called|i am called|they call me|name's)\b/i;
 
-function nameLed(result) {
-  const ev = result.evidence || [];
-  if (!ev.length) return false;
-  // Only the FIRST item matters. A name mentioned in passing behind real acoustic evidence is
-  // a harmless observation; a name at the top is what the verdict was built on.
-  return NAME_EVIDENCE.test(ev[0]);
+function saidTheirName(result) {
+  return INTRODUCES_SELF.test(result.transcript || '');
 }
 
 // A model can return anything; the map should never be asked to fly to null island.
@@ -227,7 +227,7 @@ export default async function handler(req, res) {
     // Say so, rather than quietly presenting a name-derived guess as an accent reading. The
     // radius widens too, because a guess resting on a name genuinely is less certain than one
     // resting on 30 seconds of phonology.
-    if (nameLed(result)) {
+    if (saidTheirName(result)) {
       result.name_led = true;
       result.radius_km = Math.min(5000, Math.max(result.radius_km, 1500));
     }
