@@ -34,6 +34,19 @@ export function mintToken() {
   return `${ts}.${createHmac('sha256', secret).update(ts).digest('hex').slice(0, 32)}`;
 }
 
+// For other endpoints that need "this token was minted N seconds ago and is genuine" —
+// the scores endpoint uses it to prove a game took real time.
+export function tokenAge(token) {
+  const secret = tokenSecret();
+  if (!secret || typeof token !== 'string') return null;
+  const [ts, sig] = token.split('.');
+  if (!ts || !sig) return null;
+  const expect = createHmac('sha256', secret).update(ts).digest('hex').slice(0, 32);
+  if (sig !== expect) return null;
+  const age = Date.now() - Number(ts);
+  return age >= 0 ? age : null;
+}
+
 function tokenValid(token) {
   const secret = tokenSecret();
   if (!secret || typeof token !== 'string') return false;

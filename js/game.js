@@ -22,6 +22,7 @@ const MODES = [
 
 let map, guessMarker = null, truthMarker = null, line = null, extraDots = [];
 let gameType = null, deck = [], round = 0, total = 0, roundLog = [];
+let gameToken = null;   // minted at game start; proves to the server the game took real time
 let budgetLeft = LISTEN_BUDGET_S, playing = false, lastTickT = 0;
 
 const audio = $('#clipAudio');
@@ -79,9 +80,12 @@ function haversineKm(a, b) {
 }
 
 // Decay tuned per mode: cities need precision, world languages forgive continental misses.
+// Halved across the board so top scores are scarce enough to be worth prizes: a 300 km miss
+// in the Arabic deck used to keep 55% of the points and now keeps 30%. The bull's-eye stays
+// tied to each clip's label precision, because label imprecision should never cost points.
 const MODE_DECAY = {
-  arabic: 500, accents: 900, languages: 1500,
-  'hindi-urdu': 500, french: 700, chinese: 700, spanish: 900, portuguese: 900, russian: 900,
+  arabic: 250, accents: 450, languages: 750,
+  'hindi-urdu': 250, french: 350, chinese: 350, spanish: 450, portuguese: 450, russian: 450,
 };
 
 function scoreFor(km, radius) {
@@ -128,6 +132,8 @@ function startGame(type) {
   gameType = type;
   deck = dealDeck(pool);
   round = 0; total = 0; roundLog = [];
+  gameToken = null;
+  fetch('/api/scores?start=1').then((r) => r.json()).then((d) => { gameToken = d.token || null; }).catch(() => {});
   warmDeck();
   nextRound();
 }
@@ -492,7 +498,7 @@ async function submitScore() {
     const resp = await fetch('/api/scores', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nickname, game_type: gameType, points: total, rounds: roundLog.map((r) => ({ id: r.id, km: r.km, pts: r.pts })) }),
+      body: JSON.stringify({ nickname, game_type: gameType, points: total, token: gameToken, rounds: roundLog.map((r) => ({ id: r.id, km: r.km, pts: r.pts })) }),
     });
     const d = await resp.json();
     if (!d.ok) throw new Error(d.error);

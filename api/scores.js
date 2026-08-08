@@ -1,5 +1,7 @@
 // HomeTongue — /api/scores
-// POST: submit a Pin It score. GET: leaderboard. Degrades gracefully without Supabase.
+// POST: submit a game score. GET: leaderboard, or ?start=1 for a game token.
+// Degrades gracefully without Supabase.
+import { mintToken, tokenAge } from './feedback.js';
 
 export const config = { maxDuration: 15 };
 
@@ -43,6 +45,9 @@ export default async function handler(req, res) {
 
   if (req.method === 'GET') {
     const q = new URL(req.url, 'http://x').searchParams;
+    // A signed timestamp handed out when a game starts. Submitting a score requires it to be
+    // old enough that the game could actually have been played.
+    if (q.get('start')) return res.end(JSON.stringify({ ok: true, token: mintToken() }));
     const gameType = GAME_TYPES.has(q.get('game_type')) ? q.get('game_type') : 'languages';
     if (!url || !key) return res.end(JSON.stringify({ ok: false, error: 'not_configured' }));
     try {
@@ -96,6 +101,15 @@ export default async function handler(req, res) {
     const rounds = Array.isArray(b.rounds) ? b.rounds.slice(0, 5) : [];
     const points = Number.isInteger(b.points) ? b.points : -1;
     const sum = rounds.reduce((s, r) => s + (Number.isInteger(r?.pts) ? r.pts : 0), 0);
+    // Five rounds of pinning cannot physically happen in under ~75 seconds, and a token
+    // older than two hours is a stale tab, not a game. This stops drive-by forged posts and
+    // ten-second fake runs; it does not stop a patient cheater, which is why prize winners
+    // get their round logs eyeballed rather than trusted.
+    const age = tokenAge(b.token);
+    if (age === null || age < 75_000 || age > 7_200_000) {
+      res.statusCode = 422;
+      return res.end(JSON.stringify({ ok: false, error: age === null ? 'invalid_token' : 'too_fast' }));
+    }
     const valid = gameType && points >= 0 && points <= 25000 && rounds.length === 5
       && rounds.every((r) => Number.isInteger(r?.pts) && r.pts >= 0 && r.pts <= 5000 && Number.isFinite(+r?.km))
       && sum === points;
