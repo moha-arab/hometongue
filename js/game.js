@@ -187,6 +187,9 @@ function nextRound() {
   $('#scoreSoFar').textContent = `${total.toLocaleString()} pts`;
   $('#listens').textContent = fmtBudget();
   $('#playerFill').style.width = '0%';
+  // the fill resets here but the thumb kept last round's position, so every fresh round
+  // opened with the scrubber head sitting at the far right of an empty bar
+  $('#playerThumb').style.left = '0%';
   $('#playBtn').disabled = false;
   $('#lockBtn').disabled = true;
   $('#pinHint').textContent = 'listen, then tap the map to drop your pin';
