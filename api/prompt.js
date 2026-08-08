@@ -73,7 +73,7 @@ export const SCHEMA = {
     region: { type: 'string', description: 'the TIGHTEST named accent region that covers your circle, one a local would accept: "the Gulf" not "the Middle East", "the Levant" not "the Arab world", "the American South" not "the United States", "West Africa" not "Africa". Continental or catch-all names are wrong answers here.' },
     zone: {
       type: 'array',
-      description: 'five to ten [latitude, longitude] corner points tracing the OUTER BOUNDARY of the whole area where speakers of this accent live, covering the same roughly-70% confidence as radius_km. The shape must be a broad area with real width, including the full inland extent - for Gulf Arabic that means reaching inland across eastern and central Saudi Arabia, not just a ribbon along the shoreline. Never a thin strip, never a line. Exclude territory where the language is not natively spoken: for Gulf Arabic, NOT Iran.',
+      description: 'five to ten [latitude, longitude] corner points tracing the OUTER BOUNDARY of the whole area where people with this accent live, a broad shape with real width, never a thin strip or a line. Size it to what the evidence can actually distinguish: a native dialect pins its own region tightly, but a second-language flavour usually cannot be separated finer than everywhere that flavour is spoken - Arabic-flavoured ENGLISH covers most of the Arabian Peninsula including the Hejaz, while Gulf ARABIC itself is the narrower eastern arc. Exclude territory where the underlying language is not natively spoken: never Iran for an Arabic accent.',
       items: { type: 'array', items: { type: 'number' } },
     },
     language: { type: 'string', description: 'the language they are speaking, in English' },
