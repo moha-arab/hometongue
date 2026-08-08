@@ -137,7 +137,11 @@ const INTRODUCES_SELF = /\b(my name is|my name's|i'?m called|i am called|they ca
 // like you grew up around". The inference is defensible (a Tokyo international-school kid
 // sounds exactly like that); the framing is not. The app's one promise is that it listens,
 // so a words-led verdict must say it is one.
-const STATES_ORIGIN = /\b(i grew up (in|around|near)|i was (born|raised) (in|and raised)|born and raised in|i'?m from|i am from|i come from|je viens de|j'ai grandi [àa]|je suis n[ée]e? [àa]|soy de|crec[íi] en|nac[íi] en|sou de|cresci em|ich (komme|bin) aus|ich bin in .{1,30} aufgewachsen)\b|أنا من|نشأت في|تربيت في|ولدت في|я вырос|я выросла|я из|родом из|मैं .{0,20}से हूं|میں .{0,20}سے ہوں|我来自|我在.{0,12}长大|我是.{0,12}人/i;
+// 'i come from' was in this list and matched "I come from the supermarket just now" — a man
+// stating his errand, flagged as stating his homeland, shown the wrong warning under a
+// forced-wide circle. English uses 'come from' for motion, family and habit far more than
+// for origin; 'I'm from' is the origin idiom, so only that stays.
+const STATES_ORIGIN = /\b(i grew up (in|around|near)|i was (born|raised) (in|and raised)|born and raised in|i'?m from|i am from|je viens de|j'ai grandi [àa]|je suis n[ée]e? [àa]|soy de|crec[íi] en|nac[íi] en|sou de|cresci em|ich (komme|bin) aus|ich bin in .{1,30} aufgewachsen)\b|أنا من|نشأت في|تربيت في|ولدت في|я вырос|я выросла|я из|родом из|मैं .{0,20}से हूं|میں .{0,20}سے ہوں|我来自|我在.{0,12}长大|我是.{0,12}人/i;
 
 // Origin outranks name: telling the app the answer is a stronger contamination than a name.
 // Two detectors, OR'd. The regex is deterministic and covers the app's ten main languages;

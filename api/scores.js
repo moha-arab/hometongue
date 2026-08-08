@@ -46,13 +46,22 @@ export default async function handler(req, res) {
     const gameType = GAME_TYPES.has(q.get('game_type')) ? q.get('game_type') : 'languages';
     if (!url || !key) return res.end(JSON.stringify({ ok: false, error: 'not_configured' }));
     try {
-      const resp = await fetch(`${url}/rest/v1/scores?select=nickname,points,ts&game_type=eq.${gameType}&order=points.desc,ts.asc&limit=20`, { headers: H });
+      const resp = await fetch(`${url}/rest/v1/scores?select=nickname,points,ts&game_type=eq.${gameType}&order=points.desc,ts.asc&limit=100`, { headers: H });
       if (!resp.ok) {
         console.error('leaderboard query failed:', resp.status, await resp.text().catch(() => ''));
         return res.end(JSON.stringify({ ok: false, error: 'not_ready' }));
       }
       const rows = await resp.json();
-      return res.end(JSON.stringify({ ok: true, top: Array.isArray(rows) ? rows : [] }));
+      // Best run per nickname. Every game posts a row (that history is worth keeping), but a
+      // board where one grinder's ten runs fill all ten slots is a wall, not a ladder — the
+      // standard shape is one line per player, their best. No accounts, so the nickname is the
+      // player; case-insensitive so "Sara" and "sara" don't hold two slots.
+      const best = new Map();
+      for (const r of (Array.isArray(rows) ? rows : [])) {
+        const k = String(r.nickname || '').toLowerCase();
+        if (!best.has(k)) best.set(k, r);   // rows arrive points.desc, first hit is the best
+      }
+      return res.end(JSON.stringify({ ok: true, top: [...best.values()].slice(0, 10) }));
     } catch (err) {
       console.error('leaderboard error:', err);
       res.statusCode = 500;

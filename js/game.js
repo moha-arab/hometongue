@@ -685,4 +685,7 @@ $('#againSame').onclick = () => startGame(gameType);
 $('#switchType').onclick = () => { clearRoundLayers(); map.fitBounds(WORLD); window.HT.setDeck('languages'); setView('pick'); };
 $('#nickname').value = localStorage.getItem('ht_nick') || '';
 $('#boardsBtn').onclick = () => showBoards();
-$('#boardsBack').onclick = () => setView('pick');
+$('#boardsBack').onclick = () => { history.replaceState(null, '', location.pathname); setView('pick'); };
+// The nav tab links here as /game.html#boards, from either page.
+if (location.hash === '#boards') showBoards();
+window.addEventListener('hashchange', () => { if (location.hash === '#boards') showBoards(); });
