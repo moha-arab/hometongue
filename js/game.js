@@ -435,6 +435,7 @@ function lockIn() {
   const altNote = best.primary ? '' : ` · scored to ${best.name}, ${clip.lang} lives there too`;
   $('#revealStats').textContent = `${km.toLocaleString()} km away → +${pts.toLocaleString()} pts${pts === 5000 ? ' 🎯' : ''}${altNote}`;
   $('#revealHint').textContent = clip.hint || '';
+  resetClipFlag();
   renderSource(clip.source, clip.year);
   $('#nextBtn').textContent = round === ROUNDS - 1 ? 'see final score' : 'next clip';
   setView('reveal');
@@ -560,6 +561,58 @@ function renderModeCards() {
     grid.appendChild(b);
   }
 }
+
+// ————— flagging a bad clip —————
+// One report per round. The chips are the reasons a listener can actually judge; the gate
+// already screened for silence and noise, so this catches what only an ear can catch.
+let flagSentFor = null;
+
+function resetClipFlag() {
+  $('#flagThanks').hidden = true;
+  $('#flagChips').hidden = false;
+  $('#flagNote').value = '';
+  for (const b of document.querySelectorAll('#flagChips .flag-chip')) b.disabled = false;
+}
+
+async function sendClipReport(body) {
+  try {
+    const r = await fetch('/api/clip-report', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    return (await r.json()).ok === true;
+  } catch { return false; }
+}
+
+for (const btn of document.querySelectorAll('#flagChips .flag-chip')) {
+  btn.onclick = async () => {
+    const clip = deck[round];
+    if (!clip) return;
+    for (const b of document.querySelectorAll('#flagChips .flag-chip')) b.disabled = true;
+    const last = roundLog[roundLog.length - 1] || {};
+    flagSentFor = clip.id;
+    const ok = await sendClipReport({ clip_id: clip.id, deck: gameType, label: clip.label, reason: btn.dataset.reason, km: last.km });
+    if (ok) {
+      $('#flagChips').hidden = true;
+      $('#flagThanks').hidden = false;
+      $('#flagNote').focus();
+    } else {
+      toast("Couldn't send that right now.");
+      for (const b of document.querySelectorAll('#flagChips .flag-chip')) b.disabled = false;
+    }
+  };
+}
+
+$('#flagNoteSend').onclick = async () => {
+  const note = $('#flagNote').value.trim();
+  if (!note || !flagSentFor) { $('#flagThanks').hidden = true; return; }
+  $('#flagNoteSend').disabled = true;
+  const ok = await sendClipReport({ clip_id: flagSentFor, deck: gameType, note });
+  toast(ok ? 'Got it.' : "Couldn't send that right now.");
+  $('#flagNoteSend').disabled = false;
+  if (ok) { $('#flagNote').value = ''; $('#flagThanks').hidden = true; }
+};
 
 // ————— wire up —————
 initMap();

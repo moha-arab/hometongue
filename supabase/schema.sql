@@ -41,3 +41,20 @@ create table if not exists scores (
 );
 
 alter table scores enable row level security;
+
+-- ===== P2: clip reports (run this block if you already ran the parts above) =====
+-- Players flagging a bad clip after the reveal: the reason enum maps to a curation action
+-- (audio quality pass, label re-check, playback-window move, media fix).
+
+create table if not exists clip_reports (
+  id uuid primary key default gen_random_uuid(),
+  ts timestamptz not null default now(),
+  clip_id text not null,
+  deck text,
+  label text,
+  reason text,              -- 'audio' | 'label' | 'leak' | 'broken' | null when note-only
+  note text,
+  km int                    -- how far the player's own guess was, for context
+);
+
+alter table clip_reports enable row level security;

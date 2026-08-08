@@ -106,6 +106,22 @@
     <div class="source-row"><span class="source-key">licence</span><span class="source-val" id="srcLicense"></span></div>
     <a class="source-link" id="srcLink" target="_blank" rel="noopener noreferrer">open the original</a>
   </div>
+  <!-- Listener quality control. The blind gate can hear that speech exists; only a player can
+       hear that it is the wrong place, or that the speaker says the answer out loud. -->
+  <div class="clip-flag" id="clipFlag">
+    <span class="flag-q">something off with this clip?</span>
+    <div class="flag-chips" id="flagChips">
+      <button class="flag-chip" data-reason="audio">hard to hear</button>
+      <button class="flag-chip" data-reason="label">doesn't fit the place</button>
+      <button class="flag-chip" data-reason="leak">they say the answer</button>
+      <button class="flag-chip" data-reason="broken">didn't play right</button>
+    </div>
+    <div class="flag-thanks" id="flagThanks" hidden>
+      <span>noted, this clip gets a look.</span>
+      <input type="text" id="flagNote" placeholder="anything else? (optional)" maxlength="240">
+      <button class="flag-chip" id="flagNoteSend">send</button>
+    </div>
+  </div>
   <button class="stop-btn" id="nextBtn">next clip</button>
 </div>
 
