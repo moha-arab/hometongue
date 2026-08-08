@@ -127,7 +127,9 @@ async function locate(parts) {
 // So the guard reads the TRANSCRIPT instead. The model returns what it heard, and it cannot
 // quietly drop the words the speaker actually said. If someone introduces themselves, that is
 // a fact about the input, not a claim the model gets to withhold.
-const INTRODUCES_SELF = /\b(my name is|my name's|i'm called|i am called|they call me|name's)\b/i;
+// English word boundaries do not exist in Arabic, Devanagari or Chinese script, so those
+// parts are plain substring matches. Covers the deck languages plus German.
+const INTRODUCES_SELF = /\b(my name is|my name's|i'?m called|i am called|they call me|call me|je m'appelle|me llamo|mi nombre es|meu nome [ée]|me chamo|ich hei[ßs]e)\b|اسمي|إسمي|меня зовут|мене звати|मेरा नाम|میرا نام|我叫|我的名字/i;
 
 function saidTheirName(result) {
   return INTRODUCES_SELF.test(result.transcript || '');
@@ -147,6 +149,11 @@ function sane(r) {
     confidence: Math.min(100, Math.max(0, Math.round(r.confidence || 0))),
     evidence: (Array.isArray(r.evidence) ? r.evidence : []).slice(0, 5).map((e) => String(e).slice(0, 200)),
     transcript: String(r.transcript || '').slice(0, 4000),
+    influences: (Array.isArray(r.influences) ? r.influences : []).slice(0, 3).map((i) => ({
+      place: String(i.place || '').slice(0, 80),
+      percent: Math.min(100, Math.max(0, Math.round(i.percent || 0))),
+      cue: String(i.cue || '').slice(0, 160),
+    })),
     note: String(r.note || '').slice(0, 500),
   };
 }

@@ -41,7 +41,7 @@
     <button class="mic-btn" id="micBtn" aria-label="Start talking">
       <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line></svg>
     </button>
-    <p class="length-tip">About <b>30 seconds</b> gets the sharpest read. Under 10 is mostly guesswork.</p>
+    <p class="length-tip">About <b>30 seconds</b> gets the sharpest read. And skip your name: it listens to sounds, not names.</p>
     <div class="idle-foot">
       <span class="foot-hint">works on your phone</span>
       <button class="link-btn" id="typeModeBtn">no mic? type like you talk</button>
@@ -54,7 +54,7 @@
     <p class="live-status">listening…</p>
     <!-- A countdown, not a stopwatch: the cap used to fire with no warning, which read as
          the app crashing mid-sentence rather than a deliberate limit. -->
-    <div class="count"><b id="timer">1:00</b><span id="countHint">left — keep going, I need a few sentences</span></div>
+    <div class="count"><b id="timer">1:00</b><span id="countHint">left</span></div>
     <div class="count-track"><div class="count-fill" id="countFill"></div></div>
     <!-- Measured, not decorative. On the benchmark, 8s of speech scores a 345 km median miss,
          12-20s scores 157 km, and 30s scores 67 km. Showing that as it accrues tells people

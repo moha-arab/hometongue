@@ -112,7 +112,10 @@ const OUT = path.join(ROOT, 'data', `eval-${MODEL}.json`);
 // notes "measured" byte-identical to the version it replaced — same distances, same evidence
 // strings — and only that impossible identity gave it away. So the cache is now keyed to the
 // exact prompt text. Change one character and the whole file is discarded and re-run.
-const PROMPT_HASH = crypto.createHash('sha256').update(SYSTEM).digest('hex').slice(0, 12);
+// SYSTEM and SCHEMA both shape the answer — the schema's field descriptions steer the model
+// just like prompt text does — so both are in the cache key. Keyed to SYSTEM alone, adding a
+// schema field would silently replay old results as a "measurement" of the new schema.
+const PROMPT_HASH = crypto.createHash('sha256').update(SYSTEM + JSON.stringify(SCHEMA)).digest('hex').slice(0, 12);
 const priorRaw = fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, 'utf8')) : null;
 const stale = priorRaw && priorRaw.promptHash !== PROMPT_HASH;
 if (stale) console.log(`prompt changed (${priorRaw.promptHash || 'unhashed'} -> ${PROMPT_HASH}) — ignoring ${priorRaw.results.length} cached results

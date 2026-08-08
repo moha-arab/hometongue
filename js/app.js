@@ -193,13 +193,12 @@ function startTimer() {
     $('#timer').textContent = `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
     const fill = $('#countFill');
     if (fill) fill.style.width = `${(s / MAX_SECONDS) * 100}%`;
-    // Longer speech reads better, so say when there is enough instead of leaving them guessing.
+    // The clock only tells time now. It used to also give advice, on different thresholds
+    // than the quality meter below, so between 18s and 20s the two visibly contradicted each
+    // other ("that's plenty, hit done whenever" against "10 more seconds helps a lot"). One
+    // voice: the meter advises, the clock counts.
     const hint = $('#countHint');
-    if (hint) {
-      hint.textContent = s < 8 ? 'left — keep going, I need a few sentences'
-        : s < 18 ? 'left — good, a bit more helps'
-          : 'left — that\'s plenty, hit done whenever';
-    }
+    if (hint) hint.textContent = 'left';
     // Thresholds are the measured accuracy steps, not round numbers: the benchmark median is
     // 345 km at 8s, 157 km from 12-20s, and 67 km by 30s.
     const tier = s < 10 ? 0 : s < 20 ? 1 : s < 30 ? 2 : 3;
@@ -388,7 +387,7 @@ const ERRORS = {
   busy: 'The model is busy right now — give it a few seconds and try again.',
   upstream_failed: "The model didn't answer. Try again in a moment.",
   audio_too_short: 'That was too short to read anything from — give me a sentence or two.',
-  audio_too_large: 'That recording was too long. Keep it under about 45 seconds.',
+  audio_too_large: 'That recording was too long. Keep it under a minute.',
   rate_limited: 'Slow down a little — try again in a bit.',
   bad_origin: 'That request was blocked as coming from the wrong domain.',
 };
@@ -485,7 +484,28 @@ function renderResult(v) {
   const warn = $('#nameWarn');
   if (warn) {
     warn.hidden = !v.name_led;
-    if (v.name_led) warn.textContent = 'You said your name, and names throw this off badly — it reads a foreign name as a place. Record again without it for a real answer.';
+    if (v.name_led) warn.textContent = 'You said your name. Names drag the guess toward the name\'s home country, so take this one lightly and go again without saying it.';
+  }
+
+  // The accent as a recipe, rendered with the existing runner bars. For anyone who moved, or
+  // grew up between languages, "one pin" is the wrong shape of answer and this is the true one.
+  if (Array.isArray(v.influences) && v.influences.length) {
+    const head = document.createElement('div');
+    head.className = 'heard-head';
+    head.innerHTML = '<span>the mix, by ear</span>';
+    runners.appendChild(head);
+    for (const inf of v.influences.slice(0, 3)) {
+      if (!inf.place) continue;
+      const row = document.createElement('div');
+      row.className = 'runner';
+      const pct = Math.min(100, Math.max(0, Math.round(inf.percent || 0)));
+      row.innerHTML = '<span class="runner-name"></span>'
+        + '<span class="runner-track"><span class="runner-fill" style="width:' + pct + '%"></span></span>'
+        + '<span class="runner-pts">~' + pct + '%</span>';
+      row.querySelector('.runner-name').textContent = inf.place;
+      if (inf.cue) row.title = inf.cue;
+      runners.appendChild(row);
+    }
   }
 
   // The radius is the answer's honesty, so it gets the big number and a plain-English

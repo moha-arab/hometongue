@@ -144,15 +144,20 @@ body {
 /* ——— panels ——— */
 .hud {
   position: fixed; inset: 0; z-index: 5;
-  display: grid; place-items: center;
+  display: grid;
+  /* No place-items: center — a card taller than the phone screen would centre with its top
+     half above the scroll start, unreachable. margin:auto on .card centres when it fits and
+     scrolls fully when it does not. That was the "can't scroll the result on my phone" bug. */
   padding: 82px 20px 24px; pointer-events: none; overflow-y: auto;
 }
 @media (min-width: 940px) {
-  .hud { place-items: center start; padding-left: clamp(32px, 7vw, 120px); }
+  .hud { padding-left: clamp(32px, 7vw, 120px); }
+  .card { margin-left: 0; }
 }
 
 .card {
   pointer-events: auto;
+  margin: auto;
   width: min(520px, 100%);
   background: var(--sheet);
   border: 1px solid var(--rule);
