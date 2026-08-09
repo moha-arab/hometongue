@@ -692,6 +692,9 @@ $('#nextBtn').onclick = advance;
 $('#submitScore').onclick = submitScore;
 $('#againSame').onclick = () => startGame(gameType);
 $('#switchType').onclick = () => { clearRoundLayers(); map.fitBounds(WORLD); window.HT.setDeck('languages'); setView('pick'); };
+// one-time cleanup: leaderboard testing during the Aug 8 production sweep saved its test
+// nickname on whatever device ran it; devices carrying it self-clean here
+if (localStorage.getItem('ht_nick') === 'sweep bot') localStorage.removeItem('ht_nick');
 $('#nickname').value = localStorage.getItem('ht_nick') || '';
 $('#boardsBtn').onclick = () => showBoards();
 $('#boardsBack').onclick = () => { history.replaceState(null, '', location.pathname); setView('pick'); };

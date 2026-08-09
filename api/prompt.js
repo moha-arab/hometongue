@@ -80,7 +80,7 @@ export const SCHEMA = {
     confidence: { type: 'integer', description: '0-100, honestly calibrated' },
     evidence: {
       type: 'array',
-      description: 'up to 5 short phrases naming what you heard that placed them',
+      description: 'up to 5 short phrases naming what you heard that placed them, in everyday words a stranger enjoys: name the letter, word, or rhythm and what they do with it ("your T disappears in the middle of words"), never classroom labels like "cot-caught merger" or "monophthongization"',
       items: { type: 'string' },
     },
     transcript: { type: 'string', description: 'what they said, in its own script, written EXACTLY as pronounced. Keep every dialect word in its actual spoken form — never normalize a dialect marker to a neighbouring region\'s variant; a speaker who says هلق did not say هسا. When a word is unclear, write the closest sound you heard, not the most common written form.' },
@@ -97,7 +97,7 @@ export const SCHEMA = {
         },
       },
     },
-    note: { type: 'string', description: 'one or two warm, honest sentences for the user about the verdict. If where they grew up differs from what their voice sounds like — a diaspora childhood, an accent carried abroad — say both plainly and name the single word or sound that gave the childhood away.' },
+    note: { type: 'string', description: 'two or three warm, honest sentences reading the person, not the audio: is this their first language or one learned later, where the sound underneath comes from, and what everyday sound betrays it. If where they grew up differs from what their voice sounds like — a diaspora childhood, an accent carried abroad — say both plainly. Hedge like an honest person: "someone at home is probably Lebanese" is fine; naming which parent is invented detail unless they said it themselves.' },
   },
   required: ['has_speech', 'note'],
 };
