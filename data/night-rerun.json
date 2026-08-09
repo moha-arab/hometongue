@@ -1,0 +1,635 @@
+{
+  "config": "48b0914/8001e3a1aec8",
+  "rows": [
+    {
+      "id": "wild-huddersfield-west-yorkshire-england",
+      "label": "Huddersfield, West Yorkshire, England",
+      "night": 4,
+      "afternoon": 4
+    },
+    {
+      "id": "wild-amritsar-punjab-india",
+      "label": "Amritsar / Punjab, India",
+      "night": 404,
+      "afternoon": 404
+    },
+    {
+      "id": "wild-georgetown-south-carolina-usa-us-south",
+      "label": "Georgetown, South Carolina, USA (US South)",
+      "night": 180,
+      "afternoon": 180
+    },
+    {
+      "id": "wild-liverpool-england",
+      "label": "Liverpool, England",
+      "night": 0,
+      "afternoon": 0
+    },
+    {
+      "id": "accents-jamaica-english-jamaican-patois",
+      "label": "Jamaica",
+      "night": 0,
+      "afternoon": 69
+    },
+    {
+      "id": "accents-kenya-english-kenyan",
+      "label": "Kenya",
+      "night": 70,
+      "afternoon": 69
+    },
+    {
+      "id": "wild-mbaise-imo-state-nigeria",
+      "label": "Mbaise, Imo State, Nigeria",
+      "night": 20,
+      "afternoon": 25
+    },
+    {
+      "id": "wild-melbourne-australia",
+      "label": "Melbourne, Australia",
+      "night": 0,
+      "afternoon": 0
+    },
+    {
+      "id": "wild-mvezo-eastern-cape-south-africa",
+      "label": "Mvezo / Eastern Cape, South Africa",
+      "night": 34,
+      "afternoon": 34
+    },
+    {
+      "id": "accents-new-zealand-english-new-zealand",
+      "label": "New Zealand",
+      "night": 365,
+      "afternoon": 365
+    },
+    {
+      "id": "accents-namibia-english-namibian",
+      "label": "Namibia",
+      "night": 938,
+      "afternoon": 938
+    },
+    {
+      "id": "accents-nigeria-nigerian-pidgin",
+      "label": "Nigeria",
+      "night": 392,
+      "afternoon": 394
+    },
+    {
+      "id": "accents-aberdeenshire-scotland-english-northeast-scotl",
+      "label": "Northeast Scotland, Scotland",
+      "night": 0,
+      "afternoon": 6
+    },
+    {
+      "id": "wild-sarnia-milton-ontario-canada",
+      "label": "Sarnia / Milton, Ontario, Canada",
+      "night": 0,
+      "afternoon": 0
+    },
+    {
+      "id": "accents-west-yorkshire-england-english-west-riding-yor",
+      "label": "Sheffield, England",
+      "night": 0,
+      "afternoon": 0
+    },
+    {
+      "id": "wild-the-bronx-new-york-city-usa",
+      "label": "The Bronx, New York City, USA",
+      "night": 1,
+      "afternoon": 0
+    },
+    {
+      "id": "wild-thomastown-county-kilkenny-ireland",
+      "label": "Thomastown, County Kilkenny, Ireland",
+      "night": 42,
+      "afternoon": 40
+    },
+    {
+      "id": "wild-texas-hill-country-stonewall-usa",
+      "label": "Texas Hill Country (Stonewall), USA",
+      "night": 5,
+      "afternoon": 5
+    },
+    {
+      "id": "wild-toronto-canada",
+      "label": "Toronto, Canada",
+      "night": 0,
+      "afternoon": 0
+    },
+    {
+      "id": "accents-wales-english-welsh",
+      "label": "Wales",
+      "night": 47,
+      "afternoon": 48
+    },
+    {
+      "id": "ar-6158",
+      "label": "Ajman, UAE",
+      "night": 28,
+      "afternoon": 151
+    },
+    {
+      "id": "ar-3736",
+      "label": "Abu Dhabi, UAE",
+      "night": 1,
+      "afternoon": 1
+    },
+    {
+      "id": "ar-2082",
+      "label": "Algiers, Algeria",
+      "night": 0,
+      "afternoon": 0
+    },
+    {
+      "id": "ar-882",
+      "label": "Alexandria, Egypt",
+      "night": 180,
+      "afternoon": 180
+    },
+    {
+      "id": "ar-3384",
+      "label": "Aleppo, Syria",
+      "night": 0,
+      "afternoon": 0
+    },
+    {
+      "id": "ar-679",
+      "label": "Baghdad, Iraq",
+      "night": 1,
+      "afternoon": 1
+    },
+    {
+      "id": "ar-39",
+      "label": "Annaba, Algeria",
+      "night": 420,
+      "afternoon": 420
+    },
+    {
+      "id": "ar-249",
+      "label": "Amman, Jordan",
+      "night": 2,
+      "afternoon": 31
+    },
+    {
+      "id": "ar-2765",
+      "label": "Basra, Iraq",
+      "night": 448,
+      "afternoon": 448
+    },
+    {
+      "id": "arabic-baghdad-iraq-arabic-iraqi",
+      "label": "Baghdad, Iraq",
+      "night": 1,
+      "afternoon": 1
+    },
+    {
+      "id": "ar-2473",
+      "label": "Batna, Algeria",
+      "night": 178,
+      "afternoon": 1297
+    },
+    {
+      "id": "ar-2446",
+      "label": "Beirut, Lebanon",
+      "night": 0,
+      "afternoon": 85
+    },
+    {
+      "id": "ar-809",
+      "label": "Blida, Algeria",
+      "night": 38,
+      "afternoon": 37
+    },
+    {
+      "id": "ar-3107",
+      "label": "Benghazi, Libya",
+      "night": 651,
+      "afternoon": 651
+    },
+    {
+      "id": "ar-1604",
+      "label": "Casablanca, Morocco",
+      "night": 57,
+      "afternoon": 82
+    },
+    {
+      "id": "ar-2375",
+      "label": "Constantine, Algeria",
+      "night": 320,
+      "afternoon": 321
+    },
+    {
+      "id": "ar-2278",
+      "label": "Damascus, Syria",
+      "night": 1,
+      "afternoon": 1
+    },
+    {
+      "id": "ar-94",
+      "label": "Djelfa, Algeria",
+      "night": 232,
+      "afternoon": 188
+    },
+    {
+      "id": "ar-3345",
+      "label": "Dubai, UAE",
+      "night": 65,
+      "afternoon": 122
+    },
+    {
+      "id": "ar-754",
+      "label": "Fes, Morocco",
+      "night": 245,
+      "afternoon": 245
+    },
+    {
+      "id": "ar-2608",
+      "label": "Cairo, Egypt",
+      "night": 1,
+      "afternoon": 1
+    },
+    {
+      "id": "ar-3132",
+      "label": "Gaza, Palestine",
+      "night": 114,
+      "afternoon": 88
+    },
+    {
+      "id": "ar-3854",
+      "label": "Hebron, Palestine",
+      "night": 31,
+      "afternoon": 29
+    },
+    {
+      "id": "ar-4531",
+      "label": "Irbid, Jordan",
+      "night": 68,
+      "afternoon": 68
+    },
+    {
+      "id": "ar-2316",
+      "label": "Jerusalem, Palestine",
+      "night": 33,
+      "afternoon": 71
+    },
+    {
+      "id": "ar-1733",
+      "label": "Jeddah, Saudi Arabia",
+      "night": 845,
+      "afternoon": 845
+    },
+    {
+      "id": "ar-1526",
+      "label": "Kuwait City, Kuwait",
+      "night": 1,
+      "afternoon": 1
+    },
+    {
+      "id": "ar-1248",
+      "label": "Manama, Bahrain",
+      "night": 434,
+      "afternoon": 434
+    },
+    {
+      "id": "ar-1623",
+      "label": "Muscat, Oman",
+      "night": 3,
+      "afternoon": 3
+    },
+    {
+      "id": "ar-3190",
+      "label": "Nablus, Palestine",
+      "night": 68,
+      "afternoon": 69
+    },
+    {
+      "id": "ar-5182",
+      "label": "Omdurman, Sudan",
+      "night": 11,
+      "afternoon": 2065
+    },
+    {
+      "id": "ar-423",
+      "label": "Oran, Algeria",
+      "night": 316,
+      "afternoon": 351
+    },
+    {
+      "id": "ar-1879",
+      "label": "Port Sudan, Sudan",
+      "night": 672,
+      "afternoon": 674
+    },
+    {
+      "id": "ar-1907",
+      "label": "El Obeid, Sudan",
+      "night": 361,
+      "afternoon": 361
+    },
+    {
+      "id": "ar-989",
+      "label": "Rabat, Morocco",
+      "night": 5,
+      "afternoon": 5
+    },
+    {
+      "id": "ar-1650",
+      "label": "Ramallah, Palestine",
+      "night": 15,
+      "afternoon": 15
+    },
+    {
+      "id": "ar-2787",
+      "label": "Riyadh, Saudi Arabia",
+      "night": 534,
+      "afternoon": 534
+    },
+    {
+      "id": "ar-3479",
+      "label": "Sanaa, Yemen",
+      "night": 2,
+      "afternoon": 200
+    },
+    {
+      "id": "ar-5408",
+      "label": "Taiz, Yemen",
+      "night": 0,
+      "afternoon": 0
+    },
+    {
+      "id": "ar-3647",
+      "label": "Tangier, Morocco",
+      "night": 294,
+      "afternoon": 294
+    },
+    {
+      "id": "ar-4464",
+      "label": "Setif, Algeria",
+      "night": 221,
+      "afternoon": 220
+    },
+    {
+      "id": "ar-6858",
+      "label": "Tripoli, Libya",
+      "night": 9,
+      "afternoon": 0
+    },
+    {
+      "id": "ar-3660",
+      "label": "Tunis, Tunisia",
+      "night": 0,
+      "afternoon": 0
+    },
+    {
+      "id": "ar-3785",
+      "label": "Wad Medani, Sudan",
+      "night": 160,
+      "afternoon": 160
+    },
+    {
+      "id": "french-bargny-senegal-french-senegal",
+      "label": "Bargny, Senegal",
+      "night": 1,
+      "afternoon": 1
+    },
+    {
+      "id": "french-brussels-belgium-french-belgian",
+      "label": "Belgium",
+      "night": 259,
+      "afternoon": 454
+    },
+    {
+      "id": "french-yaounde-cameroon-french-cameroon",
+      "label": "Cameroon",
+      "night": 72,
+      "afternoon": 70
+    },
+    {
+      "id": "french-abidjan-cote-d-ivoire-french-cote-d-ivoire",
+      "label": "Côte d'Ivoire",
+      "night": 105,
+      "afternoon": 40
+    },
+    {
+      "id": "ar-6196",
+      "label": "Sharjah, UAE",
+      "night": 87,
+      "afternoon": 87
+    },
+    {
+      "id": "french-paris-france-french-paris",
+      "label": "Paris, France",
+      "night": 0,
+      "afternoon": 0
+    },
+    {
+      "id": "french-marseille-france-french-southern-france",
+      "label": "Southern France, France",
+      "night": 597,
+      "afternoon": 597
+    },
+    {
+      "id": "french-montreal-canada-french-quebecois",
+      "label": "Québec, Canada",
+      "night": 109,
+      "afternoon": 0
+    },
+    {
+      "id": "spanish-seville-andalusia-spain-spanish-andalusian-spa",
+      "label": "Andalusia, Spain",
+      "night": 338,
+      "afternoon": 338
+    },
+    {
+      "id": "spanish-argentine-spanish-reading-about-a-brazilian-to",
+      "label": "Argentina",
+      "night": 10852,
+      "afternoon": 11050
+    },
+    {
+      "id": "spanish-venezuelan-spanish-introduction-to-the-big-ban",
+      "label": "Guatire, Venezuela",
+      "night": 39,
+      "afternoon": 39
+    },
+    {
+      "id": "spanish-uruguayan-spanish-juan-jose-morosoli-reads-la-",
+      "label": "Minas, Uruguay",
+      "night": 289,
+      "afternoon": 210
+    },
+    {
+      "id": "spanish-mexican-spanish-schrodinger-s-cat-article-read",
+      "label": "Mexico",
+      "night": 345,
+      "afternoon": 345
+    },
+    {
+      "id": "spanish-paniahue-santa-cruz-chile-spanish-chilean",
+      "label": "Paniahue, Chile",
+      "night": 146,
+      "afternoon": 146
+    },
+    {
+      "id": "spanish-peruvian-spanish-richard-dawkins-biography-rea",
+      "label": "Peru",
+      "night": 0,
+      "afternoon": 0
+    },
+    {
+      "id": "spanish-puerto-rican-spanish-roman-emperor-claudius-ar",
+      "label": "Puerto Rico",
+      "night": 1766,
+      "afternoon": 1766
+    },
+    {
+      "id": "spanish-castilian-spanish-segismundo-s-soliloquy-calde",
+      "label": "Spain",
+      "night": 0,
+      "afternoon": 9509
+    },
+    {
+      "id": "spanish-mexico-city-mexico-spanish-mexican",
+      "label": "Mexico",
+      "night": 345,
+      "afternoon": 345
+    },
+    {
+      "id": "spanish-colombian-spanish-steven-pinker-biography-read",
+      "label": "Turbaco, Colombia",
+      "night": 653,
+      "afternoon": 653
+    },
+    {
+      "id": "chinese-chengdu-china-mandarin-sichuanese-chengdu-dial",
+      "label": "Chengdu, China",
+      "night": 1603,
+      "afternoon": 1572
+    },
+    {
+      "id": "chinese-foshan-china-cantonese-guangdong-pearl-river-d",
+      "label": "Foshan, China",
+      "night": 161,
+      "afternoon": 161
+    },
+    {
+      "id": "chinese-guiyang-china-mandarin-guiyangese-southwestern",
+      "label": "Guiyang, China",
+      "night": 11,
+      "afternoon": 0
+    },
+    {
+      "id": "chinese-hk-cantonese-george-washington-carver-spoken-w",
+      "label": "Hong Kong",
+      "night": 0,
+      "afternoon": 0
+    },
+    {
+      "id": "chinese-shanghainese-wu-standard-shanghai-accent-readi",
+      "label": "Shanghai, China",
+      "night": 0,
+      "afternoon": 0
+    },
+    {
+      "id": "chinese-nanyang-china-zhongyuan-mandarin-henan",
+      "label": "Nanyang, China",
+      "night": 44,
+      "afternoon": 44
+    },
+    {
+      "id": "chinese-taipei-taiwan-mandarin-taiwan-guoyu",
+      "label": "Taiwan",
+      "night": 149,
+      "afternoon": 4
+    },
+    {
+      "id": "chinese-hk-cantonese-ciguatoxin-stonefish-toxin-spoken",
+      "label": "Hong Kong",
+      "night": 0,
+      "afternoon": 0
+    },
+    {
+      "id": "hindi-urdu-rajiv-dixit-aitihasik-bhulein-historical-mista",
+      "label": "Aligarh, India",
+      "night": 0,
+      "afternoon": 0
+    },
+    {
+      "id": "chinese-taiwan-mandarin-good-cop-bad-dog-tv-episode-sp",
+      "label": "Taiwan",
+      "night": 150,
+      "afternoon": 150
+    },
+    {
+      "id": "hindi-urdu-karachi-pakistan-urdu",
+      "label": "Karachi, Pakistan",
+      "night": 1096,
+      "afternoon": 1412
+    },
+    {
+      "id": "hindi-urdu-mumbai-india-hindi-bambaiyya-adjacent",
+      "label": "Mumbai, India",
+      "night": 0,
+      "afternoon": 0
+    },
+    {
+      "id": "portuguese-cape-verde-portuguese-cape-verde",
+      "label": "Cape Verde",
+      "night": 1,
+      "afternoon": 1
+    },
+    {
+      "id": "portuguese-mozambique-portuguese-mozambique",
+      "label": "Mozambique",
+      "night": 0,
+      "afternoon": 2
+    },
+    {
+      "id": "portuguese-parana-brazil-portuguese-brazilian-parana",
+      "label": "Paraná, Brazil",
+      "night": 339,
+      "afternoon": 339
+    },
+    {
+      "id": "hindi-urdu-spoken-hindi-wikipedia-indo-european-language-",
+      "label": "Delhi–Meerut Region, India",
+      "night": 0,
+      "afternoon": 0
+    },
+    {
+      "id": "portuguese-porto-portugal-portuguese-european-porto-north",
+      "label": "Porto, Portugal",
+      "night": 0,
+      "afternoon": 108
+    },
+    {
+      "id": "portuguese-rio-de-janeiro-brazil-portuguese-brazilian-car",
+      "label": "Rio de Janeiro, Brazil",
+      "night": 341,
+      "afternoon": 361
+    },
+    {
+      "id": "portuguese-porto-alegre-brazil-portuguese-brazilian-gauch",
+      "label": "Porto Alegre, Brazil",
+      "night": 547,
+      "afternoon": 1
+    },
+    {
+      "id": "hindi-urdu-mufti-abul-qasim-nomani-talk-on-darul-uloom-de",
+      "label": "Varanasi, India",
+      "night": 663,
+      "afternoon": 714
+    },
+    {
+      "id": "russian-moscow-russia-russian-moscow",
+      "label": "Moscow, Russia",
+      "night": 0,
+      "afternoon": 0
+    },
+    {
+      "id": "portuguese-sao-paulo-brazil-portuguese-brazilian-sao-paul",
+      "label": "São Paulo, Brazil",
+      "night": 361,
+      "afternoon": 361
+    }
+  ]
+}
