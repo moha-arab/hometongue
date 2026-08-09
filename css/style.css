@@ -120,16 +120,17 @@ body {
   display: flex; justify-content: space-between; align-items: center;
   gap: 16px; padding: 18px 26px;
 }
+/* The lockup: the mark (a map pin that speaks — amber bar is the answer) plus the
+   wordmark in the editorial serif, "Tongue" italic the way the site italicises what
+   it hears. Replaced the lowercase grotesk + dot when the logo landed. */
 .logo {
-  font-family: var(--display);
-  font-weight: 700; font-size: 23px; letter-spacing: -0.035em;
-  color: var(--black);
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--editorial);
+  font-weight: 400; font-size: 24px; letter-spacing: 0;
+  color: var(--black); text-decoration: none;
 }
-.logo::after {
-  content: ''; display: inline-block; width: 9px; height: 9px; margin-left: 7px;
-  border-radius: 50%; background: var(--accent);
-  transition: background 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-}
+.logo svg { width: 21px; height: 21px; flex: none; }
+.logo i { color: var(--accent); }
 
 .modes { display: flex; align-items: center; gap: 2px; }
 .modes a {

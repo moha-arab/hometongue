@@ -5,7 +5,7 @@
 // stale cache never wins on a live connection, but the version is what evicts the old entries
 // on activate — leaving it fixed means yesterday's CSS sits in storage forever as the offline
 // fallback. Bumped for the two-mode nav, the serif headlines and the map zoom fix.
-const VERSION = 'ht-v9';
+const VERSION = 'ht-v10';
 const SHELL = [
   '/',
   '/game.html',
@@ -18,6 +18,7 @@ const SHELL = [
   '/js/places.js',
   '/manifest.webmanifest',
   '/icon-192.png',
+  '/assets/logo-mark.svg',
 ];
 
 self.addEventListener('install', (e) => {

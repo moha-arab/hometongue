@@ -1,0 +1,3 @@
+{"ts":"2026-08-09T03:46:37.944Z","median":42,"canaryMedian":309,"controlMedian":1,"n":21}
+{"ts":"2026-08-09T05:49:57.657Z","model":"gemini-3.6-flash","median":147,"canaryMedian":309,"controlMedian":1,"n":21}
+{"ts":"2026-08-09T05:49:57.658Z","model":"gemini-3.5-flash","median":10,"canaryMedian":259,"controlMedian":1,"n":21}
