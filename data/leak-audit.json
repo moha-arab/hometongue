@@ -2,138 +2,18 @@
   "ts": 0,
   "flagged": [
     {
-      "id": "yt-7lMWf8-Q9jA",
-      "deck": "accents",
-      "label": "Kingston, Jamaica",
-      "start": 31,
-      "why": "SAYS PLACE: York Pharmacy, 30 Grenada"
-    },
-    {
-      "id": "yt-SS9bBuF0w4w",
-      "deck": "accents",
-      "label": "Kingston, Jamaica",
-      "start": 343,
-      "why": "SAYS PLACE: Kingston"
-    },
-    {
-      "id": "yt-T67YveenFvU",
-      "deck": "accents",
-      "label": "Lagos, Nigeria",
-      "start": 63,
-      "why": "SAYS PLACE: Lekki"
-    },
-    {
-      "id": "yt-tI8FBKscgQ4",
-      "deck": "accents",
-      "label": "Lagos, Nigeria",
-      "start": 220,
-      "why": "SAYS PLACE: Nigeria"
-    },
-    {
-      "id": "yt-LhMvmH_uodE",
-      "deck": "accents",
-      "label": "Glasgow, Scotland",
-      "start": 240,
-      "why": "SAYS PLACE: Scotland, Glasgow"
-    },
-    {
-      "id": "yt-HpTfmxkXU1A",
-      "deck": "accents",
-      "label": "Singapore",
-      "start": 131,
-      "why": "SAYS PLACE: Singapore"
-    },
-    {
-      "id": "yt-oSH-QXhJnQw",
-      "deck": "french",
-      "label": "Marseille, France",
-      "start": 172,
-      "why": "SAYS PLACE: Marseille"
-    },
-    {
-      "id": "yt-BJH4f6OWF7U",
-      "deck": "french",
-      "label": "Marseille, France",
-      "start": 30,
-      "why": "SAYS PLACE: Vieux-Port"
-    },
-    {
-      "id": "yt-0xDjLQpsmUM",
-      "deck": "french",
-      "label": "Marseille, France",
-      "start": 149,
-      "why": "SAYS PLACE: Parisiens"
-    },
-    {
-      "id": "yt-6yRcJ-BUVDg",
-      "deck": "chinese",
-      "label": "Chengdu, China",
-      "start": 84,
-      "why": "SAYS PLACE: Sichuan"
-    },
-    {
-      "id": "yt-psXX11dIrNo",
-      "deck": "hindi-urdu",
-      "label": "Lahore, Pakistan",
-      "start": 30,
-      "why": "SAYS PLACE: Lahore"
-    },
-    {
       "id": "yt-KoqtgZTHhzc",
       "deck": "portuguese",
       "label": "Recife, Brazil",
-      "why": "fetch failed, could not audit"
-    },
-    {
-      "id": "yt-7KxxEb_Gs5I",
-      "deck": "portuguese",
-      "label": "Lisbon, Portugal",
-      "why": "fetch failed, could not audit"
-    },
-    {
-      "id": "yt-4I4v9KWvYWc",
-      "deck": "russian",
-      "label": "Yerevan, Armenia",
-      "start": 330,
-      "why": "SAYS PLACE: Russia"
-    },
-    {
-      "id": "yt-gOVe3869tX8",
-      "deck": "russian",
-      "label": "Tbilisi, Georgia",
-      "start": 229,
-      "why": "SAYS PLACE: Georgia"
-    },
-    {
-      "id": "yt-qG8TAaMQCtw",
-      "deck": "russian",
-      "label": "Yerevan, Armenia",
-      "why": "fetch failed, could not audit"
-    },
-    {
-      "id": "yt-EYUJ5fQmipw",
-      "deck": "russian",
-      "label": "Chișinău, Moldova",
-      "why": "fetch failed, could not audit"
+      "start": 117,
+      "why": "SAYS PLACE: Mato Grosso, Natal, Rio de Janeiro, Recife"
     },
     {
       "id": "yt-KYCzYHQgulE",
       "deck": "russian",
       "label": "Odesa, Ukraine",
-      "why": "fetch failed, could not audit"
-    },
-    {
-      "id": "yt-rATB9avPssE",
-      "deck": "russian",
-      "label": "Novosibirsk, Russia",
-      "why": "fetch failed, could not audit"
-    },
-    {
-      "id": "yt-gRaokqJX1c8",
-      "deck": "russian",
-      "label": "Almaty, Kazakhstan",
-      "start": 131,
-      "why": "SAYS PLACE: Almaty"
+      "start": 85,
+      "why": "SAYS PLACE: Ukraine"
     }
   ]
 }

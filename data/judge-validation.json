@@ -1,0 +1,36 @@
+{
+  "recall": {
+    "caught": 20,
+    "total": 24
+  },
+  "newFlags": [
+    {
+      "id": "yt-F53zsQIKlrw",
+      "deck": "french",
+      "label": "Brussels, Belgium",
+      "start": 225,
+      "why": "SAYS PLACE: Français"
+    },
+    {
+      "id": "yt-520zmm5qVh0",
+      "deck": "hindi-urdu",
+      "label": "Hyderabad, India",
+      "start": 99,
+      "why": "SAYS PLACE: Irani"
+    },
+    {
+      "id": "yt-KoqtgZTHhzc",
+      "deck": "portuguese",
+      "label": "Recife, Brazil",
+      "start": 117,
+      "why": "SAYS PLACE: Mato Grosso, Natal, Rio de Janeiro, Recife"
+    },
+    {
+      "id": "yt-KYCzYHQgulE",
+      "deck": "russian",
+      "label": "Odesa, Ukraine",
+      "start": 85,
+      "why": "SAYS PLACE: Ukraine"
+    }
+  ]
+}
