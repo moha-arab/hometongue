@@ -713,8 +713,11 @@ bindUI();
 // with; if the server has a newer build AND nothing is in progress, reload into it. Only ever
 // fires from the idle card so it can never eat a recording or a result.
 (() => {
+  // Watch sw.js, not app.js: the version constant in sw.js bumps on EVERY release, while
+  // app.js only changes when the app logic does. The first scroll fix shipped as pure
+  // HTML/CSS, app.js kept its ETag, and phones on the broken page never reloaded.
   let loadedTag = null;
-  const tagOf = () => fetch('/js/app.js', { method: 'HEAD', cache: 'no-store' })
+  const tagOf = () => fetch('/sw.js', { method: 'HEAD', cache: 'no-store' })
     .then((r) => r.headers.get('etag')).catch(() => null);
   tagOf().then((t) => { loadedTag = t; });
   document.addEventListener('visibilitychange', () => {

@@ -532,6 +532,21 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   .logo { font-size: 21px; }
 }
 
+/* iPhone scroll, the WebKit-safe way: Safari refuses touch-scrolling a container whose
+   pointer-events is none, even when the touched child re-enables them — which is exactly
+   the .hud/.card arrangement. So on phones the CARD is the scroller: it caps itself to the
+   viewport and scrolls its own content with pointer-events fully on. The map stays
+   touchable around it, and .hud's overflow remains only as a desktop/mouse fallback. */
+@media (max-width: 939px) {
+  .card {
+    max-height: calc(100vh - 106px);
+    max-height: calc(100dvh - 106px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+}
+
 /* ——— detected-language chip ———
    Auto-detection keeps the "just talk" promise; this is how it owns being wrong. */
 .lang-chip { display: flex; align-items: center; gap: 8px; margin: -4px 0 10px; font-family: var(--mono); font-size: 11px; }
