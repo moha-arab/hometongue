@@ -104,13 +104,17 @@ function flyToGuess(g) {
   // frame the whole circle rather than a fixed zoom, so a 30km guess and a 2000km guess
   // both read correctly
   const bounds = hasZone ? L.latLngBounds(g.zone).pad(0.25) : L.latLng(g.lat, g.lng).toBounds(r * 2.6);
-  // On phones the result peeks as a bottom sheet, so the flight frames the zone in the
-  // VISIBLE upper half instead of centering it behind the card.
+  // The flight frames the zone in the map the user can actually SEE: on phones the result
+  // peeks as a bottom sheet, so pad the bottom; on desktop the card is pinned left, so pad
+  // the flight past its right edge instead of centering the answer behind it.
   const peeking = matchMedia('(max-width: 939px)').matches;
+  const cardEl = document.getElementById('resultCard');
+  const cardRight = (!peeking && cardEl && !cardEl.hidden)
+    ? Math.round(cardEl.getBoundingClientRect().right) : 0;
   map.flyToBounds(bounds, {
     duration: 2.4, easeLinearity: 0.15,
-    paddingTopLeft: [12, peeking ? 84 : 0],
-    paddingBottomRight: [12, peeking ? Math.round(window.innerHeight * 0.46) : 0],
+    paddingTopLeft: [peeking ? 12 : cardRight + 28, 84],
+    paddingBottomRight: [peeking ? 12 : 28, peeking ? Math.round(window.innerHeight * 0.46) : 28],
   });
 }
 

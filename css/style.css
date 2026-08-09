@@ -153,7 +153,10 @@ body {
 }
 @media (min-width: 940px) {
   .hud { padding-left: clamp(32px, 7vw, 120px); }
-  .card { margin-left: 0; }
+  /* .hud .card, not .card: the base .card sets margin:auto later in the file and a bare
+     .card here silently loses to it — which is exactly how the card drifted to the centre
+     of the screen and sat on top of the answer zone for two days before Mohammad caught it. */
+  .hud .card { margin-left: 0; }
 }
 
 .card {
