@@ -545,6 +545,26 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
   }
+  /* The result rides as a bottom sheet, because a result that hides the map hides the best
+     part of the answer: the zone glowing over the right stretch of the world. Peek shows
+     the verdict headline over the lower ~44% while the map holds the upper half; the
+     handle (or scrolling the card) opens the full story. */
+  .card.peek {
+    max-height: 44vh;
+    max-height: 44dvh;
+    margin-top: auto; margin-bottom: 0;
+  }
+}
+.sheet-handle { display: none; }
+@media (max-width: 939px) {
+  .sheet-handle {
+    display: block; width: 100%; padding: 0 0 12px; margin: -6px 0 0;
+    background: none; border: 0; cursor: pointer;
+  }
+  .sheet-handle span {
+    display: block; width: 42px; height: 4px; border-radius: 2px;
+    background: var(--rule); margin: 0 auto;
+  }
 }
 
 /* ——— detected-language chip ———

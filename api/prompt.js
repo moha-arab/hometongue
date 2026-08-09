@@ -83,7 +83,7 @@ export const SCHEMA = {
       description: 'up to 5 short phrases naming what you heard that placed them',
       items: { type: 'string' },
     },
-    transcript: { type: 'string', description: 'what they said, in its own script' },
+    transcript: { type: 'string', description: 'what they said, in its own script, written EXACTLY as pronounced. Keep every dialect word in its actual spoken form — never normalize a dialect marker to a neighbouring region\'s variant; a speaker who says هلق did not say هسا. When a word is unclear, write the closest sound you heard, not the most common written form.' },
     stated_origin: { type: 'boolean', description: 'true only if the speaker says where they grew up or where they are from, in any language ("I grew up in X", "I am from X"). Saying they just came from somewhere (a shop, the gym, work), places they visited, or places they like does NOT count.' },
     influences: {
       type: 'array',

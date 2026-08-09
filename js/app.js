@@ -104,7 +104,14 @@ function flyToGuess(g) {
   // frame the whole circle rather than a fixed zoom, so a 30km guess and a 2000km guess
   // both read correctly
   const bounds = hasZone ? L.latLngBounds(g.zone).pad(0.25) : L.latLng(g.lat, g.lng).toBounds(r * 2.6);
-  map.flyToBounds(bounds, { duration: 2.4, easeLinearity: 0.15 });
+  // On phones the result peeks as a bottom sheet, so the flight frames the zone in the
+  // VISIBLE upper half instead of centering it behind the card.
+  const peeking = matchMedia('(max-width: 939px)').matches;
+  map.flyToBounds(bounds, {
+    duration: 2.4, easeLinearity: 0.15,
+    paddingTopLeft: [12, peeking ? 84 : 0],
+    paddingBottomRight: [12, peeking ? Math.round(window.innerHeight * 0.46) : 0],
+  });
 }
 
 // The answer can be anywhere on Earth, so "home" is the world.
@@ -482,6 +489,8 @@ function normalizeServer(resp) {
 function renderResult(v) {
   state = 'result';
   show('resultCard');
+  // fresh results peek on phones so the map — the best part of the answer — stays visible
+  $('#resultCard').classList.toggle('peek', matchMedia('(max-width: 939px)').matches);
   $('#fbFix').hidden = true;
   $('#fbActual').value = '';
   $('#fbCity').value = '';
@@ -661,6 +670,9 @@ function enterTypeMode() {
 function bindUI() {
   const wave = $('#wave');
   for (let i = 0; i < 24; i++) wave.appendChild(document.createElement('i'));
+
+  const handle = $('#sheetHandle');
+  if (handle) handle.onclick = () => $('#resultCard').classList.toggle('peek');
 
   const samplesEl = $('#samples');
   for (const s of SAMPLES) {
