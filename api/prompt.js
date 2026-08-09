@@ -69,7 +69,7 @@ export const SCHEMA = {
     lat: { type: 'number', description: 'latitude of the single best guess' },
     lng: { type: 'number', description: 'longitude of the single best guess' },
     radius_km: { type: 'integer', description: 'distance you are genuinely ~70% confident they grew up within — err wider, not narrower' },
-    place: { type: 'string', description: 'human-readable name of that point, e.g. "Aleppo, Syria"' },
+    place: { type: 'string', description: 'the nearest CITY to that point, always as "City, Country": "Kuwait City, Kuwait", never a bare country or region like "Kuwait" or "the Gulf". If the point is rural, name the closest notable city.' },
     region: { type: 'string', description: 'the TIGHTEST named accent region that covers your circle, one a local would accept: "the Gulf" not "the Middle East", "the Levant" not "the Arab world", "the American South" not "the United States", "West Africa" not "Africa". Continental or catch-all names are wrong answers here.' },
     zone: {
       type: 'array',
@@ -97,7 +97,7 @@ export const SCHEMA = {
         },
       },
     },
-    note: { type: 'string', description: 'one or two warm, honest sentences for the user about the verdict' },
+    note: { type: 'string', description: 'one or two warm, honest sentences for the user about the verdict. If where they grew up differs from what their voice sounds like — a diaspora childhood, an accent carried abroad — say both plainly and name the single word or sound that gave the childhood away.' },
   },
   required: ['has_speech', 'note'],
 };

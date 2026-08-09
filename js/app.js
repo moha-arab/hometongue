@@ -705,3 +705,22 @@ function lockFeedback() {
 
 initMap();
 bindUI();
+
+// A phone tab left open for days keeps running the JS it loaded, no matter what ships —
+// Mohammad tested the Kuwait card hours after the city-first fix deployed and still saw the
+// old region-first layout, because the page predated the deploy and was never reloaded. When
+// the tab comes back to the foreground, compare this file's ETag against the one we loaded
+// with; if the server has a newer build AND nothing is in progress, reload into it. Only ever
+// fires from the idle card so it can never eat a recording or a result.
+(() => {
+  let loadedTag = null;
+  const tagOf = () => fetch('/js/app.js', { method: 'HEAD', cache: 'no-store' })
+    .then((r) => r.headers.get('etag')).catch(() => null);
+  tagOf().then((t) => { loadedTag = t; });
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState !== 'visible' || state !== 'idle') return;
+    tagOf().then((t) => {
+      if (t && loadedTag && t !== loadedTag && state === 'idle') location.reload();
+    });
+  });
+})();
