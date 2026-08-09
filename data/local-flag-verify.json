@@ -1,0 +1,2478 @@
+{
+  "out": [
+    {
+      "id": "lang-korean",
+      "deck": "languages",
+      "label": "Korean",
+      "firstWhy": "SAYS PLACE: Seoul",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 32,
+          "end_s": 42,
+          "reveals": "Japan",
+          "quote": "\nbogi man haedo jigis jigis han hyeongsig sang ui anaega geori ilbon eoneu daehageul jorophaja maja buri e juggo marassda.\n"
+        },
+        {
+          "start_s": 127,
+          "end_s": 143,
+          "reveals": "Seoul",
+          "quote": "\nsae anae ui ttatteushan sarangeul alteul salteulhi hyang nag hagi wihae me, beollu mankeum bangi maneun gohyang eoneubureul tteonan georeun baram keut e kkos nallineun neujeun bome seoureuseo sinsallimeul charigiro doeeossda.\n"
+        }
+      ]
+    },
+    {
+      "id": "lang-indonesian",
+      "deck": "languages",
+      "label": "Indonesian",
+      "firstWhy": "SAYS PLACE: Indonesia",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 15,
+          "reveals": "Indonesia",
+          "quote": "Rekaman suara ini berisi versi lisan dari artikel Wikipedia bahasa Indonesia tentang Kartinah yang direkam oleh nama pengguna Aksinatum Aisyah."
+        },
+        {
+          "start_s": 22,
+          "end_s": 33,
+          "reveals": "Indonesia",
+          "quote": "Kartinah dari Wikipedia bahasa Indonesia, ensiklopedia gratis di id.wikipedia.org."
+        },
+        {
+          "start_s": 33,
+          "end_s": 42,
+          "reveals": "Indonesia",
+          "quote": "Kartinah adalah sebuah film Indonesia tahun 1940 yang kini dianggap film hilang."
+        },
+        {
+          "start_s": 55,
+          "end_s": 108,
+          "reveals": "Java, Hindia Belanda",
+          "quote": "Diproduseri oleh The Teng Chun dan New Java Industrial Film, Kartinah mendapatkan subsidi dari pemerintah Hindia Belanda dan dengan iklan mesin jahit."
+        },
+        {
+          "start_s": 108,
+          "end_s": 121,
+          "reveals": "Java",
+          "quote": "Biarpun tidak dinilai tinggi oleh kritikus, aktor-aktor baru yang bermain dalam film ini meningkatkan kemampuan produksi New Java Industrial Film."
+        },
+        {
+          "start_s": 208,
+          "end_s": 220,
+          "reveals": "Hindia Belanda, Indonesia",
+          "quote": "Tanggal rilis: tahun 1940, tahun Hindia Belanda. Negara: Indonesia, bahasa: Indonesia."
+        }
+      ]
+    },
+    {
+      "id": "lang-thai",
+      "deck": "languages",
+      "label": "Thai",
+      "firstWhy": "SAYS PLACE: Roi Et, Thailand",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 14.5,
+          "reveals": "Thailand",
+          "quote": "สมาน กุนัน จาก วิกิพีเดีย สารานุกรมเสรี ที่ th.wikipedia.org บันทึกเมื่อวันที่ 21 มีนาคม พุทธศักราช 2562"
+        },
+        {
+          "start_s": 37,
+          "end_s": 51.5,
+          "reveals": "Thailand",
+          "quote": "ฝ่ายรักษาความปลอดภัย หรือ รปภ. ท่าอากาศยานสุวรรณภูมิ บริษัท ท่าอากาศยานไทย จำกัด (มหาชน)"
+        },
+        {
+          "start_s": 51.5,
+          "end_s": 60,
+          "reveals": "Thailand",
+          "quote": "เขาเสียชีวิตจากเหตุการณ์ปฏิบัติการค้นหาและกู้ภัยถ้ำหลวง จนได้รับสมญานามว่า วีรบุรุษถ้ำหลวง"
+        },
+        {
+          "start_s": 101,
+          "end_s": 114,
+          "reveals": "Thailand",
+          "quote": "สมาน กุนัน เกิดเมื่อวันที่ 23 ธันวาคม พุทธศักราช 2523 ที่อำเภอจตุรพักตรพิมาน จังหวัดร้อยเอ็ด"
+        },
+        {
+          "start_s": 208,
+          "end_s": 230,
+          "reveals": "Thailand",
+          "quote": "ส่วนที่ 2 ผลงานด้านกีฬา สมาน กุนัน ยังเป็นทั้งนักไตรกีฬา นักวิ่งเทรลที่รู้จักกันดี และนักจักรยานสังกัดทีม 100 Plus ทีมจักรยานสมัครเล่นที่มีชื่อเสียงของประเทศไทย"
+        },
+        {
+          "start_s": 232,
+          "end_s": 255,
+          "reveals": "Thailand",
+          "quote": "สมาน กุนัน เคยคว้าแชมป์ Overall หรือการแข่งขันกีฬาผจญภัยรายการ The Abyss เกาะสมุย โทรฟี่ 2010 ครั้งที่ 2"
+        }
+      ]
+    },
+    {
+      "id": "lang-mandarin-chinese",
+      "deck": "languages",
+      "label": "Mandarin Chinese",
+      "firstWhy": "SAYS PLACE: China",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 16,
+          "end_s": 46.5,
+          "reveals": "China, Beijing",
+          "quote": "中华人民共和国，简称中国，是位于亚洲东部太平洋西岸的一个社会主义国家，首都为北京，其陆地疆域与周边14个国家接壤，陆地及湖泊的总面积约960万平方公里，是全世界陆地面积第二大的国家，总面积第三或第四大的国家，其人口超过13亿，约占全球人口的五分之一，是世界上人口最多的国家。"
+        },
+        {
+          "start_s": 47,
+          "end_s": 62.5,
+          "reveals": "China",
+          "quote": "作为社会主义国家，中华人民共和国以马克思列宁主义为意识形态，以中国特色社会主义理论指导党事，并由宪法所赋予中国共产党执政，实行中国共产党领导的多党合作和政治协商制度。"
+        },
+        {
+          "start_s": 63.5,
+          "end_s": 135.5,
+          "reveals": "China",
+          "quote": "1949年10月1日的开国大典中，中华人民共和国中央人民政府正式宣告成立。全国划分为23个省，5个自治区，4个直辖市和2个特别行政区。"
+        },
+        {
+          "start_s": 136,
+          "end_s": 159.5,
+          "reveals": "China",
+          "quote": "中华人民共和国是多民族国家，其中汉族占总人口的91.59%，其余55个民族为少数民族，国家认定的56个民族合称中华民族。"
+        },
+        {
+          "start_s": 160,
+          "end_s": 207.5,
+          "reveals": "China",
+          "quote": "中华人民共和国没有明确规定的国家语言，以汉语普通话和规范简化汉字为国家通用语言文字。"
+        },
+        {
+          "start_s": 208,
+          "end_s": 234.5,
+          "reveals": "China",
+          "quote": "中国传统上是以祖先信仰为主的国家，并具有儒、释、道三教合流的宗教信仰传统和特点... 中华人民共和国后，官方奉行无神论..."
+        },
+        {
+          "start_s": 235.5,
+          "end_s": 333.5,
+          "reveals": "China",
+          "quote": "中华人民共和国是国际社会的重要一员... 另外，中国拥有世界现役士兵最多的军队..."
+        },
+        {
+          "start_s": 335,
+          "end_s": 360,
+          "reveals": "China",
+          "quote": "名称：中华人民共和国的正式国名于1949年由中国人民政治协商会议筹备会议确定。"
+        }
+      ]
+    },
+    {
+      "id": "lang-hausa",
+      "deck": "languages",
+      "label": "Hausa",
+      "firstWhy": "SAYS PLACE: Ghana, Jamus",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 2,
+          "end_s": 20,
+          "reveals": "Ghana and Germany",
+          "quote": "Yan Ghana a Jamus daga Wikipedia encyclopedia na keta a kan www.wikipedia.org"
+        },
+        {
+          "start_s": 33,
+          "end_s": 45,
+          "reveals": "Ghana and Germany",
+          "quote": "Lansan Ghanawa a Jamus su ba kini daga cikin Jamus da zuriyar su daga zaune da aiki a Jamus"
+        },
+        {
+          "start_s": 46,
+          "end_s": 59,
+          "reveals": "Ghana and Germany",
+          "quote": "Yan Ghana a Jamus an ce su ne na biyu mafi girma a cikin yawon kabilun kasashen aturai bayan Ingila"
+        },
+        {
+          "start_s": 100,
+          "end_s": 126,
+          "reveals": "Ghana, Germany, and Togo",
+          "quote": "Tarihi. Tun kafin samun 'yancin kai kasar Ghana a 1957, akwai dangantaka tsakanin Ghana da Jamus"
+        }
+      ]
+    },
+    {
+      "id": "lang-amharic",
+      "deck": "languages",
+      "label": "Amharic",
+      "firstWhy": "SAYS PLACE: Ethiopia",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 1.21,
+          "end_s": 1.35,
+          "reveals": "Eritrea, Ethiopia, and Isaias Afwerki",
+          "quote": "ኃይለ ኢሳይያስ ቋ ኤርትራዊ ይኄይል ለዘላፉ ለእርገተ ሰማይ ኢትዮጵያ"
+        },
+        {
+          "start_s": 2.01,
+          "end_s": 2.38,
+          "reveals": "Eritrea and Ethiopia",
+          "quote": "ትርጉሙ ለኃይለ ኢሳይያስ ቋ ኤርትራዊ ኤርትራዊ የኤርትራ ሰው የሚሆን ወደ ኢትዮጵያ ሰማይ ለመውጣት አልቻለም"
+        }
+      ]
+    },
+    {
+      "id": "lang-swahili",
+      "deck": "languages",
+      "label": "Swahili",
+      "firstWhy": "SAYS PLACE: Washington DC",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 22,
+          "end_s": 31,
+          "reveals": "Washington D.C.",
+          "quote": "Ulikuwa ni ustakiliza Idhaa ya Kiswahili ya Sauti ya Amerika kutokea Washington D.C."
+        },
+        {
+          "start_s": 109,
+          "end_s": 120,
+          "reveals": "Kenya",
+          "quote": "Katika taarifa za afya zilizotolewa Januari mwaka huu huko Kenya, ilielezwa kwamba dawa ya Ivermectin ilitumika kama majaribio ya kuzuia malaria nchini Kenya."
+        },
+        {
+          "start_s": 148,
+          "end_s": 159,
+          "reveals": "Kenya",
+          "quote": "Tayari serikali kupitia mpango wa ufadhili wa Rais wa Marekani umegawe viandarua milioni 15 katika majimbo 22 kati ya 47 nchini Kenya."
+        },
+        {
+          "start_s": 159,
+          "end_s": 211,
+          "reveals": "Kenya",
+          "quote": "Wakati huo huo madaktari watafiti wa Kenya wamepongeza mpango wa Shirika la Afya Ulimwenguni kupitisha chanjo ya malaria katika mataifa matatu ya Afrika ikiwemo Kenya."
+        },
+        {
+          "start_s": 226,
+          "end_s": 241,
+          "reveals": "Kenya, Ghana, and Malawi",
+          "quote": "Sasa tangu mwaka wa 2019, WHO wakishirikiana na serikali ya Kenya, Ghana na Malawi wamekuwa wakiangalia hii vaccine, hii chanjo..."
+        },
+        {
+          "start_s": 256,
+          "end_s": 305,
+          "reveals": "Uganda and DRC",
+          "quote": "Baadhi ya mataifa ya Afrika ikiwemo Uganda na DRC yameathiriwa na ugonjwa wa Mpox uliozuka katikati ya mwaka huu."
+        }
+      ]
+    },
+    {
+      "id": "lang-italian",
+      "deck": "languages",
+      "label": "Italian",
+      "firstWhy": "SAYS PLACE: Fonni",
+      "dur": 225.651519,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 13,
+          "end_s": 24,
+          "reveals": "Fonni, Nuoro, Sardinia (Italy)",
+          "quote": "Fonni, Onne, Honne o Fonne in sardo, è un comune italiano di 3968 abitanti della provincia di Nuoro in Sardegna."
+        },
+        {
+          "start_s": 24,
+          "end_s": 32,
+          "reveals": "Barbagia di Ollolai (Sardinia)",
+          "quote": "Si trova nell'antica subregione storica della Barbagia di Ollolai, della quale rappresenta il centro più importante."
+        },
+        {
+          "start_s": 38,
+          "end_s": 56,
+          "reveals": "Gennargentu, Sardinia, Bruncu Spina, Monte Spada",
+          "quote": "Adagiato sulle pendici settentrionali del Gennargentu, ad un'altitudine di 1000 metri, è il paese più alto della Sardegna."
+        },
+        {
+          "start_s": 58,
+          "end_s": 104,
+          "reveals": "Fonni",
+          "quote": "Vedi stazione meteorologica di Fonni."
+        },
+        {
+          "start_s": 217,
+          "end_s": 224,
+          "reveals": "Fonni",
+          "quote": "Gli abitanti di Fonni censiti al 2011 erano di 4062."
+        },
+        {
+          "start_s": 228,
+          "end_s": 242,
+          "reveals": "Fonni",
+          "quote": "Fonni è famoso anche per la produzione dolciaria dei tipici biscotti savoiardi di Fonni, e per il palio di Fonni o palio dei comuni, che si svolge ogni anno nel galoppatoio comunale la prima domenica di agosto."
+        },
+        {
+          "start_s": 246,
+          "end_s": 317,
+          "reveals": "Fonni, Sardinia, Desulo, Buddusò, Villagrande Strisaili, Ogliastra",
+          "quote": "Da Fonni partono le strade che conducono ai due più alti valichi automobilistici della Sardegna: lungo la strada provinciale 7 il Passo di Tascusì verso Desulo, e lungo la strada statale 389 di Buddusò e del Correboi il Passo di Correboi verso Villagrande Strisaili e l'Ogliastra."
+        }
+      ]
+    },
+    {
+      "id": "lang-german",
+      "deck": "languages",
+      "label": "German",
+      "firstWhy": "SAYS PLACE: Hannover",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 15,
+          "end_s": 22.5,
+          "reveals": "Hannover, Germany",
+          "quote": "Der Alemannenturm in Hannover im Stadtteil Ahlem ist eine ehemalige Ausflugsgaststätte."
+        },
+        {
+          "start_s": 109,
+          "end_s": 123,
+          "reveals": "Alfeld and Hannover, Germany",
+          "quote": "Von der Tierhandlung Guhr aus Alfeld (Leine), die schon seit 1924 exotische Tiere an den Zoo Hannover lieferte, erwarb Elers Tiere, mit denen er am Alemannenturm einen kleinen Zoo errichtete."
+        },
+        {
+          "start_s": 219,
+          "end_s": 229.5,
+          "reveals": "Niedersachsen, Germany",
+          "quote": "Von 1963 bis 2004 war das Gebäude Sitz einer etwa 100-köpfigen Dienststelle der Autobahnpolizei der Polizei Niedersachsen."
+        },
+        {
+          "start_s": 230,
+          "end_s": 246,
+          "reveals": "Hannover and Niedersachsen, Germany",
+          "quote": "Im Jahr 2007 erwarb der 2003 gegründete gemeinnützige thailändische buddhistische Verein Wat Dhammavihara Buddhisten-Verein Hannover e.V. den renovierungsbedürftigen Alemannenturm von Land Niedersachsen."
+        }
+      ]
+    },
+    {
+      "id": "lang-polish",
+      "deck": "languages",
+      "label": "Polish",
+      "firstWhy": "SAYS PLACE: Dublin",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 10,
+          "end_s": 20,
+          "reveals": "Dublin and Limerick, Ireland",
+          "quote": "Sir Richard Bourke (urodzony 4 maja 1777 w Dublinie, zmarł 14 sierpnia 1855 w Limerick)"
+        },
+        {
+          "start_s": 20,
+          "end_s": 30,
+          "reveals": "Britain and New South Wales",
+          "quote": "brytyjski prawnik, oficer i administrator kolonialny. W latach 1831–37 był gubernatorem Nowej Południowej Walii."
+        },
+        {
+          "start_s": 30,
+          "end_s": 37,
+          "reveals": "Poland and Australia",
+          "quote": "Polski historyk Wiesław Olszewski określił go mianem najwybitniejszego praktyka liberalizmu w Australii."
+        },
+        {
+          "start_s": 37,
+          "end_s": 43,
+          "reveals": "Oxford",
+          "quote": "Był absolwentem studiów prawniczych w Christ Church w Oxfordzie."
+        },
+        {
+          "start_s": 53,
+          "end_s": 66,
+          "reveals": "Britain, the Netherlands, South America, and Montevideo",
+          "quote": "W 1798 wstąpił do brytyjskiej armii. Początkowo służył w Niderlandach. Następnie został wysłany do Ameryki Południowej, gdzie między innymi brał udział w oblężeniu i zdobyciu Montevideo"
+        },
+        {
+          "start_s": 111,
+          "end_s": 117,
+          "reveals": "Ireland",
+          "quote": "Wkrótce potem przeszedł na wojskową emeryturę i osiadł w swoich dobrach rodowych w Irlandii."
+        },
+        {
+          "start_s": 128,
+          "end_s": 140,
+          "reveals": "South Africa and the Cape Colony",
+          "quote": "Początkowo był jednym z administratorów średniego szczebla w Afryce Południowej, a w latach 1826-28 zajmował nawet stanowisko tymczasowego gubernatora Kolonii Przylądkowej."
+        },
+        {
+          "start_s": 140,
+          "end_s": 151,
+          "reveals": "New South Wales, Britain, and Australia",
+          "quote": "W 1831 został mianowany gubernatorem Nowej Południowej Walii. Stanowiło to wówczas zdecydowanie najważniejsze stanowisko w całej brytyjskiej administracji w koloniach australijskich."
+        },
+        {
+          "start_s": 156,
+          "end_s": 201,
+          "reveals": "Australia",
+          "quote": "Podstawowym zadaniem, jakie postawił przed sobą Bourke po przybyciu do Australii"
+        },
+        {
+          "start_s": 236,
+          "end_s": 240,
+          "reveals": "England",
+          "quote": "zbliżony do tego, obowiązującego w Anglii."
+        },
+        {
+          "start_s": 247,
+          "end_s": 255,
+          "reveals": "Australia",
+          "quote": "bowiem wcześniej w Australii zdarzały się nawet kary tysiąca batów"
+        },
+        {
+          "start_s": 305,
+          "end_s": 312,
+          "reveals": "New South Wales",
+          "quote": "wprowadzając zasadę, iż w Nowej Południowej Walii nie ma ziemi niczyjej"
+        },
+        {
+          "start_s": 342,
+          "end_s": 348,
+          "reveals": "Ireland",
+          "quote": "Po zakończonej kadencji gubernatorskiej powrócił do Irlandii"
+        }
+      ]
+    },
+    {
+      "id": "wild-amritsar-punjab-india",
+      "deck": "accents",
+      "label": "Amritsar / Punjab, India",
+      "firstWhy": "SAYS PLACE: India",
+      "dur": 148.25941,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 11,
+          "reveals": "India and the United States",
+          "quote": "India and the United States have much in common that is very important to both our countries."
+        },
+        {
+          "start_s": 32,
+          "end_s": 44,
+          "reveals": "United States",
+          "quote": "We admire the creativity, the spirit of adventure and enterprise of the American people,"
+        },
+        {
+          "start_s": 56,
+          "end_s": 114,
+          "reveals": "India",
+          "quote": "These have attracted the brightest young minds from India creating a bridge of understanding that transcends both distance and differences between us."
+        }
+      ]
+    },
+    {
+      "id": "lang-swedish",
+      "deck": "languages",
+      "label": "Swedish",
+      "firstWhy": "SAYS PLACE: Rödeby",
+      "dur": 147.760181,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 6,
+          "reveals": "Rödeby, Karlskrona, Blekinge (Sweden)",
+          "quote": "Rödeby. Rödeby är en tätort i Rödeby församling i Karlskrona kommun i Blekinge län."
+        },
+        {
+          "start_s": 6,
+          "end_s": 14,
+          "reveals": "Rödeby, Karlskrona (Sweden)",
+          "quote": "Allmänt. Rödeby ligger cirka 12 km norr om Karlskrona och är efter Karlskrona den största tätorten i Karlskrona kommun."
+        },
+        {
+          "start_s": 14,
+          "end_s": 21,
+          "reveals": "Sweden, Rödeby",
+          "quote": "Orten har en av Sveriges största grundskolor, Rödebyskolan, med strax över 1000 elever och lärare."
+        },
+        {
+          "start_s": 24,
+          "end_s": 29,
+          "reveals": "Rödeby, Karlskrona (Sweden)",
+          "quote": "Rödeby var först i Karlskrona kommun med satsningen inom trådlöst bredband."
+        },
+        {
+          "start_s": 29,
+          "end_s": 35,
+          "reveals": "Rödeby (Sweden)",
+          "quote": "I Rödeby finns ett sjukhem, ett servicehus för äldre samt ett antal boende för handikappade."
+        },
+        {
+          "start_s": 49,
+          "end_s": 58,
+          "reveals": "Rödeby, Karlskrona (Sweden)",
+          "quote": "Rödebys läge och stora serviceutbud gör orten attraktiv för inte minst barnfamiljer, men även äldre då orten har bra förbindelser med Karlskrona."
+        },
+        {
+          "start_s": 58,
+          "end_s": 64,
+          "reveals": "Rödeby (Sweden)",
+          "quote": "Runt Rödeby finns ett antal större och mindre sjöar som erbjuder bad på sommaren och skridskoåkning på vintern."
+        },
+        {
+          "start_s": 104,
+          "end_s": 110,
+          "reveals": "Rödeby (Sweden)",
+          "quote": "År 2007 ägde de så kallade Skotten i Rödeby rum strax norr om Rödeby."
+        },
+        {
+          "start_s": 110,
+          "end_s": 118,
+          "reveals": "Rödeby (Sweden)",
+          "quote": "Idrott och hobby. I anslutning till Rödebyskolan finns elljusspår, en simhall med tillhörande solarium och gym samt en utomhusbassäng."
+        },
+        {
+          "start_s": 118,
+          "end_s": 127,
+          "reveals": "Rödeby (Sweden)",
+          "quote": "I Rödeby verkar fotbollsföreningen Rödeby AIF. Laget spelar sina matcher på den stora fotbollsanläggningen Åvallen som är belägen i Rödeby."
+        },
+        {
+          "start_s": 131,
+          "end_s": 137,
+          "reveals": "Rödeby (Sweden)",
+          "quote": "I Rödeby finns en skidbacke, Rödebybacken, med liftsystem och snökanoner."
+        },
+        {
+          "start_s": 137,
+          "end_s": 148,
+          "reveals": "Rödeby (Sweden)",
+          "quote": "I anslutning till Rödebybacken ligger Dackestugan där orienteringsklubben OK Dacke har sin verksamhet."
+        },
+        {
+          "start_s": 148,
+          "end_s": 154,
+          "reveals": "Rödeby (Sweden)",
+          "quote": "Rödeby har även en gymnastikförening som erbjuder allt från barngymnastik till seniorgymnastik."
+        },
+        {
+          "start_s": 154,
+          "end_s": 165,
+          "reveals": "Sweden, Rödeby",
+          "quote": "Orten har sydöstra Sveriges längsta motocrossbana som är belägen i utkanten av Rödeby."
+        },
+        {
+          "start_s": 165,
+          "end_s": 175,
+          "reveals": "Rödeby (Sweden)",
+          "quote": "I sydvästra delen av Rödeby finns en så kallad pay and play 12-håls golfbana med tillhörande driving range för den som vill prova på att spela golf."
+        },
+        {
+          "start_s": 141,
+          "end_s": 147,
+          "reveals": "Rödeby (Sweden)",
+          "quote": "I Rödeby verkar också Rödeby scoutkår som varje år arrangerar tipspromenaden Rödebylunken."
+        }
+      ]
+    },
+    {
+      "id": "wild-huddersfield-west-yorkshire-england",
+      "deck": "accents",
+      "label": "Huddersfield, West Yorkshire, England",
+      "firstWhy": "FAMOUS: Wilf Lunn",
+      "dur": 28.232472,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 11,
+          "reveals": "speaker's name",
+          "quote": "My name's Wilf Lunn, which I always have an apostrophe after the F, because the rest missing, because my original name was Wilfred Makepeace Lunn."
+        }
+      ]
+    },
+    {
+      "id": "wild-georgetown-south-carolina-usa-us-south",
+      "deck": "accents",
+      "label": "Georgetown, South Carolina, USA (US South)",
+      "firstWhy": "SAYS PLACE: South Carolina, USA, New York City, Los Angeles",
+      "dur": 41.586939,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 3.2,
+          "reveals": "speaker identity (Bill Oberst Jr.)",
+          "quote": "My name is Bill Oberst Jr."
+        },
+        {
+          "start_s": 1.5,
+          "end_s": 9.2,
+          "reveals": "South Carolina, USA, New York City, Los Angeles",
+          "quote": "I grew up in rural South Carolina in the USA, I've lived in New York City and Los Angeles."
+        }
+      ]
+    },
+    {
+      "id": "accents-jamaica-english-jamaican-patois",
+      "deck": "accents",
+      "label": "Jamaica",
+      "firstWhy": "SAYS PLACE: Jamaica",
+      "dur": 236.061315,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 32,
+          "end_s": 44,
+          "reveals": "Jamaica",
+          "quote": "and sometimes when I speak like real deep Patois because I'm from pretty much like the northeast side of the Caribbean, Jamaica, and it's just like"
+        }
+      ]
+    },
+    {
+      "id": "lang-hungarian",
+      "deck": "languages",
+      "label": "Hungarian",
+      "firstWhy": "SAYS PLACE: Törökország",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 4,
+          "reveals": "Turkey",
+          "quote": "Törökország. A Wikipédiából, a szabad enciklopédiából."
+        },
+        {
+          "start_s": 4,
+          "end_s": 13,
+          "reveals": "Turkey",
+          "quote": "A Török Köztársaság (törökül Türkiye Cumhuriyeti) területének kisebbik része Európában, nagyobbik része Ázsiában, Nyugat-Ázsiában fekszik."
+        },
+        {
+          "start_s": 13,
+          "end_s": 20,
+          "reveals": "Turkey",
+          "quote": "Az Anatóliai-félsziget, amely a Fekete-tenger és a Földközi-tenger között helyezkedik el, alkotja az ország fő területét."
+        },
+        {
+          "start_s": 20,
+          "end_s": 28,
+          "reveals": "Turkey (neighboring countries)",
+          "quote": "Északról Grúzia, Örményország és Irán, délről Irak és Szíria, míg nyugatról az Égei-tenger szigetei, Görögország és Bulgária határolja."
+        },
+        {
+          "start_s": 28,
+          "end_s": 34,
+          "reveals": "Turkey",
+          "quote": "Történelem. Anatólia, Kis-Ázsia az ókorban több civilizációnak és királyságnak volt a bölcsője."
+        },
+        {
+          "start_s": 35,
+          "end_s": 46,
+          "reveals": "Turkey",
+          "quote": "A szeldzsuk törökök a 14. században hódították meg a területet, a korábban itt élő török törzsek a Bizánci Birodalom alattvalói voltak, és folyamatosan elfoglalták az akkori Bizánci Birodalmat."
+        },
+        {
+          "start_s": 46,
+          "end_s": 56,
+          "reveals": "Turkey",
+          "quote": "Ezt az Oszmán Birodalom fejezte be a 15. században Konstantinápoly elfoglalásával, majd a birodalmukat kiterjesztették a Földközi-tenger keleti részére."
+        },
+        {
+          "start_s": 103,
+          "end_s": 112,
+          "reveals": "Turkey",
+          "quote": "A Török Köztársaságot 1923-ban alapította Mustafa Kemal Atatürk, aki az országot modern, világi és nyugat-orientált állammá változtatta."
+        },
+        {
+          "start_s": 121,
+          "end_s": 128,
+          "reveals": "Turkey",
+          "quote": "Törökország 1952-ben lett a NATO tagja, és célul tűzte ki az Európai Unióhoz való csatlakozást."
+        },
+        {
+          "start_s": 128,
+          "end_s": 139,
+          "reveals": "Turkey",
+          "quote": "A ciprusi török jelenlét, a régóta tartó kurd felkelés keleten, és az iszlám növekvő politikai jelenléte táplálja a közéleti vitákat, és befolyásolja az ország nemzetközi kapcsolatait."
+        },
+        {
+          "start_s": 220,
+          "end_s": 228,
+          "reveals": "Turkey",
+          "quote": "Az egykamarás török parlament, a Nagy Török Nemzetgyűlés vagy Türkiye Büyük Millet Meclisi a törvényhozó testület."
+        },
+        {
+          "start_s": 238,
+          "end_s": 248,
+          "reveals": "Turkey",
+          "quote": "Törökországban néhány kisebbséget, főleg a kurdokat politikailag megkülönböztetik."
+        },
+        {
+          "start_s": 257,
+          "end_s": 310,
+          "reveals": "Turkey",
+          "quote": "Földrajz. Törökország hidat képez Európa és Ázsia között. A két kontinenst, a Fekete-tengert a Földközi-tengertől elválasztó Márvány-tenger választja el egymástól a Boszporusz és a Dardanellák tengerszorosokkal."
+        },
+        {
+          "start_s": 310,
+          "end_s": 331,
+          "reveals": "Turkey",
+          "quote": "A kis-ázsiai félsziget egy központi fennsíkból és keskeny tengerparti síkságokból áll, északon a Pontus, délen a Taorosz hegylánc határolja. Keleten hegyek vannak, és itt ered az Eufrátesz, a Tigris és az Arasz folyó, itt található a Van-tó, valamint az Ararát-hegy, Törökország legmagasabb pontja."
+        },
+        {
+          "start_s": 339,
+          "end_s": 343,
+          "reveals": "Turkey",
+          "quote": "Törökországban előfordulnak erős földrengések is."
+        },
+        {
+          "start_s": 343,
+          "end_s": 353,
+          "reveals": "Turkey (Ankara, Istanbul)",
+          "quote": "Fővárosa Ankara, legnagyobb városa Isztambul, fontosabb városok Izmir, Bursa, Adana, İzmit, Konya, Diyarbakır, Samsun."
+        },
+        {
+          "start_s": 353,
+          "end_s": 359,
+          "reveals": "Turkey",
+          "quote": "Gazdaság. Törökország dinamikus gazdasága a keveréke a modern iparnak és kereskedelemnek."
+        }
+      ]
+    },
+    {
+      "id": "accents-kenya-english-kenyan",
+      "deck": "accents",
+      "label": "Kenya",
+      "firstWhy": "SAYS PLACE: Kenya",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 8.8,
+          "reveals": "Kenya",
+          "quote": "We are talking with the man who the day before broke the world record at 800 meters which has stood for almost 13 years, David Rudisha of Kenya."
+        }
+      ]
+    },
+    {
+      "id": "wild-mbaise-imo-state-nigeria",
+      "deck": "accents",
+      "label": "Mbaise, Imo State, Nigeria",
+      "firstWhy": "SAYS PLACE: Southeast Nigeria",
+      "dur": 48.213016,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 5.5,
+          "reveals": "name Leo Igwe and country Nigeria",
+          "quote": "My name is Leo Igwe, I am from Southeast Nigeria"
+        },
+        {
+          "start_s": 17.5,
+          "end_s": 26,
+          "reveals": "University of Bayreuth and continent Africa",
+          "quote": "then I did doctoral program in religious studies at the University of Bayreuth where I researched on witchcraft accusation in Africa."
+        },
+        {
+          "start_s": 26,
+          "end_s": 36.5,
+          "reveals": "continent Africa",
+          "quote": "And I think that skepticism can be of benefit to Africa because we in Africa we have a lot of problem when it comes to superstition and irrational beliefs."
+        }
+      ]
+    },
+    {
+      "id": "wild-melbourne-australia",
+      "deck": "accents",
+      "label": "Melbourne, Australia",
+      "firstWhy": "SAYS PLACE: Melbourne, Victoria, Australia",
+      "dur": 37.866032,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 1,
+          "end_s": 8.8,
+          "reveals": "Melbourne, Victoria, Australia",
+          "quote": "I was born in Melbourne, Victoria, Australia on the 4th of April 1987."
+        },
+        {
+          "start_s": 7,
+          "end_s": 15,
+          "reveals": "Box Hill Institute of TAFE (Melbourne, Australia)",
+          "quote": "I got a Bachelor of Applied Music at the Box Hill Institute of TAFE."
+        }
+      ]
+    },
+    {
+      "id": "wild-mvezo-eastern-cape-south-africa",
+      "deck": "accents",
+      "label": "Mvezo / Eastern Cape, South Africa",
+      "firstWhy": "SAYS PLACE: South Africa",
+      "dur": 240,
+      "famous": "Nelson Mandela",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 19,
+          "reveals": "South Africa and the United States",
+          "quote": "South Africa is located many thousands of miles away from the United States."
+        },
+        {
+          "start_s": 151,
+          "end_s": 208,
+          "reveals": "South Africa and the United States",
+          "quote": "The people of the United States, black and white, have joined joined in the battle to liberate South Africa."
+        },
+        {
+          "start_s": 208,
+          "end_s": 228,
+          "reveals": "South Africa",
+          "quote": "The people of South Africa, after many years of peaceful struggle, when all channels of communication were closed, decided to resort to arms."
+        },
+        {
+          "start_s": 253,
+          "end_s": 303,
+          "reveals": "South Africa",
+          "quote": "They put a lot of pressure on the South African regime to abandon apartheid."
+        }
+      ]
+    },
+    {
+      "id": "accents-new-zealand-english-new-zealand",
+      "deck": "accents",
+      "label": "New Zealand",
+      "firstWhy": "SAYS PLACE: New Zealand",
+      "dur": 178.213197,
+      "famous": "Jacinda Ardern",
+      "spans": [
+        {
+          "start_s": 1.48,
+          "end_s": 1.57,
+          "reveals": "New Zealand",
+          "quote": "Western democracies are seeing it and experiencing examples in New Zealand is no different."
+        }
+      ]
+    },
+    {
+      "id": "accents-aberdeenshire-scotland-english-northeast-scotl",
+      "deck": "accents",
+      "label": "Northeast Scotland, Scotland",
+      "firstWhy": "SAYS PLACE: Edinburgh",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 10,
+          "reveals": "Edinburgh, Scotland",
+          "quote": "Well, my name's David Campbell, I was born in Edinburgh, but very shortly afterwards, by the time I was five, I was in the North East."
+        },
+        {
+          "start_s": 253,
+          "end_s": 301,
+          "reveals": "Scotland and Ireland",
+          "quote": "There was a time when the high king of Erin and Alba, that's Scotland and Ireland, was looking for a runner..."
+        },
+        {
+          "start_s": 309,
+          "end_s": 328,
+          "reveals": "Brittany and Scotland",
+          "quote": "And ultimately, there were only three contestants: Carnar from Brittany, Torramad from Scotland, and a man called Caoilte, who was the great champion of the Fianna, which was a great Celtic group of heroes."
+        },
+        {
+          "start_s": 328,
+          "end_s": 338,
+          "reveals": "Brittany, Cornwall, and Cork",
+          "quote": "Now, it was said that Carnar could take a running hop, step and jump from Brittany to Cornwall to Cork before the sun rose."
+        },
+        {
+          "start_s": 338,
+          "end_s": 350,
+          "reveals": "Scotland",
+          "quote": "And it was said that Torramad from Scotland was so swift that he had to run any race on his hands to give the others any chance."
+        }
+      ]
+    },
+    {
+      "id": "accents-namibia-english-namibian",
+      "deck": "accents",
+      "label": "Namibia",
+      "firstWhy": "SAYS PLACE: Namibia",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 3,
+          "end_s": 8,
+          "reveals": "Namibia",
+          "quote": "I come from Namibia."
+        },
+        {
+          "start_s": 17,
+          "end_s": 24,
+          "reveals": "Namibia",
+          "quote": "My language is primary spoken in the panhandle of Namibia, if you ever check out our map."
+        },
+        {
+          "start_s": 132,
+          "end_s": 137,
+          "reveals": "Botswana",
+          "quote": "It is spoken in Botswana across the border."
+        },
+        {
+          "start_s": 141,
+          "end_s": 147,
+          "reveals": "Zambia",
+          "quote": "the language called Tonga in over the border in Zambia for example"
+        },
+        {
+          "start_s": 220,
+          "end_s": 227,
+          "reveals": "Namibia",
+          "quote": "So anyway, I want in general going forward to contribute more Namibian languages; Namibia is basically divided into three language groups."
+        },
+        {
+          "start_s": 314,
+          "end_s": 319,
+          "reveals": "Namibia",
+          "quote": "Germany was the first colonial power of Namibia, so they have descendants that are here."
+        },
+        {
+          "start_s": 343,
+          "end_s": 349,
+          "reveals": "Namibia",
+          "quote": "We have the Bantu language groups and we have the Khoisan language groups in Namibia."
+        }
+      ]
+    },
+    {
+      "id": "accents-nigeria-nigerian-pidgin",
+      "deck": "accents",
+      "label": "Nigeria",
+      "firstWhy": "SAYS PLACE: Nigeria",
+      "dur": 201.408027,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 36,
+          "end_s": 43,
+          "reveals": "Nigeria (\"Naija\")",
+          "quote": "But my code way dey here won finish me, no be de kind code way dey speak for Naija."
+        },
+        {
+          "start_s": 43,
+          "end_s": 47,
+          "reveals": "Nigeria",
+          "quote": "I come from Nigeria, sha."
+        },
+        {
+          "start_s": 47,
+          "end_s": 59,
+          "reveals": "Nigeria",
+          "quote": "For Nigeria, we be better people oh, we get plentiful food, we be people way dey accommodate others, we dey very friendly, and we like jollof rice."
+        },
+        {
+          "start_s": 58,
+          "end_s": 105,
+          "reveals": "Nigeria and Africa",
+          "quote": "If you don't come Nigeria, or maybe you won come Africa, make sure say you come Nigeria."
+        },
+        {
+          "start_s": 105,
+          "end_s": 108,
+          "reveals": "Nigeria",
+          "quote": "Make sure say you chop Nigerian jollof."
+        },
+        {
+          "start_s": 117,
+          "end_s": 127,
+          "reveals": "Nigeria and Igbo region",
+          "quote": "For Nigeria, I come from the Igbo-speaking part of Nigeria, we be the Southeasterners, we dey speak Igbo."
+        },
+        {
+          "start_s": 148,
+          "end_s": 156,
+          "reveals": "Nigeria and Nigerian ethnic groups (Igbo, Hausa, Yoruba)",
+          "quote": "So for Nigeria, even if say na Igbo, na Hausa, na Yoruba, way you go inside house, the people way dey there dey chop."
+        },
+        {
+          "start_s": 215,
+          "end_s": 221,
+          "reveals": "Nigeria (\"Naija\")",
+          "quote": "But for Naija, person go tell you come chop, and you fit wash your hand go chop."
+        }
+      ]
+    },
+    {
+      "id": "wild-sarnia-milton-ontario-canada",
+      "deck": "accents",
+      "label": "Sarnia / Milton, Ontario, Canada",
+      "firstWhy": "SAYS PLACE: Houston, Canada",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 4,
+          "reveals": "Houston",
+          "quote": "Station, this is Houston. Are you ready for the event?"
+        },
+        {
+          "start_s": 5,
+          "end_s": 11,
+          "reveals": "International Space Station",
+          "quote": "Houston, this is the International Space Station. I am ready for the event."
+        },
+        {
+          "start_s": 11,
+          "end_s": 18,
+          "reveals": "Canada and Houston",
+          "quote": "Canada Aviation and Space Museum, this is Mission Control Houston. Please call station for a voice check."
+        },
+        {
+          "start_s": 19,
+          "end_s": 26,
+          "reveals": "Annabelle Cloutier and Canada Aviation and Space Museum",
+          "quote": "Station, this is Annabelle Cloutier at the Canada Aviation and Space Museum. How do you hear me?"
+        },
+        {
+          "start_s": 27,
+          "end_s": 38,
+          "reveals": "International Space Station and Aviation and Space Museum",
+          "quote": "I read you loud and clear from here on the International Space Station. Everyone at the Aviation and Space Museum, go ahead."
+        },
+        {
+          "start_s": 42,
+          "end_s": 52,
+          "reveals": "Chris (astronaut Chris Hadfield)",
+          "quote": "Hi Chris, we're so proud of you, and we're following your adventures there."
+        },
+        {
+          "start_s": 234,
+          "end_s": 245,
+          "reveals": "Conall Sloan and Corpus Christi School",
+          "quote": "Hi, my name's Conall Sloan from Corpus Christi School in grade six, and I was wondering..."
+        }
+      ]
+    },
+    {
+      "id": "accents-wales-english-welsh",
+      "deck": "accents",
+      "label": "Wales",
+      "firstWhy": "SAYS PLACE: Wales",
+      "dur": 75.733333,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 36,
+          "end_s": 47,
+          "reveals": "Wales",
+          "quote": "But it's also been a year of determination and bravery from so many people all across Wales who have worked to support us and keep us safe."
+        }
+      ]
+    },
+    {
+      "id": "wild-the-bronx-new-york-city-usa",
+      "deck": "accents",
+      "label": "The Bronx, New York City, USA",
+      "firstWhy": "SAYS PLACE: Bronx, New York",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 1.15,
+          "end_s": 1.19,
+          "reveals": "Puerto Rico",
+          "quote": "My parents left Puerto Rico during World War II."
+        },
+        {
+          "start_s": 1.18,
+          "end_s": 1.3,
+          "reveals": "The Bronx, New York",
+          "quote": "I grew up in modest circumstances in a Bronx housing project, my father, a factory worker with a third grade education, passed away when I was nine years old."
+        },
+        {
+          "start_s": 1.52,
+          "end_s": 2.05,
+          "reveals": "Princeton University and Yale Law School",
+          "quote": "I poured myself into my studies at Cardinal Spellman High School, earning scholarships to Princeton University and then Yale Law School, while my brother went on to medical school."
+        },
+        {
+          "start_s": 2.4,
+          "end_s": 2.46,
+          "reveals": "New York",
+          "quote": "My first job after law school was as an assistant district attorney in New York."
+        }
+      ]
+    },
+    {
+      "id": "accents-west-yorkshire-england-english-west-riding-yor",
+      "deck": "accents",
+      "label": "Sheffield, England",
+      "firstWhy": "SAYS PLACE: Sheffield",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 18,
+          "end_s": 27,
+          "reveals": "Sheffield, South Yorkshire, England",
+          "quote": "I'm 22, I'm through Sheffield, South Yorkshire, so it's a South Yorkshire steel city."
+        },
+        {
+          "start_s": 43,
+          "end_s": 53,
+          "reveals": "Sheffield, England",
+          "quote": "I'm a student at university, University of Sheffield, studying English."
+        },
+        {
+          "start_s": 58,
+          "end_s": 117,
+          "reveals": "France, Brittany",
+          "quote": "When I were five, you see, I flipped to France, and that were because my dad were working in ceiling installations and suchlike, and they'd have met, and they'd be working out in France, in Brittany."
+        },
+        {
+          "start_s": 119,
+          "end_s": 128,
+          "reveals": "France",
+          "quote": "I think I reckon he says to my mum, he says, 'Well, who doesn't want to live in France?'"
+        }
+      ]
+    },
+    {
+      "id": "wild-toronto-canada",
+      "deck": "accents",
+      "label": "Toronto, Canada",
+      "firstWhy": "SAYS PLACE: Canada",
+      "dur": 240,
+      "famous": "Stephen Harper",
+      "spans": [
+        {
+          "start_s": 43,
+          "end_s": 52,
+          "reveals": "Canada",
+          "quote": "My greetings to Ambassador Santi, to the Governor of the Bank of Canada, known internationally as chair of the Financial Stability Board, Mark Carney..."
+        },
+        {
+          "start_s": 103,
+          "end_s": 112,
+          "reveals": "Canada / Davos",
+          "quote": "And let me just say that I am especially proud to see so many outstanding Canadian business leaders making their presence felt here in Davos."
+        },
+        {
+          "start_s": 112,
+          "end_s": 126,
+          "reveals": "Canada",
+          "quote": "Ladies and gentlemen, I will use my time today to highlight Canada's economic strengths and to frame the choices we face as we work to secure long-term prosperity for our citizens."
+        },
+        {
+          "start_s": 137,
+          "end_s": 149,
+          "reveals": "Canada",
+          "quote": "Comme vous le savez, le Canada a connu une performance économique supérieure à la plupart des pays développés au cours des ces dernières années difficiles pour l'économie mondiale."
+        },
+        {
+          "start_s": 149,
+          "end_s": 155,
+          "reveals": "Canada",
+          "quote": "Forbes magazine ranks Canada as the best place on the planet for businesses to grow and create jobs."
+        },
+        {
+          "start_s": 216,
+          "end_s": 228,
+          "reveals": "Canada",
+          "quote": "Among G7 countries, Canada has the lowest overall tax rate on new business investment; our net debt-to-GDP ratio remains the lowest in the G7 and, by far."
+        },
+        {
+          "start_s": 228,
+          "end_s": 242,
+          "reveals": "Canada",
+          "quote": "And while we remain concerned about the number of Canadians who are still out of work, Canada is one of only two G7 countries to have recouped all of the jobs lost during the global recession."
+        },
+        {
+          "start_s": 243,
+          "end_s": 248,
+          "reveals": "Canada",
+          "quote": "Indeed, more Canadians are now working than before the downturn."
+        }
+      ]
+    },
+    {
+      "id": "ar-6158",
+      "deck": "arabic",
+      "label": "Ajman, UAE",
+      "firstWhy": "SAYS PLACE: Lahbab",
+      "dur": 29.990703,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 18,
+          "reveals": "location (Al Hebab, Dubai, UAE)",
+          "quote": "المعاملات الجمركية في الهباب"
+        }
+      ]
+    },
+    {
+      "id": "wild-thomastown-county-kilkenny-ireland",
+      "deck": "accents",
+      "label": "Thomastown, County Kilkenny, Ireland",
+      "firstWhy": "SAYS PLACE: Lisbigney, County Laois, Ireland",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 9,
+          "reveals": "County Laois, Ireland",
+          "quote": "Today is the 16th of September 2024 and I'm here with Paddy Lawler in Lisbigney County Laois, and Paddy lives very close to Ladywell."
+        },
+        {
+          "start_s": 9,
+          "end_s": 13,
+          "reveals": "Ladywell, Ireland",
+          "quote": "And Paddy, what can you tell me about Ladywell?"
+        },
+        {
+          "start_s": 123,
+          "end_s": 128,
+          "reveals": "Ballyoskill, Ireland",
+          "quote": "And they built up the well in the land of a priest in Ballyoskill."
+        },
+        {
+          "start_s": 138,
+          "end_s": 145,
+          "reveals": "Abbeyleix, Ireland",
+          "quote": "Belonged to a man by the name of Dan Kennedy, he was an Abbeyleix man."
+        },
+        {
+          "start_s": 201,
+          "end_s": 207,
+          "reveals": "Ballyragget, Ireland",
+          "quote": "From the Ballyoskill side, the Ballyragget side, it's in Ballyragget parish, Ladywell."
+        },
+        {
+          "start_s": 221,
+          "end_s": 227,
+          "reveals": "Ballinakill, Ireland",
+          "quote": "There was an old woman up here from Ballinakill, named Mary Delaney."
+        },
+        {
+          "start_s": 306,
+          "end_s": 316,
+          "reveals": "Ballyoskill and Ballyragget, Ireland",
+          "quote": "They formed a committee, Father Stevenson in Ballyragget, Ballyoskill, he was in the station in Ballyoskill at the time and he formed a committee."
+        },
+        {
+          "start_s": 326,
+          "end_s": 332,
+          "reveals": "Dublin, Ireland",
+          "quote": "We got statues, we bought statues from Dublin and all, many years ago."
+        }
+      ]
+    },
+    {
+      "id": "ar-2608",
+      "deck": "arabic",
+      "label": "Cairo, Egypt",
+      "firstWhy": "SAYS PLACE: New Jersey",
+      "dur": 29.990703,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 10.8,
+          "end_s": 21.5,
+          "reveals": "New Jersey",
+          "quote": "طيب دلوقتي في رسالة من علي من نيوجيرسي بيقول عايز يسمع حاجة لنانسي عجرم وإحنا محضرين حاجة لنانسي عجرم"
+        }
+      ]
+    },
+    {
+      "id": "ar-2278",
+      "deck": "arabic",
+      "label": "Damascus, Syria",
+      "firstWhy": "SAYS PLACE: Syria",
+      "dur": 29.990703,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 16,
+          "end_s": 28,
+          "reveals": "Syrian / Syria",
+          "quote": "نفس الشيء أنت بتفتح مثلاً أوقات على القنوات السورية خليني أقول فبتحضر برنامج علمي ما بيجذبك بتقلّب فوراً"
+        }
+      ]
+    },
+    {
+      "id": "ar-1650",
+      "deck": "arabic",
+      "label": "Ramallah, Palestine",
+      "firstWhy": "SAYS PLACE: Jerusalem",
+      "dur": 29.999683,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 20.5,
+          "reveals": "location (Jerusalem)",
+          "quote": "بلدية القدس"
+        }
+      ]
+    },
+    {
+      "id": "ar-1623",
+      "deck": "arabic",
+      "label": "Muscat, Oman",
+      "firstWhy": "SAYS PLACE: Muscat",
+      "dur": 29.990703,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 22,
+          "end_s": 28.5,
+          "reveals": "Muscat (Oman)",
+          "quote": "فكان في هذيك الفترة فترة الإصابات نادي مسقط أبدا ما قصر معي"
+        }
+      ]
+    },
+    {
+      "id": "ar-3479",
+      "deck": "arabic",
+      "label": "Sanaa, Yemen",
+      "firstWhy": "SAYS PLACE: Taiz",
+      "dur": 29.990703,
+      "famous": "",
+      "spans": []
+    },
+    {
+      "id": "ar-6858",
+      "deck": "arabic",
+      "label": "Tripoli, Libya",
+      "firstWhy": "SAYS PLACE: Ain Zara",
+      "dur": 29.990703,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 8,
+          "reveals": "Ain Zara (Libya)",
+          "quote": "أتين لعين زارة، إما هجرة خارج المدن جية لعين زارة لظروف أمنية أو صراعات اللي انت عارف الوضع بعد الثورة"
+        }
+      ]
+    },
+    {
+      "id": "ar-3647",
+      "deck": "arabic",
+      "label": "Tangier, Morocco",
+      "firstWhy": "SAYS PLACE: Spain, Zambia",
+      "dur": 30,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 8.5,
+          "reveals": "Spain and Zambia",
+          "quote": "المنتخب الاسباني بطلات العالم وخورخي فيلدا أول مواجهة ديال زامبيا كانت تفوق عليهم ب 5 ل 0"
+        }
+      ]
+    },
+    {
+      "id": "french-bargny-senegal-french-senegal",
+      "deck": "french",
+      "label": "Bargny, Senegal",
+      "firstWhy": "SAYS PLACE: Bargny",
+      "dur": 136.765578,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 9,
+          "end_s": 19,
+          "reveals": "Bargny, Dakar (Senegal)",
+          "quote": "Un spectacle affligeant pour les populations de Bargny à une trentaine de kilomètres de Dakar."
+        },
+        {
+          "start_s": 141,
+          "end_s": 158,
+          "reveals": "Bargny (Senegal)",
+          "quote": "Mais le fait que nous constatons ici à Bargny, c'est que la municipalité... au niveau de la commune de Bargny est très très insuffisante."
+        },
+        {
+          "start_s": 198,
+          "end_s": 216,
+          "reveals": "Bargny, Dakar (Senegal)",
+          "quote": "Un autre signe des catastrophes environnementales qui étouffent le littoral de Bargny... Wahany Johnson Sambou, Dakar, pour VOA Afrique."
+        }
+      ]
+    },
+    {
+      "id": "french-brussels-belgium-french-belgian",
+      "deck": "french",
+      "label": "Belgium",
+      "firstWhy": "SAYS PLACE: Bibracte",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 17,
+          "end_s": 23.5,
+          "reveals": "Manching, Germany",
+          "quote": "Cette organisation se distingue de celle des oppida tels que Manching où l'on retrouve une trame urbaine régulière."
+        },
+        {
+          "start_s": 41,
+          "end_s": 48.5,
+          "reveals": "Bibracte, France",
+          "quote": "Bibracte était protégée par de puissants remparts de type murus gallicus dont les fouilles ont permis de reconstituer l'histoire."
+        },
+        {
+          "start_s": 200,
+          "end_s": 209,
+          "reveals": "Vienne, Austria",
+          "quote": "Une étude poussée a été réalisée de 1995 à 2002 avec de nombreux sondages le long de celui-ci par l'université de Vienne."
+        },
+        {
+          "start_s": 325.5,
+          "end_s": 335,
+          "reveals": "Manching, Germany",
+          "quote": "Certaines hypothèses avancent l'idée d'une double porte surmontée d'une tour de garde en bois du type de l'oppidum de Manching."
+        }
+      ]
+    },
+    {
+      "id": "french-yaounde-cameroon-french-cameroon",
+      "deck": "french",
+      "label": "Cameroon",
+      "firstWhy": "SAYS PLACE: Cameroun",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 15.1,
+          "reveals": "Cameroon, Cairo, African Confederation of Football",
+          "quote": "Jean Bruno Tagne bonsoir. Bonsoir. Samuel Eto'o a été élu par acclamation mercredi au Caire au comité exécutif de la Confédération Africaine de Football, qu'est-ce que cette élection signifie et pour lui et pour le Cameroun ?"
+        },
+        {
+          "start_s": 39.8,
+          "end_s": 53.5,
+          "reveals": "Cameroon",
+          "quote": "Et en ce qui concerne le Cameroun, c'est une bonne chose d'avoir un Camerounais au comité exécutif de la Confédération Africaine de Football, Samuel Eto'o va remplacer Seidou Mbombo Njoya et c'est une bonne chose pour le pays."
+        },
+        {
+          "start_s": 231.8,
+          "end_s": 245.5,
+          "reveals": "Cameroon",
+          "quote": "Comment cette élection a-t-elle été accueillie au Cameroun ? On a vu ces derniers temps des rapports très houleux entre la Fecafoot et le Ministère des Sports au Cameroun."
+        },
+        {
+          "start_s": 245.5,
+          "end_s": 258,
+          "reveals": "Cameroon",
+          "quote": "Pour l'instant, il n'y a pas de réaction officielle de la part des autorités camerounaises à la suite de l'élection de Samuel Eto'o au comité exécutif de la Confédération Africaine de Football."
+        },
+        {
+          "start_s": 320.8,
+          "end_s": 337.5,
+          "reveals": "Cameroon",
+          "quote": "Au sein de ce comité exécutif de la CAF, Samuel Eto'o remplace un autre Camerounais, Seidou Mbombo Njoya, il l'avait déjà éjecté de la Fecafoot, la Fédération Camerounaise de Football. Comment sont les rapports entre les deux hommes à votre avis ?"
+        },
+        {
+          "start_s": 337.5,
+          "end_s": 360,
+          "reveals": "Cameroon",
+          "quote": "Alors c'est décidément pas de chance pour Seidou Mbombo Njoya parce que Samuel Eto'o l'avait éjecté de son siège à la Fédération Camerounaise de Football en décembre 2021 et il avait promis de le dégager également du comité exécutif de la Confédération Africaine de Football."
+        }
+      ]
+    },
+    {
+      "id": "french-abidjan-cote-d-ivoire-french-cote-d-ivoire",
+      "deck": "french",
+      "label": "Côte d'Ivoire",
+      "firstWhy": "SAYS PLACE: Côte d'Ivoire",
+      "dur": 207.918005,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 12,
+          "end_s": 22.5,
+          "reveals": "Bandama (region/river in Côte d'Ivoire)",
+          "quote": "15 ans plus tard, en 2023, ils sont près de 300 cacao-culteurs regroupés au sein de la société coopérative équitable du Bandama, et écoulent chaque année près de 300 tonnes de fèves de cacao."
+        },
+        {
+          "start_s": 36,
+          "end_s": 44.5,
+          "reveals": "Côte d'Ivoire",
+          "quote": "Elle est la première coopérative certifiée bio et commerce équitable de Côte d'Ivoire."
+        },
+        {
+          "start_s": 322.5,
+          "end_s": 326,
+          "reveals": "M'Brimbo (village in Côte d'Ivoire)",
+          "quote": "Yassine Siow pour VOA Afrique, M'Brimbo."
+        }
+      ]
+    },
+    {
+      "id": "french-paris-france-french-paris",
+      "deck": "french",
+      "label": "Paris, France",
+      "firstWhy": "SAYS PLACE: Londres, Royaume-Uni",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 10.5,
+          "end_s": 21,
+          "reveals": "London, United Kingdom",
+          "quote": "Le British Museum, en français Musée britannique, est un musée de l'histoire et de la culture humaine situé dans le quartier de Bloomsbury, à Londres, au Royaume-Uni."
+        },
+        {
+          "start_s": 50,
+          "end_s": 57,
+          "reveals": "Great Britain",
+          "quote": "Le British Museum compte 6 millions de visiteurs par an et s'affiche comme le site touristique le plus fréquenté de Grande-Bretagne."
+        },
+        {
+          "start_s": 57,
+          "end_s": 108.5,
+          "reveals": "United Kingdom",
+          "quote": "Comme dans la plupart des musées et galeries d'art du Royaume-Uni, l'entrée est gratuite, à l'exception de certaines expositions temporaires."
+        },
+        {
+          "start_s": 120,
+          "end_s": 129.5,
+          "reveals": "Bloomsbury, London",
+          "quote": "Le musée a été ouvert au public le 15 janvier 1759 à la Montagu House à Bloomsbury, au même emplacement qu'aujourd'hui."
+        },
+        {
+          "start_s": 200,
+          "end_s": 213,
+          "reveals": "Tottenham Court, London",
+          "quote": "En 1865, un nouveau bâtiment fut construit rue Great Russell dans le quartier de Tottenham Court pour remplacer l'ancien, Montagu House, devenu trop petit et qui fut détruit."
+        },
+        {
+          "start_s": 240,
+          "end_s": 251,
+          "reveals": "London, South Kensington",
+          "quote": "Les collections d'histoire naturelle furent déplacées dans un nouveau musée, Musée d'histoire naturelle de Londres à South Kensington en 1880."
+        },
+        {
+          "start_s": 251,
+          "end_s": 308,
+          "reveals": "London (St Pancras)",
+          "quote": "Jusqu'à 1997, le British Museum avait la particularité d'héberger dans le même bâtiment un musée et une bibliothèque nationale, la British Library, qui depuis cette date est située près de la gare de Saint-Pancras."
+        }
+      ]
+    },
+    {
+      "id": "french-marseille-france-french-southern-france",
+      "deck": "french",
+      "label": "Southern France, France",
+      "firstWhy": "SAYS PLACE: Marseille, France",
+      "dur": 59.396644,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 9,
+          "end_s": 17,
+          "reveals": "Marseille, France",
+          "quote": "Le 10 novembre 2018 à Marseille, trois immeubles s'écroulent dans le premier arrondissement, plusieurs morts."
+        },
+        {
+          "start_s": 16.5,
+          "end_s": 31,
+          "reveals": "Marseille, France",
+          "quote": "Le mardi 5 novembre au matin, dans le premier arrondissement de Marseille, quartier Noailles, en France, deux immeubles comptant respectivement 4 et 5 étages, situés au 63 et 65 rue d'Aubagne, se sont effondrés."
+        }
+      ]
+    },
+    {
+      "id": "spanish-paniahue-santa-cruz-chile-spanish-chilean",
+      "deck": "spanish",
+      "label": "Paniahue, Chile",
+      "firstWhy": "SAYS PLACE: O'Higgins",
+      "dur": 119.797551,
+      "famous": "",
+      "spans": []
+    },
+    {
+      "id": "french-montreal-canada-french-quebecois",
+      "deck": "french",
+      "label": "Québec, Canada",
+      "firstWhy": "SAYS PLACE: Québec",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 5,
+          "reveals": "Quebec, Canada",
+          "quote": "Bonjour, je m'appelle Maxime, je viens du Québec"
+        },
+        {
+          "start_s": 12,
+          "end_s": 25,
+          "reveals": "Georgia",
+          "quote": "le cœur de mon voyage c'était la Géorgie, c'est un pays que où je rêvais d'aller depuis un bout, puis c'est un pays qui me fascinait"
+        },
+        {
+          "start_s": 24,
+          "end_s": 31,
+          "reveals": "Estonia, Tallinn",
+          "quote": "mais à ce moment-là dans l'histoire, je suis en Estonie à Tallinn dans un petit café"
+        },
+        {
+          "start_s": 57,
+          "end_s": 108,
+          "reveals": "Germany, Austria, Italy, Georgia",
+          "quote": "moi je viens de l'Allemagne, moi je viens de l'Autriche, moi je viens de l'Italie, puis la dernière elle dit moi je viens de la Géorgie"
+        },
+        {
+          "start_s": 130,
+          "end_s": 146,
+          "reveals": "Estonia",
+          "quote": "un jeu de Scrabble estonien, il y a pas toutes les lettres dedans qu'il y a en anglais... moi la veille, j'ai joué au Scrabble avec une Estonienne"
+        },
+        {
+          "start_s": 219,
+          "end_s": 225,
+          "reveals": "Estonia",
+          "quote": "avec un jeu estonien"
+        },
+        {
+          "start_s": 321,
+          "end_s": 334,
+          "reveals": "Italy, Germany, Austria, Georgia",
+          "quote": "la première me dit l'Italie, l'autre l'Allemagne, l'autre l'Autriche, la dernière dit ben moi je viens de la Géorgie"
+        },
+        {
+          "start_s": 335,
+          "end_s": 342,
+          "reveals": "Georgia",
+          "quote": "Je m'en va en Géorgie puis j'ai vraiment le goût que tu me parles de ton pays, tu sais"
+        },
+        {
+          "start_s": 342,
+          "end_s": 346,
+          "reveals": "Georgia",
+          "quote": "les Géorgiens aiment beaucoup leur pays"
+        }
+      ]
+    },
+    {
+      "id": "spanish-argentine-spanish-reading-about-a-brazilian-to",
+      "deck": "spanish",
+      "label": "Argentina",
+      "firstWhy": "SAYS PLACE: Andrelândia",
+      "dur": 160.693878,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 3.5,
+          "end_s": 18.5,
+          "reveals": "Andrelândia, Minas Gerais, Brazil",
+          "quote": "Andrelândia es un municipio brasileño en el interior del estado de Minas Gerais, perteneciente a mesorregión del Sur y Sudoeste de Minas y microrregión de mismo nombre, se localiza al sur de la capital del estado, distando de esta cerca de 299 kilómetros."
+        },
+        {
+          "start_s": 18.5,
+          "end_s": 35,
+          "reveals": "Minas Gerais",
+          "quote": "Ocupa un área de 221,049 kilómetros y su población en 2010 fue contada en 12.146 habitantes, siendo así el undécimo nonagésimo cuarto más poblado del estado de Minas Gerais y el segundo de su microrregión."
+        },
+        {
+          "start_s": 45.5,
+          "end_s": 59.5,
+          "reveals": "Villa Bella del Turvo, Turvo, Arantes, Buen Jardín, Madre de Deus del Río Grande, San Vicente Ferrer",
+          "quote": "Fue fundada el 20 de julio de 1868 con el nombre de Villa Bella del Turvo, constituida por cinco distritos: Turvo, Arantes, Buen Jardín, Madre de Deus del Río Grande y San Vicente Ferrer."
+        },
+        {
+          "start_s": 59.5,
+          "end_s": 108.5,
+          "reveals": "Andrelândia",
+          "quote": "Sin embargo, a lo largo de los años, se levantaron todos a la categoría de ciudades, restando en Andrelândia apenas la sede, su único distrito."
+        },
+        {
+          "start_s": 130,
+          "end_s": 156.5,
+          "reveals": "Andrelândia, Minas Gerais",
+          "quote": "En relación a la flota automovilística, en 2009 fueron contabilizados 2.414 vehículos en Andrelândia. Con una tasa de urbanización de la orden de 77,64%, el municipio contaba en 2008 con siete establecimientos de salud. Su índice de desarrollo humano, IDH, es de 0,733, considerando así como medio en relación al estado de Minas Gerais."
+        },
+        {
+          "start_s": 156.5,
+          "end_s": 224.5,
+          "reveals": "Andrelândia (via demonym 'andrelandense')",
+          "quote": "Hoy la ciudad tiene gran tradición en su turismo... además de su artesanía, que es una de las formas más espontáneas de la expresión cultural andrelandense."
+        }
+      ]
+    },
+    {
+      "id": "spanish-seville-andalusia-spain-spanish-andalusian-spa",
+      "deck": "spanish",
+      "label": "Andalusia, Spain",
+      "firstWhy": "SAYS PLACE: Andalucía",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 3,
+          "reveals": "Andalusia (Spain)",
+          "quote": "Historia de Andalucía"
+        },
+        {
+          "start_s": 12,
+          "end_s": 19,
+          "reveals": "Andalusia (Spain)",
+          "quote": "Los primeros poblamientos conocidos en Andalucía datan del Paleolítico."
+        },
+        {
+          "start_s": 18,
+          "end_s": 27,
+          "reveals": "Granada and Orce (Andalusia, Spain)",
+          "quote": "En Granada fue encontrado el hombre de Orce, del Paleolítico inferior, que podría esclarecer el origen del poblamiento europeo."
+        },
+        {
+          "start_s": 27,
+          "end_s": 35,
+          "reveals": "Gibraltar and Granada (Spain)",
+          "quote": "Del Paleolítico medio ha sido encontrado un hombre de Neanderthal en Gibraltar y otros restos en Granada."
+        },
+        {
+          "start_s": 41,
+          "end_s": 53,
+          "reveals": "Andalusia and Almería (Spain)",
+          "quote": "Posteriormente, la Edad del Bronce tiene dos principales exponentes en tierras andaluzas: las culturas de Los Millares y El Argar, ambas en la actual provincia de Almería."
+        },
+        {
+          "start_s": 53,
+          "end_s": 103,
+          "reveals": "Andalusia (Spain)",
+          "quote": "Merece especial mención la gran expansión del vaso campaniforme, que aunque probablemente no fue inventado en Andalucía, aquí alcanzó una importante difusión."
+        },
+        {
+          "start_s": 105,
+          "end_s": 115,
+          "reveals": "Andalusia (Spain)",
+          "quote": "En el primer milenio antes de Cristo se asienta en Andalucía el primer Estado con organización sólida en lo político, lo social y lo económico."
+        },
+        {
+          "start_s": 115,
+          "end_s": 125,
+          "reveals": "Andalusia (Spain)",
+          "quote": "Se trata de Tartessos, a quienes conocemos por los contactos que tuvieron con los mercaderes fenicios y griegos, que llegaron hasta las costas andaluzas."
+        },
+        {
+          "start_s": 145,
+          "end_s": 157,
+          "reveals": "Cádiz (Spain), Syria, and Palestine",
+          "quote": "Los púnicos o cartagineses eran descendientes de los fenicios, un pueblo originario de las actuales Siria y Palestina, quienes fundaron Gadir, hoy Cádiz, en 1100 antes de Cristo."
+        },
+        {
+          "start_s": 157,
+          "end_s": 204,
+          "reveals": "Andalusia (Spain)",
+          "quote": "A partir de entonces se mantienen unas estrechas relaciones entre Andalucía y otros pueblos del mar Mediterráneo."
+        },
+        {
+          "start_s": 211,
+          "end_s": 216,
+          "reveals": "Andalusia (Spain)",
+          "quote": "rivalizando con los griegos por el control de las costas andaluzas."
+        },
+        {
+          "start_s": 216,
+          "end_s": 221,
+          "reveals": "Andalusia (Spain)",
+          "quote": "Con los cartagineses se produjo un gran desarrollo demográfico en Andalucía."
+        },
+        {
+          "start_s": 227,
+          "end_s": 235,
+          "reveals": "Málaga (Spain)",
+          "quote": "Aunque de menor importancia, también hay que destacar la presencia de la civilización griega, quienes fundaron Mainake, que se supone próxima a Málaga."
+        },
+        {
+          "start_s": 235,
+          "end_s": 246,
+          "reveals": "Andalusia (Spain)",
+          "quote": "Entre los pueblos prerromanos de Andalucía contamos los turdetanos, bastetanos, libiofenicios, oretanos y celtas."
+        },
+        {
+          "start_s": 248,
+          "end_s": 302,
+          "reveals": "Andalusia (Spain)",
+          "quote": "En la segunda guerra púnica, los cartagineses abandonan Andalucía y su presencia es sustituida por la de los romanos"
+        },
+        {
+          "start_s": 303,
+          "end_s": 310,
+          "reveals": "Spain and Andalusia",
+          "quote": "En principio, los romanos dividieron Hispania en dos provincias, la Citerior y la Ulterior, perteneciendo Andalucía a esta última"
+        },
+        {
+          "start_s": 310,
+          "end_s": 325,
+          "reveals": "Córdoba and Guadalquivir (Andalusia, Spain)",
+          "quote": "Hasta que Augusto impuso una nueva división administrativa, creándose la provincia Bética, con capital en Córdoba, excepto el alto Guadalquivir y el extremo oriental de la comunidad, que pertenecían a la Tarraconense."
+        },
+        {
+          "start_s": 326,
+          "end_s": 331,
+          "reveals": "Andalusia (Spain)",
+          "quote": "El alto grado de desarrollo de Andalucía explica la rápida absorción de las costumbres romanas."
+        },
+        {
+          "start_s": 336,
+          "end_s": 346,
+          "reveals": "Baetica (Andalusia, Spain)",
+          "quote": "Este grado de romanización podemos verlo patente en la cantidad de figuras célebres que la Bética aportó a Roma, como el emperador Trajano o el filósofo Séneca."
+        },
+        {
+          "start_s": 353,
+          "end_s": 359,
+          "reveals": "Andalusia (Spain)",
+          "quote": "Y tras la división del Imperio romano en dos partes, Andalucía asiste a la llegada de los pueblos germánicos."
+        }
+      ]
+    },
+    {
+      "id": "chinese-guiyang-china-mandarin-guiyangese-southwestern",
+      "deck": "chinese",
+      "label": "Guiyang, China",
+      "firstWhy": "SAYS PLACE: Guiyang, Guizhou",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 5.5,
+          "reveals": "Guiyang, China",
+          "quote": "我们是总归, 贵阳人, 贵阳话"
+        },
+        {
+          "start_s": 5.5,
+          "end_s": 12.5,
+          "reveals": "speaker names Huang Chaofen and Huang Cangjiu",
+          "quote": "我叫黄朝芬, 他呢叫黄仓久"
+        },
+        {
+          "start_s": 12.5,
+          "end_s": 23.5,
+          "reveals": "Canada",
+          "quote": "我们来到加拿大呢是..."
+        },
+        {
+          "start_s": 325.5,
+          "end_s": 332.5,
+          "reveals": "Guizhou, China",
+          "quote": "我们贵州话呢就贵阳话呢"
+        }
+      ]
+    },
+    {
+      "id": "spanish-peruvian-spanish-richard-dawkins-biography-rea",
+      "deck": "spanish",
+      "label": "Peru",
+      "firstWhy": "SAYS PLACE: Nairobi, Kenya",
+      "dur": 158.140136,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 10,
+          "end_s": 23,
+          "reveals": "Nairobi, Kenya, and British nationality",
+          "quote": "Richard Dawkins, Nairobi, Kenya, 26 de marzo de 1941, es un etólogo, zoólogo, teórico evolutivo y divulgador científico británico."
+        },
+        {
+          "start_s": 21,
+          "end_s": 31.5,
+          "reveals": "Oxford, United Kingdom",
+          "quote": "Fue titular de la cátedra Charles Simonyi de difusión de la ciencia en la Universidad de Oxford hasta el año 2008."
+        }
+      ]
+    },
+    {
+      "id": "spanish-colombian-spanish-steven-pinker-biography-read",
+      "deck": "spanish",
+      "label": "Turbaco, Colombia",
+      "firstWhy": "SAYS PLACE: Montreal",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 15,
+          "end_s": 24,
+          "reveals": "Montreal, Quebec, Canada",
+          "quote": "Nacimiento, 18 de septiembre de 1954, 67 años, Ciudad de Montreal, provincia de Quebec, Canadá."
+        },
+        {
+          "start_s": 24,
+          "end_s": 27,
+          "reveals": "Canada, United States",
+          "quote": "Nacionalidad, Canadá, Estados Unidos."
+        },
+        {
+          "start_s": 53,
+          "end_s": 60,
+          "reveals": "Massachusetts",
+          "quote": "Empleador, Universidad de Harvard, Instituto Tecnológico de Massachusetts, Universidad de Stanford."
+        },
+        {
+          "start_s": 137,
+          "end_s": 148,
+          "reveals": "Montreal, Canada",
+          "quote": "Steven Arthur Pinker, Montreal, 18 de septiembre de 1954, es un psicólogo experimental, científico cognitivo, lingüista y escritor canadiense."
+        },
+        {
+          "start_s": 248,
+          "end_s": 254,
+          "reveals": "Montreal",
+          "quote": "Pinker nació en una familia judía de clase media de Montreal."
+        },
+        {
+          "start_s": 254,
+          "end_s": 301,
+          "reveals": "Canada, Poland, Romania",
+          "quote": "Sus abuelos que migraron a Canadá desde Polonia y Rumania eran propietarios de una pequeña fábrica de corbatas."
+        },
+        {
+          "start_s": 314,
+          "end_s": 320,
+          "reveals": "Canada",
+          "quote": "y su hermano Robert es analista político para el gobierno de Canadá."
+        }
+      ]
+    },
+    {
+      "id": "chinese-hk-cantonese-george-washington-carver-spoken-w",
+      "deck": "chinese",
+      "label": "Hong Kong",
+      "firstWhy": "SAYS PLACE: Missouri, Iowa, Alabama, United States",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 14,
+          "end_s": 35.5,
+          "reveals": "country name (美國 / USA) and university location (愛荷華州立大學 / Iowa State University)",
+          "quote": "喬治·華盛頓·卡佛，生於1864年7月12日，死於1943年1月5日，是美國教育家、農業科學家、植物學家，第一個進入愛荷華州立大學，並取得農業碩士學位的黑人。"
+        },
+        {
+          "start_s": 36,
+          "end_s": 45,
+          "reveals": "US state name (密蘇里州 / Missouri)",
+          "quote": "第一章 早年 大約1864年出生於密蘇里州的鑽石叢鎮，生晨不詳。"
+        },
+        {
+          "start_s": 50,
+          "end_s": 61,
+          "reveals": "US state name (阿肯色州 / Arkansas)",
+          "quote": "卡佛的母親及小孩們被偷飛到阿肯色州，主人摩西·卡佛以黑爵士美金300元換回邊種的喬治·華盛頓·卡佛。"
+        },
+        {
+          "start_s": 118,
+          "end_s": 131,
+          "reveals": "US state name (密蘇里州 / Missouri)",
+          "quote": "他十歲離開主人卡佛家，到密蘇里州紐歐特的一所城鎮私立黑人設立的初等學校，名叫林肯的黑人小學。"
+        },
+        {
+          "start_s": 138,
+          "end_s": 145,
+          "reveals": "US state name (阿肯色州 / Arkansas)",
+          "quote": "13歲時，又轉到阿肯色州的明福特讀高中。"
+        },
+        {
+          "start_s": 145,
+          "end_s": 152,
+          "reveals": "US state name (堪薩斯州 / Kansas)",
+          "quote": "1885年，他自堪薩斯州明理阿波利斯的高中畢業。"
+        },
+        {
+          "start_s": 212,
+          "end_s": 220,
+          "reveals": "US state name (愛荷華州 / Iowa)",
+          "quote": "有一次在愛荷華州溫德塞，城裡一個教會上，遇上繆繆福特夫妻。"
+        },
+        {
+          "start_s": 234,
+          "end_s": 241,
+          "reveals": "US state name (愛荷華州 / Iowa)",
+          "quote": "於1890年，他進入愛荷華州辛普森學院就讀。"
+        },
+        {
+          "start_s": 300,
+          "end_s": 311,
+          "reveals": "US state name (阿拉巴馬州 / Alabama)",
+          "quote": "於1896年獲得碩士學位後，應布克·華盛頓之邀，前往阿拉巴馬州塔斯提基學院主持新設立的農業系。"
+        },
+        {
+          "start_s": 334,
+          "end_s": 341,
+          "reveals": "country name (美國 / USA)",
+          "quote": "促進了美國南方的經濟革新。"
+        }
+      ]
+    },
+    {
+      "id": "chinese-taipei-taiwan-mandarin-taiwan-guoyu",
+      "deck": "chinese",
+      "label": "Taiwan",
+      "firstWhy": "SAYS PLACE: 美國",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 6,
+          "reveals": "Chiao Tung University",
+          "quote": "錄制者姓名：郭肇蘭，單位：交通大學外文系"
+        },
+        {
+          "start_s": 35,
+          "end_s": 46,
+          "reveals": "United States",
+          "quote": "魔術師和兔子（Presto）是一部由皮克斯動畫工作室製作，於2008年上映的美國計算機動畫短片"
+        }
+      ]
+    },
+    {
+      "id": "hindi-urdu-rajiv-dixit-aitihasik-bhulein-historical-mista",
+      "deck": "hindi-urdu",
+      "label": "Aligarh, India",
+      "firstWhy": "SAYS PLACE: Bharat",
+      "dur": 240,
+      "famous": "Rajiv Dixit",
+      "spans": [
+        {
+          "start_s": 28,
+          "end_s": 39,
+          "reveals": "Meerut and Delhi (cities in India)",
+          "quote": "अब बाद में यह मेरठ में और दिल्ली में जब क्रांति हो गई तो कौन यह सूचना पहुंचाए जाकर गांव-गांव"
+        },
+        {
+          "start_s": 100,
+          "end_s": 115,
+          "reveals": "Bithoor (town in Uttar Pradesh, India)",
+          "quote": "और जब यह क्रांति दबी तो जिस बिठूर में नाना साहब पेशवा ने संकल्प लिया था देश को आजाद कराने का, उस बिठूर के 24,000 लोगों को अंग्रेजों ने गर्दन से काट दिया।"
+        },
+        {
+          "start_s": 131,
+          "end_s": 140,
+          "reveals": "Bharat (India)",
+          "quote": "और दुर्भाग्य उस समय यह भी हुआ कि भारत के कुछ राजाओं ने अंग्रेजों की मदद कर दी उसमें और अपनी सेना अंग्रेजों को दे दी"
+        },
+        {
+          "start_s": 304,
+          "end_s": 312,
+          "reveals": "Bharat (India)",
+          "quote": "इसलिए मैं आपसे विनम्रतापूर्वक यही कह रहा हूं कि हम भारत स्वाभिमान के लोग आगे बढ़ रहे हैं"
+        }
+      ]
+    },
+    {
+      "id": "chinese-nanyang-china-zhongyuan-mandarin-henan",
+      "deck": "chinese",
+      "label": "Nanyang, China",
+      "firstWhy": "SAYS PLACE: Tanghe County, Nanyang, Henan",
+      "dur": 217.8961,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 5,
+          "end_s": 11,
+          "reveals": "Henan Province, Nanyang City, Tanghe County, China",
+          "quote": "我來自河南省南陽市唐河縣。"
+        },
+        {
+          "start_s": 9,
+          "end_s": 14,
+          "reveals": "Tanghe County, Henan Province, Hubei Province, China",
+          "quote": "唐河縣位於河南省跟湖北省的交界處。"
+        },
+        {
+          "start_s": 13,
+          "end_s": 17,
+          "reveals": "Henan Province, China",
+          "quote": "我今天跟大家展示的是河南省的方言。"
+        },
+        {
+          "start_s": 16,
+          "end_s": 27,
+          "reveals": "Henan Province, China",
+          "quote": "其實，河南省的方言它屬於一種中原官話，也就是北方方言的一種，跟普通話很像，但是呢，也有很多不一樣的地方。"
+        },
+        {
+          "start_s": 26,
+          "end_s": 44,
+          "reveals": "Henan Province, Nanyang City, Zhengzhou City, Luoyang City, China",
+          "quote": "河南省的方言，雖然說都叫河南方言，但是呢河南省它有很多市，不同的這個市有這個不同的口音，比如說南陽市的口音跟鄭州市還有洛陽市的口音都是不一樣的。"
+        },
+        {
+          "start_s": 43,
+          "end_s": 51,
+          "reveals": "Nanyang City, Tanghe County, Tongbai County, China",
+          "quote": "甚至南陽市的兩個縣城，唐河縣還有附近的桐柏縣，兩個縣城的口音也是不一樣的。"
+        },
+        {
+          "start_s": 50,
+          "end_s": 58,
+          "reveals": "Henan Province, Nanyang City, Tanghe County, China",
+          "quote": "所以我今天跟大家展示的就只能代表河南省南陽市唐河縣這塊的口音。"
+        },
+        {
+          "start_s": 57,
+          "end_s": 109,
+          "reveals": "Henan Province, China",
+          "quote": "那大家都知道，在河南方言裡邊，最典型的都是'中'，不'中'，'中'都是可以、信，不'中'都是不可以、不信。"
+        },
+        {
+          "start_s": 119,
+          "end_s": 128,
+          "reveals": "Henan Province, China",
+          "quote": "還有比如說你現在做甚麼，河南方言裡邊會說，你給這啥哩，或者是你給這抓哩。"
+        },
+        {
+          "start_s": 131,
+          "end_s": 141,
+          "reveals": "Henan Province, China",
+          "quote": "這個河南方言會說，你有欠摸內。"
+        },
+        {
+          "start_s": 211,
+          "end_s": 221,
+          "reveals": "Tanghe County, China",
+          "quote": "還有比如說動物的名稱，比如說在這個唐河的方言裡邊人會說..."
+        },
+        {
+          "start_s": 247,
+          "end_s": 255,
+          "reveals": "Tanghe County, China",
+          "quote": "唐河方言裡邊有很多看箇角摩的一些名稱..."
+        },
+        {
+          "start_s": 323,
+          "end_s": 336,
+          "reveals": "Henan Province, Zhengzhou City, Luoyang City, China",
+          "quote": "那如果有機會的話，希望河南省的老鄉，鄭州啊、洛陽是的老鄉可以在Wikitongues上面跟大家分享更多河南省的方言。"
+        }
+      ]
+    },
+    {
+      "id": "hindi-urdu-karachi-pakistan-urdu",
+      "deck": "hindi-urdu",
+      "label": "Karachi, Pakistan",
+      "firstWhy": "SAYS PLACE: South Africa, Pakistan",
+      "dur": 76.81161,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 6.5,
+          "reveals": "South Africa",
+          "quote": "میرا انداز یہ ہے کہ خصوصیت سے جنوبی افریقہ میں بڑی صلاحیت ہے"
+        },
+        {
+          "start_s": 28,
+          "end_s": 37,
+          "reveals": "South Africa and East Africa",
+          "quote": "یہ تو میں نے جنوبی افریقہ میں تجربہ کیا، مشرقی افریقہ میں مجھے زیادہ چلنے پھرنے کا اتفاق نہیں ہوا"
+        },
+        {
+          "start_s": 46,
+          "end_s": 56,
+          "reveals": "Pakistan",
+          "quote": "اس وقت ہمارے یہ سفر ہوئے ہیں، وہ وقت ایسا تھا کہ پاکستان کی طرف سارے عالم اسلام کی نظر لگی ہوئی تھی"
+        },
+        {
+          "start_s": 56,
+          "end_s": 61,
+          "reveals": "Pakistan",
+          "quote": "اور بڑی عزت سے پاکستان کو دیکھا جاتا تھا"
+        },
+        {
+          "start_s": 61,
+          "end_s": 109,
+          "reveals": "Pakistan",
+          "quote": "جہاں یہ معلوم ہو جائے کہ وہ شخص پاکستانی ہے، تو تمام اسلامی ممالک کے لوگ ان کی بڑی تعظیم کیا کرتے تھے"
+        }
+      ]
+    },
+    {
+      "id": "hindi-urdu-mumbai-india-hindi-bambaiyya-adjacent",
+      "deck": "hindi-urdu",
+      "label": "Mumbai, India",
+      "firstWhy": "SAYS PLACE: Pakistan, Bombay",
+      "dur": 64.017415,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 11,
+          "reveals": "Pakistan, Bombay",
+          "quote": "not me, my parents, unlog aaye the Pakistan se refugee ban ke. Aur main Bombay me paida hui 48 me"
+        }
+      ]
+    },
+    {
+      "id": "chinese-taiwan-mandarin-good-cop-bad-dog-tv-episode-sp",
+      "deck": "chinese",
+      "label": "Taiwan",
+      "firstWhy": "SAYS PLACE: 美國",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 28,
+          "end_s": 47,
+          "reveals": "United States",
+          "quote": "好警察，壞狗狗，是美國廣播公司播出的情境喜劇摩登家庭第二季的第22集，也是整部劇集的第46集，於2011年5月11日在美國廣播公司首播。"
+        }
+      ]
+    },
+    {
+      "id": "hindi-urdu-mufti-abul-qasim-nomani-talk-on-darul-uloom-de",
+      "deck": "hindi-urdu",
+      "label": "Varanasi, India",
+      "firstWhy": "SAYS PLACE: Deoband",
+      "dur": 197.22449,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 102,
+          "end_s": 110,
+          "reveals": "India",
+          "quote": "Chunanche agarcha unhone tamaam Hindustaniyon ko apna nishana banaya, lekin sabse zyada unke nishane par Islam aur Musalman the."
+        },
+        {
+          "start_s": 111,
+          "end_s": 127,
+          "reveals": "India",
+          "quote": "Chunanche unke Lord Governor ne yeh elaan kiya ke hum Hindustan mein aisi taleemgahein qaayim karenge, ke wahan taleem haasil karne wale apne rang-o-nasl aur nasab ke aitbaar se Hindustani honge, lekin apne zehen-o-dimaag ke aitbaar se woh Angrez honge."
+        },
+        {
+          "start_s": 200,
+          "end_s": 211,
+          "reveals": "Deoband, India",
+          "quote": "15 Muharram-ul-Haram sun 1283 ko muqtadir ulema ke mashware se isi Deoband ki ek masjid mein madarse ki bunyaad rakhi gayi."
+        },
+        {
+          "start_s": 224,
+          "end_s": 230,
+          "reveals": "Shamli, India",
+          "quote": "Chunanche jis ke baani the, woh Shamli ke maidaan mein unhone khud Angrezon se loha liya tha."
+        },
+        {
+          "start_s": 230,
+          "end_s": 242,
+          "reveals": "Malta",
+          "quote": "Aur jo yahan ke sabse pehle talib-e-ilm the Sheikh-ul-Hind Maulana Mahmood-ul-Hasan Sahib, unhone aage chal kar Reshmi Rumal ki tehreek ki qiyadat ki, Malta ke andar qaid-o-band ki susoobaat haasil keen."
+        }
+      ]
+    },
+    {
+      "id": "portuguese-porto-alegre-brazil-portuguese-brazilian-gauch",
+      "deck": "portuguese",
+      "label": "Porto Alegre, Brazil",
+      "firstWhy": "SAYS PLACE: Portugal",
+      "dur": 53.855964,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 8.8,
+          "reveals": "Portugal",
+          "quote": "Dom Sebastião I era o décimo sexto rei de Portugal e sétimo da dinastia de Avis."
+        },
+        {
+          "start_s": 8.8,
+          "end_s": 22.5,
+          "reveals": "Portugal",
+          "quote": "Era neto do rei João III, tornou-se herdeiro do trono depois da morte do seu pai, o príncipe João de Portugal, duas semanas antes do seu nascimento."
+        }
+      ]
+    },
+    {
+      "id": "portuguese-cape-verde-portuguese-cape-verde",
+      "deck": "portuguese",
+      "label": "Cape Verde",
+      "firstWhy": "SAYS PLACE: Lisboa",
+      "dur": 229.204218,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 15.5,
+          "end_s": 22,
+          "reveals": "Tito Paris (Cape Verdean musician)",
+          "quote": "São 40 anos de carreira que fizeram de Tito Paris uma estrela musical do planeta."
+        },
+        {
+          "start_s": 210,
+          "end_s": 222,
+          "reveals": "Lisboa, Tito Paris, Cabo Verde, Angola, Moçambique",
+          "quote": "Depois do concerto no Coliseu de Lisboa, Tito Paris agendou para 2024 atuações em Cabo Verde, Angola e Moçambique, ainda no âmbito dos 40 anos de carreira."
+        },
+        {
+          "start_s": 228,
+          "end_s": 236,
+          "reveals": "Cape Verde (cabo-verdiano)",
+          "quote": "O músico cabo-verdiano vai continuar a apostar em parcerias com outros artistas lusófonos e não só."
+        },
+        {
+          "start_s": 340.5,
+          "end_s": 347,
+          "reveals": "Lisboa",
+          "quote": "Voz da América, Lisboa."
+        }
+      ]
+    },
+    {
+      "id": "portuguese-malanje-angola-portuguese-angola",
+      "deck": "portuguese",
+      "label": "Malanje, Angola",
+      "firstWhy": "SAYS PLACE: Malanje, Angola",
+      "dur": 214.807846,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 3,
+          "end_s": 28,
+          "reveals": "Malanje Province, Cangandala Municipality, Cuanza River, Angola",
+          "quote": "As dificuldades no acesso à água potável e energia elétrica e dos serviços da educação e saúde em condições concorrem para a aflição de muitas famílias em diferentes localidades da província angolana de Malanje. O município de Cangandala que dista a 28 km a sul da capital Malanje é atravessado pelos rios Cuije e Cuanza, este último o de maior caudal em Angola e os habitantes esperam pela conclusão dos projetos em curso."
+        },
+        {
+          "start_s": 125,
+          "end_s": 131,
+          "reveals": "Malanje city, Angola",
+          "quote": "Maria Miguel vive na cidade de Malanje e busca assistência médica e medicamentosa nesta região do país."
+        },
+        {
+          "start_s": 131,
+          "end_s": 140,
+          "reveals": "Malanje city, Cangandala",
+          "quote": "que a maioria da população da cidade de Malanje vem também fazer consulta aqui no Cangandala"
+        },
+        {
+          "start_s": 141,
+          "end_s": 151,
+          "reveals": "Quiuaba Zoji, Mucamba-Muzo",
+          "quote": "Em Quiuaba Zoji, a 89 quilómetros da capital provincial, os aldeões de Mucamba-Muzo carecem de água potável, postos de saúde e mais escolas."
+        },
+        {
+          "start_s": 233,
+          "end_s": 242,
+          "reveals": "Mufuma",
+          "quote": "E vivemos a 15 km de Mufuma, a município sede. No caso da saúde, estamos mesmo aqui, é uma dificuldade que temos."
+        },
+        {
+          "start_s": 243,
+          "end_s": 306,
+          "reveals": "Cangandala, Malanje, Governor Norberto dos Santos",
+          "quote": "Nas diferentes sedes municipais, como a N'zaji e Luquembo, estão a ser erguidos pequenos sistemas de captação, tratamento e distribuição de água com dinheiro do Plano Integrado de Intervenção nos Municípios, PIIM. Em Cangandala, o primeiro-secretário e governador de Malanje, Norberto dos Santos, garantiu que estas dificuldades serão ultrapassadas ainda este ano naquela sede municipal."
+        },
+        {
+          "start_s": 306,
+          "end_s": 314,
+          "reveals": "Cangandala",
+          "quote": "Água está quase a chegar aqui em Cangandala."
+        },
+        {
+          "start_s": 328,
+          "end_s": 332,
+          "reveals": "Malanje, journalist Isaías Soares",
+          "quote": "Isaías Soares, de Malanje, para a Voz da América."
+        }
+      ]
+    },
+    {
+      "id": "portuguese-sao-paulo-brazil-portuguese-brazilian-sao-paul",
+      "deck": "portuguese",
+      "label": "São Paulo, Brazil",
+      "firstWhy": "SAYS PLACE: Brasil",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 23,
+          "end_s": 34,
+          "reveals": "location (USP / Brazil)",
+          "quote": "Eu sou formado em Ciências Biomédicas pela USP, me formei em 2017, e depois fiz mestrado e doutorado na mesma instituição, mas agora na área de Bioinformática."
+        },
+        {
+          "start_s": 133,
+          "end_s": 142,
+          "reveals": "country (Brazil)",
+          "quote": "A bioinformática no Brasil se fundamenta muitas vezes em reanálise de dados ou análise de dados de terceiros."
+        },
+        {
+          "start_s": 142,
+          "end_s": 152,
+          "reveals": "country (Brazil)",
+          "quote": "Dessa forma, é raro o bioinformata, ao menos no Brasil, e eu acho que no geral, mundial, é raro o bioinformata se inscrever num comitê de ética."
+        }
+      ]
+    },
+    {
+      "id": "portuguese-mozambique-portuguese-mozambique",
+      "deck": "portuguese",
+      "label": "Mozambique",
+      "firstWhy": "SAYS PLACE: Moçambique, Estados Unidos, Washington",
+      "dur": 240,
+      "famous": "",
+      "spans": [
+        {
+          "start_s": 0,
+          "end_s": 10.5,
+          "reveals": "Moçambique",
+          "quote": "Vamos falar agora neste Washington Foradares com o embaixador de Moçambique aqui nos Estados Unidos, senhor embaixador Alfredo Nuvunga, bem-vindo ao estúdio do Washington Foradares."
+        },
+        {
+          "start_s": 23.5,
+          "end_s": 40.5,
+          "reveals": "Moçambique",
+          "quote": "Senhor embaixador, depois de ter estado a trabalhar na Etiópia, agora está aqui nos Estados Unidos, na Etiópia esteve na União Africana e também na Etiópia, está aqui em Washington representando o seu país. Em termos de pilares de cooperação Moçambique e Estados Unidos, quais é que são, que estão na sua na sua missão?"
+        },
+        {
+          "start_s": 42,
+          "end_s": 60,
+          "reveals": "Moçambique",
+          "quote": "Bom, a abordagem de Moçambique em todos os países é sempre esta: fazer mais amigos e ter mais parcerias e esta é o moto da nossa diplomacia em Moçambique..."
+        },
+        {
+          "start_s": 141,
+          "end_s": 205,
+          "reveals": "Moçambique",
+          "quote": "Muitas vezes quando o presidente Filipe Nyusi vem a Washington, uma das vezes pelo menos veio com alguns empresários, e sabemos que tem esta oportunidade que é AGOA e outras oportunidades na área de mineração, de que forma é que essas visitas e também os empresários moçambicanos aproveitam essas oportunidades e haverá alguma experiência prática para partilhar?"
+        },
+        {
+          "start_s": 206,
+          "end_s": 220,
+          "reveals": "Moçambique",
+          "quote": "As visitas são, sobretudo as visitas de chefes de estado são o ponto mais alto do relacionamento entre dois estados, neste caso entre Moçambique e Estados Unidos..."
+        },
+        {
+          "start_s": 231,
+          "end_s": 258,
+          "reveals": "Moçambique",
+          "quote": "Nós Moçambique com os Estados Unidos, ela foi evoluindo... tivemos a primeira visita de estado, na altura estava como presidente da República o saudoso presidente Samora Machel quando visitou aqui os Estados Unidos em visita de estado, foi portanto o marcar de uma nova era no relacionamento entre os dois estados."
+        },
+        {
+          "start_s": 299,
+          "end_s": 317,
+          "reveals": "Moçambique",
+          "quote": "O presidente Chissano também visitou os Estados Unidos, o presidente Guebuza também já o fez, o presidente Nyusi já o fez também por duas vezes..."
+        }
+      ]
+    }
+  ]
+}

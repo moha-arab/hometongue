@@ -1,0 +1,128 @@
+[
+  {
+    "id": "wild-mvezo-eastern-cape-south-africa",
+    "deck": "accents",
+    "label": "Mvezo / Eastern Cape, South Africa",
+    "url": "/clips/accents/wild-mvezo-eastern-cape-south-africa.mp3",
+    "reason": "famous voice: Nelson Mandela — identity is the answer"
+  },
+  {
+    "id": "wild-toronto-canada",
+    "deck": "accents",
+    "label": "Toronto, Canada",
+    "url": "/clips/accents/wild-toronto-canada.mp3",
+    "reason": "famous voice: Stephen Harper, plus \"Canada\" named throughout"
+  },
+  {
+    "id": "accents-new-zealand-english-new-zealand",
+    "deck": "accents",
+    "label": "New Zealand",
+    "url": "/clips/accents/accents-new-zealand-english-new-zealand.mp3",
+    "reason": "famous voice: Jacinda Ardern"
+  },
+  {
+    "id": "wild-the-bronx-new-york-city-usa",
+    "deck": "accents",
+    "label": "The Bronx, New York City, USA",
+    "url": "/clips/accents/wild-the-bronx-new-york-city-usa.mp3",
+    "reason": "famous voice: Sonia Sotomayor telling her Bronx biography"
+  },
+  {
+    "id": "wild-texas-hill-country-stonewall-usa",
+    "deck": "accents",
+    "label": "Texas Hill Country (Stonewall), USA",
+    "url": "/clips/accents/wild-texas-hill-country-stonewall-usa.mp3",
+    "reason": "famous voice: Lyndon B. Johnson (caught via eval evidence, not the gate)"
+  },
+  {
+    "id": "hindi-urdu-rajiv-dixit-aitihasik-bhulein-historical-mista",
+    "deck": "hindi-urdu",
+    "label": "Aligarh, India",
+    "url": "/clips/hindi-urdu/hindi-urdu-rajiv-dixit-aitihasik-bhulein-historical-mista.mp3",
+    "reason": "famous voice: Rajiv Dixit — born in Aligarh, the answer"
+  },
+  {
+    "id": "spanish-seville-andalusia-spain-spanish-andalusian-spa",
+    "deck": "spanish",
+    "label": "Andalusia, Spain",
+    "url": "/clips/spanish/spanish-seville-andalusia-spain-spanish-andalusian-spa.mp3",
+    "reason": "reads the history of Andalusia — answer named in every window"
+  },
+  {
+    "id": "chinese-nanyang-china-zhongyuan-mandarin-henan",
+    "deck": "chinese",
+    "label": "Nanyang, China",
+    "url": "/clips/chinese/chinese-nanyang-china-zhongyuan-mandarin-henan.mp3",
+    "reason": "dialect showcase that names Henan/Tanghe constantly"
+  },
+  {
+    "id": "ar-6158",
+    "deck": "arabic",
+    "label": "Ajman, UAE",
+    "url": "/clips/ar/ar-6158.mp3",
+    "reason": "30s clip, \"al-Hebab\" (Dubai area) spoken across 0-18s — no room for a clean window"
+  },
+  {
+    "id": "ar-2278",
+    "deck": "arabic",
+    "label": "Damascus, Syria",
+    "url": "/clips/ar/ar-2278.mp3",
+    "reason": "30s clip, \"Syrian channels\" spoken at 16-28s — no room for a clean window"
+  },
+  {
+    "id": "ar-1650",
+    "deck": "arabic",
+    "label": "Ramallah, Palestine",
+    "url": "/clips/ar/ar-1650.mp3",
+    "reason": "30s clip, \"Jerusalem municipality\" spoken across 0-20s — no room for a clean window"
+  },
+  {
+    "id": "wild-amritsar-punjab-india",
+    "deck": "accents",
+    "label": "Amritsar / Punjab, India",
+    "url": "/clips/accents/wild-amritsar-punjab-india.mp3",
+    "reason": "no clean 20s window found by the fixer"
+  },
+  {
+    "id": "wild-huddersfield-west-yorkshire-england",
+    "deck": "accents",
+    "label": "Huddersfield, West Yorkshire, England",
+    "url": "/clips/accents/wild-huddersfield-west-yorkshire-england.mp3",
+    "reason": "no clean 20s window found by the fixer"
+  },
+  {
+    "id": "accents-nigeria-nigerian-pidgin",
+    "deck": "accents",
+    "label": "Nigeria",
+    "url": "/clips/accents/accents-nigeria-nigerian-pidgin.mp3",
+    "reason": "no clean 20s window found by the fixer"
+  },
+  {
+    "id": "wild-liverpool-england",
+    "deck": "accents",
+    "label": "Liverpool, England",
+    "url": "/clips/accents/wild-liverpool-england.mp3",
+    "reason": "famous voice: John Bishop — Liverpudlian comedian, answer is his known origin"
+  },
+  {
+    "id": "accents-wales-english-welsh",
+    "deck": "accents",
+    "label": "Wales",
+    "url": "/clips/accents/accents-wales-english-welsh.mp3",
+    "reason": "famous voice: Mark Drakeford — First Minister of Wales during covid, UK-wide recognition"
+  },
+  {
+    "id": "wild-sarnia-milton-ontario-canada",
+    "deck": "accents",
+    "label": "Sarnia / Milton, Ontario, Canada",
+    "url": "/clips/accents/wild-sarnia-milton-ontario-canada.mp3",
+    "reason": "famous voice: Chris Hadfield — Canadian astronaut; the Toronto audience is exactly who recognizes him"
+  },
+  {
+    "id": "chinese-foshan-china-cantonese-guangdong-pearl-river-d",
+    "deck": "chinese",
+    "label": "Foshan, China",
+    "url": "/clips/chinese/chinese-foshan-china-cantonese-guangdong-pearl-river-d.mp3",
+    "reason": "famous voice: Sun Yat-sen historic recording — recognizable to Chinese players, label also dubious"
+  }
+]

@@ -1,0 +1,388 @@
+{
+  "flagged": [
+    {
+      "id": "lang-thai",
+      "deck": "languages",
+      "label": "Thai",
+      "why": "SAYS PLACE: Roi Et, Thailand"
+    },
+    {
+      "id": "lang-korean",
+      "deck": "languages",
+      "label": "Korean",
+      "why": "SAYS PLACE: Seoul"
+    },
+    {
+      "id": "lang-indonesian",
+      "deck": "languages",
+      "label": "Indonesian",
+      "why": "SAYS PLACE: Indonesia"
+    },
+    {
+      "id": "lang-mandarin-chinese",
+      "deck": "languages",
+      "label": "Mandarin Chinese",
+      "why": "SAYS PLACE: China"
+    },
+    {
+      "id": "lang-hausa",
+      "deck": "languages",
+      "label": "Hausa",
+      "why": "SAYS PLACE: Ghana, Jamus"
+    },
+    {
+      "id": "lang-amharic",
+      "deck": "languages",
+      "label": "Amharic",
+      "why": "SAYS PLACE: Ethiopia"
+    },
+    {
+      "id": "lang-swahili",
+      "deck": "languages",
+      "label": "Swahili",
+      "why": "SAYS PLACE: Washington DC"
+    },
+    {
+      "id": "lang-polish",
+      "deck": "languages",
+      "label": "Polish",
+      "why": "SAYS PLACE: Dublin"
+    },
+    {
+      "id": "lang-german",
+      "deck": "languages",
+      "label": "German",
+      "why": "SAYS PLACE: Hannover"
+    },
+    {
+      "id": "lang-italian",
+      "deck": "languages",
+      "label": "Italian",
+      "why": "SAYS PLACE: Fonni"
+    },
+    {
+      "id": "lang-swedish",
+      "deck": "languages",
+      "label": "Swedish",
+      "why": "SAYS PLACE: Rödeby"
+    },
+    {
+      "id": "lang-hungarian",
+      "deck": "languages",
+      "label": "Hungarian",
+      "why": "SAYS PLACE: Törökország"
+    },
+    {
+      "id": "wild-amritsar-punjab-india",
+      "deck": "accents",
+      "label": "Amritsar / Punjab, India",
+      "why": "SAYS PLACE: India"
+    },
+    {
+      "id": "wild-huddersfield-west-yorkshire-england",
+      "deck": "accents",
+      "label": "Huddersfield, West Yorkshire, England",
+      "why": "FAMOUS: Wilf Lunn"
+    },
+    {
+      "id": "wild-georgetown-south-carolina-usa-us-south",
+      "deck": "accents",
+      "label": "Georgetown, South Carolina, USA (US South)",
+      "why": "SAYS PLACE: South Carolina, USA, New York City, Los Angeles"
+    },
+    {
+      "id": "accents-jamaica-english-jamaican-patois",
+      "deck": "accents",
+      "label": "Jamaica",
+      "why": "SAYS PLACE: Jamaica"
+    },
+    {
+      "id": "accents-kenya-english-kenyan",
+      "deck": "accents",
+      "label": "Kenya",
+      "why": "SAYS PLACE: Kenya"
+    },
+    {
+      "id": "wild-mbaise-imo-state-nigeria",
+      "deck": "accents",
+      "label": "Mbaise, Imo State, Nigeria",
+      "why": "SAYS PLACE: Southeast Nigeria"
+    },
+    {
+      "id": "wild-melbourne-australia",
+      "deck": "accents",
+      "label": "Melbourne, Australia",
+      "why": "SAYS PLACE: Melbourne, Victoria, Australia"
+    },
+    {
+      "id": "wild-mvezo-eastern-cape-south-africa",
+      "deck": "accents",
+      "label": "Mvezo / Eastern Cape, South Africa",
+      "why": "SAYS PLACE: South Africa"
+    },
+    {
+      "id": "accents-namibia-english-namibian",
+      "deck": "accents",
+      "label": "Namibia",
+      "why": "SAYS PLACE: Namibia"
+    },
+    {
+      "id": "accents-new-zealand-english-new-zealand",
+      "deck": "accents",
+      "label": "New Zealand",
+      "why": "SAYS PLACE: New Zealand"
+    },
+    {
+      "id": "accents-aberdeenshire-scotland-english-northeast-scotl",
+      "deck": "accents",
+      "label": "Northeast Scotland, Scotland",
+      "why": "SAYS PLACE: Edinburgh"
+    },
+    {
+      "id": "accents-nigeria-nigerian-pidgin",
+      "deck": "accents",
+      "label": "Nigeria",
+      "why": "SAYS PLACE: Nigeria"
+    },
+    {
+      "id": "wild-sarnia-milton-ontario-canada",
+      "deck": "accents",
+      "label": "Sarnia / Milton, Ontario, Canada",
+      "why": "SAYS PLACE: Houston, Canada"
+    },
+    {
+      "id": "accents-west-yorkshire-england-english-west-riding-yor",
+      "deck": "accents",
+      "label": "Sheffield, England",
+      "why": "SAYS PLACE: Sheffield"
+    },
+    {
+      "id": "wild-the-bronx-new-york-city-usa",
+      "deck": "accents",
+      "label": "The Bronx, New York City, USA",
+      "why": "SAYS PLACE: Bronx, New York"
+    },
+    {
+      "id": "wild-toronto-canada",
+      "deck": "accents",
+      "label": "Toronto, Canada",
+      "why": "SAYS PLACE: Canada"
+    },
+    {
+      "id": "accents-wales-english-welsh",
+      "deck": "accents",
+      "label": "Wales",
+      "why": "SAYS PLACE: Wales"
+    },
+    {
+      "id": "wild-thomastown-county-kilkenny-ireland",
+      "deck": "accents",
+      "label": "Thomastown, County Kilkenny, Ireland",
+      "why": "SAYS PLACE: Lisbigney, County Laois, Ireland"
+    },
+    {
+      "id": "ar-6158",
+      "deck": "arabic",
+      "label": "Ajman, UAE",
+      "why": "SAYS PLACE: Lahbab"
+    },
+    {
+      "id": "ar-2608",
+      "deck": "arabic",
+      "label": "Cairo, Egypt",
+      "why": "SAYS PLACE: New Jersey"
+    },
+    {
+      "id": "ar-2278",
+      "deck": "arabic",
+      "label": "Damascus, Syria",
+      "why": "SAYS PLACE: Syria"
+    },
+    {
+      "id": "ar-1623",
+      "deck": "arabic",
+      "label": "Muscat, Oman",
+      "why": "SAYS PLACE: Muscat"
+    },
+    {
+      "id": "ar-1650",
+      "deck": "arabic",
+      "label": "Ramallah, Palestine",
+      "why": "SAYS PLACE: Jerusalem"
+    },
+    {
+      "id": "ar-3479",
+      "deck": "arabic",
+      "label": "Sanaa, Yemen",
+      "why": "SAYS PLACE: Taiz"
+    },
+    {
+      "id": "ar-6858",
+      "deck": "arabic",
+      "label": "Tripoli, Libya",
+      "why": "SAYS PLACE: Ain Zara"
+    },
+    {
+      "id": "ar-3647",
+      "deck": "arabic",
+      "label": "Tangier, Morocco",
+      "why": "SAYS PLACE: Spain, Zambia"
+    },
+    {
+      "id": "french-bargny-senegal-french-senegal",
+      "deck": "french",
+      "label": "Bargny, Senegal",
+      "why": "SAYS PLACE: Bargny"
+    },
+    {
+      "id": "french-brussels-belgium-french-belgian",
+      "deck": "french",
+      "label": "Belgium",
+      "why": "SAYS PLACE: Bibracte"
+    },
+    {
+      "id": "french-yaounde-cameroon-french-cameroon",
+      "deck": "french",
+      "label": "Cameroon",
+      "why": "SAYS PLACE: Cameroun"
+    },
+    {
+      "id": "french-abidjan-cote-d-ivoire-french-cote-d-ivoire",
+      "deck": "french",
+      "label": "Côte d'Ivoire",
+      "why": "SAYS PLACE: Côte d'Ivoire"
+    },
+    {
+      "id": "french-paris-france-french-paris",
+      "deck": "french",
+      "label": "Paris, France",
+      "why": "SAYS PLACE: Londres, Royaume-Uni"
+    },
+    {
+      "id": "french-montreal-canada-french-quebecois",
+      "deck": "french",
+      "label": "Québec, Canada",
+      "why": "SAYS PLACE: Québec"
+    },
+    {
+      "id": "french-marseille-france-french-southern-france",
+      "deck": "french",
+      "label": "Southern France, France",
+      "why": "SAYS PLACE: Marseille, France"
+    },
+    {
+      "id": "spanish-argentine-spanish-reading-about-a-brazilian-to",
+      "deck": "spanish",
+      "label": "Argentina",
+      "why": "SAYS PLACE: Andrelândia"
+    },
+    {
+      "id": "spanish-seville-andalusia-spain-spanish-andalusian-spa",
+      "deck": "spanish",
+      "label": "Andalusia, Spain",
+      "why": "SAYS PLACE: Andalucía"
+    },
+    {
+      "id": "spanish-paniahue-santa-cruz-chile-spanish-chilean",
+      "deck": "spanish",
+      "label": "Paniahue, Chile",
+      "why": "SAYS PLACE: O'Higgins"
+    },
+    {
+      "id": "spanish-peruvian-spanish-richard-dawkins-biography-rea",
+      "deck": "spanish",
+      "label": "Peru",
+      "why": "SAYS PLACE: Nairobi, Kenya"
+    },
+    {
+      "id": "spanish-colombian-spanish-steven-pinker-biography-read",
+      "deck": "spanish",
+      "label": "Turbaco, Colombia",
+      "why": "SAYS PLACE: Montreal"
+    },
+    {
+      "id": "chinese-guiyang-china-mandarin-guiyangese-southwestern",
+      "deck": "chinese",
+      "label": "Guiyang, China",
+      "why": "SAYS PLACE: Guiyang, Guizhou"
+    },
+    {
+      "id": "chinese-hk-cantonese-george-washington-carver-spoken-w",
+      "deck": "chinese",
+      "label": "Hong Kong",
+      "why": "SAYS PLACE: Missouri, Iowa, Alabama, United States"
+    },
+    {
+      "id": "chinese-nanyang-china-zhongyuan-mandarin-henan",
+      "deck": "chinese",
+      "label": "Nanyang, China",
+      "why": "SAYS PLACE: Tanghe County, Nanyang, Henan"
+    },
+    {
+      "id": "chinese-taipei-taiwan-mandarin-taiwan-guoyu",
+      "deck": "chinese",
+      "label": "Taiwan",
+      "why": "SAYS PLACE: 美國"
+    },
+    {
+      "id": "hindi-urdu-rajiv-dixit-aitihasik-bhulein-historical-mista",
+      "deck": "hindi-urdu",
+      "label": "Aligarh, India",
+      "why": "SAYS PLACE: Bharat"
+    },
+    {
+      "id": "chinese-taiwan-mandarin-good-cop-bad-dog-tv-episode-sp",
+      "deck": "chinese",
+      "label": "Taiwan",
+      "why": "SAYS PLACE: 美國"
+    },
+    {
+      "id": "hindi-urdu-karachi-pakistan-urdu",
+      "deck": "hindi-urdu",
+      "label": "Karachi, Pakistan",
+      "why": "SAYS PLACE: South Africa, Pakistan"
+    },
+    {
+      "id": "hindi-urdu-mumbai-india-hindi-bambaiyya-adjacent",
+      "deck": "hindi-urdu",
+      "label": "Mumbai, India",
+      "why": "SAYS PLACE: Pakistan, Bombay"
+    },
+    {
+      "id": "hindi-urdu-mufti-abul-qasim-nomani-talk-on-darul-uloom-de",
+      "deck": "hindi-urdu",
+      "label": "Varanasi, India",
+      "why": "SAYS PLACE: Deoband"
+    },
+    {
+      "id": "portuguese-malanje-angola-portuguese-angola",
+      "deck": "portuguese",
+      "label": "Malanje, Angola",
+      "why": "SAYS PLACE: Malanje, Angola"
+    },
+    {
+      "id": "portuguese-cape-verde-portuguese-cape-verde",
+      "deck": "portuguese",
+      "label": "Cape Verde",
+      "why": "SAYS PLACE: Lisboa"
+    },
+    {
+      "id": "portuguese-porto-alegre-brazil-portuguese-brazilian-gauch",
+      "deck": "portuguese",
+      "label": "Porto Alegre, Brazil",
+      "why": "SAYS PLACE: Portugal"
+    },
+    {
+      "id": "portuguese-mozambique-portuguese-mozambique",
+      "deck": "portuguese",
+      "label": "Mozambique",
+      "why": "SAYS PLACE: Moçambique, Estados Unidos, Washington"
+    },
+    {
+      "id": "portuguese-sao-paulo-brazil-portuguese-brazilian-sao-paul",
+      "deck": "portuguese",
+      "label": "São Paulo, Brazil",
+      "why": "SAYS PLACE: Brasil"
+    }
+  ]
+}

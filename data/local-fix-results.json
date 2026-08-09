@@ -1,0 +1,51 @@
+{
+  "fixed": {
+    "wild-georgetown-south-carolina-usa-us-south": 16,
+    "accents-jamaica-english-jamaican-patois": 130.5,
+    "accents-kenya-english-kenyan": 219.5,
+    "wild-melbourne-australia": 17.5,
+    "accents-aberdeenshire-scotland-english-northeast-scotl": 115.5,
+    "wild-mbaise-imo-state-nigeria": 27.5,
+    "accents-west-yorkshire-england-english-west-riding-yor": 174.5,
+    "wild-thomastown-county-kilkenny-ireland": 58,
+    "accents-namibia-english-namibian": 68,
+    "ar-6858": 9.5,
+    "wild-sarnia-milton-ontario-canada": 211,
+    "french-bargny-senegal-french-senegal": 68.5,
+    "french-yaounde-cameroon-french-cameroon": 132.5,
+    "french-abidjan-cote-d-ivoire-french-cote-d-ivoire": 116.5,
+    "french-marseille-france-french-southern-france": 35.5,
+    "chinese-guiyang-china-mandarin-guiyangese-southwestern": 122.5,
+    "french-montreal-canada-french-quebecois": 172.5,
+    "chinese-taipei-taiwan-mandarin-taiwan-guoyu": 133.5,
+    "chinese-taiwan-mandarin-good-cop-bad-dog-tv-episode-sp": 134,
+    "hindi-urdu-mumbai-india-hindi-bambaiyya-adjacent": 28,
+    "hindi-urdu-mufti-abul-qasim-nomani-talk-on-darul-uloom-de": 40.5,
+    "portuguese-malanje-angola-portuguese-angola": 66.5,
+    "portuguese-cape-verde-portuguese-cape-verde": 25,
+    "portuguese-mozambique-portuguese-mozambique": 63,
+    "portuguese-sao-paulo-brazil-portuguese-brazilian-sao-paul": 73.5,
+    "spanish-paniahue-santa-cruz-chile-spanish-chilean": 50
+  },
+  "failed": [
+    "wild-amritsar-punjab-india",
+    "wild-huddersfield-west-yorkshire-england",
+    "accents-nigeria-nigerian-pidgin"
+  ],
+  "removed": [
+    "wild-mvezo-eastern-cape-south-africa",
+    "wild-toronto-canada",
+    "accents-new-zealand-english-new-zealand",
+    "wild-the-bronx-new-york-city-usa",
+    "wild-texas-hill-country-stonewall-usa",
+    "hindi-urdu-rajiv-dixit-aitihasik-bhulein-historical-mista",
+    "spanish-seville-andalusia-spain-spanish-andalusian-spa",
+    "chinese-nanyang-china-zhongyuan-mandarin-henan",
+    "ar-6158",
+    "ar-2278",
+    "ar-1650",
+    "wild-amritsar-punjab-india",
+    "wild-huddersfield-west-yorkshire-england",
+    "accents-nigeria-nigerian-pidgin"
+  ]
+}

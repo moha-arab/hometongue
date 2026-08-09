@@ -1,0 +1,144 @@
+{
+  "hits": [
+    {
+      "id": "wild-georgetown-south-carolina-usa-us-south",
+      "deck": "accents",
+      "label": "Georgetown, South Carolina, USA (US South)",
+      "famous": "Bill Oberst Jr.",
+      "why": "named in audio"
+    },
+    {
+      "id": "accents-kenya-english-kenyan",
+      "deck": "accents",
+      "label": "Kenya",
+      "famous": "David Rudisha",
+      "why": "named in audio"
+    },
+    {
+      "id": "wild-mbaise-imo-state-nigeria",
+      "deck": "accents",
+      "label": "Mbaise, Imo State, Nigeria",
+      "famous": "Leo Igwe",
+      "why": "named in audio"
+    },
+    {
+      "id": "wild-liverpool-england",
+      "deck": "accents",
+      "label": "Liverpool, England",
+      "famous": "John Bishop",
+      "why": "voice"
+    },
+    {
+      "id": "wild-melbourne-australia",
+      "deck": "accents",
+      "label": "Melbourne, Australia",
+      "famous": "Shelley Segal",
+      "why": "named in audio"
+    },
+    {
+      "id": "accents-aberdeenshire-scotland-english-northeast-scotl",
+      "deck": "accents",
+      "label": "Northeast Scotland, Scotland",
+      "famous": "David Campbell",
+      "why": "named in audio"
+    },
+    {
+      "id": "wild-sarnia-milton-ontario-canada",
+      "deck": "accents",
+      "label": "Sarnia / Milton, Ontario, Canada",
+      "famous": "Chris Hadfield",
+      "why": "named in audio and recognizable voice"
+    },
+    {
+      "id": "accents-wales-english-welsh",
+      "deck": "accents",
+      "label": "Wales",
+      "famous": "Mark Drakeford",
+      "why": "voice and context"
+    },
+    {
+      "id": "ar-2473",
+      "deck": "arabic",
+      "label": "Batna, Algeria",
+      "famous": "El Hachemi Guerouabi",
+      "why": "voice"
+    },
+    {
+      "id": "ar-2765",
+      "deck": "arabic",
+      "label": "Basra, Iraq",
+      "famous": "Mohammed Hussein Abdul Rahim",
+      "why": "voice"
+    },
+    {
+      "id": "ar-4531",
+      "deck": "arabic",
+      "label": "Irbid, Jordan",
+      "famous": "Tareq Khoury",
+      "why": "voice"
+    },
+    {
+      "id": "french-yaounde-cameroon-french-cameroon",
+      "deck": "french",
+      "label": "Cameroon",
+      "famous": "Jean-Bruno Tagne",
+      "why": "named in audio"
+    },
+    {
+      "id": "spanish-uruguayan-spanish-juan-jose-morosoli-reads-la-",
+      "deck": "spanish",
+      "label": "Minas, Uruguay",
+      "famous": "Atahualpa Yupanqui",
+      "why": "voice"
+    },
+    {
+      "id": "chinese-foshan-china-cantonese-guangdong-pearl-river-d",
+      "deck": "chinese",
+      "label": "Foshan, China",
+      "famous": "Sun Yat-sen",
+      "why": "voice"
+    },
+    {
+      "id": "hindi-urdu-mumbai-india-hindi-bambaiyya-adjacent",
+      "deck": "hindi-urdu",
+      "label": "Mumbai, India",
+      "famous": "Aruna Irani",
+      "why": "voice"
+    },
+    {
+      "id": "hindi-urdu-karachi-pakistan-urdu",
+      "deck": "hindi-urdu",
+      "label": "Karachi, Pakistan",
+      "famous": "Abul Hasan Ali Hasani Nadwi",
+      "why": "voice"
+    },
+    {
+      "id": "hindi-urdu-mufti-abul-qasim-nomani-talk-on-darul-uloom-de",
+      "deck": "hindi-urdu",
+      "label": "Varanasi, India",
+      "famous": "Mahmood Madani",
+      "why": "voice"
+    },
+    {
+      "id": "portuguese-cape-verde-portuguese-cape-verde",
+      "deck": "portuguese",
+      "label": "Cape Verde",
+      "famous": "Tito Paris",
+      "why": "named in audio"
+    },
+    {
+      "id": "portuguese-malanje-angola-portuguese-angola",
+      "deck": "portuguese",
+      "label": "Malanje, Angola",
+      "famous": "Norberto dos Santos",
+      "why": "named in audio"
+    },
+    {
+      "id": "portuguese-mozambique-portuguese-mozambique",
+      "deck": "portuguese",
+      "label": "Mozambique",
+      "famous": "Alfredo Nuvunga",
+      "why": "named in audio"
+    }
+  ]
+}

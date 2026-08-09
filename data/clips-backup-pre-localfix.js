@@ -681,7 +681,28 @@ window.CLIPS = {
     {"id":"yt-DpnUurJvGWs","kind":"yt","videoId":"DpnUurJvGWs","label":"Glasgow, Scotland","lang":"English","lat":55.8642,"lng":-4.2518,"r":60,"start":48,"gain":100,"hint":"Streamed from YouTube — the creator gets the view.","gate":{"model":"gemini-3.6-flash","heard":"Glasgow, Scotland, United Kingdom","offBy":0,"confidence":85,"evidence":["Scottish monophthongal vowels and tapped /r/ sounds","References to Scottish history/culture and local Scottish slang in background","Distinct central belt Scottish intonation and rhythm"],"title":"People Make Glass Gow","author":"Paul Black"},"evalExclude":true,"source":{"who":"Paul Black","host":"YouTube","license":"Streamed from YouTube — the creator keeps the view","page":"https://www.youtube.com/watch?v=DpnUurJvGWs","note":"People Make Glass Gow"}},
     {"id":"yt-HylaY5e1awo","kind":"yt","videoId":"HylaY5e1awo","label":"Singapore","lang":"English","lat":1.3521,"lng":103.8198,"r":40,"start":186,"gain":100,"hint":"Streamed from YouTube — the creator gets the view.","gate":{"model":"gemini-3.6-flash","heard":"Singapore","offBy":0,"confidence":95,"evidence":["Distinctive Singaporean English (Singlish) intonation and rhythm","Syllable-timed prosody characteristic of Singapore and Malaysia","Speaker explicitly mentions 'Singlish' in the conversation"],"title":"The Singaporean White Boy - The Shan and Rozz Show: EP7","author":"Clicknetwork"},"evalExclude":true,"source":{"who":"Clicknetwork","host":"YouTube","license":"Streamed from YouTube — the creator keeps the view","page":"https://www.youtube.com/watch?v=HylaY5e1awo","note":"The Singaporean White Boy - The Shan and Rozz Show: EP7"}},
     {"id":"yt-HpTfmxkXU1A","kind":"yt","videoId":"HpTfmxkXU1A","label":"Singapore","lang":"English","lat":1.3521,"lng":103.8198,"r":40,"start": 161,"gain":100,"hint":"Streamed from YouTube — the creator gets the view.","gate":{"model":"gemini-3.6-flash","heard":"Singapore","offBy":0,"confidence":95,"evidence":["Use of local Singlish term 'ang moh' referring to Caucasians","Explicit discussion of local identity in Singapore","Syllable-timed rhythm and prosody typical of Singaporean English"],"title":"What Do People Think Of Singaporeans With \"Angmoh\" Accents? | Word On The Street","author":"TheSmartLocal"},"evalExclude":true,"source":{"who":"TheSmartLocal","host":"YouTube","license":"Streamed from YouTube — the creator keeps the view","page":"https://www.youtube.com/watch?v=HpTfmxkXU1A","note":"What Do People Think Of Singaporeans With \"Angmoh\" Accents? | Word On The Street"}},
-    
+    {
+      "id": "wild-amritsar-punjab-india",
+      "label": "Amritsar / Punjab, India",
+      "lang": "English",
+      "url": "/clips/accents/wild-amritsar-punjab-india.mp3",
+      "lat": 31.634,
+      "lng": 74.8723,
+      "r": 800,
+      "size": 1186839,
+      "wild": true,
+      "hint": "Indian PM addressing the US Congress, 2.5min. Note: born in pre-Partition Punjab (now Pakistan), raised in Indian Punjab",
+      "start": 97,
+      "source": {
+        "who": "US Congress joint session recording (2005",
+        "host": "Wikimedia Commons",
+        "license": "public domain",
+        "page": "https://commons.wikimedia.org/wiki/File:Manmohan_Singh_voice.ogg",
+        "note": ""
+      },
+      "lufs": -16.4,
+      "year": 2005
+    },
     {
       "id": "yt--djB-PWhdl0",
       "kind": "yt",
@@ -747,7 +768,7 @@ window.CLIPS = {
       "size": 333366,
       "wild": true,
       "hint": "Actor introducing himself off the cuff, 42s",
-      "start": 16,
+      "start": 9,
       "source": {
         "who": "Bill Oberst Jr. (Voice intro project",
         "host": "Wikimedia Commons",
@@ -784,7 +805,27 @@ window.CLIPS = {
         "note": "played from 86s, audio only"
       }
     },
-    
+    {
+      "id": "wild-huddersfield-west-yorkshire-england",
+      "label": "Huddersfield, West Yorkshire, England",
+      "lang": "English",
+      "url": "/clips/accents/wild-huddersfield-west-yorkshire-england.mp3",
+      "lat": 53.6458,
+      "lng": -1.785,
+      "r": 80,
+      "size": 226577,
+      "wild": true,
+      "hint": "TV inventor interviewed at home, 28s of strong Yorkshire vowels",
+      "source": {
+        "who": "Interview clip by Christian Payne (Documentally",
+        "host": "Wikimedia Commons",
+        "license": "CC BY 4.0",
+        "page": "https://commons.wikimedia.org/wiki/File:Wilf%27_Lunn_voice_sample.wav",
+        "note": ""
+      },
+      "lufs": -16.6,
+      "year": 2011
+    },
     {
       "id": "accents-jamaica-english-jamaican-patois",
       "label": "Jamaica",
@@ -795,7 +836,7 @@ window.CLIPS = {
       "r": 200,
       "size": 1889219,
       "wild": true,
-      "start": 130.5,
+      "start": 111,
       "hint": "He slides between English and Patois mid-sentence.",
       "year": 2014,
       "source": {
@@ -817,7 +858,7 @@ window.CLIPS = {
       "r": 450,
       "size": 1920775,
       "wild": true,
-      "start": 219.5,
+      "start": 16,
       "hint": "An 800m world-record holder being interviewed right after the race.",
       "source": {
         "who": "VOA News",
@@ -829,7 +870,27 @@ window.CLIPS = {
       "lufs": -16.6,
       "year": 2010
     },
-    
+    {
+      "id": "wild-liverpool-england",
+      "label": "Liverpool, England",
+      "lang": "English",
+      "url": "/clips/accents/wild-liverpool-england.mp3",
+      "lat": 53.4084,
+      "lng": -2.9916,
+      "r": 60,
+      "size": 268762,
+      "wild": true,
+      "hint": "Comedian reminiscing about school; 33s interview speech",
+      "source": {
+        "who": "BBC Radio 4 Desert Island Discs (24 June 2012",
+        "host": "Wikimedia Commons",
+        "license": "CC BY 3.0",
+        "page": "https://commons.wikimedia.org/wiki/File:John_bishop_bbc_radio4_desert_island_discs_24_06_2012.flac",
+        "note": ""
+      },
+      "lufs": -16.6,
+      "year": 2012
+    },
     {
       "id": "wild-mbaise-imo-state-nigeria",
       "label": "Mbaise, Imo State, Nigeria",
@@ -841,7 +902,7 @@ window.CLIPS = {
       "size": 386447,
       "wild": true,
       "hint": "Activist introducing himself, 48s, strong Nigerian English",
-      "start": 27.5,
+      "start": 25,
       "source": {
         "who": "Recording by Nederlandse Leeuw",
         "host": "Wikimedia Commons",
@@ -863,7 +924,7 @@ window.CLIPS = {
       "size": 303691,
       "wild": true,
       "hint": "Musician introducing herself off the cuff, 38s",
-      "start": 17.5,
+      "start": 14,
       "source": {
         "who": "Recording by Nederlandse Leeuw",
         "host": "Wikimedia Commons",
@@ -874,7 +935,28 @@ window.CLIPS = {
       "lufs": -16.5,
       "year": 2016
     },
-    
+    {
+      "id": "wild-mvezo-eastern-cape-south-africa",
+      "label": "Mvezo / Eastern Cape, South Africa",
+      "lang": "English",
+      "url": "/clips/accents/wild-mvezo-eastern-cape-south-africa.mp3",
+      "lat": -31.93,
+      "lng": 28.48,
+      "r": 600,
+      "size": 1920775,
+      "wild": true,
+      "hint": "10.7min speech; unmistakable cadence · world-famous voice, may be too easy",
+      "start": 31,
+      "source": {
+        "who": "White House recording via Clinton Presidential Library",
+        "host": "Wikimedia Commons",
+        "license": "public domain",
+        "page": "https://commons.wikimedia.org/wiki/File:Nelson_Mandela_voice.ogg",
+        "note": ""
+      },
+      "lufs": -16.6,
+      "year": 1993
+    },
     {
       "id": "accents-namibia-english-namibian",
       "label": "Namibia",
@@ -885,7 +967,7 @@ window.CLIPS = {
       "r": 450,
       "size": 1920878,
       "wild": true,
-      "start": 68,
+      "start": 33,
       "hint": "A speaker of Subiya, a language of the Zambezi strip, talking in English.",
       "source": {
         "who": "Wikitongues / Musuweu Theron Kolokwe",
@@ -897,8 +979,50 @@ window.CLIPS = {
       "lufs": -17.1,
       "year": 2017
     },
-    
-    
+    {
+      "id": "accents-new-zealand-english-new-zealand",
+      "label": "New Zealand",
+      "lang": "English (New Zealand)",
+      "url": "/clips/accents/accents-new-zealand-english-new-zealand.mp3",
+      "lat": -40.9,
+      "lng": 174.9,
+      "r": 450,
+      "size": 1426661,
+      "wild": true,
+      "start": 120,
+      "hint": "A former head of government giving a graduation address about truth and democracy.",
+      "source": {
+        "who": "Harvard University",
+        "host": "Wikimedia Commons",
+        "license": "CC BY 3.0",
+        "page": "https://commons.wikimedia.org/wiki/File:Jacinda_Ardern-_Harvard_Graduation_2022_Speech-_%22Democracy_is_Fragile%22.webm",
+        "note": "trimmed and re-encoded for the game"
+      },
+      "lufs": -16.7,
+      "year": 2022
+    },
+    {
+      "id": "accents-nigeria-nigerian-pidgin",
+      "label": "Nigeria",
+      "lang": "Nigerian Pidgin",
+      "url": "/clips/accents/accents-nigeria-nigerian-pidgin.mp3",
+      "lat": 9.08,
+      "lng": 8.68,
+      "r": 450,
+      "size": 1612112,
+      "wild": true,
+      "start": 150,
+      "hint": "Nigerian Pidgin, spoken the way it actually gets spoken.",
+      "year": 2024,
+      "source": {
+        "who": "Wikitongues oral histories project",
+        "host": "Wikimedia Commons",
+        "license": "CC0 (public domain)",
+        "page": "https://commons.wikimedia.org/wiki/File:Tochi_speaking_Nigerian_Pidgin.webm",
+        "note": "trimmed and re-encoded for the game"
+      },
+      "lufs": -16.6
+    },
     {
       "id": "accents-aberdeenshire-scotland-english-northeast-scotl",
       "label": "Northeast Scotland, Scotland",
@@ -909,7 +1033,7 @@ window.CLIPS = {
       "r": 220,
       "size": 1920775,
       "wild": true,
-      "start": 115.5,
+      "start": 30,
       "hint": "He switches between his home dialect and English; the clip needs the English stretch.",
       "source": {
         "who": "Wikitongues",
@@ -921,7 +1045,28 @@ window.CLIPS = {
       "lufs": -17,
       "year": 2014
     },
-    
+    {
+      "id": "wild-sarnia-milton-ontario-canada",
+      "label": "Sarnia / Milton, Ontario, Canada",
+      "lang": "English",
+      "url": "/clips/accents/wild-sarnia-milton-ontario-canada.mp3",
+      "lat": 43.5183,
+      "lng": -79.8774,
+      "r": 500,
+      "size": 1920906,
+      "wild": true,
+      "hint": "Live unscripted Q&A downlink, 24:18 mp3; opening minutes may include Canadian event hosts (also Ontario voices) before/between Hadfield's long answers. All-English event.",
+      "start": 103,
+      "source": {
+        "who": "NASA TV, 'Space Station's Hadfield Connects with Canadian Students', Jan 30, 2013, via nasa_tv collection (item nasa_tv-Space_Station_s_Hadfield_Connects_with_Canadian_Students). NASA TV production",
+        "host": "Internet Archive",
+        "license": "US government work (public domain)",
+        "page": "",
+        "note": ""
+      },
+      "lufs": -16.7,
+      "year": 2013
+    },
     {
       "id": "accents-west-yorkshire-england-english-west-riding-yor",
       "label": "Sheffield, England",
@@ -932,7 +1077,7 @@ window.CLIPS = {
       "r": 150,
       "size": 1920775,
       "wild": true,
-      "start": 174.5,
+      "start": 110,
       "hint": "Broad West Riding · the vowels do the work.",
       "year": 2024,
       "source": {
@@ -944,8 +1089,49 @@ window.CLIPS = {
       },
       "lufs": -17.7
     },
-    
-    
+    {
+      "id": "wild-texas-hill-country-stonewall-usa",
+      "label": "Texas Hill Country (Stonewall), USA",
+      "lang": "English",
+      "url": "/clips/accents/wild-texas-hill-country-stonewall-usa.mp3",
+      "lat": 30.2418,
+      "lng": -98.4439,
+      "r": 400,
+      "size": 1920880,
+      "wild": true,
+      "hint": "Unscripted phone conversation, 7:08; LBJ does most of the talking but the other party (Arthur Goldberg, Chicago) also speaks.",
+      "source": {
+        "who": "LBJ White House telephone recordings, tape 6311.01 (Nov 1963), LBJ Presidential Library via Miller Center 'presidential_recordings' collection on (item lbj631101). U.S. federal government recording",
+        "host": "Internet Archive",
+        "license": "public domain",
+        "page": "",
+        "note": ""
+      },
+      "lufs": -16.1,
+      "year": 1963
+    },
+    {
+      "id": "wild-the-bronx-new-york-city-usa",
+      "label": "The Bronx, New York City, USA",
+      "lang": "English",
+      "url": "/clips/accents/wild-the-bronx-new-york-city-usa.mp3",
+      "lat": 40.8448,
+      "lng": -73.8648,
+      "r": 100,
+      "size": 1920775,
+      "wild": true,
+      "hint": "Judge telling her life story to the Senate; 7min, NY accent; skip the first ~30s of thank-yous",
+      "start": 11,
+      "source": {
+        "who": "US Senate Judiciary Committee hearing recording (2009",
+        "host": "Wikimedia Commons",
+        "license": "public domain",
+        "page": "https://commons.wikimedia.org/wiki/File:Sonia_Sotomayor_Opening_Statement_to_the_Senate_Judiciary_Committee.ogg",
+        "note": ""
+      },
+      "lufs": -16.9,
+      "year": 2009
+    },
     {
       "id": "wild-thomastown-county-kilkenny-ireland",
       "label": "Thomastown, County Kilkenny, Ireland",
@@ -957,7 +1143,7 @@ window.CLIPS = {
       "size": 1920775,
       "wild": true,
       "hint": "A 94-year-old lifelong local telling stories about the holy well behind his house (14:46 total, pick any segment)",
-      "start": 58,
+      "start": 23,
       "source": {
         "who": "Oral history interview by A.-K. D",
         "host": "Wikimedia Commons",
@@ -967,6 +1153,49 @@ window.CLIPS = {
       },
       "lufs": -16.6,
       "year": 2024
+    },
+    {
+      "id": "wild-toronto-canada",
+      "label": "Toronto, Canada",
+      "lang": "English",
+      "url": "/clips/accents/wild-toronto-canada.mp3",
+      "lat": 43.6532,
+      "lng": -79.3832,
+      "r": 400,
+      "size": 1920775,
+      "wild": true,
+      "hint": "PM speaking at Davos; 6.5min, standard Canadian English",
+      "start": 4,
+      "source": {
+        "who": "World Economic Forum 2012 recording",
+        "host": "Wikimedia Commons",
+        "license": "CC BY 3.0",
+        "page": "https://commons.wikimedia.org/wiki/File:Stephen_Harper_voice.ogg",
+        "note": ""
+      },
+      "lufs": -18.8,
+      "year": 2012
+    },
+    {
+      "id": "accents-wales-english-welsh",
+      "label": "Wales",
+      "lang": "English (Welsh)",
+      "url": "/clips/accents/accents-wales-english-welsh.mp3",
+      "lat": 52.13,
+      "lng": -3.78,
+      "r": 200,
+      "size": 606808,
+      "wild": true,
+      "hint": "A first minister speaking at a day of reflection for those lost to the pandemic.",
+      "source": {
+        "who": "Welsh Government",
+        "host": "Wikimedia Commons",
+        "license": "Open Government Licence v3.0",
+        "page": "https://commons.wikimedia.org/wiki/File:Mark_Drakeford%27s_speech_on_Welsh_National_Day_of_Reflection.webm",
+        "note": "trimmed and re-encoded for the game"
+      },
+      "lufs": -17,
+      "year": 2021
     }
   ],
   "arabic": [
@@ -989,7 +1218,25 @@ window.CLIPS = {
       },
       "lufs": -16.5
     },
-    
+    {
+      "id": "ar-6158",
+      "label": "Ajman, UAE",
+      "lang": "Arabic",
+      "url": "/clips/ar/ar-6158.mp3",
+      "lat": 25.41,
+      "lng": 55.44,
+      "r": 350,
+      "size": 240788,
+      "hint": "Local radio from Ajman · ARCADE corpus.",
+      "source": {
+        "who": "Local radio broadcast",
+        "host": "ARCADE corpus (RIOTU Lab)",
+        "license": "CC BY 4.0",
+        "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
+        "note": "trimmed and re-encoded for the game"
+      },
+      "lufs": -16.3
+    },
     {
       "id": "ar-3384",
       "label": "Aleppo, Syria",
@@ -1276,7 +1523,25 @@ window.CLIPS = {
       },
       "lufs": -16.5
     },
-    
+    {
+      "id": "ar-2278",
+      "label": "Damascus, Syria",
+      "lang": "Arabic",
+      "url": "/clips/ar/ar-2278.mp3",
+      "lat": 33.51,
+      "lng": 36.29,
+      "r": 350,
+      "size": 240788,
+      "hint": "Local radio from Damascus · ARCADE corpus.",
+      "source": {
+        "who": "Local radio broadcast",
+        "host": "ARCADE corpus (RIOTU Lab)",
+        "license": "CC BY 4.0",
+        "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
+        "note": "trimmed and re-encoded for the game"
+      },
+      "lufs": -16
+    },
     {
       "id": "ar-94",
       "label": "Djelfa, Algeria",
@@ -1600,7 +1865,26 @@ window.CLIPS = {
       },
       "lufs": -15.6
     },
-    
+    {
+      "id": "ar-1650",
+      "label": "Ramallah, Palestine",
+      "lang": "Arabic",
+      "url": "/clips/ar/ar-1650.mp3",
+      "lat": 31.9,
+      "lng": 35.2,
+      "r": 350,
+      "size": 240788,
+      "hint": "Local radio from Ramallah · ARCADE corpus.",
+      "start": 5,
+      "source": {
+        "who": "Local radio broadcast",
+        "host": "ARCADE corpus (RIOTU Lab)",
+        "license": "CC BY 4.0",
+        "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
+        "note": "trimmed and re-encoded for the game"
+      },
+      "lufs": -16.5
+    },
     {
       "id": "ar-2787",
       "label": "Riyadh, Saudi Arabia",
@@ -1725,7 +2009,7 @@ window.CLIPS = {
       "r": 350,
       "size": 240788,
       "hint": "Local radio from Tripoli · ARCADE corpus.",
-      "start": 9.5,
+      "start": 9,
       "source": {
         "who": "Local radio broadcast",
         "host": "ARCADE corpus (RIOTU Lab)",
@@ -1791,7 +2075,7 @@ window.CLIPS = {
       "r": 300,
       "size": 1094991,
       "wild": true,
-      "start": 68.5,
+      "start": 29,
       "hint": "Residents of a coastal town watching the sea and the factories eat their shoreline.",
       "source": {
         "who": "VOA Afrique",
@@ -1832,7 +2116,7 @@ window.CLIPS = {
       "r": 350,
       "size": 1920989,
       "wild": true,
-      "start": 132.5,
+      "start": 91,
       "hint": "A football journalist who's literally written two books on the Cameroonian game breaks down what a former national-team striker's federation election really means back home.",
       "source": {
         "who": "VOA Afrique / John Lyndon (interviewer",
@@ -1853,7 +2137,7 @@ window.CLIPS = {
       "r": 320,
       "size": 1664251,
       "wild": true,
-      "start": 116.5,
+      "start": 56,
       "hint": "VOA's cocoa-harvest dispatch from Côte d'Ivoire – local growers explain how unusually heavy rains are threatening the crop that keeps the country running.",
       "source": {
         "who": "VOA Afrique / Yassin Ciyow",
@@ -1894,7 +2178,7 @@ window.CLIPS = {
       "r": 350,
       "size": 1920775,
       "wild": true,
-      "start": 172.5,
+      "start": 30,
       "hint": "He's a self-described native Québécois French speaker recorded far from home in Slovenia – listen for those 18th-century vowels and English loanwords Quebec French is known for.",
       "source": {
         "who": "Wikitongues / Maxime Rioux",
@@ -1914,7 +2198,7 @@ window.CLIPS = {
       "lng": 4.5,
       "r": 260,
       "size": 475890,
-      "start": 35.5,
+      "start": 38,
       "hint": "A French Wikinews volunteer reads a short news bulletin about a building collapse – the story is set in Marseille, but it's his own file-tagged 'South of France' accent that actually places ",
       "source": {
         "who": "Bastien65 (reader), Savant-fou & Malfidus (jingle), French Wikinews",
@@ -1931,7 +2215,26 @@ window.CLIPS = {
     {"id":"yt-1tdOI0X0phE","kind":"yt","videoId":"1tdOI0X0phE","label":"Buenos Aires, Argentina","lang":"Spanish","lat":-34.6037,"lng":-58.3816,"r":60,"start":33,"gain":100,"hint":"Streamed from YouTube — the creator gets the view.","gate":{"model":"gemini-3.6-flash","heard":"Buenos Aires, Argentina","offBy":0,"confidence":95,"evidence":["distinctive Rioplatense intonation and speech rhythm","use of Argentine regional vocabulary like 'colectivo' (bus) and 're mal'","word choice including 'buena onda' and 'lío'"],"title":"Así era el acento porteño en los años '90 en Argentina","author":"GLH HaxBall"},"evalExclude":true,"source":{"who":"GLH HaxBall","host":"YouTube","license":"Streamed from YouTube — the creator keeps the view","page":"https://www.youtube.com/watch?v=1tdOI0X0phE","note":"Así era el acento porteño en los años '90 en Argentina"}},
     {"id":"yt-zcasomU6Ios","kind":"yt","videoId":"zcasomU6Ios","label":"Buenos Aires, Argentina","lang":"Spanish","lat":-34.6037,"lng":-58.3816,"r":60,"start":122,"gain":100,"hint":"Streamed from YouTube — the creator gets the view.","gate":{"model":"gemini-3.6-flash","heard":"Buenos Aires, Argentina","offBy":0,"confidence":92,"evidence":["Distinctive Rioplatense intonation and speech rhythm","Use of regional slang \"chorro\" for thief","Frequent tag question \"viste\""],"title":"\"Mato al chorro, mato al juez\" ENTREVISTA COMPLETA ORIGINAL.","author":"Sentidos Audiovisuales"},"evalExclude":true,"source":{"who":"Sentidos Audiovisuales","host":"YouTube","license":"Streamed from YouTube — the creator keeps the view","page":"https://www.youtube.com/watch?v=zcasomU6Ios","note":"\"Mato al chorro, mato al juez\" ENTREVISTA COMPLETA ORIGINAL."}},
     {"id":"yt-CprjAdAO11s","kind":"yt","videoId":"CprjAdAO11s","label":"Bogotá, Colombia","lang":"Spanish","lat":4.711,"lng":-74.0721,"r":60,"start":50,"gain":100,"hint":"Streamed from YouTube — the creator gets the view.","gate":{"model":"gemini-3.6-flash","heard":"Bogotá, Colombia","offBy":0,"confidence":80,"evidence":["Crisp preservation of final 's' sounds","Gentle, musical pitch cadence characteristic of interior Colombian Spanish","Soft 'y' sound without heavy friction"],"title":"BOGOTA, Colombia l Entrevistas por la calle","author":"New CITYzens"},"evalExclude":true,"source":{"who":"New CITYzens","host":"YouTube","license":"Streamed from YouTube — the creator keeps the view","page":"https://www.youtube.com/watch?v=CprjAdAO11s","note":"BOGOTA, Colombia l Entrevistas por la calle"}},
-    
+    {
+      "id": "spanish-seville-andalusia-spain-spanish-andalusian-spa",
+      "label": "Andalusia, Spain",
+      "lang": "Spanish (Andalusian, Spain)",
+      "url": "/clips/spanish/spanish-seville-andalusia-spain-spanish-andalusian-spa.mp3",
+      "lat": 37.5,
+      "lng": -4.8,
+      "r": 260,
+      "size": 1920775,
+      "start": 92,
+      "hint": "A leisurely read-through of Andalusia's own history, in Andalusian.",
+      "source": {
+        "who": "Loqu",
+        "host": "Wikimedia Commons",
+        "license": "CC BY-SA 3.0",
+        "page": "https://commons.wikimedia.org/wiki/File:Es-Historia_de_Andaluc%C3%ADa-article.ogg",
+        "note": "trimmed and re-encoded for the game"
+      },
+      "lufs": -16.8
+    },
     {
       "id": "spanish-argentine-spanish-reading-about-a-brazilian-to",
       "label": "Argentina",
@@ -2041,7 +2344,7 @@ window.CLIPS = {
       "r": 200,
       "size": 959051,
       "wild": true,
-      "start": 50,
+      "start": 56,
       "hint": "An earthquake survivor describing the tent city her neighborhood became.",
       "source": {
         "who": "Diego Grez / Wikinews, hosted on",
@@ -2152,7 +2455,27 @@ window.CLIPS = {
       },
       "lufs": -16.7
     },
-    
+    {
+      "id": "chinese-foshan-china-cantonese-guangdong-pearl-river-d",
+      "label": "Foshan, China",
+      "lang": "Cantonese (Guangdong/Pearl River Delta)",
+      "url": "/clips/chinese/chinese-foshan-china-cantonese-guangdong-pearl-river-d.mp3",
+      "lat": 23.1667,
+      "lng": 112.8944,
+      "r": 120,
+      "size": 1920867,
+      "wild": true,
+      "hint": "FLAG FOR YOUR OWN REVIEW before using: a real 1939 radio address by a major, politically controversial 20th-century Chinese figure (led the WWII-era Japanese-collaborationist government from",
+      "source": {
+        "who": "China Broadcasting Corporation recording (1939), \"兩種懷疑心理之解釋\" (Wang Jingwei, Cantonese), term expired",
+        "host": "Wikimedia Commons",
+        "license": "public domain",
+        "page": "https://commons.wikimedia.org/wiki/File:%E5%85%A9%E7%A8%AE%E6%87%B7%E7%96%91%E5%BF%83%E7%90%86%E4%B9%8B%E8%A7%A3%E9%87%8B_%E6%B1%AA%E7%B2%BE%E8%A1%9B_%E7%B2%B5%E8%AA%9E.mp3",
+        "note": "trimmed and re-encoded for the game"
+      },
+      "lufs": -16.5,
+      "year": 1939
+    },
     {
       "id": "chinese-guiyang-china-mandarin-guiyangese-southwestern",
       "label": "Guiyang, China",
@@ -2163,7 +2486,7 @@ window.CLIPS = {
       "r": 120,
       "size": 1920775,
       "wild": true,
-      "start": 122.5,
+      "start": 23,
       "hint": "Two grandparents genuinely reminiscing, not reading a script · pure Southwest China drawl, a thousand km from the capital.",
       "source": {
         "who": "Wikitongues (speakers: Huang Chaofen & Wang Changjiu), \"Changjiu and Chaofen speaking Guiyangese (Southwestern Mandarin)\"",
@@ -2212,7 +2535,27 @@ window.CLIPS = {
       },
       "lufs": -17.1
     },
-    
+    {
+      "id": "chinese-nanyang-china-zhongyuan-mandarin-henan",
+      "label": "Nanyang, China",
+      "lang": "Zhongyuan Mandarin (Henan)",
+      "url": "/clips/chinese/chinese-nanyang-china-zhongyuan-mandarin-henan.mp3",
+      "lat": 33,
+      "lng": 112.53,
+      "r": 260,
+      "size": 1743978,
+      "wild": true,
+      "start": 138,
+      "hint": "A Wikitongues speaker talking about their own life.",
+      "source": {
+        "who": "Wikitongues",
+        "host": "Wikimedia Commons",
+        "license": "CC BY-SA 4.0",
+        "page": "",
+        "note": "trimmed and re-encoded for the game"
+      },
+      "lufs": -16.6
+    },
     {
       "id": "chinese-shanghainese-wu-standard-shanghai-accent-readi",
       "label": "Shanghai, China",
@@ -2242,7 +2585,7 @@ window.CLIPS = {
       "lng": 120.96,
       "r": 220,
       "size": 1920775,
-      "start": 133.5,
+      "start": 33,
       "hint": "Tagged simply 'zh-tw' by the reader · softer retroflexes and no erhua is the giveaway that this is Taiwan Guoyu, not mainland Mandarin.",
       "source": {
         "who": "Spoken Chinese Wikipedia contributor, \"Zh-tw-魔術師和兔子.ogg\"",
@@ -2254,7 +2597,7 @@ window.CLIPS = {
       "lufs": -16.9
     },
     {
-        "start": 134, "id": "chinese-taiwan-mandarin-good-cop-bad-dog-tv-episode-sp",
+      "id": "chinese-taiwan-mandarin-good-cop-bad-dog-tv-episode-sp",
       "label": "Taiwan",
       "lang": "zh",
       "url": "/clips/chinese/chinese-taiwan-mandarin-good-cop-bad-dog-tv-episode-sp.mp3",
@@ -2276,7 +2619,26 @@ window.CLIPS = {
   "hindi-urdu": [
     
     {"id":"yt-520zmm5qVh0","kind":"yt","videoId":"520zmm5qVh0","label":"Hyderabad, India","lang":"Hindi–Urdu","lat":17.385,"lng":78.4867,"r":60,"start":99,"gain":100,"hint":"Streamed from YouTube — the creator gets the view.","gate":{"model":"gemini-3.6-flash","heard":"Hyderabad, Telangana, India","offBy":3,"confidence":85,"evidence":["Mentions Charminar and Irani Chai","Distinct Hyderabadi Hindi/Dakhni rhythm and intonation","Local street jargon and cadence typical of Old City Hyderabad"],"title":"Hyderabad on Being Hyderabadi","author":"BeingIndian"},"evalExclude":true,"source":{"who":"BeingIndian","host":"YouTube","license":"Streamed from YouTube — the creator keeps the view","page":"https://www.youtube.com/watch?v=520zmm5qVh0","note":"Hyderabad on Being Hyderabadi"}},
-    
+    {
+      "id": "hindi-urdu-rajiv-dixit-aitihasik-bhulein-historical-mista",
+      "label": "Aligarh, India",
+      "lang": "hi",
+      "url": "/clips/hindi-urdu/hindi-urdu-rajiv-dixit-aitihasik-bhulein-historical-mista.mp3",
+      "lat": 27.8974,
+      "lng": 78.088,
+      "r": 250,
+      "size": 1920775,
+      "wild": true,
+      "hint": "4m48s, verified direct file, confirmed via Archive.org metadata API (exact length/size). This is the short 5th installment of a longer numbered lecture, so it picks up mid-argument.",
+      "source": {
+        "who": "Rajiv Dixit lecture recording",
+        "host": "Internet Archive",
+        "license": "CC0 (public domain)",
+        "page": "https://archive.org/details/RajivDixitAudioLecturesConvertInHindiTextSoftCopy",
+        "note": "trimmed and re-encoded for the game"
+      },
+      "lufs": -16.4
+    },
     {
       "id": "hindi-urdu-spoken-hindi-wikipedia-indo-european-language-",
       "label": "Delhi–Meerut Region, India",
@@ -2326,7 +2688,7 @@ window.CLIPS = {
       "r": 120,
       "size": 512879,
       "wild": true,
-      "start": 28,
+      "start": 9,
       "hint": "Bollywood's most legendary dance mistress, born on the very film sets she'd spend seventy years choreographing.",
       "source": {
         "who": "Interview by Devang Bhatt; uploaded by Nizil Shah",
@@ -2338,7 +2700,7 @@ window.CLIPS = {
       "lufs": -16.4
     },
     {
-        "start": 40.5, "id": "hindi-urdu-mufti-abul-qasim-nomani-talk-on-darul-uloom-de",
+      "id": "hindi-urdu-mufti-abul-qasim-nomani-talk-on-darul-uloom-de",
       "label": "Varanasi, India",
       "lang": "ur",
       "url": "/clips/hindi-urdu/hindi-urdu-mufti-abul-qasim-nomani-talk-on-darul-uloom-de.mp3",
@@ -2372,7 +2734,7 @@ window.CLIPS = {
       "r": 400,
       "size": 1834466,
       "wild": true,
-      "start": 25,
+      "start": 53,
       "hint": "A musician talking about art and travel; he left his islands for Lisbon decades ago but never lost the accent.",
       "source": {
         "who": "VOA Português",
@@ -2393,7 +2755,7 @@ window.CLIPS = {
       "r": 400,
       "size": 1719319,
       "wild": true,
-      "start": 66.5,
+      "start": 28,
       "hint": "Residents of an Angolan province talking about living without running water or reliable power.",
       "source": {
         "who": "VOA Português",
@@ -2414,7 +2776,7 @@ window.CLIPS = {
       "r": 450,
       "size": 1920775,
       "wild": true,
-      "start": 63,
+      "start": 71,
       "hint": "A diplomat explaining why his country's exporters aren't using a trade deal they're entitled to.",
       "source": {
         "who": "VOA Português",
@@ -2512,7 +2874,7 @@ window.CLIPS = {
       "r": 120,
       "size": 1920775,
       "wild": true,
-      "start": 73.5,
+      "start": 33,
       "hint": "A USP bioinformatician and Wikimedian talking ethics and open science · Paulistano through and through.",
       "source": {
         "who": "Interview with Tiago Lubiana, recorded by user \"Clari reche\"",
