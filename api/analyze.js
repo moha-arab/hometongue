@@ -177,14 +177,24 @@ function sane(r) {
         && +p[0] >= -90 && +p[0] <= 90 && +p[1] >= -180 && +p[1] <= 180)
         .map((p) => [+p[0], +p[1]]);
       if (pts.length < 3) return [];
+      // The model emits good boundary points in arbitrary ORDER: a Somali-coast zone with
+      // correct coverage rendered as a self-intersecting lightning bolt because the perimeter
+      // walk zigzagged. Ordering is ours, not the model's — sort the points by angle around
+      // their centroid so any point set draws as a simple polygon. Star-shaped concavity (the
+      // Gulf crescent) survives; scrambled zigzags do not. This must happen BEFORE the
+      // shoelace: a self-intersecting ring computes a bogus area (a bowtie scores ~zero) and
+      // corrupts the sliver guard itself.
+      const meanLat = pts.reduce((t, q) => t + q[0], 0) / pts.length;
+      const kx = 111.32 * Math.cos((meanLat * Math.PI) / 180), ky = 110.57;
+      const cLng = pts.reduce((t, q) => t + q[1], 0) / pts.length;
+      pts.sort((p, q) => Math.atan2((p[0] - meanLat) * ky, (p[1] - cLng) * kx)
+        - Math.atan2((q[0] - meanLat) * ky, (q[1] - cLng) * kx));
       // Freehand polygons vary run to run: the same Gulf prompt drew a broad Arabian arc one
       // run and a thin coastal ribbon the next, which rendered as an ugly sliver that skipped
       // eastern Saudi Arabia entirely. A zone claims the same ~70% coverage as the radius, so
       // its area has to be in the same universe as the circle's: under a fifth of it means a
       // sliver that contradicts its own claim, over six times means a smear. Both fall back to
       // the honest circle. Shoelace on an equirectangular projection is plenty at this scale.
-      const meanLat = pts.reduce((t, q) => t + q[0], 0) / pts.length;
-      const kx = 111.32 * Math.cos((meanLat * Math.PI) / 180), ky = 110.57;
       let area2 = 0;
       for (let i = 0; i < pts.length; i++) {
         const [aLat, aLng] = pts[i], [bLat, bLng] = pts[(i + 1) % pts.length];
