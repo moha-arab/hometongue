@@ -502,18 +502,18 @@ function renderResult(v) {
   // catch: he said "I grew up in Japan" in heavy North American English, got Tokyo, and the
   // card still claimed it SOUNDED like Tokyo. If they told us, the headline says so.
   kicker.textContent = v.content_led === 'origin' ? 'you told me you grew up around' : 'sounds like you grew up around';
-  // The billing matches the certainty. A tight circle has earned the city as the headline; a
-  // wide one used to headline "Dubai" while the honest answer was "the Gulf, best fit Dubai",
-  // and a Kuwaiti reading the wrong specific city trusts the tool less, not more. The point
-  // guess is never hidden, it just stops claiming top billing it has not earned.
-  const wide = (v.radius_km || 0) > 250;
+  // The city ALWAYS headlines. A region-first billing was tried here and it killed the whole
+  // point: Levantine Arabic that used to open with Amman opened with "the Levant", which
+  // anybody could have said. Mohammad's design replaced it: the specific guess takes the
+  // headline every time, and the honesty lives in three other places at once - the region as
+  // a qualifier underneath, the zone painting the whole dialect area on the map (a Kuwaiti
+  // sees Kuwait inside the glow), and the radius reading as give-or-take.
+  place.textContent = v.place;
   const fit = $('#closestFit');
-  if (wide && v.region) {
-    place.textContent = v.region;
+  if ((v.radius_km || 0) > 250 && v.region) {
     fit.hidden = false;
-    fit.textContent = 'closest fit: ' + v.place;
+    fit.textContent = 'somewhere in ' + v.region;
   } else {
-    place.textContent = v.place;
     fit.hidden = true;
   }
 
@@ -554,7 +554,8 @@ function renderResult(v) {
   // The radius is the answer's honesty, so it gets the big number and a plain-English
   // reading of what that distance actually means.
   const r = v.radius_km;
-  $('#radiusNum').textContent = r >= 1000 ? `${(r / 1000).toFixed(1)}k` : r;
+  // km is distance from a point, so it binds to the city headline: give or take this much.
+  $('#radiusNum').textContent = '±' + (r >= 1000 ? `${(r / 1000).toFixed(1)}k` : r);
   $('#radiusLead').textContent = r <= 50 ? 'and I mean that specifically. A town, not a region'
     : r <= 200 ? 'a confident guess at the area'
       : r <= 600 ? 'the accent gives me a region, not a town'
