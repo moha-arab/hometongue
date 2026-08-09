@@ -1,0 +1,2187 @@
+{
+  "gemini-3.6-flash": [
+    {
+      "id": "wild-georgetown-south-carolina-usa-us-south",
+      "deck": "accents",
+      "label": "Georgetown, South Carolina, USA (US South)",
+      "km": 157,
+      "ms": 12883,
+      "place": "Columbia, United States",
+      "radius": 150
+    },
+    {
+      "id": "accents-kenya-english-kenyan",
+      "deck": "accents",
+      "label": "Kenya",
+      "km": 72,
+      "ms": 15119,
+      "place": "Narok, Kenya",
+      "radius": 150
+    },
+    {
+      "id": "accents-jamaica-english-jamaican-patois",
+      "deck": "accents",
+      "label": "Jamaica",
+      "km": 1723,
+      "ms": 19750,
+      "place": "Roseau, Dominica",
+      "radius": 50
+    },
+    {
+      "id": "accents-namibia-english-namibian",
+      "deck": "accents",
+      "label": "Namibia",
+      "km": 938,
+      "ms": 12983,
+      "place": "Katima Mulilo, Namibia",
+      "radius": 150
+    },
+    {
+      "id": "accents-aberdeenshire-scotland-english-northeast-scotl",
+      "deck": "accents",
+      "label": "Northeast Scotland, Scotland",
+      "km": 19,
+      "ms": 12578,
+      "place": "Aberdeen, United Kingdom",
+      "radius": 100
+    },
+    {
+      "id": "accents-west-yorkshire-england-english-west-riding-yor",
+      "deck": "accents",
+      "label": "Sheffield, England",
+      "km": 0,
+      "ms": 13360,
+      "place": "Sheffield, United Kingdom",
+      "radius": 30
+    },
+    {
+      "id": "wild-thomastown-county-kilkenny-ireland",
+      "deck": "accents",
+      "label": "Thomastown, County Kilkenny, Ireland",
+      "km": 45,
+      "ms": 12844,
+      "place": "Abbeyleix, Ireland",
+      "radius": 40
+    },
+    {
+      "id": "ar-3736",
+      "deck": "arabic",
+      "label": "Abu Dhabi, UAE",
+      "km": 1,
+      "ms": 11778,
+      "place": "Abu Dhabi, United Arab Emirates",
+      "radius": 200
+    },
+    {
+      "id": "ar-3384",
+      "deck": "arabic",
+      "label": "Aleppo, Syria",
+      "km": 0,
+      "ms": 12096,
+      "place": "Aleppo, Syria",
+      "radius": 150
+    },
+    {
+      "id": "ar-882",
+      "deck": "arabic",
+      "label": "Alexandria, Egypt",
+      "km": 180,
+      "ms": 8426,
+      "place": "Cairo, Egypt",
+      "radius": 150
+    },
+    {
+      "id": "ar-2082",
+      "deck": "arabic",
+      "label": "Algiers, Algeria",
+      "km": 0,
+      "ms": 10287,
+      "place": "Algiers, Algeria",
+      "radius": 100
+    },
+    {
+      "id": "ar-249",
+      "deck": "arabic",
+      "label": "Amman, Jordan",
+      "km": 2,
+      "ms": 20792,
+      "place": "Amman, Jordan",
+      "radius": 200
+    },
+    {
+      "id": "ar-39",
+      "deck": "arabic",
+      "label": "Annaba, Algeria",
+      "km": 420,
+      "ms": 12628,
+      "place": "Algiers, Algeria",
+      "radius": 250
+    },
+    {
+      "id": "ar-679",
+      "deck": "arabic",
+      "label": "Baghdad, Iraq",
+      "km": 1,
+      "ms": 11043,
+      "place": "Baghdad, Iraq",
+      "radius": 200
+    },
+    {
+      "id": "arabic-baghdad-iraq-arabic-iraqi",
+      "deck": "arabic",
+      "label": "Baghdad, Iraq",
+      "km": 1,
+      "ms": 9990,
+      "place": "Baghdad, Iraq",
+      "radius": 200
+    },
+    {
+      "id": "ar-2473",
+      "deck": "arabic",
+      "label": "Batna, Algeria",
+      "km": 309,
+      "ms": 7726,
+      "place": "Algiers, Algeria",
+      "radius": 250
+    },
+    {
+      "id": "ar-2765",
+      "deck": "arabic",
+      "label": "Basra, Iraq",
+      "km": 448,
+      "ms": 10356,
+      "place": "Baghdad, Iraq",
+      "radius": 250
+    },
+    {
+      "id": "ar-2446",
+      "deck": "arabic",
+      "label": "Beirut, Lebanon",
+      "km": 0,
+      "ms": 12226,
+      "place": "Beirut, Lebanon",
+      "radius": 150
+    },
+    {
+      "id": "ar-3107",
+      "deck": "arabic",
+      "label": "Benghazi, Libya",
+      "km": 651,
+      "ms": 10955,
+      "place": "Tripoli, Libya",
+      "radius": 250
+    },
+    {
+      "id": "ar-809",
+      "deck": "arabic",
+      "label": "Blida, Algeria",
+      "km": 38,
+      "ms": 13977,
+      "place": "Algiers, Algeria",
+      "radius": 250
+    },
+    {
+      "id": "ar-2608",
+      "deck": "arabic",
+      "label": "Cairo, Egypt",
+      "km": 1,
+      "ms": 9514,
+      "place": "Cairo, Egypt",
+      "radius": 150
+    },
+    {
+      "id": "ar-1604",
+      "deck": "arabic",
+      "label": "Casablanca, Morocco",
+      "km": 85,
+      "ms": 11609,
+      "place": "Rabat, Morocco",
+      "radius": 250
+    },
+    {
+      "id": "ar-2375",
+      "deck": "arabic",
+      "label": "Constantine, Algeria",
+      "km": 321,
+      "ms": 8649,
+      "place": "Algiers, Algeria",
+      "radius": 250
+    },
+    {
+      "id": "ar-94",
+      "deck": "arabic",
+      "label": "Djelfa, Algeria",
+      "km": 232,
+      "ms": 9815,
+      "place": "Algiers, Algeria",
+      "radius": 300
+    },
+    {
+      "id": "ar-3345",
+      "deck": "arabic",
+      "label": "Dubai, UAE",
+      "km": 1,
+      "ms": 11762,
+      "place": "Dubai, United Arab Emirates",
+      "radius": 200
+    },
+    {
+      "id": "ar-1907",
+      "deck": "arabic",
+      "label": "El Obeid, Sudan",
+      "km": 363,
+      "ms": 10378,
+      "place": "Khartoum, Sudan",
+      "radius": 300
+    },
+    {
+      "id": "ar-754",
+      "deck": "arabic",
+      "label": "Fes, Morocco",
+      "km": 245,
+      "ms": 14409,
+      "place": "Casablanca, Morocco",
+      "radius": 300
+    },
+    {
+      "id": "ar-3132",
+      "deck": "arabic",
+      "label": "Gaza, Palestine",
+      "km": 82,
+      "ms": 13339,
+      "place": "Ramallah, Palestine",
+      "radius": 150
+    },
+    {
+      "id": "ar-3854",
+      "deck": "arabic",
+      "label": "Hebron, Palestine",
+      "km": 29,
+      "ms": 11991,
+      "place": "Jerusalem, Palestine",
+      "radius": 150
+    },
+    {
+      "id": "ar-4531",
+      "deck": "arabic",
+      "label": "Irbid, Jordan",
+      "km": 68,
+      "ms": 9858,
+      "place": "Amman, Jordan",
+      "radius": 150
+    },
+    {
+      "id": "ar-1733",
+      "deck": "arabic",
+      "label": "Jeddah, Saudi Arabia",
+      "km": 845,
+      "ms": 12737,
+      "place": "Riyadh, Saudi Arabia",
+      "radius": 300
+    },
+    {
+      "id": "ar-2316",
+      "deck": "arabic",
+      "label": "Jerusalem, Palestine",
+      "km": 68,
+      "ms": 10450,
+      "place": "Amman, Jordan",
+      "radius": 150
+    },
+    {
+      "id": "ar-1526",
+      "deck": "arabic",
+      "label": "Kuwait City, Kuwait",
+      "km": 1,
+      "ms": 10621,
+      "place": "Kuwait City, Kuwait",
+      "radius": 100
+    },
+    {
+      "id": "ar-1248",
+      "deck": "arabic",
+      "label": "Manama, Bahrain",
+      "km": 434,
+      "ms": 11408,
+      "place": "Kuwait City, Kuwait",
+      "radius": 200
+    },
+    {
+      "id": "ar-1623",
+      "deck": "arabic",
+      "label": "Muscat, Oman",
+      "km": 3,
+      "ms": 15228,
+      "place": "Muscat, Oman",
+      "radius": 150
+    },
+    {
+      "id": "ar-3190",
+      "deck": "arabic",
+      "label": "Nablus, Palestine",
+      "km": 68,
+      "ms": 11553,
+      "place": "Amman, Jordan",
+      "radius": 150
+    },
+    {
+      "id": "ar-5182",
+      "deck": "arabic",
+      "label": "Omdurman, Sudan",
+      "km": 18,
+      "ms": 7224,
+      "place": "Khartoum, Sudan",
+      "radius": 300
+    },
+    {
+      "id": "ar-423",
+      "deck": "arabic",
+      "label": "Oran, Algeria",
+      "km": 351,
+      "ms": 10315,
+      "place": "Algiers, Algeria",
+      "radius": 300
+    },
+    {
+      "id": "ar-1879",
+      "deck": "arabic",
+      "label": "Port Sudan, Sudan",
+      "km": 674,
+      "ms": 10313,
+      "place": "Khartoum, Sudan",
+      "radius": 300
+    },
+    {
+      "id": "ar-989",
+      "deck": "arabic",
+      "label": "Rabat, Morocco",
+      "km": 1,
+      "ms": 18363,
+      "place": "Rabat, Morocco",
+      "radius": 250
+    },
+    {
+      "id": "ar-2787",
+      "deck": "arabic",
+      "label": "Riyadh, Saudi Arabia",
+      "km": 534,
+      "ms": 13028,
+      "place": "Kuwait City, Kuwait",
+      "radius": 300
+    },
+    {
+      "id": "ar-3479",
+      "deck": "arabic",
+      "label": "Sanaa, Yemen",
+      "km": 3,
+      "ms": 9923,
+      "place": "Sana'a, Yemen",
+      "radius": 150
+    },
+    {
+      "id": "ar-4464",
+      "deck": "arabic",
+      "label": "Setif, Algeria",
+      "km": 221,
+      "ms": 10192,
+      "place": "Algiers, Algeria",
+      "radius": 250
+    },
+    {
+      "id": "ar-6196",
+      "deck": "arabic",
+      "label": "Sharjah, UAE",
+      "km": 22,
+      "ms": 11726,
+      "place": "Dubai, United Arab Emirates",
+      "radius": 200
+    },
+    {
+      "id": "ar-5408",
+      "deck": "arabic",
+      "label": "Taiz, Yemen",
+      "km": 0,
+      "ms": 10768,
+      "place": "Taiz, Yemen",
+      "radius": 100
+    },
+    {
+      "id": "ar-3647",
+      "deck": "arabic",
+      "label": "Tangier, Morocco",
+      "km": 294,
+      "ms": 13285,
+      "place": "Casablanca, Morocco",
+      "radius": 250
+    },
+    {
+      "id": "ar-6858",
+      "deck": "arabic",
+      "label": "Tripoli, Libya",
+      "km": 8,
+      "ms": 12135,
+      "place": "Tripoli, Libya",
+      "radius": 100
+    },
+    {
+      "id": "ar-3660",
+      "deck": "arabic",
+      "label": "Tunis, Tunisia",
+      "km": 0,
+      "ms": 11051,
+      "place": "Tunis, Tunisia",
+      "radius": 150
+    },
+    {
+      "id": "ar-3785",
+      "deck": "arabic",
+      "label": "Wad Medani, Sudan",
+      "km": 160,
+      "ms": 9265,
+      "place": "Khartoum, Sudan",
+      "radius": 300
+    },
+    {
+      "id": "french-bargny-senegal-french-senegal",
+      "deck": "french",
+      "label": "Bargny, Senegal",
+      "km": 2,
+      "ms": 12894,
+      "place": "Dakar, Senegal",
+      "radius": 100
+    },
+    {
+      "id": "french-brussels-belgium-french-belgian",
+      "deck": "french",
+      "label": "Belgium",
+      "km": 259,
+      "ms": 12187,
+      "place": "Paris, France",
+      "radius": 300
+    },
+    {
+      "id": "french-yaounde-cameroon-french-cameroon",
+      "deck": "french",
+      "label": "Cameroon",
+      "km": 72,
+      "ms": 14127,
+      "place": "Yaoundé, Cameroon",
+      "radius": 300
+    },
+    {
+      "id": "french-abidjan-cote-d-ivoire-french-cote-d-ivoire",
+      "deck": "french",
+      "label": "Côte d'Ivoire",
+      "km": 8,
+      "ms": 15187,
+      "place": "Yamoussoukro, Côte d'Ivoire",
+      "radius": 250
+    },
+    {
+      "id": "french-paris-france-french-paris",
+      "deck": "french",
+      "label": "Paris, France",
+      "km": 0,
+      "ms": 13013,
+      "place": "Paris, France",
+      "radius": 250
+    },
+    {
+      "id": "french-montreal-canada-french-quebecois",
+      "deck": "french",
+      "label": "Québec, Canada",
+      "km": 233,
+      "ms": 15219,
+      "place": "Montreal, Canada",
+      "radius": 300
+    },
+    {
+      "id": "french-marseille-france-french-southern-france",
+      "deck": "french",
+      "label": "Southern France, France",
+      "km": 597,
+      "ms": 12563,
+      "place": "Paris, France",
+      "radius": 300
+    },
+    {
+      "id": "spanish-venezuelan-spanish-introduction-to-the-big-ban",
+      "deck": "spanish",
+      "label": "Guatire, Venezuela",
+      "km": 1056,
+      "ms": 14128,
+      "place": "Bogotá, Colombia",
+      "radius": 250
+    },
+    {
+      "id": "spanish-mexico-city-mexico-spanish-mexican",
+      "deck": "spanish",
+      "label": "Mexico",
+      "km": 345,
+      "ms": 14450,
+      "place": "Mexico City, Mexico",
+      "radius": 250
+    },
+    {
+      "id": "spanish-argentine-spanish-reading-about-a-brazilian-to",
+      "deck": "spanish",
+      "label": "Argentina",
+      "km": 4671,
+      "ms": 126220,
+      "place": "Bogotá, Colombia",
+      "radius": 300
+    },
+    {
+      "id": "spanish-mexican-spanish-schrodinger-s-cat-article-read",
+      "deck": "spanish",
+      "label": "Mexico",
+      "km": 345,
+      "ms": 13494,
+      "place": "Mexico City, Mexico",
+      "radius": 300
+    },
+    {
+      "id": "spanish-uruguayan-spanish-juan-jose-morosoli-reads-la-",
+      "deck": "spanish",
+      "label": "Minas, Uruguay",
+      "km": 103,
+      "ms": 13583,
+      "place": "Montevideo, Uruguay",
+      "radius": 250
+    },
+    {
+      "id": "spanish-paniahue-santa-cruz-chile-spanish-chilean",
+      "deck": "spanish",
+      "label": "Paniahue, Chile",
+      "km": 146,
+      "ms": 9382,
+      "place": "Santiago, Chile",
+      "radius": 250
+    },
+    {
+      "id": "spanish-peruvian-spanish-richard-dawkins-biography-rea",
+      "deck": "spanish",
+      "label": "Peru",
+      "km": 0,
+      "ms": 16409,
+      "place": "Lima, Peru",
+      "radius": 300
+    },
+    {
+      "id": "spanish-puerto-rican-spanish-roman-emperor-claudius-ar",
+      "deck": "spanish",
+      "label": "Puerto Rico",
+      "km": 1766,
+      "ms": 13306,
+      "place": "Havana, Cuba",
+      "radius": 200
+    },
+    {
+      "id": "spanish-colombian-spanish-steven-pinker-biography-read",
+      "deck": "spanish",
+      "label": "Turbaco, Colombia",
+      "km": 642,
+      "ms": 11520,
+      "place": "Bogotá, Colombia",
+      "radius": 150
+    },
+    {
+      "id": "spanish-castilian-spanish-segismundo-s-soliloquy-calde",
+      "deck": "spanish",
+      "label": "Spain",
+      "km": 9063,
+      "ms": 87762,
+      "place": "Mexico City, Mexico",
+      "radius": 400
+    },
+    {
+      "id": "chinese-chengdu-china-mandarin-sichuanese-chengdu-dial",
+      "deck": "chinese",
+      "label": "Chengdu, China",
+      "km": 1661,
+      "ms": 15925,
+      "place": "Shanghai, China",
+      "radius": 120
+    },
+    {
+      "id": "chinese-guiyang-china-mandarin-guiyangese-southwestern",
+      "deck": "chinese",
+      "label": "Guiyang, China",
+      "km": 0,
+      "ms": 14959,
+      "place": "Guiyang, China",
+      "radius": 50
+    },
+    {
+      "id": "chinese-hk-cantonese-george-washington-carver-spoken-w",
+      "deck": "chinese",
+      "label": "Hong Kong",
+      "km": 0,
+      "ms": 15855,
+      "place": "Hong Kong, China",
+      "radius": 60
+    },
+    {
+      "id": "chinese-hk-cantonese-ciguatoxin-stonefish-toxin-spoken",
+      "deck": "chinese",
+      "label": "Hong Kong",
+      "km": 0,
+      "ms": 27727,
+      "place": "Hong Kong, Hong Kong",
+      "radius": 150
+    },
+    {
+      "id": "chinese-taipei-taiwan-mandarin-taiwan-guoyu",
+      "deck": "chinese",
+      "label": "Taiwan",
+      "km": 150,
+      "ms": 14478,
+      "place": "Taipei, Taiwan",
+      "radius": 100
+    },
+    {
+      "id": "chinese-shanghainese-wu-standard-shanghai-accent-readi",
+      "deck": "chinese",
+      "label": "Shanghai, China",
+      "km": 0,
+      "ms": 200529,
+      "place": "Shanghai, China",
+      "radius": 120
+    },
+    {
+      "id": "chinese-taiwan-mandarin-good-cop-bad-dog-tv-episode-sp",
+      "deck": "chinese",
+      "label": "Taiwan",
+      "km": 150,
+      "ms": 10670,
+      "place": "Taipei, Taiwan",
+      "radius": 150
+    },
+    {
+      "id": "hindi-urdu-spoken-hindi-wikipedia-indo-european-language-",
+      "deck": "hindi-urdu",
+      "label": "Delhi–Meerut Region, India",
+      "km": 0,
+      "ms": 12551,
+      "place": "New Delhi, India",
+      "radius": 300
+    },
+    {
+      "id": "hindi-urdu-karachi-pakistan-urdu",
+      "deck": "hindi-urdu",
+      "label": "Karachi, Pakistan",
+      "km": 1412,
+      "ms": 74012,
+      "place": "Lucknow, India",
+      "radius": 300
+    },
+    {
+      "id": "hindi-urdu-mumbai-india-hindi-bambaiyya-adjacent",
+      "deck": "hindi-urdu",
+      "label": "Mumbai, India",
+      "km": 0,
+      "ms": 10508,
+      "place": "Mumbai, India",
+      "radius": 50
+    },
+    {
+      "id": "hindi-urdu-mufti-abul-qasim-nomani-talk-on-darul-uloom-de",
+      "deck": "hindi-urdu",
+      "label": "Varanasi, India",
+      "km": 727,
+      "ms": 12836,
+      "place": "Saharanpur, India",
+      "radius": 200
+    },
+    {
+      "id": "portuguese-cape-verde-portuguese-cape-verde",
+      "deck": "portuguese",
+      "label": "Cape Verde",
+      "km": 1,
+      "ms": 12878,
+      "place": "Mindelo, Cape Verde",
+      "radius": 50
+    },
+    {
+      "id": "portuguese-malanje-angola-portuguese-angola",
+      "deck": "portuguese",
+      "label": "Malanje, Angola",
+      "km": 1,
+      "ms": 11653,
+      "place": "Malanje, Angola",
+      "radius": 150
+    },
+    {
+      "id": "portuguese-mozambique-portuguese-mozambique",
+      "deck": "portuguese",
+      "label": "Mozambique",
+      "km": 2,
+      "ms": 11883,
+      "place": "Maputo, Mozambique",
+      "radius": 250
+    },
+    {
+      "id": "portuguese-parana-brazil-portuguese-brazilian-parana",
+      "deck": "portuguese",
+      "label": "Paraná, Brazil",
+      "km": 339,
+      "ms": 44031,
+      "place": "São Paulo, Brazil",
+      "radius": 300
+    },
+    {
+      "id": "portuguese-porto-alegre-brazil-portuguese-brazilian-gauch",
+      "deck": "portuguese",
+      "label": "Porto Alegre, Brazil",
+      "km": 547,
+      "ms": 16613,
+      "place": "Curitiba, Brazil",
+      "radius": 450
+    },
+    {
+      "id": "portuguese-porto-portugal-portuguese-european-porto-north",
+      "deck": "portuguese",
+      "label": "Porto, Portugal",
+      "km": 107,
+      "ms": 11757,
+      "place": "Coimbra, Portugal",
+      "radius": 200
+    },
+    {
+      "id": "portuguese-rio-de-janeiro-brazil-portuguese-brazilian-car",
+      "deck": "portuguese",
+      "label": "Rio de Janeiro, Brazil",
+      "km": 341,
+      "ms": 14881,
+      "place": "Belo Horizonte, Brazil",
+      "radius": 400
+    }
+  ],
+  "gemini-3.5-flash": [
+    {
+      "id": "wild-georgetown-south-carolina-usa-us-south",
+      "deck": "accents",
+      "label": "Georgetown, South Carolina, USA (US South)",
+      "km": 1,
+      "ms": 4937,
+      "place": "Georgetown, United States",
+      "radius": 50
+    },
+    {
+      "id": "accents-kenya-english-kenyan",
+      "deck": "accents",
+      "label": "Kenya",
+      "km": 70,
+      "ms": 18111,
+      "place": "Kisii, Kenya",
+      "radius": 150
+    },
+    {
+      "id": "accents-jamaica-english-jamaican-patois",
+      "deck": "accents",
+      "label": "Jamaica",
+      "km": 90,
+      "ms": 15128,
+      "place": "Port Antonio, Jamaica",
+      "radius": 100
+    },
+    {
+      "id": "wild-mbaise-imo-state-nigeria",
+      "deck": "accents",
+      "label": "Mbaise, Imo State, Nigeria",
+      "km": 106,
+      "ms": 4543,
+      "place": "Enugu, Nigeria",
+      "radius": 150
+    },
+    {
+      "id": "wild-melbourne-australia",
+      "deck": "accents",
+      "label": "Melbourne, Australia",
+      "km": 0,
+      "ms": 3474,
+      "place": "Melbourne, Australia",
+      "radius": 50
+    },
+    {
+      "id": "accents-aberdeenshire-scotland-english-northeast-scotl",
+      "deck": "accents",
+      "label": "Northeast Scotland, Scotland",
+      "km": 19,
+      "ms": 7251,
+      "place": "Aberdeen, United Kingdom",
+      "radius": 100
+    },
+    {
+      "id": "accents-namibia-english-namibian",
+      "deck": "accents",
+      "label": "Namibia",
+      "km": 941,
+      "ms": 10708,
+      "place": "Katima Mulilo, Namibia",
+      "radius": 100
+    },
+    {
+      "id": "ar-3736",
+      "deck": "arabic",
+      "label": "Abu Dhabi, UAE",
+      "km": 1,
+      "ms": 6838,
+      "place": "Abu Dhabi, United Arab Emirates",
+      "radius": 150
+    },
+    {
+      "id": "accents-west-yorkshire-england-english-west-riding-yor",
+      "deck": "accents",
+      "label": "Sheffield, England",
+      "km": 0,
+      "ms": 29991,
+      "place": "Sheffield, United Kingdom",
+      "radius": 30
+    },
+    {
+      "id": "wild-thomastown-county-kilkenny-ireland",
+      "deck": "accents",
+      "label": "Thomastown, County Kilkenny, Ireland",
+      "km": 41,
+      "ms": 20582,
+      "place": "Kilkenny, Ireland",
+      "radius": 25
+    },
+    {
+      "id": "ar-3384",
+      "deck": "arabic",
+      "label": "Aleppo, Syria",
+      "km": 0,
+      "ms": 5543,
+      "place": "Aleppo, Syria",
+      "radius": 150
+    },
+    {
+      "id": "ar-882",
+      "deck": "arabic",
+      "label": "Alexandria, Egypt",
+      "km": 55,
+      "ms": 5598,
+      "place": "Damanhour, Egypt",
+      "radius": 150
+    },
+    {
+      "id": "ar-2082",
+      "deck": "arabic",
+      "label": "Algiers, Algeria",
+      "km": 0,
+      "ms": 5549,
+      "place": "Algiers, Algeria",
+      "radius": 100
+    },
+    {
+      "id": "ar-249",
+      "deck": "arabic",
+      "label": "Amman, Jordan",
+      "km": 2,
+      "ms": 6349,
+      "place": "Amman, Jordan",
+      "radius": 150
+    },
+    {
+      "id": "ar-39",
+      "deck": "arabic",
+      "label": "Annaba, Algeria",
+      "km": 421,
+      "ms": 5070,
+      "place": "Algiers, Algeria",
+      "radius": 250
+    },
+    {
+      "id": "ar-679",
+      "deck": "arabic",
+      "label": "Baghdad, Iraq",
+      "km": 1,
+      "ms": 6140,
+      "place": "Baghdad, Iraq",
+      "radius": 200
+    },
+    {
+      "id": "arabic-baghdad-iraq-arabic-iraqi",
+      "deck": "arabic",
+      "label": "Baghdad, Iraq",
+      "km": 1,
+      "ms": 6838,
+      "place": "Baghdad, Iraq",
+      "radius": 200
+    },
+    {
+      "id": "ar-2473",
+      "deck": "arabic",
+      "label": "Batna, Algeria",
+      "km": 1278,
+      "ms": 6197,
+      "place": "Casablanca, Morocco",
+      "radius": 200
+    },
+    {
+      "id": "ar-2765",
+      "deck": "arabic",
+      "label": "Basra, Iraq",
+      "km": 448,
+      "ms": 5823,
+      "place": "Baghdad, Iraq",
+      "radius": 350
+    },
+    {
+      "id": "ar-2446",
+      "deck": "arabic",
+      "label": "Beirut, Lebanon",
+      "km": 0,
+      "ms": 5661,
+      "place": "Beirut, Lebanon",
+      "radius": 100
+    },
+    {
+      "id": "ar-3107",
+      "deck": "arabic",
+      "label": "Benghazi, Libya",
+      "km": 651,
+      "ms": 6086,
+      "place": "Tripoli, Libya",
+      "radius": 150
+    },
+    {
+      "id": "ar-809",
+      "deck": "arabic",
+      "label": "Blida, Algeria",
+      "km": 37,
+      "ms": 5709,
+      "place": "Algiers, Algeria",
+      "radius": 250
+    },
+    {
+      "id": "ar-2608",
+      "deck": "arabic",
+      "label": "Cairo, Egypt",
+      "km": 1,
+      "ms": 5635,
+      "place": "Cairo, Egypt",
+      "radius": 150
+    },
+    {
+      "id": "ar-1604",
+      "deck": "arabic",
+      "label": "Casablanca, Morocco",
+      "km": 86,
+      "ms": 4365,
+      "place": "Rabat, Morocco",
+      "radius": 200
+    },
+    {
+      "id": "ar-2375",
+      "deck": "arabic",
+      "label": "Constantine, Algeria",
+      "km": 320,
+      "ms": 4903,
+      "place": "Algiers, Algeria",
+      "radius": 300
+    },
+    {
+      "id": "ar-94",
+      "deck": "arabic",
+      "label": "Djelfa, Algeria",
+      "km": 669,
+      "ms": 5404,
+      "place": "Tunis, Tunisia",
+      "radius": 250
+    },
+    {
+      "id": "ar-3345",
+      "deck": "arabic",
+      "label": "Dubai, UAE",
+      "km": 1,
+      "ms": 5644,
+      "place": "Dubai, United Arab Emirates",
+      "radius": 150
+    },
+    {
+      "id": "ar-754",
+      "deck": "arabic",
+      "label": "Fes, Morocco",
+      "km": 245,
+      "ms": 4088,
+      "place": "Casablanca, Morocco",
+      "radius": 300
+    },
+    {
+      "id": "ar-3132",
+      "deck": "arabic",
+      "label": "Gaza, Palestine",
+      "km": 73,
+      "ms": 7000,
+      "place": "Jerusalem, Palestine",
+      "radius": 100
+    },
+    {
+      "id": "ar-1907",
+      "deck": "arabic",
+      "label": "El Obeid, Sudan",
+      "km": 361,
+      "ms": 98522,
+      "place": "Khartoum, Sudan",
+      "radius": 250
+    },
+    {
+      "id": "ar-4531",
+      "deck": "arabic",
+      "label": "Irbid, Jordan",
+      "km": 68,
+      "ms": 6643,
+      "place": "Amman, Jordan",
+      "radius": 120
+    },
+    {
+      "id": "ar-3854",
+      "deck": "arabic",
+      "label": "Hebron, Palestine",
+      "km": 90,
+      "ms": 75813,
+      "place": "Amman, Jordan",
+      "radius": 150
+    },
+    {
+      "id": "ar-1733",
+      "deck": "arabic",
+      "label": "Jeddah, Saudi Arabia",
+      "km": 845,
+      "ms": 5027,
+      "place": "Riyadh, Saudi Arabia",
+      "radius": 250
+    },
+    {
+      "id": "ar-2316",
+      "deck": "arabic",
+      "label": "Jerusalem, Palestine",
+      "km": 68,
+      "ms": 6660,
+      "place": "Amman, Jordan",
+      "radius": 150
+    },
+    {
+      "id": "ar-1248",
+      "deck": "arabic",
+      "label": "Manama, Bahrain",
+      "km": 434,
+      "ms": 5192,
+      "place": "Kuwait City, Kuwait",
+      "radius": 80
+    },
+    {
+      "id": "ar-1526",
+      "deck": "arabic",
+      "label": "Kuwait City, Kuwait",
+      "km": 1,
+      "ms": 17381,
+      "place": "Kuwait City, Kuwait",
+      "radius": 75
+    },
+    {
+      "id": "ar-1623",
+      "deck": "arabic",
+      "label": "Muscat, Oman",
+      "km": 3,
+      "ms": 4720,
+      "place": "Muscat, Oman",
+      "radius": 100
+    },
+    {
+      "id": "ar-3190",
+      "deck": "arabic",
+      "label": "Nablus, Palestine",
+      "km": 68,
+      "ms": 5749,
+      "place": "Amman, Jordan",
+      "radius": 150
+    },
+    {
+      "id": "ar-5182",
+      "deck": "arabic",
+      "label": "Omdurman, Sudan",
+      "km": 18,
+      "ms": 5683,
+      "place": "Khartoum, Sudan",
+      "radius": 500
+    },
+    {
+      "id": "ar-423",
+      "deck": "arabic",
+      "label": "Oran, Algeria",
+      "km": 351,
+      "ms": 5213,
+      "place": "Algiers, Algeria",
+      "radius": 250
+    },
+    {
+      "id": "ar-1879",
+      "deck": "arabic",
+      "label": "Port Sudan, Sudan",
+      "km": 674,
+      "ms": 7020,
+      "place": "Khartoum, Sudan",
+      "radius": 200
+    },
+    {
+      "id": "ar-989",
+      "deck": "arabic",
+      "label": "Rabat, Morocco",
+      "km": 0,
+      "ms": 4307,
+      "place": "Rabat, Morocco",
+      "radius": 200
+    },
+    {
+      "id": "ar-2787",
+      "deck": "arabic",
+      "label": "Riyadh, Saudi Arabia",
+      "km": 534,
+      "ms": 5081,
+      "place": "Kuwait City, Kuwait",
+      "radius": 200
+    },
+    {
+      "id": "ar-3479",
+      "deck": "arabic",
+      "label": "Sanaa, Yemen",
+      "km": 200,
+      "ms": 5257,
+      "place": "Taiz, Yemen",
+      "radius": 100
+    },
+    {
+      "id": "ar-4464",
+      "deck": "arabic",
+      "label": "Setif, Algeria",
+      "km": 219,
+      "ms": 5219,
+      "place": "Algiers, Algeria",
+      "radius": 250
+    },
+    {
+      "id": "ar-6196",
+      "deck": "arabic",
+      "label": "Sharjah, UAE",
+      "km": 22,
+      "ms": 6158,
+      "place": "Dubai, United Arab Emirates",
+      "radius": 150
+    },
+    {
+      "id": "ar-5408",
+      "deck": "arabic",
+      "label": "Taiz, Yemen",
+      "km": 1,
+      "ms": 6040,
+      "place": "Taiz, Yemen",
+      "radius": 100
+    },
+    {
+      "id": "ar-3647",
+      "deck": "arabic",
+      "label": "Tangier, Morocco",
+      "km": 294,
+      "ms": 4587,
+      "place": "Casablanca, Morocco",
+      "radius": 250
+    },
+    {
+      "id": "ar-6858",
+      "deck": "arabic",
+      "label": "Tripoli, Libya",
+      "km": 0,
+      "ms": 4830,
+      "place": "Tripoli, Libya",
+      "radius": 100
+    },
+    {
+      "id": "ar-3660",
+      "deck": "arabic",
+      "label": "Tunis, Tunisia",
+      "km": 0,
+      "ms": 6678,
+      "place": "Tunis, Tunisia",
+      "radius": 150
+    },
+    {
+      "id": "ar-3785",
+      "deck": "arabic",
+      "label": "Wad Medani, Sudan",
+      "km": 160,
+      "ms": 6535,
+      "place": "Khartoum, Sudan",
+      "radius": 250
+    },
+    {
+      "id": "french-bargny-senegal-french-senegal",
+      "deck": "french",
+      "label": "Bargny, Senegal",
+      "km": 1,
+      "ms": 6852,
+      "place": "Dakar, Senegal",
+      "radius": 50
+    },
+    {
+      "id": "french-brussels-belgium-french-belgian",
+      "deck": "french",
+      "label": "Belgium",
+      "km": 259,
+      "ms": 8896,
+      "place": "Paris, France",
+      "radius": 350
+    },
+    {
+      "id": "french-yaounde-cameroon-french-cameroon",
+      "deck": "french",
+      "label": "Cameroon",
+      "km": 72,
+      "ms": 18043,
+      "place": "Yaounde, Cameroon",
+      "radius": 150
+    },
+    {
+      "id": "french-abidjan-cote-d-ivoire-french-cote-d-ivoire",
+      "deck": "french",
+      "label": "Côte d'Ivoire",
+      "km": 9,
+      "ms": 19346,
+      "place": "Yamoussoukro, Côte d'Ivoire",
+      "radius": 150
+    },
+    {
+      "id": "french-paris-france-french-paris",
+      "deck": "french",
+      "label": "Paris, France",
+      "km": 0,
+      "ms": 23574,
+      "place": "Paris, France",
+      "radius": 150
+    },
+    {
+      "id": "french-montreal-canada-french-quebecois",
+      "deck": "french",
+      "label": "Québec, Canada",
+      "km": 233,
+      "ms": 35731,
+      "place": "Montreal, Canada",
+      "radius": 300
+    },
+    {
+      "id": "french-marseille-france-french-southern-france",
+      "deck": "french",
+      "label": "Southern France, France",
+      "km": 597,
+      "ms": 41199,
+      "place": "Paris, France",
+      "radius": 350
+    },
+    {
+      "id": "spanish-venezuelan-spanish-introduction-to-the-big-ban",
+      "deck": "spanish",
+      "label": "Guatire, Venezuela",
+      "km": 3633,
+      "ms": 21125,
+      "place": "Mexico City, Mexico",
+      "radius": 300
+    },
+    {
+      "id": "spanish-mexico-city-mexico-spanish-mexican",
+      "deck": "spanish",
+      "label": "Mexico",
+      "km": 345,
+      "ms": 24406,
+      "place": "Mexico City, Mexico",
+      "radius": 150
+    },
+    {
+      "id": "spanish-argentine-spanish-reading-about-a-brazilian-to",
+      "deck": "spanish",
+      "label": "Argentina",
+      "km": 7392,
+      "ms": 16300,
+      "place": "Mexico City, Mexico",
+      "radius": 600
+    },
+    {
+      "id": "spanish-mexican-spanish-schrodinger-s-cat-article-read",
+      "deck": "spanish",
+      "label": "Mexico",
+      "km": 345,
+      "ms": 28688,
+      "place": "Mexico City, Mexico",
+      "radius": 200
+    },
+    {
+      "id": "spanish-uruguayan-spanish-juan-jose-morosoli-reads-la-",
+      "deck": "spanish",
+      "label": "Minas, Uruguay",
+      "km": 103,
+      "ms": 25657,
+      "place": "Montevideo, Uruguay",
+      "radius": 200
+    },
+    {
+      "id": "spanish-paniahue-santa-cruz-chile-spanish-chilean",
+      "deck": "spanish",
+      "label": "Paniahue, Chile",
+      "km": 146,
+      "ms": 20959,
+      "place": "Santiago, Chile",
+      "radius": 350
+    },
+    {
+      "id": "spanish-peruvian-spanish-richard-dawkins-biography-rea",
+      "deck": "spanish",
+      "label": "Peru",
+      "km": 4255,
+      "ms": 23928,
+      "place": "Mexico City, Mexico",
+      "radius": 350
+    },
+    {
+      "id": "spanish-puerto-rican-spanish-roman-emperor-claudius-ar",
+      "deck": "spanish",
+      "label": "Puerto Rico",
+      "km": 890,
+      "ms": 52473,
+      "place": "Caracas, Venezuela",
+      "radius": 300
+    },
+    {
+      "id": "spanish-colombian-spanish-steven-pinker-biography-read",
+      "deck": "spanish",
+      "label": "Turbaco, Colombia",
+      "km": 653,
+      "ms": 9824,
+      "place": "Bogotá, Colombia",
+      "radius": 250
+    },
+    {
+      "id": "spanish-castilian-spanish-segismundo-s-soliloquy-calde",
+      "deck": "spanish",
+      "label": "Spain",
+      "km": 0,
+      "ms": 11930,
+      "place": "Madrid, Spain",
+      "radius": 200
+    },
+    {
+      "id": "chinese-chengdu-china-mandarin-sichuanese-chengdu-dial",
+      "deck": "chinese",
+      "label": "Chengdu, China",
+      "km": 10,
+      "ms": 15655,
+      "place": "Chengdu, China",
+      "radius": 80
+    },
+    {
+      "id": "chinese-guiyang-china-mandarin-guiyangese-southwestern",
+      "deck": "chinese",
+      "label": "Guiyang, China",
+      "km": 9,
+      "ms": 10254,
+      "place": "Guiyang, China",
+      "radius": 50
+    },
+    {
+      "id": "chinese-hk-cantonese-george-washington-carver-spoken-w",
+      "deck": "chinese",
+      "label": "Hong Kong",
+      "km": 2,
+      "ms": 18950,
+      "place": "Hong Kong, Hong Kong",
+      "radius": 40
+    },
+    {
+      "id": "chinese-hk-cantonese-ciguatoxin-stonefish-toxin-spoken",
+      "deck": "chinese",
+      "label": "Hong Kong",
+      "km": 2,
+      "ms": 22851,
+      "place": "Hong Kong, Hong Kong",
+      "radius": 50
+    },
+    {
+      "id": "chinese-taipei-taiwan-mandarin-taiwan-guoyu",
+      "deck": "chinese",
+      "label": "Taiwan",
+      "km": 150,
+      "ms": 21565,
+      "place": "Taipei, Taiwan",
+      "radius": 150
+    },
+    {
+      "id": "chinese-shanghainese-wu-standard-shanghai-accent-readi",
+      "deck": "chinese",
+      "label": "Shanghai, China",
+      "km": 0,
+      "ms": 6890,
+      "place": "Shanghai, China",
+      "radius": 100
+    },
+    {
+      "id": "chinese-taiwan-mandarin-good-cop-bad-dog-tv-episode-sp",
+      "deck": "chinese",
+      "label": "Taiwan",
+      "km": 150,
+      "ms": 18292,
+      "place": "Taipei, Taiwan",
+      "radius": 150
+    },
+    {
+      "id": "hindi-urdu-spoken-hindi-wikipedia-indo-european-language-",
+      "deck": "hindi-urdu",
+      "label": "Delhi–Meerut Region, India",
+      "km": 0,
+      "ms": 9266,
+      "place": "New Delhi, India",
+      "radius": 400
+    },
+    {
+      "id": "hindi-urdu-karachi-pakistan-urdu",
+      "deck": "hindi-urdu",
+      "label": "Karachi, Pakistan",
+      "km": 0,
+      "ms": 5345,
+      "place": "Karachi, Pakistan",
+      "radius": 400
+    },
+    {
+      "id": "hindi-urdu-mumbai-india-hindi-bambaiyya-adjacent",
+      "deck": "hindi-urdu",
+      "label": "Mumbai, India",
+      "km": 0,
+      "ms": 5166,
+      "place": "Mumbai, India",
+      "radius": 50
+    },
+    {
+      "id": "hindi-urdu-mufti-abul-qasim-nomani-talk-on-darul-uloom-de",
+      "deck": "hindi-urdu",
+      "label": "Varanasi, India",
+      "km": 714,
+      "ms": 8098,
+      "place": "Deoband, India",
+      "radius": 150
+    },
+    {
+      "id": "portuguese-cape-verde-portuguese-cape-verde",
+      "deck": "portuguese",
+      "label": "Cape Verde",
+      "km": 1,
+      "ms": 14083,
+      "place": "Mindelo, Cape Verde",
+      "radius": 30
+    },
+    {
+      "id": "portuguese-malanje-angola-portuguese-angola",
+      "deck": "portuguese",
+      "label": "Malanje, Angola",
+      "km": 1,
+      "ms": 16746,
+      "place": "Malanje, Angola",
+      "radius": 100
+    },
+    {
+      "id": "portuguese-mozambique-portuguese-mozambique",
+      "deck": "portuguese",
+      "label": "Mozambique",
+      "km": 0,
+      "ms": 10213,
+      "place": "Maputo, Mozambique",
+      "radius": 300
+    },
+    {
+      "id": "portuguese-parana-brazil-portuguese-brazilian-parana",
+      "deck": "portuguese",
+      "label": "Paraná, Brazil",
+      "km": 359,
+      "ms": 14198,
+      "place": "Campinas, Brazil",
+      "radius": 200
+    },
+    {
+      "id": "portuguese-porto-alegre-brazil-portuguese-brazilian-gauch",
+      "deck": "portuguese",
+      "label": "Porto Alegre, Brazil",
+      "km": 852,
+      "ms": 8783,
+      "place": "São Paulo, Brazil",
+      "radius": 150
+    },
+    {
+      "id": "portuguese-porto-portugal-portuguese-european-porto-north",
+      "deck": "portuguese",
+      "label": "Porto, Portugal",
+      "km": 274,
+      "ms": 9504,
+      "place": "Lisbon, Portugal",
+      "radius": 200
+    },
+    {
+      "id": "portuguese-rio-de-janeiro-brazil-portuguese-brazilian-car",
+      "deck": "portuguese",
+      "label": "Rio de Janeiro, Brazil",
+      "km": 361,
+      "ms": 45569,
+      "place": "São Paulo, Brazil",
+      "radius": 120
+    }
+  ],
+  "gemini-omni-flash-preview": [],
+  "gemini-3.1-pro-preview": [
+    {
+      "id": "wild-georgetown-south-carolina-usa-us-south",
+      "deck": "accents",
+      "label": "Georgetown, South Carolina, USA (US South)",
+      "km": 175,
+      "ms": 43869,
+      "place": "Columbia, United States",
+      "radius": 250
+    },
+    {
+      "id": "accents-kenya-english-kenyan",
+      "deck": "accents",
+      "label": "Kenya",
+      "km": 149,
+      "ms": 42343,
+      "place": "Nairobi, Kenya",
+      "radius": 300
+    },
+    {
+      "id": "wild-mbaise-imo-state-nigeria",
+      "deck": "accents",
+      "label": "Mbaise, Imo State, Nigeria",
+      "km": 107,
+      "ms": 47062,
+      "place": "Enugu, Nigeria",
+      "radius": 150
+    },
+    {
+      "id": "wild-melbourne-australia",
+      "deck": "accents",
+      "label": "Melbourne, Australia",
+      "km": 0,
+      "ms": 45903,
+      "place": "Melbourne, Australia",
+      "radius": 50
+    },
+    {
+      "id": "accents-namibia-english-namibian",
+      "deck": "accents",
+      "label": "Namibia",
+      "km": 940,
+      "ms": 33499,
+      "place": "Katima Mulilo, Namibia",
+      "radius": 150
+    },
+    {
+      "id": "accents-aberdeenshire-scotland-english-northeast-scotl",
+      "deck": "accents",
+      "label": "Northeast Scotland, Scotland",
+      "km": 19,
+      "ms": 44866,
+      "place": "Aberdeen, United Kingdom",
+      "radius": 80
+    },
+    {
+      "id": "accents-jamaica-english-jamaican-patois",
+      "deck": "accents",
+      "label": "Jamaica",
+      "km": 0,
+      "ms": 167128,
+      "place": "Kingston, Jamaica",
+      "radius": 130
+    },
+    {
+      "id": "ar-3736",
+      "deck": "arabic",
+      "label": "Abu Dhabi, UAE",
+      "km": 123,
+      "ms": 27921,
+      "place": "Dubai, United Arab Emirates",
+      "radius": 200
+    },
+    {
+      "id": "wild-thomastown-county-kilkenny-ireland",
+      "deck": "accents",
+      "label": "Thomastown, County Kilkenny, Ireland",
+      "km": 40,
+      "ms": 27077,
+      "place": "Kilkenny, Ireland",
+      "radius": 80
+    },
+    {
+      "id": "ar-882",
+      "deck": "arabic",
+      "label": "Alexandria, Egypt",
+      "km": 55,
+      "ms": 53891,
+      "place": "Damanhur, Egypt",
+      "radius": 150
+    },
+    {
+      "id": "ar-2082",
+      "deck": "arabic",
+      "label": "Algiers, Algeria",
+      "km": 0,
+      "ms": 33119,
+      "place": "Algiers, Algeria",
+      "radius": 150
+    },
+    {
+      "id": "ar-3384",
+      "deck": "arabic",
+      "label": "Aleppo, Syria",
+      "km": 309,
+      "ms": 167006,
+      "place": "Damascus, Syria",
+      "radius": 250
+    },
+    {
+      "id": "accents-west-yorkshire-england-english-west-riding-yor",
+      "deck": "accents",
+      "label": "Sheffield, England",
+      "km": 0,
+      "ms": 217548,
+      "place": "Sheffield, United Kingdom",
+      "radius": 25
+    },
+    {
+      "id": "ar-679",
+      "deck": "arabic",
+      "label": "Baghdad, Iraq",
+      "km": 1,
+      "ms": 21198,
+      "place": "Baghdad, Iraq",
+      "radius": 250
+    },
+    {
+      "id": "arabic-baghdad-iraq-arabic-iraqi",
+      "deck": "arabic",
+      "label": "Baghdad, Iraq",
+      "km": 1,
+      "ms": 15241,
+      "place": "Baghdad, Iraq",
+      "radius": 300
+    },
+    {
+      "id": "ar-39",
+      "deck": "arabic",
+      "label": "Annaba, Algeria",
+      "km": 420,
+      "ms": 73152,
+      "place": "Algiers, Algeria",
+      "radius": 400
+    },
+    {
+      "id": "ar-2473",
+      "deck": "arabic",
+      "label": "Batna, Algeria",
+      "km": 309,
+      "ms": 36482,
+      "place": "Algiers, Algeria",
+      "radius": 200
+    },
+    {
+      "id": "ar-2765",
+      "deck": "arabic",
+      "label": "Basra, Iraq",
+      "km": 0,
+      "ms": 125202,
+      "place": "Basra, Iraq",
+      "radius": 50
+    },
+    {
+      "id": "ar-2446",
+      "deck": "arabic",
+      "label": "Beirut, Lebanon",
+      "km": 0,
+      "ms": 87466,
+      "place": "Beirut, Lebanon",
+      "radius": 100
+    },
+    {
+      "id": "ar-809",
+      "deck": "arabic",
+      "label": "Blida, Algeria",
+      "km": 38,
+      "ms": 13633,
+      "place": "Algiers, Algeria",
+      "radius": 400
+    },
+    {
+      "id": "ar-3107",
+      "deck": "arabic",
+      "label": "Benghazi, Libya",
+      "km": 651,
+      "ms": 185679,
+      "place": "Tripoli, Libya",
+      "radius": 300
+    },
+    {
+      "id": "ar-2375",
+      "deck": "arabic",
+      "label": "Constantine, Algeria",
+      "km": 320,
+      "ms": 69736,
+      "place": "Algiers, Algeria",
+      "radius": 400
+    },
+    {
+      "id": "ar-94",
+      "deck": "arabic",
+      "label": "Djelfa, Algeria",
+      "km": 232,
+      "ms": 38944,
+      "place": "Algiers, Algeria",
+      "radius": 400
+    },
+    {
+      "id": "ar-3345",
+      "deck": "arabic",
+      "label": "Dubai, UAE",
+      "km": 1,
+      "ms": 48187,
+      "place": "Dubai, United Arab Emirates",
+      "radius": 150
+    },
+    {
+      "id": "ar-754",
+      "deck": "arabic",
+      "label": "Fes, Morocco",
+      "km": 245,
+      "ms": 39888,
+      "place": "Casablanca, Morocco",
+      "radius": 300
+    },
+    {
+      "id": "ar-3132",
+      "deck": "arabic",
+      "label": "Gaza, Palestine",
+      "km": 147,
+      "ms": 28917,
+      "place": "Amman, Jordan",
+      "radius": 150
+    },
+    {
+      "id": "ar-1907",
+      "deck": "arabic",
+      "label": "El Obeid, Sudan",
+      "km": 361,
+      "ms": 31588,
+      "place": "Khartoum, Sudan",
+      "radius": 400
+    },
+    {
+      "id": "ar-3854",
+      "deck": "arabic",
+      "label": "Hebron, Palestine",
+      "km": 29,
+      "ms": 51530,
+      "place": "Jerusalem, Palestine",
+      "radius": 150
+    },
+    {
+      "id": "ar-1733",
+      "deck": "arabic",
+      "label": "Jeddah, Saudi Arabia",
+      "km": 845,
+      "ms": 57235,
+      "place": "Riyadh, Saudi Arabia",
+      "radius": 400
+    },
+    {
+      "id": "ar-1248",
+      "deck": "arabic",
+      "label": "Manama, Bahrain",
+      "km": 434,
+      "ms": 21544,
+      "place": "Kuwait City, Kuwait",
+      "radius": 150
+    },
+    {
+      "id": "ar-2316",
+      "deck": "arabic",
+      "label": "Jerusalem, Palestine",
+      "km": 70,
+      "ms": 80427,
+      "place": "Amman, Jordan",
+      "radius": 150
+    },
+    {
+      "id": "ar-1623",
+      "deck": "arabic",
+      "label": "Muscat, Oman",
+      "km": 3,
+      "ms": 30958,
+      "place": "Muscat, Oman",
+      "radius": 150
+    },
+    {
+      "id": "ar-423",
+      "deck": "arabic",
+      "label": "Oran, Algeria",
+      "km": 351,
+      "ms": 20958,
+      "place": "Algiers, Algeria",
+      "radius": 400
+    },
+    {
+      "id": "ar-5182",
+      "deck": "arabic",
+      "label": "Omdurman, Sudan",
+      "km": 18,
+      "ms": 52514,
+      "place": "Khartoum, Sudan",
+      "radius": 600
+    },
+    {
+      "id": "ar-3190",
+      "deck": "arabic",
+      "label": "Nablus, Palestine",
+      "km": 70,
+      "ms": 154294,
+      "place": "Amman, Jordan",
+      "radius": 150
+    },
+    {
+      "id": "ar-989",
+      "deck": "arabic",
+      "label": "Rabat, Morocco",
+      "km": 170,
+      "ms": 29938,
+      "place": "Fez, Morocco",
+      "radius": 200
+    },
+    {
+      "id": "ar-2787",
+      "deck": "arabic",
+      "label": "Riyadh, Saudi Arabia",
+      "km": 1,
+      "ms": 33058,
+      "place": "Riyadh, Saudi Arabia",
+      "radius": 400
+    },
+    {
+      "id": "ar-1879",
+      "deck": "arabic",
+      "label": "Port Sudan, Sudan",
+      "km": 674,
+      "ms": 111543,
+      "place": "Khartoum, Sudan",
+      "radius": 400
+    },
+    {
+      "id": "ar-3479",
+      "deck": "arabic",
+      "label": "Sanaa, Yemen",
+      "km": 0,
+      "ms": 26736,
+      "place": "Sana'a, Yemen",
+      "radius": 150
+    },
+    {
+      "id": "ar-4464",
+      "deck": "arabic",
+      "label": "Setif, Algeria",
+      "km": 219,
+      "ms": 27499,
+      "place": "Algiers, Algeria",
+      "radius": 400
+    },
+    {
+      "id": "ar-6196",
+      "deck": "arabic",
+      "label": "Sharjah, UAE",
+      "km": 22,
+      "ms": 26122,
+      "place": "Dubai, United Arab Emirates",
+      "radius": 150
+    },
+    {
+      "id": "ar-3647",
+      "deck": "arabic",
+      "label": "Tangier, Morocco",
+      "km": 294,
+      "ms": 19774,
+      "place": "Casablanca, Morocco",
+      "radius": 400
+    },
+    {
+      "id": "ar-6858",
+      "deck": "arabic",
+      "label": "Tripoli, Libya",
+      "km": 0,
+      "ms": 18647,
+      "place": "Tripoli, Libya",
+      "radius": 100
+    },
+    {
+      "id": "ar-5408",
+      "deck": "arabic",
+      "label": "Taiz, Yemen",
+      "km": 1,
+      "ms": 76770,
+      "place": "Taiz, Yemen",
+      "radius": 50
+    },
+    {
+      "id": "ar-3785",
+      "deck": "arabic",
+      "label": "Wad Medani, Sudan",
+      "km": 160,
+      "ms": 16964,
+      "place": "Khartoum, Sudan",
+      "radius": 400
+    },
+    {
+      "id": "ar-3660",
+      "deck": "arabic",
+      "label": "Tunis, Tunisia",
+      "km": 0,
+      "ms": 24989,
+      "place": "Tunis, Tunisia",
+      "radius": 150
+    },
+    {
+      "id": "french-bargny-senegal-french-senegal",
+      "deck": "french",
+      "label": "Bargny, Senegal",
+      "km": 26,
+      "ms": 24586,
+      "place": "Dakar, Senegal",
+      "radius": 200
+    },
+    {
+      "id": "french-yaounde-cameroon-french-cameroon",
+      "deck": "french",
+      "label": "Cameroon",
+      "km": 72,
+      "ms": 39166,
+      "place": "Yaoundé, Cameroon",
+      "radius": 400
+    },
+    {
+      "id": "french-brussels-belgium-french-belgian",
+      "deck": "french",
+      "label": "Belgium",
+      "km": 259,
+      "ms": 73390,
+      "place": "Paris, France",
+      "radius": 400
+    },
+    {
+      "id": "french-abidjan-cote-d-ivoire-french-cote-d-ivoire",
+      "deck": "french",
+      "label": "Côte d'Ivoire",
+      "km": 108,
+      "ms": 59441,
+      "place": "Tiassalé, Ivory Coast",
+      "radius": 250
+    },
+    {
+      "id": "french-montreal-canada-french-quebecois",
+      "deck": "french",
+      "label": "Québec, Canada",
+      "km": 115,
+      "ms": 34585,
+      "place": "Trois-Rivières, Canada",
+      "radius": 300
+    },
+    {
+      "id": "french-marseille-france-french-southern-france",
+      "deck": "french",
+      "label": "Southern France, France",
+      "km": 51,
+      "ms": 31377,
+      "place": "Montpellier, France",
+      "radius": 250
+    },
+    {
+      "id": "french-paris-france-french-paris",
+      "deck": "french",
+      "label": "Paris, France",
+      "km": 0,
+      "ms": 116341,
+      "place": "Paris, France",
+      "radius": 300
+    },
+    {
+      "id": "spanish-venezuelan-spanish-introduction-to-the-big-ban",
+      "deck": "spanish",
+      "label": "Guatire, Venezuela",
+      "km": 3633,
+      "ms": 105149,
+      "place": "Mexico City, Mexico",
+      "radius": 400
+    },
+    {
+      "id": "spanish-mexico-city-mexico-spanish-mexican",
+      "deck": "spanish",
+      "label": "Mexico",
+      "km": 345,
+      "ms": 32958,
+      "place": "Mexico City, Mexico",
+      "radius": 200
+    },
+    {
+      "id": "spanish-mexican-spanish-schrodinger-s-cat-article-read",
+      "deck": "spanish",
+      "label": "Mexico",
+      "km": 345,
+      "ms": 27520,
+      "place": "Mexico City, Mexico",
+      "radius": 400
+    },
+    {
+      "id": "spanish-paniahue-santa-cruz-chile-spanish-chilean",
+      "deck": "spanish",
+      "label": "Paniahue, Chile",
+      "km": 178,
+      "ms": 50167,
+      "place": "Valparaíso, Chile",
+      "radius": 300
+    },
+    {
+      "id": "spanish-uruguayan-spanish-juan-jose-morosoli-reads-la-",
+      "deck": "spanish",
+      "label": "Minas, Uruguay",
+      "km": 103,
+      "ms": 229975,
+      "place": "Montevideo, Uruguay",
+      "radius": 250
+    },
+    {
+      "id": "spanish-peruvian-spanish-richard-dawkins-biography-rea",
+      "deck": "spanish",
+      "label": "Peru",
+      "km": 0,
+      "ms": 179965,
+      "place": "Lima, Peru",
+      "radius": 400
+    },
+    {
+      "id": "spanish-puerto-rican-spanish-roman-emperor-claudius-ar",
+      "deck": "spanish",
+      "label": "Puerto Rico",
+      "km": 8,
+      "ms": 78043,
+      "place": "San Juan, Puerto Rico",
+      "radius": 100
+    },
+    {
+      "id": "spanish-castilian-spanish-segismundo-s-soliloquy-calde",
+      "deck": "spanish",
+      "label": "Spain",
+      "km": 0,
+      "ms": 126644,
+      "place": "Madrid, Spain",
+      "radius": 300
+    },
+    {
+      "id": "chinese-guiyang-china-mandarin-guiyangese-southwestern",
+      "deck": "chinese",
+      "label": "Guiyang, China",
+      "km": 9,
+      "ms": 35183,
+      "place": "Guiyang, China",
+      "radius": 50
+    },
+    {
+      "id": "chinese-chengdu-china-mandarin-sichuanese-chengdu-dial",
+      "deck": "chinese",
+      "label": "Chengdu, China",
+      "km": 10,
+      "ms": 295197,
+      "place": "Chengdu, China",
+      "radius": 300
+    },
+    {
+      "id": "chinese-hk-cantonese-george-washington-carver-spoken-w",
+      "deck": "chinese",
+      "label": "Hong Kong",
+      "km": 0,
+      "ms": 151695,
+      "place": "Hong Kong, China",
+      "radius": 50
+    },
+    {
+      "id": "chinese-hk-cantonese-ciguatoxin-stonefish-toxin-spoken",
+      "deck": "chinese",
+      "label": "Hong Kong",
+      "km": 0,
+      "ms": 130384,
+      "place": "Hong Kong, China",
+      "radius": 150
+    },
+    {
+      "id": "chinese-shanghainese-wu-standard-shanghai-accent-readi",
+      "deck": "chinese",
+      "label": "Shanghai, China",
+      "km": 0,
+      "ms": 28049,
+      "place": "Shanghai, China",
+      "radius": 50
+    },
+    {
+      "id": "hindi-urdu-spoken-hindi-wikipedia-indo-european-language-",
+      "deck": "hindi-urdu",
+      "label": "Delhi–Meerut Region, India",
+      "km": 0,
+      "ms": 114265,
+      "place": "New Delhi, India",
+      "radius": 500
+    },
+    {
+      "id": "hindi-urdu-mumbai-india-hindi-bambaiyya-adjacent",
+      "deck": "hindi-urdu",
+      "label": "Mumbai, India",
+      "km": 0,
+      "ms": 85236,
+      "place": "Mumbai, India",
+      "radius": 50
+    },
+    {
+      "id": "hindi-urdu-karachi-pakistan-urdu",
+      "deck": "hindi-urdu",
+      "label": "Karachi, Pakistan",
+      "km": 0,
+      "ms": 161294,
+      "place": "Karachi, Pakistan",
+      "radius": 800
+    },
+    {
+      "id": "portuguese-malanje-angola-portuguese-angola",
+      "deck": "portuguese",
+      "label": "Malanje, Angola",
+      "km": 0,
+      "ms": 180872,
+      "place": "Malanje, Angola",
+      "radius": 500
+    },
+    {
+      "id": "portuguese-parana-brazil-portuguese-brazilian-parana",
+      "deck": "portuguese",
+      "label": "Paraná, Brazil",
+      "km": 339,
+      "ms": 157124,
+      "place": "São Paulo, Brazil",
+      "radius": 80
+    },
+    {
+      "id": "portuguese-mozambique-portuguese-mozambique",
+      "deck": "portuguese",
+      "label": "Mozambique",
+      "km": 0,
+      "ms": 300456,
+      "place": "Maputo, Mozambique",
+      "radius": 600
+    }
+  ]
+}

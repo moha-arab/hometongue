@@ -49,10 +49,10 @@ const km = (aLat, aLng, bLat, bLng) => {
 };
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-async function ask(b64) {
+async function ask(b64, model = MODEL) {
   for (let i = 0; i < 4; i++) {
     try {
-      const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`, {
+      const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
         method: 'POST',
         headers: { 'x-goog-api-key': process.env.GEMINI_API_KEY, 'content-type': 'application/json' },
         body: JSON.stringify({
@@ -74,28 +74,40 @@ async function ask(b64) {
   return null;
 }
 
+// 3.5-flash rides along: the Aug 9 shootout measured it slightly sharper and 2x faster than
+// 3.6 during a coarse window (72 vs 85 km, 6.9 vs 12.6 s). Logging both curves tells us
+// whether it breathes with load the same way and whether it deserves fallback duty.
+const MODELS = [MODEL, 'gemini-3.5-flash'];
 const rows = [];
-const queue = clips.slice();
+const queue = [];
+for (const c of clips) for (const m of MODELS) queue.push({ ...c, model: m });
 async function worker() {
   while (queue.length) {
     const c = queue.shift();
-    const g = await ask(fs.readFileSync(c.f).toString('base64'));
+    const g = await ask(fs.readFileSync(c.f).toString('base64'), c.model);
     if (!g || typeof g.lat !== 'number') continue;
     const d = Math.round(km(c.lat, c.lng, g.lat, g.lng));
-    rows.push({ kind: c.kind, label: c.label, km: d, place: g.place });
-    console.log(`  ${c.kind === 'canary' ? '◆' : '·'} ${c.label.padEnd(26)} ${String(d).padStart(5)} km  ${g.place}`);
+    rows.push({ kind: c.kind, model: c.model, label: c.label, km: d, place: g.place });
+    console.log(`  ${c.kind === 'canary' ? '◆' : '·'} ${(c.model === MODEL ? '' : '[3.5] ') + c.label}`.padEnd(36) + `${String(d).padStart(5)} km  ${g.place}`);
   }
 }
 await Promise.all([worker(), worker(), worker()]);
 
 const med = (a) => { const s = a.slice().sort((x, y) => x - y); return s.length ? s[Math.floor(s.length / 2)] : NaN; };
-const entry = {
-  ts: new Date().toISOString(),
-  median: med(rows.map((r) => r.km)),
-  canaryMedian: med(rows.filter((r) => r.kind === 'canary').map((r) => r.km)),
-  controlMedian: med(rows.filter((r) => r.kind === 'control').map((r) => r.km)),
-  n: rows.length,
-};
-fs.appendFileSync(path.join(ROOT, 'data', 'canary-log.jsonl'), JSON.stringify(entry) + '\n');
+let entry;
+for (const m of MODELS) {
+  const mine = rows.filter((r) => r.model === m);
+  const e = {
+    ts: new Date().toISOString(),
+    model: m,
+    median: med(mine.map((r) => r.km)),
+    canaryMedian: med(mine.filter((r) => r.kind === 'canary').map((r) => r.km)),
+    controlMedian: med(mine.filter((r) => r.kind === 'control').map((r) => r.km)),
+    n: mine.length,
+  };
+  fs.appendFileSync(path.join(ROOT, 'data', 'canary-log.jsonl'), JSON.stringify(e) + '\n');
+  if (m === MODEL) entry = e;
+  else console.log(`[3.5-flash]  median ${e.median} km · canaries ${e.canaryMedian} km · controls ${e.controlMedian} km`);
+}
 console.log(`\n${entry.ts}  median ${entry.median} km · canaries ${entry.canaryMedian} km · controls ${entry.controlMedian} km`);
 console.log(entry.canaryMedian < 150 ? 'SHARP — city-level magic is on' : entry.canaryMedian < 300 ? 'MIXED — usable, expect some region answers' : 'COARSE — off-peak hours will serve better');
