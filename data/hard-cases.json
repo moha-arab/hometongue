@@ -13,8 +13,8 @@
       "id": "levantine-gulf-childhood-1",
       "truth": { "grew_up": "Kuwait (ages 0-13)", "father": "Syria", "mother": "Lebanon", "never_lived_in": "Jordan" },
       "observed_verdicts": ["Kuwait (region-era UI) with Levant 65/Kuwait 35 mix — the ideal read", "Damascus ±150", "Amman ±350 — via هلق transcribed as هسا in coarse serving windows"],
-      "mechanism": "pure North-Levantine phonology + Gulf environment lexicon (al-jam'iyya); correct answer requires the environment word to anchor upbringing while the mix carries the Levant; the هسا mistranscription flips the strongest north marker into THE Amman shibboleth",
-      "pass_condition": "Kuwait or Damascus/Beirut headline with both Levant and Gulf in the mix; transcript must preserve هلق; Amman is a fail"
+      "mechanism": "TWO REGISTERS, resolved Aug 10 by the donated natural take: deliberate speech carries clear North markers (هلق) and earns Damascus; natural relaxed speech is diaspora pan-Levant koine with southern items HE actually says (صفيتها for parking, هلا for now) — his own transcript as text reads Amman ±150 confidently. Audio flips Damascus/Amman/Beirut across runs on BOTH old and new schemas. The هسا mistranscription was a separate, fixed bug.",
+      "pass_condition": "deliberate register: Damascus/Beirut-tight. Natural register: any urban-Levant anchor with an honest wide radius is a PASS — the ideal future read is 'diaspora Levantine, raised in the Gulf' via the retrieval corpus, of which his natural take (2026-08-10, webm) is the founding clip"
     }
   ]
 }
