@@ -58,10 +58,25 @@ many right ones gets outvoted by its neighbours; (c) nothing from a single donat
 presented as truth. Label hygiene at intake (ground-truth city, "did you grow up there?",
 age-0-12 flag) matters more than volume.
 
-## Toronto checklist (his side)
+## Feature freeze (from Aug 10 until the shoot is filmed)
 
-- Top up Gemini credits; set the billing alert.
-- Open the site once on the phone (it self-updates), confirm scroll.
-- Morning of: run the pre-flight, film in SHARP hours.
-- Coach strangers: speak your home language, skip your name, ~30 seconds.
-- Every willing stranger: donate the clip. Content and corpus in one take.
+The product is done enough, and every fast-shipped change this week carried a bug tail.
+Nothing ships until Toronto is filmed except fixes for real breaks Mohammad hits in his
+own phone pass. First in line when the freeze lifts: the evidence-verification pass
+(narrow-question re-check of acoustic claims via 3.5-flash, chips that fail fade off the
+card) — specified Aug 10 after a fabricated hard-G claim was caught and cross-model
+probing measured narrow questions honest (7/7) where open verdicts confabulate. Known
+and accepted until then: on short thin takes, roughly 1-in-5 runs can carry a fabricated
+evidence chip; on 30-second takes the measured rate was 0-in-10.
+
+## Shoot-day runbook
+
+- Night before: full pass on the real phone — record, result, donate, answer, one game
+  round. Any friction is the only thing that pierces the freeze.
+- Credits topped up; billing alert at ~50%.
+- Film in the MORNING (sharp serving hours, measured). Run `node tools/canary.mjs` over
+  breakfast; go when it prints SHARP.
+- Coach every stranger, same three lines: speak your home language · skip your name ·
+  give me thirty seconds. Thirty is measured, not vibes: short takes fall to the koine
+  basin, long takes reach the consonants.
+- Press donate on every willing voice — content and corpus in one take.
