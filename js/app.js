@@ -621,6 +621,16 @@ function detectPlatform() {
 function saveFeedback(correct, actual, actualCity) {
   const last = window._lastResult || {};
   const consent = !!$('#consentBox').checked && !!window._lastAudio;
+  // State loss must SPEAK, not silently degrade — Mohammad donated a take, iOS suspended
+  // the page between test and click, the clip evaporated, and the server got consent:false
+  // plus an all-null feedback row without a word to anyone.
+  if (!last.place) {
+    toast('This result is gone from the page’s memory (the tab was suspended). Do a fresh take and answer again — that one will count.');
+    return;
+  }
+  if ($('#consentBox').checked && !window._lastAudio) {
+    toast('That recording is no longer in memory, so it can’t be donated — do a fresh take and tick again.');
+  }
 
   // local log (works offline, always)
   const log = JSON.parse(localStorage.getItem('hometongue_feedback') || '[]');
