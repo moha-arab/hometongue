@@ -746,7 +746,7 @@ function bindUI() {
       const j = await r.json().catch(() => null);
       if (!r.ok || !j || !j.ok) throw new Error('upload failed');
       window._donated = true;
-      db.classList.add('done'); db.textContent = 'donated ✓ شكراً';
+      db.classList.add('done'); db.textContent = 'donated ✓ thank you';
     } catch {
       db.disabled = false; db.textContent = 'donate this clip';
       toast('The donation didn’t go through — try the button again.');
