@@ -545,24 +545,45 @@ function renderResult(v) {
     else if (v.content_led === 'name') warn.textContent = 'You gave your name. Names drag the guess toward the name\'s home country, so take this one lightly and try again without it.';
   }
 
-  // The accent as a recipe, rendered with the existing runner bars. For anyone who moved, or
-  // grew up between languages, "one pin" is the wrong shape of answer and this is the true one.
+  // Dialect composition, ancestry-chart style: one segmented 100% bar, then a legend row
+  // per ingredient with the sound that betrayed it. Mohammad's frame — the same product
+  // shape as a DNA composition, for the voice. For anyone who moved, or grew up between
+  // languages, "one pin" is the wrong shape of answer and this is the true one. The pin
+  // stays the verdict; this is the portrait.
   if (Array.isArray(v.influences) && v.influences.length) {
-    const head = document.createElement('div');
-    head.className = 'heard-head';
-    head.innerHTML = '<span>the mix, by ear</span>';
-    runners.appendChild(head);
-    for (const inf of v.influences.slice(0, 3)) {
-      if (!inf.place) continue;
-      const row = document.createElement('div');
-      row.className = 'runner';
-      const pct = Math.min(100, Math.max(0, Math.round(inf.percent || 0)));
-      row.innerHTML = '<span class="runner-name"></span>'
-        + '<span class="runner-track"><span class="runner-fill" style="width:' + pct + '%"></span></span>'
-        + '<span class="runner-pts">~' + pct + '%</span>';
-      row.querySelector('.runner-name').textContent = inf.place;
-      if (inf.cue) row.title = inf.cue;
-      runners.appendChild(row);
+    const COMP_COLORS = ['#2A6B60', '#B8862F', '#74766D'];
+    const parts = v.influences.slice(0, 3)
+      .filter((i) => i.place && (i.percent || 0) >= 1)
+      .map((i) => ({ place: i.place, cue: i.cue || '', pct: Math.max(1, Math.round(i.percent || 0)) }));
+    const total = parts.reduce((t, p) => t + p.pct, 0) || 1;
+    if (parts.length) {
+      const head = document.createElement('div');
+      head.className = 'heard-head';
+      head.innerHTML = '<span>dialect composition</span>';
+      runners.appendChild(head);
+      const bar = document.createElement('div');
+      bar.className = 'comp-bar';
+      parts.forEach((p, i) => {
+        const seg = document.createElement('span');
+        seg.style.width = (p.pct / total * 100).toFixed(1) + '%';
+        seg.style.background = COMP_COLORS[i % COMP_COLORS.length];
+        bar.appendChild(seg);
+      });
+      runners.appendChild(bar);
+      parts.forEach((p, i) => {
+        const row = document.createElement('div');
+        row.className = 'comp-row';
+        row.innerHTML = '<i style="background:' + COMP_COLORS[i % COMP_COLORS.length] + '"></i>'
+          + '<span class="comp-place"></span><b>~' + Math.round(p.pct / total * 100) + '%</b>';
+        row.querySelector('.comp-place').textContent = p.place;
+        runners.appendChild(row);
+        if (p.cue) {
+          const cue = document.createElement('div');
+          cue.className = 'comp-cue';
+          cue.textContent = p.cue;
+          runners.appendChild(cue);
+        }
+      });
     }
   }
 
