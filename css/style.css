@@ -344,9 +344,16 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--rule-soft);
   display: grid; gap: 11px; font-size: 13px; color: var(--grey);
 }
-.consent { display: flex; align-items: flex-start; gap: 8px; font-size: 12.5px; cursor: pointer; line-height: 1.5; }
-.consent input { accent-color: var(--accent); margin-top: 2px; cursor: pointer; }
+.consent { display: flex; align-items: center; gap: 10px; font-size: 12.5px; line-height: 1.5; color: var(--grey); }
 .consent a, .foot a { color: var(--accent); }
+.donate-btn {
+  flex: none; padding: 7px 14px; border-radius: 999px; cursor: pointer;
+  font-family: var(--sans); font-size: 12.5px; font-weight: 600;
+  color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent-line);
+}
+.donate-btn:hover:not(:disabled) { background: var(--accent); color: #fff; }
+.donate-btn.done { background: var(--accent); color: #fff; cursor: default; }
+.donate-btn:disabled:not(.done) { opacity: 0.6; cursor: wait; }
 .fb-row, .fb-fix { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .fb-fix input[type="text"] { width: 150px; }
 

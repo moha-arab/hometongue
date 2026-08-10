@@ -499,8 +499,10 @@ function renderResult(v) {
   $('#fbActual').value = '';
   $('#fbCity').value = '';
   $('#fbYes').disabled = false; $('#fbNo').disabled = false;
-  $('#consentBox').disabled = false;
   $('#consentWrap').style.display = window._lastAudio ? '' : 'none'; // no clip to donate in type mode
+  const db = $('#donateBtn');
+  db.disabled = false; db.classList.remove('done'); db.textContent = 'donate this clip';
+  window._donated = false;
   fillCountryPicker();
 
   const kicker = $('#resultKicker'), place = $('#resultRegion'), sub = $('#resultCountry');
@@ -620,16 +622,15 @@ function detectPlatform() {
 
 function saveFeedback(correct, actual, actualCity) {
   const last = window._lastResult || {};
-  const consent = !!$('#consentBox').checked && !!window._lastAudio;
-  // State loss must SPEAK, not silently degrade — Mohammad donated a take, iOS suspended
-  // the page between test and click, the clip evaporated, and the server got consent:false
-  // plus an all-null feedback row without a word to anyone.
+  // Donation is its own button now (it uploads the moment it is pressed — three takes in a
+  // row were lost to the old tick-then-answer choreography). The feedback row only carries
+  // consent so a donated clip's correction can store its transcript and cities server-side.
+  const consent = !!window._donated;
+  // State loss must SPEAK, not silently degrade — a suspended iOS tab once evaporated the
+  // clip and verdict, and the click silently posted an all-null row.
   if (!last.place) {
     toast('This result is gone from the page’s memory (the tab was suspended). Do a fresh take and answer again — that one will count.');
     return;
-  }
-  if ($('#consentBox').checked && !window._lastAudio) {
-    toast('That recording is no longer in memory, so it can’t be donated — do a fresh take and tick again.');
   }
 
   // local log (works offline, always)
@@ -651,11 +652,7 @@ function saveFeedback(correct, actual, actualCity) {
     platform: detectPlatform(),
     consent,
   };
-  if (consent && window._lastAudio) {
-    payload.audio = window._lastAudio.audio;
-    payload.mime = window._lastAudio.mime;
-    payload.token = window._fbToken || '';
-  }
+  // audio never rides the feedback post anymore — the donate button owns the upload
 
   const baseMsg = correct
     ? 'Logged ✓ every answer makes it sharper.'
@@ -717,16 +714,50 @@ function bindUI() {
     lockFeedback();
   };
 
-  const consentBox = $('#consentBox');
-  consentBox.checked = localStorage.getItem('ht_consent') === '1';
-  consentBox.onchange = () => localStorage.setItem('ht_consent', consentBox.checked ? '1' : '0');
+  // The donate button uploads the clip the INSTANT it is pressed. The old design armed a
+  // checkbox that only fired when "nailed it" was clicked later — and lost three takes in a
+  // row: one to an unexplained no-op, one to an iOS tab suspension, one to a reflexive "go
+  // again". A button that does what it says, when it is pressed, cannot be misunderstood.
+  $('#donateBtn').onclick = async () => {
+    const db = $('#donateBtn');
+    if (window._donated) return;
+    if (!window._lastAudio || !window._lastResult) {
+      toast('That recording is no longer in memory — do a fresh take and press donate right after.');
+      return;
+    }
+    db.disabled = true; db.textContent = 'donating…';
+    try {
+      const last = window._lastResult;
+      const r = await fetch('/api/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          consent: true,
+          audio: window._lastAudio.audio,
+          mime: window._lastAudio.mime,
+          token: window._fbToken || '',
+          guess_code: last.place || '',
+          transcript: last.transcript || '',
+          confidence: last.conf || 0,
+          source: last.source || 'cloud',
+          platform: detectPlatform(),
+        }),
+      });
+      const j = await r.json().catch(() => null);
+      if (!r.ok || !j || !j.ok) throw new Error('upload failed');
+      window._donated = true;
+      db.classList.add('done'); db.textContent = 'donated ✓ شكراً';
+    } catch {
+      db.disabled = false; db.textContent = 'donate this clip';
+      toast('The donation didn’t go through — try the button again.');
+    }
+  };
 }
 
 function lockFeedback() {
   $('#fbYes').disabled = true;
   $('#fbNo').disabled = true;
   $('#fbFix').hidden = true;
-  $('#consentBox').disabled = true;
 }
 
 initMap();
