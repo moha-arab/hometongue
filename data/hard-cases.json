@@ -1,0 +1,20 @@
+{
+  "_about": "Documented hard cases with known ground truth — voices the model gets wrong or wobbles on, kept as regression tests for any future change (retrieval pilots, model switches, schema work). Text-only where audio was lost; the transcript is the model's OWN hearing and may itself be normalized (see the هسا incident).",
+  "cases": [
+    {
+      "id": "mixed-emirati-koine-1",
+      "truth": { "grew_up": "United Arab Emirates", "father": "Sudan", "mother": "Yemen (raised Emirati)", "never_lived_in": "Jordan" },
+      "observed_verdicts": ["Amman, Jordan ±250 (voice, Aug 9)", "Amman, Jordan ±300-400 (text probe, 3/3 runs)"],
+      "mechanism": "koine-centroid prior: Levantine-leaning vocabulary (sho, ha- future) outvotes Gulf environment markers (il-heen, bt-sabbah) that the model SEES and cites but demotes; an instructed reweighting was probed Aug 9 and REJECTED (no flip, Jeddah 845->1692)",
+      "transcript": "أهلا بابا شو الأخبار؟ طمنا عنك. اليوم مشينا على المستشفى وكان عندي موعد دكتور يعني. والحمد لله كله تمام. بس أعطاني دواء وخبرني إني لازم آخد الدواء مرتين باليوم، مرة بالليل ومرة بالصبح. بس الحين رجعت على البيت. والحين يعني بروح بتسبح وبعدين هطلع برا مع أصحابي. أنت طمنا عنك شو الأخبار؟ كيف أمورك؟ وين وين ماما؟ موجودة جمبك؟ خليني أسلم عليها. وبعدين أحمد كمان طلع برا مع أصحابه وبس قال ما حيتأخر، بيوصل على البيت يعني يمكن الساعة وحدة أو اثنتين الصبح.",
+      "pass_condition": "headline in the UAE/Gulf, or an honest wide radius whose mix puts the Gulf first"
+    },
+    {
+      "id": "levantine-gulf-childhood-1",
+      "truth": { "grew_up": "Kuwait (ages 0-13)", "father": "Syria", "mother": "Lebanon", "never_lived_in": "Jordan" },
+      "observed_verdicts": ["Kuwait (region-era UI) with Levant 65/Kuwait 35 mix — the ideal read", "Damascus ±150", "Amman ±350 — via هلق transcribed as هسا in coarse serving windows"],
+      "mechanism": "pure North-Levantine phonology + Gulf environment lexicon (al-jam'iyya); correct answer requires the environment word to anchor upbringing while the mix carries the Levant; the هسا mistranscription flips the strongest north marker into THE Amman shibboleth",
+      "pass_condition": "Kuwait or Damascus/Beirut headline with both Levant and Gulf in the mix; transcript must preserve هلق; Amman is a fail"
+    }
+  ]
+}
