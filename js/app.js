@@ -725,7 +725,7 @@ function roundRect(c, x, y, w, h, r) {
   c.closePath();
 }
 
-// The mark, drawn in canvas coordinates: pin, four cream bars, one amber peak.
+// The mark in canvas coordinates: pin, four cream bars, one amber peak.
 function drawMark(c, x, y, size) {
   const s = size / 64;
   c.save();
@@ -751,7 +751,7 @@ function drawMark(c, x, y, size) {
   c.restore();
 }
 
-// Canvas has no text wrapping, and a place name can be long ("United Arab Emirates").
+// Canvas has no text wrapping and a place name can be long ("United Arab Emirates").
 // Shrink to fit rather than clip: the headline is the whole point of the card.
 function fitText(c, text, maxWidth, startPx, font) {
   let px = startPx;
@@ -763,38 +763,39 @@ function fitText(c, text, maxWidth, startPx, font) {
   return px;
 }
 
-function buildShareCanvas(v) {
+// Draws the whole card at a vertical offset and returns the canvas plus the y it ended at.
+// Called twice by buildShareCanvas: once to learn the height, once to draw it centred.
+function paintShare(v, dy) {
   const cv = document.createElement('canvas');
   cv.width = SHARE_W; cv.height = SHARE_H;
   const c = cv.getContext('2d');
-  const M = 96; // margin
+  const M = 96;
 
   c.fillStyle = '#F3F1EC';
   c.fillRect(0, 0, SHARE_W, SHARE_H);
-  // a faint amber horizon so the card is not a flat rectangle
-  const g = c.createRadialGradient(SHARE_W * 0.5, SHARE_H * 0.33, 60, SHARE_W * 0.5, SHARE_H * 0.33, SHARE_W * 0.9);
-  g.addColorStop(0, 'rgba(184,134,47,0.10)');
+  const g = c.createRadialGradient(SHARE_W * 0.5, SHARE_H * 0.34, 60, SHARE_W * 0.5, SHARE_H * 0.34, SHARE_W * 0.95);
+  g.addColorStop(0, 'rgba(184,134,47,0.11)');
   g.addColorStop(1, 'rgba(184,134,47,0)');
   c.fillStyle = g;
   c.fillRect(0, 0, SHARE_W, SHARE_H);
 
+  let y = 150 + dy;
   c.fillStyle = '#2A6B60';
-  c.fillRect(M, 150, SHARE_W - M * 2, 3);
+  c.fillRect(M, y, SHARE_W - M * 2, 3);
 
-  // eyebrow
+  y += 82;
   c.fillStyle = '#74766D';
   c.font = '500 26px "IBM Plex Mono", monospace';
   c.letterSpacing = '5px';
-  c.fillText('SOUNDS LIKE I GREW UP AROUND', M, 232);
+  c.fillText('SOUNDS LIKE I GREW UP AROUND', M, y);
   c.letterSpacing = '0px';
 
-  // the verdict, the reason anyone shares this
   const place = String(v.place || '').trim();
   const px = fitText(c, place, SHARE_W - M * 2, 116, '400 {px}px "Instrument Serif", Georgia, serif');
+  y += px + 44;
   c.fillStyle = '#1B1C19';
   c.font = `400 ${px}px "Instrument Serif", Georgia, serif`;
-  c.fillText(place, M, 232 + px + 44);
-  let y = 232 + px + 44;
+  c.fillText(place, M, y);
 
   if ((v.radius_km || 0) > 250 && v.region) {
     y += 62;
@@ -803,7 +804,6 @@ function buildShareCanvas(v) {
     c.fillText('somewhere in ' + v.region, M, y);
   }
 
-  // give or take
   y += 118;
   const r = v.radius_km || 300;
   const rTxt = '±' + (r >= 1000 ? `${(r / 1000).toFixed(1)}k` : r);
@@ -819,17 +819,16 @@ function buildShareCanvas(v) {
     c.fillText(String(v.language).toLowerCase(), M + rw + 22, y + 36);
   }
 
-  // dialect composition — the part that makes it feel like an ancestry result
   const parts = (Array.isArray(v.influences) ? v.influences : [])
     .filter((i) => i.place && (i.percent || 0) >= 1).slice(0, 3);
   if (parts.length) {
-    y += 150;
+    y += 140;
     c.fillStyle = '#74766D';
     c.font = '500 26px "IBM Plex Mono", monospace';
     c.letterSpacing = '5px';
     c.fillText('DIALECT COMPOSITION', M, y);
     c.letterSpacing = '0px';
-    y += 52;
+    y += 46;
     const total = parts.reduce((t, p) => t + (p.percent || 0), 0) || 1;
     const barW = SHARE_W - M * 2, barH = 34;
     c.save();
@@ -843,7 +842,7 @@ function buildShareCanvas(v) {
       x += w;
     });
     c.restore();
-    y += barH + 58;
+    y += barH + 56;
     parts.forEach((p, i) => {
       c.fillStyle = COMP_COLORS[i % COMP_COLORS.length];
       c.beginPath();
@@ -856,25 +855,27 @@ function buildShareCanvas(v) {
       c.font = '500 34px "IBM Plex Mono", monospace';
       c.fillStyle = '#74766D';
       c.fillText(pct, SHARE_W - M - c.measureText(pct).width, y);
-      y += 62;
+      y += 60;
     });
+    y -= 60;
   }
 
-  // one line of evidence, the "how did it KNOW" line
-  const ev = (Array.isArray(v.evidence) ? v.evidence : []).filter(Boolean)[0];
-  if (ev) {
-    y += 34;
+  // up to two evidence lines: the "how did it KNOW that" moment
+  const evs = (Array.isArray(v.evidence) ? v.evidence : []).filter(Boolean).slice(0, 2);
+  for (const ev of evs) {
+    y += 40;
     c.fillStyle = '#E4EDEA';
-    roundRect(c, M, y, SHARE_W - M * 2, 118, 18);
+    roundRect(c, M, y, SHARE_W - M * 2, 96, 16);
     c.fill();
+    const evPx = fitText(c, ev, SHARE_W - M * 2 - 72, 34, '500 {px}px "Familjen Grotesk", system-ui, sans-serif');
     c.fillStyle = '#2A6B60';
-    const evPx = fitText(c, ev, SHARE_W - M * 2 - 72, 36, '500 {px}px "Familjen Grotesk", system-ui, sans-serif');
     c.font = `500 ${evPx}px "Familjen Grotesk", system-ui, sans-serif`;
-    c.fillText(ev, M + 36, y + 72);
-    y += 118;
+    c.fillText(ev, M + 36, y + 60);
+    y += 96;
   }
 
-  // footer lockup
+  const endY = y;
+
   const fy = SHARE_H - 150;
   c.fillStyle = '#DEDAD1';
   c.fillRect(M, fy - 92, SHARE_W - M * 2, 2);
@@ -891,7 +892,15 @@ function buildShareCanvas(v) {
   const url = 'hometongue.me';
   c.fillText(url, SHARE_W - M - c.measureText(url).width, fy - 6);
 
-  return cv;
+  return { canvas: cv, endY };
+}
+
+function buildShareCanvas(v) {
+  // A one-ingredient composition and a three-ingredient one leave very different amounts of
+  // dead space above the footer, and dead space reads as unfinished. Measure, then centre.
+  const probe = paintShare(v, 0);
+  const slack = Math.max(0, (SHARE_H - 300) - probe.endY);
+  return paintShare(v, Math.round(slack * 0.45)).canvas;
 }
 
 async function shareResult() {
