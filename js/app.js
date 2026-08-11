@@ -126,7 +126,7 @@ function flyHome() {
 }
 
 // ————— ui states —————
-const cards = ['idleCard', 'liveCard', 'typeCard', 'analyzingCard', 'resultCard'];
+const cards = ['idleCard', 'liveCard', 'typeCard', 'analyzingCard', 'redoCard', 'resultCard'];
 function show(cardId) {
   for (const id of cards) $('#' + id).hidden = id !== cardId;
   // Stopping the ticker here rather than at each call site means no error path can leave it
@@ -530,8 +530,26 @@ function normalizeServer(resp) {
 
 
 // ————— result rendering —————
-function renderResult(v) {
+function renderResult(v, forced) {
   state = 'result';
+  // When the words gave the answer away, no verdict is shown at all. Showing it with a
+  // warning attached was incoherent: the headline claimed a city while the small print
+  // admitted the city came from the speaker's own mouth, and the widened radius made a
+  // RIGHT answer worse (a Torontonian saying "here in Toronto" got ±1000). Refusing is
+  // both more honest and better television — the app visibly declines to be fed, and the
+  // clean retake lands the real read.
+  if (v.content_led && !forced) {
+    window._lastResult = v;
+    window._pendingContaminated = v;
+    $('#redoText').innerHTML = v.content_led === 'origin'
+      ? 'You said where you\'re from — so anything I say now is just your own words handed back. Give me the same story without it and let your accent do the talking.'
+      : v.content_led === 'name'
+        ? 'You said a name, and names drag the guess toward wherever that name comes from. Say it again without introducing yourself and I\'ll go on sound alone.'
+        : 'You named a place, and the guess leaned on it. Say it again without naming anywhere — the whole point is what your voice gives away.';
+    show('redoCard');
+    flyHome();
+    return;
+  }
   show('resultCard');
   // Every render gets a generation number. The verify-evidence response and the donate
   // upload both resolve long after this function returns, and both used to mutate whatever
@@ -584,23 +602,10 @@ function renderResult(v) {
   // the model reads foreign names as origin and will not admit it. Controlled test: identical
   // synthetic US speech, "my name is Vladislav" answered Moscow or Kyiv six times out of six,
   // while the same audio with no name, or with "Jake", answered United States.
-  // A contaminated verdict leads with the do-over, not with the answer. Mohammad's call:
-  // widening the radius quietly taught people the app had gotten vague, when the real
-  // lesson is "your words gave it away — say it again without them".
-  const redo = $('#redoNote');
-  if (redo) {
-    redo.hidden = !v.content_led;
-    if (v.content_led) {
-      $('#redoText').innerHTML = v.content_led === 'origin'
-        ? '<b>You told me where you\'re from.</b> That\'s the answer, not your accent — this guess leans on your words.'
-        : v.content_led === 'name'
-          ? '<b>You said a name.</b> Names drag the guess toward the name\'s home country, so this one isn\'t your voice talking.'
-          : '<b>You named a place</b> and the guess leaned toward it — so this one came from your words, not your accent.';
-    }
-  }
   const warn = $('#nameWarn');
   if (warn) {
-    warn.hidden = true; // superseded by the redo note above
+    // only reachable via 'show me anyway', where the caveat must still travel with the card
+    warn.hidden = !v.content_led;
     // Two different contaminations, two different confessions. Telling the app the answer is
     // worse than a name: the verdict below may be nothing but your own words read back.
     if (v.content_led === 'origin') warn.textContent = 'You told me where you grew up, so this guess leans on your words. The whole game is what your voice gives away: go again without telling me.';
@@ -1144,6 +1149,10 @@ function bindUI() {
   $('#againBtn').onclick = () => { state = 'idle'; show('idleCard'); flyHome(); };
   $('#shareBtn').onclick = shareResult;
   $('#redoBtn').onclick = () => { state = 'idle'; show('idleCard'); flyHome(); startListening(); };
+  // An escape hatch, not a headline: curiosity gets served, but only by asking for it.
+  $('#redoShowBtn').onclick = () => {
+    if (window._pendingContaminated) renderResult(window._pendingContaminated, true);
+  };
 
   $('#fbYes').onclick = () => { saveFeedback(true, '', ''); $('#fbYes').classList.add('chosen'); lockFeedback(); };
   $('#fbNo').onclick = () => { $('#fbFix').hidden = false; $('#fbNo').classList.add('chosen'); $('#fbNo').disabled = true; $('#fbYes').disabled = true; };

@@ -726,23 +726,16 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   background: var(--accent-soft); border-left: 2px solid var(--accent);
   font-family: var(--mono); font-size: 11px; line-height: 1.5; color: var(--black);
 }
-/* A contaminated verdict is not a result, it is a do-over: amber, above the answer, with
-   the retry button inside it. The wide radius alone read as "the app got vague", which is
-   the wrong lesson — the right one is "say it again without naming things". */
-.redo-note {
-  margin: 2px 0 16px; padding: 12px 14px; border-radius: var(--r-sm);
-  background: color-mix(in srgb, var(--amber) 12%, transparent);
-  border-left: 3px solid var(--amber);
-  font-size: 13px; line-height: 1.5; color: var(--black-2);
-  display: flex; flex-direction: column; gap: 9px; align-items: flex-start;
+/* The words-gave-it-away card: a refusal, styled like the rest of the app rather than
+   like an error. Amber marks it as the app declining to take credit. */
+.redo-head {
+  font-family: var(--editorial); font-weight: 400; font-size: 34px; line-height: 1.12;
+  color: var(--black); margin: 14px 0 10px;
 }
-.redo-note b { color: var(--black); font-weight: 600; }
-.redo-note button {
-  background: var(--amber); color: #fff; border: none; cursor: pointer;
-  font-family: var(--sans); font-size: 13px; font-weight: 600;
-  padding: 8px 16px; border-radius: var(--r-sm);
-}
-.redo-note button:hover { filter: brightness(1.1); }
+.redo-body { font-size: 14.5px; line-height: 1.6; color: var(--black-2); margin-bottom: 4px; }
+#redoCard .card-eyebrow b { color: var(--amber); }
+#redoCard::before { background: var(--amber); }
+#redoShowBtn { display: block; margin-top: 12px; }
 
 /* ——— flagging a bad clip, on the reveal sheet ——— */
 .clip-flag { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--rule-soft); }
