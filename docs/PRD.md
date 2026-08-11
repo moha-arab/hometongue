@@ -1,109 +1,92 @@
-# HomeTongue — PRD (updated Aug 9, 2026)
+# HomeTongue — PRD (rewritten Aug 11, 2026)
 
-Talk for ~30 seconds in any language; the map finds where you grew up, with an honest
-give-or-take radius, the dialect zone painted on the map, and the accent mix by ear.
-Second mode: guess-the-voice, a listening game across nine decks. Live at hometongue.me.
+Talk for about thirty seconds in any language; the map names the city you grew up in, with
+an honest give-or-take radius, the dialect's footprint drawn on the map, and the accent
+broken down like an ancestry chart. Second mode: guess the voice, a listening game across
+seven stocked decks. Live at hometongue.me.
 
-## Status: launch-ready (verified Aug 10), two gates on Mohammad's side
+## Where it stands
 
-1. **Vercel Pro upgrade ($20/mo)** — the one mandatory pre-launch spend; Hobby's
-   bandwidth dies in one viral day (math below).
-2. **The 15-minute phone pass** — record, result, donate, answer, one game round, on
-   the real iPhone.
+**Launch-ready. Every gate is cleared.** The SQL is run and the usage counter is verified
+incrementing, the phone pass passed, and the model choice is settled with evidence.
 
-Measured state of the product (final config, re-verified Aug 10 in a coarse-serving
-window — sharp windows run better than these numbers):
-- **53 km median** on the 88-clip benchmark (published academic SOTA: 481 km).
-- **Calibration 69% vs the claimed 70%** — the honesty promise holds almost exactly.
-- Evidence verifier live: fabricated chips die on cross-model unanimity, true chips
-  survive (39-chip probe), every card self-checks after render.
-- Adversarial review (33 agents): 25 confirmed findings, 23 fixed same-day, 2 accepted
-  and documented (token replay — mitigated by manual prize review; profanity filter).
-- Full QA green: desktop flow, mobile bottom-sheet + scroll, game decks, boards,
-  zero console errors on both pages.
-- All 147 game clips leak-audited at the windows they actually play, famous voices
-  removed, leaderboard hardened, city-always headline, dialect composition with grain
-  discipline, humanized notes, logo + share image live.
+Measured on the 88-clip benchmark, current configuration:
 
-## The engine, in plain words
+| | |
+|---|---|
+| median error | **53 km** (published academic SOTA: 481 km) |
+| calibration | truth inside the claimed circle **69%** against a claimed 70% |
+| within 100 km | 57% |
+| within 250 km | 72% |
 
-One model, the whole time: **gemini-3.6-flash**, audio straight in, no transcription.
-It has never been switched. Measured on our own 90-clip benchmark it is roughly 10x better
-than the best published research (37–51 km median vs 481 km academic SOTA) — with zero
-donated clips involved.
+## The pipeline, in order
 
-**Its accuracy breathes with Google's load** (proven Aug 8–9: same test scored 37–51 km at
-4 AM, 69 km at 5 PM, 47 km at 1 AM). Google serves the model sharper off-peak. We cannot
-control this; we can only see it and schedule around it. Even the dull hours are ~7x better
-than published SOTA — users who never saw the sharp version experience "very good," not
-"broken."
+1. **Mic gate (browser).** Counts frames that actually carried voice energy. Silence and
+   room tone never reach the model, because a silent file once came back as "Toronto, 75%
+   confident, Canadian raising in the word night."
+2. **The read (one call, gemini-3.6-flash).** Audio in, minimal prompt, strict schema out:
+   point, radius, city, region, dialect zone, language, transcript, composition, note, and
+   a list of reasons.
+3. **Sanity (free).** Coordinates validated, radius clamped, zone polygon angle-sorted and
+   checked against the circle it claims. Absurd shapes fall back to the honest circle.
+4. **The verifier (one call, gemini-3.5-flash — deliberately a different model).** Every
+   claimed sound is re-checked against the audio. Failed claims never reach the card.
+   A model asked to check its own work defends it; a different one has nothing to defend.
+5. **The one rule (free).** A verdict must rest on at least one surviving thing the model
+   actually HEARD. If everything it can point to was something the speaker said, or did
+   not survive the second listen, no verdict is shown and the app asks for another take.
 
-**Rules that follow:**
-- Film / demo in the morning. Off-peak = the sharp model.
-- Before any filming session, run the 3-minute pre-flight: `node tools/canary.mjs`.
-  It literally prints SHARP / MIXED / COARSE. (A "canary" is a smoke detector: a tiny fixed
-  test whose only job is to notice when Google's serving quality changes before users do.)
-- No standing monitoring loops. The canary runs manually, before it matters.
-- Any measurement that would cost real money (full evals, model comparisons, pro-tier
-  anything) gets a cost estimate BEFORE it runs, not after the balance finds out.
+Two model calls per analysis. Roughly 10 to 20 seconds end to end, the swing being Google's
+serving speed, not our code.
 
-Model roadmap and every alternative considered (switching providers, self-hosting,
-fine-tuning) are in `docs/architecture-research-2026-08-09.md`. Conclusion: keep this
-engine; nothing on the market comes close.
+## Settled questions (do not relitigate without new measurement)
 
-## Donated clips — what they are and are not
+- **Time of day does not matter.** Four canary samples of 3.6-flash across the full day
+  range: 309, 309, 351, 350 km on hard clips, and 1 km on control clips in all seven runs
+  across both models. There is no filming window and no scheduling problem for a worldwide
+  audience. Earlier advice to "film in the morning" is RETRACTED; the numbers do not
+  support it.
+- **gemini-3.6-flash is the right model**, decided by a same-prompt head-to-head: 53 km
+  against 3.5-flash's 68 km, winning on both flagship decks (Arabic 68 vs 85, English
+  accents 25 vs 70). 3.5-flash is better only on the deliberately hard tail, which is why
+  it earns its place as the independent verifier.
+- **Content is not the enemy.** Measured with pure text, no audio: sushi did not go to
+  Japan (Seattle), fufu went to London rather than Lagos (the diaspora read), Tripoli
+  neighbourhoods landed Tripoli at ±40 km. Food, neighbourhoods and regional references
+  are the product working, not cheating. Only two things ever needed handling: a verdict
+  resting entirely on what someone said, and invented evidence. One rule covers both.
+- **Adding knowledge to the prompt has measured worse every time** (10+ attempts). Schema
+  field descriptions are the safe lever; the system prompt stays minimal.
 
-Donations do **not** train, change, or replace Gemini. Gemini stays the judge. Donations are:
+## Scale and cost
 
-1. **Today:** a test set with known answers — the only way to measure accuracy on real
-   phone-mic voices instead of YouTube audio.
-2. **Later (at ~2–5k clips):** a reference library the same Gemini consults — "this voice
-   sits closest to three known Aleppo speakers" — which the research identifies as the only
-   demonstrated path below ~30 km, and a moat nobody can copy.
+- **Two model calls per analysis.** Pennies today. The wallet is now bounded rather than
+  open: past `DAILY_ANALYSES` (env var, default 20,000) the app stops answering for
+  everyone and says so until the UTC day rolls over, counted in Supabase so all serverless
+  instances share one number. This also makes Gemini auto-reload safe to enable.
+- **Vercel Pro ($20) is optional and situational, not required.** Measured: the clip
+  library is 112 MB at 64 kbps mono, a five-round game streams 4.3 MB, an analysis moves
+  0.5 MB. Hobby's 100 GB covers roughly 24,000 games or 200,000 analyses per month. Worth
+  buying for the month you push the video, purely so the site cannot be paused mid-spike.
+- **Supabase free tier** holds roughly 2,000 donated clips before its first paid step.
+- **Map tiles** come from CARTO's free basemaps. Not blocking; a keyed fallback is worth
+  having eventually.
 
-**Bad donations are expected and survivable.** Someone speaking Gulf Arabic who claims
-Lisbon: (a) every donation is auto-scored against the model at intake — a huge mismatch gets
-quarantined for review, never trusted; (b) in the reference library, one wrong voice among
-many right ones gets outvoted by its neighbours; (c) nothing from a single donation is ever
-presented as truth. Label hygiene at intake (ground-truth city, "did you grow up there?",
-age-0-12 flag) matters more than volume.
+## Clips
 
-## Quality-first sequence (freeze lifted Aug 10 on Mohammad's call: good before fast)
+147 in the game, 88 scored by the benchmark. The gap is deliberate: 26 language-deck clips
+are pinned at country centres rather than a speaker's hometown, so scoring them in
+kilometres would punish correct answers, and 33 are YouTube-embedded with no local file.
 
-The bar: genuinely good, then Toronto, then TikTok. Shipped against that bar:
-- **Evidence verifier, live.** Every card's acoustic claims are re-checked by a different
-  model (3.5-flash) asked narrow questions twice in parallel; a chip dies only on
-  unanimous false and fades off the card. Probed twice before shipping: kills real
-  fabrications (it executed a live classical-Qaf confabulation), keeps every substantive
-  true chip (39-chip probe, 2 fluff casualties, both controls intact).
-- Composition grain rule: probed before shipping (components must not claim finer than
-  their cue) — see eval notes for the verdict.
+Seven decks are live. **hindi-urdu and russian sit at five clips and are hidden** behind
+the "stocking" state, because a five-clip deck serves the identical game every time and
+spoils itself on the second play. Sourcing more requires a sharp serving window — the
+vetting gate uses the app's own model, and vetting during a dull window is exactly when
+it is weakest against performed accents.
 
-## Scale readiness (audited Aug 10)
+## Toronto
 
-- **Vercel Hobby will not survive virality — upgrade to Pro before posting.** Each
-  analysis moves ~1 MB through serverless functions (audio up + verifier re-check) and
-  each game round streams ~1 MB of clips. Hobby's 100 GB/month dies in one big day
-  (100k analyses ≈ 100 GB). Pro ($20/mo, 1 TB) is the single mandatory pre-launch spend.
-- **Gemini spend:** ~$0.001–0.002 per analysis including the verifier. 10k analyses/day
-  ≈ $15–25/day; 100k/day ≈ $150–250/day. Size the prepaid balance to the ambition and
-  set the billing alert at 50% — the site died once already from an empty balance.
-- **Supabase free tier:** ~1 GB storage ≈ roughly 2,000 donated clips. Upgrade at ~1,500
-  donations ($25/mo). Scores/feedback tables are nowhere near any limit.
-- **Map tiles:** CARTO's free basemaps are usage-limited; a viral day risks throttled or
-  blank maps. Not blocking, but have a keyed fallback ready (MapTiler or Stadia account —
-  needs Mohammad, ~free tier then $20-ish). Worth doing before posting.
-- Per-IP rate limiting exists on every endpoint (hourly buckets, per-instance) — a speed
-  bump, not a wall, which is the right posture for a consumer app.
-
-## Shoot-day runbook
-
-- Night before: full pass on the real phone — record, result, donate, answer, one game
-  round. Any friction is the only thing that pierces the freeze.
-- Credits topped up; billing alert at ~50%.
-- Film in the MORNING (sharp serving hours, measured). Run `node tools/canary.mjs` over
-  breakfast; go when it prints SHARP.
-- Coach every stranger, same three lines: speak your home language · skip your name ·
-  give me thirty seconds. Thirty is measured, not vibes: short takes fall to the koine
-  basin, long takes reach the consonants.
-- Press donate on every willing voice — content and corpus in one take.
+No scheduling constraint. Coach every stranger the same three lines: **speak your home
+language, skip your name, give it about thirty seconds.** Thirty is measured, not a
+guess: eight seconds scores 345 km, twenty scores 157, thirty scores 67. Press donate on
+every willing voice; content and corpus in the same take.

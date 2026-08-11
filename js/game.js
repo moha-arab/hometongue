@@ -3,10 +3,14 @@ const $ = (s) => document.querySelector(s);
 const token = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 const WORLD = [[-55, -170], [72, 190]];
 const ROUNDS = 5;
+const MIN_DECK = 10;   // clips a deck needs before it is worth playing twice
 const LISTEN_BUDGET_S = 60; // seconds of actual listening per round — spend it in any number of plays
 const CLIP_WINDOW_S = 20;
 
-// One card per deck; decks with fewer than ROUNDS clips show as "stocking" until filled.
+// A deck needs more clips than a game has rounds, or every game is the identical five
+// clips in a different order — the second play spoils the first, and sharing it hands a
+// friend a game whose answers you already know. MIN_DECK is the honest threshold: enough
+// for a few genuinely different games. Below it the deck shows as "stocking" instead.
 // The code is the language tag, which is real information, unlike an emoji.
 const MODES = [
   { key: 'arabic', code: 'ar', name: 'Arabic Dialects', desc: 'real local radio. Pin the city it&#39;s from' },
@@ -125,7 +129,7 @@ function setView(v) {
 // ————— game flow —————
 function startGame(type) {
   const pool = (window.CLIPS && window.CLIPS[type]) || [];
-  if (pool.length < ROUNDS) {
+  if (pool.length < MIN_DECK) {
     toast('This mode is still being stocked with clips. Try another one!');
     return;
   }
@@ -576,7 +580,7 @@ function renderModeCards() {
   grid.innerHTML = '';
   for (const m of MODES) {
     const pool = (window.CLIPS && window.CLIPS[m.key]) || [];
-    const ready = pool.length >= ROUNDS;
+    const ready = pool.length >= MIN_DECK;
     const b = document.createElement('button');
     b.className = 'type-btn' + (ready ? '' : ' soon');
     const hue = getComputedStyle(document.documentElement).getPropertyValue(`--hue-${m.key}`).trim() || '#2A6B60';
