@@ -110,6 +110,51 @@ Why it matters: a research sweep confirmed **no public speech dataset separates 
 - **Atlas test** ⏳: 40+ region cards, 2+ clips each (P2).
 - **Flywheel test** ⏳ measuring: ≥25% of Guess-Me users consent and answer.
 
+## What actually moves accuracy (measured 2026-08-11)
+
+Read this before touching the analyser, because the intuitions here are mostly wrong.
+
+**Recording length is the product.** Same speakers, truncated:
+
+| length | median error | truth inside its own claimed circle |
+|--------|--------------|-------------------------------------|
+| 8s     | 1779 km      | 22% |
+| 15s    | 511 km       | 50% |
+| 30s    | **70 km**    | 43% |
+| 45s    | 90 km        | 43% |
+
+It plateaus at 30 seconds. Short clips are also the overconfident ones, which is the worst
+combination the app can ship. **Everything else is noise beside this**: swapping the model is
+worth 0 km, lightening the schema about 17 km, more thinking time is negative.
+
+**The instrument has a 14 km noise floor.** The identical prompt over the identical 106 clips
+scored 37 km one run and 51 km the next, 13 clips moving over 100 km. Almost every comparison
+in this project's history was median-vs-median across two single runs, which cannot see
+anything smaller than its own noise. Two standing beliefs were checked properly and both were
+false:
+
+- "3.6-flash is more accurate than 3.5-flash" (53 vs 68 km). Paired on 33 clips: 2 km vs 3 km,
+  tied on 23, **0 km median per-clip difference**. Never real.
+- "The schema costs 46 km." Retested paired, the same light schema scored 55 km where it had
+  scored 26 km. The honest figure is ~17 km, and it lives in the tail, not the typical case.
+
+**Therefore: never compare two eval runs again.** Pair the arms on identical clips and count
+per-clip wins. Any median-vs-median difference under ~30 km on a 40-clip sample is nothing.
+
+**Why "it used to be better" was never provable.** The 33/37/51/53 km history is one noisy
+number sampled at intervals, not a trend. There is no evidence the app degraded, and there
+never was evidence it improved. The apparatus could not tell.
+
+**Known-good levers, in order:** get 30 seconds of speech; keep thinking off; keep the model
+chain for availability, not quality.
+
+**Open, blocked on API credit:** whether the second judge earns its call and 3.5s (it has
+never once withheld a verdict across 32 real clip-lengths); whether splitting the single call
+into a placing listener and a describing listener is worth it (paired: better on 10, worse on
+4, tail improves 68%→76% under 250 km, richness kept, 93% pin/description agreement — real but
+not yet conclusive); whether asking three times and taking the geometric median beats asking
+once.
+
 ## Explicitly not built (and honest about it)
 
 - English/other-language **Guess Me** (needs the acoustic model — text barely distinguishes English accents)
