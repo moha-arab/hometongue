@@ -195,6 +195,16 @@ const PLACE_WORDS = [
   [['norway', 'oslo'], 'norway'], [['afghanistan', 'kabul'], 'afghanistan'], [['bangladesh', 'dhaka'], 'bangladesh'],
 ];
 const LATIN = /^[a-zà-ÿ' ]+$/i;
+// A bare mention is NOT enough, and the measurement is why: matching any mention fired on
+// 7 of 35 real clips — a Cameroonian anchor saying "Cameroun", a Hindi Wikipedia reader
+// saying "भारत", people talking about the news in their own country. Six of those seven
+// were innocent. So the place must arrive in a SELF-LOCATING frame — "here in X", "we're
+// in X", "born in X" — which is exactly the street case this was built for ("we're here in
+// Toronto right now") and leaves ordinary talk about the world alone.
+// \b on the latin cues or "for him in Toronto" matches "im in" — measured on the very
+// story that motivated this guard, which is a neat demonstration that a mention inside
+// someone else's story is not self-location and should stay quiet.
+const SELF_LOCATING = /(\b(?:here in|we'?re in|we are in|i'?m in|back in|live in|living in|born in|raised in|grew up in|based in|stuck in|hna fi)|إحنا في|احنا في|أنا في|انا في|نحن في|هون ب|هون في|мы в|я в|nous sommes à|je suis à|estamos en|estoy en|我在|我们在)[\s,]*$/i;
 function placeLead(result) {
   const t = (result.transcript || '').toLowerCase();
   if (!t) return null;
@@ -207,10 +217,17 @@ function placeLead(result) {
       || (country === 'united kingdom' && /united kingdom|england|scotland|wales/.test(verdictCountry));
     if (!countryMatch) continue;
     for (const name of names) {
-      const hit = LATIN.test(name)
-        ? new RegExp(`(^|[^a-zà-ÿ])${name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}([^a-zà-ÿ]|$)`, 'i').test(t)
-        : t.includes(name);
-      if (hit) return name;
+      const esc = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const re = LATIN.test(name)
+        ? new RegExp(`(^|[^a-zà-ÿ])${esc}([^a-zà-ÿ]|$)`, 'gi')
+        : new RegExp(esc, 'g');
+      let m;
+      while ((m = re.exec(t)) !== null) {
+        // look at the ~30 characters immediately before the mention
+        const before = t.slice(Math.max(0, m.index - 30), m.index + (m[1] ? m[1].length : 0));
+        if (SELF_LOCATING.test(before)) return name;
+        if (re.lastIndex === m.index) re.lastIndex += 1;
+      }
     }
   }
   return null;

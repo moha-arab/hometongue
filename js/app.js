@@ -782,8 +782,12 @@ function drawShareMap(c, v, x, y, w, h) {
     minLat = v.lat - dLat; maxLat = v.lat + dLat; minLng = v.lng - dLng; maxLng = v.lng + dLng;
   }
   const cLat = (minLat + maxLat) / 2, cLng = (minLng + maxLng) / 2;
-  const spanLat = Math.max(maxLat - minLat, 9) * 1.9;
-  const spanLng = Math.max(maxLng - minLng, 12) * 1.9;
+  // Wide enough that the coastline is RECOGNISABLE. The outline is thinned Natural Earth,
+  // so a tight crop turns the Mediterranean into abstract blobs; at continental scale the
+  // same data reads instantly, and a small precise shape on a familiar coast is the more
+  // impressive picture anyway.
+  const spanLat = Math.max(maxLat - minLat, 26) * 1.5;
+  const spanLng = Math.max(maxLng - minLng, 34) * 1.5;
   const x0 = lngX(cLng - spanLng / 2), x1 = lngX(cLng + spanLng / 2);
   const y0 = latY(cLat + spanLat / 2), y1 = latY(cLat - spanLat / 2);
   const s = Math.min(w / (x1 - x0), h / (y1 - y0));
