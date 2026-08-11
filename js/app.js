@@ -126,7 +126,7 @@ function flyHome() {
 }
 
 // ————— ui states —————
-const cards = ['idleCard', 'liveCard', 'typeCard', 'analyzingCard', 'redoCard', 'resultCard'];
+const cards = ['idleCard', 'liveCard', 'typeCard', 'analyzingCard', 'resultCard'];
 function show(cardId) {
   for (const id of cards) $('#' + id).hidden = id !== cardId;
   // Stopping the ticker here rather than at each call site means no error path can leave it
@@ -530,26 +530,8 @@ function normalizeServer(resp) {
 
 
 // ————— result rendering —————
-function renderResult(v, forced) {
+function renderResult(v) {
   state = 'result';
-  // When the words gave the answer away, no verdict is shown at all. Showing it with a
-  // warning attached was incoherent: the headline claimed a city while the small print
-  // admitted the city came from the speaker's own mouth, and the widened radius made a
-  // RIGHT answer worse (a Torontonian saying "here in Toronto" got ±1000). Refusing is
-  // both more honest and better television — the app visibly declines to be fed, and the
-  // clean retake lands the real read.
-  if (v.content_led && !forced) {
-    window._lastResult = v;
-    window._pendingContaminated = v;
-    $('#redoText').innerHTML = v.content_led === 'origin'
-      ? 'You said where you\'re from — so anything I say now is just your own words handed back. Give me the same story without it and let your accent do the talking.'
-      : v.content_led === 'name'
-        ? 'You said a name, and names drag the guess toward wherever that name comes from. Say it again without introducing yourself and I\'ll go on sound alone.'
-        : 'You named a place, and the guess leaned on it. Say it again without naming anywhere — the whole point is what your voice gives away.';
-    show('redoCard');
-    flyHome();
-    return;
-  }
   show('resultCard');
   // Every render gets a generation number. The verify-evidence response and the donate
   // upload both resolve long after this function returns, and both used to mutate whatever
@@ -582,7 +564,13 @@ function renderResult(v, forced) {
   // "Sounds like" is a lie when the verdict came from the speaker's own words. Mohammad's
   // catch: he said "I grew up in Japan" in heavy North American English, got Tokyo, and the
   // card still claimed it SOUNDED like Tokyo. If they told us, the headline says so.
-  kicker.textContent = v.content_led === 'origin' ? 'you told me you grew up around' : 'sounds like you grew up around';
+  // One line of copy carries the whole honesty burden now. "Sounds like" is a lie when the
+  // verdict came from the speaker's own words, so the kicker says which it was — and then
+  // the card behaves exactly like any other card. No refusal, no widening, no hedge.
+  kicker.textContent = v.content_led === 'origin' ? 'you told me you grew up around'
+    : v.content_led === 'name' ? 'your name pulled this one toward'
+      : v.content_led === 'place' ? 'you named it, so I\'ll just agree —'
+        : 'sounds like you grew up around';
   // The city ALWAYS headlines. A region-first billing was tried here and it killed the whole
   // point: Levantine Arabic that used to open with Amman opened with "the Levant", which
   // anybody could have said. Mohammad's design replaced it: the specific guess takes the
@@ -604,13 +592,12 @@ function renderResult(v, forced) {
   // while the same audio with no name, or with "Jake", answered United States.
   const warn = $('#nameWarn');
   if (warn) {
-    // only reachable via 'show me anyway', where the caveat must still travel with the card
+    // The kicker already says which way this one came. This is the one-line invitation to
+    // go again — short, because the card is not a lecture.
     warn.hidden = !v.content_led;
-    // Two different contaminations, two different confessions. Telling the app the answer is
-    // worse than a name: the verdict below may be nothing but your own words read back.
-    if (v.content_led === 'origin') warn.textContent = 'You told me where you grew up, so this guess leans on your words. The whole game is what your voice gives away: go again without telling me.';
-    else if (v.content_led === 'name') warn.textContent = 'You gave your name. Names drag the guess toward the name\'s home country, so take this one lightly and try again without it.';
-    else if (v.content_led === 'place') warn.textContent = 'Your words named a place and the guess leaned toward it. The game is what your VOICE gives away — go again without naming any country or city.';
+    if (v.content_led === 'origin') warn.textContent = 'Try it again without saying where you\'re from — that\'s when the accent has to do the work.';
+    else if (v.content_led === 'name') warn.textContent = 'Names pull the guess toward wherever the name is from. Go again without introducing yourself.';
+    else if (v.content_led === 'place') warn.textContent = 'Go again without naming anywhere and see what your voice alone gives away.';
   }
 
   // Dialect composition, ancestry-chart style: one segmented 100% bar, then a legend row
@@ -1148,11 +1135,6 @@ function bindUI() {
   $('#analyzeTypedBtn').onclick = () => runTextAnalysis($('#typeBox').value, true);
   $('#againBtn').onclick = () => { state = 'idle'; show('idleCard'); flyHome(); };
   $('#shareBtn').onclick = shareResult;
-  $('#redoBtn').onclick = () => { state = 'idle'; show('idleCard'); flyHome(); startListening(); };
-  // An escape hatch, not a headline: curiosity gets served, but only by asking for it.
-  $('#redoShowBtn').onclick = () => {
-    if (window._pendingContaminated) renderResult(window._pendingContaminated, true);
-  };
 
   $('#fbYes').onclick = () => { saveFeedback(true, '', ''); $('#fbYes').classList.add('chosen'); lockFeedback(); };
   $('#fbNo').onclick = () => { $('#fbFix').hidden = false; $('#fbNo').classList.add('chosen'); $('#fbNo').disabled = true; $('#fbYes').disabled = true; };

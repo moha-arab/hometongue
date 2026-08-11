@@ -391,17 +391,14 @@ export default async function handler(req, res) {
     // Say so, rather than quietly presenting a name-derived guess as an accent reading. The
     // radius widens too, because a guess resting on a name genuinely is less certain than one
     // resting on 30 seconds of phonology.
+    // Detection stays; the punishment is gone. Widening a verdict, blanking its zone and
+    // finally refusing to show it at all were three escalating ways of making the speaker
+    // pay for a word — and they punished right answers as hard as wrong ones (a Torontonian
+    // saying "here in Toronto" had a correct read inflated to ±1000, then withheld
+    // entirely). Mohammad's call, and it is the better one: say where the answer came from,
+    // then get out of the way. The flag now only changes one line of copy on the card.
     const lead = contentLead(result) || (placeLead(result) && 'place');
-    if (lead) {
-      result.content_led = lead;   // 'origin' | 'name' | 'place'
-      // A mentioned place is weaker contamination than a self-declared origin, so it widens
-      // less — but it still widens, because a verdict that agrees with the speaker's own
-      // words has not been earned by their voice.
-      result.radius_km = Math.min(5000, Math.max(result.radius_km, lead === 'place' ? 1000 : 1500));
-      // A contaminated verdict widens; a tight zone drawn for it would contradict the widened
-      // honesty, so the map falls back to the circle.
-      result.zone = [];
-    }
+    if (lead) result.content_led = lead;   // 'origin' | 'name' | 'place'
     return res.end(JSON.stringify({ ok: true, result, fb_token: mintToken() }));
   } catch (err) {
     const code = err.code || 'server_error';
