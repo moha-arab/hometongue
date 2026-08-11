@@ -143,100 +143,20 @@ const INTRODUCES_SELF = /\b(my name is|my name's|i'?m called|i am called|they ca
 // for origin; 'I'm from' is the origin idiom, so only that stays.
 const STATES_ORIGIN = /\b(i grew up (in|around|near)|i was (born|raised) (in|and raised)|born and raised in|i'?m from|i am from|je viens de|j'ai grandi [àa]|je suis n[ée]e? [àa]|soy de|crec[íi] en|nac[íi] en|sou de|cresci em|ich (komme|bin) aus|ich bin in .{1,30} aufgewachsen)\b|أنا من|نشأت في|تربيت في|ولدت في|я вырос|я выросла|я из|родом из|मैं .{0,20}से हूं|میں .{0,20}سے ہوں|我来自|我在.{0,12}长大|我是.{0,12}人/i;
 
-// Origin outranks name: telling the app the answer is a stronger contamination than a name.
-// Two detectors, OR'd. The regex is deterministic and covers the app's ten main languages;
-// the model's own stated_origin boolean covers every other language on Earth. Asking the
-// model to REPORT a fact about the transcript is not the same as asking it to IGNORE one —
-// the second was sabotaged five measured times, the first is how schema fields behave.
-function contentLead(result) {
-  const t = result.transcript || '';
-  if (STATES_ORIGIN.test(t) || result.stated_origin === true) return 'origin';
-  if (INTRODUCES_SELF.test(t)) return 'name';
-  return null;
-}
 
-// Words are gravity even when they aren't about the speaker: an Ohio voice telling a story
-// about "a Canadian inventor" measured as Toronto, Canada at a TIGHT radius — the model
-// anchored on the mentioned country exactly the way it anchors on names, and the regexes
-// above only catch self-declarations. This table catches any mention of a place that the
-// verdict then AGREES with. Herrings stay free by design: a Cairo verdict after a story
-// about New Jersey fires nothing — mentions only count when the answer leaned their way.
-// Latin names match on word boundaries; Arabic/CJK on substrings (no \b in those scripts).
-// Arabic عمان is deliberately absent: it spells both Amman and Oman.
-const PLACE_WORDS = [
-  [['canada', 'toronto', 'vancouver', 'montreal', 'ottawa', 'quebec'], 'canada'],
-  [['united states', 'usa', 'america', 'new york', 'los angeles', 'chicago', 'houston', 'miami', 'boston', 'texas', 'california', 'ohio', 'florida'], 'united states'],
-  [['mexico', 'mexico city'], 'mexico'], [['brazil', 'brasil', 'são paulo', 'sao paulo', 'rio de janeiro'], 'brazil'],
-  [['portugal', 'lisbon', 'lisboa', 'porto'], 'portugal'], [['spain', 'españa', 'madrid', 'barcelona'], 'spain'],
-  [['france', 'paris', 'marseille', 'lyon'], 'france'], [['germany', 'deutschland', 'berlin', 'munich'], 'germany'],
-  [['italy', 'italia', 'rome', 'roma', 'milan'], 'italy'], [['england', 'britain', 'united kingdom', 'london', 'manchester'], 'united kingdom'],
-  [['ireland', 'dublin'], 'ireland'], [['russia', 'россия', 'moscow', 'москв'], 'russia'], [['ukraine', 'україн', 'kyiv', 'киев', 'київ'], 'ukraine'],
-  [['poland', 'polska', 'warsaw'], 'poland'], [['turkey', 'türkiye', 'istanbul', 'ankara'], 'turkey'],
-  [['china', '中国', '中國', 'beijing', '北京', 'shanghai', '上海'], 'china'], [['taiwan', '台湾', '台灣', 'taipei'], 'taiwan'],
-  [['japan', '日本', 'tokyo', '東京'], 'japan'], [['korea', 'seoul', '한국'], 'korea'],
-  [['india', 'bharat', 'भारत', 'hindustan', 'delhi', 'mumbai', 'bombay'], 'india'], [['pakistan', 'پاکستان', 'karachi', 'lahore'], 'pakistan'],
-  [['egypt', 'مصر', 'cairo', 'القاهرة'], 'egypt'], [['morocco', 'المغرب', 'casablanca'], 'morocco'],
-  [['algeria', 'الجزائر', 'algiers'], 'algeria'], [['tunisia', 'تونس', 'tunis'], 'tunisia'], [['libya', 'ليبيا', 'tripoli'], 'libya'],
-  [['sudan', 'السودان', 'khartoum'], 'sudan'], [['syria', 'سوريا', 'سورية', 'damascus', 'دمشق', 'aleppo', 'حلب'], 'syria'],
-  [['lebanon', 'لبنان', 'beirut', 'بيروت'], 'lebanon'], [['jordan', 'الأردن', 'amman'], 'jordan'],
-  [['palestine', 'فلسطين', 'jerusalem', 'القدس', 'gaza', 'غزة'], 'palestine'], [['iraq', 'العراق', 'baghdad', 'بغداد'], 'iraq'],
-  [['kuwait', 'الكويت'], 'kuwait'], [['saudi', 'السعودية', 'riyadh', 'الرياض', 'jeddah', 'جدة'], 'saudi arabia'],
-  [['united arab emirates', 'uae', 'dubai', 'دبي', 'abu dhabi', 'أبوظبي', 'الإمارات'], 'united arab emirates'],
-  [['qatar', 'قطر', 'doha', 'الدوحة'], 'qatar'], [['bahrain', 'البحرين', 'manama'], 'bahrain'],
-  [['oman', 'muscat', 'مسقط'], 'oman'], [['yemen', 'اليمن', 'sanaa', 'صنعاء'], 'yemen'], [['iran', 'إيران', 'tehran'], 'iran'],
-  [['somalia', 'الصومال', 'mogadishu'], 'somalia'], [['ethiopia', 'addis'], 'ethiopia'], [['kenya', 'nairobi'], 'kenya'],
-  [['nigeria', 'lagos', 'abuja'], 'nigeria'], [['ghana', 'accra'], 'ghana'], [['senegal', 'sénégal', 'dakar'], 'senegal'],
-  [['cameroon', 'cameroun', 'yaound'], 'cameroon'], [['south africa', 'johannesburg', 'cape town'], 'south africa'],
-  [['australia', 'sydney', 'melbourne'], 'australia'], [['new zealand', 'auckland'], 'new zealand'],
-  [['philippines', 'manila'], 'philippines'], [['indonesia', 'jakarta'], 'indonesia'], [['vietnam', 'hanoi'], 'vietnam'],
-  [['thailand', 'bangkok'], 'thailand'], [['argentina', 'buenos aires'], 'argentina'], [['colombia', 'bogot'], 'colombia'],
-  [['venezuela', 'caracas'], 'venezuela'], [['chile', 'santiago'], 'chile'], [['peru', 'perú', 'lima'], 'peru'],
-  [['greece', 'athens'], 'greece'], [['netherlands', 'holland', 'amsterdam'], 'netherlands'], [['sweden', 'stockholm'], 'sweden'],
-  [['norway', 'oslo'], 'norway'], [['afghanistan', 'kabul'], 'afghanistan'], [['bangladesh', 'dhaka'], 'bangladesh'],
-];
-const LATIN = /^[a-zà-ÿ' ]+$/i;
-// A bare mention is NOT enough, and the measurement is why: matching any mention fired on
-// 7 of 35 real clips — a Cameroonian anchor saying "Cameroun", a Hindi Wikipedia reader
-// saying "भारत", people talking about the news in their own country. Six of those seven
-// were innocent. So the place must arrive in a SELF-LOCATING frame — "here in X", "we're
-// in X", "born in X" — which is exactly the street case this was built for ("we're here in
-// Toronto right now") and leaves ordinary talk about the world alone.
-// \b on the latin cues or "for him in Toronto" matches "im in" — measured on the very
-// story that motivated this guard, which is a neat demonstration that a mention inside
-// someone else's story is not self-location and should stay quiet.
-// ONLY where the speaker is standing, never where they are from. The distinction is the
-// whole design, and it is measured: "I am from Aleppo originally" lands on Aleppo and the
-// model's own cue admits it was told, which is a useful, honest answer worth showing. "We
-// are here in Toronto right now" is not a claim about origin at all, so when the model
-// takes that bait it produces a verdict that is simply WRONG for the tourist who said it.
-// (It often ignores the bait — the same sentence read as Mumbai in one probe — which is
-// exactly why this only fires when the verdict actually agreed.)
-const PRESENT_LOCATION = /(\b(?:here in|we'?re here in|we'?re in|we are in|i'?m in|i am in|back in|stuck in|hna fi)|إحنا في|احنا في|أنا في|انا في|نحن في|هون ب|هون في|мы в|я в|nous sommes à|je suis à|estamos en|estoy en|我在|我们在)[\s,]*$/i;
-function placeLead(result) {
-  const t = (result.transcript || '').toLowerCase();
-  if (!t) return null;
-  const verdictCountry = String(result.place || '').split(',').pop().trim().toLowerCase();
-  if (!verdictCountry) return null;
-  for (const [names, country] of PLACE_WORDS) {
-    // the verdict must AGREE with the mention — that's what makes it suspicious
-    const countryMatch = verdictCountry.includes(country)
-      || (country === 'united states' && /united states|usa/.test(verdictCountry))
-      || (country === 'united kingdom' && /united kingdom|england|scotland|wales/.test(verdictCountry));
-    if (!countryMatch) continue;
-    for (const name of names) {
-      const esc = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const re = LATIN.test(name)
-        ? new RegExp(`(^|[^a-zà-ÿ])${esc}([^a-zà-ÿ]|$)`, 'gi')
-        : new RegExp(esc, 'g');
-      let m;
-      while ((m = re.exec(t)) !== null) {
-        // look at the ~30 characters immediately before the mention
-        const before = t.slice(Math.max(0, m.index - 30), m.index + (m[1] ? m[1].length : 0));
-        if (PRESENT_LOCATION.test(before)) return name;
-        if (re.lastIndex === m.index) re.lastIndex += 1;
-      }
-    }
-  }
+// Anything the speaker says ABOUT THEMSELVES is a reason to check the voice before
+// trusting the verdict: a name, a claimed origin, or a claim about where they are standing.
+// This used to be a 60-entry list of countries and cities plus an agreement test, which was
+// a doorman guessing at what the expert inside already knows — and it only recognised places
+// I had thought to type in, so 'we're here in Scarborough' or a place named in Tagalog walked
+// straight past it. The judge that hears the voice decides now; this only decides when to ask.
+const PRESENT_LOCATION = /(\b(?:here in|we're in|we are in|i'm in|i am in|back in|stuck in)\s+\S|إحنا في\s*\S|احنا في\s*\S|نحن في\s*\S|أنا في\s*\S|انا في\s*\S|هون في\s*\S|мы в\s*\S|nous sommes à\s*\S|estamos en\s*\S|我在\S|我们在\S)/i;
+
+function saysSomethingAboutSelf(result) {
+  const t = result.transcript || '';
+  if (INTRODUCES_SELF.test(t)) return 'name';
+  if (STATES_ORIGIN.test(t) || result.stated_origin === true) return 'origin';
+  if (PRESENT_LOCATION.test(t)) return 'here';
   return null;
 }
 
@@ -444,28 +364,26 @@ export default async function handler(req, res) {
       } catch { return 'unknown'; }
     }
 
-    // Two tiers, because two different things are knowable.
+    // One rule: if you said something about yourself, the voice gets the deciding word.
     //
-    // FED — the transcript names a place in a self-referential frame AND the verdict agrees
-    // with it. That is provable contamination, and the killer case is a tourist: someone
-    // visiting Toronto says "we're here in Toronto", the model says Toronto, and the answer
-    // is simply WRONG about a person from Osaka. Agreeing with them (even while admitting
-    // it) publishes that wrong answer. So a fed verdict is never shown — the app asks for a
-    // clean take instead.
+    // A name, a claimed origin, or a claim about where you are standing all mean the verdict
+    // MIGHT be a read of your words rather than your voice. Which one it is was previously
+    // guessed from regexes; it is now asked. Judge two gets the audio and one narrow question
+    // — could this voice have grown up in <place> — measured 12/12 across three clips and
+    // four candidate cities each, reporting what it heard ("Australian English", "Gulf
+    // Arabic"). Only a confident NO means the words carried the answer, and only then is the
+    // verdict withheld. Everything else is shown clean, because the voice is standing behind
+    // it: the Cairene who says اسمي أحمد keeps his card, and so does the Torontonian who
+    // says "we're here in Toronto" and genuinely sounds it.
     //
-    // HINT — a name was spoken, or the model reports a stated origin we cannot match to a
-    // place word. A name may have dragged the verdict (measured: identical audio flipped US
-    // -> Moscow six of six on "my name is Vladislav") or may have been harmless. Unprovable
-    // either way, so the card is shown with the kicker saying so. Withholding here would
-    // cost a Cairene saying "اسمي أحمد" a perfectly good result.
-    const named = placeLead(result);
-    if (named) {
-      // the words named it and the verdict agreed: ask the voice itself before deciding
+    // Deliberately NOT run on every verdict. Asked of a diaspora voice with no prompting —
+    // Mohammad's own, Levantine sound with a Kuwaiti childhood — judge two would answer
+    // from sound alone and veto a verdict that was right about the upbringing. The trigger
+    // keeps it to cases where contamination is actually possible.
+    const saidSomething = saysSomethingAboutSelf(result);
+    if (saidSomething) {
       const backs = await voiceSupports(result.place, 56_000 - (Date.now() - t0));
-      if (backs === 'no') result.content_led = 'fed';   // the words carried it: no verdict shown
-      // yes / unclear / unknown: the voice stands behind the answer, so it is a real read
-    } else if (contentLead(result)) {
-      result.content_led = contentLead(result) === 'name' ? 'name' : 'origin';
+      if (backs === 'no') result.content_led = 'fed';
     }
     return res.end(JSON.stringify({ ok: true, result, fb_token: mintToken() }));
   } catch (err) {

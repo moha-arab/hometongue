@@ -572,15 +572,9 @@ function renderResult(v) {
   if (v.transcript) $('#heardText').textContent = v.transcript;
   $('#srcBadge').textContent = v.language ? v.language.toLowerCase() : '';
 
-  // "Sounds like" is a lie when the verdict came from the speaker's own words. Mohammad's
-  // catch: he said "I grew up in Japan" in heavy North American English, got Tokyo, and the
-  // card still claimed it SOUNDED like Tokyo. If they told us, the headline says so.
-  // "Sounds like" is a lie when the speaker's own words are in play. A fed verdict never
-  // reaches this card at all; these two are the unprovable cases, where the honest move is
-  // to show the answer and say what might have coloured it.
-  kicker.textContent = v.content_led === 'origin' ? 'you told me you grew up around'
-    : v.content_led === 'name' ? 'with your name in the mix, I\'d say'
-      : 'sounds like you grew up around';
+  // One kicker now. A verdict the voice does not stand behind never reaches this card at
+  // all, so anything rendered here was earned by sound.
+  kicker.textContent = 'sounds like you grew up around';
   // The city ALWAYS headlines. A region-first billing was tried here and it killed the whole
   // point: Levantine Arabic that used to open with Amman opened with "the Levant", which
   // anybody could have said. Mohammad's design replaced it: the specific guess takes the
@@ -600,15 +594,10 @@ function renderResult(v) {
   // the model reads foreign names as origin and will not admit it. Controlled test: identical
   // synthetic US speech, "my name is Vladislav" answered Moscow or Kyiv six times out of six,
   // while the same audio with no name, or with "Jake", answered United States.
+  // The old "you said your name, take this lightly" nudge is gone: if the voice did not
+  // back the verdict it is not shown, and if it did there is nothing to apologise for.
   const warn = $('#nameWarn');
-  if (warn) {
-    // The kicker already says which way this one came. This is the one-line invitation to
-    // go again — short, because the card is not a lecture.
-    warn.hidden = !v.content_led;
-    if (v.content_led === 'origin') warn.textContent = 'Try it again without saying where you\'re from — that\'s when the accent has to do the work.';
-    else if (v.content_led === 'name') warn.textContent = 'Names pull the guess toward wherever the name is from. Go again without introducing yourself.';
-
-  }
+  if (warn) warn.hidden = true;
 
   // Dialect composition, ancestry-chart style: one segmented 100% bar, then a legend row
   // per ingredient with the sound that betrayed it. Mohammad's frame — the same product
