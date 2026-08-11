@@ -41,6 +41,17 @@ function readJsonBody(req) {
 // normal, not exceptional. Budget every attempt against one shared deadline instead.
 const BUDGET_MS = 50_000;
 
+// A SECOND MODEL TO FALL BACK ON, because the first one WILL have a bad day. Measured
+// 2026-08-11: gemini-3.6-flash returned HTTP 500 "Internal error encountered" on six of
+// eight audio requests while text requests sailed through — a Google-side incident, not
+// our key, our credit or our audio. Without a fallback that is the whole app down, and the
+// one moment it cannot afford to be down is the hour a video lands.
+//
+// 3.5-flash is the right understudy because it is already measured, not guessed: 68 km
+// median against 3.6's 53 km on the same 88 clips. A slightly wider answer that exists
+// beats a perfect answer that does not.
+const MODEL_CHAIN = [MODEL, 'gemini-3.5-flash'];
+
 async function locate(parts) {
   const key = process.env.GEMINI_API_KEY;
   if (!key) throw Object.assign(new Error('GEMINI_API_KEY not set'), { code: 'not_configured' });
@@ -53,9 +64,10 @@ async function locate(parts) {
   // nothing; six fit comfortably inside the same 50s budget and turn a coin-flip into a
   // near-certainty. If the per-attempt rejection rate is 70%, three attempts fail 34% of
   // the time and six fail 12%; at 50% it goes from 12% to 1.5%.
-  const MAX_ATTEMPTS = 6;
+  const MAX_ATTEMPTS = 4;
   let lastRefusal = '';
   const deadline = Date.now() + BUDGET_MS;
+  for (const modelName of MODEL_CHAIN) {
   for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
     const left = deadline - Date.now();
     // Under 8s left is not enough for a real answer; fail honestly rather than burn the cap.
@@ -63,7 +75,7 @@ async function locate(parts) {
     let resp;
     try {
       resp = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`,
+        `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent`,
         {
           method: 'POST',
           headers: { 'x-goog-api-key': key, 'content-type': 'application/json' },
@@ -81,7 +93,7 @@ async function locate(parts) {
         },
       );
     } catch {
-      if (attempt === MAX_ATTEMPTS - 1) throw Object.assign(new Error('upstream timeout'), { code: 'upstream_failed' });
+      if (attempt === MAX_ATTEMPTS - 1) break;   // this model is not answering: try the next
       continue;
     }
     // Gemini returns a transient 400 "invalid argument" on a random subset of otherwise
@@ -106,18 +118,14 @@ async function locate(parts) {
       if (!rateLimited && /credits? (are )?depleted|billing|insufficient|out of credit/i.test(body)) {
         throw Object.assign(new Error('the analysis account is out of credit'), { code: 'out_of_credit' });
       }
-      if (rateLimited && attempt === MAX_ATTEMPTS - 1) {
-        throw Object.assign(new Error('too many people at once'), { code: 'swamped' });
-      }
+      if (rateLimited && attempt === MAX_ATTEMPTS - 1) break;
     }
     if (resp.status === 429 || resp.status === 503 || resp.status === 400 || resp.status >= 500) {
       // Keep the upstream's own words. Without this the app could only ever report "the
       // model kept refusing", which is exactly as useful as it sounds when the refusal is
       // intermittent and the same payload succeeds elsewhere.
       if (!lastRefusal) lastRefusal = `${resp.status} ${(await resp.text().catch(() => '')).slice(0, 160)}`;
-      if (attempt === MAX_ATTEMPTS - 1) {
-        throw Object.assign(new Error(`the model kept refusing the request (${lastRefusal})`), { code: 'upstream_failed' });
-      }
+      if (attempt === MAX_ATTEMPTS - 1) break;   // this model is not answering: try the next
       await new Promise((r) => setTimeout(r, Math.min(600 + 400 * attempt, Math.max(0, deadline - Date.now() - 8000))));
       continue;
     }
@@ -132,7 +140,11 @@ async function locate(parts) {
       throw Object.assign(new Error('unparseable response'), { code: 'upstream_failed' });
     }
   }
-  throw Object.assign(new Error('model busy'), { code: 'busy' });
+  }
+  throw Object.assign(
+    new Error(`no model could answer${lastRefusal ? ' (' + lastRefusal + ')' : ''}`),
+    { code: 'upstream_failed' },
+  );
 }
 
 // ONE RULE: a verdict has to rest on something the model actually HEARD.
