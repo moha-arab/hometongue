@@ -204,7 +204,7 @@ const LATIN = /^[a-zà-ÿ' ]+$/i;
 // \b on the latin cues or "for him in Toronto" matches "im in" — measured on the very
 // story that motivated this guard, which is a neat demonstration that a mention inside
 // someone else's story is not self-location and should stay quiet.
-const SELF_LOCATING = /(\b(?:here in|we'?re in|we are in|i'?m in|back in|live in|living in|born in|raised in|grew up in|based in|stuck in|hna fi)|إحنا في|احنا في|أنا في|انا في|نحن في|هون ب|هون في|мы в|я в|nous sommes à|je suis à|estamos en|estoy en|我在|我们在)[\s,]*$/i;
+const SELF_LOCATING = /(\b(?:here in|we'?re in|we are in|i'?m in|back in|live in|living in|born in|raised in|grew up in|based in|stuck in|hna fi|i'?m from|i am from|we'?re from|we are from|comes? from|originally from)|إحنا في|احنا في|أنا في|انا في|نحن في|هون ب|هون في|أنا من|انا من|نحن من|مы в|я в|я из|nous sommes à|je suis à|je viens de|estamos en|estoy en|soy de|我在|我们在|我来自)[\s,]*$/i;
 function placeLead(result) {
   const t = (result.transcript || '').toLowerCase();
   if (!t) return null;
@@ -391,14 +391,23 @@ export default async function handler(req, res) {
     // Say so, rather than quietly presenting a name-derived guess as an accent reading. The
     // radius widens too, because a guess resting on a name genuinely is less certain than one
     // resting on 30 seconds of phonology.
-    // Detection stays; the punishment is gone. Widening a verdict, blanking its zone and
-    // finally refusing to show it at all were three escalating ways of making the speaker
-    // pay for a word — and they punished right answers as hard as wrong ones (a Torontonian
-    // saying "here in Toronto" had a correct read inflated to ±1000, then withheld
-    // entirely). Mohammad's call, and it is the better one: say where the answer came from,
-    // then get out of the way. The flag now only changes one line of copy on the card.
-    const lead = contentLead(result) || (placeLead(result) && 'place');
-    if (lead) result.content_led = lead;   // 'origin' | 'name' | 'place'
+    // Two tiers, because two different things are knowable.
+    //
+    // FED — the transcript names a place in a self-referential frame AND the verdict agrees
+    // with it. That is provable contamination, and the killer case is a tourist: someone
+    // visiting Toronto says "we're here in Toronto", the model says Toronto, and the answer
+    // is simply WRONG about a person from Osaka. Agreeing with them (even while admitting
+    // it) publishes that wrong answer. So a fed verdict is never shown — the app asks for a
+    // clean take instead.
+    //
+    // HINT — a name was spoken, or the model reports a stated origin we cannot match to a
+    // place word. A name may have dragged the verdict (measured: identical audio flipped US
+    // -> Moscow six of six on "my name is Vladislav") or may have been harmless. Unprovable
+    // either way, so the card is shown with the kicker saying so. Withholding here would
+    // cost a Cairene saying "اسمي أحمد" a perfectly good result.
+    const fed = placeLead(result);
+    if (fed) result.content_led = 'fed';
+    else if (contentLead(result)) result.content_led = contentLead(result) === 'name' ? 'name' : 'origin';
     return res.end(JSON.stringify({ ok: true, result, fb_token: mintToken() }));
   } catch (err) {
     const code = err.code || 'server_error';

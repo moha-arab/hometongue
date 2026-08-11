@@ -126,7 +126,7 @@ function flyHome() {
 }
 
 // ————— ui states —————
-const cards = ['idleCard', 'liveCard', 'typeCard', 'analyzingCard', 'resultCard'];
+const cards = ['idleCard', 'liveCard', 'typeCard', 'analyzingCard', 'redoCard', 'resultCard'];
 function show(cardId) {
   for (const id of cards) $('#' + id).hidden = id !== cardId;
   // Stopping the ticker here rather than at each call site means no error path can leave it
@@ -532,6 +532,17 @@ function normalizeServer(resp) {
 // ————— result rendering —————
 function renderResult(v) {
   state = 'result';
+  // A FED verdict is never shown. The model agreed with a place the speaker named, so the
+  // answer may be nothing but their own words — and for a tourist ('we're here in Toronto')
+  // it is actively wrong. Agreeing with them, even with a label attached, publishes that
+  // wrong answer over their face. Ask for a clean take instead.
+  if (v.content_led === 'fed') {
+    window._lastResult = v;
+    $('#redoText').textContent = 'You named a place and the guess went straight to it — so that was your words talking, not your accent. Say the same thing again without naming anywhere.';
+    show('redoCard');
+    flyHome();
+    return;
+  }
   show('resultCard');
   // Every render gets a generation number. The verify-evidence response and the donate
   // upload both resolve long after this function returns, and both used to mutate whatever
@@ -564,13 +575,12 @@ function renderResult(v) {
   // "Sounds like" is a lie when the verdict came from the speaker's own words. Mohammad's
   // catch: he said "I grew up in Japan" in heavy North American English, got Tokyo, and the
   // card still claimed it SOUNDED like Tokyo. If they told us, the headline says so.
-  // One line of copy carries the whole honesty burden now. "Sounds like" is a lie when the
-  // verdict came from the speaker's own words, so the kicker says which it was — and then
-  // the card behaves exactly like any other card. No refusal, no widening, no hedge.
+  // "Sounds like" is a lie when the speaker's own words are in play. A fed verdict never
+  // reaches this card at all; these two are the unprovable cases, where the honest move is
+  // to show the answer and say what might have coloured it.
   kicker.textContent = v.content_led === 'origin' ? 'you told me you grew up around'
-    : v.content_led === 'name' ? 'your name pulled this one toward'
-      : v.content_led === 'place' ? 'you named it, so I\'ll just agree —'
-        : 'sounds like you grew up around';
+    : v.content_led === 'name' ? 'with your name in the mix, I\'d say'
+      : 'sounds like you grew up around';
   // The city ALWAYS headlines. A region-first billing was tried here and it killed the whole
   // point: Levantine Arabic that used to open with Amman opened with "the Levant", which
   // anybody could have said. Mohammad's design replaced it: the specific guess takes the
@@ -597,7 +607,7 @@ function renderResult(v) {
     warn.hidden = !v.content_led;
     if (v.content_led === 'origin') warn.textContent = 'Try it again without saying where you\'re from — that\'s when the accent has to do the work.';
     else if (v.content_led === 'name') warn.textContent = 'Names pull the guess toward wherever the name is from. Go again without introducing yourself.';
-    else if (v.content_led === 'place') warn.textContent = 'Go again without naming anywhere and see what your voice alone gives away.';
+
   }
 
   // Dialect composition, ancestry-chart style: one segmented 100% bar, then a legend row
@@ -1135,6 +1145,7 @@ function bindUI() {
   $('#analyzeTypedBtn').onclick = () => runTextAnalysis($('#typeBox').value, true);
   $('#againBtn').onclick = () => { state = 'idle'; show('idleCard'); flyHome(); };
   $('#shareBtn').onclick = shareResult;
+  $('#redoBtn').onclick = () => { state = 'idle'; show('idleCard'); flyHome(); startListening(); };
 
   $('#fbYes').onclick = () => { saveFeedback(true, '', ''); $('#fbYes').classList.add('chosen'); lockFeedback(); };
   $('#fbNo').onclick = () => { $('#fbFix').hidden = false; $('#fbNo').classList.add('chosen'); $('#fbNo').disabled = true; $('#fbYes').disabled = true; };
