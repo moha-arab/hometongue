@@ -538,7 +538,7 @@ function renderResult(v) {
   // wrong answer over their face. Ask for a clean take instead.
   if (v.content_led === 'fed') {
     window._lastResult = v;
-    $('#redoText').textContent = 'You named a place and the guess went straight to it — so that was your words talking, not your accent. Say the same thing again without naming anywhere.';
+    $('#redoText').textContent = 'Everything I could point to came from what you said, not from how you said it. That would be repeating you, not reading you. Give me the same story again and let your voice carry it.';
     show('redoCard');
     flyHome();
     return;

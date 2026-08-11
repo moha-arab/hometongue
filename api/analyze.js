@@ -107,57 +107,30 @@ async function locate(parts) {
   throw Object.assign(new Error('model busy'), { code: 'busy' });
 }
 
-// A name is not evidence of where someone grew up, and the model uses it anyway.
+// ONE RULE: a verdict has to rest on something the model actually HEARD.
 //
-// Reported case: plain North American speech plus "my name is Vladislav" returned Moscow at a
-// 1000 km radius. Reproduced under control — three clips of identical synthetic US English
-// differing only in one sentence. No name and "my name is Jake" both answer United States;
-// "my name is Vladislav" answers Moscow or Kyiv in SIX of six runs. The trigger is foreign
-// names specifically, not names.
+// This replaced a pile of separate detectors — a name regex, an origin regex, a 60-entry
+// list of countries and cities, a present-location regex, and a second model asked whether
+// a voice could plausibly be from the verdict city. Each caught its own case and none of
+// them shared a principle, which is why the pile kept growing. The principle was always
+// simpler than the pile: the app promises to answer from sound, so if it has nothing from
+// sound, it has no answer.
 //
-// Two things that did NOT work, both measured:
-//  1. A prompt line saying a name is not evidence. It did not change the verdict (still 6/6
-//     Slavic) — it changed the model's honesty. Evidence stopped saying "Stated name
-//     Vladislav" and started saying "Slavic vowel qualities and timing" for a Microsoft
-//     text-to-speech voice. Same wrong answer, tell removed.
-//  2. Keying this guard on the model citing a name in its evidence. That worked until (1)
-//     taught it not to, and it was always fragile: the model only mentions the name sometimes,
-//     and when it does it is often the third item rather than the first.
+// The model already reports which it used, and does so honestly now that nothing in the
+// prompt pressures it to hide (measured today: a text-only Lagos verdict cited "explicitly
+// stated growing up in Lagos" and nothing else; a real Melbourne clip whose speaker SAYS
+// "born in Melbourne" still cited two genuine Australian vowel observations alongside it,
+// and is therefore shown, because the voice backs the words).
 //
-// So the guard reads the TRANSCRIPT instead. The model returns what it heard, and it cannot
-// quietly drop the words the speaker actually said. If someone introduces themselves, that is
-// a fact about the input, not a claim the model gets to withhold.
-// English word boundaries do not exist in Arabic, Devanagari or Chinese script, so those
-// parts are plain substring matches. Covers the deck languages plus German.
-const INTRODUCES_SELF = /\b(my name is|my name's|i'?m called|i am called|they call me|call me|je m'appelle|me llamo|mi nombre es|meu nome [ée]|me chamo|ich hei[ßs]e)\b|اسمي|إسمي|меня зовут|мене звати|मेरा नाम|میرا نام|我叫|我的名字/i;
+// Fabricated acoustic claims are the one thing this cannot see by itself, and they are
+// exactly what the evidence verifier catches on the way to the card (measured 4/4 across
+// two clips: "Slavic vowel qualities" and "rolled Spanish R" both died, true claims lived).
+// The two mechanisms serve the same rule.
+const TOLD_NOT_HEARD = /\b(stated?|states|saying|says|said|mention(s|ed)?|explicitly|self-identif|introduc\w+|claims?|tells? us|their name|name is|named)\b/i;
 
-// A speaker who announces where they grew up gets an answer built from their words, not their
-// voice — measured case: heavy North American English plus "I grew up in Japan" returned
-// Tokyo, with the statement as the first evidence, under a headline that still read "sounds
-// like you grew up around". The inference is defensible (a Tokyo international-school kid
-// sounds exactly like that); the framing is not. The app's one promise is that it listens,
-// so a words-led verdict must say it is one.
-// 'i come from' was in this list and matched "I come from the supermarket just now" — a man
-// stating his errand, flagged as stating his homeland, shown the wrong warning under a
-// forced-wide circle. English uses 'come from' for motion, family and habit far more than
-// for origin; 'I'm from' is the origin idiom, so only that stays.
-const STATES_ORIGIN = /\b(i grew up (in|around|near)|i was (born|raised) (in|and raised)|born and raised in|i'?m from|i am from|je viens de|j'ai grandi [àa]|je suis n[ée]e? [àa]|soy de|crec[íi] en|nac[íi] en|sou de|cresci em|ich (komme|bin) aus|ich bin in .{1,30} aufgewachsen)\b|أنا من|نشأت في|تربيت في|ولدت في|я вырос|я выросла|я из|родом из|मैं .{0,20}से हूं|میں .{0,20}سے ہوں|我来自|我在.{0,12}长大|我是.{0,12}人/i;
-
-
-// Anything the speaker says ABOUT THEMSELVES is a reason to check the voice before
-// trusting the verdict: a name, a claimed origin, or a claim about where they are standing.
-// This used to be a 60-entry list of countries and cities plus an agreement test, which was
-// a doorman guessing at what the expert inside already knows — and it only recognised places
-// I had thought to type in, so 'we're here in Scarborough' or a place named in Tagalog walked
-// straight past it. The judge that hears the voice decides now; this only decides when to ask.
-const PRESENT_LOCATION = /(\b(?:here in|we're in|we are in|i'm in|i am in|back in|stuck in)\s+\S|إحنا في\s*\S|احنا في\s*\S|نحن في\s*\S|أنا في\s*\S|انا في\s*\S|هون في\s*\S|мы в\s*\S|nous sommes à\s*\S|estamos en\s*\S|我在\S|我们在\S)/i;
-
-function saysSomethingAboutSelf(result) {
-  const t = result.transcript || '';
-  if (INTRODUCES_SELF.test(t)) return 'name';
-  if (STATES_ORIGIN.test(t) || result.stated_origin === true) return 'origin';
-  if (PRESENT_LOCATION.test(t)) return 'here';
-  return null;
+function heardSomething(result) {
+  const chips = (Array.isArray(result.evidence) ? result.evidence : []).filter(Boolean);
+  return chips.some((c) => !TOLD_NOT_HEARD.test(String(c)));
 }
 
 // A model can return anything; the map should never be asked to fly to null island.
@@ -318,73 +291,8 @@ export default async function handler(req, res) {
       return res.end(JSON.stringify({ ok: false, error: 'no_speech', detail: raw?.note || 'Could not place that.' }));
     }
 
-    // Say so, rather than quietly presenting a name-derived guess as an accent reading. The
-    // radius widens too, because a guess resting on a name genuinely is less certain than one
-    // resting on 30 seconds of phonology.
-    // Agreement is not causation, and that was the flaw in refusing on a regex match alone.
-    // A Torontonian who says "we're here in Toronto" gets a verdict that agrees with their
-    // words AND with their vowels; withholding it punished a correct read. So when a named
-    // place and the verdict line up, the question is no longer guessed, it is ASKED: a
-    // second model gets the audio and one narrow question, "could this voice have grown up
-    // in <place>?", judged on sound alone. Measured 12/12 on three clips against four
-    // cities each, and it reports what it actually heard ("Egyptian Arabic", "Gulf Arabic").
-    // Only a confident NO means the words carried the answer.
-    async function voiceSupports(place, msLeft) {
-      if (msLeft < 9000 || !parts.some((p) => p.inlineData)) return 'unknown';
-      const SYS = 'You judge ONLY how a voice sounds: pronunciation, vowels, consonants, rhythm, '
-        + 'intonation, and the native-language background you can hear underneath. Ignore the '
-        + 'meaning of the words entirely, including any place the speaker mentions. Answer whether '
-        + 'this voice could plausibly belong to someone who grew up in or near the place asked about.';
-      try {
-        const r = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent', {
-          method: 'POST',
-          headers: { 'x-goog-api-key': process.env.GEMINI_API_KEY, 'content-type': 'application/json' },
-          body: JSON.stringify({
-            systemInstruction: { parts: [{ text: SYS }] },
-            contents: [{ role: 'user', parts: [parts.find((p) => p.inlineData), { text: `Could this voice have grown up in or near ${place}?` }] }],
-            generationConfig: {
-              temperature: 0,
-              responseMimeType: 'application/json',
-              responseSchema: {
-                type: 'object',
-                properties: {
-                  plausible: { type: 'string', enum: ['yes', 'no', 'unclear'] },
-                  heard: { type: 'string' },
-                },
-                required: ['plausible'],
-              },
-            },
-          }),
-          signal: AbortSignal.timeout(Math.min(20000, msLeft - 2000)),
-        });
-        if (!r.ok) return 'unknown';
-        const j = await r.json();
-        const g = JSON.parse(j.candidates?.[0]?.content?.parts?.map((p) => p.text).join('') || '{}');
-        return g.plausible || 'unknown';
-      } catch { return 'unknown'; }
-    }
-
-    // One rule: if you said something about yourself, the voice gets the deciding word.
-    //
-    // A name, a claimed origin, or a claim about where you are standing all mean the verdict
-    // MIGHT be a read of your words rather than your voice. Which one it is was previously
-    // guessed from regexes; it is now asked. Judge two gets the audio and one narrow question
-    // — could this voice have grown up in <place> — measured 12/12 across three clips and
-    // four candidate cities each, reporting what it heard ("Australian English", "Gulf
-    // Arabic"). Only a confident NO means the words carried the answer, and only then is the
-    // verdict withheld. Everything else is shown clean, because the voice is standing behind
-    // it: the Cairene who says اسمي أحمد keeps his card, and so does the Torontonian who
-    // says "we're here in Toronto" and genuinely sounds it.
-    //
-    // Deliberately NOT run on every verdict. Asked of a diaspora voice with no prompting —
-    // Mohammad's own, Levantine sound with a Kuwaiti childhood — judge two would answer
-    // from sound alone and veto a verdict that was right about the upbringing. The trigger
-    // keeps it to cases where contamination is actually possible.
-    const saidSomething = saysSomethingAboutSelf(result);
-    if (saidSomething) {
-      const backs = await voiceSupports(result.place, 56_000 - (Date.now() - t0));
-      if (backs === 'no') result.content_led = 'fed';
-    }
+    // Audio only: type mode has no sound to hear by definition, and its own card says so.
+    if (body.audio && !heardSomething(result)) result.content_led = 'fed';
     return res.end(JSON.stringify({ ok: true, result, fb_token: mintToken() }));
   } catch (err) {
     const code = err.code || 'server_error';
