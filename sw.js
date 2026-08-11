@@ -5,7 +5,7 @@
 // stale cache never wins on a live connection, but the version is what evicts the old entries
 // on activate — leaving it fixed means yesterday's CSS sits in storage forever as the offline
 // fallback. Bumped for the two-mode nav, the serif headlines and the map zoom fix.
-const VERSION = 'ht-v20';
+const VERSION = 'ht-v21';
 const SHELL = [
   '/',
   '/game.html',
@@ -14,6 +14,7 @@ const SHELL = [
   '/js/media.js',
   '/js/clips.js',
   '/js/game.js',
+  '/js/world.js',
   '/js/app.js',
   '/js/places.js',
   '/manifest.webmanifest',
@@ -41,13 +42,22 @@ self.addEventListener('fetch', (e) => {
   if (url.pathname.startsWith('/clips/')) return;         // audio streams with range requests
 
   // Network first so a deploy lands immediately; cache is the offline fallback.
+  // Only healthy responses are cached — a 500 stored here once would replay as the offline
+  // copy forever. And the index fallback is for NAVIGATIONS only: serving index.html bytes
+  // to a failed script or CSS request produces far stranger breakage than a plain failure.
   e.respondWith(
     fetch(e.request)
       .then((res) => {
-        const copy = res.clone();
-        caches.open(VERSION).then((c) => c.put(e.request, copy));
+        if (res.ok) {
+          const copy = res.clone();
+          caches.open(VERSION).then((c) => c.put(e.request, copy));
+        }
         return res;
       })
-      .catch(() => caches.match(e.request).then((hit) => hit || caches.match('/'))),
+      .catch(() => caches.match(e.request).then((hit) => {
+        if (hit) return hit;
+        if (e.request.mode === 'navigate') return caches.match('/');
+        return Response.error();
+      })),
   );
 });

@@ -13,6 +13,8 @@
 // "unclear" keeps it. A word-quote chip whose quoted word appears in the transcript is
 // auto-kept without any model call. Over-pruning real evidence would be its own dishonesty.
 
+import { tokenAge } from './feedback.js';
+
 const VERIFY_MODEL = 'gemini-3.5-flash';
 const AUDIO_MIME = new Set(['audio/webm', 'audio/mp4', 'audio/mpeg', 'audio/ogg', 'audio/wav']);
 const MAX_CLIP_BYTES = 15 * 1024 * 1024;
@@ -152,6 +154,14 @@ export default async function handler(req, res) {
   }
   try {
     const b = await readJsonBody(req);
+    // Each request fires two Gemini audio calls, so it must cost the caller a real analyze
+    // first: the token minted by /api/analyze proves one happened within the last 2 hours.
+    // Without this, a script could burn the balance at zero cost to itself.
+    const age = tokenAge(String(b.token || ''));
+    if (age === null || age > 7_200_000) {
+      res.statusCode = 403;
+      return res.end(JSON.stringify({ ok: false, error: 'invalid_token' }));
+    }
     const mime = String(b.mime || '').split(';')[0].trim();
     const evidence = (Array.isArray(b.evidence) ? b.evidence : []).slice(0, 5).map((e) => String(e).slice(0, 200));
     const audioBytes = typeof b.audio === 'string' ? Buffer.byteLength(b.audio, 'base64') : 0;

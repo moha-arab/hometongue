@@ -255,7 +255,9 @@ export default async function handler(req, res) {
     res.statusCode = 403;
     return res.end(JSON.stringify({ ok: false, error: 'bad_origin' }));
   }
-  const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'unknown';
+  // x-real-ip is platform-set; the leftmost x-forwarded-for entry is client-writable and
+  // let a scripted client rotate identities past the limiter (same fix clip-report shipped with)
+  const ip = (req.headers['x-real-ip'] || (req.headers['x-forwarded-for'] || '').split(',')[0]).trim() || 'unknown';
   if (rateLimited(ip)) {
     res.statusCode = 429;
     return res.end(JSON.stringify({ ok: false, error: 'rate_limited', detail: 'Slow down a little — try again in a bit.' }));

@@ -675,7 +675,7 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 
 /* the analyzing wait: ~12s median, ~29s p90, so it needs to look alive */
 .scan-note { font-family: 'IBM Plex Mono', monospace; font-size: .72rem; letter-spacing: .02em;
-  color: var(--ink-soft, #6b7570); margin-top: .35rem; opacity: .85; }
+  color: var(--grey); margin-top: .35rem; opacity: .85; }
 .scan-note b { font-weight: 500; opacity: .6; }
 
 /* ——— how much accuracy the recording has earned so far ——— */

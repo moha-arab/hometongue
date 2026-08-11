@@ -286,10 +286,17 @@ function pickMime() {
   return ''; // let the browser pick its default
 }
 
+// One take, one handling. onRecordingReady can be reached three ways — the normal stop, a
+// SPONTANEOUS recorder stop (iOS phone call, Siri, another app grabbing the mic), and the
+// recorder-already-inactive fallback in stopListening — and two of them can fire for the
+// same take. The fence makes whichever arrives first the only one that counts.
+let takeHandled = false;
+
 async function startListening() {
   if (state === 'listening' || state === 'analyzing' || state === 'starting') return; // double-tap guard
   state = 'starting';
   window._lastAudio = null;
+  takeHandled = false;
   micPeak = -1; micFrames = 0; micVoiced = 0;
   const mime = pickMime();
   if (mime === null || !navigator.mediaDevices?.getUserMedia) {
@@ -313,7 +320,14 @@ async function startListening() {
   startMeter(mediaStream);
   startTimer();
 
-  recorder = new MediaRecorder(mediaStream, mime ? { mimeType: mime } : undefined);
+  try {
+    recorder = new MediaRecorder(mediaStream, mime ? { mimeType: mime } : undefined);
+  } catch {
+    stopTimer(); stopMeter(); teardownRecording();
+    state = 'idle'; show('idleCard');
+    toast('Recording failed to start on this browser. Try again, or type instead.');
+    return;
+  }
   recorder.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
   recorder.onstop = onRecordingReady;
   recorder.start(500);
@@ -368,6 +382,17 @@ function teardownRecording() {
 }
 
 async function onRecordingReady() {
+  if (takeHandled) return;
+  takeHandled = true;
+  // A spontaneous stop (phone call, Siri, the OS reclaiming the mic) arrives here while
+  // state is still 'listening', with the countdown and meter still running and the live
+  // card still up. Clean up and analyze whatever was captured — a take interrupted at 20
+  // seconds is still a take; the blob-size gate below catches the ones that aren't.
+  if (state === 'listening') {
+    stopTimer(); stopMeter();
+    state = 'analyzing';
+    show('analyzingCard'); startScan();
+  }
   const blob = new Blob(chunks, { type: recMime || 'audio/webm' });
   const mimeUsed = (recorder && recorder.mimeType) || recMime || 'audio/webm';
   teardownRecording();
@@ -415,11 +440,24 @@ const ERRORS = {
 };
 
 async function postAnalyze(payload) {
-  const resp = await fetch('/api/analyze', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  });
+  // 75s outlasts the server's own 60s ceiling, so every legitimate slow answer arrives —
+  // but a stalled mobile connection can otherwise hang this fetch for minutes with the
+  // analyzing card holding the whole UI hostage (it has no buttons by design). The timeout
+  // is the escape hatch.
+  let resp;
+  try {
+    resp = await fetch('/api/analyze', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(75_000),
+    });
+  } catch (e) {
+    if (e && (e.name === 'TimeoutError' || e.name === 'AbortError')) {
+      throw Object.assign(new Error('timeout'), { userMessage: 'That took too long — the network or the model stalled.' });
+    }
+    throw e;
+  }
   const data = await resp.json().catch(() => null);
   if (!resp.ok || !data || !data.ok) {
     const err = new Error((data && data.error) || `http_${resp.status}`);
@@ -440,7 +478,9 @@ function runTextAnalysis(text, typed) {
   window._lastAudio = null;
   if (normText(text).length < 8) {
     toast('I barely got anything. Give me a sentence or two.');
-    state = 'idle';
+    // 'type', not 'idle', while the type card stays up — 'idle' here armed the
+    // stale-tab reload guard against someone mid-typing
+    state = typed ? 'type' : 'idle';
     show(typed ? 'typeCard' : 'idleCard');
     return;
   }
@@ -493,6 +533,13 @@ function normalizeServer(resp) {
 function renderResult(v) {
   state = 'result';
   show('resultCard');
+  // Every render gets a generation number. The verify-evidence response and the donate
+  // upload both resolve long after this function returns, and both used to mutate whatever
+  // result happened to be on screen by then — stale verdicts deleting a NEWER result's
+  // chips, a stale donate success painting 'donated' over a clip that never uploaded. Any
+  // async landing checks its generation first; stale generations touch nothing.
+  window._renderGen = (window._renderGen || 0) + 1;
+  const gen = window._renderGen;
   // fresh results peek on phones so the map — the best part of the answer — stays visible
   $('#resultCard').classList.toggle('peek', matchMedia('(max-width: 939px)').matches);
   $('#fbFix').hidden = true;
@@ -615,8 +662,11 @@ function renderResult(v) {
       body: JSON.stringify({
         audio: window._lastAudio.audio, mime: window._lastAudio.mime,
         evidence: v.evidence, transcript: v.transcript || '',
+        token: window._fbToken || '',
       }),
+      signal: AbortSignal.timeout(60_000),
     }).then((r) => r.json()).then((j) => {
+      if (gen !== window._renderGen) return; // a newer result owns the screen now
       if (!j || !j.ok || !Array.isArray(j.verdicts)) return;
       [...evidence.children].forEach((el, i) => {
         if (j.verdicts[i] === 'drop') {
@@ -680,20 +730,25 @@ function saveFeedback(correct, actual, actualCity) {
     return;
   }
 
-  // local log (works offline, always)
-  const log = JSON.parse(localStorage.getItem('hometongue_feedback') || '[]');
-  log.push({ ts: Date.now(), correct, actual, actualCity, guess: last.place || '', km_radius: last.radius_km || 0, transcript: last.transcript || '' });
-  localStorage.setItem('hometongue_feedback', JSON.stringify(log));
+  // local log (works offline, always; private-mode Safari throws on setItem — the server
+  // post must not die with it)
+  try {
+    const log = JSON.parse(localStorage.getItem('hometongue_feedback') || '[]');
+    log.push({ ts: Date.now(), correct, actual, actualCity, guess: last.place || '', km_radius: last.radius_km || 0, transcript: last.transcript || '' });
+    localStorage.setItem('hometongue_feedback', JSON.stringify(log));
+  } catch { /* storage full or blocked — the server post below still counts */ }
 
-  // flywheel: fire-and-forget to the server
+  // flywheel: fire-and-forget to the server. guess_city carries the verdict place string;
+  // guess_code stays for genuine ISO codes only (the old payload sent the place STRING as
+  // guess_code and read last.city/last.regionKey, fields the view-model never set — every
+  // row landed with null guess and empty region).
   const payload = {
     correct,
     actual_code: actual || '',
     actual_city: actualCity || '',
-    guess_code: last.place || '',
-    guess_city: last.city || '',
-    region: last.regionKey || '',
-    confidence: last.conf || 0,
+    guess_city: last.place || '',
+    region: last.region || '',
+    confidence: last.confidence || 0,
     transcript: last.transcript || '',
     source: last.source || 'cloud',
     platform: detectPlatform(),
@@ -772,6 +827,10 @@ function bindUI() {
       toast('That recording is no longer in memory — do a fresh take and press donate right after.');
       return;
     }
+    // Snapshot the generation: if a new result renders while this upload is in flight, the
+    // upload still completes for the OLD clip, but none of its outcomes may touch the new
+    // card's button or the donated flag.
+    const gen = window._renderGen;
     db.disabled = true; db.textContent = 'donating…';
     try {
       const last = window._lastResult;
@@ -783,18 +842,22 @@ function bindUI() {
           audio: window._lastAudio.audio,
           mime: window._lastAudio.mime,
           token: window._fbToken || '',
-          guess_code: last.place || '',
+          guess_city: last.place || '',
+          region: last.region || '',
           transcript: last.transcript || '',
-          confidence: last.conf || 0,
+          confidence: last.confidence || 0,
           source: last.source || 'cloud',
           platform: detectPlatform(),
         }),
+        signal: AbortSignal.timeout(45_000),
       });
       const j = await r.json().catch(() => null);
       if (!r.ok || !j || !j.ok) throw new Error('upload failed');
+      if (gen !== window._renderGen) return;
       window._donated = true;
       db.classList.add('done'); db.textContent = 'donated ✓ thank you';
     } catch {
+      if (gen !== window._renderGen) return;
       db.disabled = false; db.textContent = 'donate this clip';
       toast('The donation didn’t go through — try the button again.');
     }

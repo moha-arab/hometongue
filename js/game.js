@@ -133,7 +133,13 @@ function startGame(type) {
   deck = dealDeck(pool);
   round = 0; total = 0; roundLog = [];
   gameToken = null;
-  fetch('/api/scores?start=1').then((r) => r.json()).then((d) => { gameToken = d.token || null; }).catch(() => {});
+  // One dropped fetch here used to make the whole game unpostable (the server needs a token
+  // aged >=75s, so re-minting at submit time is always 'too fast'). Three spaced attempts:
+  // a mint that lands even 30s into a game is old enough by the time anyone finishes.
+  const mint = (attempt) => fetch('/api/scores?start=1')
+    .then((r) => r.json()).then((d) => { gameToken = d.token || null; if (!gameToken) throw new Error('no token'); })
+    .catch(() => { if (attempt < 3) setTimeout(() => mint(attempt + 1), attempt * 12_000 + 3_000); });
+  mint(1);
   warmDeck();
   nextRound();
 }
@@ -190,6 +196,8 @@ function nextRound() {
   budgetLeft = LISTEN_BUDGET_S;
   playing = false;
   lastTickT = 0;
+  clipSwaps = 0;
+  advanceLock = false;
   $('#roundNum').textContent = `Round ${round + 1}/${ROUNDS}`;
   $('#scoreSoFar').textContent = `${total.toLocaleString()} pts`;
   $('#listens').textContent = fmtBudget();
@@ -242,10 +250,18 @@ function playClip() {
     playing = false;
     if (e && e.name === 'NotAllowedError') {
       toast('Tap ▶ once more to start the sound.');
-    } else {
+    } else if (clipSwaps < 2) {
+      // The swap used to replace the deck entry and clear the player — and stop there, so
+      // the play button was dead for the rest of the round. Load the replacement and play
+      // it; two swaps per round at most, so a broken pool can't loop forever.
+      clipSwaps += 1;
       toast('That clip refused to play — swapping it for you.');
       deck[round] = replacementClip();
       media.clear();
+      media.load(deck[round]);
+      setTimeout(() => playClip(), 400);
+    } else {
+      toast('The audio is stuck this round — lock a guess or skip ahead.');
     }
   });
 }
@@ -466,6 +482,10 @@ function renderSource(src = {}, year) {
 }
 
 function advance() {
+  // a doubled 'next clip' tap used to skip a round outright, and the 4-round final then
+  // failed the server's sum check — the lock opens again when nextRound resets it
+  if (advanceLock) return;
+  advanceLock = true;
   round += 1;
   if (round < ROUNDS) return nextRound();
   finishGame();
@@ -651,8 +671,14 @@ $('#flagNote').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.p
 // scores says so instead of rendering an empty box.
 let boardDeck = null;
 
+let clipSwaps = 0;
+let advanceLock = false;
+let boardsGen = 0;
+
 async function showBoards(deckKey) {
   boardDeck = deckKey || boardDeck || 'arabic';
+  if (playing) media.pause(); // jumping to boards mid-round must not leave a voice talking
+  const gen = ++boardsGen;    // slow fetch for a previous tab must not paint this one
   setView('boards');
   const tabs = $('#boardTabs');
   tabs.innerHTML = '';
@@ -668,6 +694,7 @@ async function showBoards(deckKey) {
   $('#boardsEmpty').hidden = true;
   try {
     const d = await (await fetch(`/api/scores?game_type=${boardDeck}`)).json();
+    if (gen !== boardsGen) return; // user already switched tabs; this response is history
     const rows = (d.ok && d.top) || [];
     if (!rows.length) { $('#boardsEmpty').hidden = false; return; }
     for (const row of rows) {
@@ -676,6 +703,7 @@ async function showBoards(deckKey) {
       ol.appendChild(li);
     }
   } catch {
+    if (gen !== boardsGen) return;
     $('#boardsEmpty').hidden = false;
     $('#boardsEmpty').textContent = "couldn't reach the leaderboard. try again in a moment.";
   }
