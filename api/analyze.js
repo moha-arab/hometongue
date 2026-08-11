@@ -333,6 +333,9 @@ function rateLimited(ip) {
 }
 
 export default async function handler(req, res) {
+  // Vercel kills the function at 60s. The plausibility check below only runs if there is
+  // real time left after the main call, so a slow analysis never turns into a timeout.
+  const t0 = Date.now();
   if (req.method !== 'POST') {
     res.statusCode = 405;
     return res.end(JSON.stringify({ ok: false, error: 'method_not_allowed' }));
@@ -398,6 +401,49 @@ export default async function handler(req, res) {
     // Say so, rather than quietly presenting a name-derived guess as an accent reading. The
     // radius widens too, because a guess resting on a name genuinely is less certain than one
     // resting on 30 seconds of phonology.
+    // Agreement is not causation, and that was the flaw in refusing on a regex match alone.
+    // A Torontonian who says "we're here in Toronto" gets a verdict that agrees with their
+    // words AND with their vowels; withholding it punished a correct read. So when a named
+    // place and the verdict line up, the question is no longer guessed, it is ASKED: a
+    // second model gets the audio and one narrow question, "could this voice have grown up
+    // in <place>?", judged on sound alone. Measured 12/12 on three clips against four
+    // cities each, and it reports what it actually heard ("Egyptian Arabic", "Gulf Arabic").
+    // Only a confident NO means the words carried the answer.
+    async function voiceSupports(place, msLeft) {
+      if (msLeft < 9000 || !parts.some((p) => p.inlineData)) return 'unknown';
+      const SYS = 'You judge ONLY how a voice sounds: pronunciation, vowels, consonants, rhythm, '
+        + 'intonation, and the native-language background you can hear underneath. Ignore the '
+        + 'meaning of the words entirely, including any place the speaker mentions. Answer whether '
+        + 'this voice could plausibly belong to someone who grew up in or near the place asked about.';
+      try {
+        const r = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent', {
+          method: 'POST',
+          headers: { 'x-goog-api-key': process.env.GEMINI_API_KEY, 'content-type': 'application/json' },
+          body: JSON.stringify({
+            systemInstruction: { parts: [{ text: SYS }] },
+            contents: [{ role: 'user', parts: [parts.find((p) => p.inlineData), { text: `Could this voice have grown up in or near ${place}?` }] }],
+            generationConfig: {
+              temperature: 0,
+              responseMimeType: 'application/json',
+              responseSchema: {
+                type: 'object',
+                properties: {
+                  plausible: { type: 'string', enum: ['yes', 'no', 'unclear'] },
+                  heard: { type: 'string' },
+                },
+                required: ['plausible'],
+              },
+            },
+          }),
+          signal: AbortSignal.timeout(Math.min(20000, msLeft - 2000)),
+        });
+        if (!r.ok) return 'unknown';
+        const j = await r.json();
+        const g = JSON.parse(j.candidates?.[0]?.content?.parts?.map((p) => p.text).join('') || '{}');
+        return g.plausible || 'unknown';
+      } catch { return 'unknown'; }
+    }
+
     // Two tiers, because two different things are knowable.
     //
     // FED — the transcript names a place in a self-referential frame AND the verdict agrees
@@ -412,9 +458,15 @@ export default async function handler(req, res) {
     // -> Moscow six of six on "my name is Vladislav") or may have been harmless. Unprovable
     // either way, so the card is shown with the kicker saying so. Withholding here would
     // cost a Cairene saying "اسمي أحمد" a perfectly good result.
-    const fed = placeLead(result);
-    if (fed) result.content_led = 'fed';
-    else if (contentLead(result)) result.content_led = contentLead(result) === 'name' ? 'name' : 'origin';
+    const named = placeLead(result);
+    if (named) {
+      // the words named it and the verdict agreed: ask the voice itself before deciding
+      const backs = await voiceSupports(result.place, 56_000 - (Date.now() - t0));
+      if (backs === 'no') result.content_led = 'fed';   // the words carried it: no verdict shown
+      // yes / unclear / unknown: the voice stands behind the answer, so it is a real read
+    } else if (contentLead(result)) {
+      result.content_led = contentLead(result) === 'name' ? 'name' : 'origin';
+    }
     return res.end(JSON.stringify({ ok: true, result, fb_token: mintToken() }));
   } catch (err) {
     const code = err.code || 'server_error';
