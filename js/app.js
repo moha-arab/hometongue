@@ -763,6 +763,81 @@ function fitText(c, text, maxWidth, startPx, font) {
   return px;
 }
 
+// The map block: the zone this voice actually got, drawn over real coastlines.
+// js/world.js holds the Natural Earth 110m outline as one SVG path in a 52x30
+// equirectangular box, so lng/lat project into it directly and Path2D does the rest.
+function drawShareMap(c, v, x, y, w, h) {
+  const lngX = (lng) => ((lng + 180) / 360) * 52;
+  const latY = (lat) => ((90 - lat) / 180) * 30;
+  const zone = Array.isArray(v.zone) && v.zone.length >= 3 ? v.zone : null;
+  const rKm = Math.max(40, v.radius_km || 300);
+  // frame: the zone's own bounds, or the circle's, padded — and never so tight that the
+  // coastline turns into abstract noise, because recognising the coast IS the map's job
+  let minLat, maxLat, minLng, maxLng;
+  if (zone) {
+    minLat = Math.min(...zone.map((p) => p[0])); maxLat = Math.max(...zone.map((p) => p[0]));
+    minLng = Math.min(...zone.map((p) => p[1])); maxLng = Math.max(...zone.map((p) => p[1]));
+  } else {
+    const dLat = rKm / 111, dLng = rKm / (111 * Math.max(0.2, Math.cos(v.lat * Math.PI / 180)));
+    minLat = v.lat - dLat; maxLat = v.lat + dLat; minLng = v.lng - dLng; maxLng = v.lng + dLng;
+  }
+  const cLat = (minLat + maxLat) / 2, cLng = (minLng + maxLng) / 2;
+  const spanLat = Math.max(maxLat - minLat, 9) * 1.9;
+  const spanLng = Math.max(maxLng - minLng, 12) * 1.9;
+  const x0 = lngX(cLng - spanLng / 2), x1 = lngX(cLng + spanLng / 2);
+  const y0 = latY(cLat + spanLat / 2), y1 = latY(cLat - spanLat / 2);
+  const s = Math.min(w / (x1 - x0), h / (y1 - y0));
+  const offX = x + (w - (x1 - x0) * s) / 2, offY = y + (h - (y1 - y0) * s) / 2;
+  const P = (lat, lng) => [offX + (lngX(lng) - x0) * s, offY + (latY(lat) - y0) * s];
+
+  c.save();
+  roundRect(c, x, y, w, h, 22);
+  c.clip();
+  c.fillStyle = '#D9E6E9';                       // water
+  c.fillRect(x, y, w, h);
+  c.save();
+  c.translate(offX, offY);
+  c.scale(s, s);
+  c.translate(-x0, -y0);
+  const land = new Path2D(window.HT_WORLD);
+  c.fillStyle = '#F1EDE4';                       // land
+  c.fill(land);
+  c.strokeStyle = 'rgba(27,28,25,0.28)';
+  c.lineWidth = 0.9 / s;
+  c.stroke(land);
+  c.restore();
+
+  // the answer itself
+  c.beginPath();
+  if (zone) {
+    zone.forEach((p, i) => { const [px, py] = P(p[0], p[1]); if (i) c.lineTo(px, py); else c.moveTo(px, py); });
+    c.closePath();
+  } else {
+    const [cx, cy] = P(v.lat, v.lng);
+    const [ex] = P(v.lat, v.lng + rKm / (111 * Math.max(0.2, Math.cos(v.lat * Math.PI / 180))));
+    const [, ey] = P(v.lat + rKm / 111, v.lng);
+    c.ellipse(cx, cy, Math.abs(ex - cx), Math.abs(ey - cy), 0, 0, Math.PI * 2);
+  }
+  c.fillStyle = 'rgba(42,107,96,0.20)';
+  c.fill();
+  c.strokeStyle = '#2A6B60';
+  c.lineWidth = 3;
+  c.stroke();
+
+  const [px, py] = P(v.lat, v.lng);
+  c.beginPath(); c.arc(px, py, 26, 0, Math.PI * 2);
+  c.fillStyle = 'rgba(184,134,47,0.25)'; c.fill();
+  c.beginPath(); c.arc(px, py, 11, 0, Math.PI * 2);
+  c.fillStyle = '#B8862F'; c.fill();
+  c.strokeStyle = '#FCFBF8'; c.lineWidth = 3.5; c.stroke();
+  c.restore();
+
+  c.strokeStyle = '#DEDAD1';
+  c.lineWidth = 2;
+  roundRect(c, x, y, w, h, 22);
+  c.stroke();
+}
+
 // Draws the whole card at a vertical offset and returns the canvas plus the y it ended at.
 // Called twice by buildShareCanvas: once to learn the height, once to draw it centred.
 function paintShare(v, dy) {
@@ -804,7 +879,14 @@ function paintShare(v, dy) {
     c.fillText('somewhere in ' + v.region, M, y);
   }
 
-  y += 118;
+  // The map is the hero of the card — the actual shape the app drew for this voice, over
+  // real coastlines (Natural Earth, already baked into js/world.js for the deck thumbnails).
+  // Tiles can't be used: a cross-origin tile taints the canvas and blocks toBlob entirely.
+  y += 44;
+  drawShareMap(c, v, M, y, SHARE_W - M * 2, 540);
+  y += 540;
+
+  y += 96;
   const r = v.radius_km || 300;
   const rTxt = '±' + (r >= 1000 ? `${(r / 1000).toFixed(1)}k` : r);
   c.fillStyle = '#2A6B60';
@@ -861,7 +943,7 @@ function paintShare(v, dy) {
   }
 
   // up to two evidence lines: the "how did it KNOW that" moment
-  const evs = (Array.isArray(v.evidence) ? v.evidence : []).filter(Boolean).slice(0, 2);
+  const evs = (Array.isArray(v.evidence) ? v.evidence : []).filter(Boolean).slice(0, 1);
   for (const ev of evs) {
     y += 40;
     c.fillStyle = '#E4EDEA';
