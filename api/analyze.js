@@ -47,23 +47,23 @@ const BUDGET_MS = 50_000;
 // our key, our credit or our audio. Without a fallback that is the whole app down, and the
 // one moment it cannot afford to be down is the hour a video lands.
 //
-// 3.5-flash is the right understudy because it is already measured, not guessed: 68 km
-// median against 3.6's 53 km on the same 88 clips. A slightly wider answer that exists
-// beats a perfect answer that does not.
-const MODEL_CHAIN = [MODEL, 'gemini-3.5-flash'];
+// The two are a measured tie on accuracy (see the paired numbers in prompt.js), so this is
+// purely a redundancy chain, not a quality ladder: whichever answers first is fine. An
+// answer that exists beats a marginally different answer that does not.
+const MODEL_CHAIN = [MODEL, 'gemini-3.6-flash'];
 
 async function locate(parts) {
   const key = process.env.GEMINI_API_KEY;
   if (!key) throw Object.assign(new Error('GEMINI_API_KEY not set'), { code: 'not_configured' });
 
-  // SIX attempts, not three. The transient 400 documented above is not rare any more: on
-  // 2026-08-11 a run of audio analyses failed 7 of 8 times through production while the
-  // IDENTICAL payload returned 200 on the first try from a laptop, and a request that
+  // FOUR attempts per model, not three. The transient 400 documented above is not rare any
+  // more: on 2026-08-11 a run of audio analyses failed 7 of 8 times through production while
+  // the IDENTICAL payload returned 200 on the first try from a laptop, and a request that
   // failed three times in a row succeeded on the next one a minute later. Each rejection
-  // costs about a second, so three attempts were spending seven seconds to conclude
-  // nothing; six fit comfortably inside the same 50s budget and turn a coin-flip into a
-  // near-certainty. If the per-attempt rejection rate is 70%, three attempts fail 34% of
-  // the time and six fail 12%; at 50% it goes from 12% to 1.5%.
+  // costs about a second, so three attempts were spending seven seconds to conclude nothing.
+  // Four per model across a two-model chain is eight chances inside one 50s budget, which is
+  // where the real redundancy comes from — a model having a bad hour is answered by trying a
+  // different model, not by asking the sick one more insistently.
   const MAX_ATTEMPTS = 4;
   let lastRefusal = '';
   const deadline = Date.now() + BUDGET_MS;
@@ -238,7 +238,6 @@ function sane(r) {
     confidence: Math.min(100, Math.max(0, Math.round(r.confidence || 0))),
     evidence: (Array.isArray(r.evidence) ? r.evidence : []).slice(0, 5).map((e) => String(e).slice(0, 200)),
     transcript: String(r.transcript || '').slice(0, 4000),
-    stated_origin: r.stated_origin === true,
     // Measured on 25 clips: populated every time, blends sane (Bronx 80 / Puerto Rico 20) —
     // except one degenerate item whose `place` was ~3000 repeated '0's with the real text
     // buried at the end. Length caps alone would ship 80 zeros to the screen, so an item is
@@ -281,9 +280,16 @@ function rateLimited(ip) {
 const DAILY_CAP = Number(process.env.DAILY_ANALYSES || 20000);
 const SB = () => ({ url: process.env.SUPABASE_URL, key: process.env.SUPABASE_SERVICE_KEY });
 
+// Cached per instance for 30 seconds. This used to run on the critical path of EVERY
+// analysis, before any work began: a Supabase round trip, up to 2.5s, added to every single
+// user's wait so the app could re-learn a number that moves by one per analysis. A wallet
+// guard is a ceiling on a bad day, not an accounting ledger, so being up to 30 seconds stale
+// is exactly as protective. Worst case is 30 seconds of traffic slipping past a 20,000 cap.
+let capCache = { at: 0, over: false };
 async function overDailyCap() {
   const { url, key } = SB();
   if (!url || !key || !Number.isFinite(DAILY_CAP) || DAILY_CAP <= 0) return false;
+  if (capCache.at && Date.now() - capCache.at < 30_000) return capCache.over;
   const since = `${new Date().toISOString().slice(0, 10)}T00:00:00Z`;
   try {
     const r = await fetch(`${url}/rest/v1/usage?select=id&ts=gte.${since}`, {
@@ -294,7 +300,9 @@ async function overDailyCap() {
     });
     if (!r.ok) return false;   // no table yet, or a blip: never take the app down over this
     const total = Number((r.headers.get('content-range') || '').split('/')[1]);
-    return Number.isFinite(total) && total >= DAILY_CAP;
+    const over = Number.isFinite(total) && total >= DAILY_CAP;
+    capCache = { at: Date.now(), over };
+    return over;
   } catch { return false; }
 }
 
@@ -380,17 +388,26 @@ export default async function handler(req, res) {
       return res.end(JSON.stringify({ ok: false, error: 'no_speech', detail: 'No usable speech detected.' }));
     }
 
+    // Started HERE rather than after the answer, so the bookkeeping round trip overlaps the
+    // model call instead of being added to the end of every user's wait. It is still awaited
+    // before responding — Vercel freezes the invocation the instant the response is written,
+    // and an un-awaited insert measurably never landed, leaving a cap that counted nothing.
+    // Awaited on the refusal paths too: those spent a model call and the wallet should know.
+    const counted = countAnalysis();
+
     const raw = await locate(parts);
     // A silent file once came back as Toronto at 75% with invented phonetic evidence. If the
     // model says there is no speech, believe it rather than rendering a fabricated pin.
     if (raw && raw.has_speech === false) {
       res.statusCode = 422;
+      await counted;
       return res.end(JSON.stringify({ ok: false, error: 'no_speech', detail: raw.note || 'No speech detected.' }));
     }
     const result = sane(raw);
     if (!result) {
       // No coordinate now means the model declined, not that the call broke.
       res.statusCode = 422;
+      await counted;
       return res.end(JSON.stringify({ ok: false, error: 'no_speech', detail: raw?.note || 'Could not place that.' }));
     }
 
@@ -417,7 +434,7 @@ export default async function handler(req, res) {
     }
     // Audio only: type mode has no sound to hear by definition, and its own card says so.
     if (body.audio && !heardSomething(result)) result.content_led = 'fed';
-    await countAnalysis();
+    await counted;
     return res.end(JSON.stringify({ ok: true, result, fb_token: mintToken() }));
   } catch (err) {
     const code = err.code || 'server_error';

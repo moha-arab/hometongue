@@ -1,46 +1,25 @@
-// HomeTongue — /api/verify-evidence
+// HomeTongue — evidence verification
 //
 // The evidence chips are the model narrating a verdict it already committed to, and the
 // narration can lie: a card once claimed Mohammad pronounces قاعد with a hard G (the
 // Jordanian shibboleth) when seven narrow-question listens across two models heard his
 // actual glottal stop. Open verdict+evidence confabulates; a single narrow question about
-// the same audio stays honest. So after the card renders, the client sends the audio back
-// with the chips, and this endpoint re-asks each acoustic claim as its own narrow question —
-// put to gemini-3.5-flash, a DIFFERENT model from the one that wrote the chips, so the
-// witness has no story to defend. Chips that fail fade off the card.
+// the same audio stays honest. So every acoustic claim is re-asked as its own narrow
+// question — put to gemini-3.5-flash, a DIFFERENT model from the one that wrote the chips,
+// so the witness has no story to defend. Chips that fail never reach the card.
 //
 // Pruning rules are deliberately conservative: only a confident "false" drops a chip;
 // "unclear" keeps it. A word-quote chip whose quoted word appears in the transcript is
 // auto-kept without any model call. Over-pruning real evidence would be its own dishonesty.
-
-import { tokenAge } from './feedback.js';
+//
+// THIS FILE IS A MODULE, NOT A ROUTE. It used to also export a request handler, so /api/
+// verify-evidence was a live public endpoint that fired paid audio calls — and nothing
+// called it. The client stopped using it when verification moved server-side into the
+// analyze call, and the endpoint was simply left standing: reachable, billable, and serving
+// nobody. Removed. (api/prompt.js is a module in this directory too, so this shape is
+// already proven in deployment.)
 
 const VERIFY_MODEL = 'gemini-3.5-flash';
-const AUDIO_MIME = new Set(['audio/webm', 'audio/mp4', 'audio/mpeg', 'audio/ogg', 'audio/wav']);
-const MAX_CLIP_BYTES = 15 * 1024 * 1024;
-
-const buckets = new Map();
-function rateLimited(ip) {
-  const now = Date.now();
-  const b = buckets.get(ip) || { count: 0, reset: now + 3600_000 };
-  if (now > b.reset) { b.count = 0; b.reset = now + 3600_000; }
-  b.count += 1;
-  buckets.set(ip, b);
-  if (buckets.size > 5000) buckets.clear();
-  return b.count > 30;
-}
-
-function readJsonBody(req) {
-  if (req.body !== undefined && req.body !== null) {
-    return typeof req.body === 'string' ? Promise.resolve(JSON.parse(req.body)) : Promise.resolve(req.body);
-  }
-  return new Promise((resolve, reject) => {
-    let data = '';
-    req.on('data', (c) => { data += c; if (data.length > 22 * 1024 * 1024) { req.destroy(); reject(new Error('too_large')); } });
-    req.on('end', () => { try { resolve(JSON.parse(data || '{}')); } catch (e) { reject(e); } });
-    req.on('error', reject);
-  });
-}
 
 // A chip that only quotes vocabulary is checkable for free: if every quoted Arabic word or
 // latin-quoted term appears in the transcript, and the chip makes no claim about HOW a
@@ -122,56 +101,4 @@ answer unclear.`;
     if (idx !== undefined && v.holds === 'false') results[idx] = 'drop';
   }
   return results;
-}
-
-export default async function handler(req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  if (req.method !== 'POST') {
-    res.statusCode = 405;
-    return res.end(JSON.stringify({ ok: false, error: 'method_not_allowed' }));
-  }
-  const origin = req.headers.origin || '';
-  const host = req.headers['x-forwarded-host'] || req.headers.host || '';
-  let originHost = '';
-  try { originHost = origin ? new URL(origin).host : ''; } catch { /* malformed */ }
-  if (!originHost || originHost !== host) {
-    res.statusCode = 403;
-    return res.end(JSON.stringify({ ok: false, error: 'bad_origin' }));
-  }
-  const ip = (req.headers['x-real-ip'] || (req.headers['x-forwarded-for'] || '').split(',')[0]).trim() || 'unknown';
-  if (rateLimited(ip)) {
-    res.statusCode = 429;
-    return res.end(JSON.stringify({ ok: false, error: 'rate_limited' }));
-  }
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    res.statusCode = 503;
-    return res.end(JSON.stringify({ ok: false, error: 'not_configured' }));
-  }
-  try {
-    const b = await readJsonBody(req);
-    // Each request fires two Gemini audio calls, so it must cost the caller a real analyze
-    // first: the token minted by /api/analyze proves one happened within the last 2 hours.
-    // Without this, a script could burn the balance at zero cost to itself.
-    const age = tokenAge(String(b.token || ''));
-    if (age === null || age > 7_200_000) {
-      res.statusCode = 403;
-      return res.end(JSON.stringify({ ok: false, error: 'invalid_token' }));
-    }
-    const mime = String(b.mime || '').split(';')[0].trim();
-    const evidence = (Array.isArray(b.evidence) ? b.evidence : []).slice(0, 5).map((e) => String(e).slice(0, 200));
-    const audioBytes = typeof b.audio === 'string' ? Buffer.byteLength(b.audio, 'base64') : 0;
-    if (!evidence.length || !AUDIO_MIME.has(mime) || audioBytes < 1000 || audioBytes > MAX_CLIP_BYTES) {
-      res.statusCode = 422;
-      return res.end(JSON.stringify({ ok: false, error: 'invalid_request' }));
-    }
-    const verdicts = await verifyEvidence({
-      audio: b.audio, mime, evidence,
-      transcript: String(b.transcript || '').slice(0, 4000), apiKey,
-    });
-    return res.end(JSON.stringify({ ok: true, verdicts }));
-  } catch {
-    res.statusCode = 500;
-    return res.end(JSON.stringify({ ok: false, error: 'server_error' }));
-  }
 }

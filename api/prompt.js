@@ -84,7 +84,6 @@ export const SCHEMA = {
       items: { type: 'string' },
     },
     transcript: { type: 'string', description: 'what they said, in its own script, written EXACTLY as pronounced. Keep every dialect word in its actual spoken form — never normalize a dialect marker to a neighbouring region\'s variant; a speaker who says هلق did not say هسا. When a word is unclear, write the closest sound you heard, not the most common written form.' },
-    stated_origin: { type: 'boolean', description: 'true only if the speaker says where they grew up or where they are from, in any language ("I grew up in X", "I am from X"). Saying they just came from somewhere (a shop, the gym, work), places they visited, or places they like does NOT count.' },
     influences: {
       type: 'array',
       description: 'the accent as a recipe: up to 3 regions whose sound or telltale vocabulary is audibly present in this voice, strongest first, each with a rough integer percent (totalling about 100) and the one sound or word that gives it away. If your evidence cites a word or feature from a region, that region belongs here with its share. A pure single-origin accent is one entry at 100. Name each component at the grain its cue earns: a city only when a city-specific sound or word is audible, otherwise the region ("the Levant", "the Gulf") — a component must never claim finer than its cue.',
@@ -102,4 +101,16 @@ export const SCHEMA = {
   required: ['has_speech', 'note'],
 };
 
-export const MODEL = 'gemini-3.6-flash';
+// Measured PAIRED on 33 clips (same audio, both models, 2026-08-11), because the previous
+// choice rested on two unpaired single runs 15 km apart on an instrument with a 14 km noise
+// floor — a difference that was never real:
+//
+//   3.6-flash  2 km median   better on 6      2 clips it could not answer at all, at 8 tries
+//   3.5-flash  3 km median   better on 4      0 failures at 3 tries
+//                            tied on 23
+//
+// Median per-clip difference: 0 km. Accuracy is a genuine tie, so the primary is chosen on
+// the only axis that did separate them — whether it answers at all — and that is 3.5-flash.
+// 3.6 stays in the chain as the understudy. Revisit if the availability picture changes; do
+// NOT revisit on an unpaired eval run, which cannot see a difference this small.
+export const MODEL = 'gemini-3.5-flash';

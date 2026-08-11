@@ -26,15 +26,30 @@ let micPeak = -1; // loudest rolling level seen this recording; -1 = meter unava
 let micFrames = 0, micVoiced = 0;
 const VOICE_LEVEL = 0.05;   // mean spectral level that ordinary speech clears
 const MIN_VOICED_S = 1.5;   // a mic that heard essentially nothing at all
-// Nothing is submitted under this many seconds, and the reason is the measured accuracy
-// curve, not a guess: 8 seconds scores a 345 km median error, 12-20 seconds scores 157 km,
-// 30 seconds scores 67 km. The app used to accept a TWO second recording and then present
-// whatever came back as a reading, which is how a ten-second clip that was half "try to
-// guess my accent" produced four confident observations, three of which did not survive a
-// second listen. Enforced by keeping the done button unavailable rather than by refusing
-// afterwards: an error message is a bad moment on camera, a countdown is just an
-// instruction.
-const MIN_RECORD_S = 10;
+// RECORDING LENGTH IS THE BIGGEST LEVER IN THIS PRODUCT, by more than an order of magnitude.
+// Measured 2026-08-11 by truncating the SAME speakers to each length, so the only thing that
+// changes is how long they talked:
+//
+//      8s   1779 km median error    truth inside the circle it claimed: 22%
+//     15s    511 km                                                     50%
+//     30s     70 km                                                     43%
+//     45s     90 km                                                     43%
+//
+// Per clip the effect is one-directional and brutal: Jamaica 8801 -> 53 km, Kenya 6739 -> 70,
+// Senegal 1779 -> 0. Nothing got worse by talking longer, and it plateaus at 30 seconds, so
+// 45 buys nothing. For scale, every other lever ever measured on this app: swapping the model
+// is worth 0 km, lightening the schema 17 km, more thinking time is NEGATIVE. None of them are
+// in the same universe as simply talking for half a minute.
+//
+// Short clips are also the overconfident ones. At 8 seconds the model claims a 258 km circle
+// and lands inside it 22% of the time while promising 70% — wrong AND sure of itself, which is
+// the worst thing this app can put on screen.
+//
+// So there are two thresholds, not one: nothing is submitted under MIN, and the button does
+// not go green until GOOD. Enforced by what the button offers rather than by refusing after
+// the fact — an error message is a bad moment on camera, a countdown is just an instruction.
+const MIN_RECORD_S = 20;
+const GOOD_RECORD_S = 30;
 
 // the survey red, read from the stylesheet so themes stay in one place
 const MARK = () => window.HT.ink();
@@ -234,21 +249,28 @@ function startTimer() {
     if (hint) hint.textContent = 'left';
     const stop = $('#stopBtn');
     if (stop) {
-      const short = s < MIN_RECORD_S;
-      stop.disabled = short;
-      stop.textContent = short ? `keep talking… ${MIN_RECORD_S - s}` : 'done, guess now';
+      // Three states, because there are genuinely three: too short to read at all, readable
+      // but measurably worse, and the length the data actually endorses. The middle one is
+      // the important one — it used to say "done, guess now" and send people away with a
+      // several-hundred-kilometre answer that looked exactly as confident as a good one.
+      stop.disabled = s < MIN_RECORD_S;
+      stop.textContent = s < MIN_RECORD_S ? `keep talking… ${MIN_RECORD_S - s}`
+        : s < GOOD_RECORD_S ? `done — but ${GOOD_RECORD_S - s}s more reads far sharper`
+          : 'done, guess now';
     }
-    // Thresholds are the measured accuracy steps, not round numbers: the benchmark median is
-    // 345 km at 8s, 157 km from 12-20s, and 67 km by 30s.
-    const tier = s < 10 ? 0 : s < 20 ? 1 : s < 30 ? 2 : 3;
+    // Thresholds are the measured accuracy steps, not round numbers: 1779 km at 8s, 511 km at
+    // 15s, 70 km at 30s. The old tier 2 told people "good read, you can stop here" at twenty
+    // seconds, which the measurement says is a roughly five-hundred-kilometre answer. A meter
+    // that green-lights a bad recording is worse than no meter, because it is trusted.
+    const tier = s < 15 ? 0 : s < MIN_RECORD_S ? 1 : s < GOOD_RECORD_S ? 2 : 3;
     const q = $('#quality');
     if (q && q.dataset.tier !== String(tier)) {
       q.dataset.tier = String(tier);
       q.querySelectorAll('.q-dots i').forEach((d, k) => d.classList.toggle('on', k < Math.max(1, tier)));
-      $('#qLabel').textContent = ['rough, keep talking',
-        'getting there, 10 more seconds helps a lot',
-        'good read, you can stop here',
-        'sharp, as good as it gets'][tier];
+      $('#qLabel').textContent = ['too short to read yet',
+        'still thin — keep going',
+        'readable, but thirty seconds is far sharper',
+        'sharp, this is a real read'][tier];
     }
     if (s >= MAX_SECONDS) stopListening();
   }, 250);
@@ -357,7 +379,7 @@ function stopListening() {
   stopMeter();
   const elapsed = (Date.now() - startedAt) / 1000;
   if (elapsed < MIN_RECORD_S) {
-    toast(`That was ${Math.round(elapsed)} seconds. An accent needs about thirty to read properly — go again and just keep talking.`);
+    toast(`That was ${Math.round(elapsed)} seconds. Under twenty I would be guessing at country scale — go again and give it about thirty.`);
     state = 'idle';
     if (recorder && recorder.state !== 'inactive') { recorder.onstop = null; recorder.stop(); }
     teardownRecording();
