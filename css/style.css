@@ -776,3 +776,18 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .board-tab:hover { color: var(--black); background: var(--accent-soft); }
 .board-tab.active { color: var(--accent); border-color: var(--accent); font-weight: 600; }
 .board-empty { font-family: var(--mono); font-size: 12px; color: var(--grey); padding: 14px 0; }
+
+/* Short screens: the deck picker must fit whole, because a game you cannot see all of
+   reads as a game with fewer modes. Measured at 608px on a full-height phone, which
+   clears an 812px screen but not a 667px one, and the header was as tall as the grid.
+   On short viewports the headline shrinks, the explainer line goes, and the card
+   breathes less — the nine decks themselves are never what gets cut. */
+@media (max-height: 730px) {
+  #pickCard { padding: 20px 22px 18px; }
+  #pickCard .tagline { font-size: 27px; line-height: 1.06; }
+  #pickCard .prompt-label { display: none; }
+  #pickCard .type-grid { margin-top: 12px; gap: 5px; }
+  #pickCard .type-btn { padding: 6px 8px 6px 11px; }
+  #pickCard .deck-thumb { width: 34px; height: 20px; }
+  #pickCard .boards-link { margin-top: 10px; }
+}
