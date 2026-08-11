@@ -1,0 +1,1443 @@
+{
+  "model": "gemini-3.1-flash-lite",
+  "promptHash": "4c944a4254fa",
+  "overall": {
+    "n": 88,
+    "median": 150,
+    "within100": 47,
+    "within250": 59,
+    "within500": 75,
+    "within1000": 85
+  },
+  "byDeck": {
+    "accents": {
+      "n": 9,
+      "median": 26,
+      "within100": 67,
+      "within250": 89,
+      "within500": 89,
+      "within1000": 100
+    },
+    "arabic": {
+      "n": 42,
+      "median": 215,
+      "within100": 45,
+      "within250": 57,
+      "within500": 74,
+      "within1000": 88
+    },
+    "french": {
+      "n": 7,
+      "median": 26,
+      "within100": 86,
+      "within250": 86,
+      "within500": 100,
+      "within1000": 100
+    },
+    "spanish": {
+      "n": 10,
+      "median": 1757,
+      "within100": 10,
+      "within250": 20,
+      "within500": 50,
+      "within1000": 50
+    },
+    "chinese": {
+      "n": 7,
+      "median": 150,
+      "within100": 43,
+      "within250": 71,
+      "within500": 71,
+      "within1000": 71
+    },
+    "hindi-urdu": {
+      "n": 4,
+      "median": 713,
+      "within100": 50,
+      "within250": 50,
+      "within500": 50,
+      "within1000": 75
+    },
+    "portuguese": {
+      "n": 8,
+      "median": 274,
+      "within100": 38,
+      "within250": 50,
+      "within500": 88,
+      "within1000": 100
+    },
+    "russian": {
+      "n": 1,
+      "median": 0,
+      "within100": 100,
+      "within250": 100,
+      "within500": 100,
+      "within1000": 100
+    }
+  },
+  "results": [
+    {
+      "id": "wild-georgetown-south-carolina-usa-us-south",
+      "deck": "accents",
+      "label": "Georgetown, South Carolina, USA (US South)",
+      "km": 180.47642862948794,
+      "guess": "Columbia, USA",
+      "radius": 200,
+      "language": "English",
+      "confidence": 95,
+      "evidence": [
+        "The speaker explicitly states he grew up in rural South Carolina.",
+        "The speaker's accent is a general American accent, with no strong regional markers.",
+        "The speaker's speech patterns are consistent with a general American accent that has been influenced by his time living in major cities like New York and Los Angeles."
+      ]
+    },
+    {
+      "id": "accents-kenya-english-kenyan",
+      "deck": "accents",
+      "label": "Kenya",
+      "km": 148.50077217609677,
+      "guess": "Nairobi, Kenya",
+      "radius": 250,
+      "language": "English",
+      "confidence": 100,
+      "evidence": [
+        "The speaker explicitly identifies himself as Kenyan.",
+        "The rhythm of his speech is characteristic of East African English, with a distinct syllable-timed cadence.",
+        "His vowel sounds, particularly in words like 'run' and 'time', show the influence of his native Swahili phonology.",
+        "The way he articulates consonants, especially the 't' and 'd' sounds, is consistent with Kenyan English."
+      ]
+    },
+    {
+      "id": "accents-jamaica-english-jamaican-patois",
+      "deck": "accents",
+      "label": "Jamaica",
+      "km": 0.26793407932137436,
+      "guess": "Kingston, Jamaica",
+      "radius": 100,
+      "language": "English",
+      "confidence": 100,
+      "evidence": [
+        "The speaker explicitly states he is from Jamaica.",
+        "The speaker uses Patois, a Jamaican creole language.",
+        "The speaker's intonation and rhythm are characteristic of a Jamaican accent."
+      ]
+    },
+    {
+      "id": "wild-mbaise-imo-state-nigeria",
+      "deck": "accents",
+      "label": "Mbaise, Imo State, Nigeria",
+      "km": 26.37355045684009,
+      "guess": "Owerri, Nigeria",
+      "radius": 200,
+      "language": "English",
+      "confidence": 90,
+      "evidence": [
+        "The speaker explicitly states he is from Southeast Nigeria.",
+        "The rhythm and intonation are characteristic of Nigerian English.",
+        "The vowel sounds are consistent with a West African English accent."
+      ]
+    },
+    {
+      "id": "wild-melbourne-australia",
+      "deck": "accents",
+      "label": "Melbourne, Australia",
+      "km": 0,
+      "guess": "Melbourne, Australia",
+      "radius": 50,
+      "language": "English",
+      "confidence": 100,
+      "evidence": [
+        "The speaker explicitly states she was born in Melbourne, Victoria, Australia.",
+        "The vowel sound in 'music' and 'human' is characteristic of Australian English.",
+        "The rhythm and intonation patterns are consistent with a standard Australian accent."
+      ]
+    },
+    {
+      "id": "accents-aberdeenshire-scotland-english-northeast-scotl",
+      "deck": "accents",
+      "label": "Northeast Scotland, Scotland",
+      "km": 19.016130336582485,
+      "guess": "Aberdeen, Scotland",
+      "radius": 100,
+      "language": "English",
+      "confidence": 95,
+      "evidence": [
+        "The speaker's pronunciation of 'r' sounds is distinctively Scottish.",
+        "He uses Scots vocabulary like 'ken' and 'lassies'.",
+        "The intonation and rhythm of his speech are characteristic of the northeast of Scotland."
+      ]
+    },
+    {
+      "id": "accents-west-yorkshire-england-english-west-riding-yor",
+      "deck": "accents",
+      "label": "Sheffield, England",
+      "km": 0,
+      "guess": "Sheffield, United Kingdom",
+      "radius": 50,
+      "language": "English",
+      "confidence": 95,
+      "evidence": [
+        "The 't' sound is often glottalized or omitted in the middle of words",
+        "The vowel in 'my' is pronounced with a distinct, slightly elongated quality",
+        "The 'u' sound in 'up' is pronounced with a short, clipped quality",
+        "The 'a' sound in 'that' is pronounced with a slightly flattened quality",
+        "The 'o' sound in 'go' is pronounced with a slightly rounded quality"
+      ]
+    },
+    {
+      "id": "accents-namibia-english-namibian",
+      "deck": "accents",
+      "label": "Namibia",
+      "km": 919.610987500405,
+      "guess": "Katima Mulilo, Namibia",
+      "radius": 150,
+      "language": "English",
+      "confidence": 95,
+      "evidence": [
+        "The speaker explicitly states he is from Namibia and speaks Subiya.",
+        "The speaker mentions the Caprivi Strip as the region where his language is spoken.",
+        "The speaker's pronunciation of English words shows the influence of his native Bantu language, particularly in the rhythm and vowel sounds.",
+        "The speaker's explanation of the linguistic situation in Namibia is consistent with his stated origin."
+      ]
+    },
+    {
+      "id": "ar-3384",
+      "deck": "arabic",
+      "label": "Aleppo, Syria",
+      "km": 308.6727994148748,
+      "guess": "Damascus, Syria",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "The use of 'هلق' for 'now' is a strong indicator of a Levantine dialect.",
+        "The speaker uses 'شو اسمه' as a filler phrase, which is very common in Syrian speech.",
+        "The pronunciation of the 'qaf' sound as a glottal stop is typical of the Syrian dialect.",
+        "The intonation pattern is characteristic of the Levant region."
+      ]
+    },
+    {
+      "id": "wild-thomastown-county-kilkenny-ireland",
+      "deck": "accents",
+      "label": "Thomastown, County Kilkenny, Ireland",
+      "km": 57.4209834592892,
+      "guess": "Portlaoise, Ireland",
+      "radius": 100,
+      "language": "English",
+      "confidence": 90,
+      "evidence": [
+        "The way he pronounces 'Ladywell' with a distinct Irish lilt",
+        "The use of 'the' before certain nouns where it wouldn't be used in other dialects",
+        "The rhythmic, melodic intonation characteristic of rural Irish speech",
+        "The specific pronunciation of 'years' and 'years ago'",
+        "The use of 'the' before 'the' in 'the the 15th of August'"
+      ]
+    },
+    {
+      "id": "ar-3736",
+      "deck": "arabic",
+      "label": "Abu Dhabi, UAE",
+      "km": 0.5125946917364709,
+      "guess": "Abu Dhabi, United Arab Emirates",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "The use of the word 'يدقر' which is a common Emirati term for tailgating",
+        "The specific intonation and rhythm of the speech are typical of the Gulf region",
+        "The pronunciation of the 'qaf' sound is consistent with Gulf Arabic dialects"
+      ]
+    },
+    {
+      "id": "ar-882",
+      "deck": "arabic",
+      "label": "Alexandria, Egypt",
+      "km": 179.88943224210266,
+      "guess": "Cairo, Egypt",
+      "radius": 100,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "The pronunciation of the letter 'qaf' as a glottal stop is a hallmark of Cairene Arabic.",
+        "The use of specific vocabulary like 'mushkilah' and 'al-ard' with the distinct Egyptian vowel quality.",
+        "The rhythmic pattern of the speech is typical of the Cairo dialect."
+      ]
+    },
+    {
+      "id": "ar-2082",
+      "deck": "arabic",
+      "label": "Algiers, Algeria",
+      "km": 0.4358563874508199,
+      "guess": "Algiers, Algeria",
+      "radius": 100,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "The pronunciation of the letter 'qaf' as a glottal stop",
+        "The specific intonation and rhythm characteristic of Algerian Arabic",
+        "The use of vocabulary like 'hali' and 'yewakib'"
+      ]
+    },
+    {
+      "id": "ar-39",
+      "deck": "arabic",
+      "label": "Annaba, Algeria",
+      "km": 214.80997536330423,
+      "guess": "Tunis, Tunisia",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Use of the word 'هلق' (now) which is common in Tunisian dialect",
+        "Specific intonation patterns typical of Tunisian Arabic",
+        "Frequent use of French loanwords like 'رياضة' (sport) and 'عضلات' (muscles) in a Tunisian context",
+        "The way the speaker pronounces the 'r' sound, which is a common feature in Tunisian Arabic"
+      ]
+    },
+    {
+      "id": "ar-249",
+      "deck": "arabic",
+      "label": "Amman, Jordan",
+      "km": 0,
+      "guess": "Amman, Jordan",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "The use of the word 'هلق' (halq) for 'now' is a strong indicator of Levantine Arabic.",
+        "The pronunciation of the 'qaf' (ق) as a glottal stop is typical of urban Levantine dialects.",
+        "The intonation and rhythm of her speech are consistent with Jordanian or Palestinian speakers.",
+        "The use of 'يا حبايبي' (ya habaybi) is a common, warm, and colloquial expression in the Levant."
+      ]
+    },
+    {
+      "id": "ar-679",
+      "deck": "arabic",
+      "label": "Baghdad, Iraq",
+      "km": 0.8097130714394724,
+      "guess": "Baghdad, Iraq",
+      "radius": 100,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "The use of 'شلون' for 'how'",
+        "The specific Iraqi pronunciation of 'يعني' (meaning/so)",
+        "The intonation pattern typical of Baghdad Arabic"
+      ]
+    },
+    {
+      "id": "ar-2473",
+      "deck": "arabic",
+      "label": "Batna, Algeria",
+      "km": 449.0894155342867,
+      "guess": "Tiaret, Algeria",
+      "radius": 300,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "Use of the 'g' sound for the letter 'qaf', typical of Bedouin dialects",
+        "Rhythmic, chant-like delivery characteristic of traditional oral poetry",
+        "Specific vocabulary like 'ghatba' and 'nmami' common in Algerian rural dialects"
+      ]
+    },
+    {
+      "id": "arabic-baghdad-iraq-arabic-iraqi",
+      "deck": "arabic",
+      "label": "Baghdad, Iraq",
+      "km": 0.8097130714394724,
+      "guess": "Baghdad, Iraq",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "Use of the word 'شسوي' (what do I do) with a distinct Iraqi intonation",
+        "The pronunciation of 'گ' in 'تگوم' (to stand up) is a hallmark of Iraqi Arabic",
+        "The use of 'هسه' or similar temporal markers in the flow of speech",
+        "The specific rhythmic cadence of the sentence structure is very typical of Baghdad"
+      ]
+    },
+    {
+      "id": "ar-2446",
+      "deck": "arabic",
+      "label": "Beirut, Lebanon",
+      "km": 0.4540311775486809,
+      "guess": "Beirut, Lebanon",
+      "radius": 100,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "The use of the word 'عجقة' (aj'a) for traffic or crowd is very common in Lebanon.",
+        "The pronunciation of the 'qaf' (ق) as a glottal stop is typical of the Levantine dialect.",
+        "The intonation and rhythm are characteristic of Lebanese Arabic."
+      ]
+    },
+    {
+      "id": "ar-3107",
+      "deck": "arabic",
+      "label": "Benghazi, Libya",
+      "km": 650.5594274476152,
+      "guess": "Tripoli, Libya",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "The use of 'تو' (taw) for 'now' is a strong Libyan marker.",
+        "The pronunciation of the 'qaf' sound as a 'g' sound is typical of Libyan Arabic.",
+        "The intonation and rhythmic patterns are consistent with Tripoli, Libya.",
+        "The use of 'بتقامز' (bitqamiz) is a colloquial Libyan term."
+      ]
+    },
+    {
+      "id": "ar-2765",
+      "deck": "arabic",
+      "label": "Basra, Iraq",
+      "km": 448.4160857832393,
+      "guess": "Baghdad, Iraq",
+      "radius": 100,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "The use of 'يعني' (ya'ni) as a filler word is very common in Iraqi speech.",
+        "The pronunciation of the 'ق' (qaf) sound as a 'g' sound is a hallmark of Iraqi Arabic.",
+        "The use of 'هلق' (halaq) or similar markers for time and sequence is characteristic of the region.",
+        "The intonation and rhythm are distinctly Iraqi, with a specific cadence in his sentence structure."
+      ]
+    },
+    {
+      "id": "ar-2608",
+      "deck": "arabic",
+      "label": "Cairo, Egypt",
+      "km": 0.6408504363881136,
+      "guess": "Cairo, Egypt",
+      "radius": 100,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "The use of 'يعني' (ya'ni) as a filler word is very characteristic of Egyptian Arabic.",
+        "The pronunciation of the 'qaf' as a glottal stop is a hallmark of the Cairo dialect.",
+        "The intonation and rhythm are typical of a native Egyptian speaker.",
+        "The use of 'بقى' (ba'a) at the end of sentences is a common Egyptian speech pattern."
+      ]
+    },
+    {
+      "id": "ar-809",
+      "deck": "arabic",
+      "label": "Blida, Algeria",
+      "km": 37.58847056024754,
+      "guess": "Algiers, Algeria",
+      "radius": 300,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "The use of the word 'يبريفيريو' (prefer) is common in Algerian Arabic.",
+        "The intonation and rhythm are characteristic of North African Arabic speakers.",
+        "The speaker uses specific vocabulary like 'عزوف' (reluctance) in a way typical of Algerian speakers.",
+        "The pronunciation of certain consonants is consistent with Algerian Arabic."
+      ]
+    },
+    {
+      "id": "ar-1604",
+      "deck": "arabic",
+      "label": "Casablanca, Morocco",
+      "km": 2.550568796480645,
+      "guess": "Casablanca, Morocco",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "The 'q' sound is pronounced as a glottal stop, which is typical of Moroccan Arabic",
+        "The rhythm and intonation are distinctly Moroccan",
+        "The use of specific vocabulary like 'هاد' (this) and 'ديالهم' (theirs) points to the Maghreb region"
+      ]
+    },
+    {
+      "id": "ar-2375",
+      "deck": "arabic",
+      "label": "Constantine, Algeria",
+      "km": 320.00825092820435,
+      "guess": "Algiers, Algeria",
+      "radius": 300,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "The pronunciation of the 'q' sound as a 'g' is typical of Algerian Arabic.",
+        "The use of 'تقعد' (taq'ud) for 'to remain' is common in the region.",
+        "The intonation pattern is characteristic of North African Arabic speakers.",
+        "The use of 'هذيك' (hadhik) for 'that' is a common regional marker."
+      ]
+    },
+    {
+      "id": "ar-94",
+      "deck": "arabic",
+      "label": "Djelfa, Algeria",
+      "km": 3767.1150155916757,
+      "guess": "Baghdad, Iraq",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "The use of 'شكون' (shkun) for 'who' is a strong indicator of Iraqi dialect.",
+        "The specific pronunciation of 'اليوم' (al-yum) with a distinct Iraqi vowel quality.",
+        "The rhythmic, melodic intonation typical of Iraqi spoken poetry.",
+        "The use of 'المحينة' (al-muhayna) and 'شبيها' (shbiha) are characteristic of Iraqi vocabulary."
+      ]
+    },
+    {
+      "id": "ar-3345",
+      "deck": "arabic",
+      "label": "Dubai, UAE",
+      "km": 856.9698884329589,
+      "guess": "Kuwait City, Kuwait",
+      "radius": 50,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "Use of the word 'فشلات' (fashalat) which is common in Kuwaiti dialect",
+        "Specific intonation patterns typical of Kuwaiti Arabic",
+        "Pronunciation of certain vowels that align with the Kuwaiti dialect"
+      ]
+    },
+    {
+      "id": "ar-1907",
+      "deck": "arabic",
+      "label": "El Obeid, Sudan",
+      "km": 360.7246105866816,
+      "guess": "Khartoum, Sudan",
+      "radius": 300,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "The 'qaf' is pronounced as a hard 'g' sound, which is a hallmark of Sudanese Arabic",
+        "The rhythm and intonation are distinctly Sudanese",
+        "The use of specific vocabulary like 'wazook' is common in Sudanese dialect"
+      ]
+    },
+    {
+      "id": "ar-3132",
+      "deck": "arabic",
+      "label": "Gaza, Palestine",
+      "km": 76.46784983929399,
+      "guess": "Jerusalem, Palestine",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "The use of 'بقدرش' for 'I cannot' is a classic Palestinian marker.",
+        "The word 'هلق' for 'now' is common in the Levant.",
+        "The pronunciation of the 'qaf' as a glottal stop is typical of urban Palestinian speech.",
+        "The rhythm and intonation patterns are consistent with the Palestinian dialect."
+      ]
+    },
+    {
+      "id": "ar-754",
+      "deck": "arabic",
+      "label": "Fes, Morocco",
+      "km": 245.4971891828981,
+      "guess": "Casablanca, Morocco",
+      "radius": 200,
+      "language": "Arabic (Moroccan Darija)",
+      "confidence": 95,
+      "evidence": [
+        "The pronunciation of the letter 'q' as a glottal stop",
+        "The specific rhythm and intonation patterns of Moroccan Darija",
+        "The use of vocabulary like 'هاد' (had) and 'بزاف' (bzaf)"
+      ]
+    },
+    {
+      "id": "ar-3854",
+      "deck": "arabic",
+      "label": "Hebron, Palestine",
+      "km": 91.33180798963681,
+      "guess": "Amman, Jordan",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "The use of 'هلق' (halq) for 'now' is a strong indicator of Levantine Arabic.",
+        "The pronunciation of the 'qaf' as a glottal stop is typical of urban Levantine dialects.",
+        "The intonation and rhythm are consistent with speakers from the Levant region."
+      ]
+    },
+    {
+      "id": "ar-4531",
+      "deck": "arabic",
+      "label": "Irbid, Jordan",
+      "km": 68.24479680705286,
+      "guess": "Amman, Jordan",
+      "radius": 100,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "The speaker uses the word 'hunaalika' which is common in Jordanian Arabic.",
+        "The speaker's pronunciation of the letter 'qaf' is consistent with the Jordanian dialect.",
+        "The speaker's intonation and rhythm are characteristic of a native Jordanian speaker."
+      ]
+    },
+    {
+      "id": "ar-1733",
+      "deck": "arabic",
+      "label": "Jeddah, Saudi Arabia",
+      "km": 1588.427447728089,
+      "guess": "Abu Dhabi, United Arab Emirates",
+      "radius": 400,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "The pronunciation of the letter 'qaf' as a 'g' sound is a classic marker of the Gulf region",
+        "The use of 'halq' for 'now' is a very specific regional vocabulary choice",
+        "The intonation pattern is characteristic of the educated urban Gulf dialect"
+      ]
+    },
+    {
+      "id": "ar-2316",
+      "deck": "arabic",
+      "label": "Jerusalem, Palestine",
+      "km": 69.66394488152606,
+      "guess": "Amman, Jordan",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "The pronunciation of the letter 'qaf' as a glottal stop",
+        "The use of 'halq' for 'now'",
+        "The specific intonation and rhythm characteristic of Levantine Arabic"
+      ]
+    },
+    {
+      "id": "ar-1526",
+      "deck": "arabic",
+      "label": "Kuwait City, Kuwait",
+      "km": 1.3032274652669673,
+      "guess": "Kuwait City, Kuwait",
+      "radius": 50,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "The use of 'هني' (hni) for 'here' is a strong indicator of the Kuwaiti dialect.",
+        "The pronunciation of the 'qaf' sound as a 'g' sound is typical of the Gulf region, particularly Kuwait.",
+        "The use of 'قاعدين' (ga'adeen) to indicate continuous action is a hallmark of the Kuwaiti dialect.",
+        "The speaker's intonation and rhythm are consistent with native Kuwaiti speech."
+      ]
+    },
+    {
+      "id": "ar-1248",
+      "deck": "arabic",
+      "label": "Manama, Bahrain",
+      "km": 434.012403870105,
+      "guess": "Kuwait City, Kuwait",
+      "radius": 50,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "Use of the word 'شذي' for 'like this'",
+        "Distinctive Gulf Arabic intonation patterns",
+        "Specific pronunciation of the 'qaf' sound",
+        "Use of 'ما تستسيغون' which is common in the region"
+      ]
+    },
+    {
+      "id": "ar-3190",
+      "deck": "arabic",
+      "label": "Nablus, Palestine",
+      "km": 69.89740669415642,
+      "guess": "Amman, Jordan",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "The pronunciation of the letter 'qaf' as a glottal stop is characteristic of urban Levantine dialects.",
+        "The use of 'هلق' (halq) for 'now' is a strong indicator of Levantine Arabic.",
+        "The intonation and rhythm are typical of educated speakers from the Amman or Ramallah regions."
+      ]
+    },
+    {
+      "id": "ar-1623",
+      "deck": "arabic",
+      "label": "Muscat, Oman",
+      "km": 0.6183907443408966,
+      "guess": "Muscat, Oman",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "The use of 'يعني' (ya'ni) as a filler word is very common in Gulf Arabic.",
+        "The pronunciation of the 'ق' (qaf) as a 'g' sound is a hallmark of Gulf dialects.",
+        "The intonation and rhythm of his speech are characteristic of Omani Arabic.",
+        "The use of 'بس' (bas) as a connector is typical of the region."
+      ]
+    },
+    {
+      "id": "ar-5182",
+      "deck": "arabic",
+      "label": "Omdurman, Sudan",
+      "km": 1715.637695805839,
+      "guess": "Say'un, Yemen",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "distinctive vocal ornamentation typical of Hadrami singing",
+        "specific dialectal pronunciation of Arabic words",
+        "rhythmic patterns characteristic of traditional Yemeni music"
+      ]
+    },
+    {
+      "id": "ar-423",
+      "deck": "arabic",
+      "label": "Oran, Algeria",
+      "km": 680.2529967106902,
+      "guess": "Casablanca, Morocco",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "The 'q' sound is pronounced as a glottal stop",
+        "The rhythm and intonation are characteristic of Moroccan Arabic",
+        "The use of 'bac plus un' is common in the Moroccan educational context"
+      ]
+    },
+    {
+      "id": "ar-2787",
+      "deck": "arabic",
+      "label": "Riyadh, Saudi Arabia",
+      "km": 534.483276239021,
+      "guess": "Kuwait City, Kuwait",
+      "radius": 100,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "The use of 'ش' for the second person feminine suffix in 'توجعك' and 'يدك'",
+        "The pronunciation of the 'ق' as a 'g' sound",
+        "The specific rhythm and intonation patterns typical of Kuwaiti Arabic"
+      ]
+    },
+    {
+      "id": "ar-1879",
+      "deck": "arabic",
+      "label": "Port Sudan, Sudan",
+      "km": 673.590539653092,
+      "guess": "Khartoum, Sudan",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "The use of the word 'دي' (di) for 'this' is very characteristic of Sudanese Arabic.",
+        "The pronunciation of the 'qaf' as a hard 'g' sound is typical of the Khartoum dialect.",
+        "The specific vocabulary like 'حجابان' (hijaban) and 'الخلا' (al-khala) points strongly to a Sudanese background.",
+        "The rhythmic cadence and intonation are consistent with urban Sudanese speech."
+      ]
+    },
+    {
+      "id": "ar-989",
+      "deck": "arabic",
+      "label": "Rabat, Morocco",
+      "km": 85.2638704416939,
+      "guess": "Casablanca, Morocco",
+      "radius": 200,
+      "language": "Moroccan Arabic",
+      "confidence": 90,
+      "evidence": [
+        "The speaker uses the Moroccan Arabic word 'ديال' (dyal) which is a clear marker of Moroccan Arabic.",
+        "The speaker's intonation and rhythm are characteristic of Moroccan Arabic.",
+        "The speaker's pronunciation of certain vowels is influenced by Japanese, which is a common feature for long-term residents of Japan."
+      ]
+    },
+    {
+      "id": "ar-3479",
+      "deck": "arabic",
+      "label": "Sanaa, Yemen",
+      "km": 1070.808403960248,
+      "guess": "Riyadh, Saudi Arabia",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "The 'qaf' is pronounced as a 'g' sound, which is characteristic of the Najdi dialect.",
+        "The use of specific vocabulary like 'عقال الحارة' (the neighborhood's wise man/leader) is common in Saudi Arabia.",
+        "The intonation and rhythm are typical of a native Saudi Arabic speaker."
+      ]
+    },
+    {
+      "id": "ar-4464",
+      "deck": "arabic",
+      "label": "Setif, Algeria",
+      "km": 219.3787749695758,
+      "guess": "Algiers, Algeria",
+      "radius": 100,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "The use of 'هذا' and 'هنا' is characteristic of the Algerian dialect.",
+        "The intonation and rhythm are typical of Algerian Arabic.",
+        "The pronunciation of certain consonants is consistent with the Algiers accent."
+      ]
+    },
+    {
+      "id": "ar-6196",
+      "deck": "arabic",
+      "label": "Sharjah, UAE",
+      "km": 860.2549880107075,
+      "guess": "Kuwait City, Kuwait",
+      "radius": 50,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "The use of 'متهالك' to describe the house",
+        "The specific pronunciation of 'طليق'",
+        "The rhythmic cadence typical of Kuwaiti Arabic",
+        "The use of 'مو' for negation"
+      ]
+    },
+    {
+      "id": "ar-5408",
+      "deck": "arabic",
+      "label": "Taiz, Yemen",
+      "km": 2349.879899763452,
+      "guess": "Damascus, Syria",
+      "radius": 300,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "The 'qaf' is pronounced as a glottal stop",
+        "The intonation is characteristic of Levantine Arabic",
+        "The vocabulary used is standard for the region"
+      ]
+    },
+    {
+      "id": "ar-6858",
+      "deck": "arabic",
+      "label": "Tripoli, Libya",
+      "km": 0.33417158874973535,
+      "guess": "Tripoli, Libya",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "The pronunciation of the 'qaf' as a 'g' sound is typical of Libyan Arabic.",
+        "The specific intonation patterns and rhythm are characteristic of the Tripoli dialect.",
+        "The use of vocabulary like 'هكي' (like this) is a strong indicator of Libyan origin."
+      ]
+    },
+    {
+      "id": "ar-3647",
+      "deck": "arabic",
+      "label": "Tangier, Morocco",
+      "km": 293.207303485522,
+      "guess": "Casablanca, Morocco",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "The pronunciation of the 'q' sound as a glottal stop or a uvular stop, typical of Moroccan Arabic.",
+        "The specific rhythm and intonation patterns of Moroccan Arabic.",
+        "The use of French loanwords like 'pressing' and 'dynamique' within the Arabic speech.",
+        "The characteristic 'r' sound, which is often tapped or trilled in a way specific to the region."
+      ]
+    },
+    {
+      "id": "ar-3660",
+      "deck": "arabic",
+      "label": "Tunis, Tunisia",
+      "km": 0.41145613824090027,
+      "guess": "Tunis, Tunisia",
+      "radius": 50,
+      "language": "Tunisian Arabic",
+      "confidence": 95,
+      "evidence": [
+        "Use of the word 'عفشة' (afsha) for 'ugly' or 'bad'",
+        "Use of 'محلول' (mahloul) in a specific Tunisian context",
+        "The specific intonation and rhythm of the speech",
+        "Use of 'خويا' (khouya) as a common filler/address",
+        "The pronunciation of the 'q' sound as a glottal stop"
+      ]
+    },
+    {
+      "id": "ar-3785",
+      "deck": "arabic",
+      "label": "Wad Medani, Sudan",
+      "km": 160.05695590022535,
+      "guess": "Khartoum, Sudan",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "The 'qaf' is pronounced as a hard 'g' sound, which is a hallmark of Sudanese Arabic.",
+        "The speaker uses 'يعني' (ya'ni) frequently as a filler, which is very common in Sudanese speech.",
+        "The intonation and rhythm are characteristic of the Khartoum region.",
+        "The speaker uses the word 'عزف' (azf) and 'عود' (oud) in a way that reflects local musical terminology."
+      ]
+    },
+    {
+      "id": "french-bargny-senegal-french-senegal",
+      "deck": "french",
+      "label": "Bargny, Senegal",
+      "km": 26.110285875140264,
+      "guess": "Dakar, Senegal",
+      "radius": 100,
+      "language": "French",
+      "confidence": 90,
+      "evidence": [
+        "The speaker's rhythm and intonation are characteristic of Senegalese French.",
+        "The pronunciation of certain vowels and consonants reflects the influence of local languages like Wolof.",
+        "The speaker uses formal French vocabulary and phrasing, consistent with a professional background.",
+        "The speaker mentions Dakar, which is consistent with his accent."
+      ]
+    },
+    {
+      "id": "french-brussels-belgium-french-belgian",
+      "deck": "french",
+      "label": "Belgium",
+      "km": 258.7915964311609,
+      "guess": "Paris, France",
+      "radius": 250,
+      "language": "French",
+      "confidence": 80,
+      "evidence": [
+        "Standard French pronunciation of vowels",
+        "Clear, precise articulation of consonants",
+        "Formal, academic intonation and rhythm"
+      ]
+    },
+    {
+      "id": "french-yaounde-cameroon-french-cameroon",
+      "deck": "french",
+      "label": "Cameroon",
+      "km": 72.49946622529396,
+      "guess": "Yaoundé, Cameroon",
+      "radius": 200,
+      "language": "French",
+      "confidence": 95,
+      "evidence": [
+        "The speaker's pronunciation of French vowels is consistent with Cameroonian French.",
+        "The rhythm and intonation patterns are characteristic of Cameroonian French.",
+        "The speaker uses specific vocabulary and phrasing that are common in Cameroonian French.",
+        "The speaker's accent is clearly identifiable as Cameroonian French."
+      ]
+    },
+    {
+      "id": "french-abidjan-cote-d-ivoire-french-cote-d-ivoire",
+      "deck": "french",
+      "label": "Côte d'Ivoire",
+      "km": 8.772797633182371,
+      "guess": "Yamoussoukro, Côte d'Ivoire",
+      "radius": 250,
+      "language": "French",
+      "confidence": 90,
+      "evidence": [
+        "The speaker's rhythm and intonation are characteristic of West African French.",
+        "The pronunciation of certain vowels and consonants is typical of Ivorian French.",
+        "The speaker uses vocabulary related to agriculture and cooperatives, which is consistent with his stated context."
+      ]
+    },
+    {
+      "id": "french-paris-france-french-paris",
+      "deck": "french",
+      "label": "Paris, France",
+      "km": 0,
+      "guess": "Paris, France",
+      "radius": 200,
+      "language": "French",
+      "confidence": 85,
+      "evidence": [
+        "Standard French pronunciation",
+        "Clear, articulate speech",
+        "No regional accent markers"
+      ]
+    },
+    {
+      "id": "spanish-argentine-spanish-reading-about-a-brazilian-to",
+      "deck": "spanish",
+      "label": "Argentina",
+      "km": 1984.0330375565645,
+      "guess": "Andrelândia, Brazil",
+      "radius": 50,
+      "language": "Spanish",
+      "confidence": 95,
+      "evidence": [
+        "The speaker explicitly mentions Andrelândia, Minas Gerais, Brazil as the subject of the text.",
+        "The pronunciation of the vowels and consonants is consistent with the Minas Gerais accent.",
+        "The rhythm and intonation are characteristic of a formal reading style in Brazilian Portuguese."
+      ]
+    },
+    {
+      "id": "french-marseille-france-french-southern-france",
+      "deck": "french",
+      "label": "Southern France, France",
+      "km": 83.2774336248727,
+      "guess": "Marseille, France",
+      "radius": 50,
+      "language": "French",
+      "confidence": 90,
+      "evidence": [
+        "Clear, standard French pronunciation",
+        "Specific mention of Marseille and local street names",
+        "Formal, news-like intonation"
+      ]
+    },
+    {
+      "id": "spanish-venezuelan-spanish-introduction-to-the-big-ban",
+      "deck": "spanish",
+      "label": "Guatire, Venezuela",
+      "km": 5085.883892508128,
+      "guess": "Buenos Aires, Argentina",
+      "radius": 200,
+      "language": "Spanish",
+      "confidence": 85,
+      "evidence": [
+        "The pronunciation of the 'll' and 'y' as a 'sh' sound is characteristic of the Rioplatense dialect.",
+        "The intonation pattern is typical of the Buenos Aires region.",
+        "The speaker uses a formal, academic tone, which is common in educated speakers from this region."
+      ]
+    },
+    {
+      "id": "french-montreal-canada-french-quebecois",
+      "deck": "french",
+      "label": "Québec, Canada",
+      "km": 0,
+      "guess": "Quebec City, Canada",
+      "radius": 100,
+      "language": "French",
+      "confidence": 100,
+      "evidence": [
+        "The speaker uses the characteristic 't' and 'd' affrication before high front vowels, such as in 'tu' and 'dit'.",
+        "The vowel quality in words like 'voyage' and 'histoire' is distinctly Québécois.",
+        "The speaker uses the typical Québécois 'r' sound, which is often uvular but can vary in its realization.",
+        "The intonation and rhythm are characteristic of Quebec French, with a specific cadence and stress pattern.",
+        "The speaker uses regional vocabulary and expressions, such as 'c'est un pays que je rêvais d'aller' and 'on est les seuls touristes ici'."
+      ]
+    },
+    {
+      "id": "spanish-mexico-city-mexico-spanish-mexican",
+      "deck": "spanish",
+      "label": "Mexico",
+      "km": 345.2354831161112,
+      "guess": "Mexico City, Mexico",
+      "radius": 200,
+      "language": "Spanish",
+      "confidence": 90,
+      "evidence": [
+        "The 's' sounds are clear and sharp, typical of Mexican Spanish.",
+        "The 'r' sounds are pronounced with a clear, crisp tap.",
+        "The 'd' sounds are soft and clear, not elided.",
+        "The 't' sounds are crisp and clear, not aspirated."
+      ]
+    },
+    {
+      "id": "spanish-uruguayan-spanish-juan-jose-morosoli-reads-la-",
+      "deck": "spanish",
+      "label": "Minas, Uruguay",
+      "km": 289.2293111540814,
+      "guess": "Buenos Aires, Argentina",
+      "radius": 100,
+      "language": "Spanish",
+      "confidence": 95,
+      "evidence": [
+        "The 'll' and 'y' sounds are pronounced as a 'sh' sound, typical of the Rioplatense accent.",
+        "The intonation is melodic and rhythmic, characteristic of the Buenos Aires region.",
+        "The speaker uses 'voseo', the use of 'vos' instead of 'tú', which is standard in Argentina."
+      ]
+    },
+    {
+      "id": "spanish-mexican-spanish-schrodinger-s-cat-article-read",
+      "deck": "spanish",
+      "label": "Mexico",
+      "km": 345.2354831161112,
+      "guess": "Mexico City, Mexico",
+      "radius": 50,
+      "language": "Spanish",
+      "confidence": 95,
+      "evidence": [
+        "The pronunciation of the 's' is clear and crisp, typical of central Mexico.",
+        "The 'r' sounds are pronounced with a standard, clear tap, consistent with Mexican Spanish.",
+        "The intonation is steady and rhythmic, characteristic of a standard Mexican Spanish speaker."
+      ]
+    },
+    {
+      "id": "spanish-paniahue-santa-cruz-chile-spanish-chilean",
+      "deck": "spanish",
+      "label": "Paniahue, Chile",
+      "km": 145.93897659671143,
+      "guess": "Santiago, Chile",
+      "radius": 200,
+      "language": "Spanish",
+      "confidence": 95,
+      "evidence": [
+        "The speaker uses the word 'alcalde' with a distinct Chilean pronunciation.",
+        "The intonation and rhythm of the speech are characteristic of Chilean Spanish.",
+        "The speaker uses the word 'colegio' with a distinct Chilean pronunciation.",
+        "The speaker uses the word 'departamento' with a distinct Chilean pronunciation."
+      ]
+    },
+    {
+      "id": "spanish-peruvian-spanish-richard-dawkins-biography-rea",
+      "deck": "spanish",
+      "label": "Peru",
+      "km": 4255.134117588438,
+      "guess": "Mexico City, Mexico",
+      "radius": 800,
+      "language": "Spanish",
+      "confidence": 85,
+      "evidence": [
+        "clear, standard Mexican Spanish pronunciation",
+        "consistent, neutral intonation",
+        "no regional markers"
+      ]
+    },
+    {
+      "id": "spanish-castilian-spanish-segismundo-s-soliloquy-calde",
+      "deck": "spanish",
+      "label": "Spain",
+      "km": 0,
+      "guess": "Madrid, Spain",
+      "radius": 200,
+      "language": "Spanish",
+      "confidence": 90,
+      "evidence": [
+        "The speaker uses the 's' and 'z' sounds, which are characteristic of the Peninsular Spanish accent.",
+        "The speaker's intonation and rhythm are consistent with a native speaker from this region.",
+        "The speaker's vocabulary and phrasing are consistent with a native speaker from this region."
+      ]
+    },
+    {
+      "id": "spanish-colombian-spanish-steven-pinker-biography-read",
+      "deck": "spanish",
+      "label": "Turbaco, Colombia",
+      "km": 2738.441696948814,
+      "guess": "Mexico City, Mexico",
+      "radius": 2000,
+      "language": "Spanish",
+      "confidence": 40,
+      "evidence": [
+        "clear, neutral Spanish pronunciation",
+        "lack of specific regional dialect markers",
+        "rhythm and intonation consistent with a native Spanish speaker reading aloud"
+      ]
+    },
+    {
+      "id": "spanish-puerto-rican-spanish-roman-emperor-claudius-ar",
+      "deck": "spanish",
+      "label": "Puerto Rico",
+      "km": 1757.2845166682373,
+      "guess": "Bogotá, Colombia",
+      "radius": 150,
+      "language": "Spanish",
+      "confidence": 85,
+      "evidence": [
+        "The pronunciation of the 's' sound is clear and not aspirated, which is typical of the Bogotá region.",
+        "The 'll' and 'y' sounds are pronounced as a distinct 'y' sound, which is common in many parts of Colombia.",
+        "The intonation is steady and rhythmic, characteristic of a formal reading style.",
+        "The speaker uses a standard, neutral Spanish that is widely understood across Latin America."
+      ]
+    },
+    {
+      "id": "chinese-chengdu-china-mandarin-sichuanese-chengdu-dial",
+      "deck": "chinese",
+      "label": "Chengdu, China",
+      "km": 2131.8516822778206,
+      "guess": "Shenyang, China",
+      "radius": 300,
+      "language": "Mandarin Chinese",
+      "confidence": 90,
+      "evidence": [
+        "use of the word '那个人' (that person) with a distinct regional rhythm",
+        "the specific pronunciation of '早晨' (morning) as 'zao-chen'",
+        "the use of '这' (this) and '那' (that) with a characteristic Northeast Chinese lilt",
+        "the rhythmic, storytelling cadence typical of Dongbei dialect speakers"
+      ]
+    },
+    {
+      "id": "chinese-guiyang-china-mandarin-guiyangese-southwestern",
+      "deck": "chinese",
+      "label": "Guiyang, China",
+      "km": 9.372790793372067,
+      "guess": "Guiyang, China",
+      "radius": 200,
+      "language": "Mandarin",
+      "confidence": 85,
+      "evidence": [
+        "The speaker uses specific Guizhou dialect vocabulary, such as 'guai' for 'child' and 'zhaichu' for 'to pick'.",
+        "Her intonation and rhythm are characteristic of the Guizhou Mandarin dialect.",
+        "She mentions her origin in Guizhou, China, and her current residence in Canada.",
+        "The speaker's Mandarin is fluent but retains strong regional phonetic features from her home province."
+      ]
+    },
+    {
+      "id": "chinese-hk-cantonese-george-washington-carver-spoken-w",
+      "deck": "chinese",
+      "label": "Hong Kong",
+      "km": 0,
+      "guess": "Hong Kong, China",
+      "radius": 50,
+      "language": "Mandarin",
+      "confidence": 90,
+      "evidence": [
+        "Cantonese-influenced Mandarin pronunciation",
+        "Lack of retroflex consonants",
+        "Specific vowel quality characteristic of Cantonese speakers",
+        "Rhythmic patterns consistent with Cantonese speech"
+      ]
+    },
+    {
+      "id": "chinese-shanghainese-wu-standard-shanghai-accent-readi",
+      "deck": "chinese",
+      "label": "Shanghai, China",
+      "km": 1067.3101709271293,
+      "guess": "Beijing, China",
+      "radius": 300,
+      "language": "Mandarin Chinese",
+      "confidence": 85,
+      "evidence": [
+        "Clear, crisp retroflex consonants",
+        "Standard Mandarin intonation patterns",
+        "Formal, measured pacing",
+        "Consistent articulation of technical terms"
+      ]
+    },
+    {
+      "id": "chinese-hk-cantonese-ciguatoxin-stonefish-toxin-spoken",
+      "deck": "chinese",
+      "label": "Hong Kong",
+      "km": 0,
+      "guess": "Hong Kong, China",
+      "radius": 50,
+      "language": "Cantonese",
+      "confidence": 90,
+      "evidence": [
+        "rhythmic, staccato delivery typical of formal Cantonese reading",
+        "precise, clipped articulation of technical terms",
+        "specific intonation patterns on scientific terminology",
+        "clear, standard Hong Kong Cantonese phonology"
+      ]
+    },
+    {
+      "id": "chinese-taipei-taiwan-mandarin-taiwan-guoyu",
+      "deck": "chinese",
+      "label": "Taiwan",
+      "km": 150.16466817975666,
+      "guess": "Taipei, Taiwan",
+      "radius": 100,
+      "language": "Mandarin",
+      "confidence": 95,
+      "evidence": [
+        "The speaker uses a standard Taiwanese Mandarin accent.",
+        "The intonation and rhythm are characteristic of a native speaker from Taiwan.",
+        "The pronunciation of certain characters is consistent with the standard Taiwanese Mandarin dialect."
+      ]
+    },
+    {
+      "id": "chinese-taiwan-mandarin-good-cop-bad-dog-tv-episode-sp",
+      "deck": "chinese",
+      "label": "Taiwan",
+      "km": 150.16466817975666,
+      "guess": "Taipei, Taiwan",
+      "radius": 100,
+      "language": "Mandarin Chinese",
+      "confidence": 90,
+      "evidence": [
+        "The speaker uses traditional Chinese characters in the transcript, which is standard in Taiwan.",
+        "The pronunciation of certain words and the overall rhythm are characteristic of Taiwanese Mandarin.",
+        "The vocabulary used, such as '好警察壞狗狗', is consistent with Taiwanese Mandarin usage."
+      ]
+    },
+    {
+      "id": "hindi-urdu-spoken-hindi-wikipedia-indo-european-language-",
+      "deck": "hindi-urdu",
+      "label": "Delhi–Meerut Region, India",
+      "km": 0,
+      "guess": "New Delhi, India",
+      "radius": 400,
+      "language": "Hindi",
+      "confidence": 85,
+      "evidence": [
+        "clear, standard Hindi pronunciation",
+        "rhythmic, measured cadence typical of reading aloud",
+        "precise articulation of technical linguistic terms"
+      ]
+    },
+    {
+      "id": "hindi-urdu-karachi-pakistan-urdu",
+      "deck": "hindi-urdu",
+      "label": "Karachi, Pakistan",
+      "km": 1032.9988323128148,
+      "guess": "Lahore, Pakistan",
+      "radius": 200,
+      "language": "Urdu",
+      "confidence": 90,
+      "evidence": [
+        "The speaker uses standard Urdu pronunciation and intonation.",
+        "The rhythm and stress patterns are consistent with a native Urdu speaker from Pakistan.",
+        "The vocabulary and phrasing are typical of formal or semi-formal Urdu speech in Pakistan."
+      ]
+    },
+    {
+      "id": "hindi-urdu-mufti-abul-qasim-nomani-talk-on-darul-uloom-de",
+      "deck": "hindi-urdu",
+      "label": "Varanasi, India",
+      "km": 713.2410293698217,
+      "guess": "Deoband, India",
+      "radius": 100,
+      "language": "Urdu",
+      "confidence": 90,
+      "evidence": [
+        "The speaker uses a formal, oratorical rhythm typical of religious lectures in the region.",
+        "The pronunciation of Urdu consonants, particularly the retroflex sounds, is characteristic of the Deobandi scholarly tradition.",
+        "The vocabulary and phrasing are consistent with formal Urdu used in an Indian context."
+      ]
+    },
+    {
+      "id": "portuguese-cape-verde-portuguese-cape-verde",
+      "deck": "portuguese",
+      "label": "Cape Verde",
+      "km": 245.64070073032963,
+      "guess": "Praia, Cape Verde",
+      "radius": 150,
+      "language": "Portuguese",
+      "confidence": 95,
+      "evidence": [
+        "distinctive vowel quality in words like 'carreira' and 'Paris'",
+        "rhythmic cadence typical of Cape Verdean Portuguese",
+        "specific intonation patterns in the phrasing of sentences"
+      ]
+    },
+    {
+      "id": "portuguese-malanje-angola-portuguese-angola",
+      "deck": "portuguese",
+      "label": "Malanje, Angola",
+      "km": 0.11188944764488114,
+      "guess": "Malanje, Angola",
+      "radius": 100,
+      "language": "Portuguese",
+      "confidence": 95,
+      "evidence": [
+        "The speaker uses a distinct, rhythmic cadence typical of Angolan Portuguese.",
+        "The pronunciation of vowels is clear and open, with a slight nasal quality.",
+        "The speaker uses specific vocabulary and phrasing common in Angolan Portuguese, such as 'a gente' and 'a gente vai'.",
+        "The speaker's intonation is melodic and expressive, with a clear emphasis on certain words and phrases."
+      ]
+    },
+    {
+      "id": "hindi-urdu-mumbai-india-hindi-bambaiyya-adjacent",
+      "deck": "hindi-urdu",
+      "label": "Mumbai, India",
+      "km": 0,
+      "guess": "Mumbai, India",
+      "radius": 50,
+      "language": "Hindi",
+      "confidence": 95,
+      "evidence": [
+        "The speaker uses a distinct, rhythmic cadence typical of Mumbai-based Hindi speakers.",
+        "The pronunciation of certain words, such as 'Pakistan' and 'refugee', reflects the standard South Asian English influence common in Mumbai.",
+        "The speaker's vocabulary and sentence structure are consistent with a native Hindi/Urdu speaker from an urban Indian background.",
+        "The speaker explicitly states she was born in Bombay in 1948."
+      ]
+    },
+    {
+      "id": "portuguese-mozambique-portuguese-mozambique",
+      "deck": "portuguese",
+      "label": "Mozambique",
+      "km": 0.33203308467701725,
+      "guess": "Maputo, Mozambique",
+      "radius": 100,
+      "language": "Portuguese",
+      "confidence": 95,
+      "evidence": [
+        "The vowel sounds are very clear and open, typical of Mozambican Portuguese.",
+        "The rhythm is steady and measured, characteristic of formal speech in Mozambique.",
+        "The pronunciation of 'r' is consistent with the standard Mozambican accent.",
+        "The speaker uses formal, diplomatic vocabulary and phrasing."
+      ]
+    },
+    {
+      "id": "portuguese-parana-brazil-portuguese-brazilian-parana",
+      "deck": "portuguese",
+      "label": "Paraná, Brazil",
+      "km": 339.0533230291956,
+      "guess": "São Paulo, Brazil",
+      "radius": 500,
+      "language": "Portuguese",
+      "confidence": 85,
+      "evidence": [
+        "The 'r' sound in 'coelho' is a soft, breathy sound typical of Brazilian Portuguese.",
+        "The 't' sound in 'coelho' is slightly palatalized, a common feature in many Brazilian dialects.",
+        "The 's' sound at the end of words is clearly pronounced, which is typical of many Brazilian dialects.",
+        "The speaker's intonation is rhythmic and clear, characteristic of a native speaker."
+      ]
+    },
+    {
+      "id": "portuguese-porto-alegre-brazil-portuguese-brazilian-gauch",
+      "deck": "portuguese",
+      "label": "Porto Alegre, Brazil",
+      "km": 852.340773904887,
+      "guess": "São Paulo, Brazil",
+      "radius": 300,
+      "language": "Portuguese",
+      "confidence": 85,
+      "evidence": [
+        "The pronunciation of the 's' at the end of words is clear and distinct",
+        "The vowel sounds are consistent with standard Brazilian Portuguese",
+        "The intonation is steady and rhythmic, typical of a formal reading"
+      ]
+    },
+    {
+      "id": "portuguese-porto-portugal-portuguese-european-porto-north",
+      "deck": "portuguese",
+      "label": "Porto, Portugal",
+      "km": 274.2955057331998,
+      "guess": "Lisbon, Portugal",
+      "radius": 50,
+      "language": "Portuguese",
+      "confidence": 95,
+      "evidence": [
+        "The speaker uses a standard European Portuguese accent, with clear, crisp vowel sounds.",
+        "The intonation and rhythm are typical of someone from the Lisbon area.",
+        "The speaker's pronunciation of the 's' sound at the end of words is consistent with European Portuguese."
+      ]
+    },
+    {
+      "id": "portuguese-rio-de-janeiro-brazil-portuguese-brazilian-car",
+      "deck": "portuguese",
+      "label": "Rio de Janeiro, Brazil",
+      "km": 360.74882490989955,
+      "guess": "São Paulo, Brazil",
+      "radius": 500,
+      "language": "Portuguese",
+      "confidence": 90,
+      "evidence": [
+        "The speaker uses the standard Brazilian Portuguese pronunciation of the letter 's' as 'sh' before 't' in words like 'históricas' and 'forçadas'.",
+        "The speaker uses the standard Brazilian Portuguese pronunciation of the letter 'r' as a guttural 'h' sound in words like 'referem' and 'reino'.",
+        "The speaker uses the standard Brazilian Portuguese pronunciation of the letter 'd' as 'j' before 'i' in words like 'cidade' and 'deriva'."
+      ]
+    },
+    {
+      "id": "russian-moscow-russia-russian-moscow",
+      "deck": "russian",
+      "label": "Moscow, Russia",
+      "km": 0,
+      "guess": "Moscow, Russia",
+      "radius": 500,
+      "language": "Russian",
+      "confidence": 90,
+      "evidence": [
+        "clear, standard Russian articulation",
+        "rhythmic, academic speaking style",
+        "precise, formal vocabulary",
+        "lack of regional dialect markers"
+      ]
+    },
+    {
+      "id": "portuguese-sao-paulo-brazil-portuguese-brazilian-sao-paul",
+      "deck": "portuguese",
+      "label": "São Paulo, Brazil",
+      "km": 0,
+      "guess": "São Paulo, Brazil",
+      "radius": 250,
+      "language": "Portuguese",
+      "confidence": 90,
+      "evidence": [
+        "The 't' and 'd' sounds before 'i' and 'e' are pronounced as 'ch' and 'j', which is typical of the Southeast region of Brazil.",
+        "The 'r' sound at the beginning of words and between vowels is a soft, breathy sound, characteristic of many Brazilian accents.",
+        "The rhythm and intonation are consistent with a native Brazilian Portuguese speaker."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1543 @@
+{
+  "model": "gemini-3-flash-preview",
+  "promptHash": "4c944a4254fa",
+  "overall": {
+    "n": 85,
+    "median": 110,
+    "within100": 47,
+    "within250": 65,
+    "within500": 78,
+    "within1000": 87
+  },
+  "byDeck": {
+    "accents": {
+      "n": 8,
+      "median": 90,
+      "within100": 63,
+      "within250": 88,
+      "within500": 88,
+      "within1000": 100
+    },
+    "arabic": {
+      "n": 42,
+      "median": 145,
+      "within100": 50,
+      "within250": 69,
+      "within500": 86,
+      "within1000": 98
+    },
+    "french": {
+      "n": 6,
+      "median": 110,
+      "within100": 50,
+      "within250": 83,
+      "within500": 100,
+      "within1000": 100
+    },
+    "spanish": {
+      "n": 9,
+      "median": 4255,
+      "within100": 0,
+      "within250": 22,
+      "within500": 33,
+      "within1000": 33
+    },
+    "chinese": {
+      "n": 7,
+      "median": 85,
+      "within100": 57,
+      "within250": 71,
+      "within500": 71,
+      "within1000": 71
+    },
+    "hindi-urdu": {
+      "n": 4,
+      "median": 713,
+      "within100": 50,
+      "within250": 50,
+      "within500": 50,
+      "within1000": 75
+    },
+    "portuguese": {
+      "n": 8,
+      "median": 339,
+      "within100": 50,
+      "within250": 50,
+      "within500": 75,
+      "within1000": 88
+    },
+    "russian": {
+      "n": 1,
+      "median": 0,
+      "within100": 100,
+      "within250": 100,
+      "within500": 100,
+      "within1000": 100
+    }
+  },
+  "results": [
+    {
+      "id": "wild-georgetown-south-carolina-usa-us-south",
+      "deck": "accents",
+      "label": "Georgetown, South Carolina, USA (US South)",
+      "km": 175.32062700229127,
+      "guess": "Columbia, United States",
+      "radius": 250,
+      "language": "English",
+      "confidence": 95,
+      "evidence": [
+        "he explicitly states he grew up in rural South Carolina",
+        "the 'r' in 'performer' is softened and almost disappears",
+        "the 't' in 'society' is pronounced with a gentle, almost 'd'-like quality",
+        "the 'o' in 'others' has a distinct Southern resonance",
+        "the overall rhythm of his speech is slow and deliberate, typical of the American South"
+      ]
+    },
+    {
+      "id": "wild-mbaise-imo-state-nigeria",
+      "deck": "accents",
+      "label": "Mbaise, Imo State, Nigeria",
+      "km": 105.68629180439996,
+      "guess": "Enugu, Nigeria",
+      "radius": 150,
+      "language": "English",
+      "confidence": 95,
+      "evidence": [
+        "syllable-timed rhythm",
+        "non-rhotic 'r' in 'master's'",
+        "dental 'd' sound in 'the'",
+        "open 'a' in 'Africa'",
+        "distinctive pitch patterns on 'superstition'"
+      ]
+    },
+    {
+      "id": "wild-melbourne-australia",
+      "deck": "accents",
+      "label": "Melbourne, Australia",
+      "km": 0,
+      "guess": "Melbourne, Australia",
+      "radius": 150,
+      "language": "English",
+      "confidence": 95,
+      "evidence": [
+        "your 'r' disappears at the end of 'Melbourne' and 'songwriter'",
+        "the 'au' in 'Australia' has a wide, bright diphthong",
+        "the 't' in 'Institute' is soft, almost like a 'd'",
+        "the 'i' in 'rights' is long and distinctively Australian",
+        "a subtle upward pitch at the end of your sentences"
+      ]
+    },
+    {
+      "id": "accents-kenya-english-kenyan",
+      "deck": "accents",
+      "label": "Kenya",
+      "km": 70.00619444535565,
+      "guess": "Narok, Kenya",
+      "radius": 150,
+      "language": "English",
+      "confidence": 95,
+      "evidence": [
+        "your 'th' sounds like 'd' in 'that'",
+        "the rhythm of your speech is very even and steady",
+        "your 'r' is silent at the ends of words",
+        "vowels like in 'race' are short and pure",
+        "you say 'I say' instead of 'I said'"
+      ]
+    },
+    {
+      "id": "accents-namibia-english-namibian",
+      "deck": "accents",
+      "label": "Namibia",
+      "km": 938.1211268841107,
+      "guess": "Katima Mulilo, Namibia",
+      "radius": 150,
+      "language": "English",
+      "confidence": 95,
+      "evidence": [
+        "He pronounces the 'b' in Subia with a soft 'v' sound",
+        "Mentions growing up in the 'panhandle' of Namibia",
+        "Refers to Silozi as a dominant local influence",
+        "The rhythmic, syllable-timed pace of his English",
+        "Specific mention of the Subiya-Tonga linguistic connection"
+      ]
+    },
+    {
+      "id": "accents-aberdeenshire-scotland-english-northeast-scotl",
+      "deck": "accents",
+      "label": "Northeast Scotland, Scotland",
+      "km": 19.016130336582485,
+      "guess": "Aberdeen, United Kingdom",
+      "radius": 100,
+      "language": "English",
+      "confidence": 98,
+      "evidence": [
+        "the word 'ken' for 'know'",
+        "the word 'fit' for 'what'",
+        "'loons' and 'quines' for boys and girls",
+        "the 'f' sound replacing 'wh' in 'fit'",
+        "rolled 'r's and clipped vowels"
+      ]
+    },
+    {
+      "id": "accents-jamaica-english-jamaican-patois",
+      "deck": "accents",
+      "label": "Jamaica",
+      "km": 90.00086334538001,
+      "guess": "Port Antonio, Jamaica",
+      "radius": 50,
+      "language": "English",
+      "confidence": 95,
+      "evidence": [
+        "The rhythmic, melodic flow of his sentences.",
+        "The way he says 'Patois' with a soft 'a' and a slight 'w' sound.",
+        "His use of the word 'yard' to refer to home.",
+        "The distinctively Caribbean vowel sounds, like in 'back' and 'talk'.",
+        "The slight 'sing-song' intonation at the end of some phrases."
+      ]
+    },
+    {
+      "id": "wild-thomastown-county-kilkenny-ireland",
+      "deck": "accents",
+      "label": "Thomastown, County Kilkenny, Ireland",
+      "km": 37.276359260969606,
+      "guess": "Kilkenny, Ireland",
+      "radius": 25,
+      "language": "English",
+      "confidence": 95,
+      "evidence": [
+        "\"thousands\" sounds like \"tousands\"",
+        "\"miles\" has a wide, rounded vowel",
+        "\"years\" is pronounced with two distinct syllables",
+        "\"th\" in \"the\" and \"that\" is very soft, almost a \"d\"",
+        "Mention of \"County Laois\" and \"Ballyragget\""
+      ]
+    },
+    {
+      "id": "ar-3384",
+      "deck": "arabic",
+      "label": "Aleppo, Syria",
+      "km": 308.6727994148748,
+      "guess": "Damascus, Syria",
+      "radius": 100,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "The 'q' in 'sur'a' and 'halla' is dropped for a soft glottal stop",
+        "The 'j' in 'ijaa' is soft and smooth",
+        "The word 'halla' is used for 'now'",
+        "The 't' in 'fatq' is crisp while the 'q' disappears",
+        "The rhythmic 'shu ismo' used as a conversational filler"
+      ]
+    },
+    {
+      "id": "ar-3736",
+      "deck": "arabic",
+      "label": "Abu Dhabi, UAE",
+      "km": 0.5125946917364709,
+      "guess": "Abu Dhabi, United Arab Emirates",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "the letter Q sounds like a G in 'tarig'",
+        "using 'hathaylah' for 'these people'",
+        "the word 'yidaggir' to describe tailgating",
+        "the future marker 'bi-yitamm'",
+        "the 'j' in 'al-jary' is a firm, urban 'j'"
+      ]
+    },
+    {
+      "id": "ar-2082",
+      "deck": "arabic",
+      "label": "Algiers, Algeria",
+      "km": 0.4358563874508199,
+      "guess": "Algiers, Algeria",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "your 'j' sounds like a soft 'zh'",
+        "the way you say 'ETUSA' places you in Algiers",
+        "a distinct North African rhythm in your formal Arabic",
+        "the 'r' is lightly trilled but smooth",
+        "vowels are slightly clipped compared to Levantine or Gulf Arabic"
+      ]
+    },
+    {
+      "id": "ar-882",
+      "deck": "arabic",
+      "label": "Alexandria, Egypt",
+      "km": 55.29606432798294,
+      "guess": "Damanhur, Egypt",
+      "radius": 100,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "the hard 'g' sound in 'gineh' (pounds)",
+        "mention of the Damanhur Sports Club",
+        "dropping the 'q' sound in words like 'projects'",
+        "the distinctive Egyptian 'eh' sound at the end of phrases",
+        "rhythmic Egyptian cadence and intonation"
+      ]
+    },
+    {
+      "id": "ar-249",
+      "deck": "arabic",
+      "label": "Amman, Jordan",
+      "km": 1.8870006195580828,
+      "guess": "Amman, Jordan",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "your Q in 'halla' becomes a soft catch in the throat",
+        "you use 'kum' at the end of 'bahkilkum' for 'you all'",
+        "the letter J in 'wizho' is a soft 'zh' sound",
+        "you say 'halla' for 'now' instead of 'hassa'",
+        "the word 'bani'admi' for a person"
+      ]
+    },
+    {
+      "id": "ar-39",
+      "deck": "arabic",
+      "label": "Annaba, Algeria",
+      "km": 419.59726784520205,
+      "guess": "Algiers, Algeria",
+      "radius": 400,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "your 'qaf' is deep and distinct",
+        "you use 'donc' naturally in your sentences",
+        "your future marker is 'rah'",
+        "you say 'ta'na' for 'our'",
+        "your rhythm has a melodic, North African flow"
+      ]
+    },
+    {
+      "id": "ar-679",
+      "deck": "arabic",
+      "label": "Baghdad, Iraq",
+      "km": 0.8097130714394724,
+      "guess": "Baghdad, Iraq",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "your 'k' in 'kan' becomes a 'ch' sound",
+        "the 'q' in 'qal' is pronounced as a 'g'",
+        "the word 'shlon' for 'how'",
+        "the use of 'fad' as an indefinite article",
+        "the tag question 'mu tamam' at the end of sentences"
+      ]
+    },
+    {
+      "id": "arabic-baghdad-iraq-arabic-iraqi",
+      "deck": "arabic",
+      "label": "Baghdad, Iraq",
+      "km": 0.8097130714394724,
+      "guess": "Baghdad, Iraq",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "your 'q' becomes a 'g' in words like 'tgoum' and 'ag'ad'",
+        "the word 'kullish' for 'very'",
+        "the way you say 'trid' for 'you want'",
+        "the 'ch' sound in 'akil' is subtle but the 'k' is very soft",
+        "the melodic, rising-falling rhythm of the sentences"
+      ]
+    },
+    {
+      "id": "ar-2765",
+      "deck": "arabic",
+      "label": "Basra, Iraq",
+      "km": 0.3963091773929038,
+      "guess": "Basra, Iraq",
+      "radius": 50,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "your K sounds like a CH in 'chulluhum'",
+        "the frequent use of 'ya' as a conversational filler",
+        "the specific mention of 'Masraf al-Rafidain'",
+        "the clear reference to 'Basra 2' branch",
+        "the soft, melodic intonation typical of southern Iraq"
+      ]
+    },
+    {
+      "id": "ar-2473",
+      "deck": "arabic",
+      "label": "Batna, Algeria",
+      "km": 177.72456276219637,
+      "guess": "Tébessa, Algeria",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "the 'q' sound is pronounced as a hard 'g' in 'gal'",
+        "explicit mention of the 'Nemami' (Nememcha) region",
+        "the distinctive 'Gasba' flute and percussion rhythm",
+        "the vowel in 'yami' has a sharp, eastern Algerian quality",
+        "the word 'watnahum' used in a local poetic sense"
+      ]
+    },
+    {
+      "id": "ar-2446",
+      "deck": "arabic",
+      "label": "Beirut, Lebanon",
+      "km": 0.4540311775486809,
+      "guess": "Beirut, Lebanon",
+      "radius": 100,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "the Q in 'aj'a' and 'oul' becomes a soft catch in the throat",
+        "a melodic, sing-song rhythm to the sentences",
+        "the 'ay' sound in 'shaghaltayn' is bright and forward",
+        "using 'hek' for 'like this'",
+        "the 'j' sound is soft and slightly breathy"
+      ]
+    },
+    {
+      "id": "ar-3107",
+      "deck": "arabic",
+      "label": "Benghazi, Libya",
+      "km": 650.5594274476152,
+      "guess": "Tripoli, Libya",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "The letter Q is pronounced as a G in 'argam'",
+        "Frequent use of 'bahi' as a conversational filler",
+        "The word 'ga'miz' for sitting down to work",
+        "The word 'shin' used for 'what' in 'shin bta'tih'",
+        "The shortened 'u' sound in 'gut-lak' instead of 'gult-lak'"
+      ]
+    },
+    {
+      "id": "ar-2608",
+      "deck": "arabic",
+      "label": "Cairo, Egypt",
+      "km": 0.6408504363881136,
+      "guess": "Cairo, Egypt",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "the letter J in 'Ajram' is a hard G",
+        "the letter Q in 'qultulak' is a glottal stop",
+        "the word 'now' is 'dilwa'ti'",
+        "the word 'also' is 'bardo'",
+        "the 'ma...sh' negation in 'ma tiktibsh'"
+      ]
+    },
+    {
+      "id": "ar-1604",
+      "deck": "arabic",
+      "label": "Casablanca, Morocco",
+      "km": 0.3452019342259213,
+      "guess": "Casablanca, Morocco",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "the word 'dyal' used for possession",
+        "the word 'l-wlidat' for children",
+        "the 'k-' prefix on verbs like 'kayji' and 'kaybdaw'",
+        "the word 'mashi' for negation",
+        "the specific rhythm and vowel reduction of Moroccan Darija"
+      ]
+    },
+    {
+      "id": "ar-2375",
+      "deck": "arabic",
+      "label": "Constantine, Algeria",
+      "km": 319.85371734950314,
+      "guess": "Algiers, Algeria",
+      "radius": 400,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "your Q sound becomes a G in words like 'teg'od'",
+        "the word 'rahi' used to mean 'it is'",
+        "the 'th' in 'thiqa' is crisp and slightly hardened",
+        "the melodic repetition of 'da'iman'",
+        "the use of 'hakda' for 'like this'"
+      ]
+    },
+    {
+      "id": "ar-809",
+      "deck": "arabic",
+      "label": "Blida, Algeria",
+      "km": 37.58847056024754,
+      "guess": "Algiers, Algeria",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "the 'q' in 'qdernash' is a deep, clear uvular stop",
+        "using 'preferew' (from French) for 'they preferred'",
+        "the word 'sarya' to mean 'happening' or 'current'",
+        "the 'sh' suffix for negation in 'ma qdernash'",
+        "the 'ou' sound in 'douma' (always)"
+      ]
+    },
+    {
+      "id": "ar-94",
+      "deck": "arabic",
+      "label": "Djelfa, Algeria",
+      "km": 232.20582727754166,
+      "guess": "Algiers, Algeria",
+      "radius": 350,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "the word 'shkoun' used for 'who'",
+        "the adjective 'shina' meaning 'ugly' or 'bad'",
+        "the phrase 'wach biha' for 'what is wrong with it'",
+        "the word 'shhal' for 'how much'",
+        "the distinct 'sh' sounds and clipped vowel endings"
+      ]
+    },
+    {
+      "id": "ar-1907",
+      "deck": "arabic",
+      "label": "El Obeid, Sudan",
+      "km": 360.7246105866816,
+      "guess": "Khartoum, Sudan",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "your Q sounds like a G in words like 'agbah'",
+        "you use 'hassa' for 'now'",
+        "the J in 'jiddan' is very sharp and forward in the mouth",
+        "the rhythmic, sing-song cadence of your sentences",
+        "the way you say 'shinu' for 'what'"
+      ]
+    },
+    {
+      "id": "ar-3345",
+      "deck": "arabic",
+      "label": "Dubai, UAE",
+      "km": 867.9883937308743,
+      "guess": "Riyadh, Saudi Arabia",
+      "radius": 250,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "your Q turns into a G in 'gult' and 'nabgha'",
+        "you use 'yabuna' to mean 'they want us'",
+        "you use 'nabgha' for 'we want'",
+        "the word 'mo' for 'not'",
+        "the distinct Najdi rhythm in your sentence endings"
+      ]
+    },
+    {
+      "id": "ar-3132",
+      "deck": "arabic",
+      "label": "Gaza, Palestine",
+      "km": 146.81182487542355,
+      "guess": "Amman, Jordan",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "your Q becomes a G in words like 'gader' and 'gaddo'",
+        "the word 'hallaq' for 'now' is a classic regional marker",
+        "you use 'dinar' as your currency",
+        "the phrase 'ya hayya Allah' used as a welcoming exclamation",
+        "the glottal stop replacing the Q in some words while keeping the G in others"
+      ]
+    },
+    {
+      "id": "ar-754",
+      "deck": "arabic",
+      "label": "Fes, Morocco",
+      "km": 244.62257053315452,
+      "guess": "Casablanca, Morocco",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "your 'dyali' marks possession in the typical Moroccan way",
+        "you use 'bash' to mean 'in order to'",
+        "the 'ma...sh' sandwich for negation in 'ma kaykounsh'",
+        "the soft 'zh' sound for the letter J",
+        "French-style vowel quality in words like 'internet' and 'video'"
+      ]
+    },
+    {
+      "id": "ar-4531",
+      "deck": "arabic",
+      "label": "Irbid, Jordan",
+      "km": 68.06315695107648,
+      "guess": "Amman, Jordan",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "you say 'faten' for 'past'",
+        "you mention 'His Majesty the King'",
+        "you talk about 'the House of Representatives'",
+        "your 'q' is clear and formal",
+        "your rhythm is steady and formal"
+      ]
+    },
+    {
+      "id": "ar-3854",
+      "deck": "arabic",
+      "label": "Hebron, Palestine",
+      "km": 91.33180798963681,
+      "guess": "Amman, Jordan",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "The word 'hada' for 'this'",
+        "The 'q' in 'waqt' becomes a soft catch in the throat",
+        "The word 'bedna' for 'we want'",
+        "The 'th' sound in garlic becomes a 't' ('tome')",
+        "The word 'miyye' for 'water'"
+      ]
+    },
+    {
+      "id": "ar-1733",
+      "deck": "arabic",
+      "label": "Jeddah, Saudi Arabia",
+      "km": 845.1234551732181,
+      "guess": "Riyadh, Saudi Arabia",
+      "radius": 500,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "The 'qaf' sound is sometimes pronounced as a 'g'",
+        "The 'jeem' sound has a slight 'y' quality in some words",
+        "The rhythm of her speech is characteristic of the Gulf region",
+        "The way she pronounces 'ان شاء الله' is very typical of Saudi Arabia",
+        "Her intonation is steady and formal, common in educated speakers from the region"
+      ]
+    },
+    {
+      "id": "ar-1526",
+      "deck": "arabic",
+      "label": "Kuwait City, Kuwait",
+      "km": 1.3032274652669673,
+      "guess": "Kuwait City, Kuwait",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "hini for here",
+        "the G sound for the letter Q in ga'adeen",
+        "tawhum meaning just now",
+        "the melodic, rising intonation at the end of phrases",
+        "clear, crisp J sound in majmu'a"
+      ]
+    },
+    {
+      "id": "ar-1248",
+      "deck": "arabic",
+      "label": "Manama, Bahrain",
+      "km": 434.012403870105,
+      "guess": "Kuwait City, Kuwait",
+      "radius": 100,
+      "language": "Arabic",
+      "confidence": 88,
+      "evidence": [
+        "your 'k' turns into a 'ch' in the word 'chidi'",
+        "the 'g' sound in 'guwi' is soft and deep",
+        "the 'j' in 'mizaj' is crisp and standard",
+        "the word 'chidi' used for 'like this'",
+        "a gentle, rising and falling rhythm typical of the northern Gulf"
+      ]
+    },
+    {
+      "id": "ar-1623",
+      "deck": "arabic",
+      "label": "Muscat, Oman",
+      "km": 0.6183907443408966,
+      "guess": "Muscat, Oman",
+      "radius": 100,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "your 'sh' in 'wish' for 'what' is a classic Gulf marker",
+        "the melodic, almost singing quality of your sentences",
+        "you say 'al-heen' for 'now' with a soft, breathy finish",
+        "mentioning 'Muscat Club' as a local reference",
+        "the clear, crisp pronunciation of the letter 'jeem'"
+      ]
+    },
+    {
+      "id": "ar-3190",
+      "deck": "arabic",
+      "label": "Nablus, Palestine",
+      "km": 1254.2989750250774,
+      "guess": "Kuwait City, Kuwait",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "the word 'yabi' used for 'wants' at the start",
+        "the letter Q sounds like a G in 'daqeeqa'",
+        "the word 'biddhom' for 'they want' showing Levantine influence",
+        "a soft, melodic J in 'jam'at'",
+        "the 'al-' prefix is pronounced with a very short, crisp vowel"
+      ]
+    },
+    {
+      "id": "accents-west-yorkshire-england-english-west-riding-yor",
+      "deck": "accents",
+      "label": "Sheffield, England",
+      "km": null
+    },
+    {
+      "id": "ar-423",
+      "deck": "arabic",
+      "label": "Oran, Algeria",
+      "km": 350.1099322440798,
+      "guess": "Algiers, Algeria",
+      "radius": 250,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "the word 'ta' used to mean 'of'",
+        "the French-style 'bac plus un' for educational levels",
+        "the specific mention of 'ANSEJ', an Algerian government agency",
+        "the word 'yqad' for 'he can' or 'is able to'",
+        "the sharp, clear 'q' sound typical of northern Algerian cities"
+      ]
+    },
+    {
+      "id": "ar-2316",
+      "deck": "arabic",
+      "label": "Jerusalem, Palestine",
+      "km": 69.3828020228576,
+      "guess": "Amman, Jordan",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "your Q in 'spoon' becomes a soft catch in the throat",
+        "you use 'kasa' instead of 'koob' for cup",
+        "the word 'mayye' for water is distinctively Levantine",
+        "you say 'tlat' for the number three",
+        "the word 'ahot' for 'I put' is very common in Jordan and Palestine"
+      ]
+    },
+    {
+      "id": "ar-989",
+      "deck": "arabic",
+      "label": "Rabat, Morocco",
+      "km": 85.26291019048776,
+      "guess": "Casablanca, Morocco",
+      "radius": 250,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "your 'dyal' for 'of'",
+        "your 'daba' for 'now'",
+        "your 'hdi rasek' for 'watch out'",
+        "your 'hdar' for 'speak'",
+        "your 'fhamti' at the end of sentences"
+      ]
+    },
+    {
+      "id": "ar-5182",
+      "deck": "arabic",
+      "label": "Omdurman, Sudan",
+      "km": 960.4884731459765,
+      "guess": "Jeddah, Saudi Arabia",
+      "radius": 300,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "The clear mention of 'Al-Hijaz' in the lyrics",
+        "The 'yalali' refrain common in western Saudi folk songs",
+        "The rhythmic, percussive delivery of the words",
+        "The specific vowel coloring in 'Al-Matar'",
+        "The traditional Hejazi melodic mode"
+      ]
+    },
+    {
+      "id": "ar-1879",
+      "deck": "arabic",
+      "label": "Port Sudan, Sudan",
+      "km": 673.590539653092,
+      "guess": "Khartoum, Sudan",
+      "radius": 250,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "your 'q' sounds like a 'g' in words like Souq",
+        "the way you say 'nas' to group people together",
+        "the word 'khala' for the countryside",
+        "the distinct, sharp 'j' sound",
+        "the rhythmic, slightly melodic flow of your sentences"
+      ]
+    },
+    {
+      "id": "ar-3479",
+      "deck": "arabic",
+      "label": "Sanaa, Yemen",
+      "km": 200.1704185531128,
+      "guess": "Taiz, Yemen",
+      "radius": 120,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "the letter Q sounds like a hard G in 'al-murtazaqa'",
+        "distinctive Yemeni rising and falling intonation",
+        "the word 'dheen' used for 'those who'",
+        "specific mention of Taiz and local political figures",
+        "the phrase 'aqal al-harat' referring to neighborhood leaders"
+      ]
+    },
+    {
+      "id": "ar-2787",
+      "deck": "arabic",
+      "label": "Riyadh, Saudi Arabia",
+      "km": 0.6209950085302013,
+      "guess": "Riyadh, Saudi Arabia",
+      "radius": 300,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "the 'g' sound for the letter 'qaf' in 'haqq'",
+        "the 'j' in 'tuj'ak' is a firm, clear 'j' sound",
+        "the word 'rah' used for the future tense",
+        "the 'k' at the end of 'rasak' is a standard 'k' without the 'ts' sound found in some rural areas",
+        "the rhythmic stress on the first syllable of 'hunalik'"
+      ]
+    },
+    {
+      "id": "ar-4464",
+      "deck": "arabic",
+      "label": "Setif, Algeria",
+      "km": 219.3787749695758,
+      "guess": "Algiers, Algeria",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "The 'qaf' is pronounced as a clear 'q' sound, typical of urban Algerian dialects.",
+        "The use of 'lahna' for 'here' is a common Algerian marker.",
+        "The word 'raha' for 'she is' is characteristic of the region.",
+        "The pronunciation of 'tadhiya' (sacrifice) with a distinct 'dh' sound.",
+        "The overall rhythm and intonation are unmistakably Algerian."
+      ]
+    },
+    {
+      "id": "ar-3647",
+      "deck": "arabic",
+      "label": "Tangier, Morocco",
+      "km": 294.03413599777815,
+      "guess": "Casablanca, Morocco",
+      "radius": 300,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "using 'dyal' to mean 'of' or 'belonging to'",
+        "French football terms like 'pressing' and 'à la perte du ballon' integrated naturally",
+        "the word 'zéro' pronounced with a French 'r'",
+        "the 'k' in 'katmshi' is sharp and the whole word is clipped",
+        "the 'q' in 'naqsa' is pronounced as a deep, voiceless stop"
+      ]
+    },
+    {
+      "id": "ar-5408",
+      "deck": "arabic",
+      "label": "Taiz, Yemen",
+      "km": 1.0808625245723529,
+      "guess": "Taiz, Yemen",
+      "radius": 100,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "The 'q' in 'roads' is pronounced as a 'g'",
+        "A melodic, almost singing quality to the sentence endings",
+        "The 'j' in 'came' is a clear, voiced sound",
+        "The 't' in 'roads' is very sharp and emphatic",
+        "Natural use of 'raghida' to describe a prosperous life"
+      ]
+    },
+    {
+      "id": "ar-3660",
+      "deck": "arabic",
+      "label": "Tunis, Tunisia",
+      "km": 0.41145613824090027,
+      "guess": "Tunis, Tunisia",
+      "radius": 150,
+      "language": "Arabic",
+      "confidence": 95,
+      "evidence": [
+        "the word 'barsha' for 'a lot'",
+        "using 'afsha' to mean 'ugly'",
+        "French-influenced 'Janvi' for January",
+        "the phrase 'bayt al-bano' for bathroom",
+        "the quick, rhythmic cadence of Tunisian Derja"
+      ]
+    },
+    {
+      "id": "ar-6858",
+      "deck": "arabic",
+      "label": "Tripoli, Libya",
+      "km": 0.33417158874973535,
+      "guess": "Tripoli, Libya",
+      "radius": 100,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "your Q sounds like a G",
+        "you mention the Ain Zara district",
+        "the way you say 'not normal'",
+        "the rhythm of your sentences is very Tripoli",
+        "you use 'hadi' for 'this'"
+      ]
+    },
+    {
+      "id": "ar-3785",
+      "deck": "arabic",
+      "label": "Wad Medani, Sudan",
+      "km": 160.05695590022535,
+      "guess": "Khartoum, Sudan",
+      "radius": 350,
+      "language": "Arabic",
+      "confidence": 90,
+      "evidence": [
+        "the letter Q is pronounced as a hard G in 'ghina'",
+        "the word 'khashayt' used to mean entering or starting something",
+        "a distinctively rhythmic and slightly breathy way of speaking",
+        "the word 'shwaya' repeated with a specific Sudanese cadence",
+        "the sharp, clear 'j' sound in 'hikaya'"
+      ]
+    },
+    {
+      "id": "french-brussels-belgium-french-belgian",
+      "deck": "french",
+      "label": "Belgium",
+      "km": 258.7915964311609,
+      "guess": "Paris, France",
+      "radius": 150,
+      "language": "French",
+      "confidence": 85,
+      "evidence": [
+        "clear uvular 'r' sound",
+        "well-defined vowels",
+        "standard French rhythm",
+        "articulate pronunciation",
+        "slight melodic quality"
+      ]
+    },
+    {
+      "id": "french-bargny-senegal-french-senegal",
+      "deck": "french",
+      "label": "Bargny, Senegal",
+      "km": 26.110285875140264,
+      "guess": "Dakar, Senegal",
+      "radius": 80,
+      "language": "French",
+      "confidence": 95,
+      "evidence": [
+        "the 'r' is pronounced with a soft, uvular friction",
+        "nasal vowels like in 'Bargny' are very resonant",
+        "the rhythm is steady and syllable-timed",
+        "vowels are crisp and clearly separated",
+        "the reporter explicitly identifies himself as being in Dakar"
+      ]
+    },
+    {
+      "id": "french-yaounde-cameroon-french-cameroon",
+      "deck": "french",
+      "label": "Cameroon",
+      "km": 72.49943144946897,
+      "guess": "Yaoundé, Cameroon",
+      "radius": 200,
+      "language": "French",
+      "confidence": 95,
+      "evidence": [
+        "your R is very soft or disappears at the end of words",
+        "the rhythm of your sentences has a musical, rising quality",
+        "you pronounce 'Camerounais' with a distinct nasal vowel",
+        "the way you say 'CAF' and 'Fecafoot' shows deep local knowledge",
+        "your 'u' sounds have a specific rounded quality"
+      ]
+    },
+    {
+      "id": "french-abidjan-cote-d-ivoire-french-cote-d-ivoire",
+      "deck": "french",
+      "label": "Côte d'Ivoire",
+      "km": 109.55568656540143,
+      "guess": "Tiassalé, Côte d'Ivoire",
+      "radius": 150,
+      "language": "French",
+      "confidence": 95,
+      "evidence": [
+        "the 'o' in 'bio' is very open and rounded",
+        "a melodic, rising pitch at the end of phrases",
+        "the 'u' in 'plus' is pushed very far forward",
+        "nasal sounds like 'en' and 'on' are very distinct",
+        "the 'r' is soft, sometimes almost disappearing"
+      ]
+    },
+    {
+      "id": "french-paris-france-french-paris",
+      "deck": "french",
+      "label": "Paris, France",
+      "km": 0,
+      "guess": "Paris, France",
+      "radius": 300,
+      "language": "French",
+      "confidence": 85,
+      "evidence": [
+        "Standard 'r' sound: The uvular 'r' is consistent and typical of Metropolitan French.",
+        "Clear nasal vowels: Words like 'important' and 'continent' have the standard nasal quality.",
+        "Syllable-timed rhythm: The steady, even pace is characteristic of native French speech.",
+        "Neutral intonation: The lack of regional melodic patterns points to the Île-de-France area.",
+        "English names with French phonetics: Names like 'British Museum' are pronounced with a slight French influence but clear articulation."
+      ]
+    },
+    {
+      "id": "ar-6196",
+      "deck": "arabic",
+      "label": "Sharjah, UAE",
+      "km": 144.8704973913672,
+      "guess": "Abu Dhabi, United Arab Emirates",
+      "radius": 200,
+      "language": "Arabic",
+      "confidence": 85,
+      "evidence": [
+        "the word 'aba' used for 'I want'",
+        "the resigned 'ma 'alayh' used as a filler",
+        "the soft, almost breathy 'h' in 'mutahalik'",
+        "the specific rhythmic stress on the ends of sentences",
+        "the local term 'al-iskan' for government housing"
+      ]
+    },
+    {
+      "id": "spanish-argentine-spanish-reading-about-a-brazilian-to",
+      "deck": "spanish",
+      "label": "Argentina",
+      "km": 7392.178683706492,
+      "guess": "Mexico City, Mexico",
+      "radius": 300,
+      "language": "Spanish",
+      "confidence": 85,
+      "evidence": [
+        "your 's' is crisp and clear at the end of every word",
+        "the 'z' in 'localiza' sounds exactly like an 's'",
+        "a gentle rise and fall in pitch at the end of phrases",
+        "the 'll' in 'población' is a soft, clean 'y' sound",
+        "vowels in the middle of long words are short and tight"
+      ]
+    },
+    {
+      "id": "french-marseille-france-french-southern-france",
+      "deck": "french",
+      "label": "Southern France, France",
+      "km": null
+    },
+    {
+      "id": "french-montreal-canada-french-quebecois",
+      "deck": "french",
+      "label": "Québec, Canada",
+      "km": 233.02897813884005,
+      "guess": "Montreal, Canada",
+      "radius": 250,
+      "language": "French",
+      "confidence": 95,
+      "evidence": [
+        "your T and D sound like TS and DZ before I and U",
+        "using faque instead of donc or alors",
+        "the word choke to mean backing out of something",
+        "using tsé as a frequent filler",
+        "the way you say Québec with a sharp K and specific vowel"
+      ]
+    },
+    {
+      "id": "spanish-venezuelan-spanish-introduction-to-the-big-ban",
+      "deck": "spanish",
+      "label": "Guatire, Venezuela",
+      "km": 6964.840085311442,
+      "guess": "Madrid, Spain",
+      "radius": 250,
+      "language": "Spanish",
+      "confidence": 90,
+      "evidence": [
+        "your C and Z sound like a soft TH",
+        "your S has a slight hushing or whistling quality",
+        "the J in 'cosmología' is strong and raspy",
+        "you pronounce every consonant clearly, even at the ends of words",
+        "your rhythm is steady and punchy, typical of the central plateau"
+      ]
+    },
+    {
+      "id": "spanish-mexican-spanish-schrodinger-s-cat-article-read",
+      "deck": "spanish",
+      "label": "Mexico",
+      "km": 9027.493163938288,
+      "guess": "Madrid, Spain",
+      "radius": 200,
+      "language": "Spanish",
+      "confidence": 90,
+      "evidence": [
+        "clear distinction between the S and the TH sound in words like 'vez' and 'acción'",
+        "the S has a slight whistling, apical quality typical of the region",
+        "the J sound in 'caja' is strong and raspy",
+        "the R is rolled firmly but not excessively",
+        "the overall rhythm is steady and balanced, typical of standard Peninsular Spanish"
+      ]
+    },
+    {
+      "id": "spanish-mexico-city-mexico-spanish-mexican",
+      "deck": "spanish",
+      "label": "Mexico",
+      "km": 345.2354831161112,
+      "guess": "Mexico City, Mexico",
+      "radius": 250,
+      "language": "Spanish",
+      "confidence": 90,
+      "evidence": [
+        "clear and consistent pronunciation of the letter S at the ends of words",
+        "use of the word agruras for heartburn",
+        "use of the word cacahuates for peanuts",
+        "even and controlled rhythm without strong sing-song intonation",
+        "precise articulation of the letter X in words like examen"
+      ]
+    },
+    {
+      "id": "spanish-uruguayan-spanish-juan-jose-morosoli-reads-la-",
+      "deck": "spanish",
+      "label": "Minas, Uruguay",
+      "km": 102.99633896625882,
+      "guess": "Montevideo, Uruguay",
+      "radius": 200,
+      "language": "Spanish",
+      "confidence": 92,
+      "evidence": [
+        "your 'y' and 'll' sound like a soft 'sh'",
+        "the 's' at the end of words like 'pastos' almost disappears",
+        "a melodic, sing-song rhythm to the sentences",
+        "the 'x' in 'exaltar' is pronounced clearly as 'ks'",
+        "regional words like 'pago' and 'yuyero'"
+      ]
+    },
+    {
+      "id": "spanish-paniahue-santa-cruz-chile-spanish-chilean",
+      "deck": "spanish",
+      "label": "Paniahue, Chile",
+      "km": 145.93897659671143,
+      "guess": "Santiago, Chile",
+      "radius": 200,
+      "language": "Spanish",
+      "confidence": 95,
+      "evidence": [
+        "the 's' at the end of 'más' and 'atrás' is almost silent",
+        "the 'ch' sound is softened, almost like a 'sh'",
+        "use of the word 'guarenes' to refer to large rats",
+        "the 't' in 'usted' is dropped, sounding like 'uhté'",
+        "a melodic, singing quality to the end of phrases"
+      ]
+    },
+    {
+      "id": "spanish-peruvian-spanish-richard-dawkins-biography-rea",
+      "deck": "spanish",
+      "label": "Peru",
+      "km": 4255.134117588438,
+      "guess": "Mexico City, Mexico",
+      "radius": 250,
+      "language": "Spanish",
+      "confidence": 85,
+      "evidence": [
+        "your S is crisp and clear at the end of every word",
+        "the R in 'marzo' is strongly trilled",
+        "you use a soft Y sound for the LL in 'llamado'",
+        "your vowels are short and distinct, never sliding into each other",
+        "the J in 'biología' is a gentle, breathy sound"
+      ]
+    },
+    {
+      "id": "spanish-castilian-spanish-segismundo-s-soliloquy-calde",
+      "deck": "spanish",
+      "label": "Spain",
+      "km": 9062.653609872843,
+      "guess": "Mexico City, Mexico",
+      "radius": 150,
+      "language": "Spanish",
+      "confidence": 85,
+      "evidence": [
+        "your Z and C sound exactly like S",
+        "the melodic, singing rhythm of your sentences",
+        "the S at the end of words often softens into a light breath",
+        "the 'll' in 'lisonjero' is a smooth 'y' sound",
+        "vowels are clipped and clear"
+      ]
+    },
+    {
+      "id": "chinese-chengdu-china-mandarin-sichuanese-chengdu-dial",
+      "deck": "chinese",
+      "label": "Chengdu, China",
+      "km": 9.542444210198095,
+      "guess": "Chengdu, China",
+      "radius": 250,
+      "language": "Mandarin Chinese",
+      "confidence": 85,
+      "evidence": [
+        "your 'sh' sounds like 's' in words like 'shuo'",
+        "the 'zh' in 'zhao' becomes a 'z' sound",
+        "the 'n' and 'l' sounds are used interchangeably",
+        "the 'r' sound is often replaced by an 'l' sound",
+        "the word for 'this' sounds more like 'lei' or 'zei'"
+      ]
+    },
+    {
+      "id": "spanish-colombian-spanish-steven-pinker-biography-read",
+      "deck": "spanish",
+      "label": "Turbaco, Colombia",
+      "km": null
+    },
+    {
+      "id": "spanish-puerto-rican-spanish-roman-emperor-claudius-ar",
+      "deck": "spanish",
+      "label": "Puerto Rico",
+      "km": 3469.8564004511995,
+      "guess": "Mexico City, Mexico",
+      "radius": 500,
+      "language": "Spanish",
+      "confidence": 85,
+      "evidence": [
+        "your Z and C sound like S",
+        "you keep the S sound at the end of words",
+        "the D in words like 'nacido' is very clear",
+        "your J is a soft rasp at the back of the throat",
+        "you pronounce LL and Y the same way"
+      ]
+    },
+    {
+      "id": "chinese-guiyang-china-mandarin-guiyangese-southwestern",
+      "deck": "chinese",
+      "label": "Guiyang, China",
+      "km": 11.295774651652371,
+      "guess": "Guiyang, China",
+      "radius": 50,
+      "language": "Chinese",
+      "confidence": 95,
+      "evidence": [
+        "They explicitly state they are from Guiyang, Guizhou",
+        "Using 'guniang' to mean daughter instead of the standard 'nü'er'",
+        "Mentioning the local custom 'you bei bing' (walking away illness)",
+        "The specific local phrase 'ka ka guo guo' for corners or nooks",
+        "Pronouncing the word for 'to fall' as 'zhuai' instead of 'shua'"
+      ]
+    },
+    {
+      "id": "chinese-hk-cantonese-george-washington-carver-spoken-w",
+      "deck": "chinese",
+      "label": "Hong Kong",
+      "km": 1966.7342258114822,
+      "guess": "Beijing, China",
+      "radius": 400,
+      "language": "Mandarin Chinese",
+      "confidence": 85,
+      "evidence": [
+        "clear distinction between s and sh sounds",
+        "precise retroflex r in words like ri",
+        "perfectly distinguished n and ng endings",
+        "even, rhythmic pacing typical of formal reading",
+        "lack of heavy regional erhua or southern mergers"
+      ]
+    },
+    {
+      "id": "chinese-hk-cantonese-ciguatoxin-stonefish-toxin-spoken",
+      "deck": "chinese",
+      "label": "Hong Kong",
+      "km": 0,
+      "guess": "Hong Kong, Hong Kong",
+      "radius": 40,
+      "language": "Cantonese",
+      "confidence": 92,
+      "evidence": [
+        "crisp Cantonese tones",
+        "typical Hong Kong intonation",
+        "local pronunciation of English names like Spencer",
+        "formal reading style",
+        "clear 'ng' endings in words like 'jung'"
+      ]
+    },
+    {
+      "id": "chinese-shanghainese-wu-standard-shanghai-accent-readi",
+      "deck": "chinese",
+      "label": "Shanghai, China",
+      "km": 84.78245625716211,
+      "guess": "Suzhou, China",
+      "radius": 150,
+      "language": "Mandarin Chinese",
+      "confidence": 85,
+      "evidence": [
+        "your 'sh' sounds like 's' in words like 'shi'",
+        "your 'zh' sounds like 'z' in words like 'zhong'",
+        "the rhythm is light and slightly staccato",
+        "vowels are more fronted and closed than in the north",
+        "the 'r' sound is very soft or disappears"
+      ]
+    },
+    {
+      "id": "chinese-taiwan-mandarin-good-cop-bad-dog-tv-episode-sp",
+      "deck": "chinese",
+      "label": "Taiwan",
+      "km": 1840.8846366893467,
+      "guess": "Beijing, China",
+      "radius": 200,
+      "language": "Mandarin Chinese",
+      "confidence": 85,
+      "evidence": [
+        "clear retroflex consonants in zh, ch, sh",
+        "standard r-coloring in words like 'rì'",
+        "neutral and precise tones",
+        "steady and clear rhythm",
+        "standard pronunciation of 'shì' and 'zhè'"
+      ]
+    },
+    {
+      "id": "chinese-taipei-taiwan-mandarin-taiwan-guoyu",
+      "deck": "chinese",
+      "label": "Taiwan",
+      "km": 150.1811927538806,
+      "guess": "Taipei, Taiwan",
+      "radius": 100,
+      "language": "Mandarin Chinese",
+      "confidence": 95,
+      "evidence": [
+        "your 'sh' and 'zh' sounds are very soft and fronted",
+        "the word 'shì' (is) sounds almost like 'sì'",
+        "a gentle, rising intonation at the end of phrases",
+        "the 'r' sound is very light, almost disappearing into the vowel",
+        "mention of National Chiao Tung University in Hsinchu"
+      ]
+    },
+    {
+      "id": "hindi-urdu-spoken-hindi-wikipedia-indo-european-language-",
+      "deck": "hindi-urdu",
+      "label": "Delhi–Meerut Region, India",
+      "km": 0,
+      "guess": "New Delhi, India",
+      "radius": 500,
+      "language": "Hindi",
+      "confidence": 85,
+      "evidence": [
+        "Standard pronunciation of 'Hindi' (हिन्दी) and 'bhasha' (भाषा)",
+        "Clear and rhythmic intonation typical of North Indian Hindi",
+        "Distinct Indian English accent on loanwords like 'affricates' and 'fricatives'",
+        "Precise articulation of Sanskrit-derived words like 'Arya' (आर्य) and 'varg' (वर्ग)",
+        "Natural and fluent use of standard Hindi grammar and vocabulary"
+      ]
+    },
+    {
+      "id": "hindi-urdu-karachi-pakistan-urdu",
+      "deck": "hindi-urdu",
+      "label": "Karachi, Pakistan",
+      "km": 1032.9988323128148,
+      "guess": "Lahore, Pakistan",
+      "radius": 300,
+      "language": "Urdu",
+      "confidence": 85,
+      "evidence": [
+        "The 'z' in 'zindagi' is sharp and clear",
+        "Formal words like 'junubi' for south",
+        "The rhythmic, singing quality of a preacher",
+        "Hard 't' and 'd' sounds typical of the region",
+        "The way 'Pakistan' is spoken with a soft 'a'"
+      ]
+    },
+    {
+      "id": "hindi-urdu-mumbai-india-hindi-bambaiyya-adjacent",
+      "deck": "hindi-urdu",
+      "label": "Mumbai, India",
+      "km": 0,
+      "guess": "Mumbai, India",
+      "radius": 50,
+      "language": "Hindi",
+      "confidence": 95,
+      "evidence": [
+        "your 'unlog' for 'they' is typical of Mumbai",
+        "the 'dene ka' verb ending is a classic city marker",
+        "natural use of English words like 'shadow' and 'retarded'",
+        "the fast, rhythmic pace of urban Mumbai Hindi",
+        "the word 'pehchaan' used to mean social connections"
+      ]
+    },
+    {
+      "id": "portuguese-cape-verde-portuguese-cape-verde",
+      "deck": "portuguese",
+      "label": "Cape Verde",
+      "km": 1.2129417597750176,
+      "guess": "Mindelo, Cape Verde",
+      "radius": 50,
+      "language": "Portuguese",
+      "confidence": 95,
+      "evidence": [
+        "the 's' at the end of words like 'anos' is a soft 'sh'",
+        "vowels in 'carreira' are open and musical",
+        "a rhythmic, sing-song cadence to every sentence",
+        "the 'r' in the middle of words is a light, single tap",
+        "distinctive Cape Verdean pronunciation of 'experiência'"
+      ]
+    },
+    {
+      "id": "portuguese-malanje-angola-portuguese-angola",
+      "deck": "portuguese",
+      "label": "Malanje, Angola",
+      "km": 0.11188944764488114,
+      "guess": "Malanje, Angola",
+      "radius": 100,
+      "language": "Portuguese",
+      "confidence": 90,
+      "evidence": [
+        "the 's' at the end of words is pronounced as a soft 'sh'",
+        "frequent use of 'ya' as an informal affirmative",
+        "the 'r' is a soft tap rather than a strong trill",
+        "vowels are more open and resonant than in European Portuguese",
+        "the 't' in 'cidade' is a clean dental sound, not a 'tch'"
+      ]
+    },
+    {
+      "id": "hindi-urdu-mufti-abul-qasim-nomani-talk-on-darul-uloom-de",
+      "deck": "hindi-urdu",
+      "label": "Varanasi, India",
+      "km": 713.2410293698217,
+      "guess": "Deoband, India",
+      "radius": 100,
+      "language": "Urdu",
+      "confidence": 90,
+      "evidence": [
+        "your Q and Kh are very sharp and clear",
+        "you pronounce the letter Ain distinctly in words like uloom",
+        "your rhythm is very formal and measured, like a teacher",
+        "you use high-register words like tasallut and chunanche",
+        "you say 'isi Deoband' implying you are there or from there"
+      ]
+    },
+    {
+      "id": "portuguese-mozambique-portuguese-mozambique",
+      "deck": "portuguese",
+      "label": "Mozambique",
+      "km": 1.379283962786165,
+      "guess": "Maputo, Mozambique",
+      "radius": 500,
+      "language": "Portuguese",
+      "confidence": 95,
+      "evidence": [
+        "the 's' at the end of words is a soft 'sh' sound",
+        "a rhythmic, almost musical cadence to the sentences",
+        "vowels are clearer and more open than in European Portuguese",
+        "the 'r' is a light tap behind the teeth",
+        "distinctive Southern African Portuguese intonation"
+      ]
+    },
+    {
+      "id": "portuguese-parana-brazil-portuguese-brazilian-parana",
+      "deck": "portuguese",
+      "label": "Paraná, Brazil",
+      "km": 339.0533230291956,
+      "guess": "São Paulo, Brazil",
+      "radius": 200,
+      "language": "Portuguese",
+      "confidence": 85,
+      "evidence": [
+        "your S at the end of words is a sharp hiss rather than a SH sound",
+        "the T and D before an I sound like CH and DJ",
+        "the L at the end of words like 'geral' turns into a soft U",
+        "the R at the end of words is a soft, breathy exhale",
+        "vowels are consistently open and clear"
+      ]
+    },
+    {
+      "id": "portuguese-porto-alegre-brazil-portuguese-brazilian-gauch",
+      "deck": "portuguese",
+      "label": "Porto Alegre, Brazil",
+      "km": 852.340773904887,
+      "guess": "São Paulo, Brazil",
+      "radius": 250,
+      "language": "Portuguese",
+      "confidence": 85,
+      "evidence": [
+        "your T and D turn into 'ch' and 'j' sounds before an I",
+        "the L at the end of 'Portugal' sounds like a 'U'",
+        "the S at the end of words is a sharp hiss, not a 'sh' sound",
+        "the R at the start of 'rei' is a soft, breathy 'H' sound",
+        "the word 'nascimento' has a distinct 'chi' sound in the middle"
+      ]
+    },
+    {
+      "id": "portuguese-rio-de-janeiro-brazil-portuguese-brazilian-car",
+      "deck": "portuguese",
+      "label": "Rio de Janeiro, Brazil",
+      "km": 360.74882490989955,
+      "guess": "São Paulo, Brazil",
+      "radius": 200,
+      "language": "Portuguese",
+      "confidence": 85,
+      "evidence": [
+        "your T and D turn into 'ch' and 'j' before 'i' sounds",
+        "the L at the end of words like 'Bálcãs' becomes a 'w' sound",
+        "your S at the end of syllables is a sharp hiss, never a 'sh'",
+        "the R at the end of words is a soft, breathy exhale",
+        "initial E sounds often shift toward a clear 'i'"
+      ]
+    },
+    {
+      "id": "portuguese-porto-portugal-portuguese-european-porto-north",
+      "deck": "portuguese",
+      "label": "Porto, Portugal",
+      "km": 8152.2981139061185,
+      "guess": "Campinas, Brazil",
+      "radius": 250,
+      "language": "Portuguese",
+      "confidence": 85,
+      "evidence": [
+        "your R at the end of words like 'ser' and 'ar' is curled back (retroflex)",
+        "the T and D in 'verdades' and 'contigo' are softened into 'tch' and 'dj' sounds",
+        "the S at the end of 'nossas' and 'mesquinhos' is a sharp, dental 's' rather than a 'sh'",
+        "the R in the middle of 'morte' and 'corpo' is also curled back in the 'caipira' style",
+        "the rhythm is steady and melodic, with vowels held slightly longer than in coastal dialects"
+      ]
+    },
+    {
+      "id": "portuguese-sao-paulo-brazil-portuguese-brazilian-sao-paul",
+      "deck": "portuguese",
+      "label": "São Paulo, Brazil",
+      "km": 0,
+      "guess": "São Paulo, Brazil",
+      "radius": 100,
+      "language": "Portuguese",
+      "confidence": 90,
+      "evidence": [
+        "your T and D turn into 'ch' and 'j' before 'i' or 'e'",
+        "the 's' at the end of your words is a sharp hiss, never a 'sh'",
+        "the 'r' at the end of words is soft and slightly retroflex",
+        "the rhythm has the characteristic 'Paulistano' bounce",
+        "you mention studying at USP in São Paulo"
+      ]
+    },
+    {
+      "id": "russian-moscow-russia-russian-moscow",
+      "deck": "russian",
+      "label": "Moscow, Russia",
+      "km": 0,
+      "guess": "Moscow, Russia",
+      "radius": 300,
+      "language": "Russian",
+      "confidence": 90,
+      "evidence": [
+        "your unstressed 'o' sounds like a clear 'a'",
+        "the 'g' sound is firm and hard, never breathy",
+        "the 'ch' sound is consistently soft and crisp",
+        "a melodic, flowing rhythm between words",
+        "using 'netu' instead of 'net' in a natural, spoken way"
+      ]
+    }
+  ]
+}

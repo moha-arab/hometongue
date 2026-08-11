@@ -25,7 +25,16 @@ let micPeak = -1; // loudest rolling level seen this recording; -1 = meter unava
 // none. Counting how many frames actually carried voice-level energy catches that case.
 let micFrames = 0, micVoiced = 0;
 const VOICE_LEVEL = 0.05;   // mean spectral level that ordinary speech clears
-const MIN_VOICED_S = 1.5;   // less real speech than this is not placeable by anyone
+const MIN_VOICED_S = 1.5;   // a mic that heard essentially nothing at all
+// Nothing is submitted under this many seconds, and the reason is the measured accuracy
+// curve, not a guess: 8 seconds scores a 345 km median error, 12-20 seconds scores 157 km,
+// 30 seconds scores 67 km. The app used to accept a TWO second recording and then present
+// whatever came back as a reading, which is how a ten-second clip that was half "try to
+// guess my accent" produced four confident observations, three of which did not survive a
+// second listen. Enforced by keeping the done button unavailable rather than by refusing
+// afterwards: an error message is a bad moment on camera, a countdown is just an
+// instruction.
+const MIN_RECORD_S = 10;
 
 // the survey red, read from the stylesheet so themes stay in one place
 const MARK = () => window.HT.ink();
@@ -201,6 +210,8 @@ function stopMeter() {
 
 function startTimer() {
   startedAt = Date.now();
+  const stop0 = $('#stopBtn');
+  if (stop0) { stop0.disabled = true; stop0.textContent = `keep talking… ${MIN_RECORD_S}`; }
   // Reset, or a second recording starts still wearing the first one's badge.
   const q0 = $('#quality');
   if (q0) {
@@ -221,6 +232,12 @@ function startTimer() {
     // voice: the meter advises, the clock counts.
     const hint = $('#countHint');
     if (hint) hint.textContent = 'left';
+    const stop = $('#stopBtn');
+    if (stop) {
+      const short = s < MIN_RECORD_S;
+      stop.disabled = short;
+      stop.textContent = short ? `keep talking… ${MIN_RECORD_S - s}` : 'done, guess now';
+    }
     // Thresholds are the measured accuracy steps, not round numbers: the benchmark median is
     // 345 km at 8s, 157 km from 12-20s, and 67 km by 30s.
     const tier = s < 10 ? 0 : s < 20 ? 1 : s < 30 ? 2 : 3;
@@ -339,8 +356,8 @@ function stopListening() {
   stopTimer();
   stopMeter();
   const elapsed = (Date.now() - startedAt) / 1000;
-  if (elapsed < 2) {
-    toast('That was barely a breath. Give me a sentence or two.');
+  if (elapsed < MIN_RECORD_S) {
+    toast(`That was ${Math.round(elapsed)} seconds. An accent needs about thirty to read properly — go again and just keep talking.`);
     state = 'idle';
     if (recorder && recorder.state !== 'inactive') { recorder.onstop = null; recorder.stop(); }
     teardownRecording();
