@@ -44,14 +44,13 @@
   <section class="card" id="idleCard">
     <div class="card-eyebrow"><span>accent geolocation</span><b>any language</b></div>
     <h1 class="tagline">Just talk.<br><span class="accent">I'll find where you grew up.</span></h1>
-    <p class="prompt-label">Any language, any dialect. Don't read anything, just talk like you're voice-noting a friend:</p>
+    <p class="prompt-label">Talk like you're voice-noting a friend:</p>
     <p class="prompt" id="promptText">"Tell me about your day."</p>
     <button class="mic-btn" id="micBtn" aria-label="Start talking">
       <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line></svg>
     </button>
-    <p class="length-tip">About <b>30 seconds</b> gets the sharpest read. And skip your name: it listens to sounds, not names.</p>
+    <p class="length-tip">Your <b>home language</b> reads sharpest — give it ~30 seconds, and skip names and places.</p>
     <div class="idle-foot">
-      <span class="foot-hint">works on your phone</span>
       <button class="link-btn" id="typeModeBtn">no mic? type like you talk</button>
     </div>
   </section>
@@ -118,12 +117,12 @@
     </div>
     <div class="runners" id="runners"></div>
     <div class="feedback" id="feedback">
-      <div class="consent" id="consentWrap"><button class="donate-btn" id="donateBtn">donate this clip</button><span> anonymous — it becomes the test set that sharpens future versions · <a href="/privacy.html" target="_blank">privacy</a></span></div>
       <div class="fb-row">
         <span>did I get it?</span>
         <button class="fb-btn" id="fbYes">nailed it</button>
         <button class="fb-btn" id="fbNo">nope</button>
       </div>
+      <div class="consent" id="consentWrap"><button class="donate-btn" id="donateBtn">donate this clip</button><span> anonymous — it becomes the test set that sharpens future versions · <a href="/privacy.html" target="_blank">privacy</a></span></div>
       <div class="fb-fix" id="fbFix" hidden>
         <select id="fbActual"></select>
         <input type="text" id="fbCity" placeholder="which city? (optional)" maxlength="60">

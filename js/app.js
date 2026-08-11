@@ -590,6 +590,7 @@ function renderResult(v) {
     // worse than a name: the verdict below may be nothing but your own words read back.
     if (v.content_led === 'origin') warn.textContent = 'You told me where you grew up, so this guess leans on your words. The whole game is what your voice gives away: go again without telling me.';
     else if (v.content_led === 'name') warn.textContent = 'You gave your name. Names drag the guess toward the name\'s home country, so take this one lightly and try again without it.';
+    else if (v.content_led === 'place') warn.textContent = 'Your words named a place and the guess leaned toward it. The game is what your VOICE gives away — go again without naming any country or city.';
   }
 
   // Dialect composition, ancestry-chart style: one segmented 100% bar, then a legend row

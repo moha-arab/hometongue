@@ -155,6 +155,67 @@ function contentLead(result) {
   return null;
 }
 
+// Words are gravity even when they aren't about the speaker: an Ohio voice telling a story
+// about "a Canadian inventor" measured as Toronto, Canada at a TIGHT radius — the model
+// anchored on the mentioned country exactly the way it anchors on names, and the regexes
+// above only catch self-declarations. This table catches any mention of a place that the
+// verdict then AGREES with. Herrings stay free by design: a Cairo verdict after a story
+// about New Jersey fires nothing — mentions only count when the answer leaned their way.
+// Latin names match on word boundaries; Arabic/CJK on substrings (no \b in those scripts).
+// Arabic عمان is deliberately absent: it spells both Amman and Oman.
+const PLACE_WORDS = [
+  [['canada', 'toronto', 'vancouver', 'montreal', 'ottawa', 'quebec'], 'canada'],
+  [['united states', 'usa', 'america', 'new york', 'los angeles', 'chicago', 'houston', 'miami', 'boston', 'texas', 'california', 'ohio', 'florida'], 'united states'],
+  [['mexico', 'mexico city'], 'mexico'], [['brazil', 'brasil', 'são paulo', 'sao paulo', 'rio de janeiro'], 'brazil'],
+  [['portugal', 'lisbon', 'lisboa', 'porto'], 'portugal'], [['spain', 'españa', 'madrid', 'barcelona'], 'spain'],
+  [['france', 'paris', 'marseille', 'lyon'], 'france'], [['germany', 'deutschland', 'berlin', 'munich'], 'germany'],
+  [['italy', 'italia', 'rome', 'roma', 'milan'], 'italy'], [['england', 'britain', 'united kingdom', 'london', 'manchester'], 'united kingdom'],
+  [['ireland', 'dublin'], 'ireland'], [['russia', 'россия', 'moscow', 'москв'], 'russia'], [['ukraine', 'україн', 'kyiv', 'киев', 'київ'], 'ukraine'],
+  [['poland', 'polska', 'warsaw'], 'poland'], [['turkey', 'türkiye', 'istanbul', 'ankara'], 'turkey'],
+  [['china', '中国', '中國', 'beijing', '北京', 'shanghai', '上海'], 'china'], [['taiwan', '台湾', '台灣', 'taipei'], 'taiwan'],
+  [['japan', '日本', 'tokyo', '東京'], 'japan'], [['korea', 'seoul', '한국'], 'korea'],
+  [['india', 'bharat', 'भारत', 'hindustan', 'delhi', 'mumbai', 'bombay'], 'india'], [['pakistan', 'پاکستان', 'karachi', 'lahore'], 'pakistan'],
+  [['egypt', 'مصر', 'cairo', 'القاهرة'], 'egypt'], [['morocco', 'المغرب', 'casablanca'], 'morocco'],
+  [['algeria', 'الجزائر', 'algiers'], 'algeria'], [['tunisia', 'تونس', 'tunis'], 'tunisia'], [['libya', 'ليبيا', 'tripoli'], 'libya'],
+  [['sudan', 'السودان', 'khartoum'], 'sudan'], [['syria', 'سوريا', 'سورية', 'damascus', 'دمشق', 'aleppo', 'حلب'], 'syria'],
+  [['lebanon', 'لبنان', 'beirut', 'بيروت'], 'lebanon'], [['jordan', 'الأردن', 'amman'], 'jordan'],
+  [['palestine', 'فلسطين', 'jerusalem', 'القدس', 'gaza', 'غزة'], 'palestine'], [['iraq', 'العراق', 'baghdad', 'بغداد'], 'iraq'],
+  [['kuwait', 'الكويت'], 'kuwait'], [['saudi', 'السعودية', 'riyadh', 'الرياض', 'jeddah', 'جدة'], 'saudi arabia'],
+  [['united arab emirates', 'uae', 'dubai', 'دبي', 'abu dhabi', 'أبوظبي', 'الإمارات'], 'united arab emirates'],
+  [['qatar', 'قطر', 'doha', 'الدوحة'], 'qatar'], [['bahrain', 'البحرين', 'manama'], 'bahrain'],
+  [['oman', 'muscat', 'مسقط'], 'oman'], [['yemen', 'اليمن', 'sanaa', 'صنعاء'], 'yemen'], [['iran', 'إيران', 'tehran'], 'iran'],
+  [['somalia', 'الصومال', 'mogadishu'], 'somalia'], [['ethiopia', 'addis'], 'ethiopia'], [['kenya', 'nairobi'], 'kenya'],
+  [['nigeria', 'lagos', 'abuja'], 'nigeria'], [['ghana', 'accra'], 'ghana'], [['senegal', 'sénégal', 'dakar'], 'senegal'],
+  [['cameroon', 'cameroun', 'yaound'], 'cameroon'], [['south africa', 'johannesburg', 'cape town'], 'south africa'],
+  [['australia', 'sydney', 'melbourne'], 'australia'], [['new zealand', 'auckland'], 'new zealand'],
+  [['philippines', 'manila'], 'philippines'], [['indonesia', 'jakarta'], 'indonesia'], [['vietnam', 'hanoi'], 'vietnam'],
+  [['thailand', 'bangkok'], 'thailand'], [['argentina', 'buenos aires'], 'argentina'], [['colombia', 'bogot'], 'colombia'],
+  [['venezuela', 'caracas'], 'venezuela'], [['chile', 'santiago'], 'chile'], [['peru', 'perú', 'lima'], 'peru'],
+  [['greece', 'athens'], 'greece'], [['netherlands', 'holland', 'amsterdam'], 'netherlands'], [['sweden', 'stockholm'], 'sweden'],
+  [['norway', 'oslo'], 'norway'], [['afghanistan', 'kabul'], 'afghanistan'], [['bangladesh', 'dhaka'], 'bangladesh'],
+];
+const LATIN = /^[a-zà-ÿ' ]+$/i;
+function placeLead(result) {
+  const t = (result.transcript || '').toLowerCase();
+  if (!t) return null;
+  const verdictCountry = String(result.place || '').split(',').pop().trim().toLowerCase();
+  if (!verdictCountry) return null;
+  for (const [names, country] of PLACE_WORDS) {
+    // the verdict must AGREE with the mention — that's what makes it suspicious
+    const countryMatch = verdictCountry.includes(country)
+      || (country === 'united states' && /united states|usa/.test(verdictCountry))
+      || (country === 'united kingdom' && /united kingdom|england|scotland|wales/.test(verdictCountry));
+    if (!countryMatch) continue;
+    for (const name of names) {
+      const hit = LATIN.test(name)
+        ? new RegExp(`(^|[^a-zà-ÿ])${name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}([^a-zà-ÿ]|$)`, 'i').test(t)
+        : t.includes(name);
+      if (hit) return name;
+    }
+  }
+  return null;
+}
+
 // A model can return anything; the map should never be asked to fly to null island.
 function sane(r) {
   const num = (v) => (typeof v === 'number' && Number.isFinite(v));
@@ -306,10 +367,13 @@ export default async function handler(req, res) {
     // Say so, rather than quietly presenting a name-derived guess as an accent reading. The
     // radius widens too, because a guess resting on a name genuinely is less certain than one
     // resting on 30 seconds of phonology.
-    const lead = contentLead(result);
+    const lead = contentLead(result) || (placeLead(result) && 'place');
     if (lead) {
-      result.content_led = lead;   // 'origin' | 'name'
-      result.radius_km = Math.min(5000, Math.max(result.radius_km, 1500));
+      result.content_led = lead;   // 'origin' | 'name' | 'place'
+      // A mentioned place is weaker contamination than a self-declared origin, so it widens
+      // less — but it still widens, because a verdict that agrees with the speaker's own
+      // words has not been earned by their voice.
+      result.radius_km = Math.min(5000, Math.max(result.radius_km, lead === 'place' ? 1000 : 1500));
       // A contaminated verdict widens; a tight zone drawn for it would contradict the widened
       // honesty, so the map falls back to the circle.
       result.zone = [];
