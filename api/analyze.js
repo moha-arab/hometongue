@@ -45,8 +45,18 @@ async function locate(parts) {
   const key = process.env.GEMINI_API_KEY;
   if (!key) throw Object.assign(new Error('GEMINI_API_KEY not set'), { code: 'not_configured' });
 
+  // SIX attempts, not three. The transient 400 documented above is not rare any more: on
+  // 2026-08-11 a run of audio analyses failed 7 of 8 times through production while the
+  // IDENTICAL payload returned 200 on the first try from a laptop, and a request that
+  // failed three times in a row succeeded on the next one a minute later. Each rejection
+  // costs about a second, so three attempts were spending seven seconds to conclude
+  // nothing; six fit comfortably inside the same 50s budget and turn a coin-flip into a
+  // near-certainty. If the per-attempt rejection rate is 70%, three attempts fail 34% of
+  // the time and six fail 12%; at 50% it goes from 12% to 1.5%.
+  const MAX_ATTEMPTS = 6;
+  let lastRefusal = '';
   const deadline = Date.now() + BUDGET_MS;
-  for (let attempt = 0; attempt < 3; attempt++) {
+  for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
     const left = deadline - Date.now();
     // Under 8s left is not enough for a real answer; fail honestly rather than burn the cap.
     if (left < 8000) throw Object.assign(new Error('ran out of time'), { code: 'busy' });
@@ -71,7 +81,7 @@ async function locate(parts) {
         },
       );
     } catch {
-      if (attempt === 2) throw Object.assign(new Error('upstream timeout'), { code: 'upstream_failed' });
+      if (attempt === MAX_ATTEMPTS - 1) throw Object.assign(new Error('upstream timeout'), { code: 'upstream_failed' });
       continue;
     }
     // Gemini returns a transient 400 "invalid argument" on a random subset of otherwise
@@ -96,13 +106,19 @@ async function locate(parts) {
       if (!rateLimited && /credits? (are )?depleted|billing|insufficient|out of credit/i.test(body)) {
         throw Object.assign(new Error('the analysis account is out of credit'), { code: 'out_of_credit' });
       }
-      if (rateLimited && attempt === 2) {
+      if (rateLimited && attempt === MAX_ATTEMPTS - 1) {
         throw Object.assign(new Error('too many people at once'), { code: 'swamped' });
       }
     }
     if (resp.status === 429 || resp.status === 503 || resp.status === 400 || resp.status >= 500) {
-      if (attempt === 2) throw Object.assign(new Error('the model kept refusing the request'), { code: 'upstream_failed' });
-      await new Promise((r) => setTimeout(r, Math.min(1500 * (attempt + 1), Math.max(0, deadline - Date.now() - 8000))));
+      // Keep the upstream's own words. Without this the app could only ever report "the
+      // model kept refusing", which is exactly as useful as it sounds when the refusal is
+      // intermittent and the same payload succeeds elsewhere.
+      if (!lastRefusal) lastRefusal = `${resp.status} ${(await resp.text().catch(() => '')).slice(0, 160)}`;
+      if (attempt === MAX_ATTEMPTS - 1) {
+        throw Object.assign(new Error(`the model kept refusing the request (${lastRefusal})`), { code: 'upstream_failed' });
+      }
+      await new Promise((r) => setTimeout(r, Math.min(600 + 400 * attempt, Math.max(0, deadline - Date.now() - 8000))));
       continue;
     }
     if (!resp.ok) {
