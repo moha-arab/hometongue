@@ -87,7 +87,7 @@ export const SCHEMA = {
     stated_origin: { type: 'boolean', description: 'true only if the speaker says where they grew up or where they are from, in any language ("I grew up in X", "I am from X"). Saying they just came from somewhere (a shop, the gym, work), places they visited, or places they like does NOT count.' },
     influences: {
       type: 'array',
-      description: 'the accent as a recipe: up to 3 regions whose sound or telltale vocabulary is audibly present in this voice, strongest first, each with a rough integer percent (totalling about 100) and the one sound or word that gives it away. If your evidence cites a word or feature from a region, that region belongs here with its share. A pure single-origin accent is one entry at 100.',
+      description: 'the accent as a recipe: up to 3 regions whose sound or telltale vocabulary is audibly present in this voice, strongest first, each with a rough integer percent (totalling about 100) and the one sound or word that gives it away. If your evidence cites a word or feature from a region, that region belongs here with its share. A pure single-origin accent is one entry at 100. Name each component at the grain its cue earns: a city only when a city-specific sound or word is audible, otherwise the region ("the Levant", "the Gulf") — a component must never claim finer than its cue.',
       items: {
         type: 'object',
         properties: {

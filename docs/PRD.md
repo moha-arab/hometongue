@@ -58,16 +58,33 @@ many right ones gets outvoted by its neighbours; (c) nothing from a single donat
 presented as truth. Label hygiene at intake (ground-truth city, "did you grow up there?",
 age-0-12 flag) matters more than volume.
 
-## Feature freeze (from Aug 10 until the shoot is filmed)
+## Quality-first sequence (freeze lifted Aug 10 on Mohammad's call: good before fast)
 
-The product is done enough, and every fast-shipped change this week carried a bug tail.
-Nothing ships until Toronto is filmed except fixes for real breaks Mohammad hits in his
-own phone pass. First in line when the freeze lifts: the evidence-verification pass
-(narrow-question re-check of acoustic claims via 3.5-flash, chips that fail fade off the
-card) — specified Aug 10 after a fabricated hard-G claim was caught and cross-model
-probing measured narrow questions honest (7/7) where open verdicts confabulate. Known
-and accepted until then: on short thin takes, roughly 1-in-5 runs can carry a fabricated
-evidence chip; on 30-second takes the measured rate was 0-in-10.
+The bar: genuinely good, then Toronto, then TikTok. Shipped against that bar:
+- **Evidence verifier, live.** Every card's acoustic claims are re-checked by a different
+  model (3.5-flash) asked narrow questions twice in parallel; a chip dies only on
+  unanimous false and fades off the card. Probed twice before shipping: kills real
+  fabrications (it executed a live classical-Qaf confabulation), keeps every substantive
+  true chip (39-chip probe, 2 fluff casualties, both controls intact).
+- Composition grain rule: probed before shipping (components must not claim finer than
+  their cue) — see eval notes for the verdict.
+
+## Scale readiness (audited Aug 10)
+
+- **Vercel Hobby will not survive virality — upgrade to Pro before posting.** Each
+  analysis moves ~1 MB through serverless functions (audio up + verifier re-check) and
+  each game round streams ~1 MB of clips. Hobby's 100 GB/month dies in one big day
+  (100k analyses ≈ 100 GB). Pro ($20/mo, 1 TB) is the single mandatory pre-launch spend.
+- **Gemini spend:** ~$0.001–0.002 per analysis including the verifier. 10k analyses/day
+  ≈ $15–25/day; 100k/day ≈ $150–250/day. Size the prepaid balance to the ambition and
+  set the billing alert at 50% — the site died once already from an empty balance.
+- **Supabase free tier:** ~1 GB storage ≈ roughly 2,000 donated clips. Upgrade at ~1,500
+  donations ($25/mo). Scores/feedback tables are nowhere near any limit.
+- **Map tiles:** CARTO's free basemaps are usage-limited; a viral day risks throttled or
+  blank maps. Not blocking, but have a keyed fallback ready (MapTiler or Stadia account —
+  needs Mohammad, ~free tier then $20-ish). Worth doing before posting.
+- Per-IP rate limiting exists on every endpoint (hourly buckets, per-instance) — a speed
+  bump, not a wall, which is the right posture for a consumer app.
 
 ## Shoot-day runbook
 
