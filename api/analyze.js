@@ -18,6 +18,7 @@
 //   - feeding hand-written dialect marker playbooks (69 km vs 43 km, better on 2, worse on 3)
 // Both cost a call and latency for noise. Do not re-add without re-running tools/eval.
 import { mintToken } from './feedback.js';
+import { verifyEvidence } from './verify-evidence.js';
 import { SYSTEM, SCHEMA, MODEL } from './prompt.js';
 
 export const config = { maxDuration: 60 };
@@ -291,6 +292,27 @@ export default async function handler(req, res) {
       return res.end(JSON.stringify({ ok: false, error: 'no_speech', detail: raw?.note || 'Could not place that.' }));
     }
 
+    // The second judge is load-bearing, not decorative. Mohammad donated a ten-second clip
+    // that was mostly "try to guess my accent" and the model answered with four confident
+    // observations, three of which did not survive a second listen — invented detail filling
+    // a gap where there was almost no speech. The rule above cannot catch that alone, because
+    // a fabricated claim is PHRASED as something heard. So every acoustic claim is checked
+    // against the audio by a different model before the verdict is allowed to stand, failed
+    // claims never reach the card, and a verdict with nothing left standing is not shown.
+    // Measured cost: 3.5s median, against a 10-13s analysis.
+    if (body.audio && Array.isArray(result.evidence) && result.evidence.length) {
+      const msLeft = 56_000 - (Date.now() - t0);
+      if (msLeft > 9000) {
+        const verdicts = await verifyEvidence({
+          audio: body.audio,
+          mime: (body.mime || 'audio/webm').split(';')[0].trim(),
+          evidence: result.evidence,
+          transcript: result.transcript || '',
+          apiKey: process.env.GEMINI_API_KEY,
+        }).catch(() => null);
+        if (verdicts) result.evidence = result.evidence.filter((_, i) => verdicts[i] !== 'drop');
+      }
+    }
     // Audio only: type mode has no sound to hear by definition, and its own card says so.
     if (body.audio && !heardSomething(result)) result.content_led = 'fed';
     return res.end(JSON.stringify({ ok: true, result, fb_token: mintToken() }));

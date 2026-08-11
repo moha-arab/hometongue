@@ -655,34 +655,8 @@ function renderResult(v) {
 
   for (const e of v.evidence) evidence.appendChild(chip(e));
 
-  // The chips are the model narrating a verdict it already committed to, and the narration
-  // can lie — a card once claimed a hard-G قاعد that seven narrow-question listens across
-  // two models disproved. So every card's acoustic claims get re-checked: a DIFFERENT model
-  // is asked one narrow question per claim against the same audio (the format that stayed
-  // honest 7/7 where the open format confabulated), and chips that fail fade off the card.
-  // Conservative on purpose: only a confident "false" drops a chip; word-quote chips whose
-  // words appear in the transcript never even need the call.
-  if (window._lastAudio && v.evidence.length) {
-    fetch('/api/verify-evidence', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        audio: window._lastAudio.audio, mime: window._lastAudio.mime,
-        evidence: v.evidence, transcript: v.transcript || '',
-        token: window._fbToken || '',
-      }),
-      signal: AbortSignal.timeout(60_000),
-    }).then((r) => r.json()).then((j) => {
-      if (gen !== window._renderGen) return; // a newer result owns the screen now
-      if (!j || !j.ok || !Array.isArray(j.verdicts)) return;
-      [...evidence.children].forEach((el, i) => {
-        if (j.verdicts[i] === 'drop') {
-          el.classList.add('chip-retracted');
-          setTimeout(() => el.remove(), 900);
-        }
-      });
-    }).catch(() => { /* verification is a bonus, never a blocker */ });
-  }
+  // No client-side verification any more: the server checks every acoustic claim before
+  // it answers, so the chips that arrive here have already survived a second listen.
 
   flyToGuess(v);
   window._lastResult = v;
