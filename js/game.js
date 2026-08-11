@@ -584,6 +584,7 @@ function renderModeCards() {
       + `<span class="type-name">${m.name}</span><span class="type-desc">${m.desc}</span>`
       + (ready ? '' : '<span class="type-soon-note">stocking clips</span>');
     b.dataset.deck = m.key;
+    b.title = m.desc.replace(/&#39;/g, "'");
     if (ready) b.onclick = (e) => {
       window.HT.setDeck(m.key, { x: e.clientX, y: e.clientY });
       startGame(m.key);

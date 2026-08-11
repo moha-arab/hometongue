@@ -3,3 +3,5 @@
 {"ts":"2026-08-09T05:49:57.658Z","model":"gemini-3.5-flash","median":10,"canaryMedian":259,"controlMedian":1,"n":21}
 {"ts":"2026-08-11T00:45:13.699Z","model":"gemini-3.6-flash","median":3,"canaryMedian":351,"controlMedian":1,"n":20}
 {"ts":"2026-08-11T00:45:13.706Z","model":"gemini-3.5-flash","median":2,"canaryMedian":90,"controlMedian":1,"n":21}
+{"ts":"2026-08-11T09:43:46.950Z","model":"gemini-3.6-flash","median":43,"canaryMedian":350,"controlMedian":1,"n":21}
+{"ts":"2026-08-11T09:43:46.953Z","model":"gemini-3.5-flash","median":2,"canaryMedian":145,"controlMedian":1,"n":21}

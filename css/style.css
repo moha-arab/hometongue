@@ -410,13 +410,18 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 @keyframes pulse { from { transform: scale(0.4); opacity: 0.8; } to { transform: scale(1.5); opacity: 0; } }
 
 /* ——— deck index: nine languages, nine inks ——— */
-.type-grid { margin-top: 16px; border-top: 1px solid var(--rule-soft); }
+.type-grid {
+  margin-top: 14px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 6px;
+}
 .type-btn {
-  width: 100%; background: none; border: none; border-bottom: 1px solid var(--rule-soft);
-  padding: 11px 10px 11px 0; cursor: pointer; text-align: left;
-  display: grid; grid-template-columns: 58px 1fr; align-items: center; gap: 2px 14px;
+  width: 100%; background: none; cursor: pointer; text-align: left;
+  border: 1px solid var(--rule-soft); border-radius: var(--r-sm);
+  padding: 8px 10px 8px 12px;
+  display: grid; grid-template-columns: 40px 1fr; align-items: center; gap: 0 10px;
   color: var(--black); font-family: var(--sans);
-  position: relative; transition: padding-left 0.18s cubic-bezier(0.2, 0.8, 0.3, 1), background 0.18s;
+  position: relative; overflow: hidden;
+  transition: border-color 0.18s, background 0.18s;
 }
 /* each row carries its own deck's ink, so the list reads as a colour key */
 .type-btn[data-deck="arabic"] { --row: var(--hue-arabic); }
@@ -429,26 +434,26 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .type-btn[data-deck="portuguese"] { --row: var(--hue-portuguese); }
 .type-btn[data-deck="russian"] { --row: var(--hue-russian); }
 .type-btn::before {
-  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 0;
-  background: var(--row); transition: width 0.18s cubic-bezier(0.2, 0.8, 0.3, 1);
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: var(--row); opacity: 0.75;
 }
-.type-btn:hover { padding-left: 14px; background: color-mix(in srgb, var(--row) 7%, transparent); }
-.type-btn:hover::before { width: 4px; }
-.deck-mark { grid-row: span 2; display: grid; gap: 4px; justify-items: start; }
-.deck-thumb { width: 52px; height: 30px; display: block; color: var(--black); }
+.type-btn:hover { background: color-mix(in srgb, var(--row) 8%, transparent); border-color: color-mix(in srgb, var(--row) 40%, transparent); }
+.deck-mark { grid-row: span 2; display: grid; gap: 2px; justify-items: start; }
+.deck-thumb { width: 38px; height: 22px; display: block; color: var(--black); }
 .type-code {
-  font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em;
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.08em;
   color: var(--row); text-transform: uppercase; font-weight: 500;
 }
 .type-name {
-  font-size: 15.5px; font-weight: 600; letter-spacing: -0.005em;
+  font-size: 13.5px; font-weight: 600; letter-spacing: -0.005em; line-height: 1.25;
 }
-.type-desc { font-size: 12.5px; color: var(--grey); line-height: 1.4; }
+/* the sentence per deck is what made the rows tall; it survives as a tooltip on the tile */
+.type-desc { display: none; }
 .type-btn.soon { cursor: default; }
-.type-btn.soon:hover { background: none; padding-left: 0; }
+.type-btn.soon:hover { background: none; border-color: var(--rule-soft); }
 .type-btn.soon:hover::before { width: 0; }
 .type-btn.soon .type-name, .type-btn.soon .type-desc { opacity: 0.4; }
-.type-soon-note { color: var(--grey-2); grid-column: 2; }
+.type-soon-note { color: var(--grey-2); grid-column: 2; font-size: 10.5px; }
 
 /* ——— round chrome ——— */
 .round-pill {
