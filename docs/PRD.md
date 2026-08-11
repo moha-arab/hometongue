@@ -4,16 +4,26 @@ Talk for ~30 seconds in any language; the map finds where you grew up, with an h
 give-or-take radius, the dialect zone painted on the map, and the accent mix by ear.
 Second mode: guess-the-voice, a listening game across nine decks. Live at hometongue.me.
 
-## Status: ready for launch, two gates open
+## Status: launch-ready (verified Aug 10), two gates on Mohammad's side
 
-1. **Gemini credits are empty — the analyzer is down until the account is topped up.**
-   Size the top-up generously and set a billing alert at ~50%.
-2. Mohammad confirms scrolling on his actual iPhone (fix shipped Aug 9, phones self-update
-   on next open).
+1. **Vercel Pro upgrade ($20/mo)** — the one mandatory pre-launch spend; Hobby's
+   bandwidth dies in one viral day (math below).
+2. **The 15-minute phone pass** — record, result, donate, answer, one game round, on
+   the real iPhone.
 
-Everything else is done: all 147 game clips leak-audited at the windows they actually play,
-famous voices removed, leaderboard hardened against forged scores, city-always headline,
-diaspora story in the note, logo + share image live.
+Measured state of the product (final config, re-verified Aug 10 in a coarse-serving
+window — sharp windows run better than these numbers):
+- **53 km median** on the 88-clip benchmark (published academic SOTA: 481 km).
+- **Calibration 69% vs the claimed 70%** — the honesty promise holds almost exactly.
+- Evidence verifier live: fabricated chips die on cross-model unanimity, true chips
+  survive (39-chip probe), every card self-checks after render.
+- Adversarial review (33 agents): 25 confirmed findings, 23 fixed same-day, 2 accepted
+  and documented (token replay — mitigated by manual prize review; profanity filter).
+- Full QA green: desktop flow, mobile bottom-sheet + scroll, game decks, boards,
+  zero console errors on both pages.
+- All 147 game clips leak-audited at the windows they actually play, famous voices
+  removed, leaderboard hardened, city-always headline, dialect composition with grain
+  discipline, humanized notes, logo + share image live.
 
 ## The engine, in plain words
 
