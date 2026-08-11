@@ -259,18 +259,26 @@ async function overDailyCap() {
   } catch { return false; }
 }
 
-// fire-and-forget: the user's answer never waits on bookkeeping
-function countAnalysis() {
+// Awaited, not fire-and-forget. Measured: an un-awaited insert never landed — Vercel
+// freezes the invocation the instant the response is written, so the request was still in
+// flight when the process was suspended and the counter stayed at zero through a real
+// analysis. A cap that silently never counts is worse than no cap, because it reads as
+// protection that is not there. Cost is one small round trip, capped at 2.5s, and any
+// failure is swallowed: bookkeeping must never break an answer.
+async function countAnalysis() {
   const { url, key } = SB();
   if (!url || !key) return;
-  fetch(`${url}/rest/v1/usage`, {
-    method: 'POST',
-    headers: {
-      apikey: key, Authorization: `Bearer ${key}`,
-      'Content-Type': 'application/json', Prefer: 'return=minimal',
-    },
-    body: '{}',
-  }).catch(() => { /* bookkeeping is never load-bearing */ });
+  try {
+    await fetch(`${url}/rest/v1/usage`, {
+      method: 'POST',
+      headers: {
+        apikey: key, Authorization: `Bearer ${key}`,
+        'Content-Type': 'application/json', Prefer: 'return=minimal',
+      },
+      body: '{}',
+      signal: AbortSignal.timeout(2500),
+    });
+  } catch { /* bookkeeping is never load-bearing */ }
 }
 
 export default async function handler(req, res) {
@@ -370,7 +378,7 @@ export default async function handler(req, res) {
     }
     // Audio only: type mode has no sound to hear by definition, and its own card says so.
     if (body.audio && !heardSomething(result)) result.content_led = 'fed';
-    countAnalysis();
+    await countAnalysis();
     return res.end(JSON.stringify({ ok: true, result, fb_token: mintToken() }));
   } catch (err) {
     const code = err.code || 'server_error';
