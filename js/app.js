@@ -583,9 +583,23 @@ function renderResult(v) {
   // the model reads foreign names as origin and will not admit it. Controlled test: identical
   // synthetic US speech, "my name is Vladislav" answered Moscow or Kyiv six times out of six,
   // while the same audio with no name, or with "Jake", answered United States.
+  // A contaminated verdict leads with the do-over, not with the answer. Mohammad's call:
+  // widening the radius quietly taught people the app had gotten vague, when the real
+  // lesson is "your words gave it away — say it again without them".
+  const redo = $('#redoNote');
+  if (redo) {
+    redo.hidden = !v.content_led;
+    if (v.content_led) {
+      $('#redoText').innerHTML = v.content_led === 'origin'
+        ? '<b>You told me where you\'re from.</b> That\'s the answer, not your accent — this guess leans on your words.'
+        : v.content_led === 'name'
+          ? '<b>You said a name.</b> Names drag the guess toward the name\'s home country, so this one isn\'t your voice talking.'
+          : '<b>You named a place</b> and the guess leaned toward it — so this one came from your words, not your accent.';
+    }
+  }
   const warn = $('#nameWarn');
   if (warn) {
-    warn.hidden = !v.content_led;
+    warn.hidden = true; // superseded by the redo note above
     // Two different contaminations, two different confessions. Telling the app the answer is
     // worse than a name: the verdict below may be nothing but your own words read back.
     if (v.content_led === 'origin') warn.textContent = 'You told me where you grew up, so this guess leans on your words. The whole game is what your voice gives away: go again without telling me.';
@@ -689,6 +703,231 @@ function chip(text) {
   b.textContent = text;          // already a human-readable phrase from the model
   el.appendChild(b);
   return el;
+}
+
+// ————— the share card —————
+// A 9:16 story image drawn from the verdict itself, because the screenshot people would
+// take otherwise is a browser chrome sandwich. Rendered on a canvas at 1080x1920 (the
+// native story size on every platform), shared through the OS sheet where that exists —
+// Instagram, TikTok, WhatsApp, Messages all accept a PNG file directly — and downloaded
+// everywhere else. Nothing leaves the device: the canvas is drawn locally and the file
+// never touches our server.
+const SHARE_W = 1080, SHARE_H = 1920;
+const COMP_COLORS = ['#2A6B60', '#B8862F', '#74766D'];
+
+function roundRect(c, x, y, w, h, r) {
+  c.beginPath();
+  c.moveTo(x + r, y);
+  c.arcTo(x + w, y, x + w, y + h, r);
+  c.arcTo(x + w, y + h, x, y + h, r);
+  c.arcTo(x, y + h, x, y, r);
+  c.arcTo(x, y, x + w, y, r);
+  c.closePath();
+}
+
+// The mark, drawn in canvas coordinates: pin, four cream bars, one amber peak.
+function drawMark(c, x, y, size) {
+  const s = size / 64;
+  c.save();
+  c.translate(x, y);
+  c.scale(s, s);
+  c.fillStyle = '#2A6B60';
+  c.beginPath();
+  c.moveTo(32, 3);
+  c.bezierCurveTo(19.85, 3, 10, 12.85, 10, 25);
+  c.bezierCurveTo(10, 36.1, 18.3, 45.2, 25.5, 52.4);
+  c.lineTo(32, 59);
+  c.lineTo(38.5, 52.4);
+  c.bezierCurveTo(45.7, 45.2, 54, 36.1, 54, 25);
+  c.bezierCurveTo(54, 12.85, 44.15, 3, 32, 3);
+  c.closePath();
+  c.fill();
+  const bars = [[18.6, 21, 8, '#FCFBF8'], [24.4, 18.5, 13, '#FCFBF8'], [30.2, 15.5, 19, '#B8862F'], [36, 18.5, 13, '#FCFBF8'], [41.8, 21, 8, '#FCFBF8']];
+  for (const [bx, by, bh, fill] of bars) {
+    c.fillStyle = fill;
+    roundRect(c, bx, by, 3.6, bh, 1.8);
+    c.fill();
+  }
+  c.restore();
+}
+
+// Canvas has no text wrapping, and a place name can be long ("United Arab Emirates").
+// Shrink to fit rather than clip: the headline is the whole point of the card.
+function fitText(c, text, maxWidth, startPx, font) {
+  let px = startPx;
+  do {
+    c.font = font.replace('{px}', px);
+    if (c.measureText(text).width <= maxWidth) break;
+    px -= 4;
+  } while (px > 34);
+  return px;
+}
+
+function buildShareCanvas(v) {
+  const cv = document.createElement('canvas');
+  cv.width = SHARE_W; cv.height = SHARE_H;
+  const c = cv.getContext('2d');
+  const M = 96; // margin
+
+  c.fillStyle = '#F3F1EC';
+  c.fillRect(0, 0, SHARE_W, SHARE_H);
+  // a faint amber horizon so the card is not a flat rectangle
+  const g = c.createRadialGradient(SHARE_W * 0.5, SHARE_H * 0.33, 60, SHARE_W * 0.5, SHARE_H * 0.33, SHARE_W * 0.9);
+  g.addColorStop(0, 'rgba(184,134,47,0.10)');
+  g.addColorStop(1, 'rgba(184,134,47,0)');
+  c.fillStyle = g;
+  c.fillRect(0, 0, SHARE_W, SHARE_H);
+
+  c.fillStyle = '#2A6B60';
+  c.fillRect(M, 150, SHARE_W - M * 2, 3);
+
+  // eyebrow
+  c.fillStyle = '#74766D';
+  c.font = '500 26px "IBM Plex Mono", monospace';
+  c.letterSpacing = '5px';
+  c.fillText('SOUNDS LIKE I GREW UP AROUND', M, 232);
+  c.letterSpacing = '0px';
+
+  // the verdict, the reason anyone shares this
+  const place = String(v.place || '').trim();
+  const px = fitText(c, place, SHARE_W - M * 2, 116, '400 {px}px "Instrument Serif", Georgia, serif');
+  c.fillStyle = '#1B1C19';
+  c.font = `400 ${px}px "Instrument Serif", Georgia, serif`;
+  c.fillText(place, M, 232 + px + 44);
+  let y = 232 + px + 44;
+
+  if ((v.radius_km || 0) > 250 && v.region) {
+    y += 62;
+    c.fillStyle = '#2A6B60';
+    c.font = '400 40px "IBM Plex Mono", monospace';
+    c.fillText('somewhere in ' + v.region, M, y);
+  }
+
+  // give or take
+  y += 118;
+  const r = v.radius_km || 300;
+  const rTxt = '±' + (r >= 1000 ? `${(r / 1000).toFixed(1)}k` : r);
+  c.fillStyle = '#2A6B60';
+  c.font = '700 84px "Familjen Grotesk", system-ui, sans-serif';
+  c.fillText(rTxt, M, y);
+  const rw = c.measureText(rTxt).width;
+  c.fillStyle = '#74766D';
+  c.font = '500 34px "Familjen Grotesk", system-ui, sans-serif';
+  c.fillText('km give or take', M + rw + 22, y - 6);
+  if (v.language) {
+    c.font = '500 28px "IBM Plex Mono", monospace';
+    c.fillText(String(v.language).toLowerCase(), M + rw + 22, y + 36);
+  }
+
+  // dialect composition — the part that makes it feel like an ancestry result
+  const parts = (Array.isArray(v.influences) ? v.influences : [])
+    .filter((i) => i.place && (i.percent || 0) >= 1).slice(0, 3);
+  if (parts.length) {
+    y += 150;
+    c.fillStyle = '#74766D';
+    c.font = '500 26px "IBM Plex Mono", monospace';
+    c.letterSpacing = '5px';
+    c.fillText('DIALECT COMPOSITION', M, y);
+    c.letterSpacing = '0px';
+    y += 52;
+    const total = parts.reduce((t, p) => t + (p.percent || 0), 0) || 1;
+    const barW = SHARE_W - M * 2, barH = 34;
+    c.save();
+    roundRect(c, M, y, barW, barH, barH / 2);
+    c.clip();
+    let x = M;
+    parts.forEach((p, i) => {
+      const w = (p.percent / total) * barW;
+      c.fillStyle = COMP_COLORS[i % COMP_COLORS.length];
+      c.fillRect(x, y, w, barH);
+      x += w;
+    });
+    c.restore();
+    y += barH + 58;
+    parts.forEach((p, i) => {
+      c.fillStyle = COMP_COLORS[i % COMP_COLORS.length];
+      c.beginPath();
+      c.arc(M + 11, y - 12, 11, 0, Math.PI * 2);
+      c.fill();
+      c.fillStyle = '#43453F';
+      c.font = '500 38px "Familjen Grotesk", system-ui, sans-serif';
+      c.fillText(String(p.place).slice(0, 34), M + 38, y);
+      const pct = '~' + Math.round((p.percent / total) * 100) + '%';
+      c.font = '500 34px "IBM Plex Mono", monospace';
+      c.fillStyle = '#74766D';
+      c.fillText(pct, SHARE_W - M - c.measureText(pct).width, y);
+      y += 62;
+    });
+  }
+
+  // one line of evidence, the "how did it KNOW" line
+  const ev = (Array.isArray(v.evidence) ? v.evidence : []).filter(Boolean)[0];
+  if (ev) {
+    y += 34;
+    c.fillStyle = '#E4EDEA';
+    roundRect(c, M, y, SHARE_W - M * 2, 118, 18);
+    c.fill();
+    c.fillStyle = '#2A6B60';
+    const evPx = fitText(c, ev, SHARE_W - M * 2 - 72, 36, '500 {px}px "Familjen Grotesk", system-ui, sans-serif');
+    c.font = `500 ${evPx}px "Familjen Grotesk", system-ui, sans-serif`;
+    c.fillText(ev, M + 36, y + 72);
+    y += 118;
+  }
+
+  // footer lockup
+  const fy = SHARE_H - 150;
+  c.fillStyle = '#DEDAD1';
+  c.fillRect(M, fy - 92, SHARE_W - M * 2, 2);
+  drawMark(c, M, fy - 54, 60);
+  c.fillStyle = '#1B1C19';
+  c.font = '400 56px "Instrument Serif", Georgia, serif';
+  c.fillText('Home', M + 78, fy);
+  const hw = c.measureText('Home').width;
+  c.fillStyle = '#2A6B60';
+  c.font = 'italic 400 56px "Instrument Serif", Georgia, serif';
+  c.fillText('Tongue', M + 78 + hw, fy);
+  c.fillStyle = '#74766D';
+  c.font = '500 34px "IBM Plex Mono", monospace';
+  const url = 'hometongue.me';
+  c.fillText(url, SHARE_W - M - c.measureText(url).width, fy - 6);
+
+  return cv;
+}
+
+async function shareResult() {
+  const v = window._lastResult;
+  const btn = $('#shareBtn');
+  if (!v || !v.place) { toast('Nothing to share yet — do a take first.'); return; }
+  btn.disabled = true;
+  const original = btn.textContent;
+  btn.textContent = 'making your card…';
+  try {
+    // Fonts must be loaded before the canvas draws or it silently falls back to Times.
+    if (document.fonts && document.fonts.ready) await document.fonts.ready;
+    const cv = buildShareCanvas(v);
+    const blob = await new Promise((res) => cv.toBlob(res, 'image/png'));
+    if (!blob) throw new Error('no blob');
+    const file = new File([blob], 'hometongue.png', { type: 'image/png' });
+    const shareText = `HomeTongue heard my accent and said ${v.place}. hometongue.me`;
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({ files: [file], text: shareText });
+      btn.textContent = original;
+    } else {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'hometongue.png';
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+      btn.textContent = 'card saved ✓';
+      toast('Card saved to your downloads — post it anywhere.');
+    }
+  } catch (e) {
+    // AbortError just means they closed the share sheet; that is not a failure worth a toast.
+    if (!e || e.name !== 'AbortError') toast('Could not make the card. Try again in a moment.');
+    btn.textContent = original;
+  } finally {
+    btn.disabled = false;
+  }
 }
 
 // Type-mode samples: one believable voice-note per language, dialect markers intact —
@@ -805,6 +1044,8 @@ function bindUI() {
   $('#backToMicBtn').onclick = () => { state = 'idle'; show('idleCard'); };
   $('#analyzeTypedBtn').onclick = () => runTextAnalysis($('#typeBox').value, true);
   $('#againBtn').onclick = () => { state = 'idle'; show('idleCard'); flyHome(); };
+  $('#shareBtn').onclick = shareResult;
+  $('#redoBtn').onclick = () => { state = 'idle'; show('idleCard'); flyHome(); startListening(); };
 
   $('#fbYes').onclick = () => { saveFeedback(true, '', ''); lockFeedback(); };
   $('#fbNo').onclick = () => { $('#fbFix').hidden = false; $('#fbNo').disabled = true; $('#fbYes').disabled = true; };

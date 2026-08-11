@@ -260,6 +260,19 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 }
 .stop-btn:hover:not(:disabled) { filter: brightness(1.12); }
 .stop-btn:active:not(:disabled) { transform: translateY(1px); }
+
+/* Share is the loudest button on the result card without being a second primary: amber
+   outline against the green "go again", because the card is the thing worth passing on. */
+.share-btn {
+  margin-top: 22px; margin-right: 10px;
+  background: var(--sheet); color: var(--amber); border: 1.5px solid var(--amber);
+  font-family: var(--sans); font-size: 14.5px; font-weight: 600;
+  padding: 11px 22px; border-radius: var(--r); cursor: pointer;
+  transition: background 0.15s, color 0.15s, transform 0.1s;
+}
+.share-btn:hover:not(:disabled) { background: var(--amber); color: #fff; }
+.share-btn:active:not(:disabled) { transform: translateY(1px); }
+.share-btn:disabled { opacity: 0.65; cursor: wait; }
 .stop-btn:disabled { background: var(--paper-2); color: var(--grey-2); cursor: default; }
 
 .fb-btn, .sample-btn {
@@ -702,6 +715,23 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   background: var(--accent-soft); border-left: 2px solid var(--accent);
   font-family: var(--mono); font-size: 11px; line-height: 1.5; color: var(--black);
 }
+/* A contaminated verdict is not a result, it is a do-over: amber, above the answer, with
+   the retry button inside it. The wide radius alone read as "the app got vague", which is
+   the wrong lesson — the right one is "say it again without naming things". */
+.redo-note {
+  margin: 2px 0 16px; padding: 12px 14px; border-radius: var(--r-sm);
+  background: color-mix(in srgb, var(--amber) 12%, transparent);
+  border-left: 3px solid var(--amber);
+  font-size: 13px; line-height: 1.5; color: var(--black-2);
+  display: flex; flex-direction: column; gap: 9px; align-items: flex-start;
+}
+.redo-note b { color: var(--black); font-weight: 600; }
+.redo-note button {
+  background: var(--amber); color: #fff; border: none; cursor: pointer;
+  font-family: var(--sans); font-size: 13px; font-weight: 600;
+  padding: 8px 16px; border-radius: var(--r-sm);
+}
+.redo-note button:hover { filter: brightness(1.1); }
 
 /* ——— flagging a bad clip, on the reveal sheet ——— */
 .clip-flag { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--rule-soft); }
