@@ -354,6 +354,9 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .comp-row b { margin-left: auto; font-family: var(--mono); font-weight: 500; font-size: 12px; font-variant-numeric: tabular-nums; }
 .comp-cue { font-size: 12px; color: var(--grey); font-style: italic; margin: 1px 0 2px 17px; line-height: 1.4; }
 
+/* a chip whose claim failed audio re-verification bows out quietly */
+.chip-retracted { opacity: 0; transform: translateY(3px); transition: opacity 0.8s ease, transform 0.8s ease; }
+
 .feedback {
   margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--rule-soft);
   display: grid; gap: 11px; font-size: 13px; color: var(--grey);
