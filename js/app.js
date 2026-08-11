@@ -431,6 +431,7 @@ const ERRORS = {
   no_speech: "I couldn't hear any real speech in that. If the bars weren't moving while you talked, your browser is probably using the wrong microphone (click the mic icon in the address bar).",
   not_configured: 'The server is missing its API key, so nothing can be analyzed. That is a setup problem, not your recording.',
   out_of_credit: 'The analysis account has run out of credit, so nothing can be read right now. Nothing is wrong with your recording.',
+  swamped: 'A lot of people are listening right now. Give it about thirty seconds and press record again — your voice was fine.',
   busy: 'The model is busy right now. Give it a few seconds and try again.',
   upstream_failed: "The model didn't answer. Try again in a moment.",
   audio_too_short: 'That was too short to read anything from. Give me a sentence or two.',

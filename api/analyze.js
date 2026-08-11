@@ -83,10 +83,21 @@ async function locate(parts) {
     // attempts and a 50-second wait end in "the model kept refusing the request", which sounds
     // like a transient blip and sent me hunting a bug that was really an empty wallet. Read the
     // body and separate out-of-credit from genuinely busy, because the fixes are unrelated.
+    // Two very different things arrive as 429 and the old test could not tell them apart,
+    // because a per-minute rate limit says "quota" just as loudly as an empty wallet does.
+    // Found the hard way: a 200-call benchmark burst starved the live site for a few minutes
+    // and every user would have been told the account was out of credit, which was false and
+    // alarming. That is exactly what a viral spike looks like, so the distinction matters:
+    // rate limiting is "everyone is here at once, wait a moment", an empty balance is
+    // "nothing works until it is topped up".
     if (resp.status === 429) {
       const body = await resp.text().catch(() => '');
-      if (/RESOURCE_EXHAUSTED|credits? (are )?depleted|quota|billing/i.test(body)) {
+      const rateLimited = /per\s*(minute|second|day)|rate[_\s-]?limit|too many requests/i.test(body);
+      if (!rateLimited && /credits? (are )?depleted|billing|insufficient|out of credit/i.test(body)) {
         throw Object.assign(new Error('the analysis account is out of credit'), { code: 'out_of_credit' });
+      }
+      if (rateLimited && attempt === 2) {
+        throw Object.assign(new Error('too many people at once'), { code: 'swamped' });
       }
     }
     if (resp.status === 429 || resp.status === 503 || resp.status === 400 || resp.status >= 500) {
@@ -383,7 +394,7 @@ export default async function handler(req, res) {
   } catch (err) {
     const code = err.code || 'server_error';
     res.statusCode = ['audio_too_large', 'audio_too_short', 'no_speech'].includes(code) ? 422
-      : code === 'busy' ? 429
+      : ['busy', 'swamped'].includes(code) ? 429
         : code === 'out_of_credit' ? 503   // the service is genuinely unavailable, not broken
           : 500;
     return res.end(JSON.stringify({
