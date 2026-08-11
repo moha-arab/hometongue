@@ -538,7 +538,7 @@ function renderResult(v) {
   // wrong answer over their face. Ask for a clean take instead.
   if (v.content_led === 'fed') {
     window._lastResult = v;
-    $('#redoText').textContent = 'Everything I could point to came from what you said, not from how you said it. That would be repeating you, not reading you. Give me the same story again and let your voice carry it.';
+    $('#redoText').textContent = 'Everything I could point to was either something you told me or something I could not hear again on a second listen. That is not a reading, so I would rather give you nothing than make it up. Try once more, ideally about thirty seconds, without saying your name or where you are from.';
     show('redoCard');
     flyHome();
     return;
