@@ -58,3 +58,25 @@ create table if not exists clip_reports (
 );
 
 alter table clip_reports enable row level security;
+
+-- ===== P3: the wallet guard (run this block if you already ran the parts above) =====
+-- One row per completed analysis, so every serverless instance shares a single daily
+-- count. Without it, each instance keeps its own tally and the real ceiling is the cap
+-- multiplied by however many instances Vercel happens to be running.
+--
+-- There are no accounts on this app, so a per-IP limit is a speed bump that a proxy pool
+-- walks past. This is the limit that actually protects the balance: past DAILY_ANALYSES
+-- (env var, default 20000) the app stops answering and says so, until the UTC day rolls
+-- over. If this table does not exist, the check fails open and nothing breaks.
+--
+-- Housekeeping: nothing reads rows older than today, so they can be deleted freely, e.g.
+--   delete from usage where ts < now() - interval '3 days';
+
+create table if not exists usage (
+  id bigserial primary key,
+  ts timestamptz not null default now()
+);
+
+create index if not exists usage_ts_idx on usage (ts);
+
+alter table usage enable row level security;

@@ -85,11 +85,13 @@ answer unclear.`;
     required: ['verdicts'],
   };
 
-  // Two independent listens; a chip dies only if BOTH call it false. Measured basis: the
-  // single-judge probe killed real fabrications reliably but also once dropped a TRUE
-  // glottal-stop chip it had kept in three sibling runs — per-call sampling noise, ~5% of
-  // true chips. Real fabrications fail the narrow question stably (7/7 across models), so
-  // unanimity keeps the kill rate and collapses the false kills.
+  // ONE listen, not two. The second listen existed to protect against a ~5% per-call false
+  // drop measured on true chips, back when dropping a chip was cosmetic. It is no longer
+  // needed, because the rule that now depends on this is an aggregate one: a verdict stands
+  // if ANY heard claim survives. With three or four claims on a typical verdict, all of them
+  // having to die by chance is vanishingly unlikely, while a real fabrication fails stably
+  // (7/7 across models on the narrow question). So unanimity was buying almost nothing and
+  // costing a third of the per-analysis bill, on an app with no accounts and no login.
   async function oneListen() {
     for (let attempt = 0; attempt < 2; attempt++) {
       const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${VERIFY_MODEL}:generateContent`, {
@@ -113,18 +115,12 @@ answer unclear.`;
     }
     return null;
   }
-  const [va, vb] = await Promise.all([oneListen(), oneListen()]);
-  if (!va || !vb) return results; // verification unavailable — keep everything rather than guess
-  const falseIn = (verdicts) => {
-    const s = new Set();
-    for (const v of verdicts) {
-      const idx = audioIdx[(v.claim_number || 0) - 1];
-      if (idx !== undefined && v.holds === 'false') s.add(idx);
-    }
-    return s;
-  };
-  const fa = falseIn(va), fb = falseIn(vb);
-  for (const idx of fa) if (fb.has(idx)) results[idx] = 'drop';
+  const verdicts = await oneListen();
+  if (!verdicts) return results; // verification unavailable — keep everything rather than guess
+  for (const v of verdicts) {
+    const idx = audioIdx[(v.claim_number || 0) - 1];
+    if (idx !== undefined && v.holds === 'false') results[idx] = 'drop';
+  }
   return results;
 }
 

@@ -226,6 +226,53 @@ function rateLimited(ip) {
   return b.count > 30;
 }
 
+// THE WALLET GUARD. There are no accounts here, so per-IP limits are a speed bump that a
+// script with a proxy pool walks straight past. The only limit that actually protects the
+// balance is a ceiling on the total: past DAILY_ANALYSES the app stops answering and says
+// so, for everyone, until the day rolls over in UTC.
+//
+// Counted in Supabase so every serverless instance shares one number; without that, each
+// instance keeps its own count and the real total is the cap times however many instances
+// Vercel happens to be running. If the count cannot be read, the analysis proceeds — an
+// outage in the counter must not take the app down.
+//
+// Set DAILY_ANALYSES in the environment to whatever a bad day is allowed to cost. Roughly:
+// one analysis is two model calls, so 20,000 a day is a comfortable viral ceiling and a
+// deliberate, known maximum bill instead of an open tab.
+const DAILY_CAP = Number(process.env.DAILY_ANALYSES || 20000);
+const SB = () => ({ url: process.env.SUPABASE_URL, key: process.env.SUPABASE_SERVICE_KEY });
+
+async function overDailyCap() {
+  const { url, key } = SB();
+  if (!url || !key || !Number.isFinite(DAILY_CAP) || DAILY_CAP <= 0) return false;
+  const since = `${new Date().toISOString().slice(0, 10)}T00:00:00Z`;
+  try {
+    const r = await fetch(`${url}/rest/v1/usage?select=id&ts=gte.${since}`, {
+      headers: {
+        apikey: key, Authorization: `Bearer ${key}`, Prefer: 'count=exact', Range: '0-0',
+      },
+      signal: AbortSignal.timeout(2500),
+    });
+    if (!r.ok) return false;   // no table yet, or a blip: never take the app down over this
+    const total = Number((r.headers.get('content-range') || '').split('/')[1]);
+    return Number.isFinite(total) && total >= DAILY_CAP;
+  } catch { return false; }
+}
+
+// fire-and-forget: the user's answer never waits on bookkeeping
+function countAnalysis() {
+  const { url, key } = SB();
+  if (!url || !key) return;
+  fetch(`${url}/rest/v1/usage`, {
+    method: 'POST',
+    headers: {
+      apikey: key, Authorization: `Bearer ${key}`,
+      'Content-Type': 'application/json', Prefer: 'return=minimal',
+    },
+    body: '{}',
+  }).catch(() => { /* bookkeeping is never load-bearing */ });
+}
+
 export default async function handler(req, res) {
   // Vercel kills the function at 60s. The plausibility check below only runs if there is
   // real time left after the main call, so a slow analysis never turns into a timeout.
@@ -250,6 +297,14 @@ export default async function handler(req, res) {
   if (rateLimited(ip)) {
     res.statusCode = 429;
     return res.end(JSON.stringify({ ok: false, error: 'rate_limited', detail: 'Slow down a little — try again in a bit.' }));
+  }
+  if (await overDailyCap()) {
+    res.statusCode = 503;
+    return res.end(JSON.stringify({
+      ok: false,
+      error: 'at_capacity',
+      detail: 'HomeTongue has hit its listening limit for today. It resets tonight — come back and it will be free again.',
+    }));
   }
 
   try {
@@ -315,6 +370,7 @@ export default async function handler(req, res) {
     }
     // Audio only: type mode has no sound to hear by definition, and its own card says so.
     if (body.audio && !heardSomething(result)) result.content_led = 'fed';
+    countAnalysis();
     return res.end(JSON.stringify({ ok: true, result, fb_token: mintToken() }));
   } catch (err) {
     const code = err.code || 'server_error';
