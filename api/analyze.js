@@ -204,7 +204,14 @@ const LATIN = /^[a-zà-ÿ' ]+$/i;
 // \b on the latin cues or "for him in Toronto" matches "im in" — measured on the very
 // story that motivated this guard, which is a neat demonstration that a mention inside
 // someone else's story is not self-location and should stay quiet.
-const SELF_LOCATING = /(\b(?:here in|we'?re in|we are in|i'?m in|back in|live in|living in|born in|raised in|grew up in|based in|stuck in|hna fi|i'?m from|i am from|we'?re from|we are from|comes? from|originally from)|إحنا في|احنا في|أنا في|انا في|نحن في|هون ب|هون في|أنا من|انا من|نحن من|مы в|я в|я из|nous sommes à|je suis à|je viens de|estamos en|estoy en|soy de|我在|我们在|我来自)[\s,]*$/i;
+// ONLY where the speaker is standing, never where they are from. The distinction is the
+// whole design, and it is measured: "I am from Aleppo originally" lands on Aleppo and the
+// model's own cue admits it was told, which is a useful, honest answer worth showing. "We
+// are here in Toronto right now" is not a claim about origin at all, so when the model
+// takes that bait it produces a verdict that is simply WRONG for the tourist who said it.
+// (It often ignores the bait — the same sentence read as Mumbai in one probe — which is
+// exactly why this only fires when the verdict actually agreed.)
+const PRESENT_LOCATION = /(\b(?:here in|we'?re here in|we'?re in|we are in|i'?m in|i am in|back in|stuck in|hna fi)|إحنا في|احنا في|أنا في|انا في|نحن في|هون ب|هون في|мы в|я в|nous sommes à|je suis à|estamos en|estoy en|我在|我们在)[\s,]*$/i;
 function placeLead(result) {
   const t = (result.transcript || '').toLowerCase();
   if (!t) return null;
@@ -225,7 +232,7 @@ function placeLead(result) {
       while ((m = re.exec(t)) !== null) {
         // look at the ~30 characters immediately before the mention
         const before = t.slice(Math.max(0, m.index - 30), m.index + (m[1] ? m[1].length : 0));
-        if (SELF_LOCATING.test(before)) return name;
+        if (PRESENT_LOCATION.test(before)) return name;
         if (re.lastIndex === m.index) re.lastIndex += 1;
       }
     }
