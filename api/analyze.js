@@ -285,6 +285,13 @@ function sane(r) {
       // area and the degenerate coastal ribbon scored 0.02 — an order of magnitude apart, so
       // 0.08 splits them with margin on both sides.
       if (zoneArea < 0.08 * circleArea || zoneArea > 6 * circleArea) return [];
+      // The drawing must not contradict the claim. Mohammad's Gulf-English take said
+      // "somewhere in the Gulf" and then drew a border tight around Qatar and the UAE,
+      // visibly excluding the Kuwait he grew up in — a wide verdict with a narrow picture,
+      // which reads as a confident wrong answer. If the zone's own effective radius is less
+      // than half what the verdict claims, the two disagree and the honest circle wins.
+      const zoneEffRadius = Math.sqrt(zoneArea / Math.PI);
+      if (zoneEffRadius < 0.5 * radius) return [];
       return pts;
     })(),
     language: String(r.language || '').slice(0, 40),

@@ -546,6 +546,7 @@ function renderResult(v) {
   $('#fbActual').value = '';
   $('#fbCity').value = '';
   $('#fbYes').disabled = false; $('#fbNo').disabled = false;
+  $('#fbYes').classList.remove('chosen'); $('#fbNo').classList.remove('chosen');
   $('#consentWrap').style.display = window._lastAudio ? '' : 'none'; // no clip to donate in type mode
   const db = $('#donateBtn');
   db.disabled = false; db.classList.remove('done'); db.textContent = 'donate this clip';
@@ -1003,9 +1004,11 @@ async function shareResult() {
     const blob = await new Promise((res) => cv.toBlob(res, 'image/png'));
     if (!blob) throw new Error('no blob');
     const file = new File([blob], 'hometongue.png', { type: 'image/png' });
-    const shareText = `HomeTongue heard my accent and said ${v.place}. hometongue.me`;
+    // The image only — no caption text. A pre-written sentence lands in whatever box the
+    // share sheet opens (an Instagram caption, a friend's chat) and typing words into
+    // someone's message for them is presumptuous; the card already carries the URL.
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      await navigator.share({ files: [file], text: shareText });
+      await navigator.share({ files: [file] });
       btn.textContent = original;
     } else {
       const a = document.createElement('a');
@@ -1142,8 +1145,8 @@ function bindUI() {
   $('#shareBtn').onclick = shareResult;
   $('#redoBtn').onclick = () => { state = 'idle'; show('idleCard'); flyHome(); startListening(); };
 
-  $('#fbYes').onclick = () => { saveFeedback(true, '', ''); lockFeedback(); };
-  $('#fbNo').onclick = () => { $('#fbFix').hidden = false; $('#fbNo').disabled = true; $('#fbYes').disabled = true; };
+  $('#fbYes').onclick = () => { saveFeedback(true, '', ''); $('#fbYes').classList.add('chosen'); lockFeedback(); };
+  $('#fbNo').onclick = () => { $('#fbFix').hidden = false; $('#fbNo').classList.add('chosen'); $('#fbNo').disabled = true; $('#fbYes').disabled = true; };
   $('#fbSend').onclick = () => {
     // `sel` used to be read from a variable that only ever existed inside fillCountryPicker,
     // so this handler threw a ReferenceError and every "nope" correction silently vanished.

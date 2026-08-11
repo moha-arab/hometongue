@@ -149,7 +149,7 @@ body {
   /* No place-items: center — a card taller than the phone screen would centre with its top
      half above the scroll start, unreachable. margin:auto on .card centres when it fits and
      scrolls fully when it does not. That was the "can't scroll the result on my phone" bug. */
-  padding: 82px 20px 24px; pointer-events: none; overflow-y: auto;
+  padding: 82px 20px 52px; pointer-events: none; overflow-y: auto;
 }
 @media (min-width: 940px) {
   .hud { padding-left: clamp(32px, 7vw, 120px); }
@@ -283,6 +283,12 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 }
 .fb-btn:hover:not(:disabled), .sample-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
 .fb-btn:disabled { opacity: 0.35; cursor: default; }
+/* the one you pressed stays lit and ticked — a pair of greyed-out buttons gave no clue
+   which answer was actually recorded */
+.fb-btn.chosen, .fb-btn.chosen:disabled {
+  opacity: 1; background: var(--accent); color: #fff; border-color: var(--accent);
+}
+.fb-btn.chosen::before { content: '✓ '; }
 
 /* ——— listening ——— */
 .wave { display: flex; justify-content: center; align-items: center; gap: 3px; height: 54px; margin-bottom: 12px; }
@@ -543,8 +549,11 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   padding: 11px 17px; font-size: 13px; box-shadow: var(--shadow-2);
   animation: settle 0.2s ease-out; max-width: min(420px, calc(100% - 24px));
 }
+/* z-index 4 keeps this UNDER the cards (.hud is 5). At 10 it painted the privacy line
+   straight across the result card's buttons; the cards now cover it, and .hud's bottom
+   padding leaves it a lane of its own to sit in. */
 .foot {
-  position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); z-index: 10;
+  position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); z-index: 4;
   font-family: var(--mono); font-size: 10px; letter-spacing: 0.04em; color: var(--grey);
   pointer-events: none; background: color-mix(in srgb, var(--paper) 85%, transparent);
   border-radius: var(--r-sm); padding: 4px 11px; max-width: calc(100% - 24px); text-align: center;
@@ -594,6 +603,8 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
     max-height: 44dvh;
     margin-top: auto; margin-bottom: 0;
   }
+  /* the sheet stops short of the very bottom so the privacy line keeps its lane */
+  .card { margin-bottom: 0; }
 }
 .sheet-handle { display: none; }
 @media (max-width: 939px) {
