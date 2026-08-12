@@ -720,9 +720,12 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 /* ——— how much accuracy the recording has earned so far ——— */
 /* The dots track measured benchmark medians, not elapsed time for its own sake:
    345 km at 8s, 157 km from 12–20s, 67 km by 30s. */
+/* Prose, so it gets the prose font. This was 11px mono, the same styling as the one-word
+   status labels under the waveform, and a full sentence set that way reads like a terminal
+   warning rather than a friendly hint. */
 .length-tip {
-  margin-top: 14px; font-family: var(--mono); font-size: 11px; line-height: 1.5;
-  color: var(--grey); letter-spacing: .01em;
+  margin-top: 14px; font-size: 13px; line-height: 1.55;
+  color: var(--grey);
 }
 .length-tip b { color: var(--black); font-weight: 500; }
 .quality { display: flex; align-items: center; gap: 9px; margin-top: 11px; }
