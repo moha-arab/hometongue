@@ -145,11 +145,32 @@ function flyToGuess(g) {
   const cardEl = document.getElementById('resultCard');
   const cardRight = (!peeking && cardEl && !cardEl.hidden)
     ? Math.round(cardEl.getBoundingClientRect().right) : 0;
-  map.flyToBounds(bounds, {
-    duration: 2.4, easeLinearity: 0.15,
-    paddingTopLeft: [peeking ? 12 : cardRight + 28, 84],
-    paddingBottomRight: [peeking ? 12 : 28, peeking ? Math.round(window.innerHeight * 0.46) : 28],
-  });
+  // THE MAP IS DECORATION; THE ANSWER IS THE PRODUCT. A zero-size map makes Leaflet compute a
+  // NaN zoom and throw "Invalid LatLng object: (NaN, NaN)" out of flyToBounds — and because
+  // this is called at the END of renderResult, that exception unwound all the way to the
+  // caller's .catch, which threw the finished card away and told the user "That didn't work."
+  // The verdict was complete, correct and already painted into the DOM.
+  //
+  // Leaflet caches a 0x0 size whenever its container was never laid out, which initMap already
+  // documents for a page loaded in a background tab. The realistic path is a phone: someone
+  // starts a reading, switches app during the ten-second wait, and comes back to an error
+  // instead of their result.
+  //
+  // Two guards, because either alone leaves the hole open. Skip the flight when the map cannot
+  // be measured, and never let a map failure escape into the render path.
+  if (map.getSize().x > 0 && map.getSize().y > 0) {
+    try {
+      map.flyToBounds(bounds, {
+        duration: 2.4, easeLinearity: 0.15,
+        paddingTopLeft: [peeking ? 12 : cardRight + 28, 84],
+        paddingBottomRight: [peeking ? 12 : 28, peeking ? Math.round(window.innerHeight * 0.46) : 28],
+      });
+    } catch { dropFn(); }   // no flight, but still drop the pin where the answer says
+  } else {
+    // Nothing to fly in yet. Put the pin down now so the answer is on the map the moment the
+    // container gets a size, and let the existing visibilitychange handler reframe it.
+    dropFn();
+  }
 }
 
 // The answer can be anywhere on Earth, so "home" is the world.
@@ -722,7 +743,12 @@ function renderResult(v) {
   // No client-side verification any more: the server checks every acoustic claim before
   // it answers, so the chips that arrive here have already survived a second listen.
 
-  flyToGuess(v);
+  // The card is finished and painted by this point. Everything below is the map, and the map
+  // is not allowed to take the answer away: a throw here used to unwind into runTextAnalysis's
+  // .catch, which replaced a correct verdict with "That didn't work. Try again in a moment."
+  // Measured on a 0x0 map, which is the state Leaflet caches whenever its container was never
+  // laid out. Losing the flight is a blemish; losing the reading is the product failing.
+  try { flyToGuess(v); } catch { /* the answer stands without its flight */ }
   window._lastResult = v;
 }
 
