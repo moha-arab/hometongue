@@ -566,7 +566,7 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Arquebuse.ogg",
         "note": ""
       },
-      "lufs": -19.5
+      "lufs": -16.4
     },
     {
       "id": "lang-portuguese-brazil",
@@ -1160,7 +1160,7 @@ window.CLIPS = {
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
       },
-      "lufs": -19.8
+      "lufs": -17.2
     },
     {
       "id": "ar-2446",
@@ -1427,7 +1427,7 @@ window.CLIPS = {
         "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
         "note": "trimmed and re-encoded for the game"
       },
-      "lufs": -19.7
+      "lufs": -16.6
     },
     {
       "id": "ar-2316",

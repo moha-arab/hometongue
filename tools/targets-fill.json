@@ -1,0 +1,194 @@
+[
+  {
+    "deck": "russian", "label": "Moscow, Russia", "lang": "Russian",
+    "lat": 55.7558, "lng": 37.6173, "r": 120, "want": 2,
+    "queries": [
+      "влог москва обычный день прогулка по городу",
+      "уличный опрос москва прохожие отвечают",
+      "москвич рассказывает о жизни в москве интервью"
+    ]
+  },
+  {
+    "deck": "russian", "label": "Saint Petersburg, Russia", "lang": "Russian",
+    "lat": 59.9311, "lng": 30.3609, "r": 100, "want": 2,
+    "queries": [
+      "влог санкт петербург обычный день прогулка",
+      "уличный опрос санкт петербург прохожие",
+      "петербуржец рассказывает о городе интервью"
+    ]
+  },
+  {
+    "deck": "russian", "label": "Novosibirsk, Russia", "lang": "Russian",
+    "lat": 55.0084, "lng": 82.9357, "r": 150, "want": 1,
+    "queries": [
+      "влог новосибирск обычный день сибирь",
+      "уличный опрос новосибирск прохожие отвечают"
+    ]
+  },
+  {
+    "deck": "russian", "label": "Yekaterinburg, Russia", "lang": "Russian",
+    "lat": 56.8389, "lng": 60.6057, "r": 150, "want": 1,
+    "queries": [
+      "влог екатеринбург обычный день урал",
+      "уличный опрос екатеринбург прохожие"
+    ]
+  },
+  {
+    "deck": "russian", "label": "Kazan, Russia", "lang": "Russian",
+    "lat": 55.7963, "lng": 49.1088, "r": 150, "want": 1,
+    "queries": [
+      "влог казань обычный день прогулка по городу",
+      "уличный опрос казань прохожие отвечают"
+    ]
+  },
+  {
+    "deck": "russian", "label": "Vladivostok, Russia", "lang": "Russian",
+    "lat": 43.1155, "lng": 131.8855, "r": 180, "want": 1,
+    "queries": [
+      "влог владивосток обычный день дальний восток",
+      "уличный опрос владивосток прохожие"
+    ]
+  },
+  {
+    "deck": "russian", "label": "Minsk, Belarus", "lang": "Russian",
+    "lat": 53.9006, "lng": 27.5590, "r": 120, "want": 1,
+    "queries": [
+      "влог минск обычный день беларусь прогулка",
+      "уличный опрос минск прохожие отвечают"
+    ]
+  },
+
+  {
+    "deck": "hindi-urdu", "label": "Lahore, Pakistan", "lang": "Urdu",
+    "lat": 31.5204, "lng": 74.3587, "r": 100, "want": 2,
+    "queries": [
+      "لاہور سٹریٹ انٹرویو عام لوگ",
+      "lahore street interview urdu public opinion",
+      "lahore vlog urdu daily life walking"
+    ]
+  },
+  {
+    "deck": "hindi-urdu", "label": "Lucknow, India", "lang": "Hindi",
+    "lat": 26.8467, "lng": 80.9462, "r": 100, "want": 2,
+    "queries": [
+      "लखनऊ स्ट्रीट इंटरव्यू आम लोग बातचीत",
+      "lucknow street interview hindi local people",
+      "lucknow vlog hindi awadhi daily life"
+    ]
+  },
+  {
+    "deck": "hindi-urdu", "label": "Patna, India", "lang": "Hindi",
+    "lat": 25.5941, "lng": 85.1376, "r": 120, "want": 1,
+    "queries": [
+      "पटना स्ट्रीट इंटरव्यू बिहार लोग बातचीत",
+      "patna street interview hindi bihar people"
+    ]
+  },
+  {
+    "deck": "hindi-urdu", "label": "Jaipur, India", "lang": "Hindi",
+    "lat": 26.9124, "lng": 75.7873, "r": 120, "want": 1,
+    "queries": [
+      "जयपुर स्ट्रीट इंटरव्यू राजस्थान लोग",
+      "jaipur street interview hindi rajasthan people"
+    ]
+  },
+  {
+    "deck": "hindi-urdu", "label": "Bhopal, India", "lang": "Hindi",
+    "lat": 23.2599, "lng": 77.4126, "r": 120, "want": 1,
+    "queries": [
+      "भोपाल स्ट्रीट इंटरव्यू मध्य प्रदेश लोग",
+      "bhopal street interview hindi madhya pradesh"
+    ]
+  },
+  {
+    "deck": "hindi-urdu", "label": "Islamabad, Pakistan", "lang": "Urdu",
+    "lat": 33.6844, "lng": 73.0479, "r": 100, "want": 1,
+    "queries": [
+      "اسلام آباد سٹریٹ انٹرویو عام لوگ",
+      "islamabad street interview urdu public"
+    ]
+  },
+
+  {
+    "deck": "chinese", "label": "Xi'an, China", "lang": "Mandarin",
+    "lat": 34.3416, "lng": 108.9398, "r": 140, "want": 1,
+    "queries": [
+      "西安 街头采访 路人 陕西话",
+      "西安 vlog 日常 生活 逛街"
+    ]
+  },
+  {
+    "deck": "chinese", "label": "Guangzhou, China", "lang": "Cantonese",
+    "lat": 23.1291, "lng": 113.2644, "r": 100, "want": 1,
+    "queries": [
+      "廣州 街頭訪問 路人 廣東話",
+      "广州 街头采访 粤语 日常"
+    ]
+  },
+  {
+    "deck": "chinese", "label": "Harbin, China", "lang": "Mandarin",
+    "lat": 45.8038, "lng": 126.5349, "r": 160, "want": 1,
+    "queries": [
+      "哈尔滨 街头采访 路人 东北话",
+      "哈尔滨 vlog 日常 东北 生活"
+    ]
+  },
+  {
+    "deck": "chinese", "label": "Kunming, China", "lang": "Mandarin",
+    "lat": 24.8801, "lng": 102.8329, "r": 160, "want": 1,
+    "queries": [
+      "昆明 街头采访 路人 云南话",
+      "昆明 vlog 日常 云南 生活"
+    ]
+  },
+
+  {
+    "deck": "portuguese", "label": "Lisbon, Portugal", "lang": "Portuguese",
+    "lat": 38.7223, "lng": -9.1393, "r": 90, "want": 2,
+    "queries": [
+      "entrevista de rua lisboa portugueses opiniao",
+      "vlog lisboa dia normal a passear portugues"
+    ]
+  },
+  {
+    "deck": "portuguese", "label": "Luanda, Angola", "lang": "Portuguese",
+    "lat": -8.8390, "lng": 13.2894, "r": 150, "want": 1,
+    "queries": [
+      "entrevista de rua luanda angolanos",
+      "vlog luanda angola dia a dia portugues"
+    ]
+  },
+  {
+    "deck": "portuguese", "label": "Belém, Brazil", "lang": "Portuguese",
+    "lat": -1.4558, "lng": -48.4902, "r": 150, "want": 1,
+    "queries": [
+      "entrevista de rua belem para brasileiros",
+      "vlog belem do para dia normal sotaque paraense"
+    ]
+  },
+
+  {
+    "deck": "french", "label": "Lyon, France", "lang": "French",
+    "lat": 45.7640, "lng": 4.8357, "r": 90, "want": 1,
+    "queries": [
+      "micro trottoir lyon les gens repondent",
+      "vlog lyon journee normale balade en ville"
+    ]
+  },
+  {
+    "deck": "french", "label": "Kinshasa, DR Congo", "lang": "French",
+    "lat": -4.4419, "lng": 15.2663, "r": 150, "want": 1,
+    "queries": [
+      "micro trottoir kinshasa congolais francais",
+      "vlog kinshasa rdc vie quotidienne francais"
+    ]
+  },
+  {
+    "deck": "french", "label": "Geneva, Switzerland", "lang": "French",
+    "lat": 46.2044, "lng": 6.1432, "r": 90, "want": 1,
+    "queries": [
+      "micro trottoir geneve suisse romande les gens",
+      "vlog geneve suisse journee normale francais"
+    ]
+  }
+]
