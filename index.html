@@ -56,7 +56,7 @@
          which is not an accent at all (six of six runs answered Moscow for synthetic US speech
          that said "my name is Vladislav"), and saying outright where you are from. Ask people
          to skip exactly those two and nothing else. -->
-    <p class="length-tip">Your <b>home language</b> reads sharpest, and <b>30 seconds</b> is the difference between naming your country and naming your city. Don't say your name or where you're from; that just hands it the answer.</p>
+    <p class="length-tip">Your <b>home language</b> reads sharpest, and <b>20 seconds</b> is the difference between naming your country and naming your city. Don't say your name or where you're from; that just hands it the answer.</p>
     <div class="idle-foot">
       <button class="link-btn" id="typeModeBtn">no mic? type like you talk</button>
     </div>
@@ -70,10 +70,11 @@
          the app crashing mid-sentence rather than a deliberate limit. -->
     <div class="count"><b id="timer">1:00</b><span id="countHint">left</span></div>
     <div class="count-track"><div class="count-fill" id="countFill"></div></div>
-    <!-- Measured, not decorative, and re-measured on 2026-08-11 because the old numbers here
-         were far too kind: 8s of speech scores a 1779 km median miss, 15s scores 511 km, and
-         30s scores 70 km, after which it plateaus. Showing that as it accrues tells people
-         when they have actually said enough, which a bare clock cannot. -->
+    <!-- Measured, not decorative. Paired on 18 clips: 12s scores a 166 km median miss with
+         five answers over 1000 km out, 20s scores 40 km with two, and 30s and 45s are
+         indistinguishable from 20s (better on 2 and 2, worse on 1 and 3). So the meter tops
+         out at twenty and says so, rather than implying a longer take would have been better
+         when the measurement says it would not. -->
     <div class="quality" id="quality">
       <span class="q-dots"><i></i><i></i><i></i></span>
       <span class="q-label" id="qLabel">rough, keep talking</span>

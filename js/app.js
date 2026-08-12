@@ -26,30 +26,31 @@ let micPeak = -1; // loudest rolling level seen this recording; -1 = meter unava
 let micFrames = 0, micVoiced = 0;
 const VOICE_LEVEL = 0.05;   // mean spectral level that ordinary speech clears
 const MIN_VOICED_S = 1.5;   // a mic that heard essentially nothing at all
-// RECORDING LENGTH IS THE BIGGEST LEVER IN THIS PRODUCT, by more than an order of magnitude.
-// Measured 2026-08-11 by truncating the SAME speakers to each length, so the only thing that
-// changes is how long they talked:
+// THERE IS A CLIFF, AND IT ENDS AT TWENTY SECONDS. Measured twice, the second time in a
+// clean room after a first pass over-read it. Same speakers truncated to each length, fully
+// paired, 18 clips, every arm answering on every clip:
 //
-//      8s   1779 km median error    truth inside the circle it claimed: 22%
-//     15s    511 km                                                     50%
-//     30s     70 km                                                     43%
-//     45s     90 km                                                     43%
+//     12s   166 km median    50% within 100 km    5 misses over 1000 km
+//     20s    40 km           67%                  2
+//     30s     6 km           72%                  2
+//     45s     2 km           67%                  2
 //
-// Per clip the effect is one-directional and brutal: Jamaica 8801 -> 53 km, Kenya 6739 -> 70,
-// Senegal 1779 -> 0. Nothing got worse by talking longer, and it plateaus at 30 seconds, so
-// 45 buys nothing. For scale, every other lever ever measured on this app: swapping the model
-// is worth 0 km, lightening the schema 17 km, more thinking time is NEGATIVE. None of them are
-// in the same universe as simply talking for half a minute.
+// Read the PAIRED counts, not the medians - medians on 18 clips with a heavy tail move for
+// reasons that have nothing to do with the treatment:
 //
-// Short clips are also the overconfident ones. At 8 seconds the model claims a 258 km circle
-// and lands inside it 22% of the time while promising 70% — wrong AND sure of itself, which is
-// the worst thing this app can put on screen.
+//     12s vs 20s   20s better on 7, worse on 1, tied 10   <- real, and the only real one
+//     20s vs 30s   30s better on 2, worse on 1, tied 15   <- nothing
+//     30s vs 45s   45s better on 2, worse on 3, tied 13   <- nothing
 //
-// So there are two thresholds, not one: nothing is submitted under MIN, and the button does
-// not go green until GOOD. Enforced by what the button offers rather than by refusing after
-// the fact — an error message is a bad moment on camera, a countdown is just an instruction.
+// Eight of eighteen clips returned a byte-identical answer at ALL FOUR lengths. Past twenty
+// seconds the model has already decided and more audio does not move it.
+//
+// So there is ONE threshold, not two. An earlier version of this file pushed people toward
+// thirty with a button reading "10s more reads far sharper", which the measurement above says
+// is simply untrue, and a quality meter that called twenty seconds second-best. Both were
+// invented from a first pass that only sampled 8/15/30/45 with 7-9 clips per arm and unequal
+// clip sets. Do not re-add a thirty second target without re-running the paired test.
 const MIN_RECORD_S = 20;
-const GOOD_RECORD_S = 30;
 
 // the survey red, read from the stylesheet so themes stay in one place
 const MARK = () => window.HT.ink();
@@ -249,28 +250,23 @@ function startTimer() {
     if (hint) hint.textContent = 'left';
     const stop = $('#stopBtn');
     if (stop) {
-      // Three states, because there are genuinely three: too short to read at all, readable
-      // but measurably worse, and the length the data actually endorses. The middle one is
-      // the important one — it used to say "done, guess now" and send people away with a
-      // several-hundred-kilometre answer that looked exactly as confident as a good one.
+      // Two states, because the measurement only supports two: not enough yet, and enough.
+      // Nothing here nags for more once the floor is cleared, since past twenty seconds more
+      // audio buys nothing this harness can detect and a button that begs is a button that
+      // makes people feel their real answer was second best.
       stop.disabled = s < MIN_RECORD_S;
-      stop.textContent = s < MIN_RECORD_S ? `keep talking… ${MIN_RECORD_S - s}`
-        : s < GOOD_RECORD_S ? `done — but ${GOOD_RECORD_S - s}s more reads far sharper`
-          : 'done, guess now';
+      stop.textContent = s < MIN_RECORD_S ? `keep talking… ${MIN_RECORD_S - s}` : 'done, guess now';
     }
-    // Thresholds are the measured accuracy steps, not round numbers: 1779 km at 8s, 511 km at
-    // 15s, 70 km at 30s. The old tier 2 told people "good read, you can stop here" at twenty
-    // seconds, which the measurement says is a roughly five-hundred-kilometre answer. A meter
-    // that green-lights a bad recording is worse than no meter, because it is trusted.
-    const tier = s < 15 ? 0 : s < MIN_RECORD_S ? 1 : s < GOOD_RECORD_S ? 2 : 3;
+    // Three tiers, and every one of them is now a true statement. The fourth used to promise
+    // that thirty seconds was sharper than twenty; paired measurement says it is not.
+    const tier = s < 12 ? 0 : s < MIN_RECORD_S ? 1 : 2;
     const q = $('#quality');
     if (q && q.dataset.tier !== String(tier)) {
       q.dataset.tier = String(tier);
       q.querySelectorAll('.q-dots i').forEach((d, k) => d.classList.toggle('on', k < Math.max(1, tier)));
       $('#qLabel').textContent = ['too short to read yet',
-        'still thin — keep going',
-        'readable, but thirty seconds is far sharper',
-        'sharp, this is a real read'][tier];
+        'almost enough, keep going',
+        "that's enough to read you"][tier];
     }
     if (s >= MAX_SECONDS) stopListening();
   }, 250);
@@ -379,7 +375,7 @@ function stopListening() {
   stopMeter();
   const elapsed = (Date.now() - startedAt) / 1000;
   if (elapsed < MIN_RECORD_S) {
-    toast(`That was ${Math.round(elapsed)} seconds. Under twenty I would be guessing at country scale — go again and give it about thirty.`);
+    toast(`That was ${Math.round(elapsed)} seconds. Under twenty I would be guessing at country scale, so go again and give it twenty or so.`);
     state = 'idle';
     if (recorder && recorder.state !== 'inactive') { recorder.onstop = null; recorder.stop(); }
     teardownRecording();
