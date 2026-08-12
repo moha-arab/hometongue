@@ -248,6 +248,24 @@ function startTimer() {
     // voice: the meter advises, the clock counts.
     const hint = $('#countHint');
     if (hint) hint.textContent = 'left';
+    // A voiced-seconds gate was built here and then REMOVED before shipping, and the reason is
+    // worth keeping so nobody rebuilds it. Measured: 15s of speech plus 15s of digital silence
+    // performs like 15s, not 30s - the model tightens its radius on real extra speech (9 of 12
+    // clips) and treats silence as a fresh guess carrying no information (1 of 12), and padding
+    // even moved the pin on 4 of 12 clips, one from 0 km to 3185 km. All true, and all
+    // irrelevant here, because of what micVoiced actually counts.
+    //
+    // VOICE_LEVEL is 0.05 on a mean of getByteFrequencyData, and that maps to roughly -96 dB.
+    // It is an "is this microphone producing any signal at all" test, not an "is this speech"
+    // test - which is exactly what it was written for, guarding MIN_VOICED_S against a dead
+    // mic. Any real room clears it continuously, including during the pauses between words. So
+    // micVoiced/micFrames is about 1.0 on every genuine recording, a voiced gate computes the
+    // same number as the clock, and the only thing it adds is a way to lock someone out of
+    // their own take if the meter under-reports. The loophole it was meant to close needs
+    // DIGITAL silence, which a microphone in a room does not produce.
+    //
+    // To make this real, VOICE_LEVEL would have to become an actual speech-detection threshold
+    // first, and that needs measuring against real recordings, not reasoning.
     const stop = $('#stopBtn');
     if (stop) {
       // Two states, because the measurement only supports two: not enough yet, and enough.
@@ -374,6 +392,7 @@ function stopListening() {
   stopTimer();
   stopMeter();
   const elapsed = (Date.now() - startedAt) / 1000;
+  const voicedS = micFrames ? (micVoiced / micFrames) * elapsed : -1;
   if (elapsed < MIN_RECORD_S) {
     toast(`That was ${Math.round(elapsed)} seconds. Under twenty I would be guessing at country scale, so go again and give it twenty or so.`);
     state = 'idle';
@@ -384,7 +403,6 @@ function stopListening() {
   }
   // Two different failures, two different fixes, so they get two different messages.
   // A dead mic is a settings problem; a quiet room is a "say more" problem.
-  const voicedS = micFrames ? (micVoiced / micFrames) * elapsed : -1;
   if (micPeak >= 0 && micPeak < 0.02) {
     if (recorder && recorder.state !== 'inactive') { recorder.onstop = null; recorder.stop(); }
     teardownRecording();
