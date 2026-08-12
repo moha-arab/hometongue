@@ -114,18 +114,40 @@ Why it matters: a research sweep confirmed **no public speech dataset separates 
 
 Read this before touching the analyser, because the intuitions here are mostly wrong.
 
-**Recording length is the product.** Same speakers, truncated:
+**Recording length matters, but only up to twenty seconds.** Same speakers truncated, fully
+paired on 18 clips, measured twice because the first pass over-read it:
 
-| length | median error | truth inside its own claimed circle |
-|--------|--------------|-------------------------------------|
-| 8s     | 1779 km      | 22% |
-| 15s    | 511 km       | 50% |
-| 30s    | **70 km**    | 43% |
-| 45s    | 90 km        | 43% |
+| length | median error | within 100 km | answers >1000 km out |
+|--------|--------------|---------------|----------------------|
+| 12s    | 166 km       | 50%           | 5 |
+| 20s    | **40 km**    | 67%           | 2 |
+| 30s    | 6 km         | 72%           | 2 |
+| 45s    | 2 km         | 67%           | 2 |
 
-It plateaus at 30 seconds. Short clips are also the overconfident ones, which is the worst
-combination the app can ship. **Everything else is noise beside this**: swapping the model is
-worth 0 km, lightening the schema about 17 km, more thinking time is negative.
+Read the paired counts, not the medians — on 18 heavy-tailed clips a median moves for reasons
+unrelated to the treatment:
+
+| comparison | result |
+|------------|--------|
+| 12s vs 20s | 20s better on 7, worse on 1, tied 10 — **real** |
+| 20s vs 30s | 30s better on 2, worse on 1, tied 15 — nothing |
+| 30s vs 45s | 45s better on 2, worse on 3, tied 13 — nothing |
+
+**Eight of eighteen clips returned a byte-identical answer at all four lengths.** Past twenty
+seconds the model has already decided and more audio does not move it. A 30-second target was
+briefly shipped and retracted; do not re-add one without re-running the paired test.
+
+**Everything else is noise beside the 12→20s step**: swapping the model is worth 0 km,
+lightening the schema about 17 km, more thinking time is negative.
+
+**The radius is dishonest, and not because of length.** Paired, 72 observations across
+15/20/30/45s: the circle contains the truth **48.6%** of the time (CI 38–60) against a promised
+70%, and the coverage is flat across every length. The model parks nearly every answer at a
+150–350 km radius regardless of how much it heard, so the calibration ladder in the prompt is
+being ignored rather than applied. A flat ~1.8× multiplier would reach 69%. Beyond ~2× nothing
+more is bought, because **~14% of all answers are confident catastrophes** — over 1000 km wrong
+inside a ~200 km circle (Rio answered as Lisbon, 7715 km off, confidence 95). Those are the
+real bug, and no radius fixes them.
 
 **The instrument has a 14 km noise floor.** The identical prompt over the identical 106 clips
 scored 37 km one run and 51 km the next, 13 clips moving over 100 km. Almost every comparison
@@ -145,7 +167,7 @@ per-clip wins. Any median-vs-median difference under ~30 km on a 40-clip sample 
 number sampled at intervals, not a trend. There is no evidence the app degraded, and there
 never was evidence it improved. The apparatus could not tell.
 
-**Known-good levers, in order:** get 30 seconds of speech; keep thinking off; keep the model
+**Known-good levers, in order:** clear 20 seconds of speech; keep thinking off; keep the model
 chain for availability, not quality.
 
 **Open, blocked on API credit:** whether the second judge earns its call and 3.5s (it has
