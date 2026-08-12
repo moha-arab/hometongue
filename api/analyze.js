@@ -18,7 +18,6 @@
 //   - feeding hand-written dialect marker playbooks (69 km vs 43 km, better on 2, worse on 3)
 // Both cost a call and latency for noise. Do not re-add without re-running tools/eval.
 import { mintToken } from './feedback.js';
-import { verifyEvidence } from './verify-evidence.js';
 import { SYSTEM, SCHEMA, MODEL } from './prompt.js';
 
 export const config = { maxDuration: 60 };
@@ -411,27 +410,31 @@ export default async function handler(req, res) {
       return res.end(JSON.stringify({ ok: false, error: 'no_speech', detail: raw?.note || 'Could not place that.' }));
     }
 
-    // The second judge is load-bearing, not decorative. Mohammad donated a ten-second clip
-    // that was mostly "try to guess my accent" and the model answered with four confident
-    // observations, three of which did not survive a second listen — invented detail filling
-    // a gap where there was almost no speech. The rule above cannot catch that alone, because
-    // a fabricated claim is PHRASED as something heard. So every acoustic claim is checked
-    // against the audio by a different model before the verdict is allowed to stand, failed
-    // claims never reach the card, and a verdict with nothing left standing is not shown.
-    // Measured cost: 3.5s median, against a 10-13s analysis.
-    if (body.audio && Array.isArray(result.evidence) && result.evidence.length) {
-      const msLeft = 56_000 - (Date.now() - t0);
-      if (msLeft > 9000) {
-        const verdicts = await verifyEvidence({
-          audio: body.audio,
-          mime: (body.mime || 'audio/webm').split(';')[0].trim(),
-          evidence: result.evidence,
-          transcript: result.transcript || '',
-          apiKey: process.env.GEMINI_API_KEY,
-        }).catch(() => null);
-        if (verdicts) result.evidence = result.evidence.filter((_, i) => verdicts[i] !== 'drop');
-      }
-    }
+    // THE SECOND JUDGE WAS REMOVED HERE on 2026-08-12, after being measured properly for the
+    // first time. It re-listened to every evidence chip with a second model and deleted the
+    // ones it could not hear, for one extra audio call and about five seconds on EVERY
+    // analysis. Over 30 clips and 125 chips:
+    //
+    //   - it deleted 0 of 31 chips on real user recordings that clear the 20s floor, which is
+    //     the only distribution the app sees any more
+    //   - it withheld a verdict 0 times out of 30, and 0 times across 32 earlier clip lengths.
+    //     The safety path it existed for has never once fired
+    //   - independent adjudication of kept chips found no surviving fabrications to catch
+    //   - its deletions did not reproduce: the identical judge over identical chips and audio
+    //     at temperature 0 deleted 4, then 1, then 1
+    //   - where it did repeat, it was deleting TRUE evidence - the nasal consonant tail on the
+    //     Marseille clip, that accent's own diagnostic feature, and قاعد on a Nablus clip which
+    //     is verbatim in the transcript at 0:23
+    //
+    // It was built for a real failure: a ten-second clip that was mostly "try to guess my
+    // accent" produced four confident observations, three of them invented. That input is now
+    // refused at the door by MIN_RECORD_S = 20. The guard was defending a door the floor
+    // already closed, and charging every user five seconds for it.
+    //
+    // What still protects the card is the rule below, which is free: a verdict that rests on
+    // nothing the model actually HEARD is not shown at all. That is a different mechanism and
+    // it stays.
+    //
     // Audio only: type mode has no sound to hear by definition, and its own card says so.
     if (body.audio && !heardSomething(result)) result.content_led = 'fed';
     await counted;
