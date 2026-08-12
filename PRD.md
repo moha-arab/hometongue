@@ -254,6 +254,33 @@ per-clip wins. Any median-vs-median difference under ~30 km on a 40-clip sample 
 number sampled at intervals, not a trend. There is no evidence the app degraded, and there
 never was evidence it improved. The apparatus could not tell.
 
+**The stable failures are capital-city gravity, and it is defensible.** Across 88 clips, only
+8 are wrong by >500 km in BOTH of two identical production runs. Five of those eight are the
+same shape — a secondary city answered as its language's dominant city:
+
+| clip | answered | off by |
+|---|---|---|
+| Jeddah | Riyadh | 845 km |
+| Port Sudan | Khartoum | 674 km |
+| Benghazi | Tripoli | 651 km |
+| Porto Alegre | Lisbon | 894 km |
+| Puerto Rico | Havana | 1766 km |
+
+This is mostly in **Arabic**, the 42-clip deck, not in any small deck. And it is arguably correct
+behaviour: hearing "Saudi" without resolving the city, Riyadh minimises expected error across
+all Saudi speakers. The benchmark makes it look worse than it is because it deliberately picks
+secondary cities — they make better game clips. Real consequence: **a speaker from a secondary
+city gets told the capital.** Do not "fix" it by pushing answers away from capitals; that helps
+the minority and hurts the majority.
+
+The other three stable failures are subject-matter gravity: a lecture ABOUT Darul Uloom Deoband
+answered Deoband (its own evidence chip read "the topic of Darul Uloom Deoband spoken with local
+familiarity"), and a reading ABOUT a Brazilian town answered Brazil. Asked narrowly, the model
+correctly says those places are NOT where the speaker is from — it only misuses them in an open
+verdict. A schema field forcing it to name the topic places FIRST was tested on 88 clips paired
+with a repeat control: it named them correctly and pinned them anyway, and made the Argentina
+clip worse (2164 -> 7165 km). Naming the topic does not inoculate against it. Not shipped.
+
 **Known-good levers, in order:** clear 20 seconds of speech; keep thinking off; keep the model
 chain for availability, not quality.
 
