@@ -49,7 +49,17 @@ const BUDGET_MS = 50_000;
 // The two are a measured tie on accuracy (see the paired numbers in prompt.js), so this is
 // purely a redundancy chain, not a quality ladder: whichever answers first is fine. An
 // answer that exists beats a marginally different answer that does not.
-const MODEL_CHAIN = [MODEL, 'gemini-3.6-flash'];
+//
+// DERIVED, not written down, for the same reason the judge's model now is. This was
+// [MODEL, 'gemini-3.6-flash'], which is a fallback only while MODEL happens not to be
+// 3.6-flash. Set the primary to 3.6 - an entirely reasonable thing for a future maintainer to
+// do - and the chain silently becomes [3.6, 3.6]: eight attempts at one sick model, no second
+// opinion, and no error anywhere to say the safety net had been removed. That exact failure
+// already happened once tonight in verify-evidence.js, where the judge quietly became the
+// model it was judging. A fallback that can be turned off by an unrelated one-line edit is not
+// a fallback, so the alternate is computed and the pair is asserted to be distinct.
+const FALLBACK_MODEL = MODEL === 'gemini-3.6-flash' ? 'gemini-3.5-flash' : 'gemini-3.6-flash';
+const MODEL_CHAIN = [MODEL, FALLBACK_MODEL];
 
 async function locate(parts) {
   const key = process.env.GEMINI_API_KEY;
