@@ -129,13 +129,26 @@ unrelated to the treatment:
 
 | comparison | result |
 |------------|--------|
-| 12s vs 20s | 20s better on 7, worse on 1, tied 10 — **real** |
-| 20s vs 30s | 30s better on 2, worse on 1, tied 15 — nothing |
-| 30s vs 45s | 45s better on 2, worse on 3, tied 13 — nothing |
+| 12s vs 20s | 20s better on 7, worse on 1, tied 10 — **the one supported comparison** |
+| 20s vs 30s | 30s better on 2, worse on 1, tied 15 — **undetermined** |
+| 30s vs 45s | 45s better on 2, worse on 3, tied 13 — **undetermined** |
 
-**Eight of eighteen clips returned a byte-identical answer at all four lengths.** Past twenty
-seconds the model has already decided and more audio does not move it. A 30-second target was
-briefly shipped and retracted; do not re-add one without re-running the paired test.
+**"No benefit above 20s" is not a finding — it is a blind instrument reporting nothing.** A
+hostile review of the above established:
+
+- With only 2–3 clips ever moving between adjacent arms, the sign test's *floor* is p = 0.50
+  for 30-vs-45. It could not have returned significance under any outcome. Power to detect
+  even a 4:1 real effect is ~21%.
+- A second run of the same question, on eight clips whose audio files are **sha256-identical**
+  between the two harnesses, **reversed the ordering**: one run has 20→30 buying 124 km, the
+  other has it costing 130 km.
+- Medians that looked stable across arms were an artifact: the same two clips (Cameroon,
+  Belgium) answer byte-identically at every length and were pinning the median each time.
+
+So: 12s is genuinely worse than 20s. **Whether 30 or 45 beats 20 is unknown.** Settling it
+needs many more clips and a repeat control on each, because per-call noise exceeds the effect.
+A 30-second target was briefly shipped and retracted, but do not read that as evidence against
+30 either.
 
 **Everything else is noise beside the 12→20s step**: swapping the model is worth 0 km,
 lightening the schema about 17 km, more thinking time is negative.
@@ -149,10 +162,24 @@ more is bought, because **~14% of all answers are confident catastrophes** — o
 inside a ~200 km circle (Rio answered as Lisbon, 7715 km off, confidence 95). Those are the
 real bug, and no radius fixes them.
 
-**The instrument has a 14 km noise floor.** The identical prompt over the identical 106 clips
-scored 37 km one run and 51 km the next, 13 clips moving over 100 km. Almost every comparison
-in this project's history was median-vs-median across two single runs, which cannot see
-anything smaller than its own noise. Two standing beliefs were checked properly and both were
+**The instrument's noise is far worse than the "14 km floor" suggests, and it is per call.**
+The identical prompt over the identical 106 clips scored 37 km one run and 51 km the next, 13
+clips moving over 100 km. But a proper repeat control — the **byte-identical file** sent twice,
+temperature 0 — is worse still: 22.3 km median one call and 58.3 km the next, and per clip,
+Mozambique answered Maputo (0 km) then Luanda (2792 km); Jamaica answered NYC (2530 km) then
+Nassau (773 km).
+
+That reframes the whole project. The model is **not deterministic at temperature 0**, and its
+per-call spread is measured in thousands of kilometres on individual clips. Consequences:
+
+1. Any A/B on ~15 clips without a repeat control is unreadable, because the control moves more
+   than the treatment. **Every future experiment needs a repeat arm.**
+2. The single most promising untested lever is now **asking more than once and combining**
+   (geometric median of 2–3 calls), because it attacks the dominant error source directly.
+   Every lever tested so far tuned *what* is asked; none tuned *how many times*.
+
+Almost every comparison in this project's history was median-vs-median across two single runs,
+which cannot see anything smaller than its own noise. Two standing beliefs were checked properly and both were
 false:
 
 - "3.6-flash is more accurate than 3.5-flash" (53 vs 68 km). Paired on 33 clips: 2 km vs 3 km,

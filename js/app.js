@@ -38,18 +38,27 @@ const MIN_VOICED_S = 1.5;   // a mic that heard essentially nothing at all
 // Read the PAIRED counts, not the medians - medians on 18 clips with a heavy tail move for
 // reasons that have nothing to do with the treatment:
 //
-//     12s vs 20s   20s better on 7, worse on 1, tied 10   <- real, and the only real one
-//     20s vs 30s   30s better on 2, worse on 1, tied 15   <- nothing
-//     30s vs 45s   45s better on 2, worse on 3, tied 13   <- nothing
+//     12s vs 20s   20s better on 7, worse on 1, tied 10   <- the only comparison with support
+//     20s vs 30s   30s better on 2, worse on 1, tied 15   <- UNDETERMINED, see below
+//     30s vs 45s   45s better on 2, worse on 3, tied 13   <- UNDETERMINED, see below
 //
-// Eight of eighteen clips returned a byte-identical answer at ALL FOUR lengths. Past twenty
-// seconds the model has already decided and more audio does not move it.
+// BE HONEST ABOUT WHAT THE TOP OF THAT TABLE IS AND IS NOT. A hostile review of it found that
+// "no difference above 20s" is not a result, it is a blind instrument reporting nothing:
+//   - with only 2 or 3 clips ever moving between adjacent arms, the sign test's FLOOR is
+//     p=0.5 for 30-vs-45. It could not have returned significance under any outcome.
+//   - a second run of the same question, on eight clips whose audio files are sha256-identical
+//     between the two harnesses, REVERSED the ordering: one run has 20->30 buying 124 km, the
+//     other has it costing 130 km.
+//   - a same-bytes repeat control answered 22 km one call and 58 km the next, and on one clip
+//     gave Maputo then Luanda, 2792 km apart, from one file at temperature 0.
+// So: 12s is genuinely worse than 20s, and whether 30 or 45 beats 20 is simply NOT KNOWN.
+// Answering it needs far more clips and a repeat control on every one, because per-call noise
+// is larger than the effect being hunted.
 //
-// So there is ONE threshold, not two. An earlier version of this file pushed people toward
-// thirty with a button reading "10s more reads far sharper", which the measurement above says
-// is simply untrue, and a quality meter that called twenty seconds second-best. Both were
-// invented from a first pass that only sampled 8/15/30/45 with 7-9 clips per arm and unequal
-// clip sets. Do not re-add a thirty second target without re-running the paired test.
+// The floor therefore sits at 20, where the evidence is. Nothing above it is claimed in either
+// direction: no target, and no promise that stopping at 20 costs you anything. An earlier
+// version pushed people to thirty with a button reading "10s more reads far sharper", which
+// was invented from a first pass of 7-9 clips per arm with unequal clip sets between arms.
 const MIN_RECORD_S = 20;
 
 // the survey red, read from the stylesheet so themes stay in one place
