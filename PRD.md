@@ -153,14 +153,32 @@ A 30-second target was briefly shipped and retracted, but do not read that as ev
 **Everything else is noise beside the 12→20s step**: swapping the model is worth 0 km,
 lightening the schema about 17 km, more thinking time is negative.
 
-**The radius is dishonest, and not because of length.** Paired, 72 observations across
-15/20/30/45s: the circle contains the truth **48.6%** of the time (CI 38–60) against a promised
-70%, and the coverage is flat across every length. The model parks nearly every answer at a
-150–350 km radius regardless of how much it heard, so the calibration ladder in the prompt is
-being ignored rather than applied. A flat ~1.8× multiplier would reach 69%. Beyond ~2× nothing
-more is bought, because **~14% of all answers are confident catastrophes** — over 1000 km wrong
-inside a ~200 km circle (Rio answered as Lisbon, 7715 km off, confidence 95). Those are the
-real bug, and no radius fixes them.
+**The radius is honest in production, and a scary number saying otherwise was an artifact.**
+A truncation experiment (72 observations across clips cut to 15/20/30/45s) measured coverage at
+**48.6%** against the promised 70% and recommended a flat 1.8× widening of every circle. Do not
+ship that. On the **full 88-clip eval at natural clip length** — the regime the app actually
+runs in — coverage is **68% (3.5-flash) and 69% (3.6-flash) against a promised 70%.** The
+calibration is essentially exact, on the larger and more production-like sample.
+
+What the truncation experiment probably found is that *cutting* a clip mid-flow degrades the
+answer while the model keeps quoting the same radius. That is a fact about truncated audio, not
+about users, and it is not a reason to make every circle 80% bigger.
+
+**Confident catastrophes are real but ~6%, not 14%.** On the same 88-clip eval, 5 answers are
+over 1000 km out, essentially all at 85% confidence inside a 250–350 km circle. They have a
+clear signature — a language collapsing to its prototype city:
+
+| clip | answered | off by |
+|---|---|---|
+| Argentina | Mexico City | 7392 km |
+| Peru | Mexico City | 4255 km |
+| Guatire, Venezuela | Mexico City | 3633 km |
+| Omdurman, Sudan | Benghazi / Sana'a | 2221 km |
+| Varanasi, India | Karachi | 1608 km |
+
+Three separate Latin American clips answered "Mexico City" is not a calibration problem, it is
+the model identifying the *language* and defaulting to its largest city. That is the real
+remaining bug in read-my-accent.
 
 **The instrument's noise is far worse than the "14 km floor" suggests, and it is per call.**
 The identical prompt over the identical 106 clips scored 37 km one run and 51 km the next, 13
