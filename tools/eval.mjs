@@ -141,6 +141,17 @@ async function worker() {
     const d = km(c.lat, c.lng, g.lat, g.lng);
     results.push({
       id: c.id, deck: c.deck, label: c.label, km: d,
+      // The clip's OWN accept radius, which is what the game scores players against and what
+      // this harness spent five evals ignoring. It matters because the decks do not label to
+      // the same precision: every arabic clip is pinned to a real city, while six of ten
+      // spanish clips are documented only to a country and are deliberately pinned at a
+      // capital or a centroid with a wide radius. Scoring both by raw distance quietly holds
+      // a country-level clip to a street-level standard, and it produced a real false alarm:
+      // two "Mexico" clips pinned at the country's geographic centre read as 345 km failures
+      // when the model answered Mexico City, which is inside their 500 km accept radius and
+      // very probably correct.
+      acceptR: c.r || null,
+      withinAccept: c.r ? d <= c.r : null,
       guess: g.place, radius: g.radius_km, language: g.language, confidence: g.confidence,
       evidence: g.evidence,
     });
@@ -151,13 +162,25 @@ await Promise.all(Array.from({ length: CONCURRENCY }, worker));
 
 const byDeck = {};
 for (const r of results) (byDeck[r.deck] ||= []).push(r.km);
+const rowsByDeck = {};
+for (const r of results) (rowsByDeck[r.deck] ||= []).push(r);
 
 console.log('\n────────────────────────────────────────────────────────────────');
-console.log('deck          n   median   <100km  <250km  <500km');
+console.log('deck          n   median   <100km  <250km  <500km   hit    err/acceptR');
 for (const [deck, list] of Object.entries(byDeck).sort()) {
   const s = stats(list);
   if (!s) { console.log(`${deck.padEnd(13)} all failed`); continue; }
-  console.log(`${deck.padEnd(13)}${String(s.n).padStart(3)}  ${String(s.median).padStart(6)} km  ${String(s.within100).padStart(5)}%  ${String(s.within250).padStart(5)}%  ${String(s.within500).padStart(5)}%`);
+  // Two extra columns, because the median alone hid the single worst deck in the app for five
+  // consecutive evals. "hit" is the share of clips answered inside their own accept radius,
+  // which is how the game scores a player. "err/acceptR" is the median miss expressed as a
+  // fraction of what that clip was willing to accept, so decks labelled to different precision
+  // become comparable: on the run that exposed this, every deck sat at 0.07-0.24 and spanish
+  // sat at 0.73.
+  const rows = rowsByDeck[deck].filter((r) => r.acceptR && typeof r.km === 'number');
+  const hit = rows.length ? Math.round(rows.filter((r) => r.withinAccept).length / rows.length * 100) : null;
+  const ratios = rows.map((r) => r.km / r.acceptR).sort((a, b) => a - b);
+  const medRatio = ratios.length ? ratios[Math.floor(ratios.length / 2)] : null;
+  console.log(`${deck.padEnd(13)}${String(s.n).padStart(3)}  ${String(s.median).padStart(6)} km  ${String(s.within100).padStart(5)}%  ${String(s.within250).padStart(5)}%  ${String(s.within500).padStart(5)}%  ${String(hit == null ? '-' : hit + '%').padStart(5)}  ${String(medRatio == null ? '-' : medRatio.toFixed(2) + 'x').padStart(11)}`);
 }
 const overall = stats(results.map((r) => r.km));
 console.log('────────────────────────────────────────────────────────────────');
