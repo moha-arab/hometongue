@@ -19,7 +19,20 @@
 // nobody. Removed. (api/prompt.js is a module in this directory too, so this shape is
 // already proven in deployment.)
 
-const VERIFY_MODEL = 'gemini-3.5-flash';
+// DERIVED, never written down, because writing it down is exactly how this broke. The whole
+// mechanism rests on the second listen coming from a different model than the one that wrote
+// the chips — a witness with no story to defend. This was the literal string 'gemini-3.5-flash'
+// while prompt.js MODEL happened to be 'gemini-3.6-flash', which was fine, and then the primary
+// was switched to 3.5-flash on reliability grounds and the two silently became the same model.
+// The header above still promised independence; production no longer had any. Measured while
+// broken, the judge deleted true evidence (a nasal consonant tail on the Marseille clip and
+// قاعد on a Nablus clip, both confirmed present by an independent listen) and its deletions did
+// not reproduce across identical passes.
+//
+// Picking the other end of the chain makes the collision unrepresentable rather than merely
+// unlikely.
+import { MODEL } from './prompt.js';
+const VERIFY_MODEL = MODEL === 'gemini-3.6-flash' ? 'gemini-3.5-flash' : 'gemini-3.6-flash';
 
 // A chip that only quotes vocabulary is checkable for free: if every quoted Arabic word or
 // latin-quoted term appears in the transcript, and the chip makes no claim about HOW a
