@@ -180,6 +180,32 @@ Three separate Latin American clips answered "Mexico City" is not a calibration 
 the model identifying the *language* and defaulting to its largest city. That is the real
 remaining bug in read-my-accent.
 
+**The error is not spread evenly — it is nearly all Spanish.** Median error by deck on
+3.5-flash: Chinese 9 km, Portuguese 29 km, French 72 km, Arabic 85 km, English accents 70 km,
+**Spanish 345 km**. Five of nine Spanish clips answered "Mexico City", all at 85% confidence,
+while Chile→Santiago (146 km), Spain→Madrid (0), Puerto Rico→San Juan (0) and Uruguay→Buenos
+Aires (289) came out fine. So the model reads *distinctive* Spanish varieties and dumps the
+rest into the biggest city. 3.6-flash is equally bad at Spanish (345 km median) but fails
+differently — Argentina→Juiz de Fora, Puerto Rico→Havana — so this is a task weakness, not a
+model quirk. **Any further accuracy work should start with Spanish, not with the pipeline.**
+
+**Confidence bands are the honest place to widen, if widening is ever needed.** Coverage
+against the promised 70%, by the model's own stated confidence:
+
+| confidence | 3.5-flash | 3.6-flash |
+|---|---|---|
+| ≥95 | 69% coverage | 86% |
+| 90–94 | 100% (n=3) | 77% |
+| 80–89 | **62%**, needs ×1.85 | **56%**, needs ×1.45 |
+
+Both models are well or over-calibrated when sure and under-covered when not, and *every*
+catastrophe sits in the 80–89 band. The aggregate 68–69% hides this.
+
+**How well do the model's own signals predict its error?** On 86–88 clips (|r| > 0.22 needed
+for p < 0.05): claimed radius vs log-error **r = +0.32 / +0.38**; confidence vs log-error
+r = −0.21 / −0.23. The radius is the better uncertainty signal, and it is the bar any new
+uncertainty signal has to clear.
+
 **The instrument's noise is far worse than the "14 km floor" suggests, and it is per call.**
 The identical prompt over the identical 106 clips scored 37 km one run and 51 km the next, 13
 clips moving over 100 km. But a proper repeat control — the **byte-identical file** sent twice,
