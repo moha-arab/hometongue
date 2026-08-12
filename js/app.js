@@ -202,7 +202,7 @@ const PROMPTS = [
   '"Tell me about your day."',
   '"How would you ask a friend: what\'s up, what are you doing?"',
   '"Complain about traffic like you\'re on the phone with your cousin."',
-  '"Describe your last meal — was it good?"',
+  '"Describe your last meal. Was it any good?"',
   '"What are you doing this weekend?"',
 ];
 let promptIdx = 0;
@@ -514,7 +514,7 @@ const ERRORS = {
   no_speech: "I couldn't hear any real speech in that. If the bars weren't moving while you talked, your browser is probably using the wrong microphone (click the mic icon in the address bar).",
   not_configured: 'The server is missing its API key, so nothing can be analyzed. That is a setup problem, not your recording.',
   out_of_credit: 'The analysis account has run out of credit, so nothing can be read right now. Nothing is wrong with your recording.',
-  swamped: 'A lot of people are listening right now. Give it about thirty seconds and press record again — your voice was fine.',
+  swamped: 'A lot of people are listening right now. Give it about thirty seconds and press record again. Your voice was fine.',
   busy: 'The model is busy right now. Give it a few seconds and try again.',
   upstream_failed: "The model didn't answer. Try again in a moment.",
   audio_too_short: 'That was too short to read anything from. Give me a sentence or two.',
@@ -539,7 +539,7 @@ async function postAnalyze(payload) {
     });
   } catch (e) {
     if (e && (e.name === 'TimeoutError' || e.name === 'AbortError')) {
-      throw Object.assign(new Error('timeout'), { userMessage: 'That took too long — the network or the model stalled.' });
+      throw Object.assign(new Error('timeout'), { userMessage: 'That took too long. The network or the model stalled.' });
     }
     throw e;
   }
@@ -1048,7 +1048,7 @@ function buildShareCanvas(v) {
 async function shareResult() {
   const v = window._lastResult;
   const btn = $('#shareBtn');
-  if (!v || !v.place) { toast('Nothing to share yet — do a take first.'); return; }
+  if (!v || !v.place) { toast('Nothing to share yet. Do a take first.'); return; }
   btn.disabled = true;
   const original = btn.textContent;
   btn.textContent = 'making your card…';
@@ -1072,7 +1072,7 @@ async function shareResult() {
       a.click();
       setTimeout(() => URL.revokeObjectURL(a.href), 4000);
       btn.textContent = 'card saved ✓';
-      toast('Card saved to your downloads — post it anywhere.');
+      toast('Card saved to your downloads. Post it anywhere.');
     }
   } catch (e) {
     // AbortError just means they closed the share sheet; that is not a failure worth a toast.
@@ -1119,7 +1119,7 @@ function saveFeedback(correct, actual, actualCity) {
   // State loss must SPEAK, not silently degrade — a suspended iOS tab once evaporated the
   // clip and verdict, and the click silently posted an all-null row.
   if (!last.place) {
-    toast('This result is gone from the page’s memory (the tab was suspended). Do a fresh take and answer again — that one will count.');
+    toast('This result is gone from the page’s memory because the tab was suspended. Do a fresh take and answer again, and that one will count.');
     return;
   }
 
@@ -1219,7 +1219,7 @@ function bindUI() {
     const db = $('#donateBtn');
     if (window._donated) return;
     if (!window._lastAudio || !window._lastResult) {
-      toast('That recording is no longer in memory — do a fresh take and press donate right after.');
+      toast('That recording is no longer in memory. Do a fresh take and press donate right after.');
       return;
     }
     // Snapshot the generation: if a new result renders while this upload is in flight, the
@@ -1254,7 +1254,7 @@ function bindUI() {
     } catch {
       if (gen !== window._renderGen) return;
       db.disabled = false; db.textContent = 'donate this clip';
-      toast('The donation didn’t go through — try the button again.');
+      toast('The donation didn’t go through. Try the button again.');
     }
   };
 }

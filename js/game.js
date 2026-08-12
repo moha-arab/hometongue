@@ -259,13 +259,13 @@ function playClip() {
       // the play button was dead for the rest of the round. Load the replacement and play
       // it; two swaps per round at most, so a broken pool can't loop forever.
       clipSwaps += 1;
-      toast('That clip refused to play — swapping it for you.');
+      toast('That clip refused to play, so I swapped it for you.');
       deck[round] = replacementClip();
       media.clear();
       media.load(deck[round]);
       setTimeout(() => playClip(), 400);
     } else {
-      toast('The audio is stuck this round — lock a guess or skip ahead.');
+      toast('The audio is stuck this round. Lock a guess or skip ahead.');
     }
   });
 }
