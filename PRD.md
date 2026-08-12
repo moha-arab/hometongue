@@ -213,14 +213,30 @@ temperature 0 — is worse still: 22.3 km median one call and 58.3 km the next, 
 Mozambique answered Maputo (0 km) then Luanda (2792 km); Jamaica answered NYC (2530 km) then
 Nassau (773 km).
 
-That reframes the whole project. The model is **not deterministic at temperature 0**, and its
-per-call spread is measured in thousands of kilometres on individual clips. Consequences:
+Careful follow-up narrowed this. The model is **mostly deterministic** at temperature 0: across
+41 clips in two independent replications, 16/20 and 9/21 returned **byte-identical coordinates
+across five separate calls**, and re-running calls 30s apart rather than as a burst reproduced
+the same points. But on roughly **20% of clips** a re-run flips to an entirely different city
+(Guatire 3633→39 km, Porto Alegre 852→8801 km). So the variance is real, large, and
+**clip-localized** rather than uniform.
 
-1. Any A/B on ~15 clips without a repeat control is unreadable, because the control moves more
-   than the treatment. **Every future experiment needs a repeat arm.**
-2. The single most promising untested lever is now **asking more than once and combining**
-   (geometric median of 2–3 calls), because it attacks the dominant error source directly.
-   Every lever tested so far tuned *what* is asked; none tuned *how many times*.
+The practical consequence stands: **every future A/B needs a repeat arm**, because on a small
+clip set the control can move more than the treatment does, and a comparison without one cannot
+tell them apart.
+
+**Consensus sampling was the obvious fix, and it was tested and rejected.** Asking 3 and 5 times
+and combining with a geometric median, paired against a repeat control on 41 clips in two
+independent runs: consensus won **0 clips outright**, lost 1–2, and the treatment was strictly
+smaller than the noise gap between two identical single calls in both runs. It cannot work,
+because on ~80% of clips there is nothing to average — the five calls are identical — and on the
+clips that do move, the model flips between whole cities rather than scattering, so a vote is as
+likely to certify the wrong city as the right one (Karachi: all five calls agreed on Lahore).
+Do not re-run this without a condition that actually introduces variance (temperature > 0, or an
+ensemble across two different models), which remains untested.
+
+Inter-call spread is also **useless as a radius** (it is exactly 0 on 16 of 20 clips, and tops
+out at 25–43% coverage at any multiplier), though it may work as a **binary warning flag**: the
+4 clips that flipped had a 621 km median error against 2 km for the 17 that did not.
 
 Almost every comparison in this project's history was median-vs-median across two single runs,
 which cannot see anything smaller than its own noise. Two standing beliefs were checked properly and both were
