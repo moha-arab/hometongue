@@ -795,8 +795,8 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   --row: var(--accent);
   font-family: var(--sans); font-size: 12px; font-weight: 500; color: var(--grey);
   background: none; border: 1px solid var(--rule-soft); border-radius: var(--r-sm);
-  padding: 6px 9px; cursor: pointer; text-align: left;
-  display: grid; gap: 1px; line-height: 1.2;
+  padding: 7px 9px; cursor: pointer; text-align: left; line-height: 1.25;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   transition: color .15s, border-color .15s, background .15s;
 }
 .board-tab[data-deck="arabic"] { --row: var(--hue-arabic); }
@@ -808,16 +808,11 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .board-tab[data-deck="hindi-urdu"] { --row: var(--hue-hindi-urdu); }
 .board-tab[data-deck="portuguese"] { --row: var(--hue-portuguese); }
 .board-tab[data-deck="russian"] { --row: var(--hue-russian); }
-.board-tab i {
-  font-style: normal; font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.08em;
-  text-transform: uppercase; color: var(--grey-2);
-}
 .board-tab:hover { color: var(--black); background: color-mix(in srgb, var(--row) 8%, transparent); }
 .board-tab.active {
   color: var(--row); border-color: color-mix(in srgb, var(--row) 45%, transparent);
   background: color-mix(in srgb, var(--row) 10%, transparent);
 }
-.board-tab.active i { color: var(--row); }
 
 /* The panel holds its height across decks. Without this, switching from a full board to an
    empty one collapsed the card by 144px and the button underneath jumped up the screen mid

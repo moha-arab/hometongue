@@ -690,10 +690,12 @@ async function showBoards(deckKey) {
   for (const m of MODES) {
     const b = document.createElement('button');
     b.className = 'board-tab' + (m.key === boardDeck ? ' active' : '');
-    // The deck's own hue and language code, the same two marks the picker uses. Without them
-    // this was nine interchangeable grey pills; with them each tab is the deck you recognise.
+    // The deck's own hue, which is what the picker uses to tell nine decks apart. The language
+    // code lives there too, but there it sits beside a map thumbnail as an index mark; here the
+    // deck's full name is on the same line, so "AR" under "Arabic Dialects" is the same fact
+    // twice, and "ZH · YUE" is jargon. Colour carries the identity, the name carries the label.
     b.dataset.deck = m.key;
-    b.innerHTML = `${escapeHtml(m.name)}<i>${escapeHtml(m.code)}</i>`;
+    b.textContent = m.name;
     b.onclick = () => showBoards(m.key);
     tabs.appendChild(b);
   }
