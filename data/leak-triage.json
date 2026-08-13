@@ -2,256 +2,14 @@
   "leaks": [
     {
       "deck": "languages",
-      "label": "Persian (Farsi)",
-      "off": 15,
-      "id": "lang-persian-farsi",
-      "curated": false,
-      "why": "SAYS PLACE: Iran, Afghanistan",
-      "named": "Iran, Afghanistan",
-      "verdict": "leak",
-      "reason": "The place names mentioned, 'Iran' and 'Afghanistan', are the primary countries where Persian (Farsi) is natively and officially spoken, directly giving away the correct answer to the player."
-    },
-    {
-      "deck": "languages",
-      "label": "Persian (Farsi)",
+      "label": "Portuguese (Brazil)",
       "off": 111,
-      "id": "lang-persian-farsi",
+      "id": "lang-portuguese-brazil",
       "curated": false,
-      "why": "SAYS PLACE: Iran, Afghanistan",
-      "named": "Iran, Afghanistan",
+      "why": "SAYS PLACE: Sebastópolis",
+      "named": "Sebastópolis",
       "verdict": "leak",
-      "reason": "The place names mentioned, 'Iran' and 'Afghanistan', are the primary countries where Persian (Farsi) is natively and officially spoken, directly giving away the correct answer to the player."
-    },
-    {
-      "deck": "languages",
-      "label": "Thai",
-      "off": 63,
-      "id": "lang-thai",
-      "curated": false,
-      "why": "SAYS PLACE: Chaturaphak Phiman, Roi Et",
-      "named": "Chaturaphak Phiman, Roi Et",
-      "verdict": "leak",
-      "reason": "Chaturaphak Phiman is a district in Roi Et Province, which is located in Thailand. Hearing these specific Thai place names directly reveals the correct country and language to anyone with geographical knowledge of the region."
-    },
-    {
-      "deck": "languages",
-      "label": "Thai",
-      "off": 111,
-      "id": "lang-thai",
-      "curated": false,
-      "why": "SAYS PLACE: Roi Et",
-      "named": "Roi Et",
-      "verdict": "leak",
-      "reason": "Roi Et is a province in Thailand, so mentioning it directly points to the correct country and language."
-    },
-    {
-      "deck": "languages",
-      "label": "Mandarin Chinese",
-      "off": 15,
-      "id": "lang-mandarin-chinese",
-      "curated": false,
-      "why": "SAYS PLACE: 中国",
-      "named": "中国",
-      "verdict": "leak",
-      "reason": "The place name '中国' translates directly to 'China', which is the country associated with the correct answer, Mandarin Chinese. Hearing this name directly reveals the correct answer to anyone who recognizes the word."
-    },
-    {
-      "deck": "languages",
-      "label": "Mandarin Chinese",
-      "off": 63,
-      "id": "lang-mandarin-chinese",
-      "curated": false,
-      "why": "SAYS PLACE: 中华人民共和国",
-      "named": "中华人民共和国",
-      "verdict": "leak",
-      "reason": "The phrase '中华人民共和国' is the official Chinese name for the People's Republic of China. Hearing this directly reveals the country associated with the Mandarin Chinese language, handing the answer to the player."
-    },
-    {
-      "deck": "languages",
-      "label": "Mandarin Chinese",
-      "off": 111,
-      "id": "lang-mandarin-chinese",
-      "curated": false,
-      "why": "SAYS PLACE: 中华人民共和国",
-      "named": "中华人民共和国",
-      "verdict": "leak",
-      "reason": "The phrase \"中华人民共和国\" is the official Chinese name for the People's Republic of China. Hearing this directly reveals the country associated with the Mandarin Chinese language, handing the answer to the player."
-    },
-    {
-      "deck": "languages",
-      "label": "Indonesian",
-      "off": 63,
-      "id": "lang-indonesian",
-      "curated": false,
-      "why": "SAYS PLACE: Hindia Belanda, Java",
-      "named": "Hindia Belanda, Java",
-      "verdict": "leak",
-      "reason": "Hindia Belanda is the Indonesian name for the Dutch East Indies (historical Indonesia), and Java is a major island in Indonesia. Hearing these names directly points to the correct country, Indonesia."
-    },
-    {
-      "deck": "languages",
-      "label": "Swahili",
-      "off": 63,
-      "id": "lang-swahili",
-      "curated": false,
-      "why": "SAYS PLACE: Kenya",
-      "named": "Kenya",
-      "verdict": "leak",
-      "reason": "Kenya is a country where Swahili is a national and official language. Mentioning 'Kenya' directly points the player to the correct country associated with the Swahili language, thereby leaking the answer."
-    },
-    {
-      "deck": "languages",
-      "label": "Swahili",
-      "off": 111,
-      "id": "lang-swahili",
-      "curated": false,
-      "why": "SAYS PLACE: Kenya",
-      "named": "Kenya",
-      "verdict": "leak",
-      "reason": "Kenya is a country where Swahili is a national and official language. Mentioning 'Kenya' directly points the player to the correct country associated with the Swahili language, thereby leaking the answer."
-    },
-    {
-      "deck": "languages",
-      "label": "Amharic",
-      "off": 63,
-      "id": "lang-amharic",
-      "curated": false,
-      "why": "SAYS PLACE: Debre Moy",
-      "named": "Debre Moy",
-      "verdict": "leak",
-      "reason": "The prefix 'Debre' (meaning mountain or monastery in Ge'ez/Amharic) is highly characteristic of Ethiopian place names. Hearing 'Debre Moy' would immediately point a player familiar with the region to Ethiopia, which is the country associated with the Amharic language."
-    },
-    {
-      "deck": "languages",
-      "label": "Amharic",
-      "off": 111,
-      "id": "lang-amharic",
-      "curated": false,
-      "why": "SAYS PLACE: Eritrea",
-      "named": "Eritrea",
-      "verdict": "leak",
-      "reason": "Eritrea is a country in the Horn of Africa that borders Ethiopia, which is the primary country where Amharic is spoken. Since Eritrea is near and historically connected to the correct region, mentioning it would guide a knowledgeable player to the correct geographical area."
-    },
-    {
-      "deck": "languages",
-      "label": "Hausa",
-      "off": 111,
-      "id": "lang-hausa",
-      "curated": false,
-      "why": "SAYS PLACE: Ghana, Jamus",
-      "named": "Ghana, Jamus",
-      "verdict": "leak",
-      "reason": "Ghana is located in West Africa, which is the primary region where the Hausa language is spoken (including Nigeria and Niger, as well as Ghana itself). A player familiar with African geography would easily associate Ghana with the West African region, pointing them directly to the correct origin of the language."
-    },
-    {
-      "deck": "languages",
-      "label": "German",
-      "off": 15,
-      "id": "lang-german",
-      "curated": false,
-      "why": "SAYS PLACE: Hannover",
-      "named": "Hannover",
-      "verdict": "leak",
-      "reason": "Hannover is a major city in Germany, so hearing it directly points the player to the correct country and language (German)."
-    },
-    {
-      "deck": "languages",
-      "label": "German",
-      "off": 63,
-      "id": "lang-german",
-      "curated": false,
-      "why": "SAYS PLACE: Alfeld, Leine, Hannover",
-      "named": "Alfeld, Leine, Hannover",
-      "verdict": "leak",
-      "reason": "Alfeld, Leine, and Hannover are all geographical locations (a town, a river, and a major city, respectively) situated in Germany, which directly reveals the correct country/language to anyone familiar with German geography."
-    },
-    {
-      "deck": "languages",
-      "label": "Italian",
-      "off": 15,
-      "id": "lang-italian",
-      "curated": false,
-      "why": "SAYS PLACE: Sardegna, Nuoro, Fonni",
-      "named": "Sardegna, Nuoro, Fonni",
-      "verdict": "leak",
-      "reason": "Sardegna (Sardinia), Nuoro, and Fonni are all well-known locations within Italy. A player with basic geographical knowledge of the region would easily identify the country as Italy, thereby leaking the correct answer."
-    },
-    {
-      "deck": "languages",
-      "label": "Italian",
-      "off": 60,
-      "id": "lang-italian",
-      "curated": false,
-      "why": "SAYS PLACE: Fonni",
-      "named": "Fonni",
-      "verdict": "leak",
-      "reason": "Fonni is a town and commune located in the province of Nuoro, in Sardinia, Italy. Hearing this place name would directly point a player who knows the area to Italy, which is the correct country."
-    },
-    {
-      "deck": "languages",
-      "label": "Swedish",
-      "off": 15,
-      "id": "lang-swedish",
-      "curated": false,
-      "why": "SAYS PLACE: Rödeby, Karlskrona, Sverige",
-      "named": "Rödeby, Karlskrona, Sverige",
-      "verdict": "leak",
-      "reason": "The place name 'Sverige' is the Swedish word for Sweden, and 'Rödeby' and 'Karlskrona' are Swedish towns. Hearing these names directly reveals the correct country and language to the player."
-    },
-    {
-      "deck": "languages",
-      "label": "Swedish",
-      "off": 45,
-      "id": "lang-swedish",
-      "curated": false,
-      "why": "SAYS PLACE: Rödeby, Karlskrona",
-      "named": "Rödeby, Karlskrona",
-      "verdict": "leak",
-      "reason": "Rödeby and Karlskrona are both locations situated in Sweden, which directly reveals the correct answer (Swedish) to anyone familiar with Swedish geography."
-    },
-    {
-      "deck": "accents",
-      "label": "Mbaise, Imo State, Nigeria",
-      "off": 27.5,
-      "id": "wild-mbaise-imo-state-nigeria",
-      "curated": true,
-      "why": "SAYS PLACE: Africa",
-      "named": "Africa",
-      "verdict": "leak",
-      "reason": "Africa is the continent and region that contains Nigeria and Imo State. Mentioning Africa narrows down the location to the correct continent and region, rather than pointing to a different part of the world, which constitutes a leak."
-    },
-    {
-      "deck": "accents",
-      "label": "Thomastown, County Kilkenny, Ireland",
-      "off": 58,
-      "id": "wild-thomastown-county-kilkenny-ireland",
-      "curated": true,
-      "why": "SAYS PLACE: Ladywell",
-      "named": "Ladywell",
-      "verdict": "leak",
-      "reason": "Ladywell (specifically Lady Well) is a historic holy well and local landmark located directly in Thomastown, County Kilkenny, Ireland. Hearing this name would immediately identify the correct local area for anyone familiar with the town."
-    },
-    {
-      "deck": "arabic",
-      "label": "Alexandria, Egypt",
-      "off": 0,
-      "id": "ar-882",
-      "curated": false,
-      "why": "SAYS PLACE: Damanhour",
-      "named": "Damanhour",
-      "verdict": "leak",
-      "reason": "Damanhour is a city in Egypt, located in the Nile Delta region approximately 70 kilometers from Alexandria. Hearing this name would immediately reveal the correct country and region to a player familiar with Egyptian geography."
-    },
-    {
-      "deck": "arabic",
-      "label": "Sanaa, Yemen",
-      "off": 0,
-      "id": "ar-3479",
-      "curated": false,
-      "why": "SAYS PLACE: Taiz",
-      "named": "Taiz",
-      "verdict": "leak",
-      "reason": "Taiz is a major city in Yemen, which is the same country as the correct answer, Sanaa, Yemen. Hearing this name would immediately reveal the correct country to a player familiar with the geography of the region."
+      "reason": "Sebastópolis is a municipality located in the state of São Paulo, Brazil, which directly points to the correct country of Brazil."
     }
   ],
   "herrings": [
@@ -264,40 +22,7 @@
       "why": "SAYS PLACE: Rusya, Çin",
       "named": "Rusya, Çin",
       "verdict": "red_herring",
-      "reason": "The named places 'Rusya' (Russia) and 'Çin' (China) are entirely different countries located far from Turkey, which is the correct answer's country. Therefore, they point somewhere else entirely and act as a red herring rather than leaking the correct location."
-    },
-    {
-      "deck": "languages",
-      "label": "Swahili",
-      "off": 15,
-      "id": "lang-swahili",
-      "curated": false,
-      "why": "SAYS PLACE: Washington D.C.",
-      "named": "Washington D.C.",
-      "verdict": "red_herring",
-      "reason": "Washington D.C. is the capital of the United States, which is entirely unrelated to the East African countries where Swahili is spoken. Hearing this name would mislead the player rather than reveal the correct answer."
-    },
-    {
-      "deck": "languages",
-      "label": "Hausa",
-      "off": 15,
-      "id": "lang-hausa",
-      "curated": false,
-      "why": "SAYS PLACE: Ghana",
-      "named": "Ghana",
-      "verdict": "red_herring",
-      "reason": "While Hausa is spoken by a minority in Ghana (particularly in Zongo communities), it is primarily and natively associated with Niger and Nigeria. Hearing 'Ghana' is likely to mislead a player into guessing Ghana or a major Ghanaian language (like Akan/Twi) rather than pointing them to the correct answer associated with the Hausa language."
-    },
-    {
-      "deck": "languages",
-      "label": "Hausa",
-      "off": 63,
-      "id": "lang-hausa",
-      "curated": false,
-      "why": "SAYS PLACE: Ghana, Jamus, Volta",
-      "named": "Ghana, Jamus, Volta",
-      "verdict": "red_herring",
-      "reason": "The place names 'Ghana' and 'Volta' point directly to the country of Ghana, whereas the Hausa language is primarily native to and associated with Nigeria and Niger. This would likely mislead a player into guessing Ghana instead of the correct country."
+      "reason": "The named places are Russia ('Rusya') and China ('Çin'). Neither of these countries is in, near, or part of Turkey, so they point somewhere else entirely and would mislead the player rather than reveal the correct answer."
     },
     {
       "deck": "languages",
@@ -319,7 +44,7 @@
       "why": "SAYS PLACE: Montevideo, Irlandia",
       "named": "Montevideo, Irlandia",
       "verdict": "red_herring",
-      "reason": "The place names mentioned are Montevideo (the capital of Uruguay) and Irlandia (Ireland). Neither of these locations is in, near, or part of Poland, so they point to entirely different parts of the world and would mislead the player rather than reveal the correct answer."
+      "reason": "The place names mentioned are Montevideo (the capital of Uruguay) and Irlandia (Polish for Ireland). Neither of these locations is in, near, or part of Poland, so they point to entirely different parts of the world and would mislead the player rather than reveal the correct answer."
     },
     {
       "deck": "languages",
@@ -330,29 +55,7 @@
       "why": "SAYS PLACE: Australia",
       "named": "Australia",
       "verdict": "red_herring",
-      "reason": "Australia is a country and continent located in the Southern Hemisphere, which is entirely unrelated to Poland (the country where Polish is spoken). Hearing 'Australia' would mislead the player rather than reveal Poland as the correct answer."
-    },
-    {
-      "deck": "languages",
-      "label": "German",
-      "off": 111,
-      "id": "lang-german",
-      "curated": false,
-      "why": "SAYS PLACE: Ungarn",
-      "named": "Ungarn",
-      "verdict": "red_herring",
-      "reason": "The place name mentioned is 'Ungarn', which is the German name for Hungary. Since Hungary is a completely different country with its own distinct language (Hungarian) and is not part of the German-speaking region, mentioning it would mislead a player into guessing Hungary rather than Germany."
-    },
-    {
-      "deck": "languages",
-      "label": "Swedish",
-      "off": 74,
-      "id": "lang-swedish",
-      "curated": false,
-      "why": "SAYS PLACE: Rödby",
-      "named": "Rödby",
-      "verdict": "red_herring",
-      "reason": "Rödby (Rødby) is a town located in Denmark, not Sweden. Hearing this place name would point a player towards Denmark, misleading them from the correct answer of Sweden."
+      "reason": "Australia is a country and continent entirely unrelated to Poland, so mentioning it would mislead the player rather than reveal Poland as the correct answer."
     },
     {
       "deck": "languages",
@@ -363,7 +66,7 @@
       "why": "SAYS PLACE: Anatólia",
       "named": "Anatólia",
       "verdict": "red_herring",
-      "reason": "The place name mentioned is 'Anatólia' (Anatolia), which is a major geographical region of Turkey. Since the correct answer is Hungary (for the Hungarian language), pointing to a region in Turkey acts as a distractor or misleading clue rather than revealing the correct country."
+      "reason": "Anatólia (Anatolia) is a historical and geographical region located in modern-day Turkey, which is entirely different and far from Hungary, the correct country for the Hungarian language. Hearing this name would mislead the player to think of Turkey or the Middle East rather than Hungary."
     },
     {
       "deck": "languages",
@@ -375,6 +78,17 @@
       "named": "Törökország",
       "verdict": "red_herring",
       "reason": "\"Törökország\" is the Hungarian name for Turkey. Since Turkey is not in, near, or part of Hungary, hearing this place name points the player to a completely different country (Turkey), which acts as a red herring rather than revealing Hungary."
+    },
+    {
+      "deck": "accents",
+      "label": "Mbaise, Imo State, Nigeria",
+      "off": 12,
+      "id": "wild-mbaise-imo-state-nigeria",
+      "curated": true,
+      "why": "SAYS PLACE: Bayreuth, Africa",
+      "named": "Bayreuth, Africa",
+      "verdict": "red_herring",
+      "reason": "Bayreuth is a city in Germany, which points to an entirely different continent and country than Nigeria. While Africa is mentioned, it is a vast continent and does not specifically leak or point to Mbaise, Imo State, Nigeria, making the combination of these names misleading rather than revealing."
     },
     {
       "deck": "arabic",
@@ -404,10 +118,10 @@
       "off": 0,
       "id": "ar-3647",
       "curated": false,
-      "why": "SAYS PLACE: Zambia, Spain",
-      "named": "Zambia, Spain",
+      "why": "SAYS PLACE: Spain, Zambia",
+      "named": "Spain, Zambia",
       "verdict": "red_herring",
-      "reason": "While Spain is geographically close to Tangier, Morocco, hearing 'Spain' and 'Zambia' (which is in Southern Africa) points the player to entirely different countries and regions, misleading them rather than revealing the correct answer of Tangier, Morocco."
+      "reason": "While Spain is geographically close to Tangier, Morocco (just across the Strait of Gibraltar), Zambia is located in Southern Africa, thousands of miles away. Hearing these two country names would mislead the player to think of Europe or Southern Africa rather than pointing them to Morocco."
     },
     {
       "deck": "french",
@@ -418,7 +132,7 @@
       "why": "SAYS PLACE: Manching",
       "named": "Manching",
       "verdict": "red_herring",
-      "reason": "Manching is a municipality located in Bavaria, Germany, not Belgium. Hearing this place name would mislead a player into guessing Germany instead of the correct answer, Belgium."
+      "reason": "Manching is a municipality located in Bavaria, Germany. Hearing this place name would mislead the player into guessing Germany instead of the correct answer, Belgium."
     },
     {
       "deck": "french",
@@ -448,21 +162,10 @@
       "off": 15,
       "id": "spanish-peruvian-spanish-richard-dawkins-biography-rea",
       "curated": false,
-      "why": "SAYS PLACE: Oxford, británico",
-      "named": "Oxford, británico",
+      "why": "SAYS PLACE: británico, Oxford",
+      "named": "británico, Oxford",
       "verdict": "red_herring",
-      "reason": "The place names 'Oxford' and 'británico' refer to Oxford and Britain, which are located in the United Kingdom. Since the correct answer is Peru, these names point to an entirely different country and region, acting as a red herring rather than revealing the correct location."
-    },
-    {
-      "deck": "spanish",
-      "label": "Puerto Rico",
-      "off": 63,
-      "id": "spanish-puerto-rican-spanish-roman-emperor-claudius-ar",
-      "curated": false,
-      "why": "SAYS PLACE: península itálica",
-      "named": "península itálica",
-      "verdict": "red_herring",
-      "reason": "The place name 'península itálica' refers to the Italian Peninsula in Europe, which is geographically distant and unrelated to Puerto Rico, thereby misleading the player rather than revealing the correct answer."
+      "reason": "The place names 'británico' (British) and 'Oxford' refer to the United Kingdom, which is entirely different from Peru, thereby misleading the player rather than pointing to the correct answer."
     },
     {
       "deck": "spanish",
@@ -484,7 +187,7 @@
       "why": "SAYS PLACE: Estados Unidos",
       "named": "Estados Unidos",
       "verdict": "red_herring",
-      "reason": "The place name mentioned is 'Estados Unidos' (United States), which is a completely different country and region from Colombia, where Turbaco is located. This would mislead the player rather than reveal the correct answer."
+      "reason": "The speaker mentions 'Estados Unidos' (United States), which is a completely different country and region from Colombia, where Turbaco is located. This would mislead the player rather than reveal the correct location."
     },
     {
       "deck": "chinese",
@@ -492,10 +195,10 @@
       "off": 15,
       "id": "chinese-hk-cantonese-george-washington-carver-spoken-w",
       "curated": false,
-      "why": "SAYS PLACE: 美國",
-      "named": "美國",
+      "why": "SAYS PLACE: 美國, 愛荷華州",
+      "named": "美國, 愛荷華州",
       "verdict": "red_herring",
-      "reason": "The place name mentioned is '美國' (United States), which is geographically and politically unrelated to Hong Kong, thereby serving as a distraction rather than a clue to the correct answer."
+      "reason": "The mentioned places are the United States (美國) and Iowa (愛荷華州), which are located in North America and have no geographical proximity to Hong Kong. Hearing these names would mislead a player to guess the United States rather than Hong Kong."
     },
     {
       "deck": "chinese",
@@ -503,10 +206,10 @@
       "off": 63,
       "id": "chinese-hk-cantonese-george-washington-carver-spoken-w",
       "curated": false,
-      "why": "SAYS PLACE: 莫索里州",
-      "named": "莫索里州",
+      "why": "SAYS PLACE: Missouri",
+      "named": "Missouri",
       "verdict": "red_herring",
-      "reason": "The place name \"莫索里州\" refers to the state of Missouri in the United States, which is geographically distant and unrelated to Hong Kong, thereby serving as a red herring that points away from the correct answer."
+      "reason": "Missouri is a state in the United States, which is geographically and politically unrelated to Hong Kong. Hearing this name would mislead the player to think of the US rather than Hong Kong."
     },
     {
       "deck": "chinese",
@@ -517,7 +220,7 @@
       "why": "SAYS PLACE: Sevastopol",
       "named": "Sevastopol",
       "verdict": "red_herring",
-      "reason": "Sevastopol is a city located on the Crimean Peninsula, which is geographically and culturally far from Shanghai, China. Mentioning it would mislead the player rather than reveal the correct location."
+      "reason": "Sevastopol is a major port city located on the Crimean Peninsula (internationally recognized as Ukraine, de facto controlled by Russia). It is geographically and culturally far from Shanghai, China, and would mislead a player to think of Eastern Europe or the Black Sea region instead of East Asia."
     },
     {
       "deck": "hindi-urdu",

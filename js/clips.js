@@ -568,7 +568,7 @@ window.CLIPS = {
       },
       "lufs": -16.4
     },
-    {
+    {"start": 180, 
       "id": "lang-portuguese-brazil",
       "label": "Portuguese (Brazil)",
       "lang": "Portuguese",
