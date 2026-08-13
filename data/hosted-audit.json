@@ -1,0 +1,397 @@
+{
+  "ts": "2026-08-13T03:50:34.719Z",
+  "problems": [
+    {
+      "deck": "languages",
+      "label": "Turkish",
+      "off": 111,
+      "id": "lang-turkish",
+      "curated": false,
+      "why": "SAYS PLACE: Rusya, Çin"
+    },
+    {
+      "deck": "languages",
+      "label": "Persian (Farsi)",
+      "off": 15,
+      "id": "lang-persian-farsi",
+      "curated": false,
+      "why": "SAYS PLACE: Iran, Afghanistan"
+    },
+    {
+      "deck": "languages",
+      "label": "Persian (Farsi)",
+      "off": 111,
+      "id": "lang-persian-farsi",
+      "curated": false,
+      "why": "SAYS PLACE: Iran, Afghanistan"
+    },
+    {
+      "deck": "languages",
+      "label": "Thai",
+      "off": 63,
+      "id": "lang-thai",
+      "curated": false,
+      "why": "SAYS PLACE: Chaturaphak Phiman, Roi Et"
+    },
+    {
+      "deck": "languages",
+      "label": "Thai",
+      "off": 111,
+      "id": "lang-thai",
+      "curated": false,
+      "why": "SAYS PLACE: Roi Et"
+    },
+    {
+      "deck": "languages",
+      "label": "Mandarin Chinese",
+      "off": 15,
+      "id": "lang-mandarin-chinese",
+      "curated": false,
+      "why": "SAYS PLACE: 中国"
+    },
+    {
+      "deck": "languages",
+      "label": "Mandarin Chinese",
+      "off": 63,
+      "id": "lang-mandarin-chinese",
+      "curated": false,
+      "why": "SAYS PLACE: 中华人民共和国"
+    },
+    {
+      "deck": "languages",
+      "label": "Mandarin Chinese",
+      "off": 111,
+      "id": "lang-mandarin-chinese",
+      "curated": false,
+      "why": "SAYS PLACE: 中华人民共和国"
+    },
+    {
+      "deck": "languages",
+      "label": "Indonesian",
+      "off": 63,
+      "id": "lang-indonesian",
+      "curated": false,
+      "why": "SAYS PLACE: Hindia Belanda, Java"
+    },
+    {
+      "deck": "languages",
+      "label": "Swahili",
+      "off": 15,
+      "id": "lang-swahili",
+      "curated": false,
+      "why": "SAYS PLACE: Washington D.C."
+    },
+    {
+      "deck": "languages",
+      "label": "Swahili",
+      "off": 63,
+      "id": "lang-swahili",
+      "curated": false,
+      "why": "SAYS PLACE: Kenya"
+    },
+    {
+      "deck": "languages",
+      "label": "Swahili",
+      "off": 111,
+      "id": "lang-swahili",
+      "curated": false,
+      "why": "SAYS PLACE: Kenya"
+    },
+    {
+      "deck": "languages",
+      "label": "Amharic",
+      "off": 63,
+      "id": "lang-amharic",
+      "curated": false,
+      "why": "SAYS PLACE: Debre Moy"
+    },
+    {
+      "deck": "languages",
+      "label": "Amharic",
+      "off": 111,
+      "id": "lang-amharic",
+      "curated": false,
+      "why": "SAYS PLACE: Eritrea"
+    },
+    {
+      "deck": "languages",
+      "label": "Hausa",
+      "off": 15,
+      "id": "lang-hausa",
+      "curated": false,
+      "why": "SAYS PLACE: Ghana"
+    },
+    {
+      "deck": "languages",
+      "label": "Hausa",
+      "off": 63,
+      "id": "lang-hausa",
+      "curated": false,
+      "why": "SAYS PLACE: Ghana, Jamus, Volta"
+    },
+    {
+      "deck": "languages",
+      "label": "Hausa",
+      "off": 111,
+      "id": "lang-hausa",
+      "curated": false,
+      "why": "SAYS PLACE: Ghana, Jamus"
+    },
+    {
+      "deck": "languages",
+      "label": "Polish",
+      "off": 15,
+      "id": "lang-polish",
+      "curated": false,
+      "why": "SAYS PLACE: Limerick, Nowa Południowa Walia"
+    },
+    {
+      "deck": "languages",
+      "label": "Polish",
+      "off": 63,
+      "id": "lang-polish",
+      "curated": false,
+      "why": "SAYS PLACE: Montevideo, Irlandia"
+    },
+    {
+      "deck": "languages",
+      "label": "Polish",
+      "off": 111,
+      "id": "lang-polish",
+      "curated": false,
+      "why": "SAYS PLACE: Australia"
+    },
+    {
+      "deck": "languages",
+      "label": "German",
+      "off": 15,
+      "id": "lang-german",
+      "curated": false,
+      "why": "SAYS PLACE: Hannover"
+    },
+    {
+      "deck": "languages",
+      "label": "German",
+      "off": 63,
+      "id": "lang-german",
+      "curated": false,
+      "why": "SAYS PLACE: Alfeld, Leine, Hannover"
+    },
+    {
+      "deck": "languages",
+      "label": "German",
+      "off": 111,
+      "id": "lang-german",
+      "curated": false,
+      "why": "SAYS PLACE: Ungarn"
+    },
+    {
+      "deck": "languages",
+      "label": "Italian",
+      "off": 15,
+      "id": "lang-italian",
+      "curated": false,
+      "why": "SAYS PLACE: Sardegna, Nuoro, Fonni"
+    },
+    {
+      "deck": "languages",
+      "label": "Italian",
+      "off": 60,
+      "id": "lang-italian",
+      "curated": false,
+      "why": "SAYS PLACE: Fonni"
+    },
+    {
+      "deck": "languages",
+      "label": "Swedish",
+      "off": 15,
+      "id": "lang-swedish",
+      "curated": false,
+      "why": "SAYS PLACE: Rödeby, Karlskrona, Sverige"
+    },
+    {
+      "deck": "languages",
+      "label": "Swedish",
+      "off": 45,
+      "id": "lang-swedish",
+      "curated": false,
+      "why": "SAYS PLACE: Rödeby, Karlskrona"
+    },
+    {
+      "deck": "languages",
+      "label": "Swedish",
+      "off": 74,
+      "id": "lang-swedish",
+      "curated": false,
+      "why": "SAYS PLACE: Rödby"
+    },
+    {
+      "deck": "languages",
+      "label": "Hungarian",
+      "off": 15,
+      "id": "lang-hungarian",
+      "curated": false,
+      "why": "SAYS PLACE: Anatólia"
+    },
+    {
+      "deck": "languages",
+      "label": "Hungarian",
+      "off": 63,
+      "id": "lang-hungarian",
+      "curated": false,
+      "why": "SAYS PLACE: Törökország"
+    },
+    {
+      "deck": "accents",
+      "label": "Mbaise, Imo State, Nigeria",
+      "off": 27.5,
+      "id": "wild-mbaise-imo-state-nigeria",
+      "curated": true,
+      "why": "SAYS PLACE: Africa"
+    },
+    {
+      "deck": "accents",
+      "label": "Thomastown, County Kilkenny, Ireland",
+      "off": 58,
+      "id": "wild-thomastown-county-kilkenny-ireland",
+      "curated": true,
+      "why": "SAYS PLACE: Ladywell"
+    },
+    {
+      "deck": "arabic",
+      "label": "Alexandria, Egypt",
+      "off": 0,
+      "id": "ar-882",
+      "curated": false,
+      "why": "SAYS PLACE: Damanhour"
+    },
+    {
+      "deck": "arabic",
+      "label": "Cairo, Egypt",
+      "off": 0,
+      "id": "ar-2608",
+      "curated": false,
+      "why": "SAYS PLACE: New Jersey"
+    },
+    {
+      "deck": "arabic",
+      "label": "Rabat, Morocco",
+      "off": 0,
+      "id": "ar-989",
+      "curated": false,
+      "why": "SAYS PLACE: Japan"
+    },
+    {
+      "deck": "arabic",
+      "label": "Sanaa, Yemen",
+      "off": 0,
+      "id": "ar-3479",
+      "curated": false,
+      "why": "SAYS PLACE: Taiz"
+    },
+    {
+      "deck": "arabic",
+      "label": "Tangier, Morocco",
+      "off": 0,
+      "id": "ar-3647",
+      "curated": false,
+      "why": "SAYS PLACE: Zambia, Spain"
+    },
+    {
+      "deck": "french",
+      "label": "Belgium",
+      "off": 3,
+      "id": "french-brussels-belgium-french-belgian",
+      "curated": true,
+      "why": "SAYS PLACE: Manching"
+    },
+    {
+      "deck": "french",
+      "label": "Paris, France",
+      "off": 11,
+      "id": "french-paris-france-french-paris",
+      "curated": true,
+      "why": "SAYS PLACE: Londres, Royaume-Uni"
+    },
+    {
+      "deck": "spanish",
+      "label": "Argentina",
+      "off": 30,
+      "id": "spanish-argentine-spanish-reading-about-a-brazilian-to",
+      "curated": true,
+      "why": "SAYS PLACE: Minas Gerais"
+    },
+    {
+      "deck": "spanish",
+      "label": "Peru",
+      "off": 15,
+      "id": "spanish-peruvian-spanish-richard-dawkins-biography-rea",
+      "curated": false,
+      "why": "SAYS PLACE: Oxford, británico"
+    },
+    {
+      "deck": "spanish",
+      "label": "Puerto Rico",
+      "off": 63,
+      "id": "spanish-puerto-rican-spanish-roman-emperor-claudius-ar",
+      "curated": false,
+      "why": "SAYS PLACE: península itálica"
+    },
+    {
+      "deck": "spanish",
+      "label": "Turbaco, Colombia",
+      "off": 15,
+      "id": "spanish-colombian-spanish-steven-pinker-biography-read",
+      "curated": false,
+      "why": "SAYS PLACE: Montreal, Quebec, Canadá"
+    },
+    {
+      "deck": "spanish",
+      "label": "Turbaco, Colombia",
+      "off": 63,
+      "id": "spanish-colombian-spanish-steven-pinker-biography-read",
+      "curated": false,
+      "why": "SAYS PLACE: Estados Unidos"
+    },
+    {
+      "deck": "chinese",
+      "label": "Hong Kong",
+      "off": 15,
+      "id": "chinese-hk-cantonese-george-washington-carver-spoken-w",
+      "curated": false,
+      "why": "SAYS PLACE: 美國"
+    },
+    {
+      "deck": "chinese",
+      "label": "Hong Kong",
+      "off": 63,
+      "id": "chinese-hk-cantonese-george-washington-carver-spoken-w",
+      "curated": false,
+      "why": "SAYS PLACE: 莫索里州"
+    },
+    {
+      "deck": "chinese",
+      "label": "Shanghai, China",
+      "off": 60,
+      "id": "chinese-shanghainese-wu-standard-shanghai-accent-readi",
+      "curated": true,
+      "why": "SAYS PLACE: Sevastopol"
+    },
+    {
+      "deck": "hindi-urdu",
+      "label": "Karachi, Pakistan",
+      "off": 0,
+      "id": "hindi-urdu-karachi-pakistan-urdu",
+      "curated": false,
+      "why": "SAYS PLACE: South Africa"
+    },
+    {
+      "deck": "portuguese",
+      "label": "Porto Alegre, Brazil",
+      "off": 0,
+      "id": "portuguese-porto-alegre-brazil-portuguese-brazilian-gauch",
+      "curated": false,
+      "why": "SAYS PLACE: Portugal"
+    }
+  ]
+}

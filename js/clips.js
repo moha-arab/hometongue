@@ -49,7 +49,7 @@ window.CLIPS = {
       "label": "Persian (Farsi)",
       "lang": "Persian",
       "url": "/clips/languages/lang-persian-farsi.mp3",
-      "lat": 32.5,
+      "start": 0, "lat": 32.5,
       "lng": 53.7,
       "r": 1500,
       "size": 1920775,
@@ -132,7 +132,7 @@ window.CLIPS = {
       "label": "Thai",
       "lang": "Thai",
       "url": "/clips/languages/lang-thai.mp3",
-      "lat": 15.5,
+      "start": 0, "lat": 15.5,
       "lng": 101,
       "r": 500,
       "size": 1920775,
@@ -210,7 +210,7 @@ window.CLIPS = {
       },
       "lufs": -16.9
     },
-    {
+    {"start": 72, 
       "id": "lang-mandarin-chinese",
       "label": "Mandarin Chinese",
       "lang": "Mandarin Chinese",
@@ -246,7 +246,7 @@ window.CLIPS = {
       "label": "Indonesian",
       "lang": "Indonesian",
       "url": "/clips/languages/lang-indonesian.mp3",
-      "lat": -4,
+      "start": 90, "lat": -4,
       "lng": 112,
       "r": 1500,
       "size": 1920775,
@@ -284,7 +284,7 @@ window.CLIPS = {
       "label": "Swahili",
       "lang": "Swahili",
       "url": "/clips/languages/lang-swahili.mp3",
-      "lat": -6.2,
+      "start": 30, "lat": -6.2,
       "lng": 39,
       "r": 1200,
       "size": 1920989,
@@ -315,7 +315,7 @@ window.CLIPS = {
       "label": "Amharic",
       "lang": "Amharic",
       "url": "/clips/languages/lang-amharic.mp3",
-      "lat": 9.03,
+      "start": 0, "lat": 9.03,
       "lng": 38.74,
       "r": 600,
       "size": 1920821,
@@ -360,7 +360,7 @@ window.CLIPS = {
       },
       "lufs": -16.8
     },
-    {
+    {"start": 0, 
       "id": "lang-hausa",
       "label": "Hausa",
       "lang": "Hausa",
@@ -491,7 +491,7 @@ window.CLIPS = {
       "label": "German",
       "lang": "German",
       "url": "/clips/languages/lang-german.mp3",
-      "lat": 50.9,
+      "start": 45, "lat": 50.9,
       "lng": 10,
       "r": 600,
       "size": 1920775,
@@ -609,7 +609,7 @@ window.CLIPS = {
       "label": "Italian",
       "lang": "Italian",
       "url": "/clips/languages/lang-italian.mp3",
-      "lat": 41.9,
+      "start": 75, "lat": 41.9,
       "lng": 12.5,
       "r": 500,
       "size": 1806045,
@@ -630,7 +630,7 @@ window.CLIPS = {
       },
       "lufs": -16.4
     },
-    {
+    {"start": 30, 
       "id": "lang-swedish",
       "label": "Swedish",
       "lang": "Swedish",
@@ -841,7 +841,7 @@ window.CLIPS = {
       "size": 386447,
       "wild": true,
       "hint": "Activist introducing himself, 48s, strong Nigerian English",
-      "start": 27.5,
+      "start": 12,
       "source": {
         "who": "Recording by Nederlandse Leeuw",
         "host": "Wikimedia Commons",
@@ -957,7 +957,7 @@ window.CLIPS = {
       "size": 1920775,
       "wild": true,
       "hint": "A 94-year-old lifelong local telling stories about the holy well behind his house (14:46 total, pick any segment)",
-      "start": 58,
+      "start": 15,
       "source": {
         "who": "Oral history interview by A.-K. D",
         "host": "Wikimedia Commons",
@@ -1008,25 +1008,6 @@ window.CLIPS = {
         "note": "trimmed and re-encoded for the game"
       },
       "lufs": -18.4
-    },
-    {
-      "id": "ar-882",
-      "label": "Alexandria, Egypt",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-882.mp3",
-      "lat": 31.2,
-      "lng": 29.92,
-      "r": 350,
-      "size": 240788,
-      "hint": "Local radio from Alexandria · ARCADE corpus.",
-      "source": {
-        "who": "Local radio broadcast",
-        "host": "ARCADE corpus (RIOTU Lab)",
-        "license": "CC BY 4.0",
-        "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
-        "note": "trimmed and re-encoded for the game"
-      },
-      "lufs": -16.4
     },
     {
       "id": "ar-2082",
@@ -1619,25 +1600,6 @@ window.CLIPS = {
         "note": "trimmed and re-encoded for the game"
       },
       "lufs": -16.5
-    },
-    {
-      "id": "ar-3479",
-      "label": "Sanaa, Yemen",
-      "lang": "Arabic",
-      "url": "/clips/ar/ar-3479.mp3",
-      "lat": 15.37,
-      "lng": 44.19,
-      "r": 350,
-      "size": 240788,
-      "hint": "Local radio from Sanaa · ARCADE corpus.",
-      "source": {
-        "who": "Local radio broadcast",
-        "host": "ARCADE corpus (RIOTU Lab)",
-        "license": "CC BY 4.0",
-        "page": "https://huggingface.co/datasets/riotu-lab/ARCADE-full",
-        "note": "trimmed and re-encoded for the game"
-      },
-      "lufs": -16.7
     },
     {
       "id": "ar-4464",
