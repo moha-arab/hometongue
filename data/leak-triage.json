@@ -10,7 +10,7 @@
       "why": "SAYS PLACE: Jamus",
       "named": "Jamus",
       "verdict": "red_herring",
-      "reason": "\"Jamus\" is the Hausa word for Germany. Since Germany is located in Europe, far from the West African regions where Hausa is natively spoken (such as Nigeria and Niger), hearing this place name would point a player to Europe and mislead them."
+      "reason": "\"Jamus\" is the Hausa word for Germany. Since Germany is located in Europe and is entirely outside of the West African region where Hausa is spoken (such as Nigeria or Niger), mentioning this place name points somewhere else entirely and acts as a red herring."
     },
     {
       "deck": "languages",
@@ -21,7 +21,7 @@
       "why": "SAYS PLACE: Limerick, Nowa Południowa Walia",
       "named": "Limerick, Nowa Południowa Walia",
       "verdict": "red_herring",
-      "reason": "The mentioned places, Limerick (Ireland) and New South Wales (Australia, translated to Polish as 'Nowa Południowa Walia'), are geographically located far outside of Poland, which is the correct country. Therefore, they point to entirely different regions of the world rather than revealing Poland."
+      "reason": "The place names mentioned are Limerick (located in Ireland) and Nowa Południowa Walia (Polish for New South Wales, located in Australia). Neither of these places is in or near Poland, meaning they point to entirely different parts of the world and would mislead the player rather than reveal the correct country."
     },
     {
       "deck": "languages",
@@ -54,7 +54,7 @@
       "why": "SAYS PLACE: Törökország",
       "named": "Törökország",
       "verdict": "red_herring",
-      "reason": "\"Törökország\" is the Hungarian name for Turkey. Since Turkey is not in, near, or part of Hungary, hearing this place name points the player to a completely different country (Turkey), which acts as a red herring rather than revealing Hungary."
+      "reason": "\"Törökország\" is the Hungarian word for Turkey. Since the correct country is Hungary, mentioning a place name that translates to or refers to Turkey points the player to a completely different country and region, acting as a red herring."
     }
   ]
 }

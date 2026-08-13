@@ -1,0 +1,463 @@
+{
+  "ts": "2026-08-13T13:00:46.201Z",
+  "rows": [
+    {
+      "deck": "accents",
+      "label": "Kingston, Jamaica",
+      "id": "OqIpz_eEaKg",
+      "year": 2013,
+      "dur": 215,
+      "start": 75,
+      "fits": true
+    },
+    {
+      "deck": "accents",
+      "label": "Kingston, Jamaica",
+      "id": "7lMWf8-Q9jA",
+      "year": 2013,
+      "dur": 89,
+      "start": 61,
+      "fits": true
+    },
+    {
+      "deck": "accents",
+      "label": "Glasgow, Scotland",
+      "id": "I4k8dR04TzA",
+      "year": 2018,
+      "dur": 73,
+      "start": 30,
+      "fits": true
+    },
+    {
+      "deck": "accents",
+      "label": "Kingston, Jamaica",
+      "id": "SS9bBuF0w4w",
+      "year": 2022,
+      "dur": 981,
+      "start": 403,
+      "fits": true
+    },
+    {
+      "deck": "accents",
+      "label": "Kingston, Jamaica",
+      "id": "wt24nLiNa8I",
+      "year": 2021,
+      "dur": 477,
+      "start": 166,
+      "fits": true
+    },
+    {
+      "deck": "accents",
+      "label": "Lagos, Nigeria",
+      "id": "tI8FBKscgQ4",
+      "year": 2021,
+      "dur": 631,
+      "start": 370,
+      "fits": true
+    },
+    {
+      "deck": "accents",
+      "label": "Glasgow, Scotland",
+      "id": "LhMvmH_uodE",
+      "year": 2022,
+      "dur": 685,
+      "start": 330,
+      "fits": true
+    },
+    {
+      "deck": "accents",
+      "label": "Glasgow, Scotland",
+      "id": "DpnUurJvGWs",
+      "year": 2018,
+      "dur": 139,
+      "start": 48,
+      "fits": true
+    },
+    {
+      "deck": "accents",
+      "label": "Singapore",
+      "id": "HylaY5e1awo",
+      "year": 2011,
+      "dur": 532,
+      "start": 186,
+      "fits": true
+    },
+    {
+      "deck": "accents",
+      "label": "Singapore",
+      "id": "HpTfmxkXU1A",
+      "year": 2017,
+      "dur": 375,
+      "start": 161,
+      "fits": true
+    },
+    {
+      "deck": "accents",
+      "label": "Boston, Massachusetts, USA",
+      "id": "-djB-PWhdl0",
+      "year": 2026,
+      "dur": 351,
+      "start": 97,
+      "fits": true
+    },
+    {
+      "deck": "accents",
+      "label": "Brooklyn, New York, USA",
+      "id": "_3pnHcYuzOQ",
+      "year": 2026,
+      "dur": 324,
+      "start": 41,
+      "fits": true
+    },
+    {
+      "deck": "accents",
+      "label": "Ghana",
+      "id": "j1Odp3B7qG4",
+      "year": 2020,
+      "dur": 121,
+      "start": 86,
+      "fits": true
+    },
+    {
+      "deck": "french",
+      "label": "Kinshasa, DR Congo",
+      "id": "4jKukUPJdmM",
+      "year": 2014,
+      "dur": 439,
+      "start": 153,
+      "fits": true
+    },
+    {
+      "deck": "french",
+      "label": "Marseille, France",
+      "id": "BJH4f6OWF7U",
+      "year": 2021,
+      "dur": 74,
+      "start": 60,
+      "fits": false
+    },
+    {
+      "deck": "french",
+      "label": "Brussels, Belgium",
+      "id": "F53zsQIKlrw",
+      "year": 2023,
+      "dur": 643,
+      "start": 225,
+      "fits": true
+    },
+    {
+      "deck": "french",
+      "label": "Marseille, France",
+      "id": "-NT24O3IfPs",
+      "year": 2026,
+      "dur": 329,
+      "start": 115,
+      "fits": true
+    },
+    {
+      "deck": "french",
+      "label": "Marseille, France",
+      "id": "0xDjLQpsmUM",
+      "year": 2020,
+      "dur": 426,
+      "start": 149,
+      "fits": true
+    },
+    {
+      "deck": "french",
+      "label": "Abidjan, Côte d'Ivoire",
+      "id": "SFh4sdSqR60",
+      "year": 2025,
+      "dur": 339,
+      "start": 118,
+      "fits": true
+    },
+    {
+      "deck": "spanish",
+      "label": "Bogotá, Colombia",
+      "id": "k1ur2rnVKLs",
+      "year": 2015,
+      "dur": 116,
+      "start": 40,
+      "fits": true
+    },
+    {
+      "deck": "spanish",
+      "label": "Buenos Aires, Argentina",
+      "id": "1tdOI0X0phE",
+      "year": 2024,
+      "dur": 96,
+      "start": 33,
+      "fits": true
+    },
+    {
+      "deck": "spanish",
+      "label": "Buenos Aires, Argentina",
+      "id": "zcasomU6Ios",
+      "year": 2022,
+      "dur": 348,
+      "start": 122,
+      "fits": true
+    },
+    {
+      "deck": "spanish",
+      "label": "Bogotá, Colombia",
+      "id": "CprjAdAO11s",
+      "year": 2013,
+      "dur": 144,
+      "start": 50,
+      "fits": true
+    },
+    {
+      "deck": "chinese",
+      "label": "Xi'an, China",
+      "id": "-eaOysvmbCI",
+      "year": 2017,
+      "dur": 78,
+      "start": 30,
+      "fits": true
+    },
+    {
+      "deck": "chinese",
+      "label": "Guangzhou, China",
+      "id": "FfDtxav-R2A",
+      "year": 2018,
+      "dur": 342,
+      "start": 119,
+      "fits": true
+    },
+    {
+      "deck": "chinese",
+      "label": "Chengdu, China",
+      "id": "7TPAXwQ6Xig",
+      "year": 2020,
+      "dur": 379,
+      "start": 132,
+      "fits": true
+    },
+    {
+      "deck": "chinese",
+      "label": "Beijing, China",
+      "id": "1iMMUDdCjso",
+      "year": 2023,
+      "dur": 216,
+      "start": 75,
+      "fits": true
+    },
+    {
+      "deck": "chinese",
+      "label": "Chengdu, China",
+      "id": "6yRcJ-BUVDg",
+      "year": 2019,
+      "dur": 240,
+      "start": 204,
+      "fits": true
+    },
+    {
+      "deck": "hindi-urdu",
+      "label": "Delhi, India",
+      "id": "vogXu3dUXzE",
+      "year": 2017,
+      "dur": 303,
+      "start": 106,
+      "fits": true
+    },
+    {
+      "deck": "hindi-urdu",
+      "label": "Delhi, India",
+      "id": "Td9sfMaU7u0",
+      "year": 2019,
+      "dur": 557,
+      "start": 195,
+      "fits": true
+    },
+    {
+      "deck": "hindi-urdu",
+      "label": "Karachi, Pakistan",
+      "id": "zRpMJRph-wk",
+      "year": 2026,
+      "dur": 621,
+      "start": 217,
+      "fits": true
+    },
+    {
+      "deck": "hindi-urdu",
+      "label": "Lahore, Pakistan",
+      "id": "ueueRlk1NtM",
+      "year": 2026,
+      "dur": 180,
+      "start": 63,
+      "fits": true
+    },
+    {
+      "deck": "hindi-urdu",
+      "label": "Lucknow, India",
+      "id": "NwY5FscYpKs",
+      "year": 2019,
+      "dur": 322,
+      "start": 113,
+      "fits": true
+    },
+    {
+      "deck": "hindi-urdu",
+      "label": "Patna, India",
+      "id": "BJHw8b01C24",
+      "year": 2019,
+      "dur": 185,
+      "start": 64,
+      "fits": true
+    },
+    {
+      "deck": "hindi-urdu",
+      "label": "Jaipur, India",
+      "id": "tZV_e58UDFk",
+      "year": 2022,
+      "dur": 171,
+      "start": 60,
+      "fits": true
+    },
+    {
+      "deck": "hindi-urdu",
+      "label": "Hyderabad, India",
+      "id": "520zmm5qVh0",
+      "year": 2014,
+      "dur": 283,
+      "start": 99,
+      "fits": true
+    },
+    {
+      "deck": "portuguese",
+      "label": "Luanda, Angola",
+      "id": "69ZiYIUfCmw",
+      "year": 2023,
+      "dur": 483,
+      "start": 169,
+      "fits": true
+    },
+    {
+      "deck": "portuguese",
+      "label": "Recife, Brazil",
+      "id": "KoqtgZTHhzc",
+      "year": 2018,
+      "dur": 334,
+      "start": 147,
+      "fits": true
+    },
+    {
+      "deck": "portuguese",
+      "label": "Salvador, Brazil",
+      "id": "MY7flvJA4Ds",
+      "year": 2008,
+      "dur": 166,
+      "start": 58,
+      "fits": true
+    },
+    {
+      "deck": "portuguese",
+      "label": "Salvador, Brazil",
+      "id": "GqUWj0x6OUc",
+      "year": 2023,
+      "dur": 79,
+      "start": 30,
+      "fits": true
+    },
+    {
+      "deck": "russian",
+      "label": "Bishkek, Kyrgyzstan",
+      "id": "XMyubgtKLro",
+      "year": 2020,
+      "dur": 307,
+      "start": 107,
+      "fits": true
+    },
+    {
+      "deck": "russian",
+      "label": "Bishkek, Kyrgyzstan",
+      "id": "cjHB4Wb_zqA",
+      "year": 2016,
+      "dur": 373,
+      "start": 160,
+      "fits": true
+    },
+    {
+      "deck": "russian",
+      "label": "Tashkent, Uzbekistan",
+      "id": "CHA19dT3Zps",
+      "year": 2024,
+      "dur": 351,
+      "start": 123,
+      "fits": true
+    },
+    {
+      "deck": "russian",
+      "label": "Chișinău, Moldova",
+      "id": "oYxuj1dl_JY",
+      "year": 2018,
+      "dur": 82,
+      "start": 30,
+      "fits": true
+    },
+    {
+      "deck": "russian",
+      "label": "Chișinău, Moldova",
+      "id": "BGymDdBJrM0",
+      "year": 2024,
+      "dur": 78,
+      "start": 30,
+      "fits": true
+    },
+    {
+      "deck": "russian",
+      "label": "Karaganda, Kazakhstan",
+      "id": "v6SOFiVntd4",
+      "year": 2021,
+      "dur": 140,
+      "start": 49,
+      "fits": true
+    },
+    {
+      "deck": "russian",
+      "label": "Tallinn, Estonia",
+      "id": "XdlzL4hPqjE",
+      "year": 2015,
+      "dur": 184,
+      "start": 94,
+      "fits": true
+    },
+    {
+      "deck": "russian",
+      "label": "Tbilisi, Georgia",
+      "id": "gOVe3869tX8",
+      "year": 2024,
+      "dur": 655,
+      "start": 349,
+      "fits": true
+    },
+    {
+      "deck": "russian",
+      "label": "Odesa, Ukraine",
+      "id": "KYCzYHQgulE",
+      "year": 2022,
+      "dur": 244,
+      "start": 145,
+      "fits": true
+    },
+    {
+      "deck": "russian",
+      "label": "Almaty, Kazakhstan",
+      "id": "gRaokqJX1c8",
+      "year": 2023,
+      "dur": 374,
+      "start": 161,
+      "fits": true
+    }
+  ],
+  "problems": [
+    {
+      "deck": "french",
+      "label": "Marseille, France",
+      "id": "BJH4f6OWF7U",
+      "why": "window 60-80s exceeds video length 74s"
+    }
+  ]
+}
