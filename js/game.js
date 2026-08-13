@@ -690,20 +690,35 @@ async function showBoards(deckKey) {
   for (const m of MODES) {
     const b = document.createElement('button');
     b.className = 'board-tab' + (m.key === boardDeck ? ' active' : '');
-    b.textContent = m.name;
+    // The deck's own hue and language code, the same two marks the picker uses. Without them
+    // this was nine interchangeable grey pills; with them each tab is the deck you recognise.
+    b.dataset.deck = m.key;
+    b.innerHTML = `${escapeHtml(m.name)}<i>${escapeHtml(m.code)}</i>`;
     b.onclick = () => showBoards(m.key);
     tabs.appendChild(b);
   }
   const ol = $('#boardsList');
   ol.innerHTML = '';
+  const hue = getComputedStyle(document.documentElement).getPropertyValue(`--hue-${boardDeck}`).trim();
+  $('#boardsPanel').style.setProperty('--row', hue || 'var(--accent)');
   $('#boardsEmpty').hidden = true;
   try {
     const d = await (await fetch(`/api/scores?game_type=${boardDeck}`)).json();
     if (gen !== boardsGen) return; // user already switched tabs; this response is history
     const rows = (d.ok && d.top) || [];
-    if (!rows.length) { $('#boardsEmpty').hidden = false; return; }
-    for (const row of rows) {
+    const deckName = (MODES.find((m) => m.key === boardDeck) || {}).name || 'this deck';
+    if (!rows.length) {
+      $('#boardsEmpty').hidden = false;
+      $('#boardsEmpty').innerHTML = `<b>Nobody has played ${escapeHtml(deckName)} yet.</b><span>the first score here is the top score</span>`;
+      return;
+    }
+    // Each row carries its share of the leader's score as a hairline bar, so the ranking reads
+    // at a glance rather than as a column of numbers to compare by eye.
+    const best = Math.max(...rows.map((r) => +r.points || 0)) || 1;
+    for (const [i, row] of rows.entries()) {
       const li = document.createElement('li');
+      if (i < 3) li.className = 'top';
+      li.style.setProperty('--share', `${Math.max(4, Math.round((+row.points / best) * 100))}%`);
       li.innerHTML = `<span>${escapeHtml(row.nickname)}</span><b>${(+row.points).toLocaleString()}</b>`;
       ol.appendChild(li);
     }

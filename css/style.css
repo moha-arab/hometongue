@@ -552,8 +552,17 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .board li {
   counter-increment: rank; display: flex; align-items: baseline; gap: 10px;
   padding: 7px 0; border-bottom: 1px solid var(--rule-soft); font-size: 13.5px; color: var(--black);
+  position: relative;
 }
-.board li::before { content: counter(rank, decimal-leading-zero); font-family: var(--mono); font-size: 11px; color: var(--accent); }
+/* A score means nothing on its own, so each row carries a bar of its share of the leader's
+   score. It is what makes the list read as a ranking at a glance instead of a table. */
+.board li::after {
+  content: ''; position: absolute; left: 0; bottom: 0; height: 2px;
+  width: var(--share, 0%); background: var(--row, var(--accent)); opacity: 0.5;
+}
+.board li::before { content: counter(rank, decimal-leading-zero); font-family: var(--mono); font-size: 11px; color: var(--grey-2); }
+.board li.top::before { color: var(--row, var(--accent)); }
+.board li.top span { font-weight: 600; }
 .board li span { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .board li b { font-family: var(--mono); font-weight: 500; font-variant-numeric: tabular-nums; }
 
@@ -770,15 +779,56 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 
 /* ——— standing leaderboards ——— */
 .boards-link { margin-top: 14px; }
-.board-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
-.board-tab {
-  font-family: var(--sans); font-size: 12px; color: var(--grey);
-  background: none; border: 1px solid var(--rule); border-radius: var(--r-sm);
-  padding: 5px 10px; cursor: pointer; transition: color .15s, border-color .15s, background .15s;
+/* ——— leaderboard ———
+   Was nine identical grey pills on flex-wrap, and the active one turned bold. Bold is WIDER, so
+   selecting a deck changed that tab's width, moved the wrap point and re-flowed the whole row -
+   click French and the layout jumps. Two fixes, both structural rather than cosmetic:
+   a grid, so tabs sit on a fixed rhythm and can never re-wrap; and an active state built from
+   colour and fill instead of weight, so no tab ever changes size.
+   The decks already have identities the picker uses - a hue each and a language code - and the
+   board ignored all of it. Reusing them is what stops this reading as a generic pill row. */
+.board-tabs {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+  gap: 5px; margin-top: 16px;
 }
-.board-tab:hover { color: var(--black); background: var(--accent-soft); }
-.board-tab.active { color: var(--accent); border-color: var(--accent); font-weight: 600; }
-.board-empty { font-family: var(--mono); font-size: 12px; color: var(--grey); padding: 14px 0; }
+.board-tab {
+  --row: var(--accent);
+  font-family: var(--sans); font-size: 12px; font-weight: 500; color: var(--grey);
+  background: none; border: 1px solid var(--rule-soft); border-radius: var(--r-sm);
+  padding: 6px 9px; cursor: pointer; text-align: left;
+  display: grid; gap: 1px; line-height: 1.2;
+  transition: color .15s, border-color .15s, background .15s;
+}
+.board-tab[data-deck="arabic"] { --row: var(--hue-arabic); }
+.board-tab[data-deck="languages"] { --row: var(--hue-languages); }
+.board-tab[data-deck="accents"] { --row: var(--hue-accents); }
+.board-tab[data-deck="french"] { --row: var(--hue-french); }
+.board-tab[data-deck="spanish"] { --row: var(--hue-spanish); }
+.board-tab[data-deck="chinese"] { --row: var(--hue-chinese); }
+.board-tab[data-deck="hindi-urdu"] { --row: var(--hue-hindi-urdu); }
+.board-tab[data-deck="portuguese"] { --row: var(--hue-portuguese); }
+.board-tab[data-deck="russian"] { --row: var(--hue-russian); }
+.board-tab i {
+  font-style: normal; font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--grey-2);
+}
+.board-tab:hover { color: var(--black); background: color-mix(in srgb, var(--row) 8%, transparent); }
+.board-tab.active {
+  color: var(--row); border-color: color-mix(in srgb, var(--row) 45%, transparent);
+  background: color-mix(in srgb, var(--row) 10%, transparent);
+}
+.board-tab.active i { color: var(--row); }
+
+/* The panel holds its height across decks. Without this, switching from a full board to an
+   empty one collapsed the card by 144px and the button underneath jumped up the screen mid
+   click. 376px is exactly a full top-ten, which is the most this list can ever hold, so the
+   card is now a constant height whatever deck you pick and whether or not anyone has played it. */
+#boardsPanel { min-height: 376px; display: flex; flex-direction: column; }
+.board-empty {
+  margin: auto; text-align: center; padding: 20px 0; color: var(--grey);
+}
+.board-empty b { display: block; font-family: var(--editorial); font-size: 21px; color: var(--black-2); font-weight: 400; }
+.board-empty span { font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; }
 
 /* Short screens: the deck picker must fit whole, because a game you cannot see all of
    reads as a game with fewer modes. Measured at 608px on a full-height phone, which
