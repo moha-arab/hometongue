@@ -1,158 +1,295 @@
 [
   {
     "_why": "RUSSIAN IS THE DECK WHERE THE OBVIOUS TARGETS ARE THE WRONG ONES. Russian inside Russia is heavily standardised, so Moscow, Petersburg, Novosibirsk and Yekaterinburg are barely separable by ear and would make five rounds of the same answer. check-decks.mjs records the rule this deck actually runs on: the old 'native or official language' test admitted standard Minsk Russian, barely separable from Moscow, while excluding Armenian and Georgian Russian where non-Slavic substrate makes the variety MORE recognisable. So the deck is built on the post-Soviet spread, where each Russian-speaking community carries a different substrate: Turkic in Bishkek and Tashkent, Romanian in Chisinau, Finnic in Tallinn, Baltic in Riga, Hebrew in Haifa. Already held: Yerevan, Tbilisi, Odesa, Almaty, Moscow.",
-    "deck": "russian", "label": "Bishkek, Kyrgyzstan", "lang": "Russian",
-    "lat": 42.8746, "lng": 74.5698, "r": 120, "want": 2,
+    "deck": "russian",
+    "label": "Bishkek, Kyrgyzstan",
+    "lang": "Russian",
+    "lat": 42.8746,
+    "lng": 74.5698,
+    "r": 120,
+    "want": 2,
     "queries": [
       "бишкек уличный опрос прохожие отвечают",
       "влог бишкек кыргызстан обычный день по русски"
+    ],
+    "native": [
+      "Бишкек",
+      "Кыргызстан",
+      "Киргиз"
     ]
   },
   {
-    "deck": "russian", "label": "Tashkent, Uzbekistan", "lang": "Russian",
-    "lat": 41.2995, "lng": 69.2401, "r": 120, "want": 2,
+    "deck": "russian",
+    "label": "Tashkent, Uzbekistan",
+    "lang": "Russian",
+    "lat": 41.2995,
+    "lng": 69.2401,
+    "r": 120,
+    "want": 2,
     "queries": [
       "ташкент уличный опрос прохожие по русски",
       "влог ташкент узбекистан обычный день по русски"
+    ],
+    "native": [
+      "Ташкент",
+      "Узбекистан"
     ]
   },
   {
-    "deck": "russian", "label": "Chișinău, Moldova", "lang": "Russian",
-    "lat": 47.0105, "lng": 28.8638, "r": 100, "want": 2,
+    "deck": "russian",
+    "label": "Chișinău, Moldova",
+    "lang": "Russian",
+    "lat": 47.0105,
+    "lng": 28.8638,
+    "r": 100,
+    "want": 2,
     "queries": [
       "кишинев уличный опрос прохожие по русски",
       "влог кишинев молдова обычный день по русски"
+    ],
+    "native": [
+      "Кишинев",
+      "Кишинёв",
+      "Молдов"
     ]
   },
   {
-    "deck": "russian", "label": "Riga, Latvia", "lang": "Russian",
-    "lat": 56.9496, "lng": 24.1052, "r": 100, "want": 1,
+    "deck": "russian",
+    "label": "Riga, Latvia",
+    "lang": "Russian",
+    "lat": 56.9496,
+    "lng": 24.1052,
+    "r": 100,
+    "want": 1,
     "queries": [
       "рига уличный опрос русскоязычные латвия",
       "влог рига латвия по русски обычный день"
     ]
   },
   {
-    "deck": "russian", "label": "Tallinn, Estonia", "lang": "Russian",
-    "lat": 59.4370, "lng": 24.7536, "r": 100, "want": 1,
+    "deck": "russian",
+    "label": "Tallinn, Estonia",
+    "lang": "Russian",
+    "lat": 59.437,
+    "lng": 24.7536,
+    "r": 100,
+    "want": 1,
     "queries": [
       "таллин уличный опрос русскоязычные эстония",
       "влог таллин эстония по русски обычный день"
     ]
   },
   {
-    "deck": "russian", "label": "Haifa, Israel", "lang": "Russian",
-    "lat": 32.7940, "lng": 34.9896, "r": 120, "want": 1,
+    "deck": "russian",
+    "label": "Haifa, Israel",
+    "lang": "Russian",
+    "lat": 32.794,
+    "lng": 34.9896,
+    "r": 120,
+    "want": 1,
     "queries": [
       "израиль русскоязычные интервью репатрианты разговор",
       "влог израиль по русски обычный день хайфа"
     ]
   },
-
   {
-    "deck": "hindi-urdu", "label": "Lahore, Pakistan", "lang": "Urdu",
-    "lat": 31.5204, "lng": 74.3587, "r": 100, "want": 2,
+    "deck": "hindi-urdu",
+    "label": "Lahore, Pakistan",
+    "lang": "Urdu",
+    "lat": 31.5204,
+    "lng": 74.3587,
+    "r": 100,
+    "want": 2,
     "queries": [
       "لاہور سٹریٹ انٹرویو عام لوگ",
       "lahore street interview urdu public opinion",
       "lahore vlog urdu daily life walking"
+    ],
+    "native": [
+      "لاہور"
     ]
   },
   {
-    "deck": "hindi-urdu", "label": "Lucknow, India", "lang": "Hindi",
-    "lat": 26.8467, "lng": 80.9462, "r": 100, "want": 2,
+    "deck": "hindi-urdu",
+    "label": "Lucknow, India",
+    "lang": "Hindi",
+    "lat": 26.8467,
+    "lng": 80.9462,
+    "r": 100,
+    "want": 2,
     "queries": [
       "लखनऊ स्ट्रीट इंटरव्यू आम लोग बातचीत",
       "lucknow street interview hindi local people",
       "lucknow vlog hindi awadhi daily life"
+    ],
+    "native": [
+      "लखनऊ"
     ]
   },
   {
-    "deck": "hindi-urdu", "label": "Patna, India", "lang": "Hindi",
-    "lat": 25.5941, "lng": 85.1376, "r": 120, "want": 1,
+    "deck": "hindi-urdu",
+    "label": "Patna, India",
+    "lang": "Hindi",
+    "lat": 25.5941,
+    "lng": 85.1376,
+    "r": 120,
+    "want": 1,
     "queries": [
       "पटना स्ट्रीट इंटरव्यू बिहार लोग बातचीत",
       "patna street interview hindi bihar people"
+    ],
+    "native": [
+      "पटना",
+      "बिहार"
     ]
   },
   {
-    "deck": "hindi-urdu", "label": "Jaipur, India", "lang": "Hindi",
-    "lat": 26.9124, "lng": 75.7873, "r": 120, "want": 1,
+    "deck": "hindi-urdu",
+    "label": "Jaipur, India",
+    "lang": "Hindi",
+    "lat": 26.9124,
+    "lng": 75.7873,
+    "r": 120,
+    "want": 1,
     "queries": [
       "जयपुर स्ट्रीट इंटरव्यू राजस्थान लोग",
       "jaipur street interview hindi rajasthan people"
+    ],
+    "native": [
+      "जयपुर",
+      "राजस्थान"
     ]
   },
   {
-    "deck": "hindi-urdu", "label": "Bhopal, India", "lang": "Hindi",
-    "lat": 23.2599, "lng": 77.4126, "r": 120, "want": 1,
+    "deck": "hindi-urdu",
+    "label": "Bhopal, India",
+    "lang": "Hindi",
+    "lat": 23.2599,
+    "lng": 77.4126,
+    "r": 120,
+    "want": 1,
     "queries": [
       "भोपाल स्ट्रीट इंटरव्यू मध्य प्रदेश लोग",
       "bhopal street interview hindi madhya pradesh"
+    ],
+    "native": [
+      "भोपाल"
     ]
   },
   {
-    "deck": "hindi-urdu", "label": "Karachi, Pakistan", "lang": "Urdu",
-    "lat": 24.8607, "lng": 67.0011, "r": 100, "want": 1,
+    "deck": "hindi-urdu",
+    "label": "Karachi, Pakistan",
+    "lang": "Urdu",
+    "lat": 24.8607,
+    "lng": 67.0011,
+    "r": 100,
+    "want": 1,
     "queries": [
       "کراچی سٹریٹ انٹرویو عام لوگ",
       "karachi street interview urdu public opinion"
+    ],
+    "native": [
+      "کراچی",
+      "پاکستان"
     ]
   },
-
   {
-    "deck": "chinese", "label": "Xi'an, China", "lang": "Mandarin",
-    "lat": 34.3416, "lng": 108.9398, "r": 140, "want": 1,
+    "deck": "chinese",
+    "label": "Xi'an, China",
+    "lang": "Mandarin",
+    "lat": 34.3416,
+    "lng": 108.9398,
+    "r": 140,
+    "want": 1,
     "queries": [
       "西安 街头采访 路人 陕西话",
       "西安 vlog 日常 生活 逛街"
+    ],
+    "native": [
+      "西安"
     ]
   },
   {
-    "deck": "chinese", "label": "Guangzhou, China", "lang": "Cantonese",
-    "lat": 23.1291, "lng": 113.2644, "r": 100, "want": 1,
+    "deck": "chinese",
+    "label": "Guangzhou, China",
+    "lang": "Cantonese",
+    "lat": 23.1291,
+    "lng": 113.2644,
+    "r": 100,
+    "want": 1,
     "queries": [
       "廣州 街頭訪問 路人 廣東話",
       "广州 街头采访 粤语 日常"
+    ],
+    "native": [
+      "廣州",
+      "广州"
     ]
   },
   {
-    "deck": "chinese", "label": "Harbin, China", "lang": "Mandarin",
-    "lat": 45.8038, "lng": 126.5349, "r": 160, "want": 1,
+    "deck": "chinese",
+    "label": "Harbin, China",
+    "lang": "Mandarin",
+    "lat": 45.8038,
+    "lng": 126.5349,
+    "r": 160,
+    "want": 1,
     "queries": [
       "哈尔滨 街头采访 路人 东北话",
       "哈尔滨 vlog 日常 东北 生活"
+    ],
+    "native": [
+      "哈尔滨",
+      "哈爾濱"
     ]
   },
-
   {
-    "deck": "portuguese", "label": "Lisbon, Portugal", "lang": "Portuguese",
-    "lat": 38.7223, "lng": -9.1393, "r": 90, "want": 2,
+    "deck": "portuguese",
+    "label": "Lisbon, Portugal",
+    "lang": "Portuguese",
+    "lat": 38.7223,
+    "lng": -9.1393,
+    "r": 90,
+    "want": 2,
     "queries": [
       "entrevista de rua lisboa portugueses opiniao",
       "vlog lisboa dia normal a passear portugues"
     ]
   },
   {
-    "deck": "portuguese", "label": "Luanda, Angola", "lang": "Portuguese",
-    "lat": -8.8390, "lng": 13.2894, "r": 150, "want": 1,
+    "deck": "portuguese",
+    "label": "Luanda, Angola",
+    "lang": "Portuguese",
+    "lat": -8.839,
+    "lng": 13.2894,
+    "r": 150,
+    "want": 1,
     "queries": [
       "entrevista de rua luanda angolanos",
       "vlog luanda angola dia a dia portugues"
     ]
   },
-
   {
-    "deck": "french", "label": "Lyon, France", "lang": "French",
-    "lat": 45.7640, "lng": 4.8357, "r": 90, "want": 1,
+    "deck": "french",
+    "label": "Lyon, France",
+    "lang": "French",
+    "lat": 45.764,
+    "lng": 4.8357,
+    "r": 90,
+    "want": 1,
     "queries": [
       "micro trottoir lyon les gens repondent",
       "vlog lyon journee normale balade en ville"
     ]
   },
   {
-    "deck": "french", "label": "Kinshasa, DR Congo", "lang": "French",
-    "lat": -4.4419, "lng": 15.2663, "r": 150, "want": 1,
+    "deck": "french",
+    "label": "Kinshasa, DR Congo",
+    "lang": "French",
+    "lat": -4.4419,
+    "lng": 15.2663,
+    "r": 150,
+    "want": 1,
     "queries": [
       "micro trottoir kinshasa congolais francais",
       "vlog kinshasa rdc vie quotidienne francais"

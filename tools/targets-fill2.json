@@ -1,72 +1,146 @@
 [
   {
     "_why": "Round one failed on QUERY SHAPE, not availability. 'влог' and 'переезд' surface relocation and tourist content, so the voices were Russians who had just moved to Bishkek or were visiting Riga for two days - the exact opposite of a settled community variety. These queries ask for surveys OF RESIDENTS by local channels, and add Narva and Karaganda, cities whose Russian-speaking populations are the majority rather than a diaspora.",
-    "deck": "russian", "label": "Narva, Estonia", "lang": "Russian",
-    "lat": 59.3797, "lng": 28.1791, "r": 90, "want": 2,
+    "deck": "russian",
+    "label": "Narva, Estonia",
+    "lang": "Russian",
+    "lat": 59.3797,
+    "lng": 28.1791,
+    "r": 90,
+    "want": 2,
     "queries": [
       "нарва опрос жителей эстония русскоязычные",
       "нарва интервью местные жители новости",
       "жители нарвы рассказывают о жизни"
+    ],
+    "native": [
+      "Нарв"
     ]
   },
   {
-    "deck": "russian", "label": "Bishkek, Kyrgyzstan", "lang": "Russian",
-    "lat": 42.8746, "lng": 74.5698, "r": 120, "want": 2,
+    "deck": "russian",
+    "label": "Bishkek, Kyrgyzstan",
+    "lang": "Russian",
+    "lat": 42.8746,
+    "lng": 74.5698,
+    "r": 120,
+    "want": 2,
     "queries": [
       "опрос жителей бишкека что думают горожане",
       "бишкек новости интервью местные жители",
       "кыргызстан опрос горожан на улице"
+    ],
+    "native": [
+      "Бишкек",
+      "Кыргызстан",
+      "Киргиз"
     ]
   },
   {
-    "deck": "russian", "label": "Tashkent, Uzbekistan", "lang": "Russian",
-    "lat": 41.2995, "lng": 69.2401, "r": 120, "want": 2,
+    "deck": "russian",
+    "label": "Tashkent, Uzbekistan",
+    "lang": "Russian",
+    "lat": 41.2995,
+    "lng": 69.2401,
+    "r": 120,
+    "want": 2,
     "queries": [
       "опрос жителей ташкента горожане отвечают",
       "ташкент новости интервью местные жители",
       "узбекистан опрос на улице русскоязычные"
+    ],
+    "native": [
+      "Ташкент",
+      "Узбекистан"
     ]
   },
   {
-    "deck": "russian", "label": "Chișinău, Moldova", "lang": "Russian",
-    "lat": 47.0105, "lng": 28.8638, "r": 100, "want": 2,
+    "deck": "russian",
+    "label": "Chișinău, Moldova",
+    "lang": "Russian",
+    "lat": 47.0105,
+    "lng": 28.8638,
+    "r": 100,
+    "want": 2,
     "queries": [
       "опрос жителей кишинева молдова горожане",
       "кишинев новости интервью местные жители",
       "молдова опрос на улице русскоязычные жители"
+    ],
+    "native": [
+      "Кишинев",
+      "Кишинёв",
+      "Молдов"
     ]
   },
   {
-    "deck": "russian", "label": "Karaganda, Kazakhstan", "lang": "Russian",
-    "lat": 49.8047, "lng": 73.1094, "r": 130, "want": 1,
+    "deck": "russian",
+    "label": "Karaganda, Kazakhstan",
+    "lang": "Russian",
+    "lat": 49.8047,
+    "lng": 73.1094,
+    "r": 130,
+    "want": 1,
     "queries": [
       "караганда опрос жителей казахстан",
       "караганда новости интервью горожане"
+    ],
+    "native": [
+      "Караганд",
+      "Казахстан"
     ]
   },
   {
-    "deck": "russian", "label": "Kharkiv, Ukraine", "lang": "Russian",
-    "lat": 49.9935, "lng": 36.2304, "r": 110, "want": 1,
+    "deck": "russian",
+    "label": "Kharkiv, Ukraine",
+    "lang": "Russian",
+    "lat": 49.9935,
+    "lng": 36.2304,
+    "r": 110,
+    "want": 1,
     "queries": [
       "харьков опрос жителей на улице",
       "харьков интервью местные жители новости"
+    ],
+    "native": [
+      "Харьков",
+      "Харків",
+      "Україн",
+      "Украин"
     ]
   },
-
   {
-    "deck": "hindi-urdu", "label": "Delhi, India", "lang": "Hindi",
-    "lat": 28.6139, "lng": 77.2090, "r": 100, "want": 2,
+    "deck": "hindi-urdu",
+    "label": "Delhi, India",
+    "lang": "Hindi",
+    "lat": 28.6139,
+    "lng": 77.209,
+    "r": 100,
+    "want": 2,
     "queries": [
       "दिल्ली स्ट्रीट इंटरव्यू आम लोग बातचीत",
       "delhi street interview hindi public opinion locals"
+    ],
+    "native": [
+      "दिल्ली",
+      "भारत"
     ]
   },
   {
-    "deck": "hindi-urdu", "label": "Karachi, Pakistan", "lang": "Urdu",
-    "lat": 24.8607, "lng": 67.0011, "r": 100, "want": 2,
+    "deck": "hindi-urdu",
+    "label": "Karachi, Pakistan",
+    "lang": "Urdu",
+    "lat": 24.8607,
+    "lng": 67.0011,
+    "r": 100,
+    "want": 2,
     "queries": [
       "کراچی کے لوگوں سے بات چیت سٹریٹ انٹرویو",
       "karachi public opinion street interview urdu locals"
+    ],
+    "native": [
+      "کراچی",
+      "پاکستان"
     ]
   }
 ]

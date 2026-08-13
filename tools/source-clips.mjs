@@ -152,6 +152,20 @@ for (const t of targets) {
       if (seen.has(v.id)) continue;
       seen.add(v.id);
       if (IMPOSTOR.test(v.title)) { rejected.push({ id: v.id, label: t.label, why: 'title suggests imitation or lesson' }); continue; }
+      // A TITLE NAMING THE TARGET PLACE PREDICTS A CONTENT LEAK. If the video is ABOUT the
+      // city, the people in it say the city, and every window leaks. Learned by shipping
+      // "Опрос на Марше единства: что для вас настоящий Харьков" - a survey asking people what
+      // Kharkiv means to them - where all three candidate windows said Kharkiv and the clip had
+      // to be removed after merging. Checked against the place words rather than the whole
+      // label so "Kharkiv, Ukraine" also catches a title saying only "Харьков".
+      const placeWords = String(t.label).split(/[,\s]+/).filter((w) => w.length > 3);
+      const titleNamesPlace = placeWords.some((w) => new RegExp(w, 'i').test(v.title))
+        || (t.native || []).some((w) => v.title.includes(w));
+      if (titleNamesPlace) {
+        rejected.push({ id: v.id, label: t.label, why: `title names the target place: ${v.title.slice(0, 60)}` });
+        console.log(`   ~ ${v.title.slice(0, 46)} — title names the answer, skipped`);
+        continue;
+      }
       const emb = await embeddable(v.id);
       if (!emb) { rejected.push({ id: v.id, label: t.label, why: 'not embeddable' }); continue; }
 
