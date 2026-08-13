@@ -1,805 +1,356 @@
 {
   "accepted": [
     {
-      "id": "yt-OqIpz_eEaKg",
+      "id": "yt-XMyubgtKLro",
       "kind": "yt",
-      "videoId": "OqIpz_eEaKg",
-      "label": "Kingston, Jamaica",
-      "lang": "English",
-      "lat": 17.9714,
-      "lng": -76.7931,
-      "r": 60,
-      "start": 75,
+      "videoId": "XMyubgtKLro",
+      "label": "Bishkek, Kyrgyzstan",
+      "lang": "Russian",
+      "lat": 42.8746,
+      "lng": 74.5698,
+      "r": 120,
+      "start": 107,
       "gain": 100,
       "hint": "Streamed from YouTube — the creator gets the view.",
       "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Kingston, Jamaica",
-        "offBy": 5,
-        "confidence": 88,
-        "evidence": [
-          "Jamaican Patois grammar and cadence",
-          "Pronunciation of 'furniture', 'car', and 'baby'",
-          "Regional vocabulary like 'gully water'"
-        ],
-        "title": "Funny Jamaican Interview ,Flooding in Jamaica,Rosie tutty gran",
-        "author": "Islandvisuals"
-      }
-    },
-    {
-      "id": "yt-7lMWf8-Q9jA",
-      "kind": "yt",
-      "videoId": "7lMWf8-Q9jA",
-      "label": "Kingston, Jamaica",
-      "lang": "English",
-      "lat": 17.9714,
-      "lng": -76.7931,
-      "r": 60,
-      "start": 31,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Kingston, Jamaica",
-        "offBy": 0,
-        "confidence": 95,
-        "evidence": [
-          "Jamaican Patois syntax ('them have')",
-          "Distinct Caribbean/Jamaican rhythmic cadence and intonation",
-          "Direct mention of York Pharmacy in Kingston"
-        ],
-        "title": "Rosie interviewed outside York Pharmacy :Funny Jamaican Interview : Kingston, Jamaica",
-        "author": "York Pharmacy"
-      }
-    },
-    {
-      "id": "yt-T67YveenFvU",
-      "kind": "yt",
-      "videoId": "T67YveenFvU",
-      "label": "Lagos, Nigeria",
-      "lang": "English",
-      "lat": 6.5244,
-      "lng": 3.3792,
-      "r": 80,
-      "start": 63,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Lagos, Nigeria",
+        "model": "gemini-3.5-flash",
+        "heard": "Bishkek, Kyrgyzstan",
         "offBy": 0,
         "confidence": 92,
         "evidence": [
-          "Nigerian English syllable-timed rhythm and cadence",
-          "Southern Nigerian English vowel qualities",
-          "Specific references to Lagos locations like Lekki, Berger, and Chevron"
+          "fluent Kyrgyz phrases like 'башка көптөгөн нерселер бар'",
+          "standard Russian spoken with a mild Central Asian cadence",
+          "the Kyrgyz question 'тамекиби же машина?'"
         ],
-        "title": "RBPro Chat: Lagos Traffick Craze | street interview | Naija gist | Funny Video",
-        "author": "Ruggedboots TV"
-      }
+        "title": "Опрос:Среди горожан о смоге..........",
+        "author": "ЦИМ"
+      },
+      "deck": "russian"
     },
     {
-      "id": "yt-tI8FBKscgQ4",
+      "id": "yt-cjHB4Wb_zqA",
       "kind": "yt",
-      "videoId": "tI8FBKscgQ4",
-      "label": "Lagos, Nigeria",
-      "lang": "English",
-      "lat": 6.5244,
-      "lng": 3.3792,
-      "r": 80,
-      "start": 220,
+      "videoId": "cjHB4Wb_zqA",
+      "label": "Bishkek, Kyrgyzstan",
+      "lang": "Russian",
+      "lat": 42.8746,
+      "lng": 74.5698,
+      "r": 120,
+      "start": 130,
       "gain": 100,
       "hint": "Streamed from YouTube — the creator gets the view.",
       "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Lagos, Nigeria",
-        "offBy": 0,
-        "confidence": 85,
-        "evidence": [
-          "Nigerian English prosody and vowel quality",
-          "Lagos-style street interview format",
-          "West African consonant articulation"
-        ],
-        "title": "Nigeria is in what PLANET? | Street Quiz Nigeria (Ep. 18) | Funny African Videos |",
-        "author": "RakGhana"
-      }
-    },
-    {
-      "id": "yt-LhMvmH_uodE",
-      "kind": "yt",
-      "videoId": "LhMvmH_uodE",
-      "label": "Glasgow, Scotland",
-      "lang": "English",
-      "lat": 55.8642,
-      "lng": -4.2518,
-      "r": 60,
-      "start": 240,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Glasgow, Scotland, United Kingdom",
-        "offBy": 0,
-        "confidence": 98,
-        "evidence": [
-          "explicitly states 'I'm Glaswegian, aye. I am Glasgow.'",
-          "use of regional slang 'Weegie'",
-          "Glaswegian vowel pronunciation and pitch contours"
-        ],
-        "title": "When Scottish People Speak English.. | 當蘇格蘭人說英文時...我投降了!!",
-        "author": "Torres Pit托哥"
-      }
-    },
-    {
-      "id": "yt-I4k8dR04TzA",
-      "kind": "yt",
-      "videoId": "I4k8dR04TzA",
-      "label": "Glasgow, Scotland",
-      "lang": "English",
-      "lat": 55.8642,
-      "lng": -4.2518,
-      "r": 60,
-      "start": 30,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Glasgow, Scotland, United Kingdom",
-        "offBy": 0,
-        "confidence": 85,
-        "evidence": [
-          "tapped 'r' in words like 'parliamentary' and 'refurbishment'",
-          "Scottish monophthongal vowel sounds in 'quite' and 'estate'",
-          "glottal stops for /t/ in 'getting' and 'what'"
-        ],
-        "title": "Tory MP fails to understand Glaswegian accent of SNP's David Linden",
-        "author": "Guardian News"
-      }
-    },
-    {
-      "id": "yt-HpTfmxkXU1A",
-      "kind": "yt",
-      "videoId": "HpTfmxkXU1A",
-      "label": "Singapore",
-      "lang": "English",
-      "lat": 1.3521,
-      "lng": 103.8198,
-      "r": 40,
-      "start": 131,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Singapore",
+        "model": "gemini-3.5-flash",
+        "heard": "Bishkek, Kyrgyzstan",
         "offBy": 0,
         "confidence": 95,
         "evidence": [
-          "distinctive Singaporean English prosody and syllable-timed rhythm",
-          "use of Singaporean slang 'ang moh' (Westerner)",
-          "references to identity and accents in Singapore"
+          "the soft, slightly fronted pronunciation of 'тридцать шесть'",
+          "the characteristic melodic rise and fall of Kyrgyz-influenced Russian",
+          "the natural, unhesitating use of the local term 'кыргызском'"
         ],
-        "title": "What Do People Think Of Singaporeans With \"Angmoh\" Accents? | Word On The Street",
-        "author": "TheSmartLocal"
-      }
+        "title": "Опрос жителей Бишкека #3",
+        "author": "Azziaty"
+      },
+      "deck": "russian"
     },
     {
-      "id": "yt-HylaY5e1awo",
+      "id": "yt-CHA19dT3Zps",
       "kind": "yt",
-      "videoId": "HylaY5e1awo",
-      "label": "Singapore",
-      "lang": "English",
-      "lat": 1.3521,
-      "lng": 103.8198,
-      "r": 40,
-      "start": 186,
+      "videoId": "CHA19dT3Zps",
+      "label": "Tashkent, Uzbekistan",
+      "lang": "Russian",
+      "lat": 41.2995,
+      "lng": 69.2401,
+      "r": 120,
+      "start": 123,
       "gain": 100,
       "hint": "Streamed from YouTube — the creator gets the view.",
       "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Singapore",
-        "offBy": 0,
-        "confidence": 95,
-        "evidence": [
-          "use of Singlish term 'ah gua'",
-          "Singaporean English sentence-final particles and rhythm",
-          "syllable-timed Singlish prosody and intonation"
-        ],
-        "title": "The Singaporean White Boy - The Shan and Rozz Show: EP7",
-        "author": "Clicknetwork"
-      }
-    },
-    {
-      "id": "yt-oSH-QXhJnQw",
-      "kind": "yt",
-      "videoId": "oSH-QXhJnQw",
-      "label": "Marseille, France",
-      "lang": "French",
-      "lat": 43.2965,
-      "lng": 5.3698,
-      "r": 60,
-      "start": 172,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Marseille, France",
-        "offBy": 0,
-        "confidence": 85,
-        "evidence": [
-          "Explicit mention of Marseille",
-          "Southern French intonation and prosody",
-          "Colloquial French phrasing"
-        ],
-        "title": "DÉCRIT MARSEILLE EN 3 MOTS !?🇨🇵(Feat @Gueshtuga) - Micro trottoir",
-        "author": "OneRushTV"
-      }
-    },
-    {
-      "id": "yt-BJH4f6OWF7U",
-      "kind": "yt",
-      "videoId": "BJH4f6OWF7U",
-      "label": "Marseille, France",
-      "lang": "French",
-      "lat": 43.2965,
-      "lng": 5.3698,
-      "r": 60,
-      "start": 30,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Marseille, France",
-        "offBy": 0,
-        "confidence": 95,
-        "evidence": [
-          "Nasal vowels produced with a distinct velar coda sound (e.g. 'paing')",
-          "Melodic Southern French intonation and rhythm",
-          "Local vocabulary and reference to the Vieux-Port of Marseille"
-        ],
-        "title": "Ils font croire que Macron va interdire l'accent Marseillais",
-        "author": "Makambo ya Mokili Tv Officiel"
-      }
-    },
-    {
-      "id": "yt-F53zsQIKlrw",
-      "kind": "yt",
-      "videoId": "F53zsQIKlrw",
-      "label": "Brussels, Belgium",
-      "lang": "French",
-      "lat": 50.8503,
-      "lng": 4.3517,
-      "r": 50,
-      "start": 225,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Paris, France",
-        "offBy": 264,
-        "confidence": 85,
-        "evidence": [
-          "fluent Metropolitan French phonology",
-          "standard uvular rhotic /r/ sound",
-          "typical Parisian/northern French intonation patterns"
-        ],
-        "title": "Ce que les BELGES pensent des FRANCAIS (Micro-trottoir)",
-        "author": "TITAN - Le média"
-      }
-    },
-    {
-      "id": "yt-SFh4sdSqR60",
-      "kind": "yt",
-      "videoId": "SFh4sdSqR60",
-      "label": "Abidjan, Côte d'Ivoire",
-      "lang": "French",
-      "lat": 5.36,
-      "lng": -4.0083,
-      "r": 70,
-      "start": 118,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Abidjan, Côte d'Ivoire",
-        "offBy": 0,
-        "confidence": 85,
-        "evidence": [
-          "mention of 'woro-woro' (Abidjan shared taxis)",
-          "Ivorian French intonation and cadence",
-          "use of Ivorian conversational discourse markers like 'toi là'"
-        ],
-        "title": "MICRO TROTTOIR //ABIDJAN ABOBO #INOV_TV",
-        "author": "Inov TV"
-      }
-    },
-    {
-      "id": "yt-KoqtgZTHhzc",
-      "kind": "yt",
-      "videoId": "KoqtgZTHhzc",
-      "label": "Recife, Brazil",
-      "lang": "Portuguese",
-      "lat": -8.0476,
-      "lng": -34.877,
-      "r": 70,
-      "start": 117,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Recife, Pernambuco, Brazil",
-        "offBy": 0,
-        "confidence": 85,
-        "evidence": [
-          "distinctive Northeastern Brazilian intonation and speed",
-          "use of regional filler terms like 'meu filho'",
-          "pronunciation of open vowels and cadence typical of Pernambuco"
-        ],
-        "title": "Stand up Comedy sobre a Bilola de Brennand (Recife) - por Renato Bartolomeu",
-        "author": "Renato Bartolomeu"
-      }
-    },
-    {
-      "id": "yt-MY7flvJA4Ds",
-      "kind": "yt",
-      "videoId": "MY7flvJA4Ds",
-      "label": "Salvador, Brazil",
-      "lang": "Portuguese",
-      "lat": -12.9777,
-      "lng": -38.5016,
-      "r": 70,
-      "start": 58,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Salvador, Bahia, Brazil",
-        "offBy": 0,
-        "confidence": 75,
-        "evidence": [
-          "Brazilian Portuguese pronunciation with open mid-vowels",
-          "Palatalization of /t/ before /i/ in words like 'esporte'",
-          "Rhythmic cadence typical of Eastern and Northeastern Brazil"
-        ],
-        "title": "entrevista basket de rua salvador  bahia",
-        "author": "Samir Tayrovitch"
-      }
-    },
-    {
-      "id": "yt-1tdOI0X0phE",
-      "kind": "yt",
-      "videoId": "1tdOI0X0phE",
-      "label": "Buenos Aires, Argentina",
-      "lang": "Spanish",
-      "lat": -34.6037,
-      "lng": -58.3816,
-      "r": 60,
-      "start": 33,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Buenos Aires, Argentina",
-        "offBy": 0,
-        "confidence": 85,
-        "evidence": [
-          "Use of the Argentine slang 're mal' and 'buena onda'",
-          "Use of 'colectivo' for bus",
-          "Sing-song Rioplatense intonation"
-        ],
-        "title": "Así era el acento porteño en los años '90 en Argentina",
-        "author": "GLH HaxBall"
-      }
-    },
-    {
-      "id": "yt-zcasomU6Ios",
-      "kind": "yt",
-      "videoId": "zcasomU6Ios",
-      "label": "Buenos Aires, Argentina",
-      "lang": "Spanish",
-      "lat": -34.6037,
-      "lng": -58.3816,
-      "r": 60,
-      "start": 122,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Buenos Aires, Argentina",
-        "offBy": 0,
-        "confidence": 92,
-        "evidence": [
-          "Rioplatense intonation and speech cadence",
-          "Use of Rioplatense slang ('chorro')",
-          "Use of conversational tag '¿viste?'"
-        ],
-        "title": "\"Mato al chorro, mato al juez\" ENTREVISTA COMPLETA ORIGINAL.",
-        "author": "Sentidos Audiovisuales"
-      }
-    },
-    {
-      "id": "yt-k1ur2rnVKLs",
-      "kind": "yt",
-      "videoId": "k1ur2rnVKLs",
-      "label": "Bogotá, Colombia",
-      "lang": "Spanish",
-      "lat": 4.711,
-      "lng": -74.0721,
-      "r": 60,
-      "start": 40,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Bogotá, Colombia",
-        "offBy": 0,
+        "model": "gemini-3.5-flash",
+        "heard": "Tashkent, Uzbekistan",
+        "offBy": 1,
         "confidence": 90,
         "evidence": [
-          "Direct reference to Bogotá's TransMilenio transit system",
-          "Distinctive melodic musical intonation of central Andean Colombia",
-          "Fully pronounced syllable-final 's' consonants"
+          "the use of the Uzbek word 'yaxshi' (яхши) meaning 'good'",
+          "the mention of '8 million' referring to Uzbek soum",
+          "the distinct Central Asian Russian accent with softer consonants"
         ],
-        "title": "El hombre del tapabocas | CityTv",
-        "author": "CityTv"
-      }
+        "title": "Опрос: Сколько зарабатывают жители Ташкента",
+        "author": "Gazeta.uz: Новости Узбекистана"
+      },
+      "deck": "russian"
     },
     {
-      "id": "yt-ZWNYZJONaWQ",
+      "id": "yt-oYxuj1dl_JY",
       "kind": "yt",
-      "videoId": "ZWNYZJONaWQ",
-      "label": "Havana, Cuba",
-      "lang": "Spanish",
-      "lat": 23.1136,
-      "lng": -82.3666,
-      "r": 50,
-      "start": 171,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Havana, Cuba",
-        "offBy": 0,
-        "confidence": 88,
-        "evidence": [
-          "Cuban vocabulary like 'preuniversitario' and 'fulas' (money)",
-          "Frequent dropping and aspiration of word-final /s/",
-          "Characteristic Cuban speech cadence and vocal timbre"
-        ],
-        "title": "Cual Sería tu Último Deseo - Robertico Comediante Entrevistas en la Calle, Cuba - Parte 1",
-        "author": "Robertico Comediante"
-      }
-    },
-    {
-      "id": "yt-psXX11dIrNo",
-      "kind": "yt",
-      "videoId": "psXX11dIrNo",
-      "label": "Lahore, Pakistan",
-      "lang": "Hindi–Urdu",
-      "lat": 31.5204,
-      "lng": 74.3587,
-      "r": 60,
-      "start": 30,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Lahore, Punjab, Pakistan",
-        "offBy": 0,
-        "confidence": 90,
-        "evidence": [
-          "Pakistani English intonation and rhythm",
-          "Clear Urdu cadence and vowel articulation",
-          "Recorded on location in Lahore"
-        ],
-        "title": "AI Street Interview in Lahore Bazaar | Google Veo 3 Realistic Urdu AI Video – Day 2",
-        "author": "AI Family "
-      }
-    },
-    {
-      "id": "yt-7TPAXwQ6Xig",
-      "kind": "yt",
-      "videoId": "7TPAXwQ6Xig",
-      "label": "Chengdu, China",
-      "lang": "Chinese",
-      "lat": 30.5728,
-      "lng": 104.0668,
-      "r": 60,
-      "start": 132,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Chengdu, Sichuan, China",
-        "offBy": 10,
-        "confidence": 85,
-        "evidence": [
-          "Southwestern Mandarin intonation and tones",
-          "Sichuanese lexical phrasing",
-          "characteristic phonology of Southwestern dialects"
-        ],
-        "title": "四川方言：老表拖欠民工工资，跑回家乡充大款，太可笑了！",
-        "author": "爆笑巴蜀"
-      }
-    },
-    {
-      "id": "yt-gOVe3869tX8",
-      "kind": "yt",
-      "videoId": "gOVe3869tX8",
-      "label": "Tbilisi, Georgia",
-      "lang": "Russian",
-      "lat": 41.7151,
-      "lng": 44.8271,
-      "r": 70,
-      "start": 229,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Tbilisi, Georgia",
-        "offBy": 0,
-        "confidence": 85,
-        "evidence": [
-          "Georgian-accented Russian intonation and rhythm",
-          "characteristic glottalized/pharyngealized consonant articulation",
-          "contextual reference to Russians fleeing 'here' to Georgia"
-        ],
-        "title": "Притворился УКРАИНЦЕМ, чтобы узнать, как относятся к РУССКИМ в Грузии / Тбилиси Опрос",
-        "author": "Дима Путешествует"
-      }
-    },
-    {
-      "id": "yt-4I4v9KWvYWc",
-      "kind": "yt",
-      "videoId": "4I4v9KWvYWc",
-      "label": "Yerevan, Armenia",
-      "lang": "Russian",
-      "lat": 40.1792,
-      "lng": 44.4991,
-      "r": 70,
-      "start": 330,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Tbilisi, Georgia",
-        "offBy": 173,
-        "confidence": 65,
-        "evidence": [
-          "Fluent Russian spoken with varying regional and Caucasus/post-Soviet accents",
-          "Street interview question: 'Как вы относитесь к русским?' ('How do you feel about Russians?')",
-          "Speaker states: 'Я сам из России, поэтому' ('I am from Russia myself, therefore')"
-        ],
-        "title": "КАК ОТНОСЯТСЯ К РУССКИМ В АРМЕНИИ? (мы опросили 100+ прохожих)",
-        "author": "Роман Кондратьєв"
-      }
-    },
-    {
-      "id": "yt-EYUJ5fQmipw",
-      "kind": "yt",
-      "videoId": "EYUJ5fQmipw",
+      "videoId": "oYxuj1dl_JY",
       "label": "Chișinău, Moldova",
       "lang": "Russian",
       "lat": 47.0105,
       "lng": 28.8638,
-      "r": 70,
-      "start": 89,
+      "r": 100,
+      "start": 30,
       "gain": 100,
       "hint": "Streamed from YouTube — the creator gets the view.",
       "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Chișinău, Moldova",
+        "model": "gemini-3.5-flash",
+        "heard": "Chisinau, Moldova",
+        "offBy": 0,
+        "confidence": 95,
+        "evidence": [
+          "they explicitly mention Moldova ('в Молдове')",
+          "they refer to the local currency 'lei' ('лей')",
+          "the slightly softened, rhythmic cadence of their Russian"
+        ],
+        "title": "Опрос: с какими проблемами сталкиваются жители Молдовы?",
+        "author": "TV6 Moldova"
+      },
+      "deck": "russian"
+    },
+    {
+      "id": "yt-BGymDdBJrM0",
+      "kind": "yt",
+      "videoId": "BGymDdBJrM0",
+      "label": "Chișinău, Moldova",
+      "lang": "Russian",
+      "lat": 47.0105,
+      "lng": 28.8638,
+      "r": 100,
+      "start": 30,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.5-flash",
+        "heard": "Kyiv, Ukraine",
+        "offBy": 401,
+        "confidence": 80,
+        "evidence": [
+          "your 'g' in 'goda' and 'gde-to' is pronounced as a soft breathy 'h'",
+          "the final 'g' in 'uslug' is devoiced to a 'kh' sound",
+          "the rhythm and vowel flow are typical of Russian spoken in Ukraine"
+        ],
+        "title": "Сколько жители Кишинева платят за аренду жилья? - Опрос Moldova Liberă",
+        "author": "Moldova Liberă"
+      },
+      "deck": "russian"
+    },
+    {
+      "id": "yt-v6SOFiVntd4",
+      "kind": "yt",
+      "videoId": "v6SOFiVntd4",
+      "label": "Karaganda, Kazakhstan",
+      "lang": "Russian",
+      "lat": 49.8047,
+      "lng": 73.1094,
+      "r": 130,
+      "start": 49,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.5-flash",
+        "heard": "Astana, Kazakhstan",
+        "offBy": 192,
+        "confidence": 85,
+        "evidence": [
+          "use of the Kazakh administrative term 'akim'",
+          "slightly even, syllable-timed rhythm in Russian speech",
+          "distinctly clear, non-reduced unstressed vowels"
+        ],
+        "title": "28% жителей Караганды прошли перепись населения он-лайн.",
+        "author": "ТК 5 канал Караганда"
+      },
+      "deck": "russian"
+    },
+    {
+      "id": "yt-nhfUnNmFARg",
+      "kind": "yt",
+      "videoId": "nhfUnNmFARg",
+      "label": "Kharkiv, Ukraine",
+      "lang": "Russian",
+      "lat": 49.9935,
+      "lng": 36.2304,
+      "r": 110,
+      "start": 129,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.5-flash",
+        "heard": "Kharkiv, Ukraine",
+        "offBy": 1,
+        "confidence": 85,
+        "evidence": [
+          "using the word 'город' instead of 'місто' for city",
+          "mentioning Belgorod as a nearby reference point",
+          "the characteristic Ukrainian voiced glottal 'h' sound"
+        ],
+        "title": "Опрос на Марше единства: «что для вас настоящий Харьков?»",
+        "author": "Медіагрупа «Накипіло»"
+      },
+      "deck": "russian"
+    },
+    {
+      "id": "yt-vogXu3dUXzE",
+      "kind": "yt",
+      "videoId": "vogXu3dUXzE",
+      "label": "Delhi, India",
+      "lang": "Hindi",
+      "lat": 28.6139,
+      "lng": 77.209,
+      "r": 100,
+      "start": 106,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.5-flash",
+        "heard": "Delhi, India",
         "offBy": 0,
         "confidence": 85,
         "evidence": [
-          "Reference to the National Agency for Energy Regulation (ANRE)",
-          "Discussion of local public protest actions regarding energy tariffs",
-          "Russian spoken with regional Moldovan intonation"
+          "the clear dental pronunciation of 'Vande Mataram'",
+          "the standard urban North Indian Hindi intonation in 'yahi bacha rahi thi'",
+          "the typical Indian English pronunciation of 'National Anthem'"
         ],
-        "title": "Социальный опрос - молодежи Кишинева",
-        "author": "Гренада MD"
-      }
+        "title": "How Much Delhi Knows About India | Independence Day Special 🫡 | Street Interview | Jeheranium",
+        "author": "Jeheranium"
+      },
+      "deck": "hindi-urdu"
     },
     {
-      "id": "yt-KYCzYHQgulE",
+      "id": "yt-Td9sfMaU7u0",
       "kind": "yt",
-      "videoId": "KYCzYHQgulE",
-      "label": "Odesa, Ukraine",
-      "lang": "Russian",
-      "lat": 46.4825,
-      "lng": 30.7233,
-      "r": 70,
-      "start": 85,
+      "videoId": "Td9sfMaU7u0",
+      "label": "Delhi, India",
+      "lang": "Hindi",
+      "lat": 28.6139,
+      "lng": 77.209,
+      "r": 100,
+      "start": 195,
       "gain": 100,
       "hint": "Streamed from YouTube — the creator gets the view.",
       "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Northern Ukraine",
-        "offBy": 536,
+        "model": "gemini-3.5-flash",
+        "heard": "Delhi, India",
+        "offBy": 0,
         "confidence": 85,
         "evidence": [
-          "Explicitly states 'Сівєр України' (North of Ukraine)",
-          "Softened consonants characteristic of Ukrainian-accented Russian",
-          "Ukrainian vowel quality in words like 'Сівєр'"
+          "use of the colloquial North Indian word 'lenter' for a concrete roof slab",
+          "distinctive North Indian Hinglish rhythm and sentence structure",
+          "retroflex pronunciation of 't' and 'd' in English words like 'smartness'"
         ],
-        "title": "Опрос \"Как война изменила вашу жизнь?\" Одесса. 20.04.2022",
-        "author": "Думская Нет"
-      }
+        "title": "Ladko ko kaisi ladkiyan pasand aati hai |What men want in women Pt 3 | Public Hai Ye Sab Janti Hai",
+        "author": "Jeheranium"
+      },
+      "deck": "hindi-urdu"
+    },
+    {
+      "id": "yt-zRpMJRph-wk",
+      "kind": "yt",
+      "videoId": "zRpMJRph-wk",
+      "label": "Karachi, Pakistan",
+      "lang": "Urdu",
+      "lat": 24.8607,
+      "lng": 67.0011,
+      "r": 100,
+      "start": 217,
+      "gain": 100,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "model": "gemini-3.5-flash",
+        "heard": "Karachi, Pakistan",
+        "offBy": 0,
+        "confidence": 85,
+        "evidence": [
+          "your 'kh' in 'khayal' has a strong, raspy friction sound",
+          "the 't' in 'tweet' and 'd' in 'dollar' are pronounced with a soft retroflex tap",
+          "the word 'ekdum' is used naturally to mean completely or right away"
+        ],
+        "title": "“Karachi Better Than Paris?” | Sindh To Build A City Better Than Dubai? | Shabbar Zaidi’s Statement",
+        "author": "GTV NETWORK HD"
+      },
+      "deck": "hindi-urdu"
     }
   ],
   "rejected": [
     {
-      "id": "kNp0Pdz7scU",
-      "label": "Kingston, Jamaica",
-      "why": "model heard Lagos, Nigeria — 8748 km away"
-    },
-    {
-      "id": "j2pyv4d-iR0",
-      "label": "Kingston, Jamaica",
+      "id": "YsMBoEWmeLU",
+      "label": "Narva, Estonia",
       "why": "audio fetch failed"
     },
     {
-      "id": "gp6zcGVZJgk",
-      "label": "Kingston, Jamaica",
+      "id": "yfN_krTt1ls",
+      "label": "Narva, Estonia",
       "why": "audio fetch failed"
     },
     {
-      "id": "eisysQXTas0",
-      "label": "Kingston, Jamaica",
+      "id": "05D8nM0HrvU",
+      "label": "Narva, Estonia",
       "why": "audio fetch failed"
     },
     {
-      "id": "zFfbO2XBLsE",
-      "label": "Kingston, Jamaica",
+      "id": "JLD3UmA8WEE",
+      "label": "Bishkek, Kyrgyzstan",
       "why": "audio fetch failed"
     },
     {
-      "id": "enZRmiFiqcE",
-      "label": "Kingston, Jamaica",
+      "id": "vLwXLloeUbU",
+      "label": "Bishkek, Kyrgyzstan",
       "why": "audio fetch failed"
     },
     {
-      "id": "7ddR_PeIKvo",
-      "label": "Kingston, Jamaica",
+      "id": "ZwCdm8zExO4",
+      "label": "Tashkent, Uzbekistan",
+      "why": "model heard Moscow, Russia — 2791 km away"
+    },
+    {
+      "id": "IVjJ_2KXnmc",
+      "label": "Tashkent, Uzbekistan",
+      "why": "model heard Moscow, Russia — 2791 km away"
+    },
+    {
+      "id": "EYUJ5fQmipw",
+      "label": "Chișinău, Moldova",
       "why": "audio fetch failed"
     },
     {
-      "id": "FVoKVrmMGvI",
-      "label": "Glasgow, Scotland",
+      "id": "usSmZXHhNrA",
+      "label": "Chișinău, Moldova",
       "why": "audio fetch failed"
     },
     {
-      "id": "FQhIPchN-AQ",
-      "label": "Singapore",
+      "id": "tZZKEqNtsg0",
+      "label": "Karaganda, Kazakhstan",
+      "why": "model heard Moscow, Russia — 2447 km away"
+    },
+    {
+      "id": "M2bB_pESKaU",
+      "label": "Delhi, India",
       "why": "audio fetch failed"
     },
     {
-      "id": "Q8M57uJbVZo",
-      "label": "Singapore",
+      "id": "kAUJkC7taoE",
+      "label": "Delhi, India",
       "why": "audio fetch failed"
     },
     {
-      "id": "7SL0VeD6QGE",
-      "label": "Marseille, France",
+      "id": "qx5exdZowT0",
+      "label": "Karachi, Pakistan",
       "why": "audio fetch failed"
     },
     {
-      "id": "VNILIMZx9JA",
-      "label": "Marseille, France",
+      "id": "y0zlzHvQReQ",
+      "label": "Karachi, Pakistan",
       "why": "audio fetch failed"
     },
     {
-      "id": "dmvjrG2fZto",
-      "label": "Marseille, France",
+      "id": "saD4Z8LZC6c",
+      "label": "Karachi, Pakistan",
       "why": "audio fetch failed"
     },
     {
-      "id": "-NT24O3IfPs",
-      "label": "Marseille, France",
+      "id": "VbcNS3o5ARM",
+      "label": "Karachi, Pakistan",
       "why": "audio fetch failed"
-    },
-    {
-      "id": "Uqs6iGgFGh4",
-      "label": "Marseille, France",
-      "why": "audio fetch failed"
-    },
-    {
-      "id": "s0rNMmxyMXQ",
-      "label": "Recife, Brazil",
-      "why": "audio fetch failed"
-    },
-    {
-      "id": "scibhUUAf8M",
-      "label": "Recife, Brazil",
-      "why": "title suggests imitation or lesson"
-    },
-    {
-      "id": "2X5aTBZZe_M",
-      "label": "Recife, Brazil",
-      "why": "model heard São Paulo, Brazil — 2131 km away"
-    },
-    {
-      "id": "1Z-kO6oLiAI",
-      "label": "Recife, Brazil",
-      "why": "title suggests imitation or lesson"
-    },
-    {
-      "id": "X-rmUjtxpTs",
-      "label": "Salvador, Brazil",
-      "why": "audio fetch failed"
-    },
-    {
-      "id": "EG8XHT7AkKs",
-      "label": "Salvador, Brazil",
-      "why": "not embeddable"
-    },
-    {
-      "id": "GqUWj0x6OUc",
-      "label": "Salvador, Brazil",
-      "why": "audio fetch failed"
-    },
-    {
-      "id": "A9o0khCn7Bo",
-      "label": "Salvador, Brazil",
-      "why": "audio fetch failed"
-    },
-    {
-      "id": "35lmmzf-bio",
-      "label": "Lisbon, Portugal",
-      "why": "model heard São Paulo, Brazil — 7949 km away"
-    },
-    {
-      "id": "E_e_w43zilQ",
-      "label": "Lisbon, Portugal",
-      "why": "audio fetch failed"
-    },
-    {
-      "id": "sxT8l_v2Oj4",
-      "label": "Bogotá, Colombia",
-      "why": "audio fetch failed"
-    },
-    {
-      "id": "ZmFhxz1Vm5A",
-      "label": "Lahore, Pakistan",
-      "why": "audio fetch failed"
-    },
-    {
-      "id": "520zmm5qVh0",
-      "label": "Hyderabad, India",
-      "why": "audio fetch failed"
-    },
-    {
-      "id": "n1zh9qBBkU8",
-      "label": "Hyderabad, India",
-      "why": "audio fetch failed"
-    },
-    {
-      "id": "lEcNbmb5QHQ",
-      "label": "Beijing, China",
-      "why": "audio fetch failed"
-    },
-    {
-      "id": "_tHmtMBuYJ4",
-      "label": "Tbilisi, Georgia",
-      "why": "audio fetch failed"
-    },
-    {
-      "id": "X79M8kR1PFU",
-      "label": "Odesa, Ukraine",
-      "why": "not embeddable"
-    },
-    {
-      "id": "YNHirPHXKR8",
-      "label": "Lisbon, Portugal",
-      "why": "manual review: performance content or untrustworthy label (gate heard Coimbra, Portugal)"
-    },
-    {
-      "id": "mOnU9XxSNC4",
-      "label": "Hyderabad, India",
-      "why": "manual review: performance content or untrustworthy label (gate heard Mumbai, Maharashtra, India)"
-    },
-    {
-      "id": "y8TY8e18mX8",
-      "label": "Beijing, China",
-      "why": "manual review: performance content or untrustworthy label (gate heard Changsha, Hunan, China)"
     }
   ]
 }

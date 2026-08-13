@@ -1,60 +1,51 @@
 [
   {
-    "deck": "russian", "label": "Moscow, Russia", "lang": "Russian",
-    "lat": 55.7558, "lng": 37.6173, "r": 120, "want": 2,
+    "_why": "RUSSIAN IS THE DECK WHERE THE OBVIOUS TARGETS ARE THE WRONG ONES. Russian inside Russia is heavily standardised, so Moscow, Petersburg, Novosibirsk and Yekaterinburg are barely separable by ear and would make five rounds of the same answer. check-decks.mjs records the rule this deck actually runs on: the old 'native or official language' test admitted standard Minsk Russian, barely separable from Moscow, while excluding Armenian and Georgian Russian where non-Slavic substrate makes the variety MORE recognisable. So the deck is built on the post-Soviet spread, where each Russian-speaking community carries a different substrate: Turkic in Bishkek and Tashkent, Romanian in Chisinau, Finnic in Tallinn, Baltic in Riga, Hebrew in Haifa. Already held: Yerevan, Tbilisi, Odesa, Almaty, Moscow.",
+    "deck": "russian", "label": "Bishkek, Kyrgyzstan", "lang": "Russian",
+    "lat": 42.8746, "lng": 74.5698, "r": 120, "want": 2,
     "queries": [
-      "влог москва обычный день прогулка по городу",
-      "уличный опрос москва прохожие отвечают",
-      "москвич рассказывает о жизни в москве интервью"
+      "бишкек уличный опрос прохожие отвечают",
+      "влог бишкек кыргызстан обычный день по русски"
     ]
   },
   {
-    "deck": "russian", "label": "Saint Petersburg, Russia", "lang": "Russian",
-    "lat": 59.9311, "lng": 30.3609, "r": 100, "want": 2,
+    "deck": "russian", "label": "Tashkent, Uzbekistan", "lang": "Russian",
+    "lat": 41.2995, "lng": 69.2401, "r": 120, "want": 2,
     "queries": [
-      "влог санкт петербург обычный день прогулка",
-      "уличный опрос санкт петербург прохожие",
-      "петербуржец рассказывает о городе интервью"
+      "ташкент уличный опрос прохожие по русски",
+      "влог ташкент узбекистан обычный день по русски"
     ]
   },
   {
-    "deck": "russian", "label": "Novosibirsk, Russia", "lang": "Russian",
-    "lat": 55.0084, "lng": 82.9357, "r": 150, "want": 1,
+    "deck": "russian", "label": "Chișinău, Moldova", "lang": "Russian",
+    "lat": 47.0105, "lng": 28.8638, "r": 100, "want": 2,
     "queries": [
-      "влог новосибирск обычный день сибирь",
-      "уличный опрос новосибирск прохожие отвечают"
+      "кишинев уличный опрос прохожие по русски",
+      "влог кишинев молдова обычный день по русски"
     ]
   },
   {
-    "deck": "russian", "label": "Yekaterinburg, Russia", "lang": "Russian",
-    "lat": 56.8389, "lng": 60.6057, "r": 150, "want": 1,
+    "deck": "russian", "label": "Riga, Latvia", "lang": "Russian",
+    "lat": 56.9496, "lng": 24.1052, "r": 100, "want": 1,
     "queries": [
-      "влог екатеринбург обычный день урал",
-      "уличный опрос екатеринбург прохожие"
+      "рига уличный опрос русскоязычные латвия",
+      "влог рига латвия по русски обычный день"
     ]
   },
   {
-    "deck": "russian", "label": "Kazan, Russia", "lang": "Russian",
-    "lat": 55.7963, "lng": 49.1088, "r": 150, "want": 1,
+    "deck": "russian", "label": "Tallinn, Estonia", "lang": "Russian",
+    "lat": 59.4370, "lng": 24.7536, "r": 100, "want": 1,
     "queries": [
-      "влог казань обычный день прогулка по городу",
-      "уличный опрос казань прохожие отвечают"
+      "таллин уличный опрос русскоязычные эстония",
+      "влог таллин эстония по русски обычный день"
     ]
   },
   {
-    "deck": "russian", "label": "Vladivostok, Russia", "lang": "Russian",
-    "lat": 43.1155, "lng": 131.8855, "r": 180, "want": 1,
+    "deck": "russian", "label": "Haifa, Israel", "lang": "Russian",
+    "lat": 32.7940, "lng": 34.9896, "r": 120, "want": 1,
     "queries": [
-      "влог владивосток обычный день дальний восток",
-      "уличный опрос владивосток прохожие"
-    ]
-  },
-  {
-    "deck": "russian", "label": "Minsk, Belarus", "lang": "Russian",
-    "lat": 53.9006, "lng": 27.5590, "r": 120, "want": 1,
-    "queries": [
-      "влог минск обычный день беларусь прогулка",
-      "уличный опрос минск прохожие отвечают"
+      "израиль русскоязычные интервью репатрианты разговор",
+      "влог израиль по русски обычный день хайфа"
     ]
   },
 
@@ -101,11 +92,11 @@
     ]
   },
   {
-    "deck": "hindi-urdu", "label": "Islamabad, Pakistan", "lang": "Urdu",
-    "lat": 33.6844, "lng": 73.0479, "r": 100, "want": 1,
+    "deck": "hindi-urdu", "label": "Karachi, Pakistan", "lang": "Urdu",
+    "lat": 24.8607, "lng": 67.0011, "r": 100, "want": 1,
     "queries": [
-      "اسلام آباد سٹریٹ انٹرویو عام لوگ",
-      "islamabad street interview urdu public"
+      "کراچی سٹریٹ انٹرویو عام لوگ",
+      "karachi street interview urdu public opinion"
     ]
   },
 
@@ -133,14 +124,6 @@
       "哈尔滨 vlog 日常 东北 生活"
     ]
   },
-  {
-    "deck": "chinese", "label": "Kunming, China", "lang": "Mandarin",
-    "lat": 24.8801, "lng": 102.8329, "r": 160, "want": 1,
-    "queries": [
-      "昆明 街头采访 路人 云南话",
-      "昆明 vlog 日常 云南 生活"
-    ]
-  },
 
   {
     "deck": "portuguese", "label": "Lisbon, Portugal", "lang": "Portuguese",
@@ -158,14 +141,6 @@
       "vlog luanda angola dia a dia portugues"
     ]
   },
-  {
-    "deck": "portuguese", "label": "Belém, Brazil", "lang": "Portuguese",
-    "lat": -1.4558, "lng": -48.4902, "r": 150, "want": 1,
-    "queries": [
-      "entrevista de rua belem para brasileiros",
-      "vlog belem do para dia normal sotaque paraense"
-    ]
-  },
 
   {
     "deck": "french", "label": "Lyon, France", "lang": "French",
@@ -181,14 +156,6 @@
     "queries": [
       "micro trottoir kinshasa congolais francais",
       "vlog kinshasa rdc vie quotidienne francais"
-    ]
-  },
-  {
-    "deck": "french", "label": "Geneva, Switzerland", "lang": "French",
-    "lat": 46.2044, "lng": 6.1432, "r": 90, "want": 1,
-    "queries": [
-      "micro trottoir geneve suisse romande les gens",
-      "vlog geneve suisse journee normale francais"
     ]
   }
 ]

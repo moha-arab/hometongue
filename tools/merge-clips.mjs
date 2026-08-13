@@ -70,7 +70,18 @@ const byDeck = {};
 for (const c of keep) (byDeck[c.deck ?? deckOf(c)] ||= []).push(c);
 function deckOf(c) {
   // deck is carried on the target, not the clip record; recover it from the language
-  const L = { English: 'accents', French: 'french', Russian: 'russian', Portuguese: 'portuguese', Spanish: 'spanish', 'Hindi–Urdu': 'hindi-urdu', Chinese: 'chinese', Arabic: 'arabic' };
+  // Targets name the language the way a person would - "Urdu", "Hindi", "Mandarin",
+  // "Cantonese" - and none of those were in this map, so six Hindi/Urdu and Chinese clips
+  // silently landed in the World Languages deck instead of their own. Anything unrecognised
+  // falling through to 'languages' is a quiet miscategorisation, not a safe default, so the
+  // real deck is now stamped on each record at source and this is only a fallback.
+  const L = {
+    English: 'accents', French: 'french', Russian: 'russian', Portuguese: 'portuguese',
+    Spanish: 'spanish', Arabic: 'arabic',
+    'Hindi–Urdu': 'hindi-urdu', 'Hindi-Urdu': 'hindi-urdu', Hindi: 'hindi-urdu', Urdu: 'hindi-urdu',
+    Chinese: 'chinese', Mandarin: 'chinese', Cantonese: 'chinese',
+  };
+  if (!L[c.lang]) console.log(`  WARN  "${c.lang}" is not mapped to a deck; falling back to languages`);
   return L[c.lang] || 'languages';
 }
 

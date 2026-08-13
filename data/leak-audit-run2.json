@@ -1,0 +1,108 @@
+{
+  "ts": 0,
+  "flagged": [
+    {
+      "id": "yt-OqIpz_eEaKg",
+      "deck": "accents",
+      "label": "Kingston, Jamaica",
+      "why": "fetch failed, could not audit"
+    },
+    {
+      "id": "yt-SS9bBuF0w4w",
+      "deck": "accents",
+      "label": "Kingston, Jamaica",
+      "why": "fetch failed, could not audit"
+    },
+    {
+      "id": "yt-tI8FBKscgQ4",
+      "deck": "accents",
+      "label": "Lagos, Nigeria",
+      "why": "fetch failed, could not audit"
+    },
+    {
+      "id": "yt-LhMvmH_uodE",
+      "deck": "accents",
+      "label": "Glasgow, Scotland",
+      "why": "fetch failed, could not audit"
+    },
+    {
+      "id": "yt-_3pnHcYuzOQ",
+      "deck": "accents",
+      "label": "Brooklyn, New York, USA",
+      "why": "fetch failed, could not audit"
+    },
+    {
+      "id": "yt--NT24O3IfPs",
+      "deck": "french",
+      "label": "Marseille, France",
+      "why": "fetch failed, could not audit"
+    },
+    {
+      "id": "yt-0xDjLQpsmUM",
+      "deck": "french",
+      "label": "Marseille, France",
+      "why": "fetch failed, could not audit"
+    },
+    {
+      "id": "yt-SFh4sdSqR60",
+      "deck": "french",
+      "label": "Abidjan, Côte d'Ivoire",
+      "why": "fetch failed, could not audit"
+    },
+    {
+      "id": "yt-1iMMUDdCjso",
+      "deck": "chinese",
+      "label": "Beijing, China",
+      "why": "fetch failed, could not audit"
+    },
+    {
+      "id": "yt-6yRcJ-BUVDg",
+      "deck": "chinese",
+      "label": "Chengdu, China",
+      "why": "fetch failed, could not audit"
+    },
+    {
+      "id": "yt-520zmm5qVh0",
+      "deck": "hindi-urdu",
+      "label": "Hyderabad, India",
+      "why": "fetch failed, could not audit"
+    },
+    {
+      "id": "yt-KoqtgZTHhzc",
+      "deck": "portuguese",
+      "label": "Recife, Brazil",
+      "why": "fetch failed, could not audit"
+    },
+    {
+      "id": "yt-MY7flvJA4Ds",
+      "deck": "portuguese",
+      "label": "Salvador, Brazil",
+      "why": "fetch failed, could not audit"
+    },
+    {
+      "id": "yt-GqUWj0x6OUc",
+      "deck": "portuguese",
+      "label": "Salvador, Brazil",
+      "why": "fetch failed, could not audit"
+    },
+    {
+      "id": "yt-4I4v9KWvYWc",
+      "deck": "russian",
+      "label": "Yerevan, Armenia",
+      "start": 330,
+      "why": "SAYS PLACE: Russia"
+    },
+    {
+      "id": "yt-gOVe3869tX8",
+      "deck": "russian",
+      "label": "Tbilisi, Georgia",
+      "why": "fetch failed, could not audit"
+    },
+    {
+      "id": "yt-gRaokqJX1c8",
+      "deck": "russian",
+      "label": "Almaty, Kazakhstan",
+      "why": "fetch failed, could not audit"
+    }
+  ]
+}
