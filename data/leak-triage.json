@@ -1,28 +1,16 @@
 {
-  "leaks": [
-    {
-      "deck": "languages",
-      "label": "Portuguese (Brazil)",
-      "off": 111,
-      "id": "lang-portuguese-brazil",
-      "curated": false,
-      "why": "SAYS PLACE: Sebastópolis",
-      "named": "Sebastópolis",
-      "verdict": "leak",
-      "reason": "Sebastópolis is a municipality located in the state of São Paulo, Brazil, which directly points to the correct country of Brazil."
-    }
-  ],
+  "leaks": [],
   "herrings": [
     {
       "deck": "languages",
-      "label": "Turkish",
-      "off": 111,
-      "id": "lang-turkish",
-      "curated": false,
-      "why": "SAYS PLACE: Rusya, Çin",
-      "named": "Rusya, Çin",
+      "label": "Hausa",
+      "off": 20,
+      "id": "lang-hausa",
+      "curated": true,
+      "why": "SAYS PLACE: Jamus",
+      "named": "Jamus",
       "verdict": "red_herring",
-      "reason": "The named places are Russia ('Rusya') and China ('Çin'). Neither of these countries is in, near, or part of Turkey, so they point somewhere else entirely and would mislead the player rather than reveal the correct answer."
+      "reason": "\"Jamus\" is the Hausa word for Germany. Since Germany is located in Europe, far from the West African regions where Hausa is natively spoken (such as Nigeria and Niger), hearing this place name would point a player to Europe and mislead them."
     },
     {
       "deck": "languages",
@@ -38,24 +26,13 @@
     {
       "deck": "languages",
       "label": "Polish",
-      "off": 63,
-      "id": "lang-polish",
-      "curated": false,
-      "why": "SAYS PLACE: Montevideo, Irlandia",
-      "named": "Montevideo, Irlandia",
-      "verdict": "red_herring",
-      "reason": "The place names mentioned are Montevideo (the capital of Uruguay) and Irlandia (Polish for Ireland). Neither of these locations is in, near, or part of Poland, so they point to entirely different parts of the world and would mislead the player rather than reveal the correct answer."
-    },
-    {
-      "deck": "languages",
-      "label": "Polish",
       "off": 111,
       "id": "lang-polish",
       "curated": false,
       "why": "SAYS PLACE: Australia",
       "named": "Australia",
       "verdict": "red_herring",
-      "reason": "Australia is a country and continent entirely unrelated to Poland, so mentioning it would mislead the player rather than reveal Poland as the correct answer."
+      "reason": "Australia is a country and continent located in the Southern Hemisphere, which is entirely unrelated to Poland (the country where Polish is spoken). Hearing 'Australia' would mislead the player rather than reveal Poland as the correct answer."
     },
     {
       "deck": "languages",
@@ -78,171 +55,6 @@
       "named": "Törökország",
       "verdict": "red_herring",
       "reason": "\"Törökország\" is the Hungarian name for Turkey. Since Turkey is not in, near, or part of Hungary, hearing this place name points the player to a completely different country (Turkey), which acts as a red herring rather than revealing Hungary."
-    },
-    {
-      "deck": "accents",
-      "label": "Mbaise, Imo State, Nigeria",
-      "off": 12,
-      "id": "wild-mbaise-imo-state-nigeria",
-      "curated": true,
-      "why": "SAYS PLACE: Bayreuth, Africa",
-      "named": "Bayreuth, Africa",
-      "verdict": "red_herring",
-      "reason": "Bayreuth is a city in Germany, which points to an entirely different continent and country than Nigeria. While Africa is mentioned, it is a vast continent and does not specifically leak or point to Mbaise, Imo State, Nigeria, making the combination of these names misleading rather than revealing."
-    },
-    {
-      "deck": "arabic",
-      "label": "Cairo, Egypt",
-      "off": 0,
-      "id": "ar-2608",
-      "curated": false,
-      "why": "SAYS PLACE: New Jersey",
-      "named": "New Jersey",
-      "verdict": "red_herring",
-      "reason": "New Jersey is a state in the United States, which is geographically and culturally distinct from Cairo, Egypt. Mentioning it would mislead the player rather than point them toward the correct location."
-    },
-    {
-      "deck": "arabic",
-      "label": "Rabat, Morocco",
-      "off": 0,
-      "id": "ar-989",
-      "curated": false,
-      "why": "SAYS PLACE: Japan",
-      "named": "Japan",
-      "verdict": "red_herring",
-      "reason": "Japan is a country in East Asia, which is geographically and culturally distant from Rabat, Morocco. Mentioning it would mislead the player rather than reveal the correct location."
-    },
-    {
-      "deck": "arabic",
-      "label": "Tangier, Morocco",
-      "off": 0,
-      "id": "ar-3647",
-      "curated": false,
-      "why": "SAYS PLACE: Spain, Zambia",
-      "named": "Spain, Zambia",
-      "verdict": "red_herring",
-      "reason": "While Spain is geographically close to Tangier, Morocco (just across the Strait of Gibraltar), Zambia is located in Southern Africa, thousands of miles away. Hearing these two country names would mislead the player to think of Europe or Southern Africa rather than pointing them to Morocco."
-    },
-    {
-      "deck": "french",
-      "label": "Belgium",
-      "off": 3,
-      "id": "french-brussels-belgium-french-belgian",
-      "curated": true,
-      "why": "SAYS PLACE: Manching",
-      "named": "Manching",
-      "verdict": "red_herring",
-      "reason": "Manching is a municipality located in Bavaria, Germany. Hearing this place name would mislead the player into guessing Germany instead of the correct answer, Belgium."
-    },
-    {
-      "deck": "french",
-      "label": "Paris, France",
-      "off": 11,
-      "id": "french-paris-france-french-paris",
-      "curated": true,
-      "why": "SAYS PLACE: Londres, Royaume-Uni",
-      "named": "Londres, Royaume-Uni",
-      "verdict": "red_herring",
-      "reason": "The named places are 'Londres, Royaume-Uni' (London, United Kingdom), which is in a different country than the correct answer, 'Paris, France'. Hearing these names would mislead the player into thinking the location is in the United Kingdom rather than France."
-    },
-    {
-      "deck": "spanish",
-      "label": "Argentina",
-      "off": 30,
-      "id": "spanish-argentine-spanish-reading-about-a-brazilian-to",
-      "curated": true,
-      "why": "SAYS PLACE: Minas Gerais",
-      "named": "Minas Gerais",
-      "verdict": "red_herring",
-      "reason": "Minas Gerais is a well-known state in Brazil. Hearing this place name would mislead a player into guessing Brazil rather than the correct answer, Argentina."
-    },
-    {
-      "deck": "spanish",
-      "label": "Peru",
-      "off": 15,
-      "id": "spanish-peruvian-spanish-richard-dawkins-biography-rea",
-      "curated": false,
-      "why": "SAYS PLACE: británico, Oxford",
-      "named": "británico, Oxford",
-      "verdict": "red_herring",
-      "reason": "The place names 'británico' (British) and 'Oxford' refer to the United Kingdom, which is entirely different from Peru, thereby misleading the player rather than pointing to the correct answer."
-    },
-    {
-      "deck": "spanish",
-      "label": "Turbaco, Colombia",
-      "off": 15,
-      "id": "spanish-colombian-spanish-steven-pinker-biography-read",
-      "curated": false,
-      "why": "SAYS PLACE: Montreal, Quebec, Canadá",
-      "named": "Montreal, Quebec, Canadá",
-      "verdict": "red_herring",
-      "reason": "The mentioned locations of Montreal, Quebec, and Canada are in North America, which is far from and completely unrelated to Turbaco, Colombia, which is in South America. Hearing these names would mislead the player rather than reveal the correct answer."
-    },
-    {
-      "deck": "spanish",
-      "label": "Turbaco, Colombia",
-      "off": 63,
-      "id": "spanish-colombian-spanish-steven-pinker-biography-read",
-      "curated": false,
-      "why": "SAYS PLACE: Estados Unidos",
-      "named": "Estados Unidos",
-      "verdict": "red_herring",
-      "reason": "The speaker mentions 'Estados Unidos' (United States), which is a completely different country and region from Colombia, where Turbaco is located. This would mislead the player rather than reveal the correct location."
-    },
-    {
-      "deck": "chinese",
-      "label": "Hong Kong",
-      "off": 15,
-      "id": "chinese-hk-cantonese-george-washington-carver-spoken-w",
-      "curated": false,
-      "why": "SAYS PLACE: 美國, 愛荷華州",
-      "named": "美國, 愛荷華州",
-      "verdict": "red_herring",
-      "reason": "The mentioned places are the United States (美國) and Iowa (愛荷華州), which are located in North America and have no geographical proximity to Hong Kong. Hearing these names would mislead a player to guess the United States rather than Hong Kong."
-    },
-    {
-      "deck": "chinese",
-      "label": "Hong Kong",
-      "off": 63,
-      "id": "chinese-hk-cantonese-george-washington-carver-spoken-w",
-      "curated": false,
-      "why": "SAYS PLACE: Missouri",
-      "named": "Missouri",
-      "verdict": "red_herring",
-      "reason": "Missouri is a state in the United States, which is geographically and politically unrelated to Hong Kong. Hearing this name would mislead the player to think of the US rather than Hong Kong."
-    },
-    {
-      "deck": "chinese",
-      "label": "Shanghai, China",
-      "off": 60,
-      "id": "chinese-shanghainese-wu-standard-shanghai-accent-readi",
-      "curated": true,
-      "why": "SAYS PLACE: Sevastopol",
-      "named": "Sevastopol",
-      "verdict": "red_herring",
-      "reason": "Sevastopol is a major port city located on the Crimean Peninsula (internationally recognized as Ukraine, de facto controlled by Russia). It is geographically and culturally far from Shanghai, China, and would mislead a player to think of Eastern Europe or the Black Sea region instead of East Asia."
-    },
-    {
-      "deck": "hindi-urdu",
-      "label": "Karachi, Pakistan",
-      "off": 0,
-      "id": "hindi-urdu-karachi-pakistan-urdu",
-      "curated": false,
-      "why": "SAYS PLACE: South Africa",
-      "named": "South Africa",
-      "verdict": "red_herring",
-      "reason": "South Africa is a country located in Africa, which is geographically far and unrelated to Karachi, Pakistan. Hearing this place name would mislead the player rather than reveal the correct location."
-    },
-    {
-      "deck": "portuguese",
-      "label": "Porto Alegre, Brazil",
-      "off": 0,
-      "id": "portuguese-porto-alegre-brazil-portuguese-brazilian-gauch",
-      "curated": false,
-      "why": "SAYS PLACE: Portugal",
-      "named": "Portugal",
-      "verdict": "red_herring",
-      "reason": "Portugal is a country in Europe, whereas the correct answer is Porto Alegre, Brazil, which is in South America. Hearing 'Portugal' would mislead the player to think of Portugal rather than Brazil."
     }
   ]
 }

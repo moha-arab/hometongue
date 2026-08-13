@@ -1,13 +1,13 @@
 {
-  "ts": "2026-08-13T04:35:18.969Z",
+  "ts": "2026-08-13T04:52:35.594Z",
   "problems": [
     {
       "deck": "languages",
       "label": "Hausa",
-      "off": 0,
+      "off": 20,
       "id": "lang-hausa",
       "curated": true,
-      "why": "SAYS PLACE: Ghana"
+      "why": "SAYS PLACE: Jamus"
     },
     {
       "deck": "languages",
@@ -20,14 +20,6 @@
     {
       "deck": "languages",
       "label": "Polish",
-      "off": 63,
-      "id": "lang-polish",
-      "curated": false,
-      "why": "SAYS PLACE: Montevideo, Irlandia"
-    },
-    {
-      "deck": "languages",
-      "label": "Polish",
       "off": 111,
       "id": "lang-polish",
       "curated": false,
@@ -35,19 +27,11 @@
     },
     {
       "deck": "languages",
-      "label": "Portuguese (Brazil)",
-      "off": 180,
-      "id": "lang-portuguese-brazil",
-      "curated": true,
-      "why": "SAYS PLACE: bizantino"
-    },
-    {
-      "deck": "languages",
       "label": "Hungarian",
       "off": 15,
       "id": "lang-hungarian",
       "curated": false,
-      "why": "SAYS PLACE: Grúzia, Örményország, Irán, Irak, Szíria, Görögország, Bulgária, Anatólia, Kis-Ázsia"
+      "why": "SAYS PLACE: Anatólia"
     },
     {
       "deck": "languages",
@@ -55,7 +39,7 @@
       "off": 63,
       "id": "lang-hungarian",
       "curated": false,
-      "why": "SAYS PLACE: Turkey"
+      "why": "SAYS PLACE: Törökország"
     }
   ]
 }

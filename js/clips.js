@@ -360,7 +360,7 @@ window.CLIPS = {
       },
       "lufs": -16.8
     },
-    {"start": 0, 
+    {"start": 20, 
       "id": "lang-hausa",
       "label": "Hausa",
       "lang": "Hausa",
