@@ -433,12 +433,17 @@ async function startListening() {
   recorder.start(500);
 }
 
-// Throw this take away and immediately begin another.
+// Throw this take away and go all the way back to the mic.
 //
 // onstop is detached before the recorder is stopped, so the half-recording can never reach
 // onRecordingReady and get analysed — that is the whole point, the audio is being discarded
-// because the speaker knows it is spoiled. The mic permission has already been granted at this
-// point, so the new take starts without a second prompt and it feels like one tap.
+// because the speaker knows it is spoiled.
+//
+// It returns to the idle card rather than starting a fresh take immediately. Dropping someone
+// straight back into a live recording gives them no moment to collect themselves, which is the
+// one thing they wanted when they pressed a button labelled "start over" — and it makes the
+// button ambiguous, because from the outside an instant restart looks identical to nothing
+// having happened. Back to the mic is a real stop, and the next take begins when they choose.
 function restartListening() {
   if (state !== 'listening') return;
   stopTimer();
@@ -446,7 +451,7 @@ function restartListening() {
   if (recorder && recorder.state !== 'inactive') { recorder.onstop = null; recorder.stop(); }
   teardownRecording();
   state = 'idle';
-  startListening();
+  show('idleCard');
 }
 
 function stopListening() {
