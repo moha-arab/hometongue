@@ -966,18 +966,29 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
    twenty-second take and a forty-five-second one land in the same place. Filling toward twenty
    means the bar completes exactly when the recording is genuinely good, and then stops asking
    for anything. The cap keeps its own small number on the right, where a limit belongs. */
-.ready { margin: 18px 0 20px; }
+.ready { margin: 18px 0 20px; --gate: 50%; }
 .ready-track {
-  height: 5px; border-radius: 3px; background: var(--rule-soft); overflow: hidden;
+  position: relative;
+  height: 6px; border-radius: 3px; background: var(--rule-soft); overflow: hidden;
 }
 .ready-fill {
   height: 100%; width: 0; border-radius: 3px;
   background: var(--grey-2);
   transition: width 0.32s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.45s ease;
 }
-/* Crossing the line is the one moment in this screen worth marking, so it is the one moment
-   that changes colour. */
+/* THE GATE: where the submit button unlocks, drawn at --gate, which js/app.js computes from
+   MIN_RECORD_S / MAX_SECONDS so the picture cannot disagree with the rule. Cut out of the track
+   rather than laid on top, so the fill visibly passes THROUGH it. */
+.ready-gate {
+  position: absolute; top: -1px; bottom: -1px; left: var(--gate);
+  width: 2px; margin-left: -1px; border-radius: 1px;
+  background: var(--sheet); z-index: 2;
+}
+/* Crossing the gate is the one moment on this screen worth marking, so it is the one moment
+   that changes colour. Past it the fill deepens once more, quietly, at the point where the
+   copy starts calling it the sharpest range. */
 .ready.is-enough .ready-fill { background: var(--accent); }
+.ready.is-best .ready-fill { background: var(--accent); box-shadow: inset 0 0 0 99px rgba(0, 0, 0, 0.08); }
 
 .ready-row { margin-top: 10px; }
 .ready-state {

@@ -81,6 +81,10 @@ const MIN_VOICED_S = 1.5;   // a mic that heard essentially nothing at all
 // The cost is real and it is his to weigh: thirty seconds is a lot to ask a stranger who found
 // this on TikTok, and some of them will quit instead. One constant if that trade turns out wrong.
 const MIN_RECORD_S = 30;
+// Where the copy switches from "keep going" to "you're in the sharpest range". 45s is the point
+// past which the measured within-100km share (56%, then 59% at the cap) is at its best, and it
+// is deliberately NOT a second gate — nothing is enforced here, it is only what the bar says.
+const BEST_RECORD_S = 45;
 
 // the survey red, read from the stylesheet so themes stay in one place
 const MARK = () => window.HT.ink();
@@ -387,7 +391,9 @@ function startTimer() {
   const r0 = $('#ready');
   if (r0) {
     r0.dataset.state = '';
-    r0.classList.remove('is-enough', 'is-closing');
+    r0.classList.remove('is-enough', 'is-best', 'is-closing');
+    // The notch is drawn from the real constants, so moving either one moves the notch.
+    r0.style.setProperty('--gate', `${(MIN_RECORD_S / MAX_SECONDS) * 100}%`);
     const f0 = $('#readyFill');
     if (f0) f0.style.width = '0%';
     $('#qLabel').textContent = `${MIN_RECORD_S} seconds to go`;
@@ -423,32 +429,41 @@ function startTimer() {
       stop.disabled = s < MIN_RECORD_S;
       if (stop.textContent !== 'done, guess now') stop.textContent = 'done, guess now';
     }
-    // The bar fills toward MIN_RECORD_S and then holds full. It does not keep creeping toward
-    // the cap, because there is nothing left to earn: 30s and 45s measure the same as 20s.
+    // THE BAR RUNS THE WHOLE MINUTE, with a notch where the submit button unlocks. The measured
+    // shape is a curve with a gate in it, not a step: past thirty seconds the median stops
+    // moving, but the share of answers landing within 100 km of the real city keeps climbing
+    // (52% at 30s, 56% at 45s, 59% at 60s) and the rate of misses over 1000 km keeps falling
+    // (7%, 7%, 4%), both monotonically. So there is something real left to earn after the gate,
+    // and a bar that stopped at the gate was hiding it.
+    //
+    // Running to the cap also retires the second clock. The bar IS the cap now, so nothing has
+    // to count down beside it.
     const ready = $('#ready');
     if (ready) {
       const fill = $('#readyFill');
-      if (fill) fill.style.width = `${Math.min(100, (s / MIN_RECORD_S) * 100)}%`;
+      if (fill) fill.style.width = `${Math.min(100, (s / MAX_SECONDS) * 100)}%`;
       const enough = s >= MIN_RECORD_S;
-      const closing = left <= 10;
-      // Three sentences, one at a time, and never two numbers at once. Only touch the DOM when
-      // the sentence actually changes, so the tick and the colour settle once instead of being
-      // re-set sixty times a minute.
+      const best = s >= BEST_RECORD_S;
+      const closing = left <= 3;
       const n = MIN_RECORD_S - s;
-      const state = closing ? `closing-${left}` : enough ? 'enough' : `to-go-${n}`;
+      // Only touch the DOM when the sentence actually changes, so the tick and the colour settle
+      // once instead of being re-set four times a second.
+      const state = closing ? 'closing' : best ? 'best' : enough ? 'enough' : `to-go-${n}`;
       if (ready.dataset.state !== state) {
         ready.dataset.state = state;
         ready.classList.toggle('is-enough', enough);
+        ready.classList.toggle('is-best', best);
         ready.classList.toggle('is-closing', closing);
+        // Every one of these invites more and none of them tells anyone their answer was wrong,
+        // because each step past the gate is worth about one clip in twenty-seven — a real
+        // trend, and a small one. "keep going" is honest. "you needed longer" would not be.
         $('#qLabel').textContent = closing
-          ? `wrapping up in ${left}`
-          : enough
-            // NOT "stop whenever you like". The share of answers landing within 100 km keeps
-            // climbing past the floor — 52% at 30s, 54% at 45s, 57% at 60s — so telling people
-            // the job is finished the moment they cross it talks them out of an answer that was
-            // still getting better. This invites more; it does not insist on it.
-            ? 'enough to work with, keep going if you like'
-            : `${n} second${n === 1 ? '' : 's'} to go`;
+          ? 'wrapping up'
+          : best
+            ? "you're in the sharpest range now"
+            : enough
+              ? 'enough to read you, and it keeps getting sharper'
+              : `${n} second${n === 1 ? '' : 's'} to go`;
       }
     }
     if (s >= MAX_SECONDS) stopListening();
