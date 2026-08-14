@@ -6,7 +6,7 @@
 <title>HomeTongue · your accent knows where home is</title>
 <link rel="icon" type="image/svg+xml" href="/assets/logo-mark.svg">
 <meta name="theme-color" content="#F3F1EC">
-<meta name="description" content="Talk for half a minute in any language. It places where you grew up on the map.">
+<meta name="description" content="Talk for twenty seconds in any language. It places where you grew up on the map.">
 <meta property="og:title" content="HomeTongue">
 <meta property="og:description" content="Just talk. It finds where you grew up.">
 <meta property="og:url" content="https://www.hometongue.me/">
@@ -34,7 +34,6 @@
   <nav class="modes">
     <a href="/" class="active">read my accent</a>
     <a href="/game.html">guess the voice</a>
-    <a href="/game.html#boards">leaderboards</a>
   </nav>
 </header>
 
@@ -66,16 +65,18 @@
   <section class="card" id="liveCard" hidden>
     <div class="wave" id="wave"></div>
     <p class="live-status">listening…</p>
-    <!-- ONE bar, and it measures the only thing worth measuring: have you said enough yet.
-         It used to be three widgets. A 60s countdown, a 60s progress bar, and a three-dot
-         quality ladder, which between them ran three clocks at once and the ladder was broken
-         besides — Math.max(1, tier) lit one dot at tier 0 AND at tier 1, so the dots changed
-         exactly once in a whole take and the third dot could never light at all.
-         A CURVE, NOT A STEP, because that is what was actually measured. This bar has now been
-         wrong in both directions in one evening: first a broken three-dot ladder, then a
-         threshold that filled to twenty seconds and declared the job done. The numbers quoted
-         here at the time ("20s misses by 40 km", "30s and 45s are indistinguishable from 20s")
-         appear in no data file. What the sweep found, on 27 paired clips:
+    <!-- THE RECORDING METER. It has been wrong three ways in one evening, and the shape of each
+         mistake is worth keeping so none of them comes back.
+           1. A three-dot ladder whose third dot could never light: Math.max(1, tier) lit one dot
+              at tier 0 AND tier 1, so the dots changed exactly once in a whole take.
+           2. A threshold bar that filled to the floor and announced the job was finished. Rungs
+              promise endless gains; a threshold promises none. Both are the wrong shape.
+           3. A full sixty-second bar with an UNEXPLAINED notch in it — which is what this is,
+              minus the labels. At second zero the only words on screen were "N seconds to go",
+              so the eye concluded the bar WAS N seconds, the notch meant nothing, and the whole
+              right-hand half looked like dead space.
+
+         What was actually measured, on 27 paired clips:
 
            dur   median   within 100 km   over 1000 km
            20s    317 km       44%            11%
@@ -83,31 +84,39 @@
            45s     72 km       56%             7%
            60s     72 km       59%             4%
 
-         The median stops moving after thirty. The share that lands near your actual city does
-         not — it climbs the whole way, and the rate of wild misses keeps falling, both
-         monotonically. So thirty is a GATE, not a finish line: below it the answer is bad, above
-         it the answer keeps quietly getting better all the way to the cap.
+         So there is a gate and then a slope. Twenty is the floor — thin, but Mohammad's call
+         that a floor nobody reaches protects an accuracy nobody gets. Thirty is where the answer
+         actually becomes good, and the ten seconds between them are the most valuable ten in the
+         whole recording: the median miss falls from 317 km to 72. Past thirty the median stops
+         moving, but the share landing near the real city keeps climbing and wild misses keep
+         falling, monotonically, all the way to the cap.
 
-         The bar therefore runs the full sixty seconds with a notch at the gate, which also
-         retires the second clock — the bar itself is now the cap indicator, so there is nothing
-         left to count down separately. Honesty check on the encouragement: each step past the
-         gate is worth about one clip in twenty-seven, so the copy invites more talking and never
-         claims a short answer was wrong. -->
+         The bar runs the full minute so the slope is visible, the scale is LABELLED so the notch
+         is not a riddle, and the colour carries the three shelves so the wording never has to
+         repeat itself. Running to the cap also retires the second clock: the bar is the cap
+         indicator now, so nothing counts down beside it. -->
     <div class="ready" id="ready">
-      <div class="ready-track">
-        <div class="ready-fill" id="readyFill"></div>
-        <!-- The gate sits where the submit button unlocks. Its position is written from
-             MIN_RECORD_S / MAX_SECONDS at runtime, so it cannot drift from the real rule. -->
-        <i class="ready-gate" aria-hidden="true"></i>
+      <!-- THE SCALE IS LABELLED, and that is the whole fix. The previous version was this same
+           sixty-second bar with an unexplained notch halfway along it, and at second zero the
+           only words on screen said "30 seconds to go" — so the eye reasonably concluded the bar
+           WAS thirty seconds, which made the notch meaningless and the right-hand half look like
+           dead space. Nothing said the track kept going, and nothing said why you would want it
+           to. Two small labels, readable before you say a word, carry both facts. -->
+      <div class="ready-scale" aria-hidden="true">
+        <span class="ready-mark is-gate" id="gateMark">20s minimum</span>
+        <span class="ready-mark is-end">more accurate</span>
       </div>
-      <!-- ONE NUMBER ON SCREEN AT A TIME, EVER. This line briefly carried two: "15 seconds to
-           go" on the left and "0:55 left" on the right, counting in opposite directions, in the
-           same unit, side by side. Two clocks disagreeing is not information, it is a puzzle.
-           The floor is the only number worth showing while you are talking, so it is the only
-           one shown; the sixty-second cap stays quiet until the last ten seconds, which is all
-           it was ever for — it used to fire with no warning and read as the app crashing
-           mid-sentence. -->
-      <p class="ready-row"><span class="ready-state" id="qLabel">30 seconds to go</span></p>
+      <div class="ready-bar">
+        <div class="ready-track"><div class="ready-fill" id="readyFill"></div></div>
+        <!-- Both sit OVER the track rather than inside it, so the gate tick can rise above the
+             bar and meet its own label. Positions come from the real constants at runtime. -->
+        <i class="ready-gate" aria-hidden="true"></i>
+        <i class="ready-good" aria-hidden="true"></i>
+      </div>
+      <!-- ONE NUMBER ON SCREEN AT A TIME, EVER. This line once carried two: "15 seconds to go"
+           on the left and "0:55 left" on the right, counting opposite directions in the same
+           unit, side by side. Two clocks disagreeing is not information, it is a puzzle. -->
+      <p class="ready-row"><span class="ready-state" id="qLabel">20 seconds to go</span></p>
     </div>
     <!-- Two ways out of a take, because there are two reasons to end one. "done" submits what
          you said; "start over" throws it away and begins again, for the fumbled sentence or the
@@ -196,13 +205,14 @@
     </div>
     <button class="share-btn" id="shareBtn">share your card</button>
     <button class="stop-btn" id="againBtn">go again</button>
+    <a class="cross-link" href="/game.html">now try the other half: <b>guess where a voice is from</b></a>
   </section>
 
 </main>
 
 <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
 
-<footer class="foot">it reads how you sound and the words you pick · audio never stored unless you donate it · <a href="/privacy.html" style="color:inherit">privacy</a></footer>
+<footer class="foot">audio never stored unless you donate it · <a href="/privacy.html" style="color:inherit">privacy</a></footer>
 
 <script src="/vendor/leaflet/leaflet.js"></script>
 <script src="js/theme.js"></script>

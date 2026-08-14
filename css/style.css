@@ -152,17 +152,43 @@ body {
 .logo svg { width: 21px; height: 21px; flex: none; }
 .logo i { color: var(--accent); }
 
-.modes { display: flex; align-items: center; gap: 2px; }
+/* A SEGMENTED CONTROL, not a row of links. As three unboxed grey words in the corner these read
+   as footer-grade utility nav, on a page whose entire visual weight is a card with a big green
+   microphone in the middle of it — so someone arriving to try the accent thing did exactly that
+   and left, never learning there was a game. A pill with a moving selector is the one pattern
+   everyone already reads as "there are several of these and you are in one of them".
+   It also went from three items to two. Leaderboards is not a peer of the other two, it is a
+   screen inside the game, and listing it alongside them made the nav look like three equal
+   things when it is really two. It keeps its own button on the deck picker. */
+.modes {
+  display: flex; align-items: center; gap: 2px;
+  padding: 3px; border-radius: 999px;
+  background: var(--paper-2); border: 1px solid var(--rule-soft);
+}
 .modes a {
   font-family: var(--sans); font-size: 13px; font-weight: 500;
   /* 40px minimum: these are the only way between the two halves of the app. */
-  padding: 10px 12px; min-height: 40px; display: inline-flex; align-items: center;
-  border-radius: var(--r-sm); text-decoration: none;
+  padding: 9px 15px; min-height: 38px; display: inline-flex; align-items: center;
+  border-radius: 999px; text-decoration: none; white-space: nowrap;
   color: var(--grey); background: none; border: none; cursor: pointer;
-  transition: color 0.15s, background 0.15s;
+  transition: color 0.15s, background 0.15s, box-shadow 0.15s;
 }
-.modes a:hover { color: var(--black); background: var(--accent-soft); }
-.modes a.active { color: var(--accent); font-weight: 700; }
+.modes a:hover { color: var(--black); }
+.modes a.active {
+  color: var(--accent); font-weight: 600;
+  background: var(--sheet); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+/* The hand-off, on the one screen where someone has just been delighted and is deciding whether
+   there is anything else here. Deliberately a quiet link under the two real buttons rather than a
+   third button: it is an offer, not a step in the flow. */
+.cross-link {
+  display: block; margin-top: 14px; text-align: center;
+  font-size: 13px; color: var(--grey); text-decoration: none;
+}
+.cross-link b { color: var(--accent); font-weight: 600; }
+.cross-link:hover { color: var(--black); }
+.cross-link:hover b { text-decoration: underline; text-underline-offset: 2px; }
 
 /* ——— panels ——— */
 .hud {
@@ -741,7 +767,8 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 
 /* ——— mobile ——— */
 @media (max-width: 620px) {
-  .modes a { padding: 6px 9px; font-size: 12px; }
+  .modes { padding: 2px; }
+  .modes a { padding: 8px 12px; font-size: 12px; border-radius: 999px; }
   .brand { padding: 13px 15px; }
   .tagline { font-size: 38px; line-height: 1.04; }
 }
@@ -756,8 +783,8 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
      82px of clearance .hud reserves for it, so it sat on the card underneath. Stacked
      deliberately instead: wordmark, then the nav as one tidy centred row. */
   .brand { flex-direction: column; align-items: center; gap: 2px; padding: 10px 14px 6px; }
-  .modes { gap: 0; }
-  .modes a { font-size: 12px; padding: 8px 9px; min-height: 36px; }
+  .modes { gap: 0; padding: 2px; }
+  .modes a { font-size: 12px; padding: 8px 13px; min-height: 34px; border-radius: 999px; }
 
   /* The dock's own instruction was being ellipsised into 74px — "listen, then tap the map to
      drop your pin" is the only thing telling a first-time player what to do, and it was the
@@ -966,29 +993,56 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
    twenty-second take and a forty-five-second one land in the same place. Filling toward twenty
    means the bar completes exactly when the recording is genuinely good, and then stops asking
    for anything. The cap keeps its own small number on the right, where a limit belongs. */
-.ready { margin: 18px 0 20px; --gate: 50%; }
+.ready { margin: 18px 0 20px; --gate: 33.333%; --good: 50%; }
+
+/* THE LABELLED SCALE. Without this the bar was a sixty-second track with an unexplained notch,
+   and the only words on screen at second zero read "20 seconds to go" — so the bar looked like
+   it WAS twenty seconds and its whole right-hand side looked like padding. These two marks are
+   legible before anyone speaks, and between them they say the two things that matter: where the
+   floor is, and which direction is better. */
+.ready-scale { position: relative; height: 12px; margin-bottom: 8px; }
+.ready-mark {
+  position: absolute; bottom: 0;
+  font-family: var(--label); font-size: 9.5px; font-weight: 500;
+  letter-spacing: 0.09em; text-transform: uppercase; color: var(--grey-2);
+  white-space: nowrap; transition: color 0.4s ease, opacity 0.4s ease;
+}
+.ready-mark.is-gate { left: var(--gate); transform: translateX(-50%); }
+.ready-mark.is-end { right: 0; }
+/* Once you are past the floor it stops being the instruction and the direction becomes the
+   point, so the emphasis moves with you rather than shouting both at once. */
+.ready.is-enough .ready-mark.is-gate { opacity: 0.45; }
+.ready.is-enough .ready-mark.is-end { color: var(--accent); }
+
+.ready-bar { position: relative; }
 .ready-track {
-  position: relative;
   height: 6px; border-radius: 3px; background: var(--rule-soft); overflow: hidden;
 }
 .ready-fill {
   height: 100%; width: 0; border-radius: 3px;
   background: var(--grey-2);
-  transition: width 0.32s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.45s ease;
+  transition: width 0.32s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.5s ease;
 }
-/* THE GATE: where the submit button unlocks, drawn at --gate, which js/app.js computes from
-   MIN_RECORD_S / MAX_SECONDS so the picture cannot disagree with the rule. Cut out of the track
-   rather than laid on top, so the fill visibly passes THROUGH it. */
+/* THE GATE tick, sitting over the track so it can rise above the bar and meet its own label.
+   Position comes from MIN_RECORD_S / MAX_SECONDS at runtime. */
 .ready-gate {
-  position: absolute; top: -1px; bottom: -1px; left: var(--gate);
+  position: absolute; top: -5px; height: 16px; left: var(--gate);
   width: 2px; margin-left: -1px; border-radius: 1px;
-  background: var(--sheet); z-index: 2;
+  background: var(--grey-2); opacity: 0.55; z-index: 2;
 }
-/* Crossing the gate is the one moment on this screen worth marking, so it is the one moment
-   that changes colour. Past it the fill deepens once more, quietly, at the point where the
-   copy starts calling it the sharpest range. */
-.ready.is-enough .ready-fill { background: var(--accent); }
-.ready.is-best .ready-fill { background: var(--accent); box-shadow: inset 0 0 0 99px rgba(0, 0, 0, 0.08); }
+/* A second, quieter mark where the answer actually becomes good. Deliberately UNLABELLED — an
+   unexplained notch is what caused the confusion the first time round, so this one is only ever
+   a confirmation of something the copy has already said out loud, never the sole carrier of it. */
+.ready-good {
+  position: absolute; top: 0; height: 6px; left: var(--good);
+  width: 1px; background: var(--sheet); opacity: 0.7; z-index: 2;
+}
+/* Three shelves, carried by colour so the wording does not have to repeat itself: grey while the
+   take is too thin to send, pale once it can be sent, full once it is genuinely good, deepest in
+   the best measured range. */
+.ready.is-enough .ready-fill { background: color-mix(in srgb, var(--accent) 45%, var(--grey-2)); }
+.ready.is-good .ready-fill { background: var(--accent); }
+.ready.is-best .ready-fill { background: color-mix(in srgb, var(--accent) 82%, #000); }
 
 .ready-row { margin-top: 10px; }
 .ready-state {

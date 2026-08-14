@@ -59,32 +59,30 @@ const MIN_VOICED_S = 1.5;   // a mic that heard essentially nothing at all
 // direction: no target, and no promise that stopping at 20 costs you anything. An earlier
 // version pushed people to thirty with a button reading "10s more reads far sharper", which
 // was invented from a first pass of 7-9 clips per arm with unequal clip sets between arms.
-// THIRTY, NOT TWENTY, and the twenty was a transcription error that shaped the whole product.
+// THREE NUMBERS, because the measurement has three shelves in it and one gate.
 //
-// A comment in this file claimed the paired sweep found "20s scores 40 km" and that "30s and 45s
-// are indistinguishable from 20s". Neither number is in either data file. What the two sweeps
-// actually measured, on separate clip sets, is the opposite:
+//   data/length-latency.json (24 clips)   8s 345 km | 12s 157 | 20s 157 | 30s 67
+//   data/length-sweep.json   (27 clips)               20s 317 | 30s  72 | 45s 90 | 60s 85
 //
-//   data/length-latency.json  (24 clips)   8s 345 km | 12s 157 km | 20s 157 km | 30s  67 km
-//   data/length-sweep.json    (27 clips)                20s 317 km | 30s  72 km | 45s 90 | 60s 85
+//   dur   median   within 100 km   over 1000 km
+//   20s    317 km       44%            11%
+//   30s     72 km       52%             7%
+//   45s     72 km       56%             7%
+//   60s     72 km       59%             4%
 //
-// Both runs independently put 20s among the WORST durations tested and 30s among the best, and
-// data/eval-notes.md draws the conclusion in as many words: "Length buys real accuracy up to
-// ~30s and the app should keep asking for it." So the floor sat exactly on the duration the
-// evidence calls bad, and the meter above it told people that was enough and they could stop.
+// MIN is the GATE: below it the take is too thin to submit at all. It sat at 20 on the strength
+// of numbers that appear in no data file, moved to 30 when that was caught, and is back at 20 as
+// Mohammad's call — thirty seconds is a long time to hold a stranger who found this on TikTok,
+// and a floor nobody reaches protects an accuracy nobody gets.
 //
-// The individual sign tests do not clear p<0.05 at n~25 (20s->30s is 10 better, 6 worse), so
-// this is a large effect on a small sample rather than a settled one. But it REPLICATES across
-// two independent clip sets and both point the same way, and if the choice is between a floor
-// the data calls bad and one it calls good, it is not a close call.
-//
-// The cost is real and it is his to weigh: thirty seconds is a lot to ask a stranger who found
-// this on TikTok, and some of them will quit instead. One constant if that trade turns out wrong.
-const MIN_RECORD_S = 30;
-// Where the copy switches from "keep going" to "you're in the sharpest range". 45s is the point
-// past which the measured within-100km share (56%, then 59% at the cap) is at its best, and it
-// is deliberately NOT a second gate — nothing is enforced here, it is only what the bar says.
-const BEST_RECORD_S = 45;
+// That trade is only safe because of GOOD. The 20->30 step is the largest single gain anywhere
+// in this dataset — the median miss falls from 317 km to 72 — so the ten seconds after the gate
+// are worth more than any other ten in the recording. The meter spends them saying so, at the
+// exact moment someone is deciding whether to stop. Beyond GOOD the gains are real but small
+// (one clip in twenty-seven per step), so BEST only changes the wording, never the pressure.
+const MIN_RECORD_S = 20;   // gate: submit unlocks
+const GOOD_RECORD_S = 30;  // where the answer actually becomes good
+const BEST_RECORD_S = 45;  // best measured, and nothing is enforced here
 
 // the survey red, read from the stylesheet so themes stay in one place
 const MARK = () => window.HT.ink();
@@ -391,9 +389,12 @@ function startTimer() {
   const r0 = $('#ready');
   if (r0) {
     r0.dataset.state = '';
-    r0.classList.remove('is-enough', 'is-best', 'is-closing');
-    // The notch is drawn from the real constants, so moving either one moves the notch.
+    r0.classList.remove('is-enough', 'is-good', 'is-best', 'is-closing');
+    // Both markers are drawn from the real constants, so moving a constant moves the picture.
     r0.style.setProperty('--gate', `${(MIN_RECORD_S / MAX_SECONDS) * 100}%`);
+    r0.style.setProperty('--good', `${(GOOD_RECORD_S / MAX_SECONDS) * 100}%`);
+    const gm = $('#gateMark');
+    if (gm) gm.textContent = `${MIN_RECORD_S}s minimum`;
     const f0 = $('#readyFill');
     if (f0) f0.style.width = '0%';
     $('#qLabel').textContent = `${MIN_RECORD_S} seconds to go`;
@@ -443,27 +444,34 @@ function startTimer() {
       const fill = $('#readyFill');
       if (fill) fill.style.width = `${Math.min(100, (s / MAX_SECONDS) * 100)}%`;
       const enough = s >= MIN_RECORD_S;
+      const good = s >= GOOD_RECORD_S;
       const best = s >= BEST_RECORD_S;
       const closing = left <= 3;
       const n = MIN_RECORD_S - s;
       // Only touch the DOM when the sentence actually changes, so the tick and the colour settle
       // once instead of being re-set four times a second.
-      const state = closing ? 'closing' : best ? 'best' : enough ? 'enough' : `to-go-${n}`;
+      const state = closing ? 'closing' : best ? 'best' : good ? 'good' : enough ? 'enough' : `to-go-${n}`;
       if (ready.dataset.state !== state) {
         ready.dataset.state = state;
         ready.classList.toggle('is-enough', enough);
+        ready.classList.toggle('is-good', good);
         ready.classList.toggle('is-best', best);
         ready.classList.toggle('is-closing', closing);
-        // Every one of these invites more and none of them tells anyone their answer was wrong,
-        // because each step past the gate is worth about one clip in twenty-seven — a real
-        // trend, and a small one. "keep going" is honest. "you needed longer" would not be.
+        // The line between the gate and GOOD is the one that matters most on this screen. It is
+        // read at the exact moment someone is deciding whether to stop, and the ten seconds it
+        // is asking for take the median miss from 317 km to 72 — the biggest gain measured
+        // anywhere in this project. It is allowed to be that direct because the number is that
+        // large. The later lines are not, because their steps are worth about one clip in
+        // twenty-seven each, so they invite and never insist.
         $('#qLabel').textContent = closing
           ? 'wrapping up'
           : best
-            ? "you're in the sharpest range now"
-            : enough
-              ? 'enough to read you, and it keeps getting sharper'
-              : `${n} second${n === 1 ? '' : 's'} to go`;
+            ? 'this is as sharp as it gets'
+            : good
+              ? 'good, and still improving'
+              : enough
+                ? `you can stop now, but ${GOOD_RECORD_S - MIN_RECORD_S} more seconds is much sharper`
+                : `${n} second${n === 1 ? '' : 's'} to go`;
       }
     }
     if (s >= MAX_SECONDS) stopListening();
@@ -611,7 +619,7 @@ function stopListening() {
   const elapsed = (Date.now() - startedAt) / 1000;
   const voicedS = micFrames ? (micVoiced / micFrames) * elapsed : -1;
   if (elapsed < MIN_RECORD_S) {
-    toast(`That was ${Math.round(elapsed)} seconds. Much under thirty and I am guessing at country scale, so go again and give it half a minute.`);
+    toast(`That was ${Math.round(elapsed)} seconds. Much under twenty and I am guessing at country scale. Go again, and thirty seconds or so reads far sharper.`);
     state = 'idle';
     if (recorder && recorder.state !== 'inactive') { recorder.onstop = null; recorder.stop(); }
     teardownRecording();
@@ -678,7 +686,7 @@ async function onRecordingReady() {
     // and they got a country-scale guess presented with the same confidence as a real one.
     const cutShort = (Date.now() - startedAt) / 1000;
     if (cutShort < MIN_RECORD_S) {
-      toast(`That take was cut short at ${Math.round(cutShort)} seconds. Give it half a minute and I can place it properly.`);
+      toast(`That take was cut short at ${Math.round(cutShort)} seconds. Give it twenty seconds at least, or thirty for a sharper read.`);
       state = 'idle';
       teardownRecording();
       show('idleCard');
@@ -874,7 +882,7 @@ function renderResult(v) {
   // wrong answer over their face. Ask for a clean take instead.
   if (v.content_led === 'fed') {
     window._lastResult = v;
-    $('#redoText').textContent = 'Everything I could point to was either something you told me or something I could not hear again on a second listen. That is not a reading, so I would rather give you nothing than make it up. Try once more, half a minute or so, without saying your name or where you are from.';
+    $('#redoText').textContent = 'Everything I could point to was either something you told me or something I could not hear again on a second listen. That is not a reading, so I would rather give you nothing than make it up. Try once more, thirty seconds or so, without saying your name or where you are from.';
     show('redoCard');
     flyHome();
     return;
