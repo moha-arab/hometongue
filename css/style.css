@@ -262,20 +262,36 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .stop-btn:hover:not(:disabled) { filter: brightness(1.12); }
 .stop-btn:active:not(:disabled) { transform: translateY(1px); }
 
-/* "start over" sits beside "done" but must never compete with it: the primary action is
-   finishing the take. A quiet text button reads as an escape hatch rather than a second
-   choice to weigh up. */
-.live-actions { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+/* "start over" sits beside "done" and has to be FINDABLE mid-take. It began as quiet grey text,
+   which is the correct instinct for a secondary action and the wrong one here: someone who has
+   just fumbled a sentence is flustered and scanning, and a borderless grey label does not read as
+   a button at all. It is a proper outlined button now, matched in height to "done" and carrying a
+   restart glyph, so it is unmistakably pressable.
+   It stays NEUTRAL rather than accented, because the primary action is still finishing the take —
+   obvious enough to find in a hurry, never loud enough to be hit by mistake. */
+.live-actions { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
 .restart-btn {
   margin-top: 22px;
-  background: none; border: none; cursor: pointer;
-  font-family: var(--sans); font-size: 13px; font-weight: 500;
-  color: var(--grey); padding: 12px 6px;
-  border-bottom: 1px solid transparent;
-  transition: color 0.15s, border-color 0.15s;
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--sheet); color: var(--black-2); cursor: pointer;
+  border: 1.5px solid var(--rule); border-radius: var(--r);
+  font-family: var(--sans); font-size: 14.5px; font-weight: 600;
+  padding: 11px 20px;
+  transition: color 0.15s, border-color 0.15s, background 0.15s, transform 0.1s;
 }
-.restart-btn:hover { color: var(--black); border-bottom-color: var(--rule); }
+.restart-btn svg { width: 15px; height: 15px; flex: none; }
+.restart-btn:hover { color: var(--black); border-color: var(--grey); background: var(--paper-2); }
 .restart-btn:active { transform: translateY(1px); }
+
+/* On a phone the pair cannot sit side by side (292px of buttons in a 275px card), so they wrap —
+   and wrapped they were two different widths with a doubled top margin between them, which reads
+   as a mistake. Stacked and full width is also the easier target for someone holding a phone out
+   to a stranger on a street, which is exactly where this gets used. */
+@media (max-width: 460px) {
+  .live-actions { flex-direction: column; gap: 10px; }
+  .live-actions .stop-btn { width: 100%; margin-top: 22px; }
+  .live-actions .restart-btn { width: 100%; margin-top: 0; justify-content: center; }
+}
 
 /* Share is the loudest button on the result card without being a second primary: amber
    outline against the green "go again", because the card is the thing worth passing on. */
