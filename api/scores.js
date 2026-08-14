@@ -68,6 +68,10 @@ export default async function handler(req, res) {
       // board where one grinder's ten runs fill all ten slots is a wall, not a ladder — the
       // standard shape is one line per player, their best. No accounts, so the nickname is the
       // player; case-insensitive so "Sara" and "sara" don't hold two slots.
+      // A board 30 seconds stale is indistinguishable from a live one, and this endpoint had no
+      // origin check, no rate limit and no cache header — so every refresh, from anyone, was a
+      // fresh Supabase read. Under a TikTok spike that is the read quota, not the leaderboard.
+      res.setHeader('Cache-Control', 's-maxage=30, stale-while-revalidate=120');
       const best = new Map();
       for (const r of (Array.isArray(rows) ? rows : [])) {
         const k = String(r.nickname || '').toLowerCase();
@@ -140,11 +144,18 @@ export default async function handler(req, res) {
       throw new Error('insert_failed');
     }
 
-    const rank = await (await fetch(`${url}/rest/v1/scores?select=id&game_type=eq.${gameType}&points=gt.${points}`, {
-      headers: { ...H, Prefer: 'count=exact', Range: '0-0' },
-    })).headers;
-    // content-range: 0-0/N -> N rows strictly better
-    const better = Number((rank.get('content-range') || '/0').split('/')[1]) || 0;
+    // COUNT THE SAME THING THE BOARD COUNTS.
+    //
+    // This counted ROWS with a better score; the board above it shows one line per PLAYER, their
+    // best. So a player who had already posted five good runs was counted five times, and someone
+    // could be told "you're #7" while reading a top ten that has them at #3. Same query, but
+    // distinct nicknames — matching the dedupe the board itself does.
+    const betterRows = await fetch(`${url}/rest/v1/scores?select=nickname&game_type=eq.${gameType}&points=gt.${points}&limit=1000`, { headers: H });
+    let better = 0;
+    if (betterRows.ok) {
+      const rows = await betterRows.json().catch(() => []);
+      better = new Set((Array.isArray(rows) ? rows : []).map((r) => String(r.nickname || '').toLowerCase())).size;
+    }
 
     return res.end(JSON.stringify({ ok: true, rank: better + 1, nickname }));
   } catch (err) {

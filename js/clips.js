@@ -2331,7 +2331,7 @@ window.CLIPS = {
         "note": "trimmed and re-encoded for the game"
       },
       "lufs": -16.6,
-      "start": 10
+      "start": 25
     },
     {
       "id": "hindi-urdu-mumbai-india-hindi-bambaiyya-adjacent",

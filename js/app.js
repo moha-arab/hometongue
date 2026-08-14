@@ -476,6 +476,15 @@ function stopListening() {
     show('idleCard');
     return;
   }
+  // A METER THAT NEVER RAN IS NOT A DEAD MICROPHONE.
+  //
+  // iOS suspends the AudioContext freely (a background switch, a call, the page not having a
+  // fresh user gesture). A suspended context produces no frames, so micPeak stays at its initial
+  // value and the guard below reads that as "the mic picked up nothing" — throwing away a
+  // perfectly good recording and telling the person their microphone is broken. Only trust the
+  // meter when the meter was actually running.
+  if (!audioCtx || audioCtx.state !== 'running') micPeak = -1;
+
   // Two different failures, two different fixes, so they get two different messages.
   // A dead mic is a settings problem; a quiet room is a "say more" problem.
   if (micPeak >= 0 && micPeak < 0.02) {
@@ -520,6 +529,19 @@ async function onRecordingReady() {
   // seconds is still a take; the blob-size gate below catches the ones that aren't.
   if (state === 'listening') {
     stopTimer(); stopMeter();
+    // ...but apply the SAME floor a manual stop applies. The comment above says an interrupted
+    // 20-second take is still a take, and that is true — the problem is that nothing here checked
+    // it was 20 seconds. A call that lands four seconds in was analysed anyway, so the one path
+    // the user did not choose was the one that skipped the rule the whole app is built around,
+    // and they got a country-scale guess presented with the same confidence as a real one.
+    const cutShort = (Date.now() - startedAt) / 1000;
+    if (cutShort < MIN_RECORD_S) {
+      toast(`That take was cut short at ${Math.round(cutShort)} seconds. Give it twenty or so and I can place it properly.`);
+      state = 'idle';
+      teardownRecording();
+      show('idleCard');
+      return;
+    }
     state = 'analyzing';
     show('analyzingCard'); startScan();
   }

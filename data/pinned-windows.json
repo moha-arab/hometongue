@@ -61,21 +61,6 @@
       }
     },
     {
-      "deck": "hindi-urdu",
-      "id": "hindi-urdu-spoken-hindi-wikipedia-indo-european-language-",
-      "label": "Delhi–Meerut Region, India",
-      "dur": 240,
-      "start": 10,
-      "audit": {
-        "speakers": 1,
-        "named_aloud": [
-          "Hindi",
-          "European"
-        ],
-        "speech_seconds": 15
-      }
-    },
-    {
       "deck": "chinese",
       "id": "chinese-hk-cantonese-george-washington-carver-spoken-w",
       "label": "Hong Kong",
@@ -292,6 +277,20 @@
           "Bulgária"
         ],
         "speech_seconds": 18.5
+      }
+    },
+    {
+      "deck": "hindi-urdu",
+      "id": "hindi-urdu-spoken-hindi-wikipedia-indo-european-language-",
+      "label": "Delhi–Meerut Region, India",
+      "dur": 240,
+      "start": 25,
+      "audit": {
+        "speakers": 1,
+        "named_aloud": [
+          "Hind-Yoropiy"
+        ],
+        "speech_seconds": 18
       }
     }
   ],

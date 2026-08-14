@@ -118,6 +118,29 @@ function slice(src, startS, tag) {
   } catch { return null; }
 }
 
+// MEASURE THE SILENCE, DO NOT ASK ABOUT IT.
+//
+// The model's own speech_seconds was the only check, and it is not reliable enough for this: it
+// reported 15 seconds of speech for a Hindi window that ffmpeg measures as 10.4 seconds of
+// SILENCE out of 20. Half a round of nothing, and the silence still bills the player's
+// 60-second listening budget. This is a physical measurement, so it cannot flatter itself.
+function silenceSeconds(file, startS) {
+  try {
+    const r = execFileSync(FF, ['-hide_banner', '-nostats', '-ss', String(startS), '-t', String(WINDOW_S),
+      '-i', file, '-af', 'silencedetect=noise=-40dB:d=0.6', '-f', 'null', '-'],
+    { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+    return sumSilence(r);
+  } catch (e) {
+    return sumSilence(String(e.stderr || ''));
+  }
+}
+
+function sumSilence(out) {
+  let total = 0;
+  for (const m of String(out).matchAll(/silence_duration: ([\d.]+)/g)) total += parseFloat(m[1]);
+  return total;
+}
+
 function duration(file) {
   try {
     return parseFloat(execFileSync(PROBE, ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', file], { encoding: 'utf8' }).trim());
@@ -181,7 +204,11 @@ for (const t of todo) {
     // and difficulty is the game. Only the answer's own name is disqualifying.
     const said = leaksAnswer(a.named_aloud || [], label);
     if (said) { why = `says "${said}", which is the answer`; continue; }
-    picked = { start: s, audit: a };
+    // Measured, not reported. Half a window of dead air is a round the player pays for and
+    // hears nothing in.
+    const quiet = silenceSeconds(t.file, s);
+    if (quiet > 6) { why = `${quiet.toFixed(1)}s of silence at ${s}s`; continue; }
+    picked = { start: s, audit: a, silence: Math.round(silenceSeconds(t.file, s) * 10) / 10 };
     break;
   }
 

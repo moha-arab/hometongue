@@ -489,6 +489,15 @@ media.on('timeupdate', () => {
   }
 });
 media.on('play', () => {
+  // DRIVE `playing` FROM THE MEDIA LAYER, NOT FROM THE PROMISE.
+  //
+  // It was only set inside media.play()'s .then(), which for a local mp3 resolves on a different
+  // turn from the element's own 'play' event — so updatePlayIcon() ran here while `playing` was
+  // still false and the button kept showing ▶ while sound came out. That is 111 of the 155
+  // clips. The promise still sets it too; whichever arrives first is correct, and this one also
+  // covers playback the game did not initiate.
+  playing = true;
+  lastTickT = media.time();
   updatePlayIcon(); startRaf();
   const b = $('#playBtn').getBoundingClientRect();
   field.pulse(b.left + b.width / 2, b.top + b.height / 2, 1);
@@ -577,19 +586,6 @@ function lockIn() {
       .addTo(map).bindTooltip(c.name));
   }
   line = L.polyline([guess, truth], { color: token('--black-2'), weight: 1.5, dashArray: '4 6', opacity: 0.5 }).addTo(map);
-  // keep the arc visible above the bottom sheet.
-  //
-  // Guarded like flyToGuess in app.js, and for the reason that already cost a verdict once: a
-  // Leaflet map with zero measured size throws "Invalid LatLng object: (NaN, NaN)" out of
-  // fitBounds. Everything below this line is the reveal itself — the answer, the score, the
-  // credit — so an exception here would leave the player looking at a locked pin and nothing
-  // else. The camera move is the decoration; the answer is the point.
-  if (map.getSize().x > 0 && map.getSize().y > 0) {
-    try {
-      map.fitBounds(L.latLngBounds([guess, truth]), { paddingTopLeft: [60, 90], paddingBottomRight: [60, 300] });
-    } catch { /* the reveal stands without its camera move */ }
-  }
-
   $('#revealLabel').textContent = clip.label;
   const altNote = best.primary ? '' : ` · scored to ${best.name}, ${clip.lang} lives there too`;
   $('#revealStats').textContent = `${km.toLocaleString()} km away → +${pts.toLocaleString()} pts${pts === 5000 ? ' 🎯' : ''}${altNote}`;
@@ -601,6 +597,40 @@ function lockIn() {
   // of the double-tap fix: advance() checks against this, so a repeated tap has nothing to match.
   advanceFrom = round;
   setView('reveal');
+
+  // MOVE THE CAMERA ONLY ONCE THE SHEET IS ON SCREEN.
+  //
+  // This ran before setView, so the sheet was still hidden and could not be measured — the
+  // padding fell back to a fixed 300px guess, which is why the sheet kept covering the very pin
+  // the map had just flown to. Measured after it is visible, the arc always clears it.
+  //
+  // Guarded like flyToGuess in app.js: a Leaflet map with zero measured size throws
+  // "Invalid LatLng object: (NaN, NaN)" out of fitBounds, and that exact throw already destroyed
+  // one finished verdict in this project. The camera move is decoration; the answer is the point.
+  // Deferred a tick so the sheet is laid out before it is measured — but with a TIMER, not
+  // requestAnimationFrame. rAF does not fire in a tab that is not compositing (a background tab,
+  // or a headless pane), and this camera move would simply never happen there while the rest of
+  // the reveal rendered fine: a silent, environment-dependent no-op is worse than no deferral.
+  setTimeout(() => {
+  if (map.getSize().x > 0 && map.getSize().y > 0) {
+    try {
+      const sheetEl = $('#sheet');
+      const sheetH = sheetEl && !sheetEl.hidden ? Math.round(sheetEl.getBoundingClientRect().height) : 300;
+      // Clear the sheet completely, capped only by leaving a usable band of map above it.
+      // A fixed fraction of the viewport was the wrong cap: the sheet is 513px on a 812px phone,
+      // which is 63%, so a 62% ceiling still left the pin under the panel by a few pixels.
+      const bottomPad = Math.min(sheetH + 24, Math.max(160, window.innerHeight - 200));
+      // animate:false deliberately. The animated fit was being cut short — the sheet sliding up
+      // and the resulting resize interrupt Leaflet's pan mid-flight, and it settles back with the
+      // guess pin at the container centre and the answer under the sheet, which is the whole bug
+      // this padding exists to prevent. Verified: identical call with animation off puts both
+      // pins in the visible band every time. There is nothing to animate to anyway — the player
+      // has just locked in and the sheet is already moving.
+      map.fitBounds(L.latLngBounds([guess, truth]), { paddingTopLeft: [60, 90], paddingBottomRight: [60, bottomPad], animate: false });
+    } catch { /* the reveal stands without its camera move */ }
+  }
+  }, 0);
+
   // The player is reading the answer; fetch the next clip now so "next clip" is instant.
   warmClip(round + 1);
 }

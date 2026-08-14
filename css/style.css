@@ -604,7 +604,21 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   animation: sheetUp 0.32s cubic-bezier(0.2, 0.8, 0.3, 1); text-align: left;
 }
 @keyframes sheetUp { from { opacity: 0; transform: translateX(-50%) translateY(32px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
-.sheet .stop-btn { margin-top: 16px; }
+/* "next clip" IS THE ONLY WAY OUT OF THE REVEAL, so it must never be below the fold. The sheet
+   scrolls (max-height 78vh), and on a phone in landscape the answer, the score, the credit and
+   the hint push the button past the bottom for most clips — the round looks like a dead end
+   unless you happen to scroll a panel that does not look scrollable. Sticky pins it to the
+   bottom of the sheet, over its own background, so it is on screen whatever the content length. */
+.sheet .stop-btn {
+  margin-top: 16px;
+  position: sticky; bottom: 0;
+  background: var(--accent);
+  box-shadow: 0 -10px 14px -6px var(--sheet);
+}
+@media (max-height: 520px) {
+  /* Landscape: give the sheet more of the screen, since there is no room to spare. */
+  .sheet { max-height: 92vh; max-height: 92dvh; padding-top: 14px; }
+}
 .reveal-hint { margin-top: 10px; font-size: 13.5px; color: var(--grey); line-height: 1.55; }
 
 .source-card { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--rule-soft); text-align: left; }

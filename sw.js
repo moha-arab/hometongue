@@ -52,8 +52,19 @@ self.addEventListener('fetch', (e) => {
   // Only healthy responses are cached — a 500 stored here once would replay as the offline
   // copy forever. And the index fallback is for NAVIGATIONS only: serving index.html bytes
   // to a failed script or CSS request produces far stranger breakage than a plain failure.
+  // NETWORK-FIRST, BUT NOT NETWORK-FOREVER.
+  //
+  // A plain `fetch()` on a stalled connection — the phone that shows full bars and moves nothing,
+  // which is most of a train or a festival — hangs until the browser gives up, and the cached
+  // copy that would have painted instantly sits unused the whole time. Racing a short timer keeps
+  // network-first semantics (a live connection still wins and still refreshes the cache) and only
+  // changes what happens when the network is not answering.
+  const fromNetwork = new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error('slow')), 3500);
+    fetch(e.request).then((r) => { clearTimeout(timer); resolve(r); }, (err) => { clearTimeout(timer); reject(err); });
+  });
   e.respondWith(
-    fetch(e.request)
+    fromNetwork
       .then((res) => {
         if (res.ok) {
           const copy = res.clone();
