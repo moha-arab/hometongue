@@ -6,7 +6,19 @@ import { randomUUID, createHmac } from 'node:crypto';
 
 export const config = { maxDuration: 30 };
 
-const VALID_CODES = new Set(['eg', 'sd', 'sy', 'lb', 'jo', 'ps', 'iq', 'sa', 'kw', 'ae', 'ye', 'ly', 'tn', 'dz', 'ma', 'msa', 'weak', 'dialect', 'unclear', '']);
+// VALIDATE THE SHAPE, NOT A HANDWRITTEN LIST.
+//
+// This was a fixed set of fifteen Arabic country codes from when the app only did Arabic. The
+// correction picker now offers 79 countries, so 64 of them — every Spanish, French, Chinese,
+// Hindi-Urdu and English-speaking country a person could pick — failed the check and were stored
+// as null. The user saw "thanks, noted", the privacy page said corrections are kept, and the one
+// signal this project most needs was thrown away four times out of five.
+//
+// A regex cannot drift out of step with the picker the way a list does. Junk like "zz" gets
+// through, which costs nothing: it is a two-character field on an anonymous row, and a wrong
+// value is no worse than the null it used to become.
+const SPECIAL_CODES = new Set(['msa', 'weak', 'dialect', 'unclear', '']);
+const isValidCode = (c) => typeof c === 'string' && (SPECIAL_CODES.has(c) || /^[a-z]{2}$/.test(c));
 const AUDIO_MIME = { 'audio/webm': 'webm', 'audio/mp4': 'mp4', 'audio/mpeg': 'mp3', 'audio/ogg': 'ogg', 'audio/wav': 'wav' };
 const MAX_CLIP_BYTES = 2.5 * 1024 * 1024;
 const TOKEN_MAX_AGE_MS = 30 * 60 * 1000;
@@ -115,11 +127,11 @@ export default async function handler(req, res) {
 
     // Anonymous scorecard — stored for everyone (no words, no voice, no cities)
     const row = {
-      guess_code: VALID_CODES.has(b.guess_code) ? b.guess_code : null,
+      guess_code: isValidCode(b.guess_code) ? b.guess_code : null,
       region: clean(b.region, 20),
       confidence: Number.isFinite(+b.confidence) ? Math.max(0, Math.min(100, Math.round(+b.confidence))) : null,
       correct: typeof b.correct === 'boolean' ? b.correct : null,
-      actual_code: VALID_CODES.has(b.actual_code) ? b.actual_code : null,
+      actual_code: isValidCode(b.actual_code) ? b.actual_code : null,
       source: ['cloud', 'offline'].includes(b.source) ? b.source : null,
       platform: ['ios', 'android', 'desktop'].includes(b.platform) ? b.platform : null,
       consent,

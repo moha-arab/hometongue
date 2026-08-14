@@ -577,8 +577,18 @@ function lockIn() {
       .addTo(map).bindTooltip(c.name));
   }
   line = L.polyline([guess, truth], { color: token('--black-2'), weight: 1.5, dashArray: '4 6', opacity: 0.5 }).addTo(map);
-  // keep the arc visible above the bottom sheet
-  map.fitBounds(L.latLngBounds([guess, truth]), { paddingTopLeft: [60, 90], paddingBottomRight: [60, 300] });
+  // keep the arc visible above the bottom sheet.
+  //
+  // Guarded like flyToGuess in app.js, and for the reason that already cost a verdict once: a
+  // Leaflet map with zero measured size throws "Invalid LatLng object: (NaN, NaN)" out of
+  // fitBounds. Everything below this line is the reveal itself — the answer, the score, the
+  // credit — so an exception here would leave the player looking at a locked pin and nothing
+  // else. The camera move is the decoration; the answer is the point.
+  if (map.getSize().x > 0 && map.getSize().y > 0) {
+    try {
+      map.fitBounds(L.latLngBounds([guess, truth]), { paddingTopLeft: [60, 90], paddingBottomRight: [60, 300] });
+    } catch { /* the reveal stands without its camera move */ }
+  }
 
   $('#revealLabel').textContent = clip.label;
   const altNote = best.primary ? '' : ` · scored to ${best.name}, ${clip.lang} lives there too`;

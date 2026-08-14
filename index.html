@@ -128,7 +128,7 @@
   <section class="card result" id="resultCard" hidden>
     <button class="sheet-handle" id="sheetHandle" aria-label="expand or collapse the result"><span></span></button>
     <p class="result-kicker" id="resultKicker">sounds like you grew up around</p>
-    <h2 class="result-region" id="resultRegion"></h2>
+    <h2 class="result-region" id="resultRegion" aria-live="polite"></h2>
     <p class="closest-fit" id="closestFit" hidden></p>
     <!-- The radius IS the confidence, so it is the headline figure rather than a
          percentage bar nobody can act on. -->
@@ -156,7 +156,7 @@
       </div>
       <div class="consent" id="consentWrap"><button class="donate-btn" id="donateBtn">donate this clip</button><span> anonymous, and it becomes the test set that sharpens future versions · <a href="/privacy.html" target="_blank">privacy</a></span></div>
       <div class="fb-fix" id="fbFix" hidden>
-        <select id="fbActual"></select>
+        <select id="fbActual" aria-label="Which country did you actually grow up in?"></select>
         <input type="text" id="fbCity" placeholder="which city? (optional)" maxlength="60">
         <button class="fb-btn" id="fbSend">send</button>
       </div>
@@ -167,7 +167,7 @@
 
 </main>
 
-<div class="toast" id="toast" hidden></div>
+<div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
 
 <footer class="foot">it listens to your accent, not your words · audio never stored unless you donate it · <a href="/privacy.html" style="color:inherit">privacy</a></footer>
 

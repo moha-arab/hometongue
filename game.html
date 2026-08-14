@@ -157,14 +157,14 @@
   </div>
 </div>
 
-<div class="toast" id="toast" hidden></div>
+<div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
 
 <footer class="foot">clips stream from their sources · credits after each round · <a href="/privacy.html">privacy</a></footer>
 
 <audio id="clipAudio" preload="none"></audio>
 <!-- YouTube clips stream from YouTube; the frame is parked off-screen because the
      video's title card would give away the answer -->
-<div class="yt-mount" aria-hidden="true"><div id="ytMount"></div></div>
+<div class="yt-mount" aria-hidden="true" inert><div id="ytMount"></div></div>
 
 <script src="/vendor/leaflet/leaflet.js"></script>
 <script src="js/theme.js"></script>

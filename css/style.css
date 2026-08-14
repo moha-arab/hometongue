@@ -33,6 +33,7 @@
   --accent-soft: #E4EDEA;
   --accent-line: color-mix(in srgb, var(--accent) 30%, transparent);
   --amber: #B8862F;
+  --amber-ink: #7A5713;   /* the same amber, dark enough to read as text */
 
   /* deck hues, used only as small index marks in the list — never as a flood */
   --hue-arabic: #A8563F;
@@ -199,7 +200,17 @@ body {
 }
 @keyframes settle { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  /* animation-iteration-count matters as much as duration. Setting duration to 0.01ms on an
+     INFINITE animation does not stop it — it runs the whole keyframe sequence every hundredth of
+     a millisecond, which is a strobe rather than stillness, and strobing is exactly what someone
+     who asked for reduced motion is protecting themselves from. Pinning the count to 1 lets each
+     animation settle on its final frame and stay there. */
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 .card-eyebrow {
@@ -322,9 +333,12 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 
 /* Share is the loudest button on the result card without being a second primary: amber
    outline against the green "go again", because the card is the thing worth passing on. */
+/* --amber on --sheet is 3.13:1, the lowest-contrast control in the app, on the button the whole
+   card is built to get pressed. --amber-ink is the same hue darkened purely for text; the border
+   stays the brighter amber so the button still reads as the amber one. */
 .share-btn {
   margin-top: 22px; margin-right: 10px;
-  background: var(--sheet); color: var(--amber); border: 1.5px solid var(--amber);
+  background: var(--sheet); color: var(--amber-ink); border: 1.5px solid var(--amber);
   font-family: var(--sans); font-size: 14.5px; font-weight: 600;
   padding: 11px 22px; border-radius: var(--r); cursor: pointer;
   transition: background 0.15s, color 0.15s, transform 0.1s;
@@ -685,6 +699,32 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   .result-region { font-size: 35px; }
   .runner-name { width: 100px; font-size: 12px; }
   .logo { font-size: 21px; }
+
+  /* THE HEADER WAS WRAPPING INTO A RAGGED SECOND ROW. Three link labels do not fit beside the
+     wordmark at 375px, so the nav broke mid-row and the header grew to 94px — taller than the
+     82px of clearance .hud reserves for it, so it sat on the card underneath. Stacked
+     deliberately instead: wordmark, then the nav as one tidy centred row. */
+  .brand { flex-direction: column; align-items: center; gap: 2px; padding: 10px 14px 6px; }
+  .modes { gap: 0; }
+  .modes a { font-size: 12px; padding: 8px 9px; min-height: 36px; }
+
+  /* The dock's own instruction was being ellipsised into 74px — "listen, then tap the map to
+     drop your pin" is the only thing telling a first-time player what to do, and it was the
+     first thing squeezed out. The hint and the scrubber take a full-width row of their own
+     above the transport buttons instead of fighting them for space. */
+  .dock { flex-wrap: wrap; row-gap: 10px; padding: 12px; gap: 10px; }
+  .dock-mid { order: -1; flex: 1 0 100%; min-width: 100%; }
+  .dock-hint { white-space: normal; overflow: visible; text-overflow: clip; line-height: 1.35; }
+  .dock-lock { margin-left: auto; }
+
+  /* The footer was wrapping to three lines inside half the screen. max-width was not the cause:
+     a fixed element with `left: 50%` and no width shrinks to fit the space from the midpoint to
+     the right edge, which IS half the screen, so it could never be wider however high the cap.
+     `width: max-content` sizes it to the sentence first, and max-width then caps that. */
+  .foot { font-size: 9.5px; width: max-content; max-width: calc(100% - 16px); padding: 4px 8px; }
+
+  /* The stacked header is 87px; .hud reserves 82px for it, so the card was tucked under it. */
+  .hud { padding-top: 96px; }
 }
 
 /* iPhone scroll, the WebKit-safe way: Safari refuses touch-scrolling a container whose

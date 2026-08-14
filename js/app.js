@@ -177,7 +177,14 @@ function flyToGuess(g) {
 function flyHome() {
   clearMapExtras();
   ensureMapReady();
-  map.flyToBounds(HOME_BOUNDS, { duration: 1.8 });
+  // Same guard flyToGuess already carries, for the same reason. A zero-size Leaflet map throws
+  // "Invalid LatLng object: (NaN, NaN)" out of flyToBounds, and this is called from the refusal
+  // card's render path — so a map that has not been measured yet took down a finished "no answer"
+  // verdict and replaced it with a generic failure. The flight is decoration; the card is not.
+  if (map.getSize().x <= 0 || map.getSize().y <= 0) return;
+  try {
+    map.flyToBounds(HOME_BOUNDS, { duration: 1.8 });
+  } catch { /* the card stands without its flight */ }
 }
 
 // ————— ui states —————
@@ -477,7 +484,9 @@ function stopListening() {
     // There used to be a rescue here that fell back to the browser's live captions when the
     // recorder taped silence. Those captions are gone with the preview, so a dead mic is now
     // simply a dead mic — say so plainly instead of referencing variables that no longer exist.
-    toast('Your mic barely picked anything up 🎤, check Chrome\'s mic icon (address bar) is using the right microphone, then try again.');
+    // Was "check Chrome's mic icon (address bar)". There is no address bar on a phone, which is
+    // where this app is actually used, so it sent most people looking for something not there.
+    toast('Your mic barely picked anything up 🎤 check the right microphone is selected and nothing is covering it, then try again.');
     state = 'idle';
     show('idleCard');
     return;
@@ -549,7 +558,7 @@ function blobToBase64(blob) {
 
 // One place that turns a server error code into something a person can act on.
 const ERRORS = {
-  no_speech: "I couldn't hear any real speech in that. If the bars weren't moving while you talked, your browser is probably using the wrong microphone (click the mic icon in the address bar).",
+  no_speech: "I couldn't hear any real speech in that. If the bars weren't moving while you talked, the browser is probably using the wrong microphone — check this site's microphone permission and try again.",
   not_configured: 'The server is missing its API key, so nothing can be analyzed. That is a setup problem, not your recording.',
   out_of_credit: 'The analysis account has run out of credit, so nothing can be read right now. Nothing is wrong with your recording.',
   swamped: 'A lot of people are listening right now. Give it about thirty seconds and press record again. Your voice was fine.',
@@ -1290,7 +1299,15 @@ function bindUI() {
       if (!r.ok || !j || !j.ok) throw new Error('upload failed');
       if (gen !== window._renderGen) return;
       window._donated = true;
-      db.classList.add('done'); db.textContent = 'donated ✓ thank you';
+      // The server answers 'clip+labels' or 'labels', and returns ok:true either way. 'labels'
+      // means the AUDIO did not store — a stale token, a mime it will not take, a size it refused
+      // — and only the written correction landed. Saying "donated ✓ thank you" to that thanks
+      // someone for a recording nobody received, and they walk away believing their voice is in
+      // the pile when it is not.
+      const gotClip = j.stored === 'clip+labels';
+      db.classList.add('done');
+      db.textContent = gotClip ? 'donated ✓ thank you' : 'correction saved ✓';
+      if (!gotClip) toast('Your correction is saved, but the recording itself did not upload.');
     } catch {
       if (gen !== window._renderGen) return;
       db.disabled = false; db.textContent = 'donate this clip';
