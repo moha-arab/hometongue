@@ -24,6 +24,10 @@ for (const line of fs.readFileSync(path.join(ROOT, '.env'), 'utf8').split(/\r?\n
   if (m && !process.env[m[1]]) process.env[m[1]] = m[2];
 }
 const { SYSTEM, SCHEMA, MODEL } = await import(pathToFileURL(path.join(ROOT, 'api/prompt.js')).href);
+// The same rules the live analyzer applies. Sourcing runs the identical model and prompt, so a
+// clip it accepts should have to clear the same bar the site does.
+const { heardSomething, modelChain } = await import(pathToFileURL(path.join(ROOT, 'api/verdict.js')).href);
+const MODEL_CHAIN = modelChain(MODEL);
 const { ffmpegPath } = await import(pathToFileURL(path.join(ROOT, 'tools/ffmpeg-path.mjs')).href);
 const FF = ffmpegPath().exe;
 
@@ -289,10 +293,15 @@ function leaks(audit, t) {
   }) || null;
 }
 
+// Tries the fallback model too. Without it a transient failure on the primary returned null,
+// the loop logged "model gave no answer", and a perfectly good clip was thrown away for a
+// reason that had nothing to do with the clip. The live analyzer has always had this chain;
+// the gate that decides what the live analyzer will be asked to place did not.
 async function askModel(file) {
-  for (let i = 0; i < 4; i++) {
+  for (const modelName of MODEL_CHAIN) {
+  for (let i = 0; i < 3; i++) {
     try {
-      const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`, {
+      const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent`, {
         method: 'POST',
         headers: { 'x-goog-api-key': process.env.GEMINI_API_KEY, 'content-type': 'application/json' },
         body: JSON.stringify({
@@ -306,11 +315,12 @@ async function askModel(file) {
         signal: AbortSignal.timeout(60000),
       });
       if (r.status === 429 || r.status === 503) { await sleep(8000); continue; }
-      if (!r.ok) return null;
+      if (!r.ok) break;                      // this model is unhappy; try the other one
       const j = await r.json();
       const t = j.candidates?.[0]?.content?.parts?.map((p) => p.text).join('') || '';
       return JSON.parse(t);
     } catch { await sleep(3000); }
+  }
   }
   return null;
 }
@@ -524,6 +534,11 @@ for (const t of targets) {
 
           const g = await askModel(file);
           if (!g || typeof g.lat !== 'number') { lastWhy = 'model gave no answer'; continue; }
+          // The site refuses to show a verdict whose evidence is "he says he is from Cairo"
+          // rather than something heard in the voice. A clip that can only be placed that way is
+          // worse here than there: on the site it is one refused card, in a deck it is a round
+          // where the answer is announced aloud and the map is decoration.
+          if (!heardSomething(g)) { lastWhy = `placed from what the speaker said, not how they sound (${start}s)`; continue; }
           const d = km(t.lat, t.lng, g.lat, g.lng);
           const limit = titleNamesPlace ? ACCEPT_KM_LOOSE : ACCEPT_KM_BLIND;
           if (d > limit) { lastWhy = `heard ${g.place}, ${Math.round(d)} km away`; continue; }

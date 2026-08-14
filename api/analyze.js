@@ -19,6 +19,9 @@
 // Both cost a call and latency for noise. Do not re-add without re-running tools/eval.
 import { mintToken } from './feedback.js';
 import { SYSTEM, SCHEMA, MODEL } from './prompt.js';
+// Shared with tools/source-clips.mjs, which vets clips with this same model and prompt and so
+// needs the same rules. See api/verdict.js.
+import { heardSomething, modelChain } from './verdict.js';
 
 export const config = { maxDuration: 60 };
 
@@ -58,8 +61,7 @@ const BUDGET_MS = 50_000;
 // already happened once tonight in verify-evidence.js, where the judge quietly became the
 // model it was judging. A fallback that can be turned off by an unrelated one-line edit is not
 // a fallback, so the alternate is computed and the pair is asserted to be distinct.
-const FALLBACK_MODEL = MODEL === 'gemini-3.6-flash' ? 'gemini-3.5-flash' : 'gemini-3.6-flash';
-const MODEL_CHAIN = [MODEL, FALLBACK_MODEL];
+const MODEL_CHAIN = modelChain(MODEL);
 
 async function locate(parts) {
   const key = process.env.GEMINI_API_KEY;
@@ -175,12 +177,6 @@ async function locate(parts) {
 // exactly what the evidence verifier catches on the way to the card (measured 4/4 across
 // two clips: "Slavic vowel qualities" and "rolled Spanish R" both died, true claims lived).
 // The two mechanisms serve the same rule.
-const TOLD_NOT_HEARD = /\b(stated?|states|saying|says|said|mention(s|ed)?|explicitly|self-identif|introduc\w+|claims?|tells? us|their name|name is|named)\b/i;
-
-function heardSomething(result) {
-  const chips = (Array.isArray(result.evidence) ? result.evidence : []).filter(Boolean);
-  return chips.some((c) => !TOLD_NOT_HEARD.test(String(c)));
-}
 
 // A model can return anything; the map should never be asked to fly to null island.
 function sane(r) {
