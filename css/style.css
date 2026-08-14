@@ -766,6 +766,35 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   /* the sheet stops short of the very bottom so the privacy line keeps its lane */
   .card { margin-bottom: 0; }
 }
+/* "THERE IS MORE BELOW THIS" — SAID OUT LOUD.
+   People handed the phone got their city, read the card, and stopped: the evidence, the map
+   region, the transcript and the feedback buttons are all below the fold and a 4px grey pill is
+   not a signal anyone reads as "scrollable". This is a soft fade at the bottom edge of the card
+   plus a small nudge, both pinned to the scroll viewport rather than the content, so they sit
+   still while the card moves under them — and both disappear the moment there is nothing left
+   to scroll to, so a card that fits shows nothing at all. */
+.scroll-cue {
+  position: sticky; bottom: -1px; z-index: 3;
+  margin: 0 -30px -28px; padding: 34px 0 10px;
+  pointer-events: none; text-align: center;
+  background: linear-gradient(to bottom, transparent, var(--sheet) 62%);
+  opacity: 0; transition: opacity 0.25s;
+}
+.card.can-scroll .scroll-cue { opacity: 1; }
+/* Written as can-scroll AND at-end so it outranks the rule above outright. Equal specificity
+   plus source order should have been enough and measurably was not, and a cue that will not
+   switch off is worse than no cue: it tells people there is more below when they are already
+   at the end. */
+.card.can-scroll.at-end .scroll-cue { opacity: 0; }
+.scroll-cue b {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--grey); font-weight: 500;
+}
+.scroll-cue svg { width: 11px; height: 11px; animation: cueNudge 1.8s ease-in-out infinite; }
+@keyframes cueNudge { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(2px); } }
+@media (max-width: 560px) { .scroll-cue { margin-left: -21px; margin-right: -21px; } }
+
 .sheet-handle { display: none; }
 @media (max-width: 939px) {
   .sheet-handle {

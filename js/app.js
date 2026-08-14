@@ -188,6 +188,39 @@ function flyHome() {
 }
 
 // ————— ui states —————
+// The scroll cue: one element per card, created on demand, kept honest by measurement.
+// It only appears when the card genuinely has more content than it can show, and hides again the
+// moment you reach the end — so it is never a decoration lying about there being more.
+const CUE_HTML = '<b>more below <svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5l3 3 3-3"/></svg></b>';
+
+function refreshScrollCue(card) {
+  if (!card) return;
+  const scrollable = card.scrollHeight - card.clientHeight > 8;
+  card.classList.toggle('can-scroll', scrollable);
+  if (!scrollable) { card.classList.remove('at-end'); return; }
+  const atEnd = card.scrollTop + card.clientHeight >= card.scrollHeight - 12;
+  card.classList.toggle('at-end', atEnd);
+}
+
+function attachScrollCue(card) {
+  if (!card || card._cued) return;
+  card._cued = true;
+  const cue = document.createElement('div');
+  cue.className = 'scroll-cue';
+  cue.innerHTML = CUE_HTML;
+  card.appendChild(cue);
+  card.addEventListener('scroll', () => refreshScrollCue(card), { passive: true });
+  // Measuring once on show is too early: show() runs before renderResult writes the verdict, the
+  // evidence and the transcript into the card, so the card was still short and the cue concluded
+  // there was nothing to scroll to — on the one card that always has something to scroll to.
+  // Watching the box means it stays right however the content changes afterwards.
+  if (typeof ResizeObserver === 'function') {
+    const ro = new ResizeObserver(() => refreshScrollCue(card));
+    ro.observe(card);
+    for (const child of card.children) ro.observe(child);
+  }
+}
+
 const cards = ['idleCard', 'liveCard', 'typeCard', 'analyzingCard', 'redoCard', 'resultCard'];
 function show(cardId) {
   for (const id of cards) $('#' + id).hidden = id !== cardId;
@@ -211,7 +244,12 @@ function show(cardId) {
   const hud = document.querySelector('.hud');
   if (hud) hud.scrollTop = 0;
   const card = document.getElementById(cardId);
-  if (card) card.scrollTop = 0;
+  if (card) {
+    card.scrollTop = 0;
+    // Measured after layout: the card's height depends on content that was just written into it.
+    attachScrollCue(card);
+    setTimeout(() => refreshScrollCue(card), 60);
+  }
 }
 
 function toast(msg) {
@@ -554,7 +592,7 @@ async function onRecordingReady() {
   try {
     const audio = await blobToBase64(blob);
     window._lastAudio = { audio, mime: mimeUsed }; // kept for the consent flywheel
-    const resp = await postAnalyze({ audio, mime: mimeUsed });
+    const resp = await analyzeResilient({ audio, mime: mimeUsed });
     renderResult(normalizeServer(resp));
   } catch (err) {
     fallbackOrFail(err && err.userMessage ? err.userMessage : 'Something went wrong on our end.');
@@ -593,6 +631,45 @@ const ERRORS = {
   at_capacity: 'HomeTongue has hit its listening limit for today. It resets tonight, and it will be free again.',
   bad_origin: 'That request was blocked as coming from the wrong domain.',
 };
+
+// SWITCHING APPS MID-ANALYSIS MUST NOT LOSE THE TAKE.
+//
+// iOS suspends a backgrounded tab, which kills the in-flight fetch. Come back and the promise
+// has already rejected with a bare network error, so the catch showed "Something went wrong on
+// our end." for a recording that was perfectly fine and a server that was never asked again.
+// People check a message while they wait — this is not an edge case, it is what waiting looks
+// like on a phone.
+//
+// So: notice that the page was hidden while the request was out, wait until it is visible again,
+// and try once more. Only for network-shaped failures — an out-of-credit or too-large answer
+// from the server is a real answer and gets reported as-is. One retry, because the first call may
+// well have run and been paid for; this is about not stranding the person, not about persistence.
+async function analyzeResilient(payload) {
+  let wentAway = document.hidden;
+  const watch = () => { if (document.hidden) wentAway = true; };
+  document.addEventListener('visibilitychange', watch);
+  try {
+    return await postAnalyze(payload);
+  } catch (err) {
+    const serverAnswered = err && err.userMessage && err.message !== 'timeout';
+    if (!wentAway || serverAnswered) throw err;
+    if (document.hidden) {
+      await new Promise((resolve) => {
+        const back = () => {
+          if (document.hidden) return;
+          document.removeEventListener('visibilitychange', back);
+          resolve();
+        };
+        document.addEventListener('visibilitychange', back);
+      });
+    }
+    const note = $('#scanNote');
+    if (note) note.textContent = 'picking up where we left off';
+    return postAnalyze(payload);
+  } finally {
+    document.removeEventListener('visibilitychange', watch);
+  }
+}
 
 async function postAnalyze(payload) {
   // 75s outlasts the server's own 60s ceiling, so every legitimate slow answer arrives —
@@ -641,7 +718,7 @@ function runTextAnalysis(text, typed) {
   }
   show('analyzingCard'); startScan();
   state = 'analyzing';
-  postAnalyze({ text })
+  analyzeResilient({ text })
     .then((resp) => renderResult(normalizeServer(resp)))
     .catch((e) => {
       // The old handler took no parameter but read `e`, so any type-mode failure threw a
