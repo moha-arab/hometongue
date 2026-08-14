@@ -6,7 +6,7 @@
 <title>HomeTongue · your accent knows where home is</title>
 <link rel="icon" type="image/svg+xml" href="/assets/logo-mark.svg">
 <meta name="theme-color" content="#F3F1EC">
-<meta name="description" content="Talk for twenty seconds in any language. It places where you grew up on the map.">
+<meta name="description" content="Talk for half a minute in any language. It places where you grew up on the map.">
 <meta property="og:title" content="HomeTongue">
 <meta property="og:description" content="Just talk. It finds where you grew up.">
 <meta property="og:url" content="https://www.hometongue.me/">
@@ -71,11 +71,16 @@
          quality ladder, which between them ran three clocks at once and the ladder was broken
          besides — Math.max(1, tier) lit one dot at tier 0 AND at tier 1, so the dots changed
          exactly once in a whole take and the third dot could never light at all.
-         Worse than broken, a ladder is the wrong shape for this fact. Rungs promise that more
-         is better. Paired measurement on 18 clips says otherwise: 12s misses by 166 km at the
-         median with five answers over 1000 km out, 20s misses by 40 km with two, and 30s and
-         45s are indistinguishable from 20s. There is a threshold, not a climb. So this is a
-         bar that FILLS to twenty seconds and is then simply done. -->
+         THE NUMBERS THAT USED TO BE QUOTED HERE WERE WRONG, and they set the floor. This
+         comment claimed "20s misses by 40 km" and that 30s and 45s were indistinguishable from
+         it. Neither figure appears in either data file. Both sweeps measured the opposite:
+
+           data/length-latency.json (24 clips)   8s 345 km | 12s 157 | 20s 157 | 30s 67
+           data/length-sweep.json   (27 clips)               20s 317 | 30s  72 | 45s 90 | 60s 85
+
+         Two independent clip sets, both putting 20s among the worst durations tested and 30s
+         among the best. So the floor was sitting on the bad number, and this bar was
+         congratulating people for reaching it. It fills to thirty now. -->
     <div class="ready" id="ready">
       <div class="ready-track"><div class="ready-fill" id="readyFill"></div></div>
       <!-- ONE NUMBER ON SCREEN AT A TIME, EVER. This line briefly carried two: "15 seconds to
@@ -85,7 +90,7 @@
            one shown; the sixty-second cap stays quiet until the last ten seconds, which is all
            it was ever for — it used to fire with no warning and read as the app crashing
            mid-sentence. -->
-      <p class="ready-row"><span class="ready-state" id="qLabel">20 seconds to go</span></p>
+      <p class="ready-row"><span class="ready-state" id="qLabel">30 seconds to go</span></p>
     </div>
     <!-- Two ways out of a take, because there are two reasons to end one. "done" submits what
          you said; "start over" throws it away and begins again, for the fumbled sentence or the

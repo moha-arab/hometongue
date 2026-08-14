@@ -59,7 +59,28 @@ const MIN_VOICED_S = 1.5;   // a mic that heard essentially nothing at all
 // direction: no target, and no promise that stopping at 20 costs you anything. An earlier
 // version pushed people to thirty with a button reading "10s more reads far sharper", which
 // was invented from a first pass of 7-9 clips per arm with unequal clip sets between arms.
-const MIN_RECORD_S = 20;
+// THIRTY, NOT TWENTY, and the twenty was a transcription error that shaped the whole product.
+//
+// A comment in this file claimed the paired sweep found "20s scores 40 km" and that "30s and 45s
+// are indistinguishable from 20s". Neither number is in either data file. What the two sweeps
+// actually measured, on separate clip sets, is the opposite:
+//
+//   data/length-latency.json  (24 clips)   8s 345 km | 12s 157 km | 20s 157 km | 30s  67 km
+//   data/length-sweep.json    (27 clips)                20s 317 km | 30s  72 km | 45s 90 | 60s 85
+//
+// Both runs independently put 20s among the WORST durations tested and 30s among the best, and
+// data/eval-notes.md draws the conclusion in as many words: "Length buys real accuracy up to
+// ~30s and the app should keep asking for it." So the floor sat exactly on the duration the
+// evidence calls bad, and the meter above it told people that was enough and they could stop.
+//
+// The individual sign tests do not clear p<0.05 at n~25 (20s->30s is 10 better, 6 worse), so
+// this is a large effect on a small sample rather than a settled one. But it REPLICATES across
+// two independent clip sets and both point the same way, and if the choice is between a floor
+// the data calls bad and one it calls good, it is not a close call.
+//
+// The cost is real and it is his to weigh: thirty seconds is a lot to ask a stranger who found
+// this on TikTok, and some of them will quit instead. One constant if that trade turns out wrong.
+const MIN_RECORD_S = 30;
 
 // the survey red, read from the stylesheet so themes stay in one place
 const MARK = () => window.HT.ink();
@@ -397,9 +418,8 @@ function startTimer() {
     const stop = $('#stopBtn');
     if (stop) {
       // Two states, because the measurement only supports two: not enough yet, and enough.
-      // Nothing here nags for more once the floor is cleared, since past twenty seconds more
-      // audio buys nothing this harness can detect and a button that begs is a button that
-      // makes people feel their real answer was second best.
+      // The button unlocks at the floor and then holds one label. It does not nag for more —
+      // the meter's own wording invites it, which is the gentler place for that to live.
       stop.disabled = s < MIN_RECORD_S;
       if (stop.textContent !== 'done, guess now') stop.textContent = 'done, guess now';
     }
@@ -423,7 +443,11 @@ function startTimer() {
         $('#qLabel').textContent = closing
           ? `wrapping up in ${left}`
           : enough
-            ? "that's enough, stop whenever you like"
+            // NOT "stop whenever you like". The share of answers landing within 100 km keeps
+            // climbing past the floor — 52% at 30s, 54% at 45s, 57% at 60s — so telling people
+            // the job is finished the moment they cross it talks them out of an answer that was
+            // still getting better. This invites more; it does not insist on it.
+            ? 'enough to work with, keep going if you like'
             : `${n} second${n === 1 ? '' : 's'} to go`;
       }
     }
@@ -572,7 +596,7 @@ function stopListening() {
   const elapsed = (Date.now() - startedAt) / 1000;
   const voicedS = micFrames ? (micVoiced / micFrames) * elapsed : -1;
   if (elapsed < MIN_RECORD_S) {
-    toast(`That was ${Math.round(elapsed)} seconds. Under twenty I would be guessing at country scale, so go again and give it twenty or so.`);
+    toast(`That was ${Math.round(elapsed)} seconds. Much under thirty and I am guessing at country scale, so go again and give it half a minute.`);
     state = 'idle';
     if (recorder && recorder.state !== 'inactive') { recorder.onstop = null; recorder.stop(); }
     teardownRecording();
@@ -639,7 +663,7 @@ async function onRecordingReady() {
     // and they got a country-scale guess presented with the same confidence as a real one.
     const cutShort = (Date.now() - startedAt) / 1000;
     if (cutShort < MIN_RECORD_S) {
-      toast(`That take was cut short at ${Math.round(cutShort)} seconds. Give it twenty or so and I can place it properly.`);
+      toast(`That take was cut short at ${Math.round(cutShort)} seconds. Give it half a minute and I can place it properly.`);
       state = 'idle';
       teardownRecording();
       show('idleCard');
@@ -835,7 +859,7 @@ function renderResult(v) {
   // wrong answer over their face. Ask for a clean take instead.
   if (v.content_led === 'fed') {
     window._lastResult = v;
-    $('#redoText').textContent = 'Everything I could point to was either something you told me or something I could not hear again on a second listen. That is not a reading, so I would rather give you nothing than make it up. Try once more, twenty seconds or so, without saying your name or where you are from.';
+    $('#redoText').textContent = 'Everything I could point to was either something you told me or something I could not hear again on a second listen. That is not a reading, so I would rather give you nothing than make it up. Try once more, half a minute or so, without saying your name or where you are from.';
     show('redoCard');
     flyHome();
     return;
