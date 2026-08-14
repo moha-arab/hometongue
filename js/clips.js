@@ -777,7 +777,7 @@ window.CLIPS = {
       "r": 60,
       "start": 75,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Kingston, Jamaica",
@@ -812,7 +812,7 @@ window.CLIPS = {
       "r": 60,
       "start": 61,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Kingston, Jamaica",
@@ -847,7 +847,7 @@ window.CLIPS = {
       "r": 60,
       "start": 30,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Glasgow, Scotland, United Kingdom",
@@ -882,7 +882,7 @@ window.CLIPS = {
       "r": 60,
       "start": 403,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Kingston, Jamaica",
@@ -917,7 +917,7 @@ window.CLIPS = {
       "r": 60,
       "start": 166,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Kingston, Jamaica",
@@ -952,7 +952,7 @@ window.CLIPS = {
       "r": 80,
       "start": 370,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Lagos, Nigeria",
@@ -987,7 +987,7 @@ window.CLIPS = {
       "r": 60,
       "start": 330,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Glasgow, Scotland, United Kingdom",
@@ -1022,7 +1022,7 @@ window.CLIPS = {
       "r": 60,
       "start": 48,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Glasgow, Scotland, United Kingdom",
@@ -1057,7 +1057,7 @@ window.CLIPS = {
       "r": 40,
       "start": 186,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Singapore",
@@ -1092,7 +1092,7 @@ window.CLIPS = {
       "r": 40,
       "start": 161,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Singapore",
@@ -1410,7 +1410,7 @@ window.CLIPS = {
       "r": 60,
       "start": 40,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Bogotá, Colombia",
@@ -1445,7 +1445,7 @@ window.CLIPS = {
       "r": 60,
       "start": 33,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Buenos Aires, Argentina",
@@ -1480,7 +1480,7 @@ window.CLIPS = {
       "r": 60,
       "start": 122,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Buenos Aires, Argentina",
@@ -1515,7 +1515,7 @@ window.CLIPS = {
       "r": 60,
       "start": 50,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Bogotá, Colombia",
@@ -1548,7 +1548,7 @@ window.CLIPS = {
       "r": 250,
       "size": 1286313,
       "start": 30,
-      "hint": "Ideal case: topic is a Brazilian town, completely unconnected to Argentina. Country-level accent tag only, pinned at Buenos Aires with wide radius.",
+      "hint": "A volunteer reading an article aloud · Wikimedia Commons.",
       "source": {
         "who": "Eduardo P",
         "host": "Wikimedia Commons",
@@ -1568,7 +1568,7 @@ window.CLIPS = {
       "r": 120,
       "size": 1920775,
       "start": 30,
-      "hint": "Soft ambient background music plays low under the narration throughout the reading; speech remains dominant and intelligible. Used the transcoded MP3 (original FLAC was slightly over the 40M",
+      "hint": "A volunteer narration, with music low underneath · Wikimedia Commons.",
       "source": {
         "who": "Wilfredor (Wilfredo Rafael Rodríguez Hernández",
         "host": "Wikimedia Commons",
@@ -1607,7 +1607,7 @@ window.CLIPS = {
       "lng": -99.1332,
       "r": 500,
       "size": 772432,
-      "hint": "NOT the already-used Mexican medical-article reading · this is a different reader/topic. Short (1:36) but clean. Country-level tag only, no specific city, pinned at Mexico City with wide rad",
+      "hint": "A volunteer reading an article aloud · Wikimedia Commons.",
       "source": {
         "who": "Luisrey89~commonswiki",
         "host": "Wikimedia Commons",
@@ -1627,7 +1627,7 @@ window.CLIPS = {
       "lng": -55.2379,
       "r": 120,
       "size": 674421,
-      "hint": "Checked full text on Wikisource: the story names no real places at all (only generic 'sierra,' 'valle,' 'mi terruño') · no Uruguay or Montevideo mention. Archival 1946 radio recording, PD un",
+      "hint": "An archival radio reading from 1946 · public domain.",
       "source": {
         "who": "Juan José Morosoli / Museo de la Palabra del SODRE (Uruguay",
         "host": "Wikimedia Commons",
@@ -1668,7 +1668,7 @@ window.CLIPS = {
       "lng": -77.0428,
       "r": 250,
       "size": 1265833,
-      "hint": "Only country-level origin is documented (no specific city), so the pin is placed at the capital, Lima, with a wide accept radius. Duration 2:38, verified via direct file-page fetch.",
+      "hint": "A volunteer reading aloud · Wikimedia Commons.",
       "source": {
         "who": "César Anglas Rabines",
         "host": "Wikimedia Commons",
@@ -1688,7 +1688,7 @@ window.CLIPS = {
       "lng": -66.1057,
       "r": 120,
       "size": 1904057,
-      "hint": "Ancient Roman history topic, nothing to do with the Caribbean. Duration 3:58, clean single male voice.",
+      "hint": "A volunteer reading on Roman history · Wikimedia Commons.",
       "source": {
         "who": "Boricuaeddie",
         "host": "Wikimedia Commons",
@@ -1708,7 +1708,7 @@ window.CLIPS = {
       "lng": -3.7038,
       "r": 250,
       "size": 993533,
-      "hint": "Classic Golden Age theatre monologue · geography-free content by nature, no Spain/Madrid references. Only regional-category documentation (no specific city), pinned at Madrid with wide radiu",
+      "hint": "A Golden Age theatre monologue, read aloud · Wikimedia Commons.",
       "source": {
         "who": "Txo",
         "host": "Wikimedia Commons",
@@ -1728,7 +1728,7 @@ window.CLIPS = {
       "lng": -75.4136,
       "r": 120,
       "size": 1920775,
-      "hint": "Scripted Wikipedia-article reading; clear single male voice, no background noise. Verified via direct fetch of the Commons file page (duration 8:22, CC BY-SA 3.0).",
+      "hint": "A volunteer reading a Wikipedia article · CC BY-SA.",
       "source": {
         "who": "Libardomm",
         "host": "Wikimedia Commons",
@@ -1753,7 +1753,7 @@ window.CLIPS = {
       "r": 150,
       "start": 153,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.5-flash",
         "heard": "Kinshasa, Democratic Republic of the Congo",
@@ -1789,7 +1789,7 @@ window.CLIPS = {
       "r": 60,
       "start": 40,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Marseille, France",
@@ -1824,7 +1824,7 @@ window.CLIPS = {
       "r": 50,
       "start": 225,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Paris, France",
@@ -1859,7 +1859,7 @@ window.CLIPS = {
       "r": 60,
       "start": 115,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Provence-Alpes-Côte d'Azur, France",
@@ -1894,7 +1894,7 @@ window.CLIPS = {
       "r": 60,
       "start": 149,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Marseille, France",
@@ -1929,7 +1929,7 @@ window.CLIPS = {
       "r": 70,
       "start": 118,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Abidjan, Côte d'Ivoire",
@@ -2086,7 +2086,7 @@ window.CLIPS = {
       "r": 260,
       "size": 475890,
       "start": 35.5,
-      "hint": "A French Wikinews volunteer reads a short news bulletin about a building collapse – the story is set in Marseille, but it's his own file-tagged 'South of France' accent that actually places ",
+      "hint": "A Wikinews volunteer reading a short news bulletin.",
       "source": {
         "who": "Bastien65 (reader), Savant-fou & Malfidus (jingle), French Wikinews",
         "host": "Wikimedia Commons",
@@ -2110,7 +2110,7 @@ window.CLIPS = {
       "r": 100,
       "start": 106,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.5-flash",
         "heard": "Delhi, India",
@@ -2146,7 +2146,7 @@ window.CLIPS = {
       "r": 100,
       "start": 195,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.5-flash",
         "heard": "Delhi, India",
@@ -2182,7 +2182,7 @@ window.CLIPS = {
       "r": 100,
       "start": 113,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.5-flash",
         "heard": "Delhi, India",
@@ -2218,7 +2218,7 @@ window.CLIPS = {
       "r": 120,
       "start": 64,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.5-flash",
         "heard": "Patna, India",
@@ -2254,7 +2254,7 @@ window.CLIPS = {
       "r": 120,
       "start": 60,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.5-flash",
         "heard": "New Delhi, India",
@@ -2290,7 +2290,7 @@ window.CLIPS = {
       "r": 60,
       "start": 99,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Hyderabad, Telangana, India",
@@ -2322,7 +2322,7 @@ window.CLIPS = {
       "lng": 77.209,
       "r": 150,
       "size": 1920775,
-      "hint": "9m42s, verified direct file. Origin evidence is a dialect tag (Khariboli/North Indian standard) rather than a single named city, so treat the pin location as the broad Delhi–Meerut belt, not",
+      "hint": "A spoken-Wikipedia recording in the northern standard.",
       "source": {
         "who": "Magicalsaumy, dual",
         "host": "Wikimedia Commons",
@@ -2364,7 +2364,7 @@ window.CLIPS = {
       "lng": 82.9739,
       "r": 120,
       "size": 1578466,
-      "hint": "3m17s, verified direct file. Recorded in Urdu, which is the normal medium of instruction/address in Indian Deobandi seminaries, so an Indian speaker using Urdu here is expected, not a signal",
+      "hint": "A seminary address given in Urdu, as is normal in Indian Deobandi seminaries.",
       "source": {
         "who": "Owais Bin Elias",
         "host": "Wikimedia Commons",
@@ -2387,7 +2387,7 @@ window.CLIPS = {
       "start": 207,
       "gain": 100,
       "year": 2026,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "heard": "Lahore, Pakistan",
         "offBy": 0,
@@ -2420,7 +2420,7 @@ window.CLIPS = {
       "r": 100,
       "start": 217,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.5-flash",
         "heard": "Karachi, Pakistan",
@@ -2456,7 +2456,7 @@ window.CLIPS = {
       "r": 100,
       "start": 63,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.5-flash",
         "heard": "Lahore, Pakistan",
@@ -2514,7 +2514,7 @@ window.CLIPS = {
       "r": 140,
       "start": 30,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.5-flash",
         "heard": "Xi'an, China",
@@ -2550,7 +2550,7 @@ window.CLIPS = {
       "r": 100,
       "start": 119,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.5-flash",
         "heard": "Hong Kong, Hong Kong",
@@ -2586,7 +2586,7 @@ window.CLIPS = {
       "r": 60,
       "start": 132,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Chengdu, Sichuan, China",
@@ -2621,7 +2621,7 @@ window.CLIPS = {
       "r": 60,
       "start": 75,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Beijing, China",
@@ -2656,7 +2656,7 @@ window.CLIPS = {
       "r": 60,
       "start": 204,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Chengdu, Sichuan, China",
@@ -2728,7 +2728,7 @@ window.CLIPS = {
       "lng": 114.1694,
       "r": 120,
       "size": 1920775,
-      "hint": "Straight reading of the Wikipedia biography, no self-introduction. Any 20s window works; the first few seconds just name the article subject (an American scientist), not the speaker's locati",
+      "hint": "A volunteer reading a Wikipedia biography aloud.",
       "source": {
         "who": "Recording by Carrotkit, uploaded by 胡葡萄",
         "host": "Wikimedia Commons",
@@ -2748,7 +2748,7 @@ window.CLIPS = {
       "lng": 114.1694,
       "r": 120,
       "size": 1920775,
-      "hint": "Dense science-article reading, no intro chit-chat. Any segment works. Same voice as the Carver clip above.",
+      "hint": "A volunteer reading a Wikipedia biography aloud.",
       "source": {
         "who": "Recording by Carrotkit, uploaded by 胡葡萄",
         "host": "Wikimedia Commons",
@@ -2769,7 +2769,7 @@ window.CLIPS = {
       "r": 120,
       "size": 1764249,
       "start": 60,
-      "hint": "Formal recitation of a famous classical-Chinese essay, no self-introduction. Good geography-free content since the essay's subject (Yueyang, Hunan) is a different province from the speaker's",
+      "hint": "A recitation of a classical Chinese essay.",
       "source": {
         "who": "Recording by Wikimedia user Legolas1024",
         "host": "Wikimedia Commons",
@@ -2833,7 +2833,7 @@ window.CLIPS = {
       "r": 150,
       "start": 169,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.5-flash",
         "heard": "Luanda, Angola",
@@ -2869,7 +2869,7 @@ window.CLIPS = {
       "r": 70,
       "start": 147,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Recife, Pernambuco, Brazil",
@@ -2904,7 +2904,7 @@ window.CLIPS = {
       "r": 70,
       "start": 58,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Salvador, Bahia, Brazil",
@@ -2939,7 +2939,7 @@ window.CLIPS = {
       "r": 70,
       "start": 30,
       "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Salvador, Bahia, Brazil",
@@ -3141,7 +3141,7 @@ window.CLIPS = {
       "start": 65,
       "gain": 100,
       "year": 2014,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "heard": "Vienna, Austria",
         "offBy": 0,
@@ -3175,7 +3175,7 @@ window.CLIPS = {
       "start": 56,
       "gain": 100,
       "year": 2016,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "heard": "Zurich, Switzerland",
         "offBy": 0,
@@ -3209,7 +3209,7 @@ window.CLIPS = {
       "start": 43,
       "gain": 100,
       "year": 2013,
-      "hint": "Streamed from YouTube — the creator gets the view.",
+      "hint": "Streamed from YouTube · the creator gets the view.",
       "gate": {
         "heard": "Leipzig, Germany",
         "offBy": 0,

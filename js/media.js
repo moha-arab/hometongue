@@ -22,6 +22,10 @@ window.HT.media = function media(audioEl, mountId) {
   for (const ev of ['play', 'pause', 'ended', 'timeupdate', 'seeked']) {
     audioEl.addEventListener(ev, () => { if (mode === 'file') emit(ev); });
   }
+  // A file that 404s or decodes badly fires 'error' and never 'loadedmetadata', so whenReady's
+  // one-shot listener waits forever and the round stays on "Clip is loading, one sec…" with no
+  // retry and no way out.
+  audioEl.addEventListener('error', () => { if (mode === 'file') emit('error'); });
 
   // ————— YouTube —————
   let yt = null, ytReady = false, ytState = -1, ytSeeking = false, pollId = 0, apiPromise = null;
@@ -47,6 +51,15 @@ window.HT.media = function media(audioEl, mountId) {
         playerVars: { controls: 0, disablekb: 1, modestbranding: 1, rel: 0, playsinline: 1, fs: 0, iv_load_policy: 3 },
         events: {
           onReady: () => { ytReady = true; resolve(yt); },
+          // WITHOUT THIS, A DEAD VIDEO IS A DEAD ROUND AND NOBODY IS TOLD.
+          // YouTube reports 100 for removed or private, 101 and 150 for "the owner disabled
+          // embedding", 2 and 5 for a bad request or an unplayable player. With no onError the
+          // codes were swallowed: ready() still returned true (the PLAYER is fine, the VIDEO is
+          // not) and play() resolved anyway, so the game set playing = true and sat there
+          // burning the listening budget on silence. Clips are other people's uploads, so
+          // some of them WILL disappear after launch — this is the difference between a
+          // swapped clip and a round that just does nothing.
+          onError: () => { ytReady = false; emit('error'); },
           onStateChange: (e) => {
             ytState = e.data;
             const S = window.YT.PlayerState;

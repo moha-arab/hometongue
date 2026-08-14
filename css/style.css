@@ -65,6 +65,12 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 [hidden] { display: none !important; }
+/* Visible to a screen reader, invisible on screen. Used for the map's keyboard instructions,
+   which sighted players do not need and keyboard players cannot discover any other way. */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
 html, body { height: 100%; }
 
 body {
@@ -154,22 +160,16 @@ body {
 .hud {
   position: fixed; inset: 0; z-index: 5;
   display: grid;
-  /* CENTRE IT WHEN IT FITS, SCROLL IT WHEN IT DOES NOT — and never clip it.
-     place-items:center was removed once because a card taller than the screen centred with its
-     top half above the scroll start, unreachable. margin:auto on .card was the replacement, and
-     it has the mirror-image bug: an auto margin absorbs the free space, so when the card is
-     TALLER than the padded box the overflow spills outside the scrollable area instead of
-     extending it. Measured on a phone in landscape (844x390): the last deck tile ended at 459px
-     and "see the leaderboards" at 508px, both off-screen, with .hud reporting
-     scrollHeight === clientHeight === 390. Nothing could scroll to them. The deck list simply
-     stopped at six.
-     `align-content: safe center` is the alignment keyword built for exactly this: centre while
-     there is room, fall back to start the moment there is not, so the overflow stays inside the
-     scroll box and stays reachable. .card keeps its horizontal auto margins only.
-     align-items must be `start` alongside it: the default `stretch` squashes the card into the
-     track, so the card measured 256px (exactly the padded height) while its own tiles ran on to
-     459px OUTSIDE it — the card was not overflowing the container, it was overflowing itself. */
-  align-content: safe center; align-items: start;
+  /* No place-items: center — a card taller than the phone screen would centre with its top
+     half above the scroll start, unreachable. margin:auto on .card centres when it fits and
+     scrolls fully when it does not. That was the "can't scroll the result on my phone" bug.
+
+     Do NOT replace this with `align-content: safe center`. It was tried, to stop an overflowing
+     card being clipped in landscape — a problem that turned out not to exist, because .card has
+     its own max-height and overflow:auto and scrolls internally. What it DID do was size the
+     grid track to the content, which leaves no free space for `.card.peek { margin-top: auto }`
+     to absorb, so the result card stopped docking to the bottom of the phone screen and floated
+     204px above it, over the map answer it is supposed to sit below. */
   padding: 82px 20px 52px; pointer-events: none; overflow-y: auto;
 }
 @media (min-width: 940px) {
@@ -177,14 +177,12 @@ body {
   /* .hud .card, not .card: the base .card sets its own margins later in the file and a bare
      .card here silently loses to it — which is exactly how the card drifted to the centre
      of the screen and sat on top of the answer zone for two days before Mohammad caught it. */
-  .hud .card { margin-left: 0; margin-right: auto; }
+  .hud .card { margin-left: 0; }
 }
 
 .card {
   pointer-events: auto;
-  /* Horizontal only. Vertical centring is .hud's `align-content: safe center` now, because a
-     vertical auto margin is what made an overflowing card unreachable. */
-  margin: 0 auto;
+  margin: auto;
   width: min(520px, 100%);
   background: var(--sheet);
   border: 1px solid var(--rule);

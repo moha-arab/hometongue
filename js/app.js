@@ -557,6 +557,7 @@ const ERRORS = {
   upstream_failed: "The model didn't answer. Try again in a moment.",
   audio_too_short: 'That was too short to read anything from. Give me a sentence or two.',
   audio_too_large: 'That recording was too big to send. Try a slightly shorter take.',
+  text_too_long: 'That was much longer than needed. A sentence or two is plenty.',
   rate_limited: 'Slow down a little, try again in a bit.',
   at_capacity: 'HomeTongue has hit its listening limit for today. It resets tonight, and it will be free again.',
   bad_origin: 'That request was blocked as coming from the wrong domain.',

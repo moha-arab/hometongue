@@ -57,6 +57,23 @@ function initMap() {
   window.HT.basemap(map);
   window.HT.keepMinZoom(map, mapEl);
   map.on('click', onMapClick);
+
+  // A KEYBOARD PATH TO THE SAME PIN.
+  //
+  // map.on('click') was the only way to create a guess marker, and #lockBtn ships disabled so it
+  // is not even in the tab order until a pin exists. That made the whole game unplayable without
+  // a mouse or a touchscreen: you could tab to the play button, hear the clip, and then have no
+  // way to answer. Leaflet's own keyboard handling pans and zooms but never drops anything.
+  //
+  // Enter or Space on the focused map drops the pin at the centre of the view, which is the
+  // natural keyboard gesture: arrow keys already move the map under the crosshair.
+  mapEl.addEventListener('keydown', (e) => {
+    if ($('#dock').hidden) return;
+    if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
+    e.preventDefault();
+    onMapClick({ latlng: map.getCenter() });
+    $('#pinHint').textContent = 'arrow keys move the map, Enter re-drops the pin, then lock it';
+  });
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden) { setTimeout(() => map.invalidateSize(), 60); return; }
     // Switching away must stop the voice. Two reasons beyond politeness: the listening budget
@@ -194,7 +211,7 @@ function startGame(type) {
     .then((r) => r.json()).then((d) => { gameToken = d.token || null; if (!gameToken) throw new Error('no token'); })
     .catch(() => { if (attempt < 3) setTimeout(() => mint(attempt + 1), attempt * 12_000 + 3_000); });
   mint(1);
-  warmDeck();
+  warmClip(0);
   nextRound();
 }
 
@@ -214,7 +231,12 @@ function startGame(type) {
 // and if a deck is too thin to avoid it, it falls back to filling the round rather than dealing
 // short.
 function dealDeck(pool) {
-  const placeOf = (c) => String(c.label);
+  // Keyed on the ANSWER PIN, not the label. Two clips can carry different labels and the very
+  // same coordinates — Spanish has "Buenos Aires, Argentina" and "Argentina" both at the same
+  // point, Hindi-Urdu has "Delhi, India" and "Delhi–Meerut Region, India" — so a label-based
+  // guard let a game show two rounds whose correct answer was the identical spot on the map.
+  // From the player's side that is the same question twice.
+  const placeOf = (c) => `${c.lat.toFixed(2)},${c.lng.toFixed(2)}`;
   const bag = shuffle(pool);
   const out = [];
   const used = new Set();
@@ -234,12 +256,21 @@ function dealDeck(pool) {
 
 // Warm the browser HTTP cache for small clips (SAA's server is slow cold) —
 // big spoken-article files stream fine on demand, so skip them.
-function warmDeck() {
-  for (const clip of deck) {
-    if ((clip.size || 0) > 0 && clip.size <= 3_000_000) {
-      fetch(clip.url, { mode: 'no-cors' }).catch(() => {});
-    }
-  }
+// WARM ONE CLIP, NOT FIVE.
+//
+// This used to fetch every clip in the deck the instant a deck was tapped, guarded by
+// `clip.size <= 3_000_000` with a comment about skipping big spoken-article files. The guard
+// never skipped anything: the largest file in the whole project is 1.83 MB, so every one of the
+// 111 local clips passed. A World Languages game pulled about 7.6 MB before round one made a
+// sound, Chinese 7.9 MB — on mobile data, which is where a TikTok audience arrives.
+//
+// Only the clip that is about to play is warmed. The next one is warmed during the reveal, when
+// the player is reading the answer and the network is idle anyway, so it is ready before they
+// press "next clip" without anyone paying for four clips they may never reach.
+function warmClip(i) {
+  const clip = deck[i];
+  if (!clip || clip.kind === 'yt' || !clip.url) return;
+  fetch(clip.url, { mode: 'no-cors' }).catch(() => {});
 }
 
 function fmtBudget() {
@@ -255,7 +286,7 @@ function nextRound() {
   playing = false;
   lastTickT = 0;
   clipSwaps = 0;
-  advanceLock = false;
+  advanceFrom = -1;
   $('#roundNum').textContent = `Round ${round + 1}/${ROUNDS}`;
   $('#scoreSoFar').textContent = `${total.toLocaleString()} pts`;
   $('#listens').textContent = fmtBudget();
@@ -288,12 +319,28 @@ function ensureOffset(clip) {
   }
 }
 
+// A dead clip now reaches the rescue instead of nothing. Registered once, at load.
+media.on('error', () => {
+  // Only meaningful while a round is on screen; an error after the reveal is not the player's
+  // problem to solve.
+  if ($('#dock') && !$('#dock').hidden) rescueClip('That clip is no longer available, so I swapped it for you.');
+});
+
 function playClip() {
   if (playing || budgetLeft <= 0) return;
   const clip = deck[round];
   if (!media.ready()) {
     toast('Clip is loading, one sec…');
     media.whenReady(playClip);
+    // whenReady is a one-shot 'loadedmetadata' listener, and a file that fails to load never
+    // fires it — so without a deadline the round waits forever on that toast. If it has not
+    // become playable in six seconds, treat it as broken rather than as slow.
+    const stuckRound = round;
+    setTimeout(() => {
+      if (round === stuckRound && !media.ready() && $('#dock') && !$('#dock').hidden) {
+        rescueClip('That clip would not load, so I swapped it for you.');
+      }
+    }, 6000);
     return;
   }
   ensureOffset(clip);
@@ -308,20 +355,41 @@ function playClip() {
     playing = false;
     if (e && e.name === 'NotAllowedError') {
       toast('Tap ▶ once more to start the sound.');
-    } else if (clipSwaps < 2) {
-      // The swap used to replace the deck entry and clear the player — and stop there, so
-      // the play button was dead for the rest of the round. Load the replacement and play
-      // it; two swaps per round at most, so a broken pool can't loop forever.
-      clipSwaps += 1;
-      toast('That clip refused to play, so I swapped it for you.');
-      deck[round] = replacementClip();
-      media.clear();
-      media.load(deck[round], CLIP_WINDOW_S);
-      setTimeout(() => playClip(), 400);
     } else {
-      toast('The audio is stuck this round. Lock a guess or skip ahead.');
+      rescueClip('That clip refused to play, so I swapped it for you.');
     }
   });
+}
+
+// ONE RESCUE, REACHABLE FROM EVERY WAY A CLIP CAN DIE.
+//
+// This logic used to live only inside media.play()'s rejection handler, which is unreachable for
+// the two failures that actually happen in the wild: a YouTube video that has been removed,
+// made private or had embedding switched off (play() resolves regardless, so the game believed
+// it was playing silence), and a local file that 404s or fails to decode (it fires 'error', not
+// 'loadedmetadata', so whenReady waited forever and the round sat on "Clip is loading, one sec…"
+// with no retry). Both now land here.
+function rescueClip(why) {
+  if (rescuing) return;
+  if (clipSwaps >= 2) {
+    // A pool this broken is not going to fix itself on a third try.
+    toast('The audio is stuck this round. Lock a guess and carry on.');
+    return;
+  }
+  rescuing = true;
+  clipSwaps += 1;
+  playing = false;
+  toast(why || 'That clip would not play, so I swapped it for you.');
+  const swapRound = round;
+  deck[round] = replacementClip();
+  media.clear();
+  media.load(deck[round], CLIP_WINDOW_S);
+  setTimeout(() => {
+    rescuing = false;
+    // The reveal or the next round may have arrived while the replacement loaded; playing then
+    // would start a clip for a round nobody is on any more.
+    if (round === swapRound && $('#dock') && !$('#dock').hidden) playClip();
+  }, 450);
 }
 
 function replacementClip() {
@@ -519,7 +587,12 @@ function lockIn() {
   resetClipFlag();
   renderSource(clip.source, clip.year);
   $('#nextBtn').textContent = round === ROUNDS - 1 ? 'see final score' : 'next clip';
+  // This reveal belongs to this round, and only this round may advance from it. The second half
+  // of the double-tap fix: advance() checks against this, so a repeated tap has nothing to match.
+  advanceFrom = round;
   setView('reveal');
+  // The player is reading the answer; fetch the next clip now so "next clip" is instant.
+  warmClip(round + 1);
 }
 
 // Credits people can actually read: who recorded it, where it lives, the licence, and a way in.
@@ -540,10 +613,17 @@ function renderSource(src = {}, year) {
 }
 
 function advance() {
-  // a doubled 'next clip' tap used to skip a round outright, and the 4-round final then
-  // failed the server's sum check — the lock opens again when nextRound resets it
-  if (advanceLock) return;
-  advanceLock = true;
+  // A DOUBLED "next clip" TAP USED TO SKIP A ROUND OUTRIGHT, AND THE GUARD ADDED FOR IT NEVER
+  // FIRED. The lock was set here and cleared inside nextRound(), which advance() calls
+  // synchronously — so it was released before advance() had even returned, and its lifetime was
+  // zero for every round but the last. A 180ms double-tap, which is just a normal phone tap
+  // registering twice, still advanced twice: the game then ended after four scored rounds and
+  // the server's sum check rejected the submission, so the run was unpostable.
+  //
+  // Keyed to the round it was called for instead of a flag someone else owns. A second tap
+  // belongs to a round that has already moved on, so it is ignored no matter who resets what.
+  if (round !== advanceFrom) return;
+  advanceFrom = -1;
   round += 1;
   if (round < ROUNDS) return nextRound();
   finishGame();
@@ -739,7 +819,8 @@ $('#flagNote').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.p
 let boardDeck = null;
 
 let clipSwaps = 0;
-let advanceLock = false;
+let rescuing = false;   // guards against a swap storm when several failures fire at once
+let advanceFrom = -1;   // the round the visible reveal belongs to; only that round may advance
 let boardsGen = 0;
 
 async function showBoards(deckKey) {

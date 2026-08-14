@@ -43,10 +43,14 @@ for (const [name, pool] of Object.entries(window.CLIPS)) {
     const hand = dealDeck(pool);
     for (const c of hand) seen.add(c.id);
     hands.add(hand.map((c) => c.id).sort().join('|'));
-    if (new Set(hand.map((c) => String(c.label))).size < hand.length) dupPlace += 1;
+    // Checked on the ANSWER PIN, not the label. Different labels can share coordinates —
+    // "Buenos Aires, Argentina" and "Argentina", "Delhi, India" and "Delhi–Meerut Region" —
+    // and a label-only check called those two distinct questions when the player is being
+    // asked to click the identical spot twice.
+    if (new Set(hand.map((c) => `${c.lat.toFixed(2)},${c.lng.toFixed(2)}`)).size < hand.length) dupPlace += 1;
   }
   const unreachable = pool.filter((c) => !seen.has(c.id));
-  const places = new Set(pool.map((c) => String(c.label))).size;
+  const places = new Set(pool.map((c) => `${c.lat.toFixed(2)},${c.lng.toFixed(2)}`)).size;
   // A deck with fewer distinct places than rounds MUST repeat a place; that is not a defect.
   const mustRepeat = places < ROUNDS;
   const ok = unreachable.length === 0 && (mustRepeat || dupPlace === 0);

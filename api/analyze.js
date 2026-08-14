@@ -370,12 +370,37 @@ export default async function handler(req, res) {
   try {
     const body = await readJsonBody(req);
     const typed = (body.text || '').trim();
+
+    // A CAP ON HOW BIG ONE REQUEST CAN BE, NOT JUST HOW MANY THERE ARE.
+    //
+    // DAILY_ANALYSES counts invocations, so "a deliberate, known maximum bill" above is only
+    // known if a single invocation has a known maximum size — and this had none. Measured
+    // against the real handler: a normal typed sentence sends ~6.8 KB upstream (~1.7k tokens),
+    // while 4 MB of pasted junk sends ~4.2 MB (~1.05M tokens). Same one slot against the cap,
+    // roughly six hundred times the cost. A scripted loop needs nothing but a matching Origin
+    // header, which is free to set.
+    //
+    // Rejected BEFORE countAnalysis() and the model call, so junk costs neither a Gemini
+    // request nor a slot a real visitor could have used.
+    const MAX_TYPED = 1200;
+    if (typed.length > MAX_TYPED) {
+      res.statusCode = 413;
+      return res.end(JSON.stringify({
+        ok: false,
+        error: 'text_too_long',
+        detail: 'That is much longer than needed — a sentence or two is plenty.',
+      }));
+    }
     let parts;
 
     if (body.audio) {
       const bytes = Buffer.from(body.audio, 'base64');
       if (bytes.length < 2000) throw Object.assign(new Error('audio too short'), { code: 'audio_too_short' });
-      if (bytes.length > 6 * 1024 * 1024) throw Object.assign(new Error('audio too large'), { code: 'audio_too_large' });
+      // 2 MB, not 6. MAX_SECONDS is 60 in js/app.js, and 60s at 128kbps (the top end of what
+      // Safari's recorder emits) is under 1 MB, so this is still more than double the worst
+      // honest take — while cutting the accepted worst case from roughly eighteen minutes of
+      // audio to nine.
+      if (bytes.length > 2 * 1024 * 1024) throw Object.assign(new Error('audio too large'), { code: 'audio_too_large' });
       parts = [
         { inlineData: { mimeType: body.mime || 'audio/webm', data: body.audio } },
         { text: 'Where did this person grow up?' },
