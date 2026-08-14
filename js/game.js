@@ -39,6 +39,15 @@ const field = window.HT.contours();
 
 // ————— map —————
 function initMap() {
+  // Leaflet is vendored and in the service-worker shell, so this should not happen — but it is
+  // called at the top level, and an exception here kills every later line in the file, including
+  // the deck picker. A dead page with a console error is the worst possible failure; say
+  // something a person can act on instead.
+  if (typeof L === 'undefined') {
+    const grid = document.getElementById('typeGrid');
+    if (grid) grid.innerHTML = '<p class="prompt-label">The map could not load. Check your connection and refresh.</p>';
+    return;
+  }
   const mapEl = document.getElementById('map');
   map = L.map('map', {
     zoomControl: false, attributionControl: true, worldCopyJump: true,

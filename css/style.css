@@ -17,8 +17,13 @@
   --sheet: #FCFBF8;
   --black: #1B1C19;
   --black-2: #43453F;
-  --grey: #74766D;
-  --grey-2: #A2A498;
+  /* Both darkened one step for contrast. --grey-2 was #A2A498, which measures 2.45:1 on the card
+     and 2.24:1 over the map — well under the 3.0 floor, and it carries the SMALL text: card
+     eyebrows, leaderboard rank numbers, input placeholders, the footer line. Small and faint is
+     the combination that loses people. --grey moved down with it so the quiet/quieter hierarchy
+     between the two survives instead of inverting. */
+  --grey: #5F6158;
+  --grey-2: #74766D;
   --rule: #DEDAD1;
   --rule-soft: #EAE7E0;
 
@@ -136,7 +141,9 @@ body {
 .modes { display: flex; align-items: center; gap: 2px; }
 .modes a {
   font-family: var(--sans); font-size: 13px; font-weight: 500;
-  padding: 7px 12px; border-radius: var(--r-sm); text-decoration: none;
+  /* 40px minimum: these are the only way between the two halves of the app. */
+  padding: 10px 12px; min-height: 40px; display: inline-flex; align-items: center;
+  border-radius: var(--r-sm); text-decoration: none;
   color: var(--grey); background: none; border: none; cursor: pointer;
   transition: color 0.15s, background 0.15s;
 }
@@ -147,22 +154,37 @@ body {
 .hud {
   position: fixed; inset: 0; z-index: 5;
   display: grid;
-  /* No place-items: center — a card taller than the phone screen would centre with its top
-     half above the scroll start, unreachable. margin:auto on .card centres when it fits and
-     scrolls fully when it does not. That was the "can't scroll the result on my phone" bug. */
+  /* CENTRE IT WHEN IT FITS, SCROLL IT WHEN IT DOES NOT — and never clip it.
+     place-items:center was removed once because a card taller than the screen centred with its
+     top half above the scroll start, unreachable. margin:auto on .card was the replacement, and
+     it has the mirror-image bug: an auto margin absorbs the free space, so when the card is
+     TALLER than the padded box the overflow spills outside the scrollable area instead of
+     extending it. Measured on a phone in landscape (844x390): the last deck tile ended at 459px
+     and "see the leaderboards" at 508px, both off-screen, with .hud reporting
+     scrollHeight === clientHeight === 390. Nothing could scroll to them. The deck list simply
+     stopped at six.
+     `align-content: safe center` is the alignment keyword built for exactly this: centre while
+     there is room, fall back to start the moment there is not, so the overflow stays inside the
+     scroll box and stays reachable. .card keeps its horizontal auto margins only.
+     align-items must be `start` alongside it: the default `stretch` squashes the card into the
+     track, so the card measured 256px (exactly the padded height) while its own tiles ran on to
+     459px OUTSIDE it — the card was not overflowing the container, it was overflowing itself. */
+  align-content: safe center; align-items: start;
   padding: 82px 20px 52px; pointer-events: none; overflow-y: auto;
 }
 @media (min-width: 940px) {
   .hud { padding-left: clamp(32px, 7vw, 120px); }
-  /* .hud .card, not .card: the base .card sets margin:auto later in the file and a bare
+  /* .hud .card, not .card: the base .card sets its own margins later in the file and a bare
      .card here silently loses to it — which is exactly how the card drifted to the centre
      of the screen and sat on top of the answer zone for two days before Mohammad caught it. */
-  .hud .card { margin-left: 0; }
+  .hud .card { margin-left: 0; margin-right: auto; }
 }
 
 .card {
   pointer-events: auto;
-  margin: auto;
+  /* Horizontal only. Vertical centring is .hud's `align-content: safe center` now, because a
+     vertical auto margin is what made an overflowing card unreachable. */
+  margin: 0 auto;
   width: min(520px, 100%);
   background: var(--sheet);
   border: 1px solid var(--rule);
@@ -232,10 +254,17 @@ body {
 .foot-hint { font-family: var(--mono); font-size: 11px; color: var(--grey); }
 
 /* ——— controls ——— */
+/* 16px IS NOT A TASTE CHOICE. iOS Safari zooms the whole page in when you focus a text field
+   whose font-size is under 16px, and it does not zoom back out — the header slides off, the map
+   is suddenly half off-screen, and the page looks broken from the first tap. Every input here was
+   13px. The textarea was already 17px, which is the tell: this bug was hit once and patched in
+   one place instead of at the rule that causes it.
+   Also 44px minimum height, which is the smallest reliable touch target. */
 select, textarea, input[type="text"] {
   background: var(--paper); color: var(--black);
   border: 1px solid var(--rule); border-radius: var(--r-sm);
-  font-family: var(--sans); font-size: 13px; padding: 9px 11px; outline: none;
+  font-family: var(--sans); font-size: 16px; padding: 11px 13px; outline: none;
+  min-height: 44px;
 }
 textarea {
   width: 100%; margin-top: 12px; resize: vertical;
@@ -307,11 +336,15 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .share-btn:disabled { opacity: 0.65; cursor: wait; }
 .stop-btn:disabled { background: var(--paper-2); color: var(--grey-2); cursor: default; }
 
+/* 44px tall because these are pressed with a thumb, not a mouse. "post score" was 32px, which
+   is a miss-and-try-again target on a phone — and it is the button that decides whether a run
+   reaches the leaderboard at all. */
 .fb-btn, .sample-btn {
   background: var(--sheet); color: var(--black);
   border: 1px solid var(--rule); border-radius: var(--r-sm);
-  font-family: var(--sans); font-size: 12.5px; font-weight: 500;
-  padding: 7px 13px; cursor: pointer; transition: border-color 0.15s, color 0.15s, background 0.15s;
+  font-family: var(--sans); font-size: 13px; font-weight: 500;
+  padding: 7px 15px; min-height: 44px; cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
 }
 .fb-btn:hover:not(:disabled), .sample-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
 .fb-btn:disabled { opacity: 0.35; cursor: default; }
@@ -810,18 +843,22 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .flag-q { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--grey); }
 .flag-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
 .flag-chip {
-  font-family: var(--sans); font-size: 12px; color: var(--grey);
+  font-family: var(--sans); font-size: 12.5px; color: var(--grey);
   background: none; border: 1px solid var(--rule); border-radius: var(--r-sm);
-  padding: 5px 10px; cursor: pointer; transition: color .15s, border-color .15s, background .15s;
+  /* A row of these wraps, so they stay denser than a standalone button — but 40px is still a
+     target a thumb can hit, where 26px was not. */
+  padding: 9px 12px; min-height: 40px; cursor: pointer;
+  transition: color .15s, border-color .15s, background .15s;
 }
 .flag-chip:hover { color: var(--black); border-color: var(--grey); background: var(--accent-soft); }
 .flag-chip:disabled { opacity: .45; cursor: default; }
 .flag-thanks { display: flex; align-items: center; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
 .flag-thanks span { font-size: 12.5px; color: var(--grey); }
 .flag-thanks input {
-  flex: 1; min-width: 140px; font-family: var(--sans); font-size: 12.5px;
-  padding: 6px 9px; border: 1px solid var(--rule); border-radius: var(--r-sm);
-  background: var(--sheet); color: var(--black); outline: none;
+  /* 16px for the same reason as above: under it, tapping this field zooms the page. */
+  flex: 1; min-width: 140px; font-family: var(--sans); font-size: 16px;
+  padding: 10px 12px; border: 1px solid var(--rule); border-radius: var(--r-sm);
+  background: var(--sheet); color: var(--black); outline: none; min-height: 44px;
 }
 .flag-thanks input:focus { border-color: var(--accent); }
 
@@ -852,7 +889,11 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
    look at for orientation, in the eyebrow's own type, so the standings keep the card. */
 .back-link {
   display: inline-flex; align-items: center; gap: 5px;
-  background: none; border: 0; padding: 0; cursor: pointer;
+  background: none; border: 0; cursor: pointer;
+  /* The TYPE is eyebrow-sized; the TARGET must not be. Measured at 13px tall, which is a
+     miss-and-try-again tap on a phone. Padding grows the hit area and the negative margin puts
+     the glyph back exactly where the eyebrow expects it, so nothing moves visually. */
+  padding: 14px 10px; margin: -14px -10px;
   font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
   color: var(--grey-2);
   transition: color .15s;
@@ -883,7 +924,8 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   --row: var(--accent);
   font-family: var(--sans); font-size: 12px; font-weight: 500; color: var(--grey);
   background: none; border: 0; border-radius: 5px;
-  padding: 7px 10px; cursor: pointer; text-align: left; line-height: 1.25;
+  /* 40px so a thumb can pick one deck out of eight without hitting its neighbour. */
+  padding: 11px 10px; min-height: 40px; cursor: pointer; text-align: left; line-height: 1.25;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   transition: color .15s, background .15s;
 }

@@ -3,5 +3,64 @@
     "api/analyze.js": {
       "maxDuration": 60
     }
-  }
+  },
+  "headers": [
+    {
+      "//": "Baseline hardening. HSTS is already set by the platform; these three are not. No CSP, deliberately — the page loads Google Fonts, CARTO tiles and the YouTube IFrame API, and a policy written without measuring those would break the map or the clips rather than protect anyone.",
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "//": "Do not hand the full URL to third parties. The site promises not to track people; leaking the page they came from to every tile and font request would undercut that for no benefit.",
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "//": "We frame YouTube; nobody needs to frame us.",
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "//": "Clip audio and vendored libraries are content-addressed and never change in place, so they can be cached hard. They were being served must-revalidate, which meant a round trip for every 240KB clip on every play.",
+      "source": "/clips/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/vendor/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(icon-192.png|icon-512.png|icon-maskable.png|og-image.png)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
+        }
+      ]
+    }
+  ]
 }

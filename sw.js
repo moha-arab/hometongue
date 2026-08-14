@@ -4,8 +4,9 @@
 // Bump on every release that changes a shell asset. The fetch handler is network-first, so a
 // stale cache never wins on a live connection, but the version is what evicts the old entries
 // on activate — leaving it fixed means yesterday's CSS sits in storage forever as the offline
-// fallback. Bumped for the two-mode nav, the serif headlines and the map zoom fix.
-const VERSION = 'ht-v46';
+// fallback. v47: the pre-launch pass — random clip windows pinned, decks restructured to ten,
+// the leaderboard rebuilt, inputs raised to 16px, and the card layout moved off auto margins.
+const VERSION = 'ht-v47';
 const SHELL = [
   '/',
   '/game.html',
@@ -20,6 +21,12 @@ const SHELL = [
   '/manifest.webmanifest',
   '/icon-192.png',
   '/assets/logo-mark.svg',
+  // Leaflet is served from our own origin now, so it belongs in the shell. It used to come from
+  // unpkg, and when that request failed the game page threw "L is not defined" out of initMap()
+  // and rendered nothing at all — a third-party CDN was a single point of failure for the whole
+  // game.
+  '/vendor/leaflet/leaflet.js',
+  '/vendor/leaflet/leaflet.css',
 ];
 
 self.addEventListener('install', (e) => {
