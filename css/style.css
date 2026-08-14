@@ -805,22 +805,22 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
    plus source order should have been enough and measurably was not. */
 .card.can-scroll.at-end .scroll-cue { opacity: 0; }
 
-/* A round chip rather than a line of text: it reads as an affordance at a glance, does not
-   compete with the type on the card, and stays legible over whatever is dissolving behind it. */
+/* NOT A BUTTON. The first version was a bordered, shadowed pill, which is exactly what every
+   other pressable thing on this site looks like — so people read it as a control and tried to
+   tap it. An indicator has to look like an indicator: no box, no border, no shadow, nothing to
+   press. Just the site's quiet label type and a chevron that keeps drifting downward, which is
+   the one gesture that means "keep going this way". */
 .scroll-cue b {
-  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-  height: 26px; padding: 0 12px 0 13px;
-  background: var(--paper); border: 1px solid var(--rule);
-  border-radius: 999px; box-shadow: var(--shadow-1);
-  font-family: var(--mono); font-size: 9.5px; font-weight: 500;
-  letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey);
+  display: inline-flex; flex-direction: column; align-items: center; gap: 1px;
+  font-family: var(--mono); font-size: 9px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey-2);
   white-space: nowrap;
   transition: opacity 0.2s ease;
 }
-.scroll-cue svg { width: 10px; height: 10px; flex: none; animation: cueNudge 2.2s ease-in-out infinite; }
+.scroll-cue svg { width: 13px; height: 13px; flex: none; animation: cueNudge 1.9s ease-in-out infinite; }
 @keyframes cueNudge {
-  0%, 55%, 100% { transform: translateY(0); opacity: 0.75; }
-  28% { transform: translateY(2.5px); opacity: 1; }
+  0%, 100% { transform: translateY(-1px); opacity: 0.5; }
+  50% { transform: translateY(3px); opacity: 1; }
 }
 /* The card is padded 24px/21px on phones, so both the horizontal bleed and the sticky offset
    have to match that instead of the desktop 30px/28px. */

@@ -191,7 +191,9 @@ function flyHome() {
 // The scroll cue: one element per card, created on demand, kept honest by measurement.
 // It only appears when the card genuinely has more content than it can show, and hides again the
 // moment you reach the end — so it is never a decoration lying about there being more.
-const CUE_HTML = '<b>more below <svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5l3 3 3-3"/></svg></b>';
+// "scroll" over a drifting chevron: the word says what to do, the chevron says which way, and
+// neither looks like something to press.
+const CUE_HTML = '<b>scroll<svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4l3.5 3.5L9.5 4"/></svg></b>';
 
 function refreshScrollCue(card) {
   if (!card) return;
