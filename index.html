@@ -19,7 +19,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/vendor/leaflet/leaflet.css">
 <link rel="stylesheet" href="css/style.css">
 </head>
@@ -44,8 +44,7 @@
   <section class="card" id="idleCard">
     <div class="card-eyebrow"><span>accent geolocation</span><b>any language</b></div>
     <h1 class="tagline">Just talk.<br><span class="accent">I'll find where you grew up.</span></h1>
-    <p class="prompt-label">Talk like you're voice-noting a friend:</p>
-    <p class="prompt" id="promptText">"Tell me about your day."</p>
+    <p class="prompt" id="promptText">Tell me about your day</p>
     <button class="mic-btn" id="micBtn" aria-label="Start talking">
       <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line></svg>
     </button>
@@ -76,14 +75,17 @@
          is better. Paired measurement on 18 clips says otherwise: 12s misses by 166 km at the
          median with five answers over 1000 km out, 20s misses by 40 km with two, and 30s and
          45s are indistinguishable from 20s. There is a threshold, not a climb. So this is a
-         bar that FILLS to twenty seconds and is then simply done, and the sixty-second cap is
-         demoted to a quiet number on the right, because a cap is a limit and not a target. -->
+         bar that FILLS to twenty seconds and is then simply done. -->
     <div class="ready" id="ready">
       <div class="ready-track"><div class="ready-fill" id="readyFill"></div></div>
-      <p class="ready-row">
-        <span class="ready-state" id="qLabel">20 seconds to go</span>
-        <span class="ready-cap"><b id="timer">1:00</b> left</span>
-      </p>
+      <!-- ONE NUMBER ON SCREEN AT A TIME, EVER. This line briefly carried two: "15 seconds to
+           go" on the left and "0:55 left" on the right, counting in opposite directions, in the
+           same unit, side by side. Two clocks disagreeing is not information, it is a puzzle.
+           The floor is the only number worth showing while you are talking, so it is the only
+           one shown; the sixty-second cap stays quiet until the last ten seconds, which is all
+           it was ever for — it used to fire with no warning and read as the app crashing
+           mid-sentence. -->
+      <p class="ready-row"><span class="ready-state" id="qLabel">20 seconds to go</span></p>
     </div>
     <!-- Two ways out of a take, because there are two reasons to end one. "done" submits what
          you said; "start over" throws it away and begins again, for the fumbled sentence or the

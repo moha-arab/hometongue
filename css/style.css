@@ -60,7 +60,14 @@
      changing those would be a rebrand, not a typographic nudge. */
   --editorial: 'Instrument Serif', 'Iowan Old Style', Georgia, serif;
   --sans: 'Familjen Grotesk', system-ui, sans-serif;
-  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  /* The quiet-label face. This was IBM Plex Mono, a typewriter face doing the job of a label
+     on twenty-seven surfaces — the LISTENING and READING YOUR ACCENT status lines, the result
+     kicker, leaderboard scores, the deck pills. A monospace grid earns its keep on code and on
+     columns of figures that have to line up; it does not earn it on a two-word status line, where
+     it just reads as a terminal. Same family as the body text now, separated by size, spacing and
+     case instead of by a second typeface. tabular-nums is set at each numeric call site, so the
+     leaderboard columns still align. */
+  --label: var(--sans);
   --arabic: 'IBM Plex Sans Arabic', 'Familjen Grotesk', sans-serif;
 }
 
@@ -216,7 +223,7 @@ body {
 .card-eyebrow {
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
   padding-bottom: 14px; margin-bottom: 20px; border-bottom: 1px solid var(--rule-soft);
-  font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  font-family: var(--label); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
   color: var(--grey-2);
 }
 .card-eyebrow b { color: var(--accent); font-weight: 500; }
@@ -260,7 +267,7 @@ body {
   margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--rule-soft);
   display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;
 }
-.foot-hint { font-family: var(--mono); font-size: 11px; color: var(--grey); }
+.foot-hint { font-family: var(--label); font-size: 11px; color: var(--grey); }
 
 /* ——— controls ——— */
 /* 16px IS NOT A TASTE CHOICE. iOS Safari zooms the whole page in when you focus a text field
@@ -387,7 +394,7 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 /* Silence should not read as a dead app, so the bars rest as a thin line rather than nothing. */
 .wave i { min-height: 0; }
 .live-status, .result-kicker, .source-key, .board-head, .round-pill {
-  font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase;
+  font-family: var(--label); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase;
 }
 .live-status { color: var(--accent); }
 .transcript {
@@ -437,7 +444,7 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .conf { margin-top: 18px; display: flex; align-items: center; gap: 12px; }
 .conf-track { flex: 1; height: 6px; border-radius: 3px; background: var(--paper-2); overflow: hidden; }
 .conf-fill { height: 100%; background: var(--accent); width: 0; transition: width 0.9s cubic-bezier(0.2, 0.8, 0.3, 1); }
-.conf-label { font-family: var(--mono); font-size: 11px; color: var(--grey); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.conf-label { font-family: var(--label); font-size: 11px; color: var(--grey); white-space: nowrap; font-variant-numeric: tabular-nums; }
 
 .evidence { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 7px; }
 .chip {
@@ -446,12 +453,12 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   border-radius: var(--r-sm); padding: 7px 11px;
 }
 .chip b { font-family: var(--arabic); font-size: 15px; color: var(--accent); font-weight: 600; }
-.chip small { font-family: var(--mono); font-size: 10px; color: var(--grey); }
+.chip small { font-family: var(--label); font-size: 10px; color: var(--grey); }
 
 .heard { margin-top: 18px; padding: 13px 15px; background: var(--paper); border-radius: var(--r); }
 .heard-head {
   display: flex; justify-content: space-between; align-items: center;
-  font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey);
+  font-family: var(--label); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey);
 }
 .src-badge {
   background: var(--sheet); border: 1px solid var(--rule); color: var(--grey);
@@ -464,7 +471,7 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .runner-name { width: 140px; font-size: 12.5px; color: var(--grey); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .runner-track { flex: 1; height: 4px; border-radius: 2px; background: var(--paper-2); overflow: hidden; }
 .runner-fill { height: 100%; background: var(--accent); opacity: 0.55; }
-.runner-pts { font-family: var(--mono); font-size: 11.5px; color: var(--black); min-width: 54px; text-align: right; font-variant-numeric: tabular-nums; }
+.runner-pts { font-family: var(--label); font-size: 11.5px; color: var(--black); min-width: 54px; text-align: right; font-variant-numeric: tabular-nums; }
 
 /* dialect composition — the ancestry chart of the voice: one segmented 100% bar,
    a legend row per ingredient, the betraying sound underneath each */
@@ -477,7 +484,7 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .comp-row { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-top: 6px; }
 .comp-row i { width: 9px; height: 9px; border-radius: 50%; flex: none; }
 .comp-row .comp-place { color: var(--black-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.comp-row b { margin-left: auto; font-family: var(--mono); font-weight: 500; font-size: 12px; font-variant-numeric: tabular-nums; }
+.comp-row b { margin-left: auto; font-family: var(--label); font-weight: 500; font-size: 12px; font-variant-numeric: tabular-nums; }
 .comp-cue { font-size: 12px; color: var(--grey); font-style: italic; margin: 1px 0 2px 17px; line-height: 1.4; }
 
 /* The words-handed-it-over card: a refusal, styled like the app rather than like an error.
@@ -614,9 +621,9 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 }
 .player-hit:hover .player-thumb, .player-hit:focus-visible .player-thumb, .player-hit.dragging .player-thumb { transform: translate(-50%, -50%) scale(1.3); }
 .player-hit:focus-visible .player-bar { outline: 2px solid var(--accent); outline-offset: 3px; }
-.listens { font-family: var(--mono); font-size: 10.5px; color: var(--grey); font-variant-numeric: tabular-nums; }
+.listens { font-family: var(--label); font-size: 10.5px; color: var(--grey); font-variant-numeric: tabular-nums; }
 .era-chip {
-  align-self: start; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.08em;
+  align-self: start; font-family: var(--label); font-size: 9.5px; letter-spacing: 0.08em;
   text-transform: uppercase; color: var(--accent);
   border: 1px solid var(--accent-line); border-radius: var(--r-sm); padding: 2px 6px;
 }
@@ -658,7 +665,7 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .source-val { flex: 1; font-size: 12.5px; color: var(--black-2); line-height: 1.45; }
 .source-link {
   display: inline-block; margin-top: 10px;
-  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  font-family: var(--label); font-size: 11px; letter-spacing: 0.04em;
   color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-line);
 }
 .source-link:hover { border-bottom-color: var(--accent); }
@@ -692,11 +699,11 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 }
 .board li::before {
   content: counter(rank); text-align: right;
-  font-family: var(--mono); font-size: 11px; color: var(--grey-2);
+  font-family: var(--label); font-size: 11px; color: var(--grey-2);
   font-variant-numeric: tabular-nums;
 }
 .board li span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.board li b { font-family: var(--mono); font-weight: 500; font-variant-numeric: tabular-nums; font-size: 13px; }
+.board li b { font-family: var(--label); font-weight: 500; font-variant-numeric: tabular-nums; font-size: 13px; }
 
 /* Somebody won. The board gave first place and tenth identical weight, so the one fact a
    leaderboard exists to convey was the one thing it did not show. */
@@ -718,7 +725,7 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
    padding leaves it a lane of its own to sit in. */
 .foot {
   position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); z-index: 4;
-  font-family: var(--mono); font-size: 10px; letter-spacing: 0.04em; color: var(--grey);
+  font-family: var(--label); font-size: 10px; letter-spacing: 0.04em; color: var(--grey);
   pointer-events: none; background: color-mix(in srgb, var(--paper) 85%, transparent);
   border-radius: var(--r-sm); padding: 4px 11px; max-width: calc(100% - 24px); text-align: center;
 }
@@ -726,7 +733,7 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 
 .leaflet-control-attribution {
   background: color-mix(in srgb, var(--paper) 75%, transparent) !important;
-  color: var(--grey-2) !important; font-family: var(--mono) !important; font-size: 9px !important;
+  color: var(--grey-2) !important; font-family: var(--label) !important; font-size: 9px !important;
 }
 .leaflet-control-attribution a { color: var(--grey) !important; }
 .leaflet-container { background: var(--paper-2) !important; }
@@ -857,7 +864,7 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
    the one gesture that means "keep going this way". */
 .scroll-cue b {
   display: inline-flex; flex-direction: column; align-items: center; gap: 1px;
-  font-family: var(--mono); font-size: 9px; font-weight: 500;
+  font-family: var(--label); font-size: 9px; font-weight: 500;
   letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey-2);
   white-space: nowrap;
   transition: opacity 0.2s ease;
@@ -887,11 +894,11 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 
 /* ——— detected-language chip ———
    Auto-detection keeps the "just talk" promise; this is how it owns being wrong. */
-.lang-chip { display: flex; align-items: center; gap: 8px; margin: -4px 0 10px; font-family: var(--mono); font-size: 11px; }
+.lang-chip { display: flex; align-items: center; gap: 8px; margin: -4px 0 10px; font-family: var(--label); font-size: 11px; }
 .lang-heard { color: var(--grey); letter-spacing: 0.06em; text-transform: uppercase; }
 .lang-fix {
   background: none; border: 0; padding: 0; cursor: pointer; color: var(--accent);
-  font-family: var(--mono); font-size: 11px; text-decoration: underline; text-underline-offset: 2px;
+  font-family: var(--label); font-size: 11px; text-decoration: underline; text-underline-offset: 2px;
 }
 
 /* ——— language picker ———
@@ -903,7 +910,7 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .lang-field { margin: 18px 0 20px; }
 .lang-label {
   display: block; margin-bottom: 9px;
-  font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em;
+  font-family: var(--label); font-size: 10px; letter-spacing: 0.16em;
   text-transform: uppercase; color: var(--grey-2);
 }
 .lang-pills { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -938,11 +945,11 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   font-family: var(--display); color: var(--accent);
 }
 .verdict-radius b { font-size: 32px; font-weight: 700; letter-spacing: -0.04em; line-height: 1; }
-.verdict-radius span { font-family: var(--mono); font-size: 11px; color: var(--grey); }
+.verdict-radius span { font-family: var(--label); font-size: 11px; color: var(--grey); }
 .verdict-say { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
 .verdict-lead { font-size: 13.5px; line-height: 1.35; color: var(--black-2); }
 .verdict-lang {
-  font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em;
+  font-family: var(--label); font-size: 10px; letter-spacing: 0.14em;
   text-transform: uppercase; color: var(--grey-2);
 }
 
@@ -972,10 +979,7 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
    that changes colour. */
 .ready.is-enough .ready-fill { background: var(--accent); }
 
-.ready-row {
-  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
-  margin-top: 9px;
-}
+.ready-row { margin-top: 10px; }
 .ready-state {
   font-size: 13.5px; color: var(--grey); font-variant-numeric: tabular-nums;
   transition: color 0.45s ease;
@@ -988,20 +992,15 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   border: solid currentColor; border-width: 0 1.6px 1.6px 0;
   transform: rotate(45deg);
 }
-.ready-cap {
-  font-family: var(--mono); font-size: 11.5px; color: var(--grey-2);
-  letter-spacing: 0.02em; white-space: nowrap; flex: none;
-}
-.ready-cap b { font-weight: 500; font-variant-numeric: tabular-nums; }
-/* The cap only becomes news in the last stretch, so it stays quiet until then. */
-.ready.is-near-cap .ready-cap { color: var(--amber-ink); }
+/* The last ten seconds, when the cap finally becomes worth mentioning. */
+.ready.is-closing .ready-state { color: var(--amber-ink); }
 
 @media (prefers-reduced-motion: reduce) {
   .ready-fill { transition: width 0.32s linear; }
 }
 
 /* the analyzing wait: ~12s median, ~29s p90, so it needs to look alive */
-.scan-note { font-family: 'IBM Plex Mono', monospace; font-size: .72rem; letter-spacing: .02em;
+.scan-note { font-family: var(--label); font-size: .72rem; letter-spacing: .02em;
   color: var(--grey); margin-top: .35rem; opacity: .85; }
 .scan-note b { font-weight: 500; opacity: .6; }
 
@@ -1019,12 +1018,12 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .name-warn {
   margin-top: 10px; padding: 9px 11px; border-radius: var(--r-sm);
   background: var(--accent-soft); border-left: 2px solid var(--accent);
-  font-family: var(--mono); font-size: 11px; line-height: 1.5; color: var(--black);
+  font-family: var(--label); font-size: 11px; line-height: 1.5; color: var(--black);
 }
 
 /* ——— flagging a bad clip, on the reveal sheet ——— */
 .clip-flag { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--rule-soft); }
-.flag-q { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--grey); }
+.flag-q { font-family: var(--label); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--grey); }
 .flag-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
 .flag-chip {
   font-family: var(--sans); font-size: 12.5px; color: var(--grey);
@@ -1047,7 +1046,7 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .flag-thanks input:focus { border-color: var(--accent); }
 
 /* the point guess when the region takes the headline: present, specific, honestly billed */
-.closest-fit { margin-top: 2px; font-family: var(--mono); font-size: 12px; letter-spacing: .02em; color: var(--accent); }
+.closest-fit { margin-top: 2px; font-family: var(--label); font-size: 12px; letter-spacing: .02em; color: var(--accent); }
 
 /* ——— standing leaderboards ——— */
 /* "see the leaderboards" was an underlined text link sitting under eight solid deck tiles, so the
@@ -1078,7 +1077,7 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
      miss-and-try-again tap on a phone. Padding grows the hit area and the negative margin puts
      the glyph back exactly where the eyebrow expects it, so nothing moves visually. */
   padding: 14px 10px; margin: -14px -10px;
-  font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  font-family: var(--label); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
   color: var(--grey-2);
   transition: color .15s;
 }
@@ -1138,7 +1137,7 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   margin: auto; text-align: center; padding: 20px 0; color: var(--grey);
 }
 .board-empty b { display: block; font-family: var(--editorial); font-size: 21px; color: var(--black-2); font-weight: 400; }
-.board-empty span { font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; }
+.board-empty span { font-family: var(--label); font-size: 11px; letter-spacing: 0.04em; }
 
 /* Short screens: the deck picker must fit whole, because a game you cannot see all of
    reads as a game with fewer modes. Measured at 608px on a full-height phone, which

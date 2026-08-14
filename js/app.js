@@ -280,12 +280,16 @@ function toast(msg) {
   t._timer = setTimeout(() => { t.hidden = true; }, 3200);
 }
 
+// Things to DO, not lines to read out. These used to be quoted, which turned each one into a
+// script — and "How would you ask a friend: what's up, what are you doing?" was a question about
+// how you would talk rather than an invitation to talk, so the honest answer to it is four words
+// long. Every one of these is now a situation you can just walk into and keep going.
 const PROMPTS = [
-  '"Tell me about your day."',
-  '"How would you ask a friend: what\'s up, what are you doing?"',
-  '"Complain about traffic like you\'re on the phone with your cousin."',
-  '"Describe your last meal. Was it any good?"',
-  '"What are you doing this weekend?"',
+  'Tell me about your day',
+  'Complain about traffic like you\'re on the phone with your cousin',
+  'Check up on a friend you haven\'t seen in a while',
+  'Describe the last thing you ate',
+  'Tell me what you\'re doing this weekend',
 ];
 let promptIdx = 0;
 setInterval(() => {
@@ -362,7 +366,7 @@ function startTimer() {
   const r0 = $('#ready');
   if (r0) {
     r0.dataset.state = '';
-    r0.classList.remove('is-enough', 'is-near-cap');
+    r0.classList.remove('is-enough', 'is-closing');
     const f0 = $('#readyFill');
     if (f0) f0.style.width = '0%';
     $('#qLabel').textContent = `${MIN_RECORD_S} seconds to go`;
@@ -372,7 +376,6 @@ function startTimer() {
     // A countdown, not a stopwatch. The cap used to fire with no warning, which read as the
     // app crashing mid-sentence rather than a deliberate limit.
     const left = Math.max(0, MAX_SECONDS - s);
-    $('#timer').textContent = `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
     // A voiced-seconds gate was built here and then REMOVED before shipping, and the reason is
     // worth keeping so nobody rebuilds it. Measured: 15s of speech plus 15s of digital silence
     // performs like 15s, not 30s - the model tightens its radius on real extra speech (9 of 12
@@ -407,19 +410,22 @@ function startTimer() {
       const fill = $('#readyFill');
       if (fill) fill.style.width = `${Math.min(100, (s / MIN_RECORD_S) * 100)}%`;
       const enough = s >= MIN_RECORD_S;
-      // Only touch the DOM when the sentence actually changes, so the tick and the colour
-      // settle once instead of being re-set sixty times a minute.
-      const state = enough ? 'enough' : `to-go-${MIN_RECORD_S - s}`;
+      const closing = left <= 10;
+      // Three sentences, one at a time, and never two numbers at once. Only touch the DOM when
+      // the sentence actually changes, so the tick and the colour settle once instead of being
+      // re-set sixty times a minute.
+      const n = MIN_RECORD_S - s;
+      const state = closing ? `closing-${left}` : enough ? 'enough' : `to-go-${n}`;
       if (ready.dataset.state !== state) {
         ready.dataset.state = state;
         ready.classList.toggle('is-enough', enough);
-        const n = MIN_RECORD_S - s;
-        $('#qLabel').textContent = enough
-          ? 'enough to read you'
-          : `${n} second${n === 1 ? '' : 's'} to go`;
+        ready.classList.toggle('is-closing', closing);
+        $('#qLabel').textContent = closing
+          ? `wrapping up in ${left}`
+          : enough
+            ? "that's enough, stop whenever you like"
+            : `${n} second${n === 1 ? '' : 's'} to go`;
       }
-      // The cap is not news until it is close, and then it is.
-      ready.classList.toggle('is-near-cap', left <= 10);
     }
     if (s >= MAX_SECONDS) stopListening();
   }, 250);
@@ -520,8 +526,6 @@ async function startListening() {
   state = 'listening';
   chunks = [];
   recMime = mime;
-  // Derived, not typed. A literal '1:00' here silently becomes a lie the day MAX_SECONDS moves.
-  $('#timer').textContent = `${Math.floor(MAX_SECONDS / 60)}:${String(MAX_SECONDS % 60).padStart(2, '0')}`;
   show('liveCard');
   startMeter(mediaStream);
   startTimer();
@@ -1129,7 +1133,7 @@ function paintShare(v, dy) {
 
   y += 82;
   c.fillStyle = '#74766D';
-  c.font = '500 26px "IBM Plex Mono", monospace';
+  c.font = '500 26px "Familjen Grotesk", system-ui, sans-serif';
   c.letterSpacing = '5px';
   c.fillText('SOUNDS LIKE I GREW UP AROUND', M, y);
   c.letterSpacing = '0px';
@@ -1144,7 +1148,7 @@ function paintShare(v, dy) {
   if ((v.radius_km || 0) > 250 && v.region) {
     y += 62;
     c.fillStyle = '#2A6B60';
-    c.font = '400 40px "IBM Plex Mono", monospace';
+    c.font = '400 40px "Familjen Grotesk", system-ui, sans-serif';
     c.fillText('somewhere in ' + v.region, M, y);
   }
 
@@ -1166,7 +1170,7 @@ function paintShare(v, dy) {
   c.font = '500 34px "Familjen Grotesk", system-ui, sans-serif';
   c.fillText('km give or take', M + rw + 22, y - 6);
   if (v.language) {
-    c.font = '500 28px "IBM Plex Mono", monospace';
+    c.font = '500 28px "Familjen Grotesk", system-ui, sans-serif';
     c.fillText(String(v.language).toLowerCase(), M + rw + 22, y + 36);
   }
 
@@ -1175,7 +1179,7 @@ function paintShare(v, dy) {
   if (parts.length) {
     y += 140;
     c.fillStyle = '#74766D';
-    c.font = '500 26px "IBM Plex Mono", monospace';
+    c.font = '500 26px "Familjen Grotesk", system-ui, sans-serif';
     c.letterSpacing = '5px';
     c.fillText('DIALECT COMPOSITION', M, y);
     c.letterSpacing = '0px';
@@ -1203,7 +1207,7 @@ function paintShare(v, dy) {
       c.font = '500 38px "Familjen Grotesk", system-ui, sans-serif';
       c.fillText(String(p.place).slice(0, 34), M + 38, y);
       const pct = '~' + Math.round((p.percent / total) * 100) + '%';
-      c.font = '500 34px "IBM Plex Mono", monospace';
+      c.font = '500 34px "Familjen Grotesk", system-ui, sans-serif';
       c.fillStyle = '#74766D';
       c.fillText(pct, SHARE_W - M - c.measureText(pct).width, y);
       y += 60;
@@ -1239,7 +1243,7 @@ function paintShare(v, dy) {
   c.font = 'italic 400 56px "Instrument Serif", Georgia, serif';
   c.fillText('Tongue', M + 78 + hw, fy);
   c.fillStyle = '#74766D';
-  c.font = '500 34px "IBM Plex Mono", monospace';
+  c.font = '500 34px "Familjen Grotesk", system-ui, sans-serif';
   const url = 'hometongue.me';
   c.fillText(url, SHARE_W - M - c.measureText(url).width, fy - 6);
 
