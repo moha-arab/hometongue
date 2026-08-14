@@ -46,20 +46,34 @@
     <h1 class="tagline">Hear it.<br><span class="accent">Pin where it's from.</span></h1>
     <p class="prompt-label">Five clips, five pins. Points for distance, 5,000 max per round.</p>
     <div class="type-grid" id="typeGrid"></div>
-    <button class="link-btn boards-link" id="boardsBtn">see the leaderboards</button>
+    <button class="boards-link" id="boardsBtn" type="button">
+      <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+        <rect x="2" y="9" width="3.4" height="5" rx="1" fill="currentColor"/>
+        <rect x="6.3" y="5" width="3.4" height="9" rx="1" fill="currentColor"/>
+        <rect x="10.6" y="7" width="3.4" height="7" rx="1" fill="currentColor"/>
+      </svg>
+      see the leaderboards
+    </button>
   </section>
 
   <!-- LEADERBOARDS: standing view, one deck at a time. Before this, the board only ever
        appeared after posting a score, which made it effectively invisible. -->
   <section class="card" id="boardsCard" hidden>
-    <div class="card-eyebrow"><span>leaderboards</span><b>top ten</b></div>
+    <div class="card-eyebrow">
+      <button class="back-link" id="boardsBack" type="button">
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path d="M9.5 3.5 5 8l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        decks
+      </button>
+      <b>top ten</b>
+    </div>
     <h1 class="tagline">The best ears.</h1>
     <div class="board-tabs" id="boardTabs"></div>
     <div class="board" id="boardsPanel">
       <ol id="boardsList"></ol>
       <p class="board-empty" id="boardsEmpty" hidden>no scores here yet. be the first.</p>
     </div>
-    <button class="stop-btn" id="boardsBack">back to the decks</button>
   </section>
 
   <!-- FINAL -->

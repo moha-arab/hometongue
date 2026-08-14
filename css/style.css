@@ -829,7 +829,36 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .closest-fit { margin-top: 2px; font-family: var(--mono); font-size: 12px; letter-spacing: .02em; color: var(--accent); }
 
 /* ——— standing leaderboards ——— */
-.boards-link { margin-top: 14px; }
+/* "see the leaderboards" was an underlined text link sitting under eight solid deck tiles, so the
+   one route off this screen was the only thing on it that did not look pressable. As an outlined
+   button it matches the weight of what surrounds it while staying clearly secondary to picking a
+   deck, which is what the screen is for. */
+.boards-link {
+  margin-top: 16px;
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--sheet); color: var(--black-2); cursor: pointer;
+  border: 1.5px solid var(--rule); border-radius: var(--r);
+  font-family: var(--sans); font-size: 14px; font-weight: 600;
+  padding: 10px 18px;
+  transition: color .15s, border-color .15s, background .15s, transform .1s;
+}
+.boards-link svg { width: 15px; height: 15px; flex: none; color: var(--accent); }
+.boards-link:hover { color: var(--black); border-color: var(--grey); background: var(--paper-2); }
+.boards-link:active { transform: translateY(1px); }
+
+/* The way back off the leaderboard used to be a full-width green button at the foot of the card,
+   which gave retreating the same visual weight as the primary action everywhere else in the app
+   and made the board look like a form to submit. Going back belongs in the corner you already
+   look at for orientation, in the eyebrow's own type, so the standings keep the card. */
+.back-link {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: none; border: 0; padding: 0; cursor: pointer;
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--grey-2);
+  transition: color .15s;
+}
+.back-link svg { width: 12px; height: 12px; flex: none; }
+.back-link:hover { color: var(--accent); }
 /* ——— leaderboard ———
    Was nine identical grey pills on flex-wrap, and the active one turned bold. Bold is WIDER, so
    selecting a deck changed that tab's width, moved the wrap point and re-flowed the whole row -
