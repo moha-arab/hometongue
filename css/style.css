@@ -769,31 +769,64 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 /* "THERE IS MORE BELOW THIS" — SAID OUT LOUD.
    People handed the phone got their city, read the card, and stopped: the evidence, the map
    region, the transcript and the feedback buttons are all below the fold and a 4px grey pill is
-   not a signal anyone reads as "scrollable". This is a soft fade at the bottom edge of the card
-   plus a small nudge, both pinned to the scroll viewport rather than the content, so they sit
-   still while the card moves under them — and both disappear the moment there is nothing left
-   to scroll to, so a card that fits shows nothing at all. */
+   not a signal anyone reads as "scrollable".
+   A fade the colour of the card, so content dissolves into it rather than being cut off, and a
+   small chevron pill sitting on that fade. Both are pinned to the scroll viewport rather than the
+   content, so they hold still while the card moves under them, and both switch off the moment
+   there is nothing left to reach — a cue that keeps insisting after you have hit the end is worse
+   than no cue at all. */
 .scroll-cue {
-  position: sticky; bottom: -1px; z-index: 3;
-  margin: 0 -30px -28px; padding: 34px 0 10px;
-  pointer-events: none; text-align: center;
-  background: linear-gradient(to bottom, transparent, var(--sheet) 62%);
-  opacity: 0; transition: opacity 0.25s;
+  /* z-index has to clear the card's own content: the evidence chips create their own painted
+     boxes and were showing through the fade, so the cue looked like it was floating in the
+     middle of the list rather than closing it off. */
+  /* bottom is offset by the CARD'S OWN bottom padding, not 0. A scroll container's padding is
+     part of its scrollable area, so sticking to -1px left the cue floating 28px above the card's
+     visible edge with a strip of half-scrolled content showing underneath it — which read as the
+     cue sitting in the middle of the list rather than closing it. */
+  position: sticky; bottom: -28px; z-index: 6;
+  /* The negative bottom margin cancels the card's own 28px bottom padding so the fade reaches
+     the real bottom edge instead of stopping short of it. */
+  margin: 0 -30px -28px; padding: 46px 0 16px;
+  pointer-events: none; display: flex; justify-content: center;
+  background: linear-gradient(to bottom,
+    color-mix(in srgb, var(--sheet) 0%, transparent),
+    color-mix(in srgb, var(--sheet) 85%, transparent) 38%,
+    var(--sheet) 66%);
+  /* NO TRANSITION ON THIS ELEMENT. Proven in Chrome: an identical freshly-inserted .scroll-cue
+     in the same card computed opacity 0 while this one, having been toggled by scroll events,
+     stayed stuck at 1 — an opacity transition on a sticky element inside a scrolling container
+     does not reliably settle. A cue that will not switch off is the one failure mode that
+     matters here, because it tells people there is more below when they are already at the end.
+     The chip fades instead; it is not sticky, so its transition behaves. */
+  opacity: 0;
 }
 .card.can-scroll .scroll-cue { opacity: 1; }
 /* Written as can-scroll AND at-end so it outranks the rule above outright. Equal specificity
-   plus source order should have been enough and measurably was not, and a cue that will not
-   switch off is worse than no cue: it tells people there is more below when they are already
-   at the end. */
+   plus source order should have been enough and measurably was not. */
 .card.can-scroll.at-end .scroll-cue { opacity: 0; }
+
+/* A round chip rather than a line of text: it reads as an affordance at a glance, does not
+   compete with the type on the card, and stays legible over whatever is dissolving behind it. */
 .scroll-cue b {
-  display: inline-flex; align-items: center; gap: 5px;
-  font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--grey); font-weight: 500;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  height: 26px; padding: 0 12px 0 13px;
+  background: var(--paper); border: 1px solid var(--rule);
+  border-radius: 999px; box-shadow: var(--shadow-1);
+  font-family: var(--mono); font-size: 9.5px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey);
+  white-space: nowrap;
+  transition: opacity 0.2s ease;
 }
-.scroll-cue svg { width: 11px; height: 11px; animation: cueNudge 1.8s ease-in-out infinite; }
-@keyframes cueNudge { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(2px); } }
-@media (max-width: 560px) { .scroll-cue { margin-left: -21px; margin-right: -21px; } }
+.scroll-cue svg { width: 10px; height: 10px; flex: none; animation: cueNudge 2.2s ease-in-out infinite; }
+@keyframes cueNudge {
+  0%, 55%, 100% { transform: translateY(0); opacity: 0.75; }
+  28% { transform: translateY(2.5px); opacity: 1; }
+}
+/* The card is padded 24px/21px on phones, so both the horizontal bleed and the sticky offset
+   have to match that instead of the desktop 30px/28px. */
+@media (max-width: 560px) {
+  .scroll-cue { margin: 0 -21px -24px; bottom: -24px; }
+}
 
 .sheet-handle { display: none; }
 @media (max-width: 939px) {

@@ -790,6 +790,7 @@ function renderResult(v) {
   $('#fbCity').value = '';
   $('#fbYes').disabled = false; $('#fbNo').disabled = false;
   $('#fbYes').classList.remove('chosen'); $('#fbNo').classList.remove('chosen');
+  fbChoice = null;
   $('#consentWrap').style.display = window._lastAudio ? '' : 'none'; // no clip to donate in type mode
   const db = $('#donateBtn');
   db.disabled = false; db.classList.remove('done'); db.textContent = 'donate this clip';
@@ -1257,6 +1258,8 @@ function detectPlatform() {
   return /iPhone|iPad|iPod/.test(ua) ? 'ios' : /Android/.test(ua) ? 'android' : 'desktop';
 }
 
+// Returns true only if the row was actually sent, so the caller never marks an answer as
+// recorded when it bailed — otherwise a retry after a lost result would be silently ignored.
 function saveFeedback(correct, actual, actualCity) {
   const last = window._lastResult || {};
   // Donation is its own button now (it uploads the moment it is pressed — three takes in a
@@ -1267,7 +1270,7 @@ function saveFeedback(correct, actual, actualCity) {
   // clip and verdict, and the click silently posted an all-null row.
   if (!last.place) {
     toast('This result is gone from the page’s memory because the tab was suspended. Do a fresh take and answer again, and that one will count.');
-    return;
+    return false;
   }
 
   // local log (works offline, always; private-mode Safari throws on setItem — the server
@@ -1311,6 +1314,7 @@ function saveFeedback(correct, actual, actualCity) {
       if (d.ok && d.stored === 'clip+labels') toast('Clip donated 🎁 shukran. It joins the pile future versions learn from.');
     })
     .catch(() => {});
+  return true;
 }
 
 // ————— type mode —————
@@ -1348,15 +1352,38 @@ function bindUI() {
   $('#shareBtn').onclick = shareResult;
   $('#redoBtn').onclick = () => { state = 'idle'; show('idleCard'); flyHome(); startListening(); };
 
-  $('#fbYes').onclick = () => { saveFeedback(true, '', ''); $('#fbYes').classList.add('chosen'); lockFeedback(); };
-  $('#fbNo').onclick = () => { $('#fbFix').hidden = false; $('#fbNo').classList.add('chosen'); $('#fbNo').disabled = true; $('#fbYes').disabled = true; };
+  // A MISTAP MUST BE UNDOABLE.
+  //
+  // "nope" used to disable BOTH buttons the moment it was pressed — before anything had been
+  // sent, because the nope path does not submit until you pick a country and press send. So one
+  // wrong tap locked you out of an answer you had not actually given, with no way back. Neither
+  // button locks now; the last thing you press is what stands.
+  //
+  // fbChoice stops an identical answer being posted twice while still allowing a real change of
+  // mind through: pressing "nailed it" five times sends one row, but nope-then-nailed-it sends
+  // the correction.
+  $('#fbYes').onclick = () => {
+    $('#fbFix').hidden = true;
+    $('#fbNo').classList.remove('chosen');
+    $('#fbYes').classList.add('chosen');
+    if (fbChoice !== 'yes' && saveFeedback(true, '', '') !== false) fbChoice = 'yes';
+  };
+  $('#fbNo').onclick = () => {
+    // Nothing is sent here — this only opens the correction row. "nailed it" stays live.
+    $('#fbFix').hidden = false;
+    $('#fbYes').classList.remove('chosen');
+    $('#fbNo').classList.add('chosen');
+  };
   $('#fbSend').onclick = () => {
     // `sel` used to be read from a variable that only ever existed inside fillCountryPicker,
     // so this handler threw a ReferenceError and every "nope" correction silently vanished.
     const sel = $('#fbActual');
     if (!sel.value) { toast('Pick the country first.'); return; }
-    saveFeedback(false, sel.value, $('#fbCity').value.trim());
-    lockFeedback();
+    if (saveFeedback(false, sel.value, $('#fbCity').value.trim()) === false) return;
+    fbChoice = 'no';
+    // The row is in. Tuck the picker away, but leave both buttons live so a correction can
+    // still be corrected.
+    $('#fbFix').hidden = true;
   };
 
   // The donate button uploads the clip the INSTANT it is pressed. The old design armed a
@@ -1415,11 +1442,9 @@ function bindUI() {
   };
 }
 
-function lockFeedback() {
-  $('#fbYes').disabled = true;
-  $('#fbNo').disabled = true;
-  $('#fbFix').hidden = true;
-}
+// Which answer is currently recorded, so the same one is never posted twice and a changed one
+// always is. Reset with the rest of the feedback row on every new take.
+let fbChoice = null;
 
 initMap();
 bindUI();
