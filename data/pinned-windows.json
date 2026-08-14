@@ -1,0 +1,299 @@
+{
+  "found": [
+    {
+      "deck": "spanish",
+      "id": "spanish-mexican-spanish-schrodinger-s-cat-article-read",
+      "label": "Mexico",
+      "dur": 96,
+      "start": 10,
+      "audit": {
+        "speakers": 1,
+        "named_aloud": [],
+        "speech_seconds": 19.5
+      }
+    },
+    {
+      "deck": "spanish",
+      "id": "spanish-peruvian-spanish-richard-dawkins-biography-rea",
+      "label": "Peru",
+      "dur": 158,
+      "start": 40,
+      "audit": {
+        "speakers": 1,
+        "named_aloud": [],
+        "speech_seconds": 18.9
+      }
+    },
+    {
+      "deck": "spanish",
+      "id": "spanish-puerto-rican-spanish-roman-emperor-claudius-ar",
+      "label": "Puerto Rico",
+      "dur": 238,
+      "start": 70,
+      "audit": {
+        "speakers": 1,
+        "named_aloud": [],
+        "speech_seconds": 19
+      }
+    },
+    {
+      "deck": "spanish",
+      "id": "spanish-castilian-spanish-segismundo-s-soliloquy-calde",
+      "label": "Spain",
+      "dur": 124,
+      "start": 10,
+      "audit": {
+        "speakers": 1,
+        "named_aloud": [],
+        "speech_seconds": 19
+      }
+    },
+    {
+      "deck": "spanish",
+      "id": "spanish-colombian-spanish-steven-pinker-biography-read",
+      "label": "Turbaco, Colombia",
+      "dur": 240,
+      "start": 115,
+      "audit": {
+        "speakers": 1,
+        "named_aloud": [],
+        "speech_seconds": 19
+      }
+    },
+    {
+      "deck": "hindi-urdu",
+      "id": "hindi-urdu-spoken-hindi-wikipedia-indo-european-language-",
+      "label": "Delhi–Meerut Region, India",
+      "dur": 240,
+      "start": 10,
+      "audit": {
+        "speakers": 1,
+        "named_aloud": [
+          "Hindi",
+          "European"
+        ],
+        "speech_seconds": 15
+      }
+    },
+    {
+      "deck": "chinese",
+      "id": "chinese-hk-cantonese-george-washington-carver-spoken-w",
+      "label": "Hong Kong",
+      "dur": 240,
+      "start": 10,
+      "audit": {
+        "speakers": 1,
+        "named_aloud": [
+          "Meiguo"
+        ],
+        "speech_seconds": 15
+      }
+    },
+    {
+      "deck": "chinese",
+      "id": "chinese-hk-cantonese-ciguatoxin-stonefish-toxin-spoken",
+      "label": "Hong Kong",
+      "dur": 240,
+      "start": 10,
+      "audit": {
+        "speakers": 1,
+        "named_aloud": [],
+        "speech_seconds": 18.5
+      }
+    },
+    {
+      "deck": "portuguese",
+      "id": "portuguese-parana-brazil-portuguese-brazilian-parana",
+      "label": "Paraná, Brazil",
+      "dur": 159,
+      "start": 10,
+      "audit": {
+        "speakers": 1,
+        "named_aloud": [],
+        "speech_seconds": 19.2
+      }
+    },
+    {
+      "deck": "portuguese",
+      "id": "portuguese-porto-portugal-portuguese-european-porto-north",
+      "label": "Porto, Portugal",
+      "dur": 150,
+      "start": 10,
+      "audit": {
+        "speakers": 1,
+        "named_aloud": [],
+        "speech_seconds": 19
+      }
+    },
+    {
+      "deck": "languages",
+      "id": "lang-uzbek",
+      "label": "Uzbek",
+      "dur": 156,
+      "start": 10,
+      "audit": {
+        "speakers": 1,
+        "named_aloud": [],
+        "speech_seconds": 19
+      }
+    },
+    {
+      "deck": "languages",
+      "id": "lang-turkish",
+      "label": "Turkish",
+      "dur": 240,
+      "start": 10,
+      "audit": {
+        "speakers": 1,
+        "named_aloud": [],
+        "speech_seconds": 19
+      }
+    },
+    {
+      "deck": "languages",
+      "id": "lang-hindi",
+      "label": "Hindi",
+      "dur": 240,
+      "start": 25,
+      "audit": {
+        "speakers": 1,
+        "named_aloud": [
+          "Indo-European",
+          "Hind-European",
+          "Bharopiy"
+        ],
+        "speech_seconds": 19
+      }
+    },
+    {
+      "deck": "languages",
+      "id": "lang-japanese",
+      "label": "Japanese",
+      "dur": 98,
+      "start": 10,
+      "audit": {
+        "speakers": 1,
+        "named_aloud": [],
+        "speech_seconds": 19
+      }
+    },
+    {
+      "deck": "languages",
+      "id": "lang-korean",
+      "label": "Korean",
+      "dur": 240,
+      "start": 10,
+      "audit": {
+        "speakers": 1,
+        "named_aloud": [],
+        "speech_seconds": 18
+      }
+    },
+    {
+      "deck": "languages",
+      "id": "lang-tagalog",
+      "label": "Tagalog",
+      "dur": 158,
+      "start": 10,
+      "audit": {
+        "speakers": 1,
+        "named_aloud": [],
+        "speech_seconds": 18
+      }
+    },
+    {
+      "deck": "languages",
+      "id": "lang-russian",
+      "label": "Russian",
+      "dur": 234,
+      "start": 10,
+      "audit": {
+        "speakers": 1,
+        "named_aloud": [],
+        "speech_seconds": 19
+      }
+    },
+    {
+      "deck": "languages",
+      "id": "lang-ukrainian",
+      "label": "Ukrainian",
+      "dur": 112,
+      "start": 10,
+      "audit": {
+        "speakers": 1,
+        "named_aloud": [],
+        "speech_seconds": 20
+      }
+    },
+    {
+      "deck": "languages",
+      "id": "lang-polish",
+      "label": "Polish",
+      "dur": 240,
+      "start": 10,
+      "audit": {
+        "speakers": 1,
+        "named_aloud": [
+          "Dublinie",
+          "Limerick",
+          "brytyjski",
+          "Nowej Południowej Walii"
+        ],
+        "speech_seconds": 19
+      }
+    },
+    {
+      "deck": "languages",
+      "id": "lang-greek",
+      "label": "Greek",
+      "dur": 240,
+      "start": 10,
+      "audit": {
+        "speakers": 1,
+        "named_aloud": [],
+        "speech_seconds": 19
+      }
+    },
+    {
+      "deck": "languages",
+      "id": "lang-french",
+      "label": "French",
+      "dur": 240,
+      "start": 10,
+      "audit": {
+        "speakers": 1,
+        "named_aloud": [
+          "allemand"
+        ],
+        "speech_seconds": 19
+      }
+    },
+    {
+      "deck": "languages",
+      "id": "lang-hungarian",
+      "label": "Hungarian",
+      "dur": 240,
+      "start": 10,
+      "audit": {
+        "speakers": 1,
+        "named_aloud": [
+          "Európa",
+          "Ázsia",
+          "Anatólia",
+          "Fekete-tenger",
+          "Földközi-tenger",
+          "Grúzia",
+          "Örményország",
+          "Irán",
+          "Irak",
+          "Szíria",
+          "Égei-tenger",
+          "Görögország",
+          "Bulgária"
+        ],
+        "speech_seconds": 18.5
+      }
+    }
+  ],
+  "stuck": []
+}

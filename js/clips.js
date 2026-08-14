@@ -1615,7 +1615,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Es-GATODESCHR%C3%96DINGER-article.ogg",
         "note": "trimmed and re-encoded for the game"
       },
-      "lufs": -16.6
+      "lufs": -16.6,
+      "start": 10
     },
     {
       "id": "spanish-uruguayan-spanish-juan-jose-morosoli-reads-la-",
@@ -1675,7 +1676,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Es-Richard_Dawkins-article.ogg",
         "note": "trimmed and re-encoded for the game"
       },
-      "lufs": -16.5
+      "lufs": -16.5,
+      "start": 40
     },
     {
       "id": "spanish-puerto-rican-spanish-roman-emperor-claudius-ar",
@@ -1694,7 +1696,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Es-Claudio-article.ogg",
         "note": "trimmed and re-encoded for the game"
       },
-      "lufs": -17.8
+      "lufs": -17.8,
+      "start": 70
     },
     {
       "id": "spanish-castilian-spanish-segismundo-s-soliloquy-calde",
@@ -1713,7 +1716,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Segismundo.ogg",
         "note": "trimmed and re-encoded for the game"
       },
-      "lufs": -17.1
+      "lufs": -17.1,
+      "start": 10
     },
     {
       "id": "spanish-colombian-spanish-steven-pinker-biography-read",
@@ -1732,7 +1736,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Es-Steven-Pinker-article.ogg",
         "note": "trimmed and re-encoded for the game"
       },
-      "lufs": -16.3
+      "lufs": -16.3,
+      "start": 115
     }
   ],
   "french": [
@@ -2325,7 +2330,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Hi-Hind-Europiya_bhaashaa_parivaar_part2.ogg",
         "note": "trimmed and re-encoded for the game"
       },
-      "lufs": -16.6
+      "lufs": -16.6,
+      "start": 10
     },
     {
       "id": "hindi-urdu-mumbai-india-hindi-bambaiyya-adjacent",
@@ -2730,7 +2736,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:喬治·華盛頓·卡弗_-_zh-yue.ogg",
         "note": "trimmed and re-encoded for the game"
       },
-      "lufs": -16.9
+      "lufs": -16.9,
+      "start": 10
     },
     {
       "id": "chinese-hk-cantonese-ciguatoxin-stonefish-toxin-spoken",
@@ -2749,7 +2756,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:刺尾魚毒素_-_zh-yue.ogg",
         "note": "trimmed and re-encoded for the game"
       },
-      "lufs": -17.1
+      "lufs": -17.1,
+      "start": 10
     },
     {
       "id": "chinese-shanghainese-wu-standard-shanghai-accent-readi",
@@ -3034,7 +3042,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Coelho_intro.ogg",
         "note": "trimmed and re-encoded for the game"
       },
-      "lufs": -16.8
+      "lufs": -16.8,
+      "start": 10
     },
     {
       "id": "portuguese-porto-alegre-brazil-portuguese-brazilian-gauch",
@@ -3072,7 +3081,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Amor_entre_um_portuense_e_uma_galega_de_Daniel_Dias_e_narrado_por_Daniel_Dias.wav",
         "note": "trimmed and re-encoded for the game"
       },
-      "lufs": -16.5
+      "lufs": -16.5,
+      "start": 10
     },
     {
       "id": "portuguese-rio-de-janeiro-brazil-portuguese-brazilian-car",
@@ -3239,7 +3249,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Jadidlar.ogg",
         "note": ""
       },
-      "lufs": -16.5
+      "lufs": -16.5,
+      "start": 10
     },
     {
       "id": "lang-turkish",
@@ -3258,7 +3269,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Birle%C5%9Fmi%C5%9F_Milletler_G%C3%BCvenlik_Konseyi.ogg",
         "note": ""
       },
-      "lufs": -16.5
+      "lufs": -16.5,
+      "start": 10
     },
     {
       "id": "lang-persian-farsi",
@@ -3316,7 +3328,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Hi-Hind-Europiya_bhaashaa_parivaar_part1.ogg",
         "note": ""
       },
-      "lufs": -16.8
+      "lufs": -16.8,
+      "start": 25
     },
     {
       "id": "lang-bengali",
@@ -3400,7 +3413,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Ja-botchan_1-1_1-2.ogg",
         "note": ""
       },
-      "lufs": -16.7
+      "lufs": -16.7,
+      "start": 10
     },
     {
       "id": "lang-korean",
@@ -3426,7 +3440,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:LibriVox_-_%ED%98%84%EC%A7%84%EA%B1%B4_%ED%94%BC%EC%95%84%EB%85%B8.ogg",
         "note": ""
       },
-      "lufs": -16.9
+      "lufs": -16.9,
+      "start": 10
     },
     {
       "start": 72,
@@ -3497,7 +3512,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Hep_C_tl.ogg",
         "note": ""
       },
-      "lufs": -16.4
+      "lufs": -16.4,
+      "start": 10
     },
     {
       "id": "lang-swahili",
@@ -3643,7 +3659,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Ru-Apex_Legends.ogg",
         "note": ""
       },
-      "lufs": -16.6
+      "lufs": -16.6,
+      "start": 10
     },
     {
       "id": "lang-ukrainian",
@@ -3662,7 +3679,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:UA_Magnetic_bearing.ogg",
         "note": ""
       },
-      "lufs": -16.6
+      "lufs": -16.6,
+      "start": 10
     },
     {
       "id": "lang-polish",
@@ -3681,7 +3699,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Pl-Richard_Bourke-article.ogg",
         "note": ""
       },
-      "lufs": -16.4
+      "lufs": -16.4,
+      "start": 10
     },
     {
       "id": "lang-greek",
@@ -3707,7 +3726,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Ell-article-Theoria_tou_Haous.ogg",
         "note": ""
       },
-      "lufs": -16.4
+      "lufs": -16.4,
+      "start": 10
     },
     {
       "id": "lang-german",
@@ -3790,7 +3810,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:Arquebuse.ogg",
         "note": ""
       },
-      "lufs": -16.4
+      "lufs": -16.4,
+      "start": 10
     },
     {
       "start": 180,
@@ -3893,7 +3914,8 @@ window.CLIPS = {
         "page": "https://commons.wikimedia.org/wiki/File:HunArtTorokorszag.ogg",
         "note": ""
       },
-      "lufs": -16.1
+      "lufs": -16.1,
+      "start": 10
     }
   ]
 };
