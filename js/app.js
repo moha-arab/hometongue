@@ -193,8 +193,26 @@ function flyHome() {
 // moment you reach the end — so it is never a decoration lying about there being more.
 // "scroll" over a drifting chevron: the word says what to do, the chevron says which way, and
 // neither looks like something to press.
-const CUE_HTML = '<b>scroll<svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4l3.5 3.5L9.5 4"/></svg></b>';
+// The <span> is the visible layer; its parent is a zero-height anchor that costs the card no
+// space and keeps the overflow measurement honest. See .scroll-cue in the stylesheet.
+const CUE_HTML = '<span><b>scroll<svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4l3.5 3.5L9.5 4"/></svg></b></span>';
 
+// PHONES ONLY, ON PURPOSE, and it is worth writing down why since the card measurement makes it
+// look like an oversight. On phones the result rides as a bottom sheet with its own overflow, so
+// the card scrolls and this measures it. On desktop the card keeps its natural height and .hud is
+// the scrollport, so this reads 0 and the cue never lights.
+//
+// That is the right outcome. Measured in Chrome on Windows, .hud renders a real 15px scrollbar
+// the moment it overflows — the standard affordance, on the platform where people already know
+// what it means. The cue exists because phones have no such thing: overlay scrollbars fade out,
+// which is exactly why the people handed the phone read their city and stopped.
+//
+// Pinning it to the outer scrollport was tried and does not work here. The cue is sticky inside
+// the card, so it can never travel past the card's own bottom edge; with .hud scrolling, it parks
+// at the end of the card's content while the viewport bottom sits lower, and the share and go-
+// again buttons peek out underneath the fade that is supposed to be closing them off. And .hud
+// carries 52px of its own bottom padding, so its overflow reads positive on layouts where every
+// word of the card is already on screen — a cue promising more below when there is nothing.
 function refreshScrollCue(card) {
   if (!card) return;
   const scrollable = card.scrollHeight - card.clientHeight > 8;
@@ -286,6 +304,9 @@ function startMeter(stream) {
     const src = audioCtx.createMediaStreamSource(stream);
     analyser = audioCtx.createAnalyser();
     analyser.fftSize = 256;
+    // Explicit rather than inherited: the browser default is 0.8, and the waveform reads better
+    // slightly quicker off the mark than that while still being smooth enough not to strobe.
+    analyser.smoothingTimeConstant = 0.72;
     src.connect(analyser);
     const data = new Uint8Array(analyser.frequencyBinCount);
     const bars = [...document.querySelectorAll('#wave i')];
@@ -297,9 +318,20 @@ function startMeter(stream) {
       micPeak = Math.max(micPeak, sum / data.length / 255);
       micFrames += 1;
       if (sum / data.length / 255 > VOICE_LEVEL) micVoiced += 1;
+      // MIRRORED, and the reason is visible the moment you look at the old one. Reading the
+      // spectrum straight across put low frequencies on the left and high on the right, and a
+      // human voice puts almost all of its energy low — so the left half of the waveform stood
+      // up and the right half lay flat for the entire recording, every recording. That is an
+      // equalizer with a dead channel, not a voice. Folding the same data about the centre
+      // gives the symmetry people actually read as sound, and costs nothing but an abs().
+      const half = bars.length / 2;
       bars.forEach((b, i) => {
-        const v = data[Math.floor(i * data.length / bars.length / 2) + 2] / 255;
-        b.style.transform = `scaleY(${0.15 + v * 1.1})`;
+        const d = Math.abs(i - (bars.length - 1) / 2);   // 0 at the centre, ~half at the edges
+        const v = data[Math.floor(d * data.length / half / 2.4) + 2] / 255;
+        // A gentle envelope so the shape tapers outward the way a real one does, instead of
+        // ending in two full-height bars hard against the edge.
+        const envelope = 1 - (d / half) * 0.35;
+        b.style.transform = `scaleY(${0.08 + v * 1.25 * envelope})`;
       });
       // your voice pushes isoglosses out across the map
       const level = sum / data.length / 255;
@@ -321,12 +353,19 @@ function stopMeter() {
 function startTimer() {
   startedAt = Date.now();
   const stop0 = $('#stopBtn');
-  if (stop0) { stop0.disabled = true; stop0.textContent = `keep talking… ${MIN_RECORD_S}`; }
+  // The button no longer counts down. It used to read "keep talking… 12", which was a third
+  // clock on a screen that already had two, all of them saying the same thing in different
+  // units. The bar directly above it now carries that sentence, so the button can hold one
+  // label and just be dim until it means something.
+  if (stop0) { stop0.disabled = true; stop0.textContent = 'done, guess now'; }
   // Reset, or a second recording starts still wearing the first one's badge.
-  const q0 = $('#quality');
-  if (q0) {
-    q0.dataset.tier = '';
-    q0.querySelectorAll('.q-dots i').forEach((d) => d.classList.remove('on'));
+  const r0 = $('#ready');
+  if (r0) {
+    r0.dataset.state = '';
+    r0.classList.remove('is-enough', 'is-near-cap');
+    const f0 = $('#readyFill');
+    if (f0) f0.style.width = '0%';
+    $('#qLabel').textContent = `${MIN_RECORD_S} seconds to go`;
   }
   timerId = setInterval(() => {
     const s = Math.floor((Date.now() - startedAt) / 1000);
@@ -334,14 +373,6 @@ function startTimer() {
     // app crashing mid-sentence rather than a deliberate limit.
     const left = Math.max(0, MAX_SECONDS - s);
     $('#timer').textContent = `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
-    const fill = $('#countFill');
-    if (fill) fill.style.width = `${(s / MAX_SECONDS) * 100}%`;
-    // The clock only tells time now. It used to also give advice, on different thresholds
-    // than the quality meter below, so between 18s and 20s the two visibly contradicted each
-    // other ("that's plenty, hit done whenever" against "10 more seconds helps a lot"). One
-    // voice: the meter advises, the clock counts.
-    const hint = $('#countHint');
-    if (hint) hint.textContent = 'left';
     // A voiced-seconds gate was built here and then REMOVED before shipping, and the reason is
     // worth keeping so nobody rebuilds it. Measured: 15s of speech plus 15s of digital silence
     // performs like 15s, not 30s - the model tightens its radius on real extra speech (9 of 12
@@ -367,18 +398,28 @@ function startTimer() {
       // audio buys nothing this harness can detect and a button that begs is a button that
       // makes people feel their real answer was second best.
       stop.disabled = s < MIN_RECORD_S;
-      stop.textContent = s < MIN_RECORD_S ? `keep talking… ${MIN_RECORD_S - s}` : 'done, guess now';
+      if (stop.textContent !== 'done, guess now') stop.textContent = 'done, guess now';
     }
-    // Three tiers, and every one of them is now a true statement. The fourth used to promise
-    // that thirty seconds was sharper than twenty; paired measurement says it is not.
-    const tier = s < 12 ? 0 : s < MIN_RECORD_S ? 1 : 2;
-    const q = $('#quality');
-    if (q && q.dataset.tier !== String(tier)) {
-      q.dataset.tier = String(tier);
-      q.querySelectorAll('.q-dots i').forEach((d, k) => d.classList.toggle('on', k < Math.max(1, tier)));
-      $('#qLabel').textContent = ['too short to read yet',
-        'almost enough, keep going',
-        "that's enough to read you"][tier];
+    // The bar fills toward MIN_RECORD_S and then holds full. It does not keep creeping toward
+    // the cap, because there is nothing left to earn: 30s and 45s measure the same as 20s.
+    const ready = $('#ready');
+    if (ready) {
+      const fill = $('#readyFill');
+      if (fill) fill.style.width = `${Math.min(100, (s / MIN_RECORD_S) * 100)}%`;
+      const enough = s >= MIN_RECORD_S;
+      // Only touch the DOM when the sentence actually changes, so the tick and the colour
+      // settle once instead of being re-set sixty times a minute.
+      const state = enough ? 'enough' : `to-go-${MIN_RECORD_S - s}`;
+      if (ready.dataset.state !== state) {
+        ready.dataset.state = state;
+        ready.classList.toggle('is-enough', enough);
+        const n = MIN_RECORD_S - s;
+        $('#qLabel').textContent = enough
+          ? 'enough to read you'
+          : `${n} second${n === 1 ? '' : 's'} to go`;
+      }
+      // The cap is not news until it is close, and then it is.
+      ready.classList.toggle('is-near-cap', left <= 10);
     }
     if (s >= MAX_SECONDS) stopListening();
   }, 250);
@@ -392,27 +433,44 @@ function stopTimer() {
 // Measured: median 11.8s to a verdict, p90 28.7s. Nothing about that is fixable by sending
 // less audio (8s of audio still takes 6.2s and wrecks accuracy, 67km -> 345km), so the wait
 // is real and the job is to make it legible rather than to pretend it is short.
+// TWO SETS, because there are two things that can be analyzed and only one of them is a voice.
+// Type mode sends text and no audio at all — api/analyze.js tells the model to judge from
+// vocabulary and phrasing alone — and it showed this same analysing card. So anyone who tapped
+// a sample, or who was pushed into type mode because their mic was blocked, sat and watched the
+// app claim to be listening to their vowels and softened consonants for something they typed.
 const SCAN_NOTES = [
   'listening to how you shape your vowels',
   'checking which consonants you soften',
   'weighing your rhythm and stress',
   'narrowing down the region',
-  'still going, a long look usually means a close call',
+  // Was "a long look usually means a close call", which nothing measures. The wait is model
+  // inference time; no data ties a slow call to an ambiguous accent, and inventing a flattering
+  // reason for a delay is how a product ends up saying things it cannot back.
+  'still going, hang tight',
+];
+const SCAN_NOTES_TEXT = [
+  'reading the words you chose',
+  'weighing your spelling and phrasing',
+  'narrowing down the region',
+  'still going, hang tight',
 ];
 let scanId = null;
-function startScan() {
+function startScan(kind) {
+  const notes = kind === 'text' ? SCAN_NOTES_TEXT : SCAN_NOTES;
   const t0 = Date.now();
   let i = 0;
   const note = $('#scanNote'), el = $('#scanElapsed');
-  if (note) note.textContent = SCAN_NOTES[0];
+  const head = $('#scanStatus');
+  if (head) head.textContent = kind === 'text' ? 'reading your dialect…' : 'reading your accent…';
+  if (note) note.textContent = notes[0];
   if (el) el.textContent = '';
   scanId = setInterval(() => {
     const s = Math.round((Date.now() - t0) / 1000);
     if (el) el.textContent = ` · ${s}s`;
     // Advance roughly every 5s, then hold on the last line rather than looping forever,
     // because a cycling message eventually reads as broken too.
-    const next = Math.min(SCAN_NOTES.length - 1, Math.floor(s / 5));
-    if (next !== i && note) { i = next; note.textContent = SCAN_NOTES[i]; }
+    const next = Math.min(notes.length - 1, Math.floor(s / 5));
+    if (next !== i && note) { i = next; note.textContent = notes[i]; }
   }, 250);
 }
 function stopScan() {
@@ -462,7 +520,8 @@ async function startListening() {
   state = 'listening';
   chunks = [];
   recMime = mime;
-  $('#timer').textContent = '1:00';
+  // Derived, not typed. A literal '1:00' here silently becomes a lie the day MAX_SECONDS moves.
+  $('#timer').textContent = `${Math.floor(MAX_SECONDS / 60)}:${String(MAX_SECONDS % 60).padStart(2, '0')}`;
   show('liveCard');
   startMeter(mediaStream);
   startTimer();
@@ -620,7 +679,7 @@ function blobToBase64(blob) {
 
 // One place that turns a server error code into something a person can act on.
 const ERRORS = {
-  no_speech: "I couldn't hear any real speech in that. If the bars weren't moving while you talked, the browser is probably using the wrong microphone — check this site's microphone permission and try again.",
+  no_speech: "I couldn't hear any real speech in that. Check the right microphone is selected and this site has permission, then try again.",
   not_configured: 'The server is missing its API key, so nothing can be analyzed. That is a setup problem, not your recording.',
   out_of_credit: 'The analysis account has run out of credit, so nothing can be read right now. Nothing is wrong with your recording.',
   swamped: 'A lot of people are listening right now. Give it about thirty seconds and press record again. Your voice was fine.',
@@ -630,7 +689,7 @@ const ERRORS = {
   audio_too_large: 'That recording was too big to send. Try a slightly shorter take.',
   text_too_long: 'That was much longer than needed. A sentence or two is plenty.',
   rate_limited: 'Slow down a little, try again in a bit.',
-  at_capacity: 'HomeTongue has hit its listening limit for today. It resets tonight, and it will be free again.',
+  at_capacity: 'HomeTongue has hit its listening limit for today. It resets at midnight UTC.',
   bad_origin: 'That request was blocked as coming from the wrong domain.',
 };
 
@@ -718,7 +777,7 @@ function runTextAnalysis(text, typed) {
     show(typed ? 'typeCard' : 'idleCard');
     return;
   }
-  show('analyzingCard'); startScan();
+  show('analyzingCard'); startScan('text');
   state = 'analyzing';
   analyzeResilient({ text })
     .then((resp) => renderResult(normalizeServer(resp)))
@@ -772,7 +831,7 @@ function renderResult(v) {
   // wrong answer over their face. Ask for a clean take instead.
   if (v.content_led === 'fed') {
     window._lastResult = v;
-    $('#redoText').textContent = 'Everything I could point to was either something you told me or something I could not hear again on a second listen. That is not a reading, so I would rather give you nothing than make it up. Try once more, ideally about thirty seconds, without saying your name or where you are from.';
+    $('#redoText').textContent = 'Everything I could point to was either something you told me or something I could not hear again on a second listen. That is not a reading, so I would rather give you nothing than make it up. Try once more, twenty seconds or so, without saying your name or where you are from.';
     show('redoCard');
     flyHome();
     return;
@@ -1271,7 +1330,10 @@ function saveFeedback(correct, actual, actualCity) {
   // State loss must SPEAK, not silently degrade — a suspended iOS tab once evaporated the
   // clip and verdict, and the click silently posted an all-null row.
   if (!last.place) {
-    toast('This result is gone from the page’s memory because the tab was suspended. Do a fresh take and answer again, and that one will count.');
+    // Was: "gone from the page's memory because the tab was suspended". Two problems. It
+    // explains an internal state in the app's own terms, and it asserts a cause the code never
+    // checked — all it knows is that _lastResult has no place, not why.
+    toast('That result is no longer loaded. Do a fresh take and answer again, and that one will count.');
     return false;
   }
 
@@ -1279,7 +1341,10 @@ function saveFeedback(correct, actual, actualCity) {
   // post must not die with it)
   try {
     const log = JSON.parse(localStorage.getItem('hometongue_feedback') || '[]');
-    log.push({ ts: Date.now(), correct, actual, actualCity, guess: last.place || '', km_radius: last.radius_km || 0, transcript: last.transcript || '' });
+    // No transcript. Nothing in this codebase reads this log, so the words were being kept in
+    // the browser forever to be read by nobody — and the privacy page has to promise something
+    // about them either way. Not writing them is a shorter promise than explaining them.
+    log.push({ ts: Date.now(), correct, actual, actualCity, guess: last.place || '', km_radius: last.radius_km || 0 });
     localStorage.setItem('hometongue_feedback', JSON.stringify(log));
   } catch { /* storage full or blocked — the server post below still counts */ }
 
@@ -1294,7 +1359,12 @@ function saveFeedback(correct, actual, actualCity) {
     guess_city: last.place || '',
     region: last.region || '',
     confidence: last.confidence || 0,
-    transcript: last.transcript || '',
+    // ONLY WITH CONSENT. api/feedback.js already refuses to store this without it (row.transcript
+    // stays null), so nothing was ever kept — but it was still being posted on every single
+    // "did I get it?" tap and then thrown away at the other end. Sending words we have promised
+    // not to keep, and relying on the server to forget them, is a promise with a moving part in
+    // it. Now the words do not leave the browser unless the person donated the clip.
+    transcript: consent ? (last.transcript || '') : '',
     source: last.source || 'cloud',
     platform: detectPlatform(),
     consent,
@@ -1434,7 +1504,10 @@ function bindUI() {
       // the pile when it is not.
       const gotClip = j.stored === 'clip+labels';
       db.classList.add('done');
-      db.textContent = gotClip ? 'donated ✓ thank you' : 'correction saved ✓';
+      // "correction saved" was the wrong noun. They pressed DONATE; they did not correct
+      // anything, and the word sent them looking for a correction they never made. Say the
+      // thing that actually happened.
+      db.textContent = gotClip ? 'donated ✓ thank you' : "clip didn't upload";
       if (!gotClip) toast('Your correction is saved, but the recording itself did not upload.');
     } catch {
       if (gen !== window._renderGen) return;

@@ -20,12 +20,12 @@ const MODES = [
   { key: 'accents', name: 'English', desc: 'English wherever it is spoken' },
   { key: 'spanish', name: 'Spanish', desc: 'Spain and Latin America' },
   { key: 'french', name: 'French', desc: 'Europe, Canada and Africa' },
-  { key: 'hindi-urdu', name: 'Hindi–Urdu', desc: 'Northern India and Pakistan' },
+  { key: 'hindi-urdu', name: 'Hindi–Urdu', desc: 'Across India and Pakistan' },
   { key: 'chinese', name: 'Chinese', desc: 'Mainland China, Taiwan and Hong Kong' },
   { key: 'portuguese', name: 'Portuguese', desc: 'Portugal, Brazil and Lusophone Africa' },
   { key: 'italian', name: 'Italian', desc: 'Across Italy and Italian Switzerland' },
   { key: 'german', name: 'German', desc: 'Germany, Austria and Switzerland' },
-  { key: 'languages', name: 'World Languages', desc: 'Languages from every continent' },
+  { key: 'languages', name: 'World Languages', desc: 'Languages from around the world' },
 ];
 
 let map, guessMarker = null, truthMarker = null, line = null, extraDots = [];
@@ -707,7 +707,7 @@ async function submitScore() {
     // "score saved locally" was a false claim — nothing persisted the score. Say what is true.
     const msg = e.message === 'not_configured' ? 'Leaderboard isn\'t set up yet, so your score didn\'t post.'
       : (e.message === 'too_fast' || e.message === 'invalid_token') ? 'Scores only post for a full game, start to finish. Play one through and try again.'
-        : 'Couldn\'t post the score. But you played it, that\'s what counts.';
+        : 'Couldn\'t post the score. Try again in a moment.';
     toast(msg);
     $('#submitScore').disabled = false;
   }

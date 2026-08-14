@@ -367,12 +367,25 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 }
 .fb-btn.chosen::before { content: '✓ '; }
 
-/* ——— listening ——— */
-.wave { display: flex; justify-content: center; align-items: center; gap: 3px; height: 54px; margin-bottom: 12px; }
+/* ——— listening ———
+   The bars are fed a MIRRORED slice of the spectrum (see startMeter), so the shape is
+   symmetrical about the centre. Read straight, low frequencies land on the left and high on
+   the right, and since a human voice carries most of its energy low, the left half stood tall
+   while the right half sat nearly flat the entire time — an equalizer with a broken channel,
+   not a voice. Folded, it reads as a waveform, which is what a person expects to see while
+   they are talking. The centre bars are also allowed to run slightly taller than the edges,
+   the way a real envelope tapers. */
+.wave { display: flex; justify-content: center; align-items: center; gap: 3px; height: 54px; margin-bottom: 14px; }
 .wave i {
-  display: block; width: 3px; height: 46px; border-radius: 2px; background: var(--accent);
-  transform: scaleY(0.12); transform-origin: center; transition: transform 0.08s linear;
+  display: block; width: 3px; height: 46px; border-radius: 2px;
+  background: var(--accent);
+  transform: scaleY(0.08); transform-origin: center;
+  /* Short enough to track the voice, long enough to smooth the frame-to-frame jitter that made
+     the old one look like static. */
+  transition: transform 0.07s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
+/* Silence should not read as a dead app, so the bars rest as a thin line rather than nothing. */
+.wave i { min-height: 0; }
 .live-status, .result-kicker, .source-key, .board-head, .round-pill {
   font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase;
 }
@@ -388,11 +401,28 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .samples { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; }
 #typeCard .link-btn { margin-top: 18px; }
 
-.scan { display: flex; justify-content: center; gap: 7px; margin-bottom: 18px; }
-.scan span { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: blink 1.1s ease-in-out infinite; }
-.scan span:nth-child(2) { animation-delay: 0.18s; }
-.scan span:nth-child(3) { animation-delay: 0.36s; }
-@keyframes blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+/* The analysing sweep: the same 5px track as the listening bar, with a bright segment crossing
+   it. Indeterminate on purpose — the call runs ~12s at the median and ~29s at p90, and a bar
+   that pretended to know its own progress would sit at 90% lying for fifteen seconds. */
+.scan {
+  position: relative; overflow: hidden;
+  height: 5px; border-radius: 3px; background: var(--rule-soft);
+  margin: 0 auto 18px; max-width: 260px;
+}
+.scan i {
+  position: absolute; inset-block: 0; width: 38%;
+  border-radius: 3px; background: var(--accent);
+  animation: sweep 1.5s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+@keyframes sweep {
+  0%   { left: -38%; }
+  100% { left: 100%; }
+}
+/* Vestibular safety, and the same courtesy the rest of the file already extends. */
+@media (prefers-reduced-motion: reduce) {
+  .scan i { animation: pulseSoft 1.6s ease-in-out infinite; left: 0; width: 100%; }
+  @keyframes pulseSoft { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.9; } }
+}
 
 /* ——— result ——— */
 .result { text-align: left; }
@@ -775,6 +805,16 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
    content, so they hold still while the card moves under them, and both switch off the moment
    there is nothing left to reach — a cue that keeps insisting after you have hit the end is worse
    than no cue at all. */
+/* ZERO HEIGHT IN FLOW, and this is not a detail. The cue used to be a 90px-tall box sitting in
+   normal flow at the end of every card it was attached to, invisible at opacity 0 but occupying
+   its space regardless — measured, it added 62px of dead air to the bottom of the listening
+   card, which is why that card looked bottom-heavy and empty.
+   It also corrupted the measurement that drives it. can-scroll is computed from
+   scrollHeight - clientHeight, and the cue was contributing 62px to scrollHeight, so a card
+   could be judged scrollable largely on the strength of the cue announcing it.
+   Now the sticky box is a zero-height anchor and the visible fade is an absolutely positioned
+   child growing upward out of it, which lands in exactly the same place on screen while
+   costing the layout nothing and leaving the overflow maths honest. */
 .scroll-cue {
   /* z-index has to clear the card's own content: the evidence chips create their own painted
      boxes and were showing through the fade, so the cue looked like it was floating in the
@@ -784,14 +824,8 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
      visible edge with a strip of half-scrolled content showing underneath it — which read as the
      cue sitting in the middle of the list rather than closing it. */
   position: sticky; bottom: -28px; z-index: 6;
-  /* The negative bottom margin cancels the card's own 28px bottom padding so the fade reaches
-     the real bottom edge instead of stopping short of it. */
-  margin: 0 -30px -28px; padding: 46px 0 16px;
-  pointer-events: none; display: flex; justify-content: center;
-  background: linear-gradient(to bottom,
-    color-mix(in srgb, var(--sheet) 0%, transparent),
-    color-mix(in srgb, var(--sheet) 85%, transparent) 38%,
-    var(--sheet) 66%);
+  height: 0; margin: 0 -30px; padding: 0;
+  pointer-events: none;
   /* NO TRANSITION ON THIS ELEMENT. Proven in Chrome: an identical freshly-inserted .scroll-cue
      in the same card computed opacity 0 while this one, having been toggled by scroll events,
      stayed stuck at 1 — an opacity transition on a sticky element inside a scrolling container
@@ -799,6 +833,17 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
      matters here, because it tells people there is more below when they are already at the end.
      The chip fades instead; it is not sticky, so its transition behaves. */
   opacity: 0;
+}
+/* The part you can see. Anchored to the zero-height box's bottom edge and grown upward, so the
+   fade still closes off the card's real bottom edge the way it always did. */
+.scroll-cue > span {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  display: flex; justify-content: center;
+  padding: 46px 0 16px;
+  background: linear-gradient(to bottom,
+    color-mix(in srgb, var(--sheet) 0%, transparent),
+    color-mix(in srgb, var(--sheet) 85%, transparent) 38%,
+    var(--sheet) 66%);
 }
 .card.can-scroll .scroll-cue { opacity: 1; }
 /* Written as can-scroll AND at-end so it outranks the rule above outright. Equal specificity
@@ -825,7 +870,7 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 /* The card is padded 24px/21px on phones, so both the horizontal bleed and the sticky offset
    have to match that instead of the desktop 30px/28px. */
 @media (max-width: 560px) {
-  .scroll-cue { margin: 0 -21px -24px; bottom: -24px; }
+  .scroll-cue { margin: 0 -21px; bottom: -24px; }
 }
 
 .sheet-handle { display: none; }
@@ -906,27 +951,60 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .evidence .chip { display: block; width: 100%; }
 .evidence .chip b { font-weight: 500; font-size: 13.5px; }
 
-/* ——— recording countdown ———
-   The cap used to fire with no warning, which read as the app crashing mid-sentence. A
-   countdown plus a progress bar makes the limit visible, and the hint says when there is
-   enough speech to work with so nobody stops after three words. */
-.count { display: flex; align-items: baseline; gap: 9px; margin: 16px 0 8px; }
-.count b {
-  font-family: var(--display); font-size: 30px; font-weight: 700;
-  letter-spacing: -0.03em; color: var(--accent); font-variant-numeric: tabular-nums;
+/* ——— have you said enough yet ———
+   One bar, one target, and it is FULL at twenty seconds rather than at the sixty-second cap.
+   Which number the bar measures is the whole argument. Filling toward sixty would have put the
+   only threshold that matters at a third of the way along and left two thirds of the bar
+   sitting there implying the take was still incomplete — when the measurement says a
+   twenty-second take and a forty-five-second one land in the same place. Filling toward twenty
+   means the bar completes exactly when the recording is genuinely good, and then stops asking
+   for anything. The cap keeps its own small number on the right, where a limit belongs. */
+.ready { margin: 18px 0 20px; }
+.ready-track {
+  height: 5px; border-radius: 3px; background: var(--rule-soft); overflow: hidden;
 }
-.count span { font-size: 13px; color: var(--grey); }
-.count-track { height: 3px; border-radius: 2px; background: var(--rule-soft); overflow: hidden; margin-bottom: 20px; }
-.count-fill { height: 100%; width: 0; background: var(--accent); opacity: 0.75; transition: width 0.25s linear; }
+.ready-fill {
+  height: 100%; width: 0; border-radius: 3px;
+  background: var(--grey-2);
+  transition: width 0.32s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.45s ease;
+}
+/* Crossing the line is the one moment in this screen worth marking, so it is the one moment
+   that changes colour. */
+.ready.is-enough .ready-fill { background: var(--accent); }
+
+.ready-row {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+  margin-top: 9px;
+}
+.ready-state {
+  font-size: 13.5px; color: var(--grey); font-variant-numeric: tabular-nums;
+  transition: color 0.45s ease;
+}
+.ready.is-enough .ready-state { color: var(--accent); font-weight: 500; }
+/* A tick, not an emoji: it inherits the text colour and never renders as someone else's art. */
+.ready.is-enough .ready-state::before {
+  content: ''; display: inline-block; vertical-align: middle;
+  width: 5px; height: 9px; margin: -2px 7px 0 1px;
+  border: solid currentColor; border-width: 0 1.6px 1.6px 0;
+  transform: rotate(45deg);
+}
+.ready-cap {
+  font-family: var(--mono); font-size: 11.5px; color: var(--grey-2);
+  letter-spacing: 0.02em; white-space: nowrap; flex: none;
+}
+.ready-cap b { font-weight: 500; font-variant-numeric: tabular-nums; }
+/* The cap only becomes news in the last stretch, so it stays quiet until then. */
+.ready.is-near-cap .ready-cap { color: var(--amber-ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ready-fill { transition: width 0.32s linear; }
+}
 
 /* the analyzing wait: ~12s median, ~29s p90, so it needs to look alive */
 .scan-note { font-family: 'IBM Plex Mono', monospace; font-size: .72rem; letter-spacing: .02em;
   color: var(--grey); margin-top: .35rem; opacity: .85; }
 .scan-note b { font-weight: 500; opacity: .6; }
 
-/* ——— how much accuracy the recording has earned so far ——— */
-/* The dots track measured benchmark medians, not elapsed time for its own sake:
-   345 km at 8s, 157 km from 12–20s, 67 km by 30s. */
 /* Prose, so it gets the prose font. This was 11px mono, the same styling as the one-word
    status labels under the waveform, and a full sentence set that way reads like a terminal
    warning rather than a friendly hint. */
@@ -935,14 +1013,6 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   color: var(--grey);
 }
 .length-tip b { color: var(--black); font-weight: 500; }
-.quality { display: flex; align-items: center; gap: 9px; margin-top: 11px; }
-.q-dots { display: inline-flex; gap: 4px; }
-.q-dots i {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--grey-2, #c9cdc9); transition: background .3s ease;
-}
-.q-dots i.on { background: var(--accent); }
-.q-label { font-family: var(--mono); font-size: 11px; color: var(--grey); letter-spacing: .01em; }
 
 /* Shown when the verdict leaned on a name instead of the voice. Deliberately looks like a
    correction rather than decoration — it is telling the user the answer is weaker than it looks. */

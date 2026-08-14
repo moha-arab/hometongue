@@ -1,7 +1,7 @@
 {
   "name": "HomeTongue",
   "short_name": "HomeTongue",
-  "description": "Your voice is a place. Talk in any language and the map finds where you grew up, or play the listening game across nine decks.",
+  "description": "Your voice is a place. Talk in any language and the map finds where you grew up, or play the listening game.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
