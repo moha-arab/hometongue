@@ -80,7 +80,14 @@
       <span class="q-dots"><i></i><i></i><i></i></span>
       <span class="q-label" id="qLabel">too short to read yet</span>
     </div>
-    <button class="stop-btn" id="stopBtn">done, guess now</button>
+    <!-- Two ways out of a take, because there are two reasons to end one. "done" submits what
+         you said; "start over" throws it away and begins again, for the fumbled sentence or the
+         cough or the wrong language. Without it the only escape was to talk out the full take
+         and submit a recording you already knew was spoiled. -->
+    <div class="live-actions">
+      <button class="stop-btn" id="stopBtn">done, guess now</button>
+      <button class="restart-btn" id="restartBtn" type="button">start over</button>
+    </div>
   </section>
 
   <!-- TYPE MODE -->

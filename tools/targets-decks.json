@@ -1,0 +1,1075 @@
+[
+  {
+    "deck": "italian",
+    "label": "Milan, Italy",
+    "lang": "Italian",
+    "lat": 45.4642,
+    "lng": 9.19,
+    "r": 90,
+    "want": 2,
+    "native": [
+      "Milano",
+      "milanese"
+    ],
+    "queries": [
+      "intervista per strada Milano",
+      "interviste ai passanti Milano",
+      "sondaggio per strada Milano",
+      "domande a caso per strada Milano",
+      "cosa ne pensa la gente Milano intervista"
+    ]
+  },
+  {
+    "deck": "italian",
+    "label": "Rome, Italy",
+    "lang": "Italian",
+    "lat": 41.9028,
+    "lng": 12.4964,
+    "r": 90,
+    "want": 2,
+    "native": [
+      "Roma",
+      "romano",
+      "romanesco"
+    ],
+    "queries": [
+      "intervista per strada Roma",
+      "interviste ai passanti Roma",
+      "sondaggio per strada Roma",
+      "domande a caso per strada Roma",
+      "cosa ne pensa la gente Roma intervista"
+    ]
+  },
+  {
+    "deck": "italian",
+    "label": "Naples, Italy",
+    "lang": "Italian",
+    "lat": 40.8518,
+    "lng": 14.2681,
+    "r": 90,
+    "want": 2,
+    "native": [
+      "Napoli",
+      "napoletano"
+    ],
+    "queries": [
+      "intervista per strada Napoli",
+      "interviste ai passanti Napoli",
+      "sondaggio per strada Napoli",
+      "domande a caso per strada Napoli",
+      "cosa ne pensa la gente Napoli intervista"
+    ]
+  },
+  {
+    "deck": "italian",
+    "label": "Turin, Italy",
+    "lang": "Italian",
+    "lat": 45.0703,
+    "lng": 7.6869,
+    "r": 90,
+    "want": 1,
+    "native": [
+      "Torino",
+      "torinese"
+    ],
+    "queries": [
+      "intervista per strada Torino",
+      "interviste ai passanti Torino",
+      "sondaggio per strada Torino",
+      "domande a caso per strada Torino",
+      "cosa ne pensa la gente Torino intervista"
+    ]
+  },
+  {
+    "deck": "italian",
+    "label": "Palermo, Italy",
+    "lang": "Italian",
+    "lat": 38.1157,
+    "lng": 13.3615,
+    "r": 90,
+    "want": 1,
+    "native": [
+      "Palermo",
+      "siciliano",
+      "Sicilia"
+    ],
+    "queries": [
+      "intervista per strada Palermo",
+      "interviste ai passanti Palermo",
+      "sondaggio per strada Palermo",
+      "domande a caso per strada Palermo",
+      "cosa ne pensa la gente Palermo intervista"
+    ]
+  },
+  {
+    "deck": "italian",
+    "label": "Bologna, Italy",
+    "lang": "Italian",
+    "lat": 44.4949,
+    "lng": 11.3426,
+    "r": 90,
+    "want": 1,
+    "native": [
+      "Bologna",
+      "bolognese"
+    ],
+    "queries": [
+      "intervista per strada Bologna",
+      "interviste ai passanti Bologna",
+      "sondaggio per strada Bologna",
+      "domande a caso per strada Bologna",
+      "cosa ne pensa la gente Bologna intervista"
+    ]
+  },
+  {
+    "deck": "italian",
+    "label": "Florence, Italy",
+    "lang": "Italian",
+    "lat": 43.7696,
+    "lng": 11.2558,
+    "r": 90,
+    "want": 1,
+    "native": [
+      "Firenze",
+      "fiorentino",
+      "toscano"
+    ],
+    "queries": [
+      "intervista per strada Firenze",
+      "interviste ai passanti Firenze",
+      "sondaggio per strada Firenze",
+      "domande a caso per strada Firenze",
+      "cosa ne pensa la gente Firenze intervista"
+    ]
+  },
+  {
+    "deck": "italian",
+    "label": "Venice, Italy",
+    "lang": "Italian",
+    "lat": 45.4408,
+    "lng": 12.3155,
+    "r": 90,
+    "want": 1,
+    "native": [
+      "Venezia",
+      "veneto"
+    ],
+    "queries": [
+      "intervista per strada Venezia",
+      "interviste ai passanti Venezia",
+      "sondaggio per strada Venezia",
+      "domande a caso per strada Venezia",
+      "cosa ne pensa la gente Venezia intervista"
+    ]
+  },
+  {
+    "deck": "italian",
+    "label": "Genoa, Italy",
+    "lang": "Italian",
+    "lat": 44.4056,
+    "lng": 8.9463,
+    "r": 90,
+    "want": 1,
+    "native": [
+      "Genova",
+      "genovese",
+      "Liguria"
+    ],
+    "queries": [
+      "intervista per strada Genova",
+      "interviste ai passanti Genova",
+      "sondaggio per strada Genova",
+      "domande a caso per strada Genova",
+      "cosa ne pensa la gente Genova intervista"
+    ]
+  },
+  {
+    "deck": "italian",
+    "label": "Bari, Italy",
+    "lang": "Italian",
+    "lat": 41.1171,
+    "lng": 16.8719,
+    "r": 90,
+    "want": 1,
+    "native": [
+      "Bari",
+      "barese",
+      "Puglia"
+    ],
+    "queries": [
+      "intervista per strada Bari",
+      "interviste ai passanti Bari",
+      "sondaggio per strada Bari",
+      "domande a caso per strada Bari",
+      "cosa ne pensa la gente Bari intervista"
+    ]
+  },
+  {
+    "deck": "italian",
+    "label": "Catania, Italy",
+    "lang": "Italian",
+    "lat": 37.5079,
+    "lng": 15.083,
+    "r": 90,
+    "want": 1,
+    "native": [
+      "Catania",
+      "catanese",
+      "Sicilia"
+    ],
+    "queries": [
+      "intervista per strada Catania",
+      "interviste ai passanti Catania",
+      "sondaggio per strada Catania",
+      "domande a caso per strada Catania",
+      "cosa ne pensa la gente Catania intervista"
+    ]
+  },
+  {
+    "deck": "italian",
+    "label": "Verona, Italy",
+    "lang": "Italian",
+    "lat": 45.4384,
+    "lng": 10.9916,
+    "r": 90,
+    "want": 1,
+    "native": [
+      "Verona",
+      "veronese",
+      "veneto"
+    ],
+    "queries": [
+      "intervista per strada Verona",
+      "interviste ai passanti Verona",
+      "sondaggio per strada Verona",
+      "domande a caso per strada Verona",
+      "cosa ne pensa la gente Verona intervista"
+    ]
+  },
+  {
+    "deck": "italian",
+    "label": "Cagliari, Italy",
+    "lang": "Italian",
+    "lat": 39.2238,
+    "lng": 9.1217,
+    "r": 90,
+    "want": 1,
+    "native": [
+      "Cagliari",
+      "Sardegna",
+      "sardo"
+    ],
+    "queries": [
+      "intervista per strada Cagliari",
+      "interviste ai passanti Cagliari",
+      "sondaggio per strada Cagliari",
+      "domande a caso per strada Cagliari",
+      "cosa ne pensa la gente Cagliari intervista"
+    ]
+  },
+  {
+    "deck": "italian",
+    "label": "Lugano, Switzerland",
+    "lang": "Italian",
+    "lat": 46.0037,
+    "lng": 8.9511,
+    "r": 90,
+    "want": 1,
+    "native": [
+      "Lugano",
+      "Ticino",
+      "ticinese"
+    ],
+    "queries": [
+      "intervista per strada Lugano",
+      "interviste ai passanti Lugano",
+      "sondaggio per strada Lugano",
+      "domande a caso per strada Lugano",
+      "cosa ne pensa la gente Lugano intervista"
+    ]
+  },
+  {
+    "deck": "german",
+    "label": "Berlin, Germany",
+    "lang": "German",
+    "lat": 52.52,
+    "lng": 13.405,
+    "r": 90,
+    "want": 2,
+    "native": [
+      "Berlin",
+      "Berliner"
+    ],
+    "queries": [
+      "Straßenumfrage Berlin",
+      "Umfrage Passanten Berlin",
+      "Leute auf der Straße gefragt Berlin",
+      "Straßenumfrage Berlin Meinung",
+      "Passanten befragt Berlin"
+    ]
+  },
+  {
+    "deck": "german",
+    "label": "Munich, Germany",
+    "lang": "German",
+    "lat": 48.1351,
+    "lng": 11.582,
+    "r": 90,
+    "want": 2,
+    "native": [
+      "München",
+      "Münchner",
+      "Bayern",
+      "bayerisch"
+    ],
+    "queries": [
+      "Straßenumfrage München",
+      "Umfrage Passanten München",
+      "Leute auf der Straße gefragt München",
+      "Straßenumfrage München Meinung",
+      "Passanten befragt München"
+    ]
+  },
+  {
+    "deck": "german",
+    "label": "Hamburg, Germany",
+    "lang": "German",
+    "lat": 53.5511,
+    "lng": 9.9937,
+    "r": 90,
+    "want": 2,
+    "native": [
+      "Hamburg",
+      "Hamburger"
+    ],
+    "queries": [
+      "Straßenumfrage Hamburg",
+      "Umfrage Passanten Hamburg",
+      "Leute auf der Straße gefragt Hamburg",
+      "Straßenumfrage Hamburg Meinung",
+      "Passanten befragt Hamburg"
+    ]
+  },
+  {
+    "deck": "german",
+    "label": "Cologne, Germany",
+    "lang": "German",
+    "lat": 50.9375,
+    "lng": 6.9603,
+    "r": 90,
+    "want": 1,
+    "native": [
+      "Köln",
+      "Kölner",
+      "kölsch"
+    ],
+    "queries": [
+      "Straßenumfrage Köln",
+      "Umfrage Passanten Köln",
+      "Leute auf der Straße gefragt Köln",
+      "Straßenumfrage Köln Meinung",
+      "Passanten befragt Köln"
+    ]
+  },
+  {
+    "deck": "german",
+    "label": "Vienna, Austria",
+    "lang": "German",
+    "lat": 48.2082,
+    "lng": 16.3738,
+    "r": 90,
+    "want": 2,
+    "native": [
+      "Wien",
+      "Wiener",
+      "Österreich"
+    ],
+    "queries": [
+      "Straßenumfrage Wien",
+      "Umfrage Passanten Wien",
+      "Leute auf der Straße gefragt Wien",
+      "Straßenumfrage Wien Meinung",
+      "Passanten befragt Wien"
+    ]
+  },
+  {
+    "deck": "german",
+    "label": "Zurich, Switzerland",
+    "lang": "German",
+    "lat": 47.3769,
+    "lng": 8.5417,
+    "r": 90,
+    "want": 2,
+    "native": [
+      "Zürich",
+      "Zürcher",
+      "Schweiz",
+      "Mundart"
+    ],
+    "queries": [
+      "Straßenumfrage Zürich",
+      "Umfrage Passanten Zürich",
+      "Leute auf der Straße gefragt Zürich",
+      "Straßenumfrage Zürich Meinung",
+      "Passanten befragt Zürich"
+    ]
+  },
+  {
+    "deck": "german",
+    "label": "Bern, Switzerland",
+    "lang": "German",
+    "lat": 46.948,
+    "lng": 7.4474,
+    "r": 90,
+    "want": 1,
+    "native": [
+      "Bern",
+      "Berner",
+      "Schweiz"
+    ],
+    "queries": [
+      "Straßenumfrage Bern",
+      "Umfrage Passanten Bern",
+      "Leute auf der Straße gefragt Bern",
+      "Straßenumfrage Bern Meinung",
+      "Passanten befragt Bern"
+    ]
+  },
+  {
+    "deck": "german",
+    "label": "Basel, Switzerland",
+    "lang": "German",
+    "lat": 47.5596,
+    "lng": 7.5886,
+    "r": 90,
+    "want": 1,
+    "native": [
+      "Basel",
+      "Basler",
+      "Schweiz"
+    ],
+    "queries": [
+      "Straßenumfrage Basel",
+      "Umfrage Passanten Basel",
+      "Leute auf der Straße gefragt Basel",
+      "Straßenumfrage Basel Meinung",
+      "Passanten befragt Basel"
+    ]
+  },
+  {
+    "deck": "german",
+    "label": "Leipzig, Germany",
+    "lang": "German",
+    "lat": 51.3397,
+    "lng": 12.3731,
+    "r": 90,
+    "want": 1,
+    "native": [
+      "Leipzig",
+      "Leipziger",
+      "Sachsen",
+      "sächsisch"
+    ],
+    "queries": [
+      "Straßenumfrage Leipzig",
+      "Umfrage Passanten Leipzig",
+      "Leute auf der Straße gefragt Leipzig",
+      "Straßenumfrage Leipzig Meinung",
+      "Passanten befragt Leipzig"
+    ]
+  },
+  {
+    "deck": "german",
+    "label": "Stuttgart, Germany",
+    "lang": "German",
+    "lat": 48.7758,
+    "lng": 9.1829,
+    "r": 90,
+    "want": 1,
+    "native": [
+      "Stuttgart",
+      "Schwaben",
+      "schwäbisch"
+    ],
+    "queries": [
+      "Straßenumfrage Stuttgart",
+      "Umfrage Passanten Stuttgart",
+      "Leute auf der Straße gefragt Stuttgart",
+      "Straßenumfrage Stuttgart Meinung",
+      "Passanten befragt Stuttgart"
+    ]
+  },
+  {
+    "deck": "german",
+    "label": "Frankfurt, Germany",
+    "lang": "German",
+    "lat": 50.1109,
+    "lng": 8.6821,
+    "r": 90,
+    "want": 1,
+    "native": [
+      "Frankfurt",
+      "Hessen",
+      "hessisch"
+    ],
+    "queries": [
+      "Straßenumfrage Frankfurt",
+      "Umfrage Passanten Frankfurt",
+      "Leute auf der Straße gefragt Frankfurt",
+      "Straßenumfrage Frankfurt Meinung",
+      "Passanten befragt Frankfurt"
+    ]
+  },
+  {
+    "deck": "german",
+    "label": "Dresden, Germany",
+    "lang": "German",
+    "lat": 51.0504,
+    "lng": 13.7373,
+    "r": 90,
+    "want": 1,
+    "native": [
+      "Dresden",
+      "Dresdner",
+      "Sachsen"
+    ],
+    "queries": [
+      "Straßenumfrage Dresden",
+      "Umfrage Passanten Dresden",
+      "Leute auf der Straße gefragt Dresden",
+      "Straßenumfrage Dresden Meinung",
+      "Passanten befragt Dresden"
+    ]
+  },
+  {
+    "deck": "german",
+    "label": "Graz, Austria",
+    "lang": "German",
+    "lat": 47.0707,
+    "lng": 15.4395,
+    "r": 90,
+    "want": 1,
+    "native": [
+      "Graz",
+      "Steiermark",
+      "Österreich"
+    ],
+    "queries": [
+      "Straßenumfrage Graz",
+      "Umfrage Passanten Graz",
+      "Leute auf der Straße gefragt Graz",
+      "Straßenumfrage Graz Meinung",
+      "Passanten befragt Graz"
+    ]
+  },
+  {
+    "deck": "german",
+    "label": "Hannover, Germany",
+    "lang": "German",
+    "lat": 52.3759,
+    "lng": 9.732,
+    "r": 90,
+    "want": 1,
+    "native": [
+      "Hannover",
+      "Niedersachsen"
+    ],
+    "queries": [
+      "Straßenumfrage Hannover",
+      "Umfrage Passanten Hannover",
+      "Leute auf der Straße gefragt Hannover",
+      "Straßenumfrage Hannover Meinung",
+      "Passanten befragt Hannover"
+    ]
+  },
+  {
+    "deck": "urdu",
+    "label": "Karachi, Pakistan",
+    "lang": "Urdu",
+    "lat": 24.8607,
+    "lng": 67.0011,
+    "r": 100,
+    "want": 2,
+    "native": [
+      "کراچی",
+      "Karachi",
+      "سندھ"
+    ],
+    "queries": [
+      "کراچی عوامی رائے",
+      "کراچی public opinion urdu interview",
+      "کراچی شہریوں سے گفتگو",
+      "کراچی awami raye interview",
+      "کراچی street interview urdu public"
+    ]
+  },
+  {
+    "deck": "urdu",
+    "label": "Lahore, Pakistan",
+    "lang": "Urdu",
+    "lat": 31.5204,
+    "lng": 74.3587,
+    "r": 100,
+    "want": 2,
+    "native": [
+      "لاہور",
+      "Lahore",
+      "پنجاب"
+    ],
+    "queries": [
+      "لاہور عوامی رائے",
+      "لاہور public opinion urdu interview",
+      "لاہور شہریوں سے گفتگو",
+      "لاہور awami raye interview",
+      "لاہور street interview urdu public"
+    ]
+  },
+  {
+    "deck": "urdu",
+    "label": "Islamabad, Pakistan",
+    "lang": "Urdu",
+    "lat": 33.6844,
+    "lng": 73.0479,
+    "r": 100,
+    "want": 2,
+    "native": [
+      "اسلام آباد",
+      "Islamabad"
+    ],
+    "queries": [
+      "اسلام آباد عوامی رائے",
+      "اسلام آباد public opinion urdu interview",
+      "اسلام آباد شہریوں سے گفتگو",
+      "اسلام آباد awami raye interview",
+      "اسلام آباد street interview urdu public"
+    ]
+  },
+  {
+    "deck": "urdu",
+    "label": "Rawalpindi, Pakistan",
+    "lang": "Urdu",
+    "lat": 33.5651,
+    "lng": 73.0169,
+    "r": 100,
+    "want": 1,
+    "native": [
+      "راولپنڈی",
+      "Rawalpindi",
+      "پنڈی"
+    ],
+    "queries": [
+      "راولپنڈی عوامی رائے",
+      "راولپنڈی public opinion urdu interview",
+      "راولپنڈی شہریوں سے گفتگو",
+      "راولپنڈی awami raye interview",
+      "راولپنڈی street interview urdu public"
+    ]
+  },
+  {
+    "deck": "urdu",
+    "label": "Peshawar, Pakistan",
+    "lang": "Urdu",
+    "lat": 34.0151,
+    "lng": 71.5249,
+    "r": 100,
+    "want": 1,
+    "native": [
+      "پشاور",
+      "Peshawar",
+      "خیبر"
+    ],
+    "queries": [
+      "پشاور عوامی رائے",
+      "پشاور public opinion urdu interview",
+      "پشاور شہریوں سے گفتگو",
+      "پشاور awami raye interview",
+      "پشاور street interview urdu public"
+    ]
+  },
+  {
+    "deck": "urdu",
+    "label": "Multan, Pakistan",
+    "lang": "Urdu",
+    "lat": 30.1575,
+    "lng": 71.5249,
+    "r": 100,
+    "want": 1,
+    "native": [
+      "ملتان",
+      "Multan"
+    ],
+    "queries": [
+      "ملتان عوامی رائے",
+      "ملتان public opinion urdu interview",
+      "ملتان شہریوں سے گفتگو",
+      "ملتان awami raye interview",
+      "ملتان street interview urdu public"
+    ]
+  },
+  {
+    "deck": "urdu",
+    "label": "Faisalabad, Pakistan",
+    "lang": "Urdu",
+    "lat": 31.4504,
+    "lng": 73.135,
+    "r": 100,
+    "want": 1,
+    "native": [
+      "فیصل آباد",
+      "Faisalabad"
+    ],
+    "queries": [
+      "فیصل آباد عوامی رائے",
+      "فیصل آباد public opinion urdu interview",
+      "فیصل آباد شہریوں سے گفتگو",
+      "فیصل آباد awami raye interview",
+      "فیصل آباد street interview urdu public"
+    ]
+  },
+  {
+    "deck": "urdu",
+    "label": "Quetta, Pakistan",
+    "lang": "Urdu",
+    "lat": 30.1798,
+    "lng": 66.975,
+    "r": 100,
+    "want": 1,
+    "native": [
+      "کوئٹہ",
+      "Quetta",
+      "بلوچستان"
+    ],
+    "queries": [
+      "کوئٹہ عوامی رائے",
+      "کوئٹہ public opinion urdu interview",
+      "کوئٹہ شہریوں سے گفتگو",
+      "کوئٹہ awami raye interview",
+      "کوئٹہ street interview urdu public"
+    ]
+  },
+  {
+    "deck": "urdu",
+    "label": "Hyderabad, Pakistan",
+    "lang": "Urdu",
+    "lat": 25.396,
+    "lng": 68.3578,
+    "r": 100,
+    "want": 1,
+    "native": [
+      "حیدرآباد",
+      "Hyderabad",
+      "سندھ"
+    ],
+    "queries": [
+      "حیدرآباد عوامی رائے",
+      "حیدرآباد public opinion urdu interview",
+      "حیدرآباد شہریوں سے گفتگو",
+      "حیدرآباد awami raye interview",
+      "حیدرآباد street interview urdu public"
+    ]
+  },
+  {
+    "deck": "urdu",
+    "label": "Sialkot, Pakistan",
+    "lang": "Urdu",
+    "lat": 32.4945,
+    "lng": 74.5229,
+    "r": 100,
+    "want": 1,
+    "native": [
+      "سیالکوٹ",
+      "Sialkot"
+    ],
+    "queries": [
+      "سیالکوٹ عوامی رائے",
+      "سیالکوٹ public opinion urdu interview",
+      "سیالکوٹ شہریوں سے گفتگو",
+      "سیالکوٹ awami raye interview",
+      "سیالکوٹ street interview urdu public"
+    ]
+  },
+  {
+    "deck": "urdu",
+    "label": "Gujranwala, Pakistan",
+    "lang": "Urdu",
+    "lat": 32.1877,
+    "lng": 74.1945,
+    "r": 100,
+    "want": 1,
+    "native": [
+      "گوجرانوالہ",
+      "Gujranwala"
+    ],
+    "queries": [
+      "گوجرانوالہ عوامی رائے",
+      "گوجرانوالہ public opinion urdu interview",
+      "گوجرانوالہ شہریوں سے گفتگو",
+      "گوجرانوالہ awami raye interview",
+      "گوجرانوالہ street interview urdu public"
+    ]
+  },
+  {
+    "deck": "urdu",
+    "label": "Sukkur, Pakistan",
+    "lang": "Urdu",
+    "lat": 27.7052,
+    "lng": 68.8574,
+    "r": 100,
+    "want": 1,
+    "native": [
+      "سکھر",
+      "Sukkur"
+    ],
+    "queries": [
+      "سکھر عوامی رائے",
+      "سکھر public opinion urdu interview",
+      "سکھر شہریوں سے گفتگو",
+      "سکھر awami raye interview",
+      "سکھر street interview urdu public"
+    ]
+  },
+  {
+    "deck": "hindi",
+    "label": "Delhi, India",
+    "lang": "Hindi",
+    "lat": 28.6139,
+    "lng": 77.209,
+    "r": 100,
+    "want": 1,
+    "native": [
+      "दिल्ली",
+      "Delhi"
+    ],
+    "queries": [
+      "दिल्ली सड़क पर इंटरव्यू",
+      "दिल्ली जनता की राय इंटरव्यू",
+      "दिल्ली public opinion hindi street",
+      "दिल्ली लोगों से बातचीत सड़क",
+      "दिल्ली आम लोगों की राय"
+    ]
+  },
+  {
+    "deck": "hindi",
+    "label": "Mumbai, India",
+    "lang": "Hindi",
+    "lat": 19.076,
+    "lng": 72.8777,
+    "r": 100,
+    "want": 2,
+    "native": [
+      "मुंबई",
+      "Mumbai"
+    ],
+    "queries": [
+      "मुंबई सड़क पर इंटरव्यू",
+      "मुंबई जनता की राय इंटरव्यू",
+      "मुंबई public opinion hindi street",
+      "मुंबई लोगों से बातचीत सड़क",
+      "मुंबई आम लोगों की राय"
+    ]
+  },
+  {
+    "deck": "hindi",
+    "label": "Lucknow, India",
+    "lang": "Hindi",
+    "lat": 26.8467,
+    "lng": 80.9462,
+    "r": 100,
+    "want": 1,
+    "native": [
+      "लखनऊ",
+      "Lucknow"
+    ],
+    "queries": [
+      "लखनऊ सड़क पर इंटरव्यू",
+      "लखनऊ जनता की राय इंटरव्यू",
+      "लखनऊ public opinion hindi street",
+      "लखनऊ लोगों से बातचीत सड़क",
+      "लखनऊ आम लोगों की राय"
+    ]
+  },
+  {
+    "deck": "hindi",
+    "label": "Patna, India",
+    "lang": "Hindi",
+    "lat": 25.5941,
+    "lng": 85.1376,
+    "r": 100,
+    "want": 1,
+    "native": [
+      "पटना",
+      "Patna",
+      "बिहार"
+    ],
+    "queries": [
+      "पटना सड़क पर इंटरव्यू",
+      "पटना जनता की राय इंटरव्यू",
+      "पटना public opinion hindi street",
+      "पटना लोगों से बातचीत सड़क",
+      "पटना आम लोगों की राय"
+    ]
+  },
+  {
+    "deck": "hindi",
+    "label": "Jaipur, India",
+    "lang": "Hindi",
+    "lat": 26.9124,
+    "lng": 75.7873,
+    "r": 100,
+    "want": 1,
+    "native": [
+      "जयपुर",
+      "Jaipur",
+      "राजस्थान"
+    ],
+    "queries": [
+      "जयपुर सड़क पर इंटरव्यू",
+      "जयपुर जनता की राय इंटरव्यू",
+      "जयपुर public opinion hindi street",
+      "जयपुर लोगों से बातचीत सड़क",
+      "जयपुर आम लोगों की राय"
+    ]
+  },
+  {
+    "deck": "hindi",
+    "label": "Bhopal, India",
+    "lang": "Hindi",
+    "lat": 23.2599,
+    "lng": 77.4126,
+    "r": 100,
+    "want": 1,
+    "native": [
+      "भोपाल",
+      "Bhopal"
+    ],
+    "queries": [
+      "भोपाल सड़क पर इंटरव्यू",
+      "भोपाल जनता की राय इंटरव्यू",
+      "भोपाल public opinion hindi street",
+      "भोपाल लोगों से बातचीत सड़क",
+      "भोपाल आम लोगों की राय"
+    ]
+  },
+  {
+    "deck": "hindi",
+    "label": "Indore, India",
+    "lang": "Hindi",
+    "lat": 22.7196,
+    "lng": 75.8577,
+    "r": 100,
+    "want": 1,
+    "native": [
+      "इंदौर",
+      "Indore"
+    ],
+    "queries": [
+      "इंदौर सड़क पर इंटरव्यू",
+      "इंदौर जनता की राय इंटरव्यू",
+      "इंदौर public opinion hindi street",
+      "इंदौर लोगों से बातचीत सड़क",
+      "इंदौर आम लोगों की राय"
+    ]
+  },
+  {
+    "deck": "hindi",
+    "label": "Kanpur, India",
+    "lang": "Hindi",
+    "lat": 26.4499,
+    "lng": 80.3319,
+    "r": 100,
+    "want": 1,
+    "native": [
+      "कानपुर",
+      "Kanpur"
+    ],
+    "queries": [
+      "कानपुर सड़क पर इंटरव्यू",
+      "कानपुर जनता की राय इंटरव्यू",
+      "कानपुर public opinion hindi street",
+      "कानपुर लोगों से बातचीत सड़क",
+      "कानपुर आम लोगों की राय"
+    ]
+  },
+  {
+    "deck": "hindi",
+    "label": "Varanasi, India",
+    "lang": "Hindi",
+    "lat": 25.3176,
+    "lng": 82.9739,
+    "r": 100,
+    "want": 1,
+    "native": [
+      "वाराणसी",
+      "Varanasi",
+      "बनारस"
+    ],
+    "queries": [
+      "वाराणसी सड़क पर इंटरव्यू",
+      "वाराणसी जनता की राय इंटरव्यू",
+      "वाराणसी public opinion hindi street",
+      "वाराणसी लोगों से बातचीत सड़क",
+      "वाराणसी आम लोगों की राय"
+    ]
+  },
+  {
+    "deck": "hindi",
+    "label": "Agra, India",
+    "lang": "Hindi",
+    "lat": 27.1767,
+    "lng": 78.0081,
+    "r": 100,
+    "want": 1,
+    "native": [
+      "आगरा",
+      "Agra"
+    ],
+    "queries": [
+      "आगरा सड़क पर इंटरव्यू",
+      "आगरा जनता की राय इंटरव्यू",
+      "आगरा public opinion hindi street",
+      "आगरा लोगों से बातचीत सड़क",
+      "आगरा आम लोगों की राय"
+    ]
+  },
+  {
+    "deck": "hindi",
+    "label": "Ranchi, India",
+    "lang": "Hindi",
+    "lat": 23.3441,
+    "lng": 85.3096,
+    "r": 100,
+    "want": 1,
+    "native": [
+      "रांची",
+      "Ranchi",
+      "झारखंड"
+    ],
+    "queries": [
+      "रांची सड़क पर इंटरव्यू",
+      "रांची जनता की राय इंटरव्यू",
+      "रांची public opinion hindi street",
+      "रांची लोगों से बातचीत सड़क",
+      "रांची आम लोगों की राय"
+    ]
+  },
+  {
+    "deck": "hindi",
+    "label": "Dehradun, India",
+    "lang": "Hindi",
+    "lat": 30.3165,
+    "lng": 78.0322,
+    "r": 100,
+    "want": 1,
+    "native": [
+      "देहरादून",
+      "Dehradun"
+    ],
+    "queries": [
+      "देहरादून सड़क पर इंटरव्यू",
+      "देहरादून जनता की राय इंटरव्यू",
+      "देहरादून public opinion hindi street",
+      "देहरादून लोगों से बातचीत सड़क",
+      "देहरादून आम लोगों की राय"
+    ]
+  }
+]

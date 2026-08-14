@@ -153,7 +153,10 @@ window.HT.contours = function contours() {
 window.HT.setDeck = function setDeck(deck, origin) {
   const root = document.documentElement;
   if (root.dataset.deck === deck) return;
-  root.dataset.deck = deck || 'languages';
+  // 'languages' was the fallback until that deck was removed. Nothing in the stylesheet
+  // reads this attribute today — setDeck's visible effect is the wash below — so the
+  // value only has to be a name that exists.
+  root.dataset.deck = deck || 'none';
 
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const el = document.createElement('div');

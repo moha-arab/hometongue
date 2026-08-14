@@ -52,7 +52,12 @@ window.HT.media = function media(audioEl, mountId) {
             const S = window.YT.PlayerState;
             if (e.data === S.PLAYING) { ytSeeking = false; emit('play'); startPoll(); }
             else if (e.data === S.PAUSED) { emit('pause'); stopPoll(); }
-            else if (e.data === S.ENDED) { emit('ended'); stopPoll(); }
+            else if (e.data === S.ENDED) {
+              // Stop outright rather than leaving a finished player parked on an end
+              // screen that can start something else.
+              emit('ended'); stopPoll();
+              try { yt.stopVideo(); } catch { /* player already gone */ }
+            }
           },
         },
       });
@@ -74,15 +79,26 @@ window.HT.media = function media(audioEl, mountId) {
     on,
     kind: () => mode,
 
-    async load(clip) {
+    async load(clip, windowS) {
       current = clip;
       if (clip.kind === 'yt') {
         mode = 'yt';
         audioEl.pause();
         audioEl.removeAttribute('src');
         await ensurePlayer();
-        // cueVideoById loads without playing, so the first tap starts instantly
-        yt.cueVideoById({ videoId: clip.videoId, startSeconds: clip.start || 0 });
+        // cueVideoById loads without playing, so the first tap starts instantly.
+        //
+        // endSeconds MATTERS FOR MORE THAN TIDINESS. The 20 second window used to be enforced
+        // only by a 100ms poll in game.js, and browsers throttle timers hard in a backgrounded
+        // tab — so a tab left open in the background could run minutes past the window, through
+        // the rest of the source video and into YouTube's end screen, playing audio the game
+        // never chose. Handing the bound to the player itself means YouTube stops on its own
+        // clock whether or not our timer is running.
+        yt.cueVideoById({
+          videoId: clip.videoId,
+          startSeconds: clip.start || 0,
+          endSeconds: (clip.start || 0) + (windowS || 20),
+        });
         // per-clip gain stands in for the loudness normalization we can't apply to a stream
         yt.setVolume(typeof clip.gain === 'number' ? clip.gain : 70);
       } else {

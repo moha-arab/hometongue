@@ -1,356 +1,109 @@
 {
   "accepted": [
     {
-      "id": "yt-XMyubgtKLro",
+      "id": "yt-aFxU2tqQwi0",
       "kind": "yt",
-      "videoId": "XMyubgtKLro",
-      "label": "Bishkek, Kyrgyzstan",
-      "lang": "Russian",
-      "lat": 42.8746,
-      "lng": 74.5698,
-      "r": 120,
-      "start": 107,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.5-flash",
-        "heard": "Bishkek, Kyrgyzstan",
-        "offBy": 0,
-        "confidence": 92,
-        "evidence": [
-          "fluent Kyrgyz phrases like 'башка көптөгөн нерселер бар'",
-          "standard Russian spoken with a mild Central Asian cadence",
-          "the Kyrgyz question 'тамекиби же машина?'"
-        ],
-        "title": "Опрос:Среди горожан о смоге..........",
-        "author": "ЦИМ"
-      },
-      "deck": "russian"
-    },
-    {
-      "id": "yt-cjHB4Wb_zqA",
-      "kind": "yt",
-      "videoId": "cjHB4Wb_zqA",
-      "label": "Bishkek, Kyrgyzstan",
-      "lang": "Russian",
-      "lat": 42.8746,
-      "lng": 74.5698,
-      "r": 120,
-      "start": 130,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.5-flash",
-        "heard": "Bishkek, Kyrgyzstan",
-        "offBy": 0,
-        "confidence": 95,
-        "evidence": [
-          "the soft, slightly fronted pronunciation of 'тридцать шесть'",
-          "the characteristic melodic rise and fall of Kyrgyz-influenced Russian",
-          "the natural, unhesitating use of the local term 'кыргызском'"
-        ],
-        "title": "Опрос жителей Бишкека #3",
-        "author": "Azziaty"
-      },
-      "deck": "russian"
-    },
-    {
-      "id": "yt-CHA19dT3Zps",
-      "kind": "yt",
-      "videoId": "CHA19dT3Zps",
-      "label": "Tashkent, Uzbekistan",
-      "lang": "Russian",
-      "lat": 41.2995,
-      "lng": 69.2401,
-      "r": 120,
-      "start": 123,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.5-flash",
-        "heard": "Tashkent, Uzbekistan",
-        "offBy": 1,
-        "confidence": 90,
-        "evidence": [
-          "the use of the Uzbek word 'yaxshi' (яхши) meaning 'good'",
-          "the mention of '8 million' referring to Uzbek soum",
-          "the distinct Central Asian Russian accent with softer consonants"
-        ],
-        "title": "Опрос: Сколько зарабатывают жители Ташкента",
-        "author": "Gazeta.uz: Новости Узбекистана"
-      },
-      "deck": "russian"
-    },
-    {
-      "id": "yt-oYxuj1dl_JY",
-      "kind": "yt",
-      "videoId": "oYxuj1dl_JY",
-      "label": "Chișinău, Moldova",
-      "lang": "Russian",
-      "lat": 47.0105,
-      "lng": 28.8638,
-      "r": 100,
-      "start": 30,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.5-flash",
-        "heard": "Chisinau, Moldova",
-        "offBy": 0,
-        "confidence": 95,
-        "evidence": [
-          "they explicitly mention Moldova ('в Молдове')",
-          "they refer to the local currency 'lei' ('лей')",
-          "the slightly softened, rhythmic cadence of their Russian"
-        ],
-        "title": "Опрос: с какими проблемами сталкиваются жители Молдовы?",
-        "author": "TV6 Moldova"
-      },
-      "deck": "russian"
-    },
-    {
-      "id": "yt-BGymDdBJrM0",
-      "kind": "yt",
-      "videoId": "BGymDdBJrM0",
-      "label": "Chișinău, Moldova",
-      "lang": "Russian",
-      "lat": 47.0105,
-      "lng": 28.8638,
-      "r": 100,
-      "start": 30,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.5-flash",
-        "heard": "Kyiv, Ukraine",
-        "offBy": 401,
-        "confidence": 80,
-        "evidence": [
-          "your 'g' in 'goda' and 'gde-to' is pronounced as a soft breathy 'h'",
-          "the final 'g' in 'uslug' is devoiced to a 'kh' sound",
-          "the rhythm and vowel flow are typical of Russian spoken in Ukraine"
-        ],
-        "title": "Сколько жители Кишинева платят за аренду жилья? - Опрос Moldova Liberă",
-        "author": "Moldova Liberă"
-      },
-      "deck": "russian"
-    },
-    {
-      "id": "yt-v6SOFiVntd4",
-      "kind": "yt",
-      "videoId": "v6SOFiVntd4",
-      "label": "Karaganda, Kazakhstan",
-      "lang": "Russian",
-      "lat": 49.8047,
-      "lng": 73.1094,
-      "r": 130,
-      "start": 49,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.5-flash",
-        "heard": "Astana, Kazakhstan",
-        "offBy": 192,
-        "confidence": 85,
-        "evidence": [
-          "use of the Kazakh administrative term 'akim'",
-          "slightly even, syllable-timed rhythm in Russian speech",
-          "distinctly clear, non-reduced unstressed vowels"
-        ],
-        "title": "28% жителей Караганды прошли перепись населения он-лайн.",
-        "author": "ТК 5 канал Караганда"
-      },
-      "deck": "russian"
-    },
-    {
-      "id": "yt-nhfUnNmFARg",
-      "kind": "yt",
-      "videoId": "nhfUnNmFARg",
-      "label": "Kharkiv, Ukraine",
-      "lang": "Russian",
-      "lat": 49.9935,
-      "lng": 36.2304,
-      "r": 110,
-      "start": 129,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.5-flash",
-        "heard": "Kharkiv, Ukraine",
-        "offBy": 1,
-        "confidence": 85,
-        "evidence": [
-          "using the word 'город' instead of 'місто' for city",
-          "mentioning Belgorod as a nearby reference point",
-          "the characteristic Ukrainian voiced glottal 'h' sound"
-        ],
-        "title": "Опрос на Марше единства: «что для вас настоящий Харьков?»",
-        "author": "Медіагрупа «Накипіло»"
-      },
-      "deck": "russian"
-    },
-    {
-      "id": "yt-vogXu3dUXzE",
-      "kind": "yt",
-      "videoId": "vogXu3dUXzE",
-      "label": "Delhi, India",
-      "lang": "Hindi",
-      "lat": 28.6139,
-      "lng": 77.209,
-      "r": 100,
-      "start": 106,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.5-flash",
-        "heard": "Delhi, India",
-        "offBy": 0,
-        "confidence": 85,
-        "evidence": [
-          "the clear dental pronunciation of 'Vande Mataram'",
-          "the standard urban North Indian Hindi intonation in 'yahi bacha rahi thi'",
-          "the typical Indian English pronunciation of 'National Anthem'"
-        ],
-        "title": "How Much Delhi Knows About India | Independence Day Special 🫡 | Street Interview | Jeheranium",
-        "author": "Jeheranium"
-      },
-      "deck": "hindi-urdu"
-    },
-    {
-      "id": "yt-Td9sfMaU7u0",
-      "kind": "yt",
-      "videoId": "Td9sfMaU7u0",
-      "label": "Delhi, India",
-      "lang": "Hindi",
-      "lat": 28.6139,
-      "lng": 77.209,
-      "r": 100,
-      "start": 195,
-      "gain": 100,
-      "hint": "Streamed from YouTube — the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.5-flash",
-        "heard": "Delhi, India",
-        "offBy": 0,
-        "confidence": 85,
-        "evidence": [
-          "use of the colloquial North Indian word 'lenter' for a concrete roof slab",
-          "distinctive North Indian Hinglish rhythm and sentence structure",
-          "retroflex pronunciation of 't' and 'd' in English words like 'smartness'"
-        ],
-        "title": "Ladko ko kaisi ladkiyan pasand aati hai |What men want in women Pt 3 | Public Hai Ye Sab Janti Hai",
-        "author": "Jeheranium"
-      },
-      "deck": "hindi-urdu"
-    },
-    {
-      "id": "yt-zRpMJRph-wk",
-      "kind": "yt",
-      "videoId": "zRpMJRph-wk",
-      "label": "Karachi, Pakistan",
+      "videoId": "aFxU2tqQwi0",
+      "deck": "urdu",
+      "label": "Lahore, Pakistan",
       "lang": "Urdu",
-      "lat": 24.8607,
-      "lng": 67.0011,
+      "lat": 31.5204,
+      "lng": 74.3587,
       "r": 100,
-      "start": 217,
+      "start": 207,
       "gain": 100,
+      "year": 2026,
       "hint": "Streamed from YouTube — the creator gets the view.",
       "gate": {
-        "model": "gemini-3.5-flash",
-        "heard": "Karachi, Pakistan",
+        "heard": "Lahore, Pakistan",
         "offBy": 0,
-        "confidence": 85,
-        "evidence": [
-          "your 'kh' in 'khayal' has a strong, raspy friction sound",
-          "the 't' in 'tweet' and 'd' in 'dollar' are pronounced with a soft retroflex tap",
-          "the word 'ekdum' is used naturally to mean completely or right away"
-        ],
-        "title": "“Karachi Better Than Paris?” | Sindh To Build A City Better Than Dubai? | Shabbar Zaidi’s Statement",
-        "author": "GTV NETWORK HD"
-      },
-      "deck": "hindi-urdu"
+        "provenance": "title",
+        "title": "The Budget Looks People-Friendly, But It Isn't! Lahore Chamber Member Speaks Out | Public Interest",
+        "author": "Public Interest Official",
+        "vetted": {
+          "keptBecause": "A rank-and-file Lahore Chamber member giving unscripted budget commentary on a small public-reaction channel: not a named public figure, not promoting a product, and LCCI membership requires a Lahore-based business, so Lahore residence holds and the model heard Lahore.",
+          "challenged": "Tried hard to break it and could not. Frame-by-frame contact sheets across the full 9:53 video show ONE interviewee at ONE location (entrance signage \"...of Commerce & Industry\"), on-camera sync sound, no dub/TTS/compilation. Groq-Whisper transcript of 200-240s confirms the 207-227s window is 20 continuous seconds of the interviewee alone; the anchor only re-enters at ~237s (\"acha ma'am mujhe bata"
+        }
+      }
+    },
+    {
+      "id": "yt-Fzqb0bMb0k0",
+      "kind": "yt",
+      "videoId": "Fzqb0bMb0k0",
+      "deck": "german",
+      "label": "Vienna, Austria",
+      "lang": "German",
+      "lat": 48.2082,
+      "lng": 16.3738,
+      "r": 90,
+      "start": 65,
+      "gain": 100,
+      "year": 2014,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "heard": "Vienna, Austria",
+        "offBy": 0,
+        "provenance": "model",
+        "title": "Mariahilfer Straße: Das denken die Passanten",
+        "author": "PLAN B",
+        "vetted": {
+          "keptBecause": "Genuine vox pops with ordinary Viennese passersby about the Mariahilfer Straße pedestrianisation, a hyper-local Vienna issue that only residents and users of the street would opine on. The window (65-85s) is four short answers in Austrian German referencing Stephansplatz, the Oper and taxi access; no anchor, no dub, one location.",
+          "challenged": "Tried to refute and failed. Verified via yt-dlp metadata: uploaded 2014-02-14 by ChannelVIE / \"VJs of Vienna\" (FH Wien student journalism, now @ChannelVIE1 / \"PLAN B\"), 187s, tags include Volksbefragung and Mahue — a vox pop timed to the 20 Feb–7 Mar 2014 Mariahilfer Strasse district referendum. Mariahilfer Strasse is unambiguously in Vienna's 6th/7th districts, so the place in the title is where "
+        }
+      }
+    },
+    {
+      "id": "yt-VJrzKyHO_ww",
+      "kind": "yt",
+      "videoId": "VJrzKyHO_ww",
+      "deck": "german",
+      "label": "Zurich, Switzerland",
+      "lang": "Swiss German",
+      "lat": 47.3769,
+      "lng": 8.5417,
+      "r": 100,
+      "start": 56,
+      "gain": 100,
+      "year": 2016,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "heard": "Zurich, Switzerland",
+        "offBy": 0,
+        "provenance": "title",
+        "title": "Lassen sich diese Passanten überwachen? | 3. Rang - Datenschutz und Privacy Video",
+        "author": "Datenschutzbeauftragte Kanton Zürich",
+        "vetted": {
+          "keptBecause": "Real street interviews shot in Zurich (\"wir sind jetzt da in Züri\") with ordinary passersby refusing to be tracked, answering in Swiss German. The interviewer's setup question ends at 56.1s, so the window (56-76s) is respondent answers only, and the model independently heard Zurich.",
+          "challenged": "Tried hard to break it; it holds. Genuine handheld street vox-pop published by the canton Zurich data-protection office as a 2016 competition entry. Frame-by-frame at 0.5s across 55-77s shows the 56-76 window is respondent-only: one man in glasses 56-~72 (jump-cut takes, same park path, pedestrians passing behind), then a woman at a park kiosk ~72-76. No narrator, no voiceover, no dubbing, no lowe"
+        }
+      }
+    },
+    {
+      "id": "yt-hHWdqgOUkWU",
+      "kind": "yt",
+      "videoId": "hHWdqgOUkWU",
+      "deck": "german",
+      "label": "Leipzig, Germany",
+      "lang": "German",
+      "lat": 51.3397,
+      "lng": 12.3731,
+      "r": 90,
+      "start": 43,
+      "gain": 100,
+      "year": 2013,
+      "hint": "Streamed from YouTube — the creator gets the view.",
+      "gate": {
+        "heard": "Leipzig, Germany",
+        "offBy": 0,
+        "provenance": "title",
+        "title": "Umfrage: Skandal an Leipziger Uni-Klinik",
+        "author": "Leipziger Volkszeitung",
+        "vetted": {
+          "keptBecause": "The reporter's voiceover ends at about 43.5s and the window (43-63s) is then four Leipzig passersby answering about organ donation after the local university clinic scandal, a story that only concerns Leipzig residents. Ordinary people, real voices, one location, model agreement at 0 km.",
+          "challenged": "Attempted refutation failed; the clip holds up on all four gates. Publisher verified via yt-dlp: Leipziger Volkszeitung (the Leipzig local paper), uploaded 2013-01-03, 123s long. Full description gives the dateline \"Leipzig, 02.01.2013\" and calls the subjects \"Leipziger Passanten\" reacting to the Uniklinik Leipzig liver-transplant irregularities, a story of purely local concern. Word-level (not cu"
+        }
+      }
     }
   ],
-  "rejected": [
-    {
-      "id": "YsMBoEWmeLU",
-      "label": "Narva, Estonia",
-      "why": "audio fetch failed"
-    },
-    {
-      "id": "yfN_krTt1ls",
-      "label": "Narva, Estonia",
-      "why": "audio fetch failed"
-    },
-    {
-      "id": "05D8nM0HrvU",
-      "label": "Narva, Estonia",
-      "why": "audio fetch failed"
-    },
-    {
-      "id": "JLD3UmA8WEE",
-      "label": "Bishkek, Kyrgyzstan",
-      "why": "audio fetch failed"
-    },
-    {
-      "id": "vLwXLloeUbU",
-      "label": "Bishkek, Kyrgyzstan",
-      "why": "audio fetch failed"
-    },
-    {
-      "id": "ZwCdm8zExO4",
-      "label": "Tashkent, Uzbekistan",
-      "why": "model heard Moscow, Russia — 2791 km away"
-    },
-    {
-      "id": "IVjJ_2KXnmc",
-      "label": "Tashkent, Uzbekistan",
-      "why": "model heard Moscow, Russia — 2791 km away"
-    },
-    {
-      "id": "EYUJ5fQmipw",
-      "label": "Chișinău, Moldova",
-      "why": "audio fetch failed"
-    },
-    {
-      "id": "usSmZXHhNrA",
-      "label": "Chișinău, Moldova",
-      "why": "audio fetch failed"
-    },
-    {
-      "id": "tZZKEqNtsg0",
-      "label": "Karaganda, Kazakhstan",
-      "why": "model heard Moscow, Russia — 2447 km away"
-    },
-    {
-      "id": "M2bB_pESKaU",
-      "label": "Delhi, India",
-      "why": "audio fetch failed"
-    },
-    {
-      "id": "kAUJkC7taoE",
-      "label": "Delhi, India",
-      "why": "audio fetch failed"
-    },
-    {
-      "id": "qx5exdZowT0",
-      "label": "Karachi, Pakistan",
-      "why": "audio fetch failed"
-    },
-    {
-      "id": "y0zlzHvQReQ",
-      "label": "Karachi, Pakistan",
-      "why": "audio fetch failed"
-    },
-    {
-      "id": "saD4Z8LZC6c",
-      "label": "Karachi, Pakistan",
-      "why": "audio fetch failed"
-    },
-    {
-      "id": "VbcNS3o5ARM",
-      "label": "Karachi, Pakistan",
-      "why": "audio fetch failed"
-    }
-  ]
+  "rejected": []
 }

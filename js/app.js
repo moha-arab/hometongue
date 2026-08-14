@@ -188,6 +188,23 @@ function show(cardId) {
   // running behind the result card. There are seven ways back to idle and only one of them
   // is success.
   if (cardId !== 'analyzingCard') stopScan();
+
+  // EVERY CARD OPENS AT ITS TOP.
+  //
+  // A card swap does not reset scroll, so replacing a short card with the much taller result
+  // card left the view part way down it. The answer is the FIRST line of that card, so it had
+  // already scrolled past: you landed near the bottom and had to scroll UP to find out which
+  // city you were given, which reads as the page having jumped around. Reading order should
+  // match arrival order — the city first, then scroll down for the reasoning.
+  //
+  // BOTH containers, because which one scrolls depends on the layout. On desktop the card sits
+  // inside .hud and .hud scrolls. On phones the result is a bottom sheet capped at 44dvh that
+  // scrolls WITHIN ITSELF, so resetting only .hud fixes nothing on the device where the problem
+  // actually shows up.
+  const hud = document.querySelector('.hud');
+  if (hud) hud.scrollTop = 0;
+  const card = document.getElementById(cardId);
+  if (card) card.scrollTop = 0;
 }
 
 function toast(msg) {
@@ -414,6 +431,22 @@ async function startListening() {
   recorder.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
   recorder.onstop = onRecordingReady;
   recorder.start(500);
+}
+
+// Throw this take away and immediately begin another.
+//
+// onstop is detached before the recorder is stopped, so the half-recording can never reach
+// onRecordingReady and get analysed — that is the whole point, the audio is being discarded
+// because the speaker knows it is spoiled. The mic permission has already been granted at this
+// point, so the new take starts without a second prompt and it feels like one tap.
+function restartListening() {
+  if (state !== 'listening') return;
+  stopTimer();
+  stopMeter();
+  if (recorder && recorder.state !== 'inactive') { recorder.onstop = null; recorder.stop(); }
+  teardownRecording();
+  state = 'idle';
+  startListening();
 }
 
 function stopListening() {
@@ -1193,6 +1226,7 @@ function bindUI() {
 
   $('#micBtn').onclick = startListening;
   $('#stopBtn').onclick = stopListening;
+  $('#restartBtn').onclick = restartListening;
   $('#typeModeBtn').onclick = enterTypeMode;
   $('#backToMicBtn').onclick = () => { state = 'idle'; show('idleCard'); };
   $('#analyzeTypedBtn').onclick = () => runTextAnalysis($('#typeBox').value, true);

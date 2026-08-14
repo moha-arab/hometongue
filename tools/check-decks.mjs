@@ -33,22 +33,25 @@ const HOMELANDS = {
     'Canada', 'Australia', 'New Zealand', 'South Africa', 'Nigeria', 'Ghana', 'Kenya', 'Uganda',
     'Zimbabwe', 'Namibia', 'Botswana', 'Zambia', 'India', 'Pakistan', 'Singapore', 'Malta', 'Jamaica', 'Trinidad and Tobago',
     'Barbados', 'Guyana', 'Belize', 'Bahamas'],
+  spanish: ['Spain', 'Mexico', 'Guatemala', 'Honduras', 'El Salvador', 'Nicaragua', 'Costa Rica',
+    'Panama', 'Cuba', 'Dominican Republic', 'Puerto Rico', 'Colombia', 'Venezuela', 'Ecuador', 'Peru',
+    'Bolivia', 'Chile', 'Argentina', 'Uruguay', 'Paraguay', 'Equatorial Guinea'],
   french: ['France', 'Canada', 'Belgium', 'Switzerland', 'Monaco', 'Luxembourg', 'Haiti', 'Senegal',
     'Mali', 'Burkina Faso', 'Niger', 'Guinea', "Côte d'Ivoire", 'Togo', 'Benin', 'Cameroon', 'Gabon',
     'Congo', 'DR Congo', 'Central African Republic', 'Chad', 'Madagascar', 'Rwanda', 'Burundi',
     'Djibouti', 'Comoros', 'Seychelles', 'Mauritius'],
-  spanish: ['Spain', 'Mexico', 'Guatemala', 'Honduras', 'El Salvador', 'Nicaragua', 'Costa Rica',
-    'Panama', 'Cuba', 'Dominican Republic', 'Puerto Rico', 'Colombia', 'Venezuela', 'Ecuador', 'Peru',
-    'Bolivia', 'Chile', 'Argentina', 'Uruguay', 'Paraguay', 'Equatorial Guinea'],
+  'hindi-urdu': ['India', 'Pakistan'],
+  chinese: ['China', 'Taiwan', 'Hong Kong', 'Macau', 'Singapore'],
   portuguese: ['Portugal', 'Brazil', 'Angola', 'Mozambique', 'Cape Verde', 'Guinea-Bissau',
     'São Tomé and Príncipe', 'Timor-Leste'],
-  // Post-Soviet Russian: each has a settled Russian-speaking community with its own audible
-  // variety. Georgian and Armenian substrate is non-Slavic, so those are among the most
-  // distinguishable, not the least. Moldova carries Romanian substrate.
-  russian: ['Russia', 'Belarus', 'Kazakhstan', 'Kyrgyzstan', 'Ukraine', 'Georgia', 'Armenia',
-    'Moldova', 'Uzbekistan', 'Latvia', 'Estonia', 'Israel'],
-  chinese: ['China', 'Taiwan', 'Hong Kong', 'Macau', 'Singapore'],
-  'hindi-urdu': ['India', 'Pakistan'],
+  italian: ['Italy', 'Switzerland', 'San Marino'],
+  // Swiss German and Austrian German are far enough from Hochdeutsch that some linguists call
+  // them separate; for a listening game that distance is the point, not a problem.
+  german: ['Germany', 'Austria', 'Switzerland', 'Liechtenstein', 'Belgium', 'Luxembourg'],
+  // World Languages is checked structurally only (see STRUCTURAL_ONLY): its clips answer with a
+  // LANGUAGE and are pinned at country centres, so a homeland list would be a list of every
+  // country on earth and would test nothing.
+  languages: [],
 };
 
 // World Languages asks "where is this language spoken", so its pins are homelands by construction

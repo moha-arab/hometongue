@@ -363,7 +363,7 @@ POST: same-origin + rate limit (40/hr) + validation: nickname 2–20 chars with 
 - Listening budget: `LISTEN_BUDGET_S = 60`, charged only while audio advances under playback. The budget baseline moves *before* a seek so scrubbing is free. Seek state reads `audio.seeking` (a hand-rolled flag gets stuck true, because seeking to the current position fires no `seeked` event).
 - Scrubber: pointer position paints synchronously into the bar; a queued (not stacked) seek follows. Progress repaints per animation frame, falling back to `timeupdate` when frames are throttled.
 - Playback window: `CLIP_WINDOW_S = 20`, starting at `clip.start` when curated, otherwise a random offset into recordings >90s.
-- Scoring: `pts = km ≤ r ? 5000 : round(5000·e^{−(km−r)/decay})`, `decay = {arabic 500, hindi-urdu 500, french 700, chinese 700, accents 900, spanish 900, portuguese 900, russian 900, languages 1500}`. Multi-home clips score to the nearest accepted region.
+- Scoring: `pts = km ≤ r ? 5000 : round(5000·e^{−(km−r)/decay})`, `decay = {arabic 250, hindi 250, urdu 250, italian 300, german 300, french 350, chinese 350, accents 450, spanish 450, portuguese 450}`. Every key in `MODES` must appear in `MODE_DECAY`; a missing key silently falls through to a 1200 km default and scores far too generously, so `js/game.js` logs an error at load if one is absent. Multi-home clips score to the nearest accepted region.
 
 **`js/clips.js` manifest** — one entry per clip:
 ```js

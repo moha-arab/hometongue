@@ -76,13 +76,17 @@ function deckOf(c) {
   // falling through to 'languages' is a quiet miscategorisation, not a safe default, so the
   // real deck is now stamped on each record at source and this is only a fallback.
   const L = {
-    English: 'accents', French: 'french', Russian: 'russian', Portuguese: 'portuguese',
-    Spanish: 'spanish', Arabic: 'arabic',
-    'Hindi–Urdu': 'hindi-urdu', 'Hindi-Urdu': 'hindi-urdu', Hindi: 'hindi-urdu', Urdu: 'hindi-urdu',
+    English: 'accents', French: 'french', Portuguese: 'portuguese',
+    Spanish: 'spanish', Arabic: 'arabic', Italian: 'italian',
+    German: 'german', 'Swiss German': 'german', 'Austrian German': 'german',
+    Hindi: 'hindi-urdu', Urdu: 'hindi-urdu',
     Chinese: 'chinese', Mandarin: 'chinese', Cantonese: 'chinese',
   };
-  if (!L[c.lang]) console.log(`  WARN  "${c.lang}" is not mapped to a deck; falling back to languages`);
-  return L[c.lang] || 'languages';
+  // There is no safe default any more. 'languages' used to catch anything unmapped, which is
+  // how six Hindi and Chinese clips ended up filed under World Languages; that deck no longer
+  // exists, so an unmapped language must stop the merge rather than pick a deck at random.
+  if (!L[c.lang]) throw new Error(`"${c.lang}" is not mapped to a deck — add it to this map before merging`);
+  return L[c.lang];
 }
 
 console.log(`keeping ${keep.length}, dropping ${dropped.length}`);

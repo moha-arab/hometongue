@@ -1,0 +1,430 @@
+{
+  "reviews": [
+    {
+      "verdicts": [
+        {
+          "videoId": "ZZdcMxw7uRU",
+          "label": "Islamabad, Pakistan",
+          "keep": false,
+          "reason": "The speaker is Nilofar Bakhtiar, a nationally known politician (PTI Central Joint Secretary, former federal Tourism Minister, PML-Q Senator 2006-2012, NCSW chairperson) with a Wikipedia page, so she fails the ordinary-person test regardless of being filmed at D-Chowk.",
+          "researched": "Searched Nilofar Bakhtiar: Wikipedia, Senate of Pakistan profile, 2007 paragliding fatwa scandal, NCSW chair. yt-dlp description confirms the video is her plus PTI women's wing officials at D-Chowk Islamabad after the vote of confidence.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "e9npWuutTd8",
+          "label": "Islamabad, Pakistan",
+          "keep": false,
+          "reason": "The title and VOA description say this is Pakistan Awami Tehreek workers travelling home AFTER Tahir-ul-Qadri ended the Islamabad dharna, so the speakers are protesters leaving Islamabad, not residents of it; it is also a VOA news package with reporter narration.",
+          "researched": "yt-dlp description: after Qadri announced the end of the Islamabad sit-in, people's return journey continued Wednesday. PAT is Lahore-based and dharna participants were bussed in from across Punjab, which matches the model hearing Lahore. No individual speaker's home city can be established.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "1fNwEWtbhLY",
+          "label": "Peshawar, Pakistan",
+          "keep": true,
+          "reason": "A genuine outdoor street vox pop shot at one location, Phase 3 Chowk in Peshawar, with unnamed members of the public, and the audio model independently placed the clip in Peshawar (offBy 0).",
+          "researched": "yt-dlp description names the single filming location (Phase 3 Chowk, Hayatabad, Peshawar) and gives chapter timestamps showing one continuous street interview, not a multi-city compilation. Small channel (7.3k subs), no dubbing or scripted-comedy signals. Minor caveat: the description notes some Afghan residents of Peshawar also answered, but they are Peshawar residents and the model still heard Peshawar for this exact window.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "rpa98EXqBuU",
+          "label": "Multan, Pakistan",
+          "keep": false,
+          "reason": "The interview is recorded in Madina, Saudi Arabia with a businessman who has lived there for years, and it is a promotional piece for his travel company Hijrat al-Haram, so it fails both the label test and the ordinary-person test.",
+          "researched": "yt-dlp description: ROYAL NEWS Saudi Arabia media group, country head Syed Hassan Abbas Bukhari interviewing Chaudhry Muhammad Aslam, who is described as resident in Madina Munawwara for several years running three factories and launching a travel-and-tours venture. Location tagged Madina, Saudi Arabia. Nothing in the metadata connects him to Multan.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "qazX_7MDIFk",
+          "label": "Faisalabad, Pakistan",
+          "keep": false,
+          "reason": "The speaker is Azad Ali Tabassum, a sitting Member of the Punjab Assembly with a Wikipedia page, so he is a googlable politician even though the Faisalabad label itself is geographically correct.",
+          "researched": "Searched the name and PP-98: PP-98 Faisalabad-I covers Chak Jhumra and part of Faisalabad Sadar tehsil. Azad Ali Tabassum (b. 1968, village 188RB Nalywala, Chak Jhumra, Faisalabad) was MPA 2013-2018 for PP-51 and won the PP-98 by-election on 23 Nov 2025 with 44,388 votes; he has Wikipedia, UrduPoint and Punjab Assembly member profiles. The video description explicitly labels him MPA, PP-98 Faisalabad.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "NGnHMiIFIJ4",
+          "label": "Quetta, Pakistan",
+          "keep": true,
+          "reason": "A real street quiz filmed with ordinary passers-by in a single city by BNN Balochistan, a genuine Quetta-based news outlet, and the audio model also heard Quetta (offBy 0).",
+          "researched": "yt-dlp description states BNN Balochistan is asking people of Quetta a riddle in Urdu. Searched the channel: Balochistan News Network is a Quetta-based news media organisation (bnnbalochistan.com, YouTube @bnnbalochistan831, 39.7k subs) covering Balochistan, not a scripted comedy channel; the 'comedy/movies/Indian' tags are boilerplate keyword stuffing shared across its uploads.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "NcD9613dzvM",
+          "label": "Rawalpindi, Pakistan",
+          "keep": false,
+          "reason": "This is a corporate real-estate promotion: an exclusive interview with the GM Sales of the Rudn Enclave housing society on a property marketing channel, and nothing establishes the sales manager as a Rawalpindi resident.",
+          "researched": "yt-dlp metadata shows channel Estate Advisory with a sales phone number in the description, tags entirely about Rudn Enclave bookings, ballots, blocks and installment vouchers. The society sits off the Rawalpindi Ring Road, but that places the project, not the speaker.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "mbI-2TEtPvo",
+          "label": "Hyderabad, Pakistan",
+          "keep": false,
+          "reason": "A HUM News bulletin package on the second phase of the Sindh local body elections covering Karachi, Hyderabad and the rest of the province, so it stitches together multiple cities and carries professional reporter voiceover.",
+          "researched": "yt-dlp confirms HUM News (2.13M subs), 10-minute election-day package, title explicitly listing Karachi and Hyderabad plus province-wide polling. The audio model heard Karachi at the 210s window, consistent with the clip landing on a different city's segment.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "aFxU2tqQwi0",
+          "label": "Lahore, Pakistan",
+          "keep": true,
+          "reason": "A rank-and-file Lahore Chamber member giving unscripted budget commentary on a small public-reaction channel: not a named public figure, not promoting a product, and LCCI membership requires a Lahore-based business, so Lahore residence holds and the model heard Lahore.",
+          "researched": "yt-dlp metadata shows channel Public Interest Official (12k subs) doing public/business reaction content, tags all about budget reaction and citizen opinion, and both the English and Urdu descriptions say only 'a member of the Lahore Chamber' with no name. Checked LCCI: the googlable figures on budget reaction are the office bearers (President Faheem Ur Rehman Saigol, SVP Tanveer Ahmad Sheikh, VP Khurram Lodhi), none of whom is described here.",
+          "suggestedLabel": ""
+        }
+      ]
+    },
+    {
+      "verdicts": [
+        {
+          "videoId": "1ZnA2u-y_oU",
+          "label": "Milan, Italy",
+          "keep": true,
+          "reason": "Street interviews with ordinary Milanese young people about volunteering, all shot in Milan for a Milan city project, so no multi-city stitching and no professional voice. The 20s window at 0:99 is an interviewee answering why she volunteers, and the model independently placed the voice in Milan (offBy 0).",
+          "researched": "yt-dlp metadata: produced by redazione giovanixmilano.it for the VOCE - Volontari al Centro project (voce.milano.it), described as short street interviews about young people and volunteering in Milan. Italian auto-captions at 99-119s show an interviewer question ('perche lo fai, le motivazioni') and a first-person volunteer answer, not narration.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "ahr8H2a6XZw",
+          "label": "Milan, Italy",
+          "keep": false,
+          "reason": "The speaker is Piercamillo Davigo, one of the most googlable magistrates in Italy (Mani Pulite prosecutor, elected ANM president two weeks before this April 2016 upload). Fails the ordinary-person rule outright, and he is from Candia Lomellina in the Pavia area rather than Milan.",
+          "researched": "Video description calls him 'il pm Davigo'. Web search confirms Piercamillo Davigo, ex Mani Pulite pool prosecutor, elected president of the Associazione Nazionale Magistrati on 9 April 2016, national media figure with a Treccani entry.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "xwRfFR19wJc",
+          "label": "Naples, Italy",
+          "keep": true,
+          "reason": "Fanpage's candid camera captures unscripted reactions from ordinary Neapolitans on Naples streets, and the caption text inside the 49-69s window is a customer complaining in Neapolitan that he ordered a 'caffe napoletano' and got 'caffe brodo'. Single city, real unrehearsed voices, model heard Naples (offBy 0).",
+          "researched": "yt-dlp description: 'Le esilaranti reazioni che abbiamo raccolto per le strade del capoluogo partenopeo', produced by Fanpage's Naples team. Auto-captions across 39-70s show multiple bystanders reacting in dialect. Searched Fanpage candid camera format: the provocateur is staff, the reacting subjects are genuine passersby.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "E3EsZodN4MI",
+          "label": "Naples, Italy",
+          "keep": false,
+          "reason": "This is the viral 'problema dei dossi' interview from Santeramo in Colle in the province of Bari, re-uploaded by a Castellaneta (Taranto) web TV that says outright it wishes it had filmed it. The speaker is a Barese-dialect Puglian, roughly 200 km from the Naples label, which matches the model hearing Bari.",
+          "researched": "yt-dlp description: ViviCastellaneta, 'interviste come queste sarebbero un sogno', i.e. an admiring repost of someone else's clip. Web search confirms the original 'Il problema dei dossi artificiali' comes from Santeramo in Colle (Bari), spread by Inchiostro di Puglia in 2014 and endlessly parodied since.",
+          "suggestedLabel": "Bari, Italy"
+        },
+        {
+          "videoId": "Q_dfgqHFFOc",
+          "label": "Rome, Italy",
+          "keep": false,
+          "reason": "Francesco Carpano is a political candidate, not an ordinary resident: he ran for the Rome city assembly in 2021 and wrote the electoral programme for the Calenda mayoral campaign, so he is trivially googlable. The description also says he arrived in Rome from Brussels, so his speech is not a safe Rome anchor.",
+          "researched": "yt-dlp description on the diregiovani upload: 'il ventottenne Francesco Carpano, candidato all'assemblea capitolina e responsabile del programma elettorale per la campagna di Calenda Sindaco. Da Bruxelles Francesco e arrivato nella capitale nel 2000'. Tags: comunali roma 2021, calenda sindaco.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "4iNMewxi8Z0",
+          "label": "Rome, Italy",
+          "keep": false,
+          "reason": "Giulio Anticoli speaks as president of CNA Roma Citta Storica and of the Associazione Botteghe Storiche di Roma at a sit-in, i.e. a trade-association spokesperson giving an institutional statement, and he is a recurring named figure in Rome press. On top of that the model placed the voice in Padua, 393 km away, which I could not reconcile.",
+          "researched": "yt-dlp description: 'Intervista di Annalisa Bifolchi a Giulio Anticoli, Presidente di Cna Roma Citta Storica e Associazione Botteghe Storiche di Roma durante il sit-in contro la chiusura del Caffe della Pace'. Web search returns a RomaToday person page for him plus multiple articles quoting him in that role.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "xBkoL0jlN1Y",
+          "label": "Palermo, Italy",
+          "keep": true,
+          "reason": "Genuine irreverent street interviews with random Palermo residents, filmed only in Palermo, and the 316-336s window is a real exchange (question about politics, answer about 'tutti questi politici che mangiano'). The model hearing Naples is the usual southern-Italian confusion, not evidence of a wrong city, though a music sting ends right at the clip start so the cut may need nudging a second or two later.",
+          "researched": "yt-dlp description: 'Dom Cyara intervista in modo irriverente gli abitanti di Palermo... personaggi casuali della strada'. Auto-captions confirm dialect Q and A at 315-345s and [Musica] tags ending around 314s. Web search for Dom Cyara returned nothing, so the host is a small local YouTuber, not a googlable public figure.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "FjBib24ZkyI",
+          "label": "Venice, Italy",
+          "keep": true,
+          "reason": "The 50-70s window is the interviewed resident of campo Santa Margherita speaking in the first person ('la calle dove abito e una cloaca a cielo aperto', 'gli spettacoli notturni... ci svegliano'), not the reporter, whose narration only resumes around 70s. Ordinary Venetian resident, single location, model heard Venice (offBy 0).",
+          "researched": "yt-dlp description: 'VENEZIA - ...la movida veneziana in campo Santa Margherita... dicono arrabbiati i residenti. Intervistati: CINZIA DE LUIGI. Servizio di Gabriella Basso'. Only one interviewee credited. Auto-caption timing shows continuous interviewee speech from ~33s to ~70s, journalist voiceover after.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "jrgY5X6Jjl4",
+          "label": "Bologna, Italy",
+          "keep": false,
+          "reason": "The presenter introduces the guests at 56-68s as 'Tommaso Guarino in arte Fringuello, 21 anni, di Potenza' and 'Simone Fuso, 22 anni, di Campobasso... stiamo portando in alto il sud'. They only study in Bologna, so the Bologna label is false, which is exactly why the model heard Bari 587 km away. It is also a Tv2000 studio segment with a professional host, not a street voice.",
+          "researched": "Italian auto-captions of the Tv2000 upload state the guests' home cities explicitly. yt-dlp description confirms they are studio guests illustrating the episode ('saranno in studio'), and the channel is Tv2000's Rome-based programme with Licia Colo.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "wYozZNd8g0o",
+          "label": "Florence, Italy",
+          "keep": false,
+          "reason": "The clip is from the NoExpo march, which happened in Milan on 1 May 2015, not Florence, so the label is wrong by about 250 km, and the model heard Milan. The speaker is also an anonymous protester at a national demonstration that drew people from all over Italy, and the footage is a re-upload of Tgcom material by a video agency.",
+          "researched": "yt-dlp description: 'un giovane manifestante intervistato dal Tgcom nel corso della manifestazione NoExpo', tags 'corteo no expo, milano 2015, expo 2015, milano'. Channel Meridiana Notizie is a Rome video news agency redistributing the footage.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "d4XGJwbaH9M",
+          "label": "Turin, Italy",
+          "keep": false,
+          "reason": "Nothing establishes that the busker lives in Turin, only that he was busking in piazza San Carlo. In the clip window he describes 30 years as a professional working on Rai and Mediaset productions and later says 'anche qui a Torino', the language of a touring performer, and the model placed him in Milan. Unestablished residency is a reject.",
+          "researched": "yt-dlp description gives only 'Intervista a Roberto, musicista di strada. di Emiliano Tolu' (Futura News, the Turin journalism school outlet). Auto-captions: reporter narration 0-20s and 64-74s, musician speaking 21-63s about TV production work; he never states where he is from. Web search for the Futura News piece found no identification of him.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "KnRCVcy3nRo",
+          "label": "Bari, Italy",
+          "keep": false,
+          "reason": "The title itself says 'Doppiaggio in italiano': the channel Il Doppiacose overdubs the viral Santeramo in Colle speed-bump interview, so the audio is a dubber's voice, not a real Barese speaker. Automatic reject under the no-dub rule.",
+          "researched": "Title and channel name are explicit ('Il Doppiacose', 'Doppiaggio in italiano'). Web search on the source clip shows a whole ecosystem of dubs and parodies of the Santeramo 'dossi' interview, including the one this channel makes.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "U4avfn1wGtc",
+          "label": "Cagliari, Italy",
+          "keep": false,
+          "reason": "The 38-58s window is the reporter's voiceover, not a resident: the captions read 'come ci riferisce una signora che abita proprio qua nelle vicinanze a Piazza del Carmine, la situazione sta sfuggendo di mano...' through to 63s. That is a professional journalist narrating, which the rules exclude even though the Cagliari location itself is right.",
+          "researched": "Downloaded Italian auto-captions for the Casteddu Online report. The shopkeeper/resident exchange ends around 33s ('Grazie, buona giornata'), after which the journalist narrates continuously past the end of the clip window.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "gUjIfi7aHWk",
+          "label": "Lugano, Switzerland",
+          "keep": false,
+          "reason": "The report is from Zoppola in the province of Pordenone, Friuli-Venezia Giulia, where a flock blocked the Pontebbana; TV 12 is a Nordest station, not Ticinese. Lugano is wrong by roughly 300 km and across a national border. The speaker is also a transhumant shepherd coming down from the mountains, so even the Pordenone suggestion would need its own check before shipping.",
+          "researched": "yt-dlp description: 'TG Regionale 06/02/2026 - ZOPPOLA - Un gregge di pecore ha bloccato per diversi minuti la pontebbana a Zoppola... Ai nostri microfoni il pastore, servizio di Federico De Ros', channel site tv12.medianordest.it. Captions confirm the shepherd speaking 19-52s ('la strada e di tutti', 'scendiamo dalle montagne'), reporter narration from 52s.",
+          "suggestedLabel": "Pordenone, Italy"
+        }
+      ]
+    },
+    {
+      "verdicts": [
+        {
+          "videoId": "S-Neu75Uo_I",
+          "label": "Berlin, Germany",
+          "keep": false,
+          "reason": "The 20s window (541-561s) is not an interviewee at all: it is the channel owner narrating to camera (\"da ist der nächste Kollege den kenne ich auch noch... seht ihr, wenn ich die Kamera nicht auf mich halte... Berlin Alexanderplatz\"). JSix is a Berlin street-content YouTuber with a following, not an ordinary interviewed resident, and the surrounding narration is commentary about tourists and foreign groups on the square.",
+          "researched": "Pulled the auto-transcript with precise cue times and confirmed 541.16-558.69s is continuous host monologue. Searched JSix: Berlin-based YouTuber (main channel plus JSix TV, earnings-tracker pages, Neukölln story videos), i.e. a googlable channel personality.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "dGFyXF0Pl10",
+          "label": "Berlin, Germany",
+          "keep": false,
+          "reason": "This is an explicit \"BEST OF\" compilation of the Idiotentest format, so the 20s window cannot be pinned to one place, and the interviewer whose voice carries the segment is Aaron Troschke, a nationally known TV/YouTube personality. Provenance was model-only with nothing tying it to Berlin.",
+          "researched": "Video tags name Aaron Troschke and \"Messe\"; Wikipedia and press confirm Troschke became famous via Wer wird Millionär 2012 (125,000 euro) with 1.2M+ subscribers, and that Idiotentest is shot at trade fairs, press events and award shows in varying cities. Transcript at 219-239s is Troschke running the quiz.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "Y7Lz9tzfWoc",
+          "label": "Munich, Germany",
+          "keep": false,
+          "reason": "This is a brand promo: the channel is the beard-care company Bart Royal and the video is a product test with a shop link list in the description, which is exactly the corporate/promotional category we exclude. The window (45-65s) is also mostly music plus the presenter directing the woman how to apply the cream, and the model placed the voice 490 km away in Hannover.",
+          "researched": "yt-dlp description confirms it is a men-royal.de product advert; transcript of 45-65s shows [Musik] and presenter instructions (\"das müsste eigentlich reichen um den Unterschied...\"), not a resident speaking freely.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "BkZDqy21ya4",
+          "label": "Munich, Germany",
+          "keep": false,
+          "reason": "The 20s window is broken: a passerby speaks only from 225.4 to about 230s, then there is a music gap, and at 241.97s the host's subscribe plug (\"abonnieren\") lands inside the window. So most of the clip is the channel host or dead air rather than an ordinary Munich resident, and the model heard Frankfurt 305 km off.",
+          "researched": "Precise subtitle cue times for 218-252s. Nothing found on SmitTV establishing him or the respondents as Munich residents; the format is a comedic street-survey channel with no verifiable local anchoring.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "SZt4IEvp7NE",
+          "label": "Hamburg, Germany",
+          "keep": false,
+          "reason": "The speakers in the window are tourists, not Hamburg residents. At 208-232s they describe arriving yesterday, visiting Miniatur Wunderland that morning, walking around to see the city, and going to a musical at 20:00. Filmed in Hamburg is not from Hamburg.",
+          "researched": "Transcript at 205-236s. The channel's own description confirms the mix: \"Von echten Hamburg-Fans bis zu Besuchern aus anderen Städten\", and the interviewer asks \"Seid ihr heute angekommen?\" The model hearing Hannover (132 km) is consistent with a non-Hamburg voice.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "0s6ngmjXFDs",
+          "label": "Cologne, Germany",
+          "keep": false,
+          "reason": "Nothing establishes the filming city. The title, description and metadata never name a place (provenance is model-only, no location field), and this channel shoots wherever a crowd is: Cologne in one video, a Kirmes in another, demonstrations, a Christmas market, and repeatedly in Austria within weeks of this upload. Unverifiable location means reject.",
+          "researched": "yt-dlp shows location: null. Listed the channel's back catalogue: \"Ich bin mit DIESEM Schild durch Köln gelaufen\" (24 Jul 2022), \"So reagieren die Österreicher auf AFFENPOCKEN\" (29 May 2022), \"WIESO TRÄGST DU MASKE? | Straßenbahnumfrage\" about Austrians (7 Aug 2022), \"KIRMESUMFRAGE\" (17 Jul 2022) - this one sits at 3 Jul 2022 between German and Austrian shoots. The credited cameraman MasterSpitter is Rhineland-based but that only narrows it to the region, not Cologne.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "Fzqb0bMb0k0",
+          "label": "Vienna, Austria",
+          "keep": true,
+          "reason": "Genuine vox pops with ordinary Viennese passersby about the Mariahilfer Straße pedestrianisation, a hyper-local Vienna issue that only residents and users of the street would opine on. The window (65-85s) is four short answers in Austrian German referencing Stephansplatz, the Oper and taxi access; no anchor, no dub, one location.",
+          "researched": "Mariahilfer Straße is Vienna's main shopping street; the Feb 2014 upload sits with the district referendum on its redesign. Channel is ChannelVIE / \"VJs of Vienna\", an FH Wien student journalism project, not a broadcaster. Human-made German subtitles confirm the speakers are respondents, not narration.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "1utGFU5HzWI",
+          "label": "Vienna, Austria",
+          "keep": true,
+          "reason": "The premise (\"Warum leben Sie gerne in Wien?\") selects for residents, and the window (77-97s) is one uninterrupted respondent describing daily life in the city: public transport, cultural offer, universities, the Donauinsel. No reporter voiceover falls inside the window, and the model independently placed the voice in Vienna.",
+          "researched": "Cue-level transcript shows a single vox pop spanning roughly 66-102s, cleanly separated by a music sting from the earlier speaker (a German-born long-time resident) who ends at 61s. VIENNA.AT is a local news site but the audible voice here is a passerby, not a presenter.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "VJrzKyHO_ww",
+          "label": "Zurich, Switzerland",
+          "keep": true,
+          "reason": "Real street interviews shot in Zurich (\"wir sind jetzt da in Züri\") with ordinary passersby refusing to be tracked, answering in Swiss German. The interviewer's setup question ends at 56.1s, so the window (56-76s) is respondent answers only, and the model independently heard Zurich.",
+          "researched": "Cue-level transcript for 48-82s. The channel is the canton's data-protection office publishing a third-place entry from its public video competition, so the film-makers are Zurich amateurs and the subjects are street respondents, not employees or actors reading a script.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "MuREaZhVqkA",
+          "label": "Zurich, Switzerland",
+          "keep": false,
+          "reason": "This is the \"Finance Bro\" clip: the speaker became a national meme in Switzerland and is trivially googlable, which disqualifies him. It is also re-uploaded SRF broadcast footage from a reporter's programme rather than an ordinary street recording.",
+          "researched": "Searched the SRF report named in the description (\"Donat auf Achse\", 2026). NZZ, Tages-Anzeiger, 20 Minuten, watson, Nau and Euronews all covered the ETF salesman (\"Roman\") after the \"multiple Hundert\" line went viral; SRF disabled comments and Swiss comedians parodied him.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "VrXJ0Bw59tI",
+          "label": "Bern, Switzerland",
+          "keep": true,
+          "reason": "Ordinary passersby surveyed in Burgdorf about what makes their town liveable, in dialect so thick that YouTube's auto-transcriber produces nonsense, which is a good sign of a genuine local voice. Burgdorf is 18 km from Bern, in canton Bern and in the Bernese dialect area, so it sits comfortably inside the labelled city's immediate region and the scoring error is negligible.",
+          "researched": "Confirmed Burgdorf BE is roughly 20 km north-east of Bern in the same canton and dialect region. The channel's description states it is a survey of \"Passantinnen und Passanten\", and the window (125-145s) is one continuous speaker, not a company spokesperson pitch. The model's independent read of Burgdorf corroborates a real Emmental/Bernese voice.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "hHWdqgOUkWU",
+          "label": "Leipzig, Germany",
+          "keep": true,
+          "reason": "The reporter's voiceover ends at about 43.5s and the window (43-63s) is then four Leipzig passersby answering about organ donation after the local university clinic scandal, a story that only concerns Leipzig residents. Ordinary people, real voices, one location, model agreement at 0 km.",
+          "researched": "Cue-level transcript for 35-70s pinned the exact handover from narration to vox pops. LVZ's description confirms \"Leipziger Passanten\" filmed in Leipzig on 2 Jan 2013 about the Uniklinik Leipzig liver-transplant irregularities.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "vrTNmiPgUN4",
+          "label": "Stuttgart, Germany",
+          "keep": false,
+          "reason": "There is almost nothing in the window to place: 140-160s is mostly rating numbers (\"66\", \"5\"), music and laughter, with one fragment of opinion. That gives no dialect evidence at all, which is fatal given the model put the voice 512 km away in Berlin, and I found nothing establishing the channel or its respondents as Stuttgart locals.",
+          "researched": "Cue-level transcript for 133-166s. Searches for the Younglastorm channel returned no biographical or location information; the description only asserts the shoot was in Stuttgart and also carries a clothing-brand ad.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "UZBNjr1sp-c",
+          "label": "Frankfurt, Germany",
+          "keep": false,
+          "reason": "The host's own question falls inside the window (\"wie legen Sie aktuell Geld an\" at 162.5s), and the host is Aleks Bleck, a well-known German finance YouTuber who founded Northern Finance in Lüneburg, so a googlable non-Frankfurt voice is on the clip. The respondents are described as passersby and bankers in the financial district, which draws commuters from across the region, and the model heard Stuttgart 153 km off.",
+          "researched": "Cue-level transcript for 150-180s showing respondent, host question, respondent. Confirmed via profiles of Northern Finance that Aleks Bleck is its face and founded it while studying in Lüneburg, working in investment/corporate banking before going full time.",
+          "suggestedLabel": ""
+        }
+      ]
+    },
+    {
+      "verdicts": [
+        {
+          "videoId": "MnULodUb4kU",
+          "label": "Mumbai, India",
+          "keep": false,
+          "reason": "The 20s window at start=30 opens with roughly 9 seconds of News18 anchor voiceover narrating the incident before any raw audio begins, and the speaker it then cuts to is Pragati Grewal, a national viral figure with 'who is she' explainers in the mainstream press. She is also shouting mostly in English, not Hindi.",
+          "researched": "Pulled the Hindi auto-captions and timed the window: 30.0-38.7s is anchor narration ('इस दौरान महिला की तीखी बहस यहां पर हो गई। जिसका वीडियो कांग्रेस और शरद पवार गुट के नेता सोशल मीडिया पर शेयर कर रहे हैं'), only 38.7s onward is the viral audio, which transcribes as English ('Get out of here', 'Did you not understand?', 'What is wrong with you? There are hundreds of people waiting'). Extracted video frames confirming the full News18 broadcast wrapper (headline banners, BREAKING NEWS ticker, 'वर्ली, मुंबई' bug). Web search identified the speaker as Pragati Grewal, who confronted minister Girish Mahajan at a BJP rally at Worli in April 2026; Free Press Journal, Deccan Herald, ThePrint and Sunday Guardian all covered her, the latter running a 'Who is the woman' piece and noting her car is registered to a New Delhi address, which also muddies her Mumbai residency.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "Qt-39JtdEO0",
+          "label": "Mumbai, India",
+          "keep": false,
+          "reason": "The audio is English, not Hindi, and the 20s window is a rapid-fire montage of roughly eight to ten different respondents across at least five different camera setups, so there is no single voice to guess. The channel is a Bangalore/Mysore vox-pop channel and this video's own description carries #bengaluru twice, so even the Mumbai location is not reliably established.",
+          "researched": "Downloaded both the Hindi and English auto-caption tracks. The Hindi track for 168-188s is English transliterated into Devanagari and the English track matches it word for word ('Dating apps there are all scammers', 'I want a love letter', 'just stick to one person'), confirming the spoken language is English. Extracted storyboard frames at ~4.9s intervals across the window: every sample shows a different group being interviewed at a rooftop club. Web search describes HyperfitX as a vox pop and podcast channel from the streets of Bangalore and Mysore; the video description ends with '#bengaluru ... #bengaluru #mumbai'.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "JU722kW_PSQ",
+          "label": "Bhopal, India",
+          "keep": false,
+          "reason": "The speaker is Hardik Patel, the Patidar reservation agitation leader who later became Gujarat Congress working president and then a BJP MLA. He is a famous, highly googlable politician, and he is from Viramgam in Gujarat, roughly 600 km from Bhopal; he was only in MP for election campaigning.",
+          "researched": "Confirmed via Wikipedia, ThePrint, Outlook and Deccan Herald that Hardik Patel was born 20 July 1993 in Viramgam, Gujarat, is a native of Chandranagar village in Viramgam taluka, led the 2015 Patidar agitation, joined Congress in 2020 and the BJP in 2022, and won the Viramgam assembly seat. The yt-dlp description confirms this is an IBC24 election interview and its own search terms include 'hardik patel in jabalpur mp', i.e. a visiting politician.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "KYX2HfzbWFI",
+          "label": "Indore, India",
+          "keep": false,
+          "reason": "The 20s window at start=87 begins on about six seconds of b-roll that falls at the tail of a continuous ~43 second b-roll stretch, which in this BBC package carries the voiceover of BBC Hindi video journalist Sameer Khan. It only cuts to a local shopkeeper at roughly 93s, so a shipped clip would open on a professional reporter's narration.",
+          "researched": "The description credits the piece 'वीडियो: समीर ख़ान, बीबीसी हिंदी के लिए, इंदौर से'. No captions exist, so I extracted the storyboard grid (250s, 160x90 tiles, fps 0.508) and mapped frames to timestamps, then downloaded the 85-110s section and pulled real frames. Result: talking-head vox pops run 0-29s, then b-roll runs continuously from ~29s to ~92s with no on-screen text, then a local shopkeeper speaks from ~93s to ~103s, then b-roll again. The on-screen location bug reads 'इंदौर, मध्य प्रदेश'. Worth noting for re-sourcing: the interviewee himself is a genuine Indore local, so re-cutting this video with start≈93 would very likely produce a shippable clip.",
+          "suggestedLabel": ""
+        },
+        {
+          "videoId": "qqs9jjeHtac",
+          "label": "Kanpur, India",
+          "keep": false,
+          "reason": "The speaker in the 58-78s window is the District Magistrate of Kanpur, Vishak G. Iyer, IAS. A magistrate is explicitly excluded, and he is a career IAS officer transferred into Kanpur days earlier from the Chief Minister's office, not a Kanpur local, which fits the model placing the voice 489 km away in Patna.",
+          "researched": "Downloaded the 60-80s section and extracted a real frame: it is an ABP News split-screen with a lower third reading 'विशाख जी'. Web search confirms Vishak G. Iyer, 2011 batch IAS, UP cadre, was appointed DM of Kanpur in June 2022 replacing Neha Sharma days after the June 2022 Kanpur violence, having been Special Secretary to the CM; he is now DM of Lucknow (Indian Masterminds, DNA, inshorts). The Hindi auto-captions for the window are a first-person administrative readout referring to 'पुलिस प्रशासन कमिश्नर' and 'हमारे मजिस्ट्रेट' and announcing the evening meeting, consistent with an official statement rather than a resident.",
+          "suggestedLabel": ""
+        }
+      ]
+    }
+  ],
+  "challenges": [
+    {
+      "videoId": "NGnHMiIFIJ4",
+      "refuted": true,
+      "why": "REFUTED on three grounds, the first decisive. (1) ANSWER LEAK IN THE WINDOW: the played window is start=58s (58-78s). At ~68s the interviewer says out loud \"Quetta wale kheere ke piche kyun pagal hain itne?\" and again at ~74s \"Aap logon ko khira kyun pasand hai Quetta walon ko itna?\" Confirmed by an unprimed, context-free verbatim transcription of 66-72s (returned \"...yeh aap sab ko kheere ke piche kyun Quetta wale kheere ke piche kyun pagal hain itne?\") and independently by a second model on the full window, which timestamped \"Quetta\" at 00:10 and 00:16 of the clip. The project's own tools/leak-audit.mjs disqualifies exactly this (\"an interviewer naming the street... a player who understands the language would learn the answer from the words alone\") - it was written after the Minsk clip shipped with this same defect. This also destroys the prior reviewer's key corroboration: the model's offBy 0 is it reading a spoken city name, not hearing a Balochistan accent, so there is zero accent evidence behind the label. (2) NOT AN ORDINARY RESIDENT FOR MOST OF THE CLIP: both models put the BNN reporter holding the mic at ~10 of the 20 seconds (00:06-00:12 and 00:13-00:17); the passers-by contribute only single words (\"bingan\", \"khira\"). One model read the reporter's Urdu as standard urban Karachi/Lahore register with no Balochistan accent, so the dominant voice is both a reporter (rule 2) and acoustically wrong for the pin. (3) SPLICED FOREIGN AUDIO IN THE TAIL: frame extraction at 1 fps shows the street footage cutting at ~75s to a blurry, upscaled indoor closeup of a woman from a different production; both models independently flagged 00:17-00:20 as a clean studio voiceover/narration in a different acoustic space (\"Salad banane ki takneek aisi hai...\"), i.e. the final 3 seconds of the played window is added-in studio audio, not live Quetta street sound. The channel itself does check out as a genuine Quetta news outlet (BNN Balochistan, UC7VqCWEkbRCkYZ-9msAANIg, @bnnbalochistan831, 39.7k subs) and the filming location is plausibly Quetta - the label may well be geographically true - but the clip is unshippable regardless because the window hands the player the answer in words, is dominated by a reporter, and ends on spliced studio voiceover. A curated window inside 30-55s that contains only respondent speech and no spoken place name could be re-gated, but the current start=58 must not ship.",
+      "confidence": "high"
+    },
+    {
+      "videoId": "aFxU2tqQwi0",
+      "refuted": false,
+      "why": "Tried hard to break it and could not. Frame-by-frame contact sheets across the full 9:53 video show ONE interviewee at ONE location (entrance signage \"...of Commerce & Industry\"), on-camera sync sound, no dub/TTS/compilation. Groq-Whisper transcript of 200-240s confirms the 207-227s window is 20 continuous seconds of the interviewee alone; the anchor only re-enters at ~237s (\"acha ma'am mujhe bataen, FBR...\"), so no reporter voice in the window. Speaker is anonymous: the only lower-third chyron in the whole video is for the reporter (\"Ummeae Ammara / Anchor\"), no name in the English or Urdu description, anchor addresses her only as \"mohtarma/ma'am\", and the two YouTube comments name no one; she is not googlable and not a recognizable-by-voice public figure (the repo's own bar in tools/famous-sweep.mjs). Location corroborated independently of the uploader's description: the channel's upload list is a pure Lahore beat (Anarkali Market president, Hall Road fire, Urdu Bazar president, Eid rush in Anarkali, Punjab/PERA/Maryam Nawaz), and a sibling video uploaded the same day (MNRr3OomnFU, \"Lahore Chamber President\") shows the same anchor inside a chamber president's office, so the crew was at the Lahore Chamber that day. The speaker also self-locates to Punjab later in the interview: \"Maryam Nawaz sahiba jo hamari CM hai\" plus detailed talk of Punjab women's loan schemes (this is at ~8:00, well outside the clip window, so it is corroboration, not a leak). One caveat the prior reviewer missed: at ~5:40 she says \"main business community ke liye women entrepreneurs ko yahan pe represent karti hoon\", so she is a representative of the chamber's women entrepreneurs rather than strictly rank-and-file, and her register is heavy English-code-switched business Urdu. That is an ordinariness/clip-quality gray area, not a label error: she is unnamed, non-promotional, and LCCI membership requires a Lahore-based business, so worst realistic residence error (a satellite town like Sheikhupura/Kasur) is 40-60 km, inside the 250-300 km decay.",
+      "confidence": "high"
+    },
+    {
+      "videoId": "1fNwEWtbhLY",
+      "refuted": true,
+      "why": "ANSWER LEAK inside the played window, confirmed with the repo's own gate. The game plays exactly 172.0-192.0s (js/game.js:8, CLIP_WINDOW_S = 20). I pulled that exact window and transcribed it: at ~3s in, the interviewer asks \"تو یہ اس کا تو خیبر پختونخوا میں حکومت ہے تو کیوں نہیں نکلتے؟\" — he says \"Khyber Pakhtunkhwa\" out loud. I then ran the verbatim GATE prompt from C:\\projects\\hometongue\\tools\\leak-audit.mjs against the same 20s and 22s cuts; both runs returned {\"quality\":4,\"says_place\":true,\"place_said\":\"Khyber Pakhtunkhwa\",\"speechless\":false}. Peshawar is the capital of KP, so the spoken region contains and points straight at the answer. By the project's own leak-vs-herring rule in data/leak-triage.json (a named place pointing elsewhere is a red herring, a place at the answer is a leak), this is a leak, not a herring. It also means the gate's offBy 0 is not independent accent recognition — the src entry's own evidence list literally begins \"your native pronunciation of 'Khyber Pakhtunkhwa'\", i.e. the model was repeating a word it heard.\n\nThe obligation was already flagged and never discharged. data/src-urdu.json's gate block for this clip carries \"mustLeakAudit\": true, and this videoId appears in no leak-audit record (data/leak-audit.json, leak-audit-run2.json, leak-audit-history.json all lack it). The previous reviewer kept it without running the audit the entry demands.\n\nSecond, weaker problem: the window is two voices, not one. Of the 20s, the channel host asks ~7s and the respondent speaks ~13s. The host is the vlogger himself (Sheikh Rizwan Speaks), his own origin is never stated, and the channel films across KP (there is a separate \"Public Opinion Survey in Hangu Market\" video, ~130 km away) plus studio-style political commentary. data/gate-rejects.json already drops clips on this exact reasoning (\"no clean 20s window exists and the interviewer speaks throughout\").\n\nThird, the evidence the prior reviewer relied on is not reliable. The yt-dlp description is raw ChatGPT output pasted with its own scaffolding intact (\"📝 Description (SEO Optimized)\", \"🔑 Keywords\", \"🎬 Thumbnail Text (Urdu – Viral Lines)\"), so its chapter timestamps are not proof of a single continuous shoot.\n\nWhat does hold up: I downloaded the video and built contact sheets (C:\\Users\\MOHAMM~1\\AppData\\Local\\Temp\\claude\\C--\\0f721904-621c-4456-9211-b78c1678de98\\scratchpad\\pw_win.jpg and pw_all.jpg). The window is a genuine outdoor street vox pop, one young man in a maroon kameez holding the mic among a crowd of onlookers, natural traffic and wind ambience, no dub or TTS. Phase 3 Chowk in Hayatabad, Peshawar is a real place. The host is not googlable (7.3k subs, no web presence). So criteria 2-4 are broadly fine and the label is probably geographically true — but the clip should not ship as-is because a player who understands Urdu is handed the province three seconds in. Fixable by shifting the window to a stretch with no interviewer question and re-running tools/leak-audit.mjs, not by shipping this offset.",
+      "confidence": "high"
+    },
+    {
+      "videoId": "xwRfFR19wJc",
+      "refuted": true,
+      "why": "REFUTED. Fanpage.it, \"Le reazioni dei napoletani al caffe americano [CANDID CAMERA]\", 142s, uploaded 2018-02-06.\n\n1) The prior reviewer's evidence does not exist in the shipping window. They kept it because \"the caption text inside the 49-69s window is a customer complaining that he ordered a caffe napoletano and got caffe brodo.\" That exchange runs 39.9-44.3s in the auto-captions, entirely OUTSIDE 49-69s. Their single stated justification will not ship.\n\n2) A large share of the window is a credited performer, not an ordinary resident. The description credits a cast: \"un video di Raffaello Durso e Luca Iavarone con Kyle Scott\". Fanpage's own burned-in subtitles colour-code the provocateur's lines yellow and bystanders' white (confirmed at ~40s: yellow \"e il tuo caffe!\" vs white customer \"brodo?\"). In 49-69s the yellow/actor lines are ~50-52s \"siamo americani, abbiamo comprato il bar\", ~59-60s \"il caffe di Napoli fa schifo, e merda!\", ~61-64s \"il caffe Napoletano fa schifo, e brutto, questo e il tuo caffe!\" — roughly a third of the window, and the loudest lines. These are scripted provocation delivered by staged talent playing an American character who says outright \"we're Americans.\" That fails criterion 2 (ordinary person) and criterion 3 (scripted comedy/performance).\n\n3) No sustained voice to judge. The remaining ~13s is chopped across ~6 hard cuts and ~5 distinct venues (street doorway, shoe shop, office desk, bar, cleaning-supplies shop) with at least 5 different speakers in 1-3s fragments: \"a chi hai chiamato uaglio?\", \"voglio il caffe mio, il napoletano!\", \"ma non hai detto caffe Napoletano...\", \"il caffe si fa con un po' di schiuma sopra\", \"ma stai dando i numeri? non lo voglio!\", \"per prima cosa non offendere i Napoletani!\". All under a continuous music bed: ffmpeg silencedetect finds zero silence at -30dB across the full 20s, loudness range only 3.7 LU (LRA low -12.3 / high -8.6 LUFS), true peak +1.2 dBFS (clipped) — the signature of a compressed music bed, not natural dialogue dynamics.\n\nWhat does hold: the location. Fanpage is Naples-based, the description says \"per le strade del capoluogo partenopeo\", and the bystanders are genuine Neapolitans in real dialect (\"uaglio\", \"brodo\"). So the label \"Naples\" is geographically true — but the clip still fails on speaker and format, and the reviewer's keep rationale pointed at audio outside the window.\n\nPROCESS WARNING: the shared scratchpad is contaminated across subagents. A generic-named caption download (clip.it.vtt) came back byte-identical (64142 bytes) to a DIFFERENT video's captions (xBkoL0jlN1Y) — a 9-minute street-interview reel about Italian politics that mentions Sicily, Berlusconi and the Vatican. The correct captions for this ID are xwRfFR19wJc.it.vtt (7341 bytes) and the video is only 142s. Any reviewer writing to a generic filename in C:\\Users\\MOHAMM~1\\AppData\\Local\\Temp\\claude\\C--\\0f721904-621c-4456-9211-b78c1678de98\\scratchpad risks judging another video's transcript. Recommend per-video subdirectories.",
+      "confidence": "high"
+    },
+    {
+      "videoId": "1ZnA2u-y_oU",
+      "refuted": true,
+      "why": "The 20s window (start=99) is not one speaker — it splices three different interviewees plus the off-camera interviewer. Verified frame-by-frame at 0.5s steps from video t=98.5-112 against the Italian auto-captions: 99.0-101.0 is Woman A (blue knit hat, by a building) finishing an unrelated answer; ~101-102.5 is a hand shoved over the lens waving the camera off, no usable speech; ~103-105.5 is a completely different Woman B (green jacket, open ground) mostly laughing, captions catch only \"si\"; at ~105.5 the crew interviewer asks \"perche lo fai? le motivazioni?\"; and only from 106 (answer from ~111.8) does Man C (curly hair, glasses, car park with bare trees) speak, occupying the back ~13s. So roughly the first 7 of 20 seconds is a woman ending a different answer, a blocked lens, laughter, and a production voice.\n\nThis directly refutes the previous reviewer's stated basis: \"the 20s window at 99 is an interviewee answering why she volunteers\" is wrong on both counts — the \"why do you do it\" question is asked at ~105 to a different, MALE subject who answers from ~111. The reviewer conflated three speakers into one. The gemini offBy=0 gate is therefore not independent corroboration either; the model scored a three-person montage, not a speaker.\n\nConsequently criterion 1 cannot be met: there is no single \"the speaker\" whose residence can be established, and the voice that dominates the window is an unidentified man in an unmarked car park with no location evidence in frame (generic Italian plates, no signage). Criterion 4's rationale (\"the 20 second window could be any of them\") fails at the speaker level even though all shots are presumably Milan.\n\nTo be fair to the clip, provenance is otherwise clean and I found nothing pointing to another city: yt-dlp metadata confirms channel \"VOCE - Volontari al Centro\", uploaded 2012-10-02, produced by redazione giovanixmilano.it (Milan city youth portal) for the VOCE project at voce.milano.it, description explicitly \"A Milano che rapporto c'e fra i giovani e il volontariato?\". Genuine street vox pops, no dubbing, no TTS, no news package, no celebrity, single city. The defect is purely that this particular 20s window is a three-person splice, not a resident's voice. It could plausibly be salvaged by moving start to ~111 to isolate Man C's answer, but as labelled and timed it should not ship.",
+      "confidence": "high"
+    },
+    {
+      "videoId": "FjBib24ZkyI",
+      "refuted": true,
+      "why": "The 50-70s window is not one ordinary resident, and the previous reviewer's evidence is factually wrong. I downloaded the 45-75s segment and extracted frames every 0.5s: there is a hard cut at 58.0s from one interviewee (blonde, short hair, white top, mic held to her, on camera 46.0-51.0s) to a completely different interviewee (dark curly hair, white-framed glasses, young girl beside her, on camera 58.0-68.5s). Autocorrelation pitch analysis confirms two distinct voices: median F0 ~210 Hz before vs ~242 Hz after the cut (per-second medians jump from 205-219 Hz at sec 56-57 to 262-280 Hz at sec 58-59). Second, the window ends on the reporter's studio voiceover: the on-camera interview cuts to b-roll at 68.5s and word-level caption timing puts the narration 'da un anno all'altro la situazione si e fatta piu insopportabile' starting at 68.69s, inside the window; its acoustic profile (noise-floor/rms 0.31, tight F0 IQR) matches the known VO stretch at 69-74.5s. Third, the 51-58s b-roll stretch has floor/rms 0.25-0.44, matching the reporter VO profile rather than the field-sync profile of either on-camera interview (0.04-0.11), with a 1.9s caption gap at 50.6-52.5s consistent with an edit boundary, so possibly only ~10 of the 20 seconds is a resident at all. The reporter, Gabriella Basso, is a googlable professional journalist and former caporedattrice of Antenna Tre Nordest, a broadcaster headquartered in San Biagio di Callalta, province of Treviso, a different accent zone from Venice. Finally, the prior reviewer's reasoning fails on its own terms: the line they quoted, 'la calle dove abito e una cloaca a cielo aperto', is at ~32s, entirely outside the 50-70 window; and their claim that 'only one interviewee credited' proves a single speaker is refuted by the video itself, which interviews two different women on camera in this 30-second span plus a barista at ~1:43 ('e anche noi tante volte chiamiamo le forze dell'ordine, ma non arriva nessuno') and another voice at ~2:00, none of them credited. I could not establish that the speaker occupying the first half of the window is a Venice resident: she is uncredited and her audible lines there are third-person scene description ('i ragazzi con le bottiglie da litro... sdraiati') that says nothing about residency.",
+      "confidence": "high"
+    },
+    {
+      "videoId": "VrXJ0Bw59tI",
+      "refuted": true,
+      "why": "Corporate promotional content (criterion 2), plus an unverifiable speaker window.\n\nPUBLISHER IS THE COMPANY ITSELF. YouTube oEmbed returns author_name \"Localnet AG Burgdorf\" (channel @localnetagburgdorf5000, 23 subscribers, comments disabled). Localnet AG is Burgdorf's city-owned utility (electricity, gas, water, telecom, heating; ~90 staff; Bernstrasse 102, 3401 Burgdorf). Video metadata: uploaded 2017-05-24, 360s, category \"People & Blogs\", description = \"Umfrage bei Passantinnen und Passanten zu Lebensqualitaet und mehr in und um Burgdorf. www.kundenclub.ch\". That sole link is the tell: Localnet launched its new Quickline Kundenclub in March 2017, two months before upload. This is marketing collateral for a customer-loyalty campaign, which is a \"corporate or promotional interview / business promo\" under the brief's explicit reject list, not a neutral vox pop.\n\nWINDOW NOT VERIFIABLE. I could not confirm who speaks at 125-145s. Screenshots failed (Browser pane not compositing; Chrome extension not connected), and the German ASR caption track returns 200 with ZERO bytes in all four formats (raw, json3, srv3, vtt) - so there is no transcript, not merely a garbled one. In a 6-minute company-produced piece, participants are plausibly recruited customers/club members, and such pieces routinely intercut company staff or local notables. The brief says default to reject when the speaker cannot be established.\n\nPRIOR REVIEW WAS INCOMPLETE. It never identified the publisher as the utility company, never mentioned the kundenclub.ch CTA, and asserted the window is \"not a company spokesperson pitch\" without evidence. Its claim that auto-transcription \"produces nonsense\" is also inaccurate - the track is empty.\n\nGEOGRAPHY IS NOT THE PROBLEM (stating for the record). A real risk existed: Burgdorf in Region Hannover, Germany is ~600 km from Bern and has its own active YouTube channel. But Localnet's Swiss address, .ch domains, and Swiss orthography (\"Strassenumfrage\") confirm Burgdorf BE - ~20 km from Bern, same canton, Bernese/Emmental dialect. The distance reasoning holds; the refutation rests on the promotional genre plus the unverified speaker.",
+      "confidence": "medium"
+    },
+    {
+      "videoId": "hHWdqgOUkWU",
+      "refuted": false,
+      "why": "Attempted refutation failed; the clip holds up on all four gates. Publisher verified via yt-dlp: Leipziger Volkszeitung (the Leipzig local paper), uploaded 2013-01-03, 123s long. Full description gives the dateline \"Leipzig, 02.01.2013\" and calls the subjects \"Leipziger Passanten\" reacting to the Uniklinik Leipzig liver-transplant irregularities, a story of purely local concern. Word-level (not cue-level) json3 captions pin the handover precisely: the reporter's last narration word \"Grundsatzentscheidung\" begins at 42.24s and the first vox-pop word \"ich\" lands at 43.24s, so narration is finished by ~43.2s and at most the tail syllable of one word can touch a window starting at 43.0 — the visual whip-transition to the first interviewee is already at ~42.5s. Frame extraction across 43-63s shows two street setups: a red-haired woman 43-52s, then a couple sharing one LVZ-branded handheld mic 53-64s. No lower-thirds, no names, no institutional roles; all anonymous passersby, none googlable. Direct sync sound with a visible microphone, so no dub or TTS. Single shoot, single day, single city, so no compilation risk. Location corroborated in-frame independently of the description: the second interview background carries an illuminated shop sign whose visible tail reads \"PZIG\" (LEIPZIG), on an arcaded pedestrian street with a Goertz store consistent with Leipzig's Petersstrasse. Minor notes that do not refute: roughly 2s around 54-56s is either the interviewee repeating the question or a brief field-interviewer question (not scripted studio voiceover), and the window contains 2-3 speakers rather than the four the prior reviewer claimed. Only inherent soft spot is that individual residency of each passerby cannot be proven, which is true of every vox pop and is contradicted by no evidence here.",
+      "confidence": "high"
+    },
+    {
+      "videoId": "1utGFU5HzWI",
+      "refuted": true,
+      "why": "The 77-97s window is NOT one respondent. There is a hard cut at exactly t=84.00s, confirmed two independent ways: (a) frames extracted at 4 fps show the older man in the dark coat/blue scarf through 83.75s and a completely different person (woman, brown hat, beige coat, different storefront background) from 84.00s on; (b) an F0 trace over the audio jumps from 78-110 Hz (male) to 260-302 Hz (female) at exactly 84.00s, so the audio cuts with the picture. The shipped clip would therefore be 7 seconds of one man followed by 13 seconds of an unrelated woman. The prior reviewer's \"single uninterrupted respondent spanning 66-102s\" came from reading YouTube's auto-captions, which run as continuous prose across the edit only because ASR does not diarize speakers; the \"public transport / universities / Donauinsel\" list they attributed to one person is actually split across two (universities = the man pre-84s, Donauinsel = the woman post-97s).\n\nTheir second claim is also misattached. The title card that opens this segment, on screen 63-67s right after the music sting, reads \"Warum, glauben Sie, ist Wien zum 10. Mal zur weltweit lebenswertesten Stadt gewaehlt worden?\" - an opinion question about the Mercer livability ranking that any passerby, including a tourist on the Mariahilferstrasse shopping street where this was filmed, can answer. \"Leben Sie gerne in Wien?\" is the card for the FIRST segment (5-61s), which the window does not overlap. So the residency-selecting premise they relied on does not govern this window.\n\nIn fairness: I frame-checked segment 1 and both people in the window do appear there answering \"Leben Sie gerne in Wien?\" (man ~15-25s, woman ~10-15s), so both are probably real Vienna residents and the label is probably true. But the item as specified does not exist - a \"Guess the Voice\" clip that swaps speaker and sex at second 7 of 20 is a broken item regardless of label, and the model's independent Vienna placement was made on that same two-voice audio, so it is not clean corroboration either.\n\nDeck-level caution for any re-cut from this video: the respondent pool is heavily transplant. The grey-hat/red-scarf woman states \"ich komme aus Deutschland und lebe seit bald 30 Jahren hier,\" and someone in the 44-48s range says \"ich bin zum Studium hierher gekommen.\" Any replacement window needs its own single-speaker verification plus an accent check, not just a transcript read. The nearest clean single-speaker candidate is roughly 101-120s (ginger-haired young man), but he may be the student transplant, so check him before reusing this video.",
+      "confidence": "high"
+    },
+    {
+      "videoId": "VJrzKyHO_ww",
+      "refuted": false,
+      "why": "Tried hard to break it; it holds. Genuine handheld street vox-pop published by the canton Zurich data-protection office as a 2016 competition entry. Frame-by-frame at 0.5s across 55-77s shows the 56-76 window is respondent-only: one man in glasses 56-~72 (jump-cut takes, same park path, pedestrians passing behind), then a woman at a park kiosk ~72-76. No narrator, no voiceover, no dubbing, no lower-thirds or name captions, no notable faces, no cross-city stitching (park path, park kiosk, footbridge over a weired river all in one city). Location: narration at ~34s says \"wir sind jetzt da in Züri,\" and the project's own gate record cites 'nöd' and 'nei' at 90 confidence, which are Zurich/eastern-Swiss markers rather than Bernese 'nid' or Basel 'nit' - important because YouTube ASR is unreliable here (the auto-de track is a full hallucination about organ donation in Göttingen/Leipzig; only de-orig is coherent). Two corrections to the prior review that do not change the verdict: (1) the makers are professionals, not Zurich amateurs - end credits read \"Produktion: Adam Keel  Kamera: Fabian Lütolf © adamkeel.com\", and Adam Keel is a ZHdK-trained video producer based in Winterthur, with the DSB competition open regardless of residence; the criteria bind the speaker, and the speakers here are passersby, not the producer. (2) src-german.json records provenance as \"title,\" but neither title nor channel names a filming location - the label actually rests on the narration plus dialect, and that field should be corrected. Residual risks are non-fatal: vox-pop residency is never provable, and the worst-case alternative site (Winterthur, the producer's base) is ~20 km from Zurich, inside the noise floor and far inside the 250-300 km decay, so no reading of this clip scores a player wrong. Minor note for the deck: the window contains two voices, not one, if single-speaker windows are preferred.",
+      "confidence": "medium"
+    },
+    {
+      "videoId": "xBkoL0jlN1Y",
+      "refuted": true,
+      "why": "Palermo as a city label is fine (whole video is Palermo, Teatro Massimo and Piazza Castelnuovo visible later; not a multi-city compilation), but the 316-336s window fails on two other grounds. (1) It is not one exchange: frame extraction shows the interviewee is a man in a white polo at a bus door until ~321s, then a completely different elderly man in a striped shirt with a red tie from ~322s on; ffmpeg scene detection finds further hard cuts at 324.83, 329.50, 333.23 and 333.37. That is ~5 edits and 2 different subjects in 20 seconds, so the prior reviewer's claim that the political question and the 'tutti questi politici che mangiano' answer form a real exchange is wrong - they are on opposite sides of a cut, from different men. (2) The dominant voice is the presenter, not a resident: across 328-336s the host's mouth is open in most frames while the old man laughs or looks down, and at exactly 332.0s (the caption timing of the cited line) the mic is at the HOST's own mouth mid-shout while the old man is silent. The channel is a one-upload Iene-style bit (uploader's own tags: Iene, Satira, Umorismo) whose host, Danilo Ciaramitaro per the end credits, shouts over his subjects. Also, auto-caption [Musica] stings sit at 314-315s and again at 335-337s, so the window opens off one sting and runs into the next - nudging the cut later does not fix it. A different window from this video might be salvageable; this one should not ship.",
+      "confidence": "medium"
+    },
+    {
+      "videoId": "Fzqb0bMb0k0",
+      "refuted": false,
+      "why": "Tried to refute and failed. Verified via yt-dlp metadata: uploaded 2014-02-14 by ChannelVIE / \"VJs of Vienna\" (FH Wien student journalism, now @ChannelVIE1 / \"PLAN B\"), 187s, tags include Volksbefragung and Mahue — a vox pop timed to the 20 Feb–7 Mar 2014 Mariahilfer Strasse district referendum. Mariahilfer Strasse is unambiguously in Vienna's 6th/7th districts, so the place in the title is where the label says. Human-made (not ASR) German subtitle track for the WHOLE video contains zero narration lines: it is entirely first-person respondent speech, no anchor, no voiceover, no script. The 65–85s window is continuous respondent audio — one speaker citing Stephansplatz and the Oper as everyday references for how a car-free zone feels, a second wanting the street reverted because taxi journeys get easier and the footpaths are already wide enough for shopping. Frame check of 62–89s at 360p shows five distinct ordinary passersby with a ChannelVIE stick mic on the street itself (Hartlauer, Gerngross/Kino/Desigual, the red-marked Begegnungszone roadway), with no lower-thirds, names or job titles — no politician, official, shop owner or spokesperson, which is notable given how politicised this topic was. Not a compilation (one street, one shoot), not dubbed or TTS (sync sound, five voices, natural hesitation), not promotional (runs both pro and contra). Residual risk, stated honestly: per-speaker residency is never provable for passersby on Vienna's main tourist shopping street. But there is no positive visitor signal in the window, the topic is a hyper-local referendum only users of the street would opine on, other respondents in the same video state how they will vote (only 6th/7th district residents could), and the pipeline gate independently reported Austrian pronunciation at 95%. The one speaker who reads as possibly non-Viennese (cites Stuttgart's pedestrian zone as a model) is at 2:40, well outside the window. Two corrections to the prior reviewer: the window holds two speakers, not four, and its 65.0s start clips the last fraction of a preceding answer — cosmetic, not disqualifying.",
+      "confidence": "medium"
+    }
+  ]
+}

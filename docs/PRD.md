@@ -78,15 +78,26 @@ serving speed, not our code.
 are pinned at country centres rather than a speaker's hometown, so scoring them in
 kilometres would punish correct answers, and 33 are YouTube-embedded with no local file.
 
-Seven decks are live. **hindi-urdu and russian sit at five clips and are hidden** behind
-the "stocking" state, because a five-clip deck serves the identical game every time and
-spoils itself on the second play. Sourcing more requires a sharp serving window — the
-vetting gate uses the app's own model, and vetting during a dull window is exactly when
-it is weakest against performed accents.
+Ten decks: Arabic, English, Spanish, French, Hindi, Urdu, Chinese, Portuguese, Italian,
+German. World Languages and Russian were removed, and the combined hindi-urdu deck was split
+in two along the India/Pakistan line. A deck below MIN_DECK (10 clips) shows the "stocking"
+state instead of being dealt, because a five-clip deck serves the identical game every time
+and spoils itself on the second play.
+
+Two dealing rules learned the hard way. Clips are dealt AT RANDOM: the old dealer took one
+clip per country first, so Portuguese — five countries, five rounds — filled every game from
+that first pass and could never reach seven of its twelve clips, serving the identical five
+recordings in a shuffled order forever. And the deck key must exist in three places at once
+(`MODES` in js/game.js, `MODE_DECAY` beside it, `GAME_TYPES` in api/scores.js); a key missing
+from the third is not a visible error but a leaderboard that silently discards every score
+that deck produces.
 
 ## Toronto
 
 No scheduling constraint. Coach every stranger the same three lines: **speak your home
-language, skip your name, give it about thirty seconds.** Thirty is measured, not a
-guess: eight seconds scores 345 km, twenty scores 157, thirty scores 67. Press donate on
-every willing voice; content and corpus in the same take.
+language, skip your name, give it a good twenty seconds.** Twenty is where the evidence
+actually stops: 8s is clearly worse than 20s, but whether 30 or 45 beats 20 is NOT known.
+The earlier "thirty seconds scores 67 km" claim was withdrawn — those tests were underpowered
+(the sign test's floor was p=0.50, so it could not have shown significance under any outcome)
+and a rerun on sha256-identical audio reversed the ordering. Do not coach a number above 20 as
+if it buys accuracy. Press donate on every willing voice; content and corpus in the same take.

@@ -31,14 +31,15 @@
 
   /* deck hues, used only as small index marks in the list — never as a flood */
   --hue-arabic: #A8563F;
-  --hue-languages: #2A6B60;
   --hue-accents: #3C5C8A;
-  --hue-french: #6B5087;
   --hue-spanish: #A8722C;
-  --hue-chinese: #94456A;
+  --hue-french: #6B5087;
   --hue-hindi-urdu: #2F7A63;
+  --hue-chinese: #94456A;
   --hue-portuguese: #2C6C86;
-  --hue-russian: #454A87;
+  --hue-italian: #7A6A1E;
+  --hue-german: #454A87;
+  --hue-languages: #6B4A7A;
 
   --shadow-1: 0 1px 2px rgba(27, 28, 25, 0.05), 0 8px 20px -14px rgba(27, 28, 25, 0.22);
   --shadow-2: 0 1px 3px rgba(27, 28, 25, 0.06), 0 28px 56px -28px rgba(27, 28, 25, 0.30);
@@ -261,6 +262,21 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .stop-btn:hover:not(:disabled) { filter: brightness(1.12); }
 .stop-btn:active:not(:disabled) { transform: translateY(1px); }
 
+/* "start over" sits beside "done" but must never compete with it: the primary action is
+   finishing the take. A quiet text button reads as an escape hatch rather than a second
+   choice to weigh up. */
+.live-actions { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+.restart-btn {
+  margin-top: 22px;
+  background: none; border: none; cursor: pointer;
+  font-family: var(--sans); font-size: 13px; font-weight: 500;
+  color: var(--grey); padding: 12px 6px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+.restart-btn:hover { color: var(--black); border-bottom-color: var(--rule); }
+.restart-btn:active { transform: translateY(1px); }
+
 /* Share is the loudest button on the result card without being a second primary: amber
    outline against the green "go again", because the card is the thing worth passing on. */
 .share-btn {
@@ -296,7 +312,7 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   display: block; width: 3px; height: 46px; border-radius: 2px; background: var(--accent);
   transform: scaleY(0.12); transform-origin: center; transition: transform 0.08s linear;
 }
-.live-status, .result-kicker, .source-key, .board-head, .type-soon-note, .round-pill {
+.live-status, .result-kicker, .source-key, .board-head, .round-pill {
   font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase;
 }
 .live-status { color: var(--accent); }
@@ -418,21 +434,22 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   width: 100%; background: none; cursor: pointer; text-align: left;
   border: 1px solid var(--rule-soft); border-radius: var(--r-sm);
   padding: 8px 10px 8px 12px;
-  display: grid; grid-template-columns: 40px 1fr; align-items: center; gap: 0 10px;
+  display: grid; grid-template-columns: 40px 1fr; align-items: center; gap: 1px 10px;
   color: var(--black); font-family: var(--sans);
   position: relative; overflow: hidden;
   transition: border-color 0.18s, background 0.18s;
 }
 /* each row carries its own deck's ink, so the list reads as a colour key */
 .type-btn[data-deck="arabic"] { --row: var(--hue-arabic); }
-.type-btn[data-deck="languages"] { --row: var(--hue-languages); }
 .type-btn[data-deck="accents"] { --row: var(--hue-accents); }
-.type-btn[data-deck="french"] { --row: var(--hue-french); }
 .type-btn[data-deck="spanish"] { --row: var(--hue-spanish); }
-.type-btn[data-deck="chinese"] { --row: var(--hue-chinese); }
+.type-btn[data-deck="french"] { --row: var(--hue-french); }
 .type-btn[data-deck="hindi-urdu"] { --row: var(--hue-hindi-urdu); }
+.type-btn[data-deck="chinese"] { --row: var(--hue-chinese); }
 .type-btn[data-deck="portuguese"] { --row: var(--hue-portuguese); }
-.type-btn[data-deck="russian"] { --row: var(--hue-russian); }
+.type-btn[data-deck="italian"] { --row: var(--hue-italian); }
+.type-btn[data-deck="german"] { --row: var(--hue-german); }
+.type-btn[data-deck="languages"] { --row: var(--hue-languages); }
 .type-btn::before {
   content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
   background: var(--row); opacity: 0.75;
@@ -440,20 +457,16 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .type-btn:hover { background: color-mix(in srgb, var(--row) 8%, transparent); border-color: color-mix(in srgb, var(--row) 40%, transparent); }
 .deck-mark { grid-row: span 2; display: grid; gap: 2px; justify-items: start; }
 .deck-thumb { width: 38px; height: 22px; display: block; color: var(--black); }
-.type-code {
-  font-family: var(--mono); font-size: 9px; letter-spacing: 0.08em;
-  color: var(--row); text-transform: uppercase; font-weight: 500;
-}
 .type-name {
   font-size: 13.5px; font-weight: 600; letter-spacing: -0.005em; line-height: 1.25;
 }
-/* the sentence per deck is what made the rows tall; it survives as a tooltip on the tile */
-.type-desc { display: none; }
-.type-btn.soon { cursor: default; }
-.type-btn.soon:hover { background: none; border-color: var(--rule-soft); }
-.type-btn.soon:hover::before { width: 0; }
-.type-btn.soon .type-name, .type-btn.soon .type-desc { opacity: 0.4; }
-.type-soon-note { color: var(--grey-2); grid-column: 2; font-size: 10.5px; }
+/* The spread of places IS the deck's description, so it belongs on the tile. Hiding it and
+   leaving a title attribute behind meant the only way to learn what a deck covered was to hover
+   and read an unstyled OS tooltip. Two lines per row is worth it. */
+.type-desc {
+  grid-column: 2; font-size: 11px; color: var(--grey-2);
+  line-height: 1.3; letter-spacing: 0.005em;
+}
 
 /* ——— round chrome ——— */
 .round-pill {
@@ -800,14 +813,15 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   transition: color .15s, border-color .15s, background .15s;
 }
 .board-tab[data-deck="arabic"] { --row: var(--hue-arabic); }
-.board-tab[data-deck="languages"] { --row: var(--hue-languages); }
 .board-tab[data-deck="accents"] { --row: var(--hue-accents); }
-.board-tab[data-deck="french"] { --row: var(--hue-french); }
 .board-tab[data-deck="spanish"] { --row: var(--hue-spanish); }
-.board-tab[data-deck="chinese"] { --row: var(--hue-chinese); }
+.board-tab[data-deck="french"] { --row: var(--hue-french); }
 .board-tab[data-deck="hindi-urdu"] { --row: var(--hue-hindi-urdu); }
+.board-tab[data-deck="chinese"] { --row: var(--hue-chinese); }
 .board-tab[data-deck="portuguese"] { --row: var(--hue-portuguese); }
-.board-tab[data-deck="russian"] { --row: var(--hue-russian); }
+.board-tab[data-deck="italian"] { --row: var(--hue-italian); }
+.board-tab[data-deck="german"] { --row: var(--hue-german); }
+.board-tab[data-deck="languages"] { --row: var(--hue-languages); }
 .board-tab:hover { color: var(--black); background: color-mix(in srgb, var(--row) 8%, transparent); }
 .board-tab.active {
   color: var(--row); border-color: color-mix(in srgb, var(--row) 45%, transparent);

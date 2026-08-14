@@ -5,7 +5,14 @@ import { mintToken, tokenAge } from './feedback.js';
 
 export const config = { maxDuration: 15 };
 
-const GAME_TYPES = new Set(['languages', 'accents', 'arabic', 'french', 'spanish', 'chinese', 'hindi-urdu', 'portuguese', 'russian']);
+// Must stay in step with MODES in js/game.js. A deck missing from this set does not fail
+// loudly: the POST path turns it into a null game_type and the row is filed under nothing,
+// while the GET path quietly serves a different deck's board. Splitting hindi-urdu and adding
+// italian and german without touching this list would have thrown away every score those four
+// decks ever produced.
+const GAME_TYPES = new Set(['arabic', 'accents', 'spanish', 'french', 'hindi-urdu',
+  'chinese', 'portuguese', 'italian', 'german', 'languages']);
+const DEFAULT_TYPE = 'arabic';
 const BANNED = ['fuck', 'shit', 'nigg', 'kys', 'hitler', 'rape', 'cunt', 'faggot', 'whore', 'شرموط', 'كس ام', 'منيك', 'زبي'];
 
 const buckets = new Map();
@@ -48,7 +55,7 @@ export default async function handler(req, res) {
     // A signed timestamp handed out when a game starts. Submitting a score requires it to be
     // old enough that the game could actually have been played.
     if (q.get('start')) return res.end(JSON.stringify({ ok: true, token: mintToken() }));
-    const gameType = GAME_TYPES.has(q.get('game_type')) ? q.get('game_type') : 'languages';
+    const gameType = GAME_TYPES.has(q.get('game_type')) ? q.get('game_type') : DEFAULT_TYPE;
     if (!url || !key) return res.end(JSON.stringify({ ok: false, error: 'not_configured' }));
     try {
       const resp = await fetch(`${url}/rest/v1/scores?select=nickname,points,ts&game_type=eq.${gameType}&order=points.desc,ts.asc&limit=100`, { headers: H });

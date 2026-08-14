@@ -10,18 +10,22 @@ const CLIP_WINDOW_S = 20;
 // A deck needs more clips than a game has rounds, or every game is the identical five
 // clips in a different order — the second play spoils the first, and sharing it hands a
 // friend a game whose answers you already know. MIN_DECK is the honest threshold: enough
-// for a few genuinely different games. Below it the deck shows as "stocking" instead.
-// The code is the language tag, which is real information, unlike an emoji.
+// for a few genuinely different games. Below it the deck is not shown at all.
+// A description names the SCOPE of a deck, never the places inside it. The old ones read
+// "Lisbon to Rio, Luanda to Maputo", which handed a player four of the twelve Portuguese
+// answers before they heard a sound. Naming the region tells them what they are signing up for
+// without giving away a single pin.
 const MODES = [
-  { key: 'arabic', code: 'ar', name: 'Arabic Dialects', desc: 'real local radio. Pin the city it&#39;s from' },
-  { key: 'languages', code: 'world', name: 'World Languages', desc: 'a language you may not know. Pin where it lives' },
-  { key: 'accents', code: 'en', name: 'English Accents', desc: 'everyone speaks English. Pin where they&#39;re from' },
-  { key: 'french', code: 'fr', name: 'French', desc: 'Paris or Montréal, Dakar or Brussels' },
-  { key: 'spanish', code: 'es', name: 'Spanish', desc: 'Madrid to Montevideo, by ear' },
-  { key: 'chinese', code: 'zh · yue', name: 'Chinese', desc: 'Mandarin, Cantonese and cousins' },
-  { key: 'hindi-urdu', code: 'hi · ur', name: 'Hindi–Urdu', desc: 'one spoken language, two countries' },
-  { key: 'portuguese', code: 'pt', name: 'Portuguese', desc: 'Lisbon, Rio, Luanda, Praia' },
-  { key: 'russian', code: 'ru', name: 'Russian', desc: 'Moscow to the Pacific' },
+  { key: 'arabic', name: 'Arabic', desc: 'Across the Arab world' },
+  { key: 'accents', name: 'English', desc: 'English wherever it is spoken' },
+  { key: 'spanish', name: 'Spanish', desc: 'Spain and Latin America' },
+  { key: 'french', name: 'French', desc: 'Europe, Canada and Africa' },
+  { key: 'hindi-urdu', name: 'Hindi–Urdu', desc: 'Northern India and Pakistan' },
+  { key: 'chinese', name: 'Chinese', desc: 'Mainland China, Taiwan and Hong Kong' },
+  { key: 'portuguese', name: 'Portuguese', desc: 'Portugal, Brazil and Lusophone Africa' },
+  { key: 'italian', name: 'Italian', desc: 'Across Italy and Italian Switzerland' },
+  { key: 'german', name: 'German', desc: 'Germany, Austria and Switzerland' },
+  { key: 'languages', name: 'World Languages', desc: 'Languages from every continent' },
 ];
 
 let map, guessMarker = null, truthMarker = null, line = null, extraDots = [];
@@ -45,7 +49,13 @@ function initMap() {
   window.HT.keepMinZoom(map, mapEl);
   map.on('click', onMapClick);
   document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) setTimeout(() => map.invalidateSize(), 60);
+    if (!document.hidden) { setTimeout(() => map.invalidateSize(), 60); return; }
+    // Switching away must stop the voice. Two reasons beyond politeness: the listening budget
+    // is charged against wall-clock time, so audio playing to nobody spends a round's 60
+    // seconds; and the window bound used to rest on a 100ms timer that browsers throttle in
+    // background tabs, which let a forgotten tab play on past the clip into the rest of the
+    // source video.
+    if (playing) media.pause();
   });
 }
 
@@ -83,14 +93,45 @@ function haversineKm(a, b) {
   return 2 * R * Math.asin(Math.sqrt(s));
 }
 
-// Decay tuned per mode: cities need precision, world languages forgive continental misses.
-// Halved across the board so top scores are scarce enough to be worth prizes: a 300 km miss
-// in the Arabic deck used to keep 55% of the points and now keeps 30%. The bull's-eye stays
-// tied to each clip's label precision, because label imprecision should never cost points.
+// Decay tuned per deck: tight where the deck sits inside one country, loose where a deck
+// spans continents. Halved across the board so top scores are scarce enough to be worth
+// prizes: a 300 km miss in the Arabic deck used to keep 55% of the points and now keeps 30%.
+// The bull's-eye stays tied to each clip's label precision, so label imprecision never costs
+// points.
+//
+// EVERY KEY IN MODES MUST APPEAR HERE. A deck with no entry falls through to the 1200 km
+// default and is silently five times more forgiving than intended — which is exactly what
+// happened to Hindi and Urdu the moment they were split out of the old 'hindi-urdu' key.
+// The assertion below turns that class of mistake into a console error instead of a scoring
+// bug nobody notices.
 const MODE_DECAY = {
-  arabic: 250, accents: 450, languages: 750,
-  'hindi-urdu': 250, french: 350, chinese: 350, spanish: 450, portuguese: 450, russian: 450,
+  arabic: 250, accents: 450, french: 350, spanish: 450, portuguese: 450, chinese: 350,
+  // One spoken language across two countries, and the deck labels cities, so it keeps the
+  // tight city-scale curve the split decks each had.
+  'hindi-urdu': 250,
+  // Italy and the German-speaking countries are compact, so the cities sit close together and
+  // the varieties are nearer neighbours than Casablanca and Basra. A little more room than
+  // Arabic, still tight enough that guessing the right country is not the same as pinning it.
+  italian: 300, german: 300,
+  // World Languages asks a different question: the answer is a language, and its clips are
+  // pinned at country centres rather than a speaker's hometown. Scoring it as tightly as a city
+  // deck would punish a correct answer for the arbitrariness of where a country's centre falls.
+  languages: 750,
 };
+
+// SHIP WHAT WORKS.
+//
+// A deck below MIN_DECK used to render as a greyed tile captioned "stocking clips". Two of those
+// on the choice screen is the difference between a product and a building site: it advertises
+// doors that do not open, and it invites the reader to judge what is missing rather than play
+// what is there. A deck simply does not appear until it can be played, and reappears on its own
+// the moment it crosses the threshold — no flag to remember, no special case to remove later.
+const playableModes = () => MODES.filter((m) => (((window.CLIPS || {})[m.key]) || []).length >= MIN_DECK);
+
+// A deck with no decay entry scores wrong and looks fine, so say so loudly at load.
+for (const m of MODES) {
+  if (!MODE_DECAY[m.key]) console.error(`MODE_DECAY has no entry for deck "${m.key}" — it will score with the default and be far too forgiving.`);
+}
 
 function scoreFor(km, radius) {
   if (km <= radius) return 5000;
@@ -148,32 +189,36 @@ function startGame(type) {
   nextRound();
 }
 
-// Deal with country variety: one clip per country first, repeats only when countries run out.
-// Spontaneous ("wild") clips outrank read-aloud ones within each country.
+// Any five clips from the deck, at random.
+//
+// This used to deal one clip per COUNTRY first and only draw again once countries ran out, with
+// each country's clips sorted so spontaneous ones came first. On paper that guaranteed variety.
+// In practice it silently made whole decks unreachable: Portuguese has exactly five countries
+// and a game is five rounds, so the one-per-country pass filled every round and the second loop
+// never ran. Seven of its twelve clips could never be dealt, and because the sort inside each
+// country was deterministic, every single game was the identical five recordings in a shuffled
+// order. English Accents lost eight of twenty-two the same way.
+//
+// A deck is a bag of clips; a game is five of them. Anything cleverer than that has to earn its
+// place, and that one did not. The only rule kept is that one game never asks the same place
+// twice, since two identical answers in five rounds reads as a bug rather than a coincidence -
+// and if a deck is too thin to avoid it, it falls back to filling the round rather than dealing
+// short.
 function dealDeck(pool) {
-  const byCountry = {};
-  for (const c of shuffle(pool)) {
-    const country = c.label.includes(',') ? c.label.split(',').pop().trim() : c.label;
-    (byCountry[country] = byCountry[country] || []).push(c);
-  }
-  for (const rows of Object.values(byCountry)) rows.sort((a, b) => (b.wild ? 1 : 0) - (a.wild ? 1 : 0));
-  const countries = shuffle(Object.keys(byCountry));
+  const placeOf = (c) => String(c.label);
+  const bag = shuffle(pool);
   const out = [];
-  // one clip per country first, so a round never opens with two clips from the same place
-  for (const country of countries) {
+  const used = new Set();
+  for (const c of bag) {
     if (out.length >= ROUNDS) break;
-    const c = byCountry[country].shift();
-    if (c) out.push(c);
+    if (used.has(placeOf(c))) continue;
+    used.add(placeOf(c));
+    out.push(c);
   }
-  // then keep drawing from whichever country still has the most unused clips — in a deck like
-  // Chinese, that spends the four China cities instead of repeating Hong Kong twice
-  while (out.length < ROUNDS) {
-    const next = countries
-      .map((k) => byCountry[k])
-      .filter((rows) => rows.length)
-      .sort((a, b) => b.length - a.length)[0];
-    if (!next) break; // pool exhausted
-    out.push(next.shift());
+  // a deck with fewer distinct places than rounds still gets a full game
+  for (const c of bag) {
+    if (out.length >= ROUNDS) break;
+    if (!out.includes(c)) out.push(c);
   }
   return out;
 }
@@ -217,7 +262,7 @@ function nextRound() {
   era.hidden = !(y && y < 1990);
   if (!era.hidden) era.textContent = `archival recording · ${y} · accents move`;
   setView('round');
-  media.load(deck[round]); // preload now so play starts instantly on tap
+  media.load(deck[round], CLIP_WINDOW_S); // preload now so play starts instantly on tap
 }
 
 // The playable region is a fixed CLIP_WINDOW_S slice starting at _offset —
@@ -262,7 +307,7 @@ function playClip() {
       toast('That clip refused to play, so I swapped it for you.');
       deck[round] = replacementClip();
       media.clear();
-      media.load(deck[round]);
+      media.load(deck[round], CLIP_WINDOW_S);
       setTimeout(() => playClip(), 400);
     } else {
       toast('The audio is stuck this round. Lock a guess or skip ahead.');
@@ -578,23 +623,31 @@ function deckThumb(clips, hue) {
 function renderModeCards() {
   const grid = $('#typeGrid');
   grid.innerHTML = '';
-  for (const m of MODES) {
+  for (const m of playableModes()) {
     const pool = (window.CLIPS && window.CLIPS[m.key]) || [];
-    const ready = pool.length >= MIN_DECK;
     const b = document.createElement('button');
-    b.className = 'type-btn' + (ready ? '' : ' soon');
+    b.className = 'type-btn';
     const hue = getComputedStyle(document.documentElement).getPropertyValue(`--hue-${m.key}`).trim() || '#2A6B60';
-    b.innerHTML = `<span class="deck-mark">${deckThumb(pool, hue)}<span class="type-code">${m.code}</span></span>`
-      + `<span class="type-name">${m.name}</span><span class="type-desc">${m.desc}</span>`
-      + (ready ? '' : '<span class="type-soon-note">stocking clips</span>');
+    b.innerHTML = `<span class="deck-mark">${deckThumb(pool, hue)}</span>`
+      + `<span class="type-name">${m.name}</span><span class="type-desc">${m.desc}</span>`;
     b.dataset.deck = m.key;
-    b.title = m.desc.replace(/&#39;/g, "'");
-    if (ready) b.onclick = (e) => {
+    // No title attribute. The description used to be hidden and shown only as a native browser
+    // tooltip, which is why hovering a deck produced a bare grey box of sentence-cased text with
+    // no styling. The description is visible on the tile now, so a tooltip would only repeat it.
+    b.onclick = (e) => {
       window.HT.setDeck(m.key, { x: e.clientX, y: e.clientY });
       startGame(m.key);
     };
     grid.appendChild(b);
   }
+
+  // The card header used to read "nine decks" as static HTML that nothing ever updated, so it
+  // stayed at nine through every deck added or removed and was wrong the moment the list
+  // changed. It counts what is on screen, which is now the same thing as what is playable.
+  const ready = MODES.filter((m) => ((window.CLIPS && window.CLIPS[m.key]) || []).length >= MIN_DECK).length;
+  const WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+  const el = $('#deckCount');
+  if (el) el.textContent = `${WORDS[ready] || ready} deck${ready === 1 ? '' : 's'}`;
 }
 
 // ————— flagging a bad clip —————
@@ -687,7 +740,7 @@ async function showBoards(deckKey) {
   setView('boards');
   const tabs = $('#boardTabs');
   tabs.innerHTML = '';
-  for (const m of MODES) {
+  for (const m of playableModes()) {
     const b = document.createElement('button');
     b.className = 'board-tab' + (m.key === boardDeck ? ' active' : '');
     // The deck's own hue, which is what the picker uses to tell nine decks apart. The language
@@ -741,7 +794,7 @@ $('#lockBtn').onclick = lockIn;
 $('#nextBtn').onclick = advance;
 $('#submitScore').onclick = submitScore;
 $('#againSame').onclick = () => startGame(gameType);
-$('#switchType').onclick = () => { clearRoundLayers(); map.fitBounds(WORLD); window.HT.setDeck('languages'); setView('pick'); };
+$('#switchType').onclick = () => { clearRoundLayers(); map.fitBounds(WORLD); window.HT.setDeck(null); setView('pick'); };
 // one-time cleanup: leaderboard testing during the Aug 8 production sweep saved its test
 // nickname on whatever device ran it; devices carrying it self-clean here
 if (localStorage.getItem('ht_nick') === 'sweep bot') localStorage.removeItem('ht_nick');
