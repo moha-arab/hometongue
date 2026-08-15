@@ -394,15 +394,20 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .share-btn:active:not(:disabled) { transform: translateY(1px); }
 .share-btn:disabled { opacity: 0.65; cursor: wait; }
 .stop-btn:disabled { background: var(--paper-2); color: var(--grey-2); cursor: default; }
-/* THE COUNT RIDES ALONG, it does not replace the label. A button that becomes a bare "7" stops
-   saying what it will do at the exact moment someone is deciding whether to wait for it. The pill
-   is tabular and fixed-width so 20 -> 9 does not resize the button under the cursor. */
-.stop-btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; }
-.stop-btn #countPill {
-  min-width: 26px; padding: 2px 6px; border-radius: 999px;
-  background: rgba(0, 0, 0, 0.07); color: inherit;
-  font-size: 12.5px; font-weight: 600; font-variant-numeric: tabular-nums;
+/* THE BUTTON FILLS TOWARD ITS OWN UNLOCK. --unlock is written every tick as a percentage of the
+   twenty seconds, and the accent wash sweeps across the button to meet it — so the moment the
+   control becomes pressable is something you watch arrive instead of a number you have to
+   interpret. At 100% the disabled rule stops applying and the real button colour lands, which is
+   a change big enough that nobody misses it.
+   Fixed min-width and tabular figures so "done in 13s" -> "done in 9s" does not shuffle the
+   button under a thumb that is already reaching for it. */
+.stop-btn { position: relative; overflow: hidden; min-width: 172px; font-variant-numeric: tabular-nums; }
+.stop-btn:disabled::before {
+  content: ''; position: absolute; inset: 0; width: var(--unlock, 0%);
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+  transition: width 0.25s linear;
 }
+.stop-btn > span { position: relative; z-index: 1; }
 
 /* 44px tall because these are pressed with a thumb, not a mouse. "post score" was 32px, which
    is a miss-and-try-again target on a phone — and it is the button that decides whether a run

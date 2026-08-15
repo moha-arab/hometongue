@@ -16,7 +16,7 @@ const MAX_SECONDS = 60;
 let map, marker, glow;
 let state = 'idle';
 let mediaStream = null, recorder = null, chunks = [], recMime = '';
-let audioCtx = null, analyser = null, rafId = null;
+let audioCtx = null, analyser = null, rafId = null, meterLoop = null, meterStream = null;
 let timerId = null, startedAt = 0;
 let micPeak = -1; // loudest rolling level seen this recording; -1 = meter unavailable
 // Peak alone cannot tell speech from a door slam. A single cough clears a peak threshold and
@@ -92,15 +92,15 @@ const MIN_VOICED_S = 1.5;   // a mic that heard essentially nothing at all
 // twenty-seven, so those lines invite quietly. The wording tracks the effect size on purpose —
 // "a big jump" where the number is big, "keeps sharpening" where it is small.
 const TIERS = [
-  { at: 20, word: 'ten more seconds is a big jump' },  // 44% within 100 km — the floor
-  { at: 30, word: 'keep going, it keeps sharpening' }, // 52%
-  { at: 45, word: 'almost the sharpest it gets' },     // 56%
+  { at: 20, word: '10 more seconds, much closer guess' },  // 44% within 100 km — the floor
+  { at: 30, word: 'keep going, it gets closer' }, // 52%
+  { at: 45, word: 'almost as close as it gets' },     // 56%
   // The evidence for this one is the 60s row (59%), but 60s is the CAP: a tier set there lights
   // its dot on the same tick that stopListening() fires, so nobody would ever see it earned. That
   // is the identical bug the original three-dot meter shipped with — a rung that cannot be
   // reached — and it is not worth repeating for five seconds of precision that no measurement
   // could resolve anyway. Derived from the cap so it follows if the cap ever moves.
-  { at: MAX_SECONDS - 5, word: 'sharpest it gets' },
+  { at: MAX_SECONDS - 5, word: 'as close as it gets' },
 ];
 const MIN_RECORD_S = TIERS[0].at;  // the gate is the first tier, by construction
 
@@ -345,6 +345,7 @@ setInterval(() => {
 
 // ————— waveform + timer —————
 function startMeter(stream) {
+  meterStream = stream;
   try {
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
@@ -388,6 +389,7 @@ function startMeter(stream) {
       }
       rafId = requestAnimationFrame(loop);
     };
+    meterLoop = loop;
     loop();
   } catch { /* no meter, no problem */ }
 }
@@ -395,7 +397,56 @@ function startMeter(stream) {
 function stopMeter() {
   if (rafId) cancelAnimationFrame(rafId), rafId = null;
   if (audioCtx) audioCtx.close().catch(() => {}), audioCtx = null;
+  meterLoop = null; meterStream = null;
 }
+
+// ————— SWITCHING APPS MID-TAKE —————
+//
+// Nothing used to guard this and all four consequences were live at once. A backgrounded tab
+// throttles setInterval to roughly once a minute, so the countdown froze wherever it was —
+// reported stuck at 0:26. requestAnimationFrame stops entirely, so the waveform froze mid-shape
+// and then lurched back to life on return, which reads as the meter reacting to a voice that is
+// not there. The cap at MAX_SECONDS never fired on time, because the tick that enforces it was
+// throttled with everything else.
+//
+// And the one that actually costs accuracy: MediaRecorder KEEPS RECORDING. A take left in the
+// background quietly fills with room tone, and the eval notes are explicit about what that does —
+// padding real speech with silence moved the pin on 4 of 12 clips, one of them from 0 km to
+// 3185 km. Coming back to a 26-second take that now holds 26 seconds of speech and four minutes
+// of nothing is worse than coming back to no take at all.
+//
+// So the take PAUSES. Recorder, meter and clock all stop together, and the away time is added
+// back to startedAt on return so it never counts against the person. Switch apps for five
+// minutes, come back, and you are exactly where you left off.
+let pausedAt = 0;
+
+function pauseTake() {
+  if (state !== 'listening' || pausedAt) return;
+  pausedAt = Date.now();
+  stopTimer();
+  if (rafId) cancelAnimationFrame(rafId), rafId = null;
+  try { if (audioCtx && audioCtx.state === 'running') audioCtx.suspend().catch(() => {}); } catch { /* not fatal */ }
+  // pause() is not universal; where it is missing the clock still freezes and the only cost is
+  // some room tone on the tail, which is the old behaviour rather than a new failure.
+  try { if (recorder && recorder.state === 'recording' && recorder.pause) recorder.pause(); } catch { /* ignore */ }
+}
+
+function resumeTake() {
+  if (state !== 'listening' || !pausedAt) return;
+  startedAt += Date.now() - pausedAt;   // the time away never happened
+  pausedAt = 0;
+  try { if (recorder && recorder.state === 'paused' && recorder.resume) recorder.resume(); } catch { /* ignore */ }
+  try { if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume().catch(() => {}); } catch { /* ignore */ }
+  if (!rafId && meterLoop) meterLoop();
+  resumeTimer();
+}
+
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) pauseTake(); else resumeTake();
+});
+// Safari fires pagehide without visibilitychange in some flows, and a take left running there is
+// the same silent-padding problem by another door.
+addEventListener('pagehide', () => pauseTake());
 
 function startTimer() {
   startedAt = Date.now();
@@ -411,14 +462,24 @@ function startTimer() {
     [...$('#dots').children].forEach((d, i) => { d.classList.remove('on'); d.classList.toggle('next', i === 0); });
     const w0 = $('#tierWord');
     if (w0) w0.textContent = 'keep talking';
-    const p0 = $('#countPill');
-    if (p0) { p0.hidden = false; p0.textContent = String(MIN_RECORD_S); }
+    const l0 = $('#stopLabel');
+    if (l0) l0.textContent = `done in ${MIN_RECORD_S}s`;
+    if (stop0) stop0.style.setProperty('--unlock', '0%');
     const f0 = $('#countFill');
     if (f0) f0.style.width = '0%';
     // Derived, so the clock on screen can never disagree with the cap that enforces it.
     $('#timer').textContent = `${Math.floor(MAX_SECONDS / 60)}:${String(MAX_SECONDS % 60).padStart(2, '0')}`;
   }
-  timerId = setInterval(() => {
+  timerId = setInterval(tick, 250);
+}
+
+// Restart the interval WITHOUT touching startedAt or the UI, for coming back from a paused take.
+function resumeTimer() {
+  if (!timerId) timerId = setInterval(tick, 250);
+}
+
+function tick() {
+  {
     const s = Math.floor((Date.now() - startedAt) / 1000);
     // A countdown, not a stopwatch. The cap used to fire with no warning, which read as the
     // app crashing mid-sentence rather than a deliberate limit.
@@ -448,17 +509,16 @@ function startTimer() {
       // what it is waiting for and exactly how long, in the place they are already looking.
       // This is not the third clock that got cut — that one duplicated a countdown sitting
       // beside it. Nothing else on this screen counts down now.
-      // THE BUTTON KEEPS ITS NAME. It briefly BECAME the number, which left a bare "7" sitting
-      // where a control should be — nothing on screen then said what pressing it would do, so the
-      // countdown explained the wait and destroyed the label to do it. The number is a passenger
-      // now: the button always reads "done, guess now", and while it is locked it also carries
-      // the count.
+      // THE BUTTON SHOWS ITS OWN UNLOCK. A bare "13" ticking down told nobody what happens at
+      // zero — the number was a fact with no sentence around it. It reads "done in 13s" now, and
+      // fills from the left as it approaches, so the moment it becomes pressable is something you
+      // watch arrive rather than something you have to work out.
       stop.disabled = s < MIN_RECORD_S;
-      const pill = $('#countPill');
-      if (pill) {
-        pill.hidden = !stop.disabled;
-        const left = String(MIN_RECORD_S - s);
-        if (stop.disabled && pill.textContent !== left) pill.textContent = left;
+      stop.style.setProperty('--unlock', `${Math.min(100, (s / MIN_RECORD_S) * 100)}%`);
+      const lab = $('#stopLabel');
+      if (lab) {
+        const want = stop.disabled ? `done in ${MIN_RECORD_S - s}s` : 'done, guess now';
+        if (lab.textContent !== want) lab.textContent = want;
       }
     }
     // THE BAR RUNS THE WHOLE MINUTE, with a notch where the submit button unlocks. The measured
@@ -488,7 +548,7 @@ function startTimer() {
       }
     }
     if (s >= MAX_SECONDS) stopListening();
-  }, 250);
+  }
 }
 
 function stopTimer() {
