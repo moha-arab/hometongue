@@ -1334,6 +1334,11 @@ function renderResult(v) {
   const r = v.radius_km;
   // km is distance from a point, so it binds to the city headline: give or take this much.
   $('#radiusNum').textContent = '±' + (r >= 1000 ? `${(r / 1000).toFixed(1)}k` : r);
+  // The same number, reused at the bottom as a dare. It is what makes that line land: a generic
+  // invitation to play a game is an advert, and "it placed you within 85 km, your turn" is about
+  // the person reading it.
+  const turn = $('#turnKm');
+  if (turn) turn.textContent = r >= 1000 ? `${(r / 1000).toFixed(1)}k` : String(r);
   $('#radiusLead').textContent = r <= 50 ? 'and I mean that specifically. A town, not a region'
     : r <= 200 ? 'a confident guess at the area'
       : r <= 600 ? 'the accent gives me a region, not a town'

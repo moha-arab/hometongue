@@ -179,21 +179,15 @@
     </div>
     <button class="share-btn" id="shareBtn">share your card</button>
     <button class="stop-btn" id="againBtn">go again</button>
-    <!-- THE ONE MOMENT SOMEONE IS MOST LIKELY TO SAY YES. They have just been placed by a machine
-         and are sitting there deciding whether this was a trick. Turning it around is the whole
-         pitch: it read you, now see if you can read a stranger. Written as a thing to go and do,
-         with the mode's own icon, because a grey sentence at the bottom of a card is something
-         people scroll past on their way to closing the tab. -->
-    <a class="next-up" href="/game.html">
-      <span class="next-up-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16v-4a8 8 0 0 1 16 0v4"/><rect x="2.5" y="13.5" width="4.5" height="7.5" rx="2.25"/><rect x="17" y="13.5" width="4.5" height="7.5" rx="2.25"/></svg>
-      </span>
-      <span class="next-up-text">
-        <b>Guess the Voice</b>
-        <i>It just placed you. Can you place a stranger?</i>
-      </span>
-      <span class="next-up-go" aria-hidden="true">→</span>
-    </a>
+    <!-- THE TURNABOUT. An icon-title-subtitle-chevron card is the single most template-looking
+         object on the web, and this site does not otherwise look like that. So this borrows the
+         product's own voice instead: the verdict serif, one short line, and the number they are
+         already staring at. "It placed you within 85 km. Your turn." is a dare rather than a
+         banner, and it only works HERE, on the one screen where that number exists. -->
+    <div class="turnabout">
+      <p class="turnabout-line">It placed you within <b id="turnKm">—</b> km.<br><i>Your turn.</i></p>
+      <a class="turnabout-btn" href="/game.html">Hear a stranger, pin their city</a>
+    </div>
   </section>
 
 </main>
