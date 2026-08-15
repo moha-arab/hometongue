@@ -462,7 +462,7 @@ function tick() {
     // a hidden tab meant a PAUSED recorder — that time was not audio. Now the recorder keeps
     // running while hidden, so those seconds are real recorded audio and subtracting them would
     // make the clock claim less speech than the take actually holds.
-    const s = Math.floor((now - startedAt) / 1000);
+    const s = Math.floor((Date.now() - startedAt) / 1000);
     // A countdown, not a stopwatch. The cap used to fire with no warning, which read as the
     // app crashing mid-sentence rather than a deliberate limit.
     const left = Math.max(0, MAX_SECONDS - s);
