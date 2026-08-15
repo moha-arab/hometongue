@@ -914,13 +914,25 @@ async function analyzeResilient(payload) {
   try {
     const MAX_TRIES = 3;
     for (let attempt = 1; ; attempt++) {
+      // KILL A DEAD ATTEMPT THE MOMENT WE KNOW IT IS DEAD, rather than waiting out its 75s
+      // ceiling. A fetch that iOS suspended does not reliably reject — a half-open connection can
+      // hang until the timeout fires, so someone who left and came back was watching "picking up
+      // where we left off" for up to 75 seconds of nothing before the retry even STARTED, and
+      // then the real call on top of that. Coming back is itself the proof that attempt is gone.
+      const kill = new AbortController();
+      const onReturn = () => { if (!document.hidden && wentAway) kill.abort(); };
+      document.addEventListener('visibilitychange', onReturn);
       try {
-        return await postAnalyze(payload);
+        return await postAnalyze(payload, kill.signal);
       } catch (err) {
+        document.removeEventListener('visibilitychange', onReturn);
         // The server got the audio and made a judgement about it. Sending it again cannot change
         // that answer, and would spend a second call to hear it.
         const serverAnswered = err && err.userMessage && err.message !== 'timeout';
         if (serverAnswered || attempt >= MAX_TRIES) throw err;
+        // A superseded attempt cost nothing and proves the page is back, so it goes straight
+        // round again without the settling pause a real network failure earns.
+        if (err && err.superseded) { attempt -= 1; continue; }
 
         await untilVisible();
         // A beat for the network to come back with the page. 400ms, then 1200ms — the first
@@ -929,6 +941,8 @@ async function analyzeResilient(payload) {
 
         const note = $('#scanNote');
         if (note) note.textContent = wentAway ? 'picking up where we left off' : 'reconnecting';
+      } finally {
+        document.removeEventListener('visibilitychange', onReturn);
       }
     }
   } finally {
@@ -936,24 +950,39 @@ async function analyzeResilient(payload) {
   }
 }
 
-async function postAnalyze(payload) {
+async function postAnalyze(payload, extraSignal) {
   // 75s outlasts the server's own 60s ceiling, so every legitimate slow answer arrives —
   // but a stalled mobile connection can otherwise hang this fetch for minutes with the
   // analyzing card holding the whole UI hostage (it has no buttons by design). The timeout
   // is the escape hatch.
   let resp;
+  // The 75s ceiling stays for a legitimately slow model call, but the caller can also abort
+  // early — see analyzeResilient, which kills a request the moment it knows the phone was away
+  // rather than letting a half-dead connection sit here burning the full timeout.
+  const ctl = new AbortController();
+  const killer = setTimeout(() => ctl.abort(new DOMException('timeout', 'TimeoutError')), 75_000);
+  const relay = () => ctl.abort(new DOMException('superseded', 'AbortError'));
+  if (extraSignal) extraSignal.addEventListener('abort', relay, { once: true });
   try {
     resp = await fetch('/api/analyze', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
-      signal: AbortSignal.timeout(75_000),
+      signal: ctl.signal,
     });
   } catch (e) {
+    // A caller-driven abort is NOT a timeout: it means "this attempt is known dead, start the
+    // next one now". Reporting it as a stall would end the take instead of retrying it.
+    if (e && e.name === 'AbortError' && ctl.signal.reason && ctl.signal.reason.message === 'superseded') {
+      throw Object.assign(new Error('superseded'), { superseded: true });
+    }
     if (e && (e.name === 'TimeoutError' || e.name === 'AbortError')) {
       throw Object.assign(new Error('timeout'), { userMessage: 'That took too long. The network or the model stalled.' });
     }
     throw e;
+  } finally {
+    clearTimeout(killer);
+    if (extraSignal) extraSignal.removeEventListener('abort', relay);
   }
   const data = await resp.json().catch(() => null);
   if (!resp.ok || !data || !data.ok) {
