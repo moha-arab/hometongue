@@ -2,38 +2,37 @@
 
 Your voice is a place. Live at **[hometongue.me](https://www.hometongue.me/)**.
 
-- **🎙 Read My Accent** — talk in any language for ~30s and it places where you grew up as a point on the map, inside a circle it is honestly confident about.
-- **📍 Guess the Voice** ([game.html](game.html)) — GeoGuessr for ears: hear a real clip, drop a pin. **Nine decks, 161 clips**: Arabic Dialects (45 places), English Accents, World Languages, Spanish, Chinese, Portuguese, French, Russian, Hindi–Urdu. Distance scoring, 5 rounds, nickname leaderboard.
+- **🎙 Read My Accent** — talk in any language for at least 20 seconds and it places where you grew up as a point on the map, inside a circle it is honestly confident about.
+- **📍 Guess the Voice** ([game.html](game.html)) — GeoGuessr for ears: hear a real clip, drop a pin. **Eight playable decks, 155 clips**: Arabic (40), World Languages (26), English Accents (22), Spanish (14), French (13), Hindi–Urdu (13), Chinese (12), Portuguese (12). Distance scoring, 5 rounds, nickname leaderboard. Italian and German exist as deck keys but are still being stocked, so they are not dealt.
 
 Works on **every device** — desktop, Android, iPhone — because recording uses MediaRecorder and analysis happens server-side.
 
 ## How it works
 
 ```
-audio → Gemini 3.6 Flash → { lat, lng, radius_km, place, evidence, transcript }
+audio → Gemini 3.5 Flash → { lat, lng, radius_km, place, evidence, transcript }
 ```
 
-One call. The model **listens to the recording directly** — there is no transcription step and no speech-to-text service in the middle.
+One call. The model **listens to the recording directly** — there is no transcription step and no speech-to-text service in the middle. `gemini-3.6-flash` sits behind it as an automatic fallback, because the primary will have a bad day: on 2026-08-11 it returned HTTP 500 on six of eight audio requests while text sailed through. The two measure as a tie on accuracy, so the chain is redundancy, not a quality ladder.
 
 That is the whole architectural argument, and it was measured rather than assumed. The app used to be a cascade: Whisper transcribed the audio, then Claude classified the dialect from the words. It was replaced in August 2026 because **speech-to-text deletes the accent by design.** A transcript uses standard spelling no matter how a word was said, so an Egyptian saying *gamal* and a Levantine saying *jamal* both arrive as جمال. The signal was being thrown away before the reasoning started.
 
-| | country accuracy | median error |
-| --- | --- | --- |
-| cascade (Whisper → Claude) | 58% | — |
-| audio-native (Gemini) | **86%** | **44 km** |
+The switch was decided on a country-label comparison run in August 2026 — the cascade scored 58% against the audio-native call's 86% on the Arabic set — and the app has been scored in kilometres rather than country labels ever since, so those two figures are kept here as the historical reason for the change, not as current numbers. The current ones are below.
 
-The answer is a **point plus a radius**, not a country and a percentage. `radius_km` is the distance the model is ~70% confident you grew up within; measured calibration is 72%, so the circles are close to honest. A wide circle in the right place is a good answer; a narrow one in the wrong place is the only truly bad one.
+The answer is a **point plus a radius**, not a country and a percentage. `radius_km` is the distance the model is ~70% confident you grew up within; measured calibration is **64%**, so the circles run slightly optimistic. A wide circle in the right place is a good answer; a narrow one in the wrong place is the only truly bad one.
 
 ## Measuring it
 
-`tools/eval.mjs` plays all 111 hand-labelled clips to the model, compares each guess to the known city, and scores the great-circle distance.
+`tools/eval.mjs` plays the hand-labelled clips to the model, compares each guess to the known city, and scores the great-circle distance.
 
 ```bash
 node tools/eval.mjs                 # all decks
 node tools/eval.mjs arabic accents  # named decks
 ```
 
-**44 km median error, 59% within 100 km, 86% country correct.** Published SOTA for coordinate-level accent geolocation is a 481 km median, though on a different and smaller corpus — treat it as a sanity check on the order of magnitude, not a like-for-like win.
+**55 km median error, 60% within 100 km, 74% within 250 km**, over 84 scored clips. Published SOTA for coordinate-level accent geolocation is a 481 km median, though on a different and smaller corpus — treat it as a sanity check on the order of magnitude, not a like-for-like win.
+
+Those figures are from `data/eval-gemini-3.5-flash.json`, whose stored prompt hash matches the shipped prompt, so they describe exactly what the site runs today. The clip manifest has changed since that run, so the benchmark is due a repeat.
 
 Two rules keep the number meaningful:
 
@@ -58,16 +57,32 @@ One mechanism explains the failures: a long specialist preamble competes with th
 
 ### How long should you talk?
 
-Measured across four truncations of the benchmark clips:
+The app asks for **20 seconds minimum** and encourages up to 60. Read the rest of this section before changing that number, because the obvious reading of the data is wrong.
 
-| audio | median error | <100 km | median latency |
+Two truncation sweeps exist and they do not agree. Both are real; both are in `data/`.
+
+| audio | `length-latency.json` (n≈24) | `length-sweep.json` (n=54) |
+| --- | --- | --- |
+| 8s | 345 km · 25% <100km | — |
+| 12s | 157 km · 48% | — |
+| 20s | 157 km · 50% | 317 km · 44% |
+| 30s | 67 km · 57% | 72 km · 52% |
+| 45s | — | 90 km · 54% |
+| 60s | — | 85 km · 57% |
+
+Medians move a great deal here, and on heavy-tailed samples that happens for reasons unrelated to the treatment. The paired per-clip counts, which are the only view that can actually see an effect, are much weaker:
+
+| comparison | longer better | worse | tied |
 | --- | --- | --- | --- |
-| 30s | **67 km** | **57%** | 11.8 s |
-| 20s | 157 km | 50% | 10.2 s |
-| 12s | 157 km | 48% | 8.2 s |
-| 8s | 345 km | 25% | 6.2 s |
+| 20s → 30s | 10 | 6 | 11 |
+| 30s → 45s | 8 | 6 | 13 |
+| 45s → 60s | 6 | 4 | 18 |
 
-Accuracy climbs with length; latency barely moves, because the wait is model inference rather than upload. Shortening the recording is therefore not a latency fix — it only costs accuracy. The UI shows this live as three dots filling at 10s, 20s and 30s.
+**So: short recordings are clearly bad, and beyond 20 seconds is not established.** With only a handful of clips ever moving between adjacent lengths, none of those comparisons reaches significance, and a rerun on byte-identical audio once reversed the ordering. An earlier version of this file presented the 30s row as a settled finding; that conclusion is withdrawn, though the number itself is a faithful reading of the smaller sweep.
+
+Latency barely moves with length, because the wait is model inference rather than upload. Shortening the recording is therefore not a latency fix.
+
+The UI shows four dots filling at 20s, 30s, 45s and 55s. They are an honest encouragement to keep talking, not a promise that each one buys a measured amount.
 
 ## How clips get into Guess the Voice
 
@@ -82,7 +97,7 @@ Every clip passes the same gate, enforced by code rather than memory:
 node tools/check-decks.mjs
 ```
 
-Non-zero exit if any clip breaks the homeland rule, is missing source credits, has a missing file, leaves a deck under the 5 clips a round needs, or if an eval result file has gone stale.
+Non-zero exit if any clip breaks the homeland rule, is missing source credits, has a missing file, leaves a deck under the 5 clips a round needs, or if an eval result file has gone stale. Dealing has a second, higher bar: `MIN_DECK` in `js/game.js` is 10, below which a deck is withheld rather than dealt, because a five-clip deck serves the same game every time and spoils itself on the second play.
 
 `tools/source-clips.mjs` finds candidates and vets them by handing the audio to the app's own model, blind — the strongest available test of "is this person really from Lagos", and the thing that keeps impressionists out. Everything it accepts is stamped `evalExclude` for the reason above.
 
@@ -131,4 +146,6 @@ After every guess: "did I get it?" — corrections always log, and with the **do
 
 ## Credits and licences
 
-Every clip credits its source, host and licence on the reveal, with a link to the original. Sources are Wikimedia Commons, Wikitongues, Voice of America, the UK/Welsh Open Government Licence, and the [ARCADE corpus](https://huggingface.co/datasets/riotu-lab/ARCADE-full) (RIOTU Lab) for Arabic. All licences permit reuse; **no non-commercial clips remain in the project**.
+Every clip credits its source, host and licence on the reveal, with a link to the original. Sources are Wikimedia Commons, Wikitongues, Voice of America, the [ARCADE corpus](https://huggingface.co/datasets/riotu-lab/ARCADE-full) (RIOTU Lab) for Arabic, and YouTube for the streamed clips. All licences permit reuse; **no non-commercial clips remain in the project**.
+
+As counted from the manifest: 44 streamed from YouTube and never copied, 40 CC BY 4.0, 24 CC BY-SA 4.0, 23 CC BY-SA 3.0, 13 public domain (including US government work), 5 CC BY 3.0, 5 CC0, 1 CC BY-SA 2.5.

@@ -1,0 +1,28 @@
+# Files that have no business being on the public site.
+#
+# Vercel deploys the whole repo as static files by default, so every one of these used to answer
+# 200 on hometongue.me: the PRDs, the eval harness, the candidate clip lists, the database schema,
+# the dev server. None of it is secret (the repo is public and no key has ever been committed) but
+# none of it belongs on the product's domain either.
+#
+# This is an upload filter, not a robots rule. The files are never sent to Vercel at all, so they
+# 404 instead of politely asking crawlers to look away. A robots.txt listing these paths would have
+# done the opposite of the job: it would publish the exact list of things worth looking at.
+#
+# Verified before excluding: nothing at runtime reads any of these. api/*.js import only from
+# ./ and node:, and the only paths the frontend ever fetches are /api/* and /sw.js.
+# Do NOT add js/, css/, clips/, vendor/ or assets/ here — those are the site.
+
+# research, measurement and curation records
+data/
+tools/
+test-audio/
+
+# planning docs and the database schema
+docs/
+supabase/
+*.md
+
+# local-only dev server; production runs the api/ functions on Vercel
+dev-server.js
+.env.example
