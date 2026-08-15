@@ -27,6 +27,20 @@ const MIME = {
   '.mp3': 'audio/mpeg', '.ogg': 'audio/ogg', '.opus': 'audio/ogg', '.m4a': 'audio/mp4', '.wav': 'audio/wav',
 };
 
+// THIS MACHINE ONLY, UNLESS YOU ASK OTHERWISE.
+//
+// Node binds every network interface when no host is given, so this was reachable at the laptop's
+// address on whatever wifi it happened to be on. Blocking dotted paths closed the .env leak, but
+// the bigger exposure is above: this server routes /api/analyze, /api/feedback, /api/clip-report
+// and /api/scores to the REAL handlers with the REAL keys. A stranger on the same network could
+// POST audio to it and spend Gemini credit, and the origin check does not help — it only asks that
+// Origin match the host they are already talking to, which is trivially true for them.
+//
+// Localhost by default means a café or a campus network is simply not a question you have to think
+// about. To test from a phone on the same wifi, opt in for that session:
+//     HOST=0.0.0.0 node dev-server.js
+const HOST = process.env.HOST || '127.0.0.1';
+
 http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
   if (url.pathname === '/api/analyze') return analyze(req, res);
@@ -67,4 +81,9 @@ http.createServer(async (req, res) => {
   }
   res.writeHead(200, { 'Content-Type': type, 'Accept-Ranges': 'bytes', 'Content-Length': total });
   fs.createReadStream(file).pipe(res);
-}).listen(PORT, () => console.log(`hometongue dev server: http://localhost:${PORT} (gemini key: ${!!process.env.GEMINI_API_KEY})`));
+}).listen(PORT, HOST, () => {
+  console.log(`hometongue dev server: http://localhost:${PORT} (gemini key: ${!!process.env.GEMINI_API_KEY})`);
+  console.log(HOST === '127.0.0.1'
+    ? '  this machine only. for phone testing on the same wifi: HOST=0.0.0.0 node dev-server.js'
+    : `  WARNING: reachable by anything on this network, and it serves the live API keys`);
+});
