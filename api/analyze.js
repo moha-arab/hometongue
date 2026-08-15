@@ -18,6 +18,10 @@
 //   - feeding hand-written dialect marker playbooks (69 km vs 43 km, better on 2, worse on 3)
 // Both cost a call and latency for noise. Do not re-add without re-running tools/eval.
 import { mintToken } from './feedback.js';
+import { SYSTEM, SCHEMA, MODEL } from './prompt.js';
+// Shared with tools/source-clips.mjs, which vets clips with this same model and prompt and so
+// needs the same rules. See api/verdict.js.
+import { heardSomething, modelChain } from './verdict.js';
 
 // A RESULT CACHE WAS BUILT HERE AND TAKEN BACK OUT BEFORE IT EVER STORED ANYTHING.
 //
