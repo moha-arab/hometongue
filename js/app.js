@@ -864,10 +864,22 @@ async function pollForTake(id, key, onTick) {
   const BUDGET_MS = 4 * 60 * 1000;
   let wait = 1200;
   while (Date.now() - started < BUDGET_MS) {
-    await new Promise((r) => setTimeout(r, wait));
+    // RACED AGAINST COMING BACK, which is the difference between "it was there" and "it appeared
+    // after a while". A hidden tab throttles setTimeout to about once a MINUTE, so a plain sleep
+    // means returning to the page and then waiting up to another minute for the next tick — on
+    // an answer that has been sitting finished the whole time. Becoming visible cuts the sleep
+    // short and polls immediately.
+    await Promise.race([
+      new Promise((r) => setTimeout(r, wait)),
+      new Promise((r) => {
+        const back = () => { if (!document.hidden) { document.removeEventListener('visibilitychange', back); r(); } };
+        document.addEventListener('visibilitychange', back);
+        setTimeout(() => document.removeEventListener('visibilitychange', back), wait + 50);
+      }),
+    ]);
     wait = Math.min(4000, Math.round(wait * 1.25));
-    // A hidden tab is throttled to the point of uselessness and its fetches die anyway. Sitting
-    // still costs nothing and the answer keeps for thirty minutes.
+    // A hidden tab's fetches die anyway, so asking costs a failed request and gains nothing. The
+    // answer keeps for thirty minutes; sitting still is free.
     if (document.hidden) continue;
     const got = await collectTake(id, key);
     if (got && got !== 'gone') return got;
