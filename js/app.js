@@ -1265,8 +1265,14 @@ function renderResult(v) {
   const evidence = $('#evidence'), runners = $('#runners'), heard = $('#heard');
   evidence.innerHTML = ''; runners.innerHTML = '';
 
-  heard.hidden = !v.transcript;
-  if (v.transcript) $('#heardText').textContent = v.transcript;
+  // "WHAT WE HEARD" ONLY WHEN SOMETHING WAS HEARD. In type mode there is no audio at all — the
+  // model is handed text and told to judge from vocabulary alone — so the transcript it returns is
+  // just the sentence the person typed, echoed back to them under a heading claiming it was heard.
+  // Silly on its face, and the same untruth as the analysing card telling a typed user it was
+  // listening to their vowels, which was fixed earlier tonight for exactly this reason.
+  const fromAudio = !!window._lastAudio;
+  heard.hidden = !v.transcript || !fromAudio;
+  if (v.transcript && fromAudio) $('#heardText').textContent = v.transcript;
   $('#srcBadge').textContent = v.language ? v.language.toLowerCase() : '';
 
   // One kicker now. A verdict the voice does not stand behind never reaches this card at
