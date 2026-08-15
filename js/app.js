@@ -1056,7 +1056,14 @@ async function analyzeResilient(payload) {
         // "pending" means the upload landed and the work is now running somewhere that does not
         // care whether this page survives. From here the recording has done its job — everything
         // after is a few hundred bytes at a time, which is what makes walking away safe.
-        if (first && first.pending) return await pollForTake(payload.take_id, payload.take_key);
+        if (first && first.pending) {
+          const answer = await pollForTake(payload.take_id, payload.take_key);
+          // Cleared HERE rather than at each call site. It was cleared after the audio path and
+          // not after the typed one, so a typed take stayed marked pending and the next page load
+          // opened on the analysing card chasing an answer it had already shown.
+          clearPendingTake();
+          return answer;
+        }
         return first;
       } catch (err) {
         document.removeEventListener('visibilitychange', onReturn);
