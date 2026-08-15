@@ -785,6 +785,15 @@ function teardownRecording() {
   recorder = null;
 }
 
+// ONE ID PER TAKE, held across every retry of it. This is what lets a resumed take collect the
+// answer the server already computed instead of paying for it twice: same id, so the server
+// recognises the second request as the same take and returns the stored result without touching
+// the model. A fresh id per request would defeat it entirely.
+function newTakeId() {
+  try { return crypto.randomUUID(); } catch { /* older Safari */ }
+  return 'tk-' + Math.random().toString(16).slice(2) + Math.random().toString(16).slice(2);
+}
+
 async function onRecordingReady() {
   if (takeHandled) return;
   takeHandled = true;
@@ -819,7 +828,7 @@ async function onRecordingReady() {
   try {
     const audio = await blobToBase64(blob);
     window._lastAudio = { audio, mime: mimeUsed }; // kept for the consent flywheel
-    const resp = await analyzeResilient({ audio, mime: mimeUsed });
+    const resp = await analyzeResilient({ audio, mime: mimeUsed, take_id: newTakeId() });
     renderResult(normalizeServer(resp));
   } catch (err) {
     // SAY WHICH THING WENT WRONG. The cause is already sitting on err.message — the server's own
@@ -1012,7 +1021,7 @@ function runTextAnalysis(text, typed) {
   }
   show('analyzingCard'); startScan('text');
   state = 'analyzing';
-  analyzeResilient({ text })
+  analyzeResilient({ text, take_id: newTakeId() })
     .then((resp) => renderResult(normalizeServer(resp)))
     .catch((e) => {
       // The old handler took no parameter but read `e`, so any type-mode failure threw a
