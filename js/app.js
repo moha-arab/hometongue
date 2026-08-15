@@ -828,22 +828,34 @@ function clearPendingTake() {
   try { localStorage.removeItem(PENDING_KEY); } catch { /* nothing to do */ }
 }
 
-// A few hundred bytes: the id and the key, no audio. This is what makes recovery instant instead
-// of a second full analysis, and what lets it work at all after a reload.
-async function collectPendingTake() {
-  const t = pendingTake();
-  if (!t) return null;
+// A few hundred bytes: the id and the key, NO AUDIO. That absence is not incidental — the server
+// only treats a request as a collection when there is no audio and no text on it, because a body
+// carrying audio is someone asking for a fresh answer. Sending the recording again on a retry is
+// therefore a full second model call for a verdict that is already sitting there finished.
+// Returns the answer, or null if the server has nothing under that id.
+async function collectTake(id, key) {
+  if (!id || !key) return null;
   try {
     const r = await fetch('/api/analyze', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ take_id: t.id, take_key: t.key }),
+      body: JSON.stringify({ take_id: id, take_key: key }),
       signal: AbortSignal.timeout(12_000),
     });
     const data = await r.json().catch(() => null);
-    if (r.ok && data && data.ok) { clearPendingTake(); return data; }
-    if (r.status === 404) clearPendingTake();   // expired or never stored; nothing to wait for
-  } catch { /* offline or slow — keep it, but not forever; see the counter below */ }
+    if (r.ok && data && data.ok) return data;
+    if (r.status === 404) return 'gone';   // nothing stored, and none is coming
+  } catch { /* offline or slow */ }
+  return null;
+}
+
+// The page-load path: same request, plus the bookkeeping for a take remembered across a reload.
+async function collectPendingTake() {
+  const t = pendingTake();
+  if (!t) return null;
+  const got = await collectTake(t.id, t.key);
+  if (got && got !== 'gone') { clearPendingTake(); return got; }
+  if (got === 'gone') clearPendingTake();   // expired or never stored; nothing to wait for
   // A TAKE THAT CANNOT BE REACHED MUST STOP ASKING. Network failures leave it pending on purpose,
   // because the next load may well succeed — but without a limit, one unreachable take makes
   // every future visit open on the analysing card for as long as the timeout lasts, for an answer
@@ -1011,6 +1023,24 @@ async function analyzeResilient(payload) {
         if (err && err.superseded) { attempt -= 1; continue; }
 
         await untilVisible();
+
+        // ASK FOR THE ANSWER BEFORE ASKING FOR ANOTHER ONE.
+        //
+        // This retry loop used to re-send the whole payload, audio and all — and a body with audio
+        // on it is, correctly, read by the server as a request for a fresh analysis. So the take
+        // that had already been analysed got analysed a second time, and the person who came back
+        // watched "picking up where we left off" for another twelve to thirty seconds while the
+        // finished verdict sat in the database untouched. The store was working; nothing was
+        // asking it.
+        //
+        // A few hundred bytes settle it first. If the server has the answer, this returns in about
+        // a third of a second. If it does not — the invocation died before it could store, or the
+        // window has passed — the loop falls through and re-sends the recording as it always did.
+        if (payload.take_id && payload.take_key) {
+          const kept = await collectTake(payload.take_id, payload.take_key);
+          if (kept && kept !== 'gone') { clearPendingTake(); return kept; }
+        }
+
         // A beat for the network to come back with the page. 400ms, then 1200ms — the first
         // covers a tab resuming, the second a connection that genuinely dropped.
         await new Promise((r) => setTimeout(r, attempt === 1 ? 400 : 1200));
