@@ -894,7 +894,16 @@ async function pollForTake(id, key, onTick) {
 async function collectPendingTake() {
   const t = pendingTake();
   if (!t) return null;
-  const got = await collectTake(t.id, t.key);
+  // The head script may already have this in flight, or finished, from before this file parsed.
+  // Taking its result instead of firing a second identical request is the whole point of it.
+  let got = null;
+  if (window.__htCollect) {
+    const head = await window.__htCollect;
+    window.__htCollect = null;
+    if (head && head.json && head.json.ok) got = head.json;
+    else if (head && head.status === 404) got = 'gone';
+  }
+  if (!got) got = await collectTake(t.id, t.key);
   if (got && got !== 'gone') { clearPendingTake(); return got; }
   if (got === 'gone') clearPendingTake();   // expired or never stored; nothing to wait for
   // A TAKE THAT CANNOT BE REACHED MUST STOP ASKING. Network failures leave it pending on purpose,

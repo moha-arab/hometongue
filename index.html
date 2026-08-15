@@ -22,6 +22,35 @@
 <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/vendor/leaflet/leaflet.css">
 <link rel="stylesheet" href="css/style.css">
+<script>
+// ASK FOR A WAITING ANSWER BEFORE THIS PAGE EXISTS.
+//
+// When a phone evicts a backgrounded tab, coming back is a cold page load — parse, stylesheets,
+// Leaflet, the map, then app.js finally gets to its init block and only THEN asks whether an
+// answer is waiting. Every one of those milliseconds is spent before the request that matters has
+// even been sent, and on a phone over cellular that is the difference between the result being
+// there and the result arriving after you have started reading something else.
+//
+// Twelve lines in the head, running before the stylesheet has finished, put the request on the
+// wire first and let the whole page load happen alongside it. app.js picks up the promise instead
+// of starting its own. Deliberately dependency-free and wrapped in try/catch: this runs before
+// anything that could handle an error, so its only job is to either help or vanish silently.
+(function () {
+  try {
+    var raw = localStorage.getItem('hometongue_pending_take');
+    if (!raw) return;
+    var t = JSON.parse(raw);
+    if (!t || !t.id || !t.key || Date.now() - (t.ts || 0) > 1800000) return;
+    window.__htCollect = fetch('/api/analyze', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ take_id: t.id, take_key: t.key }),
+    }).then(function (r) {
+      return r.json().catch(function () { return null; }).then(function (j) { return { status: r.status, json: j }; });
+    }).catch(function () { return null; });
+  } catch (e) { /* private mode, or no storage: the normal path still runs */ }
+})();
+</script>
 </head>
 <body>
 
