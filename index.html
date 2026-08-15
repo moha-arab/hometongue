@@ -65,63 +65,32 @@
   <section class="card" id="liveCard" hidden>
     <div class="wave" id="wave"></div>
     <p class="live-status">listening…</p>
-    <!-- THE RECORDING METER. It has been wrong three ways in one evening, and the shape of each
-         mistake is worth keeping so none of them comes back.
-           1. A three-dot ladder whose third dot could never light: Math.max(1, tier) lit one dot
-              at tier 0 AND tier 1, so the dots changed exactly once in a whole take.
-           2. A threshold bar that filled to the floor and announced the job was finished. Rungs
-              promise endless gains; a threshold promises none. Both are the wrong shape.
-           3. A full sixty-second bar with an UNEXPLAINED notch in it — which is what this is,
-              minus the labels. At second zero the only words on screen were "N seconds to go",
-              so the eye concluded the bar WAS N seconds, the notch meant nothing, and the whole
-              right-hand half looked like dead space.
-
-         What was actually measured, on 27 paired clips:
-
-           dur   median   within 100 km   over 1000 km
-           20s    317 km       44%            11%
-           30s     72 km       52%             7%
-           45s     72 km       56%             7%
-           60s     72 km       59%             4%
-
-         So there is a gate and then a slope. Twenty is the floor — thin, but Mohammad's call
-         that a floor nobody reaches protects an accuracy nobody gets. Thirty is where the answer
-         actually becomes good, and the ten seconds between them are the most valuable ten in the
-         whole recording: the median miss falls from 317 km to 72. Past thirty the median stops
-         moving, but the share landing near the real city keeps climbing and wild misses keep
-         falling, monotonically, all the way to the cap.
-
-         The bar runs the full minute so the slope is visible, and the colour carries the three
-         shelves so the wording never has to repeat itself. Labelling the scale was tried and
-         removed: see the note on the bar itself. Running to the cap also retires the second
-         clock, since the bar is the cap indicator now and nothing counts down beside it. -->
-    <div class="ready" id="ready">
-      <!-- BACK TO DOTS, and this is a correction rather than a preference.
-           A bar is CONTINUOUS, so reading one means judging a position, which needs a scale,
-           which needs labels — and labels are a task nobody performs mid-sentence. Every version
-           of this screen died at exactly that step. Dots are DISCRETE: you count them, and
-           counting needs nothing written down at all.
-           The deeper reason is that the ladder shape is now CORRECT and it was not before. Dots
-           were thrown out partly on the belief that nothing improved past the floor, which made
-           rungs a promise the product could not keep. That belief came from numbers quoted in a
-           comment that appear in no data file. The real sweep has four measured points and
-           accuracy climbs across every one of them, so these are not decorative rungs — there is
-           exactly one dot per measurement:
-             1 dot   20s   44% of answers within 100 km   (the floor: submit unlocks)
-             2 dots  30s   52%
-             3 dots  45s   56%
-             4 dots  60s   59%
-           The dot you have not earned yet is outlined rather than blank, so there is always
-           something visibly next to go and get. -->
-      <div class="dots" id="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-      <p class="ready-row">
-        <span class="ready-tier" id="tierWord">keep talking</span>
-        <!-- Elapsed over total, the way every video player writes it, so nobody has to be told
-             the take is a minute long. The right-hand number NEVER MOVES, which is what makes
-             this a scale and not the second countdown that had to be cut for arguing with the
-             first. Derived from MAX_SECONDS so it cannot drift from the cap. -->
-        <span class="ready-clock"><b id="elapsed">0:00</b> / <i id="totalTime">1:00</i></span>
-      </p>
+    <!-- This screen has been through five shapes in one night. What stuck: a countdown for the
+         minute, dots for the accuracy, and a button that says what it does while wearing the
+         number it is waiting on. The versions that failed all failed the same way — a bar you
+         have to read against a scale, and a scale you have to read labels for, on a screen
+         somebody is looking at MID-SENTENCE. Dots you just count. -->
+    <!-- A countdown, not a stopwatch: the cap used to fire with no warning, which read as
+         the app crashing mid-sentence rather than a deliberate limit. -->
+    <div class="count"><b id="timer">1:00</b><span id="countHint">left</span></div>
+    <div class="count-track"><div class="count-fill" id="countFill"></div></div>
+    <!-- ONE DOT PER MEASUREMENT, not a count someone liked the look of. The original three-dot
+         meter here was broken twice over: Math.max(1, tier) lit one dot at tier 0 AND at tier 1,
+         so the row changed exactly once in a whole take, and the third dot could never light at
+         all. It was also justified by figures quoted in a comment that appear in no data file.
+         The real sweep, data/length-sweep.json, has four points and accuracy climbs across all
+         of them, so each dot is one of them:
+           1 dot   20s   44% of answers within 100 km   (the floor: submit unlocks here)
+           2 dots  30s   52%
+           3 dots  45s   56%
+           4 dots  55s   59% is the 60s row, moved down five seconds because a tier set AT the
+                         cap lights on the same tick the recording ends — an unreachable rung is
+                         the exact bug this meter shipped with the first time.
+         The dot being worked toward is outlined rather than blank, so the row always points
+         somewhere. -->
+    <div class="quality" id="quality">
+      <span class="q-dots" id="dots"><i></i><i></i><i></i><i></i></span>
+      <span class="q-label" id="tierWord">keep talking</span>
     </div>
     <!-- Two ways out of a take, because there are two reasons to end one. "done" submits what
          you said; "start over" throws it away and begins again, for the fumbled sentence or the

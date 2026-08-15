@@ -396,19 +396,18 @@ function startTimer() {
   // moment a second take started. The label is static markup now; nothing needs to set it.
   if (stop0) stop0.disabled = true;
   // Reset, or a second recording starts still wearing the first one's badge.
-  const d0 = $('#dots');
-  if (d0) {
-    d0.dataset.earned = '';
-    [...d0.children].forEach((d, i) => { d.classList.remove('on'); d.classList.toggle('next', i === 0); });
+  const q0 = $('#quality');
+  if (q0) {
+    q0.dataset.earned = '0';
+    [...$('#dots').children].forEach((d, i) => { d.classList.remove('on'); d.classList.toggle('next', i === 0); });
     const w0 = $('#tierWord');
     if (w0) w0.textContent = 'keep talking';
     const p0 = $('#countPill');
     if (p0) { p0.hidden = false; p0.textContent = String(MIN_RECORD_S); }
-    const e0 = $('#elapsed');
-    if (e0) e0.textContent = '0:00';
-    // Derived, so the total on screen can never disagree with the cap that enforces it.
-    const t0 = $('#totalTime');
-    if (t0) t0.textContent = `${Math.floor(MAX_SECONDS / 60)}:${String(MAX_SECONDS % 60).padStart(2, '0')}`;
+    const f0 = $('#countFill');
+    if (f0) f0.style.width = '0%';
+    // Derived, so the clock on screen can never disagree with the cap that enforces it.
+    $('#timer').textContent = `${Math.floor(MAX_SECONDS / 60)}:${String(MAX_SECONDS % 60).padStart(2, '0')}`;
   }
   timerId = setInterval(() => {
     const s = Math.floor((Date.now() - startedAt) / 1000);
@@ -462,18 +461,15 @@ function startTimer() {
     //
     // Running to the cap also retires the second clock. The bar IS the cap now, so nothing has
     // to count down beside it.
-    const clock = $('#elapsed');
-    if (clock) {
-      const mm = Math.floor(s / 60), ss = s % 60;
-      const txt = `${mm}:${String(ss).padStart(2, '0')}`;
-      if (clock.textContent !== txt) clock.textContent = txt;
-    }
-    const dots = $('#dots');
-    if (dots) {
+    $('#timer').textContent = `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
+    const fill = $('#countFill');
+    if (fill) fill.style.width = `${(s / MAX_SECONDS) * 100}%`;
+    const q = $('#quality');
+    if (q) {
       const earned = TIERS.filter((t) => s >= t.at).length;
-      if (dots.dataset.earned !== String(earned)) {
-        dots.dataset.earned = String(earned);
-        [...dots.children].forEach((d, i) => {
+      if (q.dataset.earned !== String(earned)) {
+        q.dataset.earned = String(earned);
+        [...$('#dots').children].forEach((d, i) => {
           d.classList.toggle('on', i < earned);
           // The one you are working toward, so the row always points somewhere.
           d.classList.toggle('next', i === earned);

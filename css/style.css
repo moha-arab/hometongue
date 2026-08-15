@@ -1016,22 +1016,32 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
    twenty-second take and a forty-five-second one land in the same place. Filling toward twenty
    means the bar completes exactly when the recording is genuinely good, and then stops asking
    for anything. The cap keeps its own small number on the right, where a limit belongs. */
-.ready { margin: 18px 0 20px; }
-
-/* FOUR DOTS, ONE PER MEASUREMENT. Countable rather than positional, which is the whole reason
-   they are back: a bar has to be read against a scale and a scale has to be labelled, and every
-   labelled version of this screen turned out to be a task nobody performs mid-sentence. Nothing
-   here needs reading. You glance, you see two lit and two to go. */
-.dots { display: flex; align-items: center; gap: 9px; }
-.dots i {
-  width: 9px; height: 9px; border-radius: 50%; flex: none;
-  background: var(--rule-soft); border: 1.5px solid transparent;
-  transition: background 0.35s ease, border-color 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1);
+/* ——— recording countdown ———
+   The cap used to fire with no warning, which read as the app crashing mid-sentence. */
+.count { display: flex; align-items: baseline; gap: 9px; margin: 16px 0 8px; }
+.count b {
+  font-family: var(--display); font-size: 30px; font-weight: 700;
+  letter-spacing: -0.03em; color: var(--accent); font-variant-numeric: tabular-nums;
 }
-.dots i.on { background: var(--accent); transform: scale(1.12); }
-/* The one being worked toward. Outlined rather than blank so the row always points somewhere,
-   and breathing so it reads as live rather than as a fifth state to decode. */
-.dots i.next {
+.count span { font-size: 13px; color: var(--grey); }
+.count-track { height: 3px; border-radius: 2px; background: var(--rule-soft); overflow: hidden; margin-bottom: 18px; }
+.count-fill { height: 100%; width: 0; background: var(--accent); opacity: 0.75; transition: width 0.25s linear; }
+
+/* ——— how much accuracy the take has earned ———
+   Four dots, one per measurement in data/length-sweep.json. Countable rather than positional,
+   which is the point: a bar has to be read against a scale, a scale has to be labelled, and a
+   label is a task nobody performs while they are talking. You glance and you see two lit. */
+.quality { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.q-dots { display: inline-flex; gap: 7px; }
+.q-dots i {
+  width: 8px; height: 8px; border-radius: 50%; flex: none;
+  background: var(--rule-soft); border: 1.5px solid transparent;
+  transition: background .35s ease, border-color .35s ease, transform .35s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+.q-dots i.on { background: var(--accent); transform: scale(1.12); }
+/* The one being worked toward: outlined rather than blank, so the row always points somewhere,
+   and breathing so it reads as live rather than as another state to decode. */
+.q-dots i.next {
   background: none; border-color: color-mix(in srgb, var(--accent) 45%, transparent);
   animation: dotNext 1.6s ease-in-out infinite;
 }
@@ -1039,33 +1049,12 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   0%, 100% { border-color: color-mix(in srgb, var(--accent) 30%, transparent); }
   50% { border-color: color-mix(in srgb, var(--accent) 75%, transparent); }
 }
-
-.ready-row {
-  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
-  margin-top: 11px;
-}
-/* One word for where you are. It names the tier the dots just showed you, so the two agree
-   without either explaining the other. */
-.ready-tier {
-  font-size: 13.5px; color: var(--accent); font-weight: 500;
-}
-.dots[data-earned="0"] ~ .ready-row .ready-tier { color: var(--grey); font-weight: 400; }
-
-/* Elapsed over total. The right-hand number NEVER MOVES, which is what makes this a scale and
-   not the second countdown that had to be removed for arguing with the first. */
-.ready-clock {
-  font-family: var(--label); font-size: 12px; color: var(--grey-2);
-  font-variant-numeric: tabular-nums; white-space: nowrap; flex: none;
-}
-.ready-clock b { font-weight: 600; color: var(--black); }
-.ready-clock i { font-style: normal; }
+.q-label { font-size: 13px; color: var(--accent); font-weight: 500; }
+.quality[data-earned="0"] .q-label { color: var(--grey); font-weight: 400; }
 
 @media (prefers-reduced-motion: reduce) {
-  /* The next-dot pulse is the only thing on this screen that loops, so it is the only thing
-     that has to stand down. It keeps the outline, it just stops breathing. */
-  .dots i.next { animation: none; border-color: color-mix(in srgb, var(--accent) 55%, transparent); }
-  .dots i { transition: background 0.35s ease, border-color 0.35s ease; }
-  .dots i.on { transform: none; }
+  .q-dots i.next { animation: none; border-color: color-mix(in srgb, var(--accent) 55%, transparent); }
+  .q-dots i.on { transform: none; }
 }
 
 /* the analyzing wait: ~12s median, ~29s p90, so it needs to look alive */
