@@ -34,6 +34,16 @@ http.createServer(async (req, res) => {
   if (url.pathname === '/api/clip-report') return clipReport(req, res);
   if (url.pathname === '/api/scores') return scores(req, res);
 
+  // NOTHING DOTTED IS SERVED. This handed out any file under the project root to anyone who
+  // asked, and the project root contains .env — the live Gemini key and the Supabase SERVICE
+  // key, which bypasses row-level security on every table. `curl localhost:8123/.env` from any
+  // machine on the same wifi was enough. It binds to all interfaces, so a campus network, a
+  // café or a shared flat is a full credential disclosure for a file nobody thinks of as
+  // published. Also covers .git, .vercel and anything else dotted that shows up later.
+  if (url.pathname.split('/').some((seg) => seg.startsWith('.'))) {
+    res.writeHead(404); return res.end('not found');
+  }
+
   let file = path.normalize(path.join(ROOT, url.pathname === '/' ? 'index.html' : url.pathname));
   if (!file.startsWith(ROOT) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {
     res.writeHead(404); return res.end('not found');

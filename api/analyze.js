@@ -449,10 +449,6 @@ export default async function handler(req, res) {
   // x-real-ip is platform-set; the leftmost x-forwarded-for entry is client-writable and
   // let a scripted client rotate identities past the limiter (same fix clip-report shipped with)
   const ip = (req.headers['x-real-ip'] || (req.headers['x-forwarded-for'] || '').split(',')[0]).trim() || 'unknown';
-  if (rateLimited(ip)) {
-    res.statusCode = 429;
-    return res.end(JSON.stringify({ ok: false, error: 'rate_limited', detail: 'Slow down a little — try again in a bit.' }));
-  }
   // COLLECTING AN ANSWER THAT WAS ALREADY PAID FOR.
   //
   // Deliberately ABOVE the daily cap. Someone coming back for a verdict this server already
@@ -482,6 +478,19 @@ export default async function handler(req, res) {
     return res.end(JSON.stringify({ ...kept.body, collected: true }));
   }
 
+  // THE LIMITER SITS BELOW THE COLLECT, and that ordering is the fix. Deferring the analysis turned
+  // ONE take into a submit plus up to sixty polls, all hitting this endpoint, against a per-IP
+  // budget written when a take was a single request. A person doing their third or fourth take in
+  // an hour — "do one for me, now do one for my friend" is the normal shape of this — had their
+  // poll 429'd mid-wait, and a 429 is indistinguishable from "not ready yet", so they sat through
+  // the whole budget and were told it was taking longer than it should.
+  //
+  // A collect spends no model call and no cap slot. It is a delivery, and deliveries are not what
+  // this limiter exists to stop.
+  if (rateLimited(ip)) {
+    res.statusCode = 429;
+    return res.end(JSON.stringify({ ok: false, error: 'rate_limited', detail: 'Slow down a little — try again in a bit.' }));
+  }
   if (await overDailyCap()) {
     res.statusCode = 503;
     return res.end(JSON.stringify({

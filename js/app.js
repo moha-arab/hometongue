@@ -843,8 +843,19 @@ async function collectTake(id, key) {
       signal: AbortSignal.timeout(12_000),
     });
     const data = await r.json().catch(() => null);
-    if (r.ok && data && data.ok) return data;
-    if (r.status === 404) return 'gone';   // nothing stored, and none is coming
+    // THREE OUTCOMES, AND CONFLATING ANY TWO OF THEM HAS ALREADY BROKEN THIS FEATURE TWICE.
+    //
+    //   an object   the server DELIVERED an answer. ok:true is a verdict; ok:false is a refusal it
+    //               reached and stored on purpose (no_speech, upstream_failed). BOTH are final and
+    //               both have to reach the person. This used to return null for ok:false, so a
+    //               refusal decided in twelve seconds became four minutes of spinner followed by
+    //               "that is taking longer than it should" — a message about the wrong thing.
+    //   'pending'   nothing stored under that id YET. The work may still be running. NOT terminal.
+    //               This used to be called 'gone', and the page-load path deleted the key on it,
+    //               destroying a take whose answer was sitting finished on the server.
+    //   null        the request itself failed. Ask again.
+    if (r.status === 404) return 'pending';
+    if (data) return data;
   } catch { /* offline or slow */ }
   return null;
 }
@@ -861,9 +872,15 @@ async function collectTake(id, key) {
 // because someone who walked away has not stopped wanting their answer.
 async function pollForTake(id, key, onTick) {
   const started = Date.now();
-  const BUDGET_MS = 4 * 60 * 1000;
+  // MEASURED IN TIME SPENT LOOKING, not wall time. A four-minute wall budget against a
+  // thirty-minute server window meant putting the phone down for five minutes and coming back to
+  // the plain home screen — the budget having expired while nobody was watching it. Only visible
+  // time counts now, and the ceiling is the server's own window so the two agree.
+  const BUDGET_MS = 28 * 60 * 1000;
+  let watched = 0;
   let wait = 1200;
-  while (Date.now() - started < BUDGET_MS) {
+  while (watched < BUDGET_MS) {
+    const sleptFrom = Date.now();
     // RACED AGAINST COMING BACK, which is the difference between "it was there" and "it appeared
     // after a while". A hidden tab throttles setTimeout to about once a MINUTE, so a plain sleep
     // means returning to the page and then waiting up to another minute for the next tick — on
@@ -878,19 +895,35 @@ async function pollForTake(id, key, onTick) {
       }),
     ]);
     wait = Math.min(4000, Math.round(wait * 1.25));
-    // A hidden tab's fetches die anyway, so asking costs a failed request and gains nothing. The
-    // answer keeps for thirty minutes; sitting still is free.
+    // A hidden tab's fetches die anyway, so asking costs a failed request and gains nothing.
     if (document.hidden) continue;
+    watched += Date.now() - sleptFrom;
     const got = await collectTake(id, key);
-    if (got && got !== 'gone') return got;
-    if (onTick) onTick(Math.round((Date.now() - started) / 1000));
+    if (got && got !== 'pending') {
+      // DELIVERED, whatever it says. A refusal the server reached and stored is an answer and has
+      // to be reported as itself — this used to fall through and keep polling for something that
+      // had already arrived, and the row had been deleted on that very collect, so every later
+      // poll saw 'pending' forever and the person got a timeout message about the wrong thing.
+      if (got.ok) return got;
+      throw Object.assign(new Error(got.error || 'server_error'), {
+        userMessage: ERRORS[got.error] || got.detail || '',
+      });
+    }
+    if (onTick) onTick(Math.round(watched / 1000));
   }
   throw Object.assign(new Error('poll_timeout'), {
     userMessage: 'That is taking longer than it should. Your answer may still arrive — try again in a moment.',
   });
 }
 
-// The page-load path: same request, plus the bookkeeping for a take remembered across a reload.
+// The page-load path. This is the one that runs after a phone evicted the tab, so it is the last
+// thing standing between a person and a take they already spoke.
+//
+// IT MUST NOT GIVE UP ON 'pending'. It used to: one ask, and a 404 meant "gone", so it deleted the
+// key. But 404 also means "still being analysed", and the analysis runs 12-29s — so tapping the
+// header nav mid-wait, or a reload, or an eviction inside that window, destroyed the only copy of
+// the key while the finished answer sat sealed on the server for another thirty minutes,
+// unopenable by anyone including us. The exact case the feature exists for.
 async function collectPendingTake() {
   const t = pendingTake();
   if (!t) return null;
@@ -900,22 +933,37 @@ async function collectPendingTake() {
   if (window.__htCollect) {
     const head = await window.__htCollect;
     window.__htCollect = null;
-    if (head && head.json && head.json.ok) got = head.json;
-    else if (head && head.status === 404) got = 'gone';
+    if (head && head.json) got = head.status === 404 ? 'pending' : head.json;
+    else if (head && head.status === 404) got = 'pending';
   }
   if (!got) got = await collectTake(t.id, t.key);
-  if (got && got !== 'gone') { clearPendingTake(); return got; }
-  if (got === 'gone') clearPendingTake();   // expired or never stored; nothing to wait for
-  // A TAKE THAT CANNOT BE REACHED MUST STOP ASKING. Network failures leave it pending on purpose,
-  // because the next load may well succeed — but without a limit, one unreachable take makes
-  // every future visit open on the analysing card for as long as the timeout lasts, for an answer
-  // that is never coming. Three goes, then it is let go.
+
+  if (got && got !== 'pending') {
+    clearPendingTake();
+    if (got.ok) return got;
+    throw Object.assign(new Error(got.error || 'server_error'), {
+      userMessage: ERRORS[got.error] || got.detail || '',
+    });
+  }
+
+  if (got === 'pending') {
+    // Still being made. Wait for it exactly as the in-page path does, rather than throwing away
+    // the key. pollForTake gives up only after its own budget, and pendingTake() has already
+    // refused anything older than the server's window, so this cannot wait on a dead take.
+    const answer = await pollForTake(t.id, t.key);
+    clearPendingTake();
+    return answer;
+  }
+
+  // Only a genuine request failure reaches here. Those leave the take pending on purpose, because
+  // the next load may well succeed — but not forever: one unreachable take would otherwise make
+  // every future visit open on the analysing card. Three goes, then it is let go.
   try {
-    const t = pendingTake();
-    if (t) {
-      t.tries = (t.tries || 0) + 1;
-      if (t.tries >= 3) clearPendingTake();
-      else localStorage.setItem(PENDING_KEY, JSON.stringify(t));
+    const still = pendingTake();
+    if (still) {
+      still.tries = (still.tries || 0) + 1;
+      if (still.tries >= 3) clearPendingTake();
+      else localStorage.setItem(PENDING_KEY, JSON.stringify(still));
     }
   } catch { /* private mode: nothing was stored, so nothing nags */ }
   return null;
@@ -929,13 +977,22 @@ async function onRecordingReady() {
   // card still up. Clean up and analyze whatever was captured — a take interrupted at 20
   // seconds is still a take; the blob-size gate below catches the ones that aren't.
   if (state === 'listening') {
-    stopTimer(); stopMeter(); clearPauseState();
+    stopTimer(); stopMeter();
     // ...but apply the SAME floor a manual stop applies. The comment above says an interrupted
     // 20-second take is still a take, and that is true — the problem is that nothing here checked
     // it was 20 seconds. A call that lands four seconds in was analysed anyway, so the one path
     // the user did not choose was the one that skipped the rule the whole app is built around,
     // and they got a country-scale guess presented with the same confidence as a real one.
-    const cutShort = (Date.now() - startedAt) / 1000;
+    //
+    // TIME SPENT PAUSED IS NOT SPEECH, and this is measured BEFORE clearPauseState() zeroes the
+    // flag it depends on. A take paused by backgrounding the phone keeps its original startedAt —
+    // only resumeTake() advances it, and an interruption while away never reaches resumeTake. So
+    // wall time here silently included the whole absence: six seconds of talking, three minutes in
+    // another app, and a "189 second" take sailed through the floor and was presented as a
+    // confident city with evidence chips, built on audio this project's own data calls unusable.
+    const away = pausedAt ? Date.now() - pausedAt : 0;
+    const cutShort = (Date.now() - startedAt - away) / 1000;
+    clearPauseState();
     if (cutShort < MIN_RECORD_S) {
       toast(`That take was cut short at ${Math.round(cutShort)} seconds. Give it twenty seconds at least, or thirty for a sharper read.`);
       state = 'idle';
@@ -1100,7 +1157,15 @@ async function analyzeResilient(payload) {
         // window has passed — the loop falls through and re-sends the recording as it always did.
         if (payload.take_id && payload.take_key) {
           const kept = await collectTake(payload.take_id, payload.take_key);
-          if (kept && kept !== 'gone') { clearPendingTake(); return kept; }
+          if (kept && kept !== 'pending') {
+            clearPendingTake();
+            if (kept.ok) return kept;
+            // A refusal that was already reached and stored. Re-sending the audio would spend a
+            // second call to be told the same thing.
+            throw Object.assign(new Error(kept.error || 'server_error'), {
+              userMessage: ERRORS[kept.error] || kept.detail || '',
+            });
+          }
         }
 
         // A beat for the network to come back with the page. 400ms, then 1200ms — the first

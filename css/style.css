@@ -854,6 +854,13 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 
   /* The stacked header is 87px; .hud reserves 82px for it, so the card was tucked under it. */
   .hud { padding-top: 96px; }
+  /* THE PILL SAT ON THE NAV. On phones the header stacks the logo above the mode switcher and
+     grows to ~93px tall, but .round-pill is fixed at top:66px for every width — so measured at
+     375x812 the pill (top 74) drew straight through the bottom 19px of the switcher, across the
+     right-hand end of "guess the voice". The nav stayed clickable at its centre, so it read as a
+     rendering fault rather than a broken control, which is arguably worse on the one viewport the
+     entire launch audience arrives on. Cleared to just below the same 96px the cards already use. */
+  .round-pill { top: 101px; }
 }
 
 /* iPhone scroll, the WebKit-safe way: Safari refuses touch-scrolling a container whose

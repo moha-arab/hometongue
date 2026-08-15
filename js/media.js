@@ -28,7 +28,7 @@ window.HT.media = function media(audioEl, mountId) {
   audioEl.addEventListener('error', () => { if (mode === 'file') emit('error'); });
 
   // ————— YouTube —————
-  let yt = null, ytReady = false, ytState = -1, ytSeeking = false, pollId = 0, apiPromise = null;
+  let yt = null, ytReady = false, ytState = -1, ytSeeking = false, pollId = 0, apiPromise = null, playerPromise = null;
 
   function loadApi() {
     if (apiPromise) return apiPromise;
@@ -42,10 +42,21 @@ window.HT.media = function media(audioEl, mountId) {
     return apiPromise;
   }
 
+  // ONE INITIALISATION, SHARED, AND ONLY RESOLVED WHEN THE PLAYER IS GENUINELY READY.
+  //
+  // This returned early on `if (yt)`, and `yt` is assigned synchronously inside the promise
+  // executor below — so a second call during the two hundred milliseconds before onReady fires got
+  // the player object back instantly with ytReady still false. game.js:336 then saw !media.ready(),
+  // called whenReady(playClip), which called this, which returned instantly, which called playClip:
+  // a loop entirely in microtasks, so the browser never yielded and the tab hard-froze. The six
+  // second rescue timeout could not fire because the task queue was never reached.
+  //
+  // Tapping play the moment a round appears is enough to hit it.
   async function ensurePlayer() {
     await loadApi();
-    if (yt) return yt;
-    return new Promise((resolve) => {
+    if (yt && ytReady) return yt;
+    if (playerPromise) return playerPromise;
+    playerPromise = new Promise((resolve) => {
       yt = new window.YT.Player(mountId, {
         height: '180', width: '320',
         playerVars: { controls: 0, disablekb: 1, modestbranding: 1, rel: 0, playsinline: 1, fs: 0, iv_load_policy: 3 },
@@ -75,6 +86,7 @@ window.HT.media = function media(audioEl, mountId) {
         },
       });
     });
+    return playerPromise;
   }
 
   // The IFrame API has no timeupdate, so drive one ourselves while it plays.
@@ -168,7 +180,12 @@ window.HT.media = function media(audioEl, mountId) {
     },
 
     whenReady(fn) {
-      if (mode === 'yt') { ensurePlayer().then(fn); return; }
+      // ONLY CALL BACK IF IT IS ACTUALLY READY. A dead video resolves this promise with ytReady
+      // false (see onError), and calling fn anyway put playClip straight back into the loop above.
+      // Staying silent is correct: game.js already starts a six second deadline before waiting on
+      // this, and that swaps the clip out. A round that cannot play should end as a swap, not as a
+      // frozen tab.
+      if (mode === 'yt') { ensurePlayer().then(() => { if (ytReady) fn(); }); return; }
       audioEl.addEventListener('loadedmetadata', fn, { once: true });
     },
 
