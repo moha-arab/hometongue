@@ -835,7 +835,18 @@ async function onRecordingReady() {
     const resp = await analyzeResilient({ audio, mime: mimeUsed });
     renderResult(normalizeServer(resp));
   } catch (err) {
-    fallbackOrFail(err && err.userMessage ? err.userMessage : 'Something went wrong on our end.');
+    // SAY WHICH THING WENT WRONG. The cause is already sitting on err.message — the server's own
+    // error code, or http_500, or the browser's exception name — and it was being thrown away in
+    // favour of a sentence that fits every failure equally badly. "Something went wrong on our
+    // end" sent from an iPhone is unactionable; the same message with (upstream_failed) or
+    // (http_413) or (NotAllowedError) on it names the failure from across a room.
+    // The recorded format goes in too. iPhones cannot produce webm, so Safari records audio/mp4,
+    // and that is a format this pipeline has never once been observed to succeed with — every
+    // successful call in this project's history has been webm/opus from a desktop. If the failure
+    // turns out to be the format, the message will be holding the evidence.
+    const why = err && err.userMessage;
+    const code = err && err.message ? String(err.message).slice(0, 40) : 'unknown';
+    fallbackOrFail(why || `Something went wrong on our end. (${code} · ${mimeUsed || 'no mime'})`);
   }
 }
 

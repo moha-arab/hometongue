@@ -1220,3 +1220,22 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   #pickCard .deck-thumb { width: 34px; height: 20px; }
   #pickCard .boards-link { margin-top: 10px; }
 }
+
+
+/* ——— TAP TARGETS, measured at 375x812 in mobile emulation ———
+   Three controls came back too small to hit reliably with a thumb. The worst was "no mic? type
+   like you talk" at 142x16 — sixteen pixels tall, and it is the ENTIRE fallback path for anyone
+   whose microphone is blocked, which on iOS is a permission prompt away at all times. The nav
+   segments were 35px against Apple's 44px guidance, and the footer links about 11px.
+   The padding is added with matching negative margin where it would otherwise move the layout,
+   so these grow their hit area without any of them shifting on screen. */
+@media (pointer: coarse), (max-width: 560px) {
+  .link-btn {
+    display: inline-flex; align-items: center;
+    min-height: 44px; padding: 0 2px; margin: -14px 0;
+  }
+  .modes a { min-height: 42px; }
+  .foot a, .foot-hint a {
+    display: inline-block; padding: 12px 4px; margin: -12px 0;
+  }
+}
