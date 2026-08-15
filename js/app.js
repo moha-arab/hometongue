@@ -395,6 +395,7 @@ function startMeter(stream) {
 }
 
 function stopMeter() {
+  if (typeof clearPauseWatch === 'function') clearPauseWatch();
   if (rafId) cancelAnimationFrame(rafId), rafId = null;
   if (audioCtx) audioCtx.close().catch(() => {}), audioCtx = null;
   meterLoop = null; meterStream = null;
@@ -418,7 +419,7 @@ function stopMeter() {
 // So the take PAUSES. Recorder, meter and clock all stop together, and the away time is added
 // back to startedAt on return so it never counts against the person. Switch apps for five
 // minutes, come back, and you are exactly where you left off.
-let pausedAt = 0;
+let pausedAt = 0, pauseWatch = null;
 
 function pauseTake() {
   if (state !== 'listening' || pausedAt) return;
@@ -429,9 +430,20 @@ function pauseTake() {
   // pause() is not universal; where it is missing the clock still freezes and the only cost is
   // some room tone on the tail, which is the old behaviour rather than a new failure.
   try { if (recorder && recorder.state === 'recording' && recorder.pause) recorder.pause(); } catch { /* ignore */ }
+  // A PAUSE MUST NEVER BE ABLE TO STICK. Every pause here is triggered by an event, and events can
+  // arrive without their partner — a blur with no focus, a pagehide with no pageshow. If that
+  // happened the take would sit paused forever while someone talked into a recorder that had
+  // stopped, with a frozen clock that looked perfectly healthy. So instead of trusting the return
+  // event, this checks the actual condition once a second and resumes the moment the page is
+  // genuinely back. A spurious blur then costs about a second rather than the whole take.
+  if (pauseWatch) clearInterval(pauseWatch);
+  pauseWatch = setInterval(() => {
+    if (!document.hidden && (!POINTER_DESKTOP || document.hasFocus())) resumeTake();
+  }, 1000);
 }
 
 function resumeTake() {
+  if (pauseWatch) clearInterval(pauseWatch), pauseWatch = null;
   if (state !== 'listening' || !pausedAt) return;
   startedAt += Date.now() - pausedAt;   // the time away never happened
   pausedAt = 0;
@@ -455,8 +467,22 @@ function resumeTake() {
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) pauseTake(); else resumeTake();
 });
-addEventListener('blur', () => pauseTake());
-addEventListener('focus', () => resumeTake());
+
+// DESKTOP ONLY, and the restriction matters more than the feature. blur exists here to catch one
+// specific desktop quirk: another APPLICATION taking over without the tab ever being hidden. On a
+// phone that concept does not exist, and "blur" instead fires for things that are not someone
+// leaving at all — a notification banner sliding down, the keyboard opening, the shade being
+// pulled. Each of those would pause a recording while the person is still talking into it, which
+// is a worse failure than the bug this was written to fix: the old one captured silence, this one
+// would silently capture nothing while the clock sat frozen and looked fine.
+//
+// Phones do not need it. visibilitychange fires reliably there when an app is backgrounded, which
+// is the case that actually happens on a phone.
+const POINTER_DESKTOP = matchMedia('(hover: hover) and (pointer: fine)').matches;
+if (POINTER_DESKTOP) {
+  addEventListener('blur', () => pauseTake());
+  addEventListener('focus', () => resumeTake());
+}
 // Safari fires pagehide without visibilitychange in some flows; pageshow is its way back.
 addEventListener('pagehide', () => pauseTake());
 addEventListener('pageshow', () => resumeTake());
@@ -578,6 +604,12 @@ function stopTimer() {
   if (timerId) clearInterval(timerId), timerId = null;
 }
 
+// Called wherever a take ends, so a watchdog can never outlive the recording it was guarding.
+function clearPauseWatch() {
+  if (pauseWatch) clearInterval(pauseWatch), pauseWatch = null;
+  pausedAt = 0;
+}
+
 // ————— the wait —————
 // Measured: median 11.8s to a verdict, p90 28.7s. Nothing about that is fixable by sending
 // less audio (8s of audio still takes 6.2s and wrecks accuracy, 67km -> 345km), so the wait
@@ -676,7 +708,7 @@ async function startListening() {
   try {
     recorder = new MediaRecorder(mediaStream, mime ? { mimeType: mime } : undefined);
   } catch {
-    stopTimer(); stopMeter(); teardownRecording();
+    stopTimer(); stopMeter(); clearPauseWatch(); teardownRecording();
     state = 'idle'; show('idleCard');
     toast('Recording failed to start on this browser. Try again, or type instead.');
     return;
@@ -774,7 +806,7 @@ async function onRecordingReady() {
   // card still up. Clean up and analyze whatever was captured — a take interrupted at 20
   // seconds is still a take; the blob-size gate below catches the ones that aren't.
   if (state === 'listening') {
-    stopTimer(); stopMeter();
+    stopTimer(); stopMeter(); clearPauseWatch();
     // ...but apply the SAME floor a manual stop applies. The comment above says an interrupted
     // 20-second take is still a take, and that is true — the problem is that nothing here checked
     // it was 20 seconds. A call that lands four seconds in was analysed anyway, so the one path
