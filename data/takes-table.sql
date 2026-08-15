@@ -11,7 +11,16 @@
 --
 -- Rows delete themselves on collection. The sweep below is for the ones nobody comes back for.
 
-create table if not exists takes (
+-- DROP FIRST, and this is load-bearing. An earlier version of this feature had a `takes` table
+-- with a `result jsonb not null` column, and that statement was run before the design changed.
+-- `create table if not exists` would leave it exactly as it is, and every insert here would then
+-- fail its NOT NULL constraint — silently, because storeTake swallows its errors by design. The
+-- feature would look shipped and never store a single row.
+-- Safe to drop: it only ever held sealed answers with a thirty-minute life, and nothing was
+-- written to the old shape at all.
+drop table if exists takes;
+
+create table takes (
   take_id text primary key,
   iv      text not null,
   ct      text not null,
