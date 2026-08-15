@@ -882,28 +882,55 @@ const ERRORS = {
 // and try once more. Only for network-shaped failures — an out-of-credit or too-large answer
 // from the server is a real answer and gets reported as-is. One retry, because the first call may
 // well have run and been paid for; this is about not stranding the person, not about persistence.
+// SURVIVING A PHONE THAT WENT AWAY MID-ANALYSIS.
+//
+// The call takes ~12s at the median and ~29s at p90, and nobody stares at a phone for half a
+// minute. They switch apps, and iOS suspends the tab and kills the in-flight fetch — which comes
+// back as Safari's "Load failed". That is the reported failure, verbatim.
+//
+// This used to retry ONCE, immediately, and that is the attempt least likely to work. The fetch
+// rejection cannot even be delivered while the tab is frozen, so it arrives at the moment the
+// page wakes up — and firing a fresh request into a network stack that is still coming back from
+// suspension fails the same way, instantly. One retry, spent at the worst possible moment.
+//
+// Now it waits to actually be visible, gives the connection a beat, and tries again up to three
+// times with a widening gap. Errors the SERVER answered with (no speech, audio too large) are
+// never retried: they will fail identically and re-spend a model call to do it.
 async function analyzeResilient(payload) {
   let wentAway = document.hidden;
   const watch = () => { if (document.hidden) wentAway = true; };
   document.addEventListener('visibilitychange', watch);
+  const untilVisible = () => (document.hidden
+    ? new Promise((resolve) => {
+      const back = () => {
+        if (document.hidden) return;
+        document.removeEventListener('visibilitychange', back);
+        resolve();
+      };
+      document.addEventListener('visibilitychange', back);
+    })
+    : Promise.resolve());
+
   try {
-    return await postAnalyze(payload);
-  } catch (err) {
-    const serverAnswered = err && err.userMessage && err.message !== 'timeout';
-    if (!wentAway || serverAnswered) throw err;
-    if (document.hidden) {
-      await new Promise((resolve) => {
-        const back = () => {
-          if (document.hidden) return;
-          document.removeEventListener('visibilitychange', back);
-          resolve();
-        };
-        document.addEventListener('visibilitychange', back);
-      });
+    const MAX_TRIES = 3;
+    for (let attempt = 1; ; attempt++) {
+      try {
+        return await postAnalyze(payload);
+      } catch (err) {
+        // The server got the audio and made a judgement about it. Sending it again cannot change
+        // that answer, and would spend a second call to hear it.
+        const serverAnswered = err && err.userMessage && err.message !== 'timeout';
+        if (serverAnswered || attempt >= MAX_TRIES) throw err;
+
+        await untilVisible();
+        // A beat for the network to come back with the page. 400ms, then 1200ms — the first
+        // covers a tab resuming, the second a connection that genuinely dropped.
+        await new Promise((r) => setTimeout(r, attempt === 1 ? 400 : 1200));
+
+        const note = $('#scanNote');
+        if (note) note.textContent = wentAway ? 'picking up where we left off' : 'reconnecting';
+      }
     }
-    const note = $('#scanNote');
-    if (note) note.textContent = 'picking up where we left off';
-    return postAnalyze(payload);
   } finally {
     document.removeEventListener('visibilitychange', watch);
   }
