@@ -1235,6 +1235,14 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
     min-height: 44px; padding: 0 2px; margin: -14px 0;
   }
   .modes a { min-height: 42px; }
+  /* LOCK IT is the game's primary action — tapped five times a game, once per round — and it
+     measured 39px on a 375px screen, under the 44px everyone converges on. The dock has 6px of
+     clearance above the bottom edge, so this fits without pushing anything off screen. */
+  #lockBtn { min-height: 44px; }
+  /* The scrubber arrows are 34px and cannot simply grow: they sit in a fixed row inside the dock,
+     and making them taller makes the dock taller. Padding with matching negative margin grows the
+     HIT AREA to 44px while the row keeps the height it has now. */
+  #backBtn, #fwdBtn { padding-block: 5px; margin-block: -5px; }
   .foot a, .foot-hint a {
     display: inline-block; padding: 12px 4px; margin: -12px 0;
   }
