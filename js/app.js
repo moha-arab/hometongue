@@ -441,12 +441,25 @@ function resumeTake() {
   resumeTimer();
 }
 
+// THREE SIGNALS, BECAUSE ONE OF THEM MISSES THE CASE THIS WAS REPORTED FOR.
+//
+// visibilitychange alone is not enough, and that is exactly how the first fix failed. On Windows,
+// switching from Chrome to ANOTHER APPLICATION does not necessarily hide the tab: it is still the
+// selected tab in its window, so visibilityState stays "visible" and no event fires — while the
+// OS-level occlusion still gets the timers throttled. That is the alt-tab-to-Claude case, which
+// is the one that was actually reported.
+//
+// blur/focus catches it. Pausing when the window loses focus is also just correct on its own
+// terms: someone who has clicked into another window is not talking to this one, and the audio
+// still being captured is room tone, which measurably drags the answer around.
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) pauseTake(); else resumeTake();
 });
-// Safari fires pagehide without visibilitychange in some flows, and a take left running there is
-// the same silent-padding problem by another door.
+addEventListener('blur', () => pauseTake());
+addEventListener('focus', () => resumeTake());
+// Safari fires pagehide without visibilitychange in some flows; pageshow is its way back.
 addEventListener('pagehide', () => pauseTake());
+addEventListener('pageshow', () => resumeTake());
 
 function startTimer() {
   startedAt = Date.now();
@@ -462,24 +475,41 @@ function startTimer() {
     [...$('#dots').children].forEach((d, i) => { d.classList.remove('on'); d.classList.toggle('next', i === 0); });
     const w0 = $('#tierWord');
     if (w0) w0.textContent = 'keep talking';
-    const l0 = $('#stopLabel');
-    if (l0) l0.textContent = `you can stop in ${MIN_RECORD_S}s`;
+    const p0 = $('#waitPill');
+    if (p0) { p0.hidden = false; p0.textContent = `${MIN_RECORD_S}s`; }
     const f0 = $('#countFill');
     if (f0) f0.style.width = '0%';
     // Derived, so the clock on screen can never disagree with the cap that enforces it.
     $('#timer').textContent = `${Math.floor(MAX_SECONDS / 60)}:${String(MAX_SECONDS % 60).padStart(2, '0')}`;
   }
+  lastTick = 0;
   timerId = setInterval(tick, 250);
 }
 
 // Restart the interval WITHOUT touching startedAt or the UI, for coming back from a paused take.
 function resumeTimer() {
+  lastTick = 0;   // the pause already credited its own time; do not credit it twice
   if (!timerId) timerId = setInterval(tick, 250);
 }
 
+let lastTick = 0;
 function tick() {
   {
-    const s = Math.floor((Date.now() - startedAt) / 1000);
+    // A LAST-RESORT CATCH for a freeze that fired no event we listened for — a lid closing, a
+    // phone locking, a mobile browser that suspends silently. Ticks are scheduled every 250ms, so
+    // a gap of many seconds means this tab was not running, whatever the browser did or did not
+    // tell us, and crediting it back keeps the clock honest about how long the person spoke.
+    //
+    // FIVE SECONDS, not two, and the difference was measured rather than guessed. A backgrounded
+    // tab still ticks, at roughly once a second, and with jitter a 1.2s gap was observed arriving
+    // as 2.2s — which a 2000ms threshold read as a freeze and credited. False credits are worse
+    // than no detector at all: they make the clock under-report real speech, so the dots lag what
+    // was actually said. Nothing legitimate produces a five-second gap; ordinary throttling is
+    // 1/sec and intensive throttling is 1/min, so this fires on the second and never the first.
+    const now = Date.now();
+    if (lastTick && now - lastTick > 5000) startedAt += now - lastTick;
+    lastTick = now;
+    const s = Math.floor((now - startedAt) / 1000);
     // A countdown, not a stopwatch. The cap used to fire with no warning, which read as the
     // app crashing mid-sentence rather than a deliberate limit.
     const left = Math.max(0, MAX_SECONDS - s);
@@ -508,17 +538,17 @@ function tick() {
       // what it is waiting for and exactly how long, in the place they are already looking.
       // This is not the third clock that got cut — that one duplicated a countdown sitting
       // beside it. Nothing else on this screen counts down now.
-      // WHAT IS TRUE ABOUT THE WAIT IS THAT YOU MAY NOT STOP YET. "done in 13s" said the take
-      // ENDS at twenty seconds, which is false twice: nothing ends there, and the dots directly
-      // underneath are at that same moment asking the person to keep going to thirty and beyond.
-      // The button was arguing with the meter eight pixels below it.
-      // What actually changes at twenty is permission, so that is what it says. Nothing else
-      // dresses it up: this card already draws those twenty seconds three other ways.
+      // THE LABEL NEVER CHANGES, because what the button DOES never changes. Two earlier versions
+      // rewrote it — "done in 13s", which was false (nothing ends at twenty, and the dots below
+      // were simultaneously asking for thirty), and a bare "13", which was a number with no
+      // sentence around it. The button says its own name and the wait rides beside it as a
+      // separate number, so neither has to distort the other to fit.
       stop.disabled = s < MIN_RECORD_S;
-      const lab = $('#stopLabel');
-      if (lab) {
-        const want = stop.disabled ? `you can stop in ${MIN_RECORD_S - s}s` : 'done, guess now';
-        if (lab.textContent !== want) lab.textContent = want;
+      const pill = $('#waitPill');
+      if (pill) {
+        pill.hidden = !stop.disabled;
+        const left = `${MIN_RECORD_S - s}s`;
+        if (stop.disabled && pill.textContent !== left) pill.textContent = left;
       }
     }
     // The clock and its bar both draw the same thing: how much of the minute is left. The cap

@@ -394,13 +394,20 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .share-btn:active:not(:disabled) { transform: translateY(1px); }
 .share-btn:disabled { opacity: 0.65; cursor: wait; }
 .stop-btn:disabled { background: var(--paper-2); color: var(--grey-2); cursor: default; }
-/* NO FILL ON THE BUTTON. It had one sweeping toward the unlock, and it was the fourth progress
-   indicator on a card that already carries a countdown, a bar and a row of dots — all of them
-   drawing the same twenty seconds. The label says the number and the grey-to-green flip says the
-   moment; the fill was only saying both again, slower.
-   Fixed min-width and tabular figures so "you can stop in 13s" -> "in 9s" does not shuffle the
-   button under a thumb already reaching for it. */
-.stop-btn { min-width: 196px; font-variant-numeric: tabular-nums; }
+/* The button says its own name; the wait rides beside it as a separate number, so the label never
+   has to be bent into a sentence about time. No progress fill — this card already draws those
+   twenty seconds three other ways, and a fourth was the complaint.
+   Fixed min-width and tabular figures so 20s -> 9s does not shuffle the button under a thumb
+   already reaching for it. */
+.stop-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  min-width: 186px; font-variant-numeric: tabular-nums;
+}
+.stop-btn #waitPill {
+  min-width: 30px; padding: 2px 7px; border-radius: 999px;
+  background: rgba(0, 0, 0, 0.07); color: inherit;
+  font-size: 12.5px; font-weight: 600;
+}
 
 /* 44px tall because these are pressed with a thumb, not a mouse. "post score" was 32px, which
    is a miss-and-try-again target on a phone — and it is the button that decides whether a run
