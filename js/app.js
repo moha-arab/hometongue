@@ -469,6 +469,12 @@ addEventListener('pageshow', () => resumeTake());
 
 function startTimer() {
   startedAt = Date.now();
+  // EVERY TAKE STARTS UNPAUSED, whatever happened to the last one. pauseTake() returns early if
+  // pausedAt is already set, so a take that ended while the tab was hidden — navigating away from
+  // a backgrounded recording, or the cap firing after a resume that never came — left a stale
+  // timestamp that made the NEXT recording silently unpausable. Only two of the exit paths cleared
+  // it; this covers all of them, including any added later.
+  pausedAt = 0;
   const stop0 = $('#stopBtn');
   // DISABLE ONLY. Writing textContent here would flatten the button's children — the label span
   // and the count pill — back into a single text node, so the pill silently stopped existing the
@@ -584,8 +590,10 @@ function stopTimer() {
   if (timerId) clearInterval(timerId), timerId = null;
 }
 
-// Called wherever a take ends, so no pause state survives into the next one.
-function clearPauseWatch() {
+// Called wherever a take ends, so no pause state survives into the next one. It used to also
+// clear a once-a-second watchdog, which is where the name came from; the watchdog went with the
+// blur handling and the name stayed behind describing something that no longer exists.
+function clearPauseState() {
   pausedAt = 0;
 }
 
@@ -687,7 +695,7 @@ async function startListening() {
   try {
     recorder = new MediaRecorder(mediaStream, mime ? { mimeType: mime } : undefined);
   } catch {
-    stopTimer(); stopMeter(); clearPauseWatch(); teardownRecording();
+    stopTimer(); stopMeter(); clearPauseState(); teardownRecording();
     state = 'idle'; show('idleCard');
     toast('Recording failed to start on this browser. Try again, or type instead.');
     return;
@@ -785,7 +793,7 @@ async function onRecordingReady() {
   // card still up. Clean up and analyze whatever was captured — a take interrupted at 20
   // seconds is still a take; the blob-size gate below catches the ones that aren't.
   if (state === 'listening') {
-    stopTimer(); stopMeter(); clearPauseWatch();
+    stopTimer(); stopMeter(); clearPauseState();
     // ...but apply the SAME floor a manual stop applies. The comment above says an interrupted
     // 20-second take is still a take, and that is true — the problem is that nothing here checked
     // it was 20 seconds. A call that lands four seconds in was analysed anyway, so the one path
