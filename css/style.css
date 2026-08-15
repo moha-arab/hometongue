@@ -135,10 +135,18 @@ body {
 }
 
 /* ——— header ——— */
+/* SWITCHER NEXT TO THE LOGO, both on the left, and this is half of what Mohammad asked for.
+   He is right about the important half: the far-right corner is where a page puts things it does
+   not mind you missing, and the mode switcher was sitting in it. Moved beside the wordmark it is
+   in the first place anyone looks, which is the whole point.
+   The other half — logo on the right — I did not do, and the reason is the TikTok. The top-left
+   is where a person looks to answer "what is this", and it is what survives in a screenshot. He
+   is about to spend real attention teaching people a name; that name should be where names go.
+   Both live in the strong zone together instead. */
 .brand {
   position: fixed; top: 0; left: 0; right: 0; z-index: 12;
-  display: flex; justify-content: space-between; align-items: center;
-  gap: 16px; padding: 18px 26px;
+  display: flex; justify-content: flex-start; align-items: center;
+  gap: 20px; padding: 18px 26px;
 }
 /* The lockup: the mark (a map pin that speaks — amber bar is the answer) plus the
    wordmark in the editorial serif, "Tongue" italic the way the site italicises what
@@ -1026,28 +1034,7 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
    twenty-second take and a forty-five-second one land in the same place. Filling toward twenty
    means the bar completes exactly when the recording is genuinely good, and then stops asking
    for anything. The cap keeps its own small number on the right, where a limit belongs. */
-.ready { margin: 18px 0 20px; --gate: 33.333%; --good: 50%; }
-
-/* THE LABELLED SCALE. Without this the bar was a sixty-second track with an unexplained notch,
-   and the only words on screen at second zero read "20 seconds to go" — so the bar looked like
-   it WAS twenty seconds and its whole right-hand side looked like padding. These two marks are
-   legible before anyone speaks, and between them they say the two things that matter: where the
-   floor is, and which direction is better. */
-.ready-scale { position: relative; height: 12px; margin-bottom: 8px; }
-.ready-mark {
-  position: absolute; bottom: 0;
-  font-family: var(--label); font-size: 9.5px; font-weight: 500;
-  letter-spacing: 0.09em; text-transform: uppercase; color: var(--grey-2);
-  white-space: nowrap; transition: color 0.4s ease, opacity 0.4s ease;
-}
-.ready-mark.is-gate { left: var(--gate); transform: translateX(-50%); }
-.ready-mark.is-end { right: 0; }
-/* Once you are past the floor it stops being the instruction and the direction becomes the
-   point, so the emphasis moves with you rather than shouting both at once. */
-.ready.is-enough .ready-mark.is-gate { opacity: 0.45; }
-.ready.is-enough .ready-mark.is-end { color: var(--accent); }
-
-.ready-bar { position: relative; }
+.ready { margin: 18px 0 20px; }
 .ready-track {
   height: 6px; border-radius: 3px; background: var(--rule-soft); overflow: hidden;
 }
@@ -1056,23 +1043,11 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   background: var(--grey-2);
   transition: width 0.32s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.5s ease;
 }
-/* THE GATE tick, sitting over the track so it can rise above the bar and meet its own label.
-   Position comes from MIN_RECORD_S / MAX_SECONDS at runtime. */
-.ready-gate {
-  position: absolute; top: -5px; height: 16px; left: var(--gate);
-  width: 2px; margin-left: -1px; border-radius: 1px;
-  background: var(--grey-2); opacity: 0.55; z-index: 2;
-}
-/* A second, quieter mark where the answer actually becomes good. Deliberately UNLABELLED — an
-   unexplained notch is what caused the confusion the first time round, so this one is only ever
-   a confirmation of something the copy has already said out loud, never the sole carrier of it. */
-.ready-good {
-  position: absolute; top: 0; height: 6px; left: var(--good);
-  width: 1px; background: var(--sheet); opacity: 0.7; z-index: 2;
-}
-/* Three shelves, carried by colour so the wording does not have to repeat itself: grey while the
-   take is too thin to send, pale once it can be sent, full once it is genuinely good, deepest in
-   the best measured range. */
+/* Three shelves carried entirely by colour, which is the one channel that costs a person
+   mid-sentence nothing to read: grey while the take is too thin to send, pale once it can be,
+   full once it is genuinely good, deepest in the best measured range. The labelled scale and the
+   two tick marks that used to sit above this are gone — a scale is something you work out, and
+   nobody works anything out while they are talking. */
 .ready.is-enough .ready-fill { background: color-mix(in srgb, var(--accent) 45%, var(--grey-2)); }
 .ready.is-good .ready-fill { background: var(--accent); }
 .ready.is-best .ready-fill { background: color-mix(in srgb, var(--accent) 82%, #000); }

@@ -390,11 +390,6 @@ function startTimer() {
   if (r0) {
     r0.dataset.state = '';
     r0.classList.remove('is-enough', 'is-good', 'is-best', 'is-closing');
-    // Both markers are drawn from the real constants, so moving a constant moves the picture.
-    r0.style.setProperty('--gate', `${(MIN_RECORD_S / MAX_SECONDS) * 100}%`);
-    r0.style.setProperty('--good', `${(GOOD_RECORD_S / MAX_SECONDS) * 100}%`);
-    const gm = $('#gateMark');
-    if (gm) gm.textContent = `${MIN_RECORD_S}s minimum`;
     const f0 = $('#readyFill');
     if (f0) f0.style.width = '0%';
     $('#qLabel').textContent = `${MIN_RECORD_S} seconds to go`;
@@ -466,11 +461,11 @@ function startTimer() {
         $('#qLabel').textContent = closing
           ? 'wrapping up'
           : best
-            ? 'this is as sharp as it gets'
+            ? 'as sharp as it gets'
             : good
               ? 'good, and still improving'
               : enough
-                ? `you can stop now, but ${GOOD_RECORD_S - MIN_RECORD_S} more seconds is much sharper`
+                ? 'keep going, it gets much sharper'
                 : `${n} second${n === 1 ? '' : 's'} to go`;
       }
     }

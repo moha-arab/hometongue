@@ -111,23 +111,14 @@
          repeat itself. Running to the cap also retires the second clock: the bar is the cap
          indicator now, so nothing counts down beside it. -->
     <div class="ready" id="ready">
-      <!-- THE SCALE IS LABELLED, and that is the whole fix. The previous version was this same
-           sixty-second bar with an unexplained notch halfway along it, and at second zero the
-           only words on screen said "30 seconds to go" — so the eye reasonably concluded the bar
-           WAS thirty seconds, which made the notch meaningless and the right-hand half look like
-           dead space. Nothing said the track kept going, and nothing said why you would want it
-           to. Two small labels, readable before you say a word, carry both facts. -->
-      <div class="ready-scale" aria-hidden="true">
-        <span class="ready-mark is-gate" id="gateMark">20s minimum</span>
-        <span class="ready-mark is-end">more accurate</span>
-      </div>
-      <div class="ready-bar">
-        <div class="ready-track"><div class="ready-fill" id="readyFill"></div></div>
-        <!-- Both sit OVER the track rather than inside it, so the gate tick can rise above the
-             bar and meet its own label. Positions come from the real constants at runtime. -->
-        <i class="ready-gate" aria-hidden="true"></i>
-        <i class="ready-good" aria-hidden="true"></i>
-      </div>
+      <!-- NOTHING TO PARSE. A person reading this is MID-SENTENCE, so anything that has to be
+           worked out is wrong here no matter how accurate it is. This carried a labelled scale
+           with two marks on it — "20s minimum" over a tick, "more accurate" at the far end, a
+           second unlabelled tick at thirty — and reading a scale is a task.
+           The three facts survive without any of it. Can I stop yet: the BUTTON answers that, by
+           being dim and then not, which needs no words at all. How much longer: one short line.
+           Is it getting better: the bar fills and deepens through three colours. -->
+      <div class="ready-track"><div class="ready-fill" id="readyFill"></div></div>
       <!-- ONE NUMBER ON SCREEN AT A TIME, EVER. This line once carried two: "15 seconds to go"
            on the left and "0:55 left" on the right, counting opposite directions in the same
            unit, side by side. Two clocks disagreeing is not information, it is a puzzle. -->
