@@ -394,20 +394,13 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .share-btn:active:not(:disabled) { transform: translateY(1px); }
 .share-btn:disabled { opacity: 0.65; cursor: wait; }
 .stop-btn:disabled { background: var(--paper-2); color: var(--grey-2); cursor: default; }
-/* THE BUTTON FILLS TOWARD ITS OWN UNLOCK. --unlock is written every tick as a percentage of the
-   twenty seconds, and the accent wash sweeps across the button to meet it — so the moment the
-   control becomes pressable is something you watch arrive instead of a number you have to
-   interpret. At 100% the disabled rule stops applying and the real button colour lands, which is
-   a change big enough that nobody misses it.
-   Fixed min-width and tabular figures so "done in 13s" -> "done in 9s" does not shuffle the
-   button under a thumb that is already reaching for it. */
-.stop-btn { position: relative; overflow: hidden; min-width: 172px; font-variant-numeric: tabular-nums; }
-.stop-btn:disabled::before {
-  content: ''; position: absolute; inset: 0; width: var(--unlock, 0%);
-  background: color-mix(in srgb, var(--accent) 20%, transparent);
-  transition: width 0.25s linear;
-}
-.stop-btn > span { position: relative; z-index: 1; }
+/* NO FILL ON THE BUTTON. It had one sweeping toward the unlock, and it was the fourth progress
+   indicator on a card that already carries a countdown, a bar and a row of dots — all of them
+   drawing the same twenty seconds. The label says the number and the grey-to-green flip says the
+   moment; the fill was only saying both again, slower.
+   Fixed min-width and tabular figures so "you can stop in 13s" -> "in 9s" does not shuffle the
+   button under a thumb already reaching for it. */
+.stop-btn { min-width: 196px; font-variant-numeric: tabular-nums; }
 
 /* 44px tall because these are pressed with a thumb, not a mouse. "post score" was 32px, which
    is a miss-and-try-again target on a phone — and it is the button that decides whether a run

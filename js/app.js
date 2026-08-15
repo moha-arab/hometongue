@@ -463,8 +463,7 @@ function startTimer() {
     const w0 = $('#tierWord');
     if (w0) w0.textContent = 'keep talking';
     const l0 = $('#stopLabel');
-    if (l0) l0.textContent = `done in ${MIN_RECORD_S}s`;
-    if (stop0) stop0.style.setProperty('--unlock', '0%');
+    if (l0) l0.textContent = `you can stop in ${MIN_RECORD_S}s`;
     const f0 = $('#countFill');
     if (f0) f0.style.width = '0%';
     // Derived, so the clock on screen can never disagree with the cap that enforces it.
@@ -509,27 +508,21 @@ function tick() {
       // what it is waiting for and exactly how long, in the place they are already looking.
       // This is not the third clock that got cut — that one duplicated a countdown sitting
       // beside it. Nothing else on this screen counts down now.
-      // THE BUTTON SHOWS ITS OWN UNLOCK. A bare "13" ticking down told nobody what happens at
-      // zero — the number was a fact with no sentence around it. It reads "done in 13s" now, and
-      // fills from the left as it approaches, so the moment it becomes pressable is something you
-      // watch arrive rather than something you have to work out.
+      // WHAT IS TRUE ABOUT THE WAIT IS THAT YOU MAY NOT STOP YET. "done in 13s" said the take
+      // ENDS at twenty seconds, which is false twice: nothing ends there, and the dots directly
+      // underneath are at that same moment asking the person to keep going to thirty and beyond.
+      // The button was arguing with the meter eight pixels below it.
+      // What actually changes at twenty is permission, so that is what it says. Nothing else
+      // dresses it up: this card already draws those twenty seconds three other ways.
       stop.disabled = s < MIN_RECORD_S;
-      stop.style.setProperty('--unlock', `${Math.min(100, (s / MIN_RECORD_S) * 100)}%`);
       const lab = $('#stopLabel');
       if (lab) {
-        const want = stop.disabled ? `done in ${MIN_RECORD_S - s}s` : 'done, guess now';
+        const want = stop.disabled ? `you can stop in ${MIN_RECORD_S - s}s` : 'done, guess now';
         if (lab.textContent !== want) lab.textContent = want;
       }
     }
-    // THE BAR RUNS THE WHOLE MINUTE, with a notch where the submit button unlocks. The measured
-    // shape is a curve with a gate in it, not a step: past thirty seconds the median stops
-    // moving, but the share of answers landing within 100 km of the real city keeps climbing
-    // (52% at 30s, 56% at 45s, 59% at 60s) and the rate of misses over 1000 km keeps falling
-    // (7%, 7%, 4%), both monotonically. So there is something real left to earn after the gate,
-    // and a bar that stopped at the gate was hiding it.
-    //
-    // Running to the cap also retires the second clock. The bar IS the cap now, so nothing has
-    // to count down beside it.
+    // The clock and its bar both draw the same thing: how much of the minute is left. The cap
+    // used to fire with no warning at all, which read as the app crashing mid-sentence.
     $('#timer').textContent = `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
     const fill = $('#countFill');
     if (fill) fill.style.width = `${(s / MAX_SECONDS) * 100}%`;
