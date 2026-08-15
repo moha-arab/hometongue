@@ -915,11 +915,20 @@ async function collectTake(id, key) {
 // because someone who walked away has not stopped wanting their answer.
 async function pollForTake(id, key, onTick) {
   const started = Date.now();
-  // MEASURED IN TIME SPENT LOOKING, not wall time. A four-minute wall budget against a
-  // thirty-minute server window meant putting the phone down for five minutes and coming back to
-  // the plain home screen — the budget having expired while nobody was watching it. Only visible
-  // time counts now, and the ceiling is the server's own window so the two agree.
-  const BUDGET_MS = 28 * 60 * 1000;
+  // MEASURED IN TIME SPENT LOOKING, not wall time. Someone who puts the phone down for five
+  // minutes must not come back to an expired budget — while they were away, nothing was waiting.
+  //
+  // AND BOUNDED BY WHAT THE SERVER CAN STILL DO. This was twenty-eight minutes, matched to how
+  // long an answer is KEPT — but that is the wrong number, because a job that is going to deliver
+  // delivers inside sixty seconds: api/analyze.js budgets itself 50s and Vercel kills the function
+  // at 60. So if we have been LOOKING at this for ninety seconds and it is still pending, the work
+  // did not merely take a while, it died — and the old ceiling meant watching "still going, hang
+  // tight" for another twenty-six and a half minutes to find that out. Reported at 160 seconds
+  // from a real phone, which is exactly this.
+  //
+  // Ninety seconds of watched time only. Away time still costs nothing, so leaving and coming back
+  // to a finished answer is unaffected: that first poll returns it immediately.
+  const BUDGET_MS = 90 * 1000;
   let watched = 0;
   let wait = 1200;
   while (watched < BUDGET_MS) {
@@ -954,9 +963,11 @@ async function pollForTake(id, key, onTick) {
     }
     if (onTick) onTick(Math.round(watched / 1000));
   }
-  throw Object.assign(new Error('poll_timeout'), {
-    userMessage: 'That is taking longer than it should. Your answer may still arrive — try again in a moment.',
-  });
+  // RETRYABLE, deliberately without a userMessage. analyzeResilient treats a message as "the
+  // server answered" and stops — but nothing answered here, the job vanished. Marked so the loop
+  // re-sends the recording we are still holding, under a fresh id, rather than making someone who
+  // already spoke for thirty seconds do it again because a serverless invocation died.
+  throw Object.assign(new Error('take_lost'), { retryable: true });
 }
 
 // The page-load path. This is the one that runs after a phone evicted the tab, so it is the last
@@ -1135,6 +1146,7 @@ const ERRORS = {
 // times with a widening gap. Errors the SERVER answered with (no speech, audio too large) are
 // never retried: they will fail identically and re-spend a model call to do it.
 async function analyzeResilient(payload) {
+  /* eslint-disable-next-line no-param-reassign */
   let wentAway = document.hidden;
   const watch = () => { if (document.hidden) wentAway = true; };
   document.addEventListener('visibilitychange', watch);
@@ -1178,8 +1190,23 @@ async function analyzeResilient(payload) {
         document.removeEventListener('visibilitychange', onReturn);
         // The server got the audio and made a judgement about it. Sending it again cannot change
         // that answer, and would spend a second call to hear it.
+        // A LOST TAKE IS NOT AN ANSWER. The job died before storing anything, so there is nothing
+        // to collect and nothing to explain — but the recording is still in this payload. Mint a
+        // fresh id and send it again rather than ending the take.
+        if (err && err.retryable && attempt < MAX_TRIES) {
+          const fresh = mintTake();
+          payload = { ...payload, take_id: fresh.id, take_key: fresh.key };
+          const note0 = $('#scanNote');
+          if (note0) note0.textContent = 'that one did not come back, trying again';
+          continue;
+        }
         const serverAnswered = err && err.userMessage && err.message !== 'timeout';
-        if (serverAnswered || attempt >= MAX_TRIES) throw err;
+        if (serverAnswered || attempt >= MAX_TRIES) {
+          if (err && err.retryable) {
+            err.userMessage = 'That take did not come back from the server. Give it another go.';
+          }
+          throw err;
+        }
         // A superseded attempt cost nothing and proves the page is back, so it goes straight
         // round again without the settling pause a real network failure earns.
         if (err && err.superseded) { attempt -= 1; continue; }
