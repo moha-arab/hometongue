@@ -395,7 +395,6 @@ function startMeter(stream) {
 }
 
 function stopMeter() {
-  if (typeof clearPauseWatch === 'function') clearPauseWatch();
   if (rafId) cancelAnimationFrame(rafId), rafId = null;
   if (audioCtx) audioCtx.close().catch(() => {}), audioCtx = null;
   meterLoop = null; meterStream = null;
@@ -419,7 +418,7 @@ function stopMeter() {
 // So the take PAUSES. Recorder, meter and clock all stop together, and the away time is added
 // back to startedAt on return so it never counts against the person. Switch apps for five
 // minutes, come back, and you are exactly where you left off.
-let pausedAt = 0, pauseWatch = null;
+let pausedAt = 0;
 
 function pauseTake() {
   if (state !== 'listening' || pausedAt) return;
@@ -430,20 +429,9 @@ function pauseTake() {
   // pause() is not universal; where it is missing the clock still freezes and the only cost is
   // some room tone on the tail, which is the old behaviour rather than a new failure.
   try { if (recorder && recorder.state === 'recording' && recorder.pause) recorder.pause(); } catch { /* ignore */ }
-  // A PAUSE MUST NEVER BE ABLE TO STICK. Every pause here is triggered by an event, and events can
-  // arrive without their partner — a blur with no focus, a pagehide with no pageshow. If that
-  // happened the take would sit paused forever while someone talked into a recorder that had
-  // stopped, with a frozen clock that looked perfectly healthy. So instead of trusting the return
-  // event, this checks the actual condition once a second and resumes the moment the page is
-  // genuinely back. A spurious blur then costs about a second rather than the whole take.
-  if (pauseWatch) clearInterval(pauseWatch);
-  pauseWatch = setInterval(() => {
-    if (!document.hidden && (!POINTER_DESKTOP || document.hasFocus())) resumeTake();
-  }, 1000);
 }
 
 function resumeTake() {
-  if (pauseWatch) clearInterval(pauseWatch), pauseWatch = null;
   if (state !== 'listening' || !pausedAt) return;
   startedAt += Date.now() - pausedAt;   // the time away never happened
   pausedAt = 0;
@@ -453,36 +441,28 @@ function resumeTake() {
   resumeTimer();
 }
 
-// THREE SIGNALS, BECAUSE ONE OF THEM MISSES THE CASE THIS WAS REPORTED FOR.
+// visibilitychange ONLY, which is what this should have been from the start.
 //
-// visibilitychange alone is not enough, and that is exactly how the first fix failed. On Windows,
-// switching from Chrome to ANOTHER APPLICATION does not necessarily hide the tab: it is still the
-// selected tab in its window, so visibilityState stays "visible" and no event fires — while the
-// OS-level occlusion still gets the timers throttled. That is the alt-tab-to-Claude case, which
-// is the one that was actually reported.
+// A blur/focus pair was added on top of this and has been taken back out. It was there to catch
+// alt-tabbing to another application on Windows, where the tab is never actually hidden — but it
+// was chasing a bug that probably never existed. The report was "clock frozen, waveform still
+// moving", and a throttled tab cannot produce that: requestAnimationFrame STOPS when a tab is
+// hidden, so a frozen tab freezes the waveform too. What does produce exactly that signature is a
+// stray rAF loop left running by test code with the interval cleared, which is what was on that
+// tab at the time. Mine.
 //
-// blur/focus catches it. Pausing when the window loses focus is also just correct on its own
-// terms: someone who has clicked into another window is not talking to this one, and the audio
-// still being captured is room tone, which measurably drags the answer around.
+// It also cost more than it was worth. blur fires on phones for notification banners and the
+// keyboard, none of which mean anyone left, so it needed a desktop-only gate; and blur can fire
+// without its matching focus, so it needed a once-a-second watchdog to stop a pause sticking
+// forever. Two mechanisms guarding a third, for a case worth some room tone at the end of a take.
+//
+// What remains is what production audio and video players actually use, and it covers the case
+// that genuinely happens: backgrounding the app on a phone, which does hide the page and does
+// fire this.
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) pauseTake(); else resumeTake();
 });
 
-// DESKTOP ONLY, and the restriction matters more than the feature. blur exists here to catch one
-// specific desktop quirk: another APPLICATION taking over without the tab ever being hidden. On a
-// phone that concept does not exist, and "blur" instead fires for things that are not someone
-// leaving at all — a notification banner sliding down, the keyboard opening, the shade being
-// pulled. Each of those would pause a recording while the person is still talking into it, which
-// is a worse failure than the bug this was written to fix: the old one captured silence, this one
-// would silently capture nothing while the clock sat frozen and looked fine.
-//
-// Phones do not need it. visibilitychange fires reliably there when an app is backgrounded, which
-// is the case that actually happens on a phone.
-const POINTER_DESKTOP = matchMedia('(hover: hover) and (pointer: fine)').matches;
-if (POINTER_DESKTOP) {
-  addEventListener('blur', () => pauseTake());
-  addEventListener('focus', () => resumeTake());
-}
 // Safari fires pagehide without visibilitychange in some flows; pageshow is its way back.
 addEventListener('pagehide', () => pauseTake());
 addEventListener('pageshow', () => resumeTake());
@@ -604,9 +584,8 @@ function stopTimer() {
   if (timerId) clearInterval(timerId), timerId = null;
 }
 
-// Called wherever a take ends, so a watchdog can never outlive the recording it was guarding.
+// Called wherever a take ends, so no pause state survives into the next one.
 function clearPauseWatch() {
-  if (pauseWatch) clearInterval(pauseWatch), pauseWatch = null;
   pausedAt = 0;
 }
 
