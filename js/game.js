@@ -76,11 +76,15 @@ function initMap() {
   });
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden) { setTimeout(() => map.invalidateSize(), 60); return; }
-    // Switching away must stop the voice. Two reasons beyond politeness: the listening budget
-    // is charged against wall-clock time, so audio playing to nobody spends a round's 60
-    // seconds; and the window bound used to rest on a 100ms timer that browsers throttle in
-    // background tabs, which let a forgotten tab play on past the clip into the rest of the
-    // source video.
+    // Switching away must stop the voice. Two reasons beyond politeness.
+    // The listening budget is charged by how far the PLAYHEAD advances, so a clip playing to an
+    // empty room spends a round's sixty seconds just as fast as one being listened to. (This
+    // comment used to say wall-clock, which is not what the timeupdate handler actually does —
+    // same conclusion, wrong reason, and wrong reasons in comments are how the recording floor
+    // ended up on the worst duration this project ever measured.)
+    // And the window bound is enforced from timeupdate events, which browsers deliver less often
+    // in a background tab, so a forgotten tab can overrun the curated twenty seconds and play on
+    // into the rest of the source video — where the answer usually is.
     if (playing) media.pause();
   });
 }
