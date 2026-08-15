@@ -96,34 +96,39 @@
          removed: see the note on the bar itself. Running to the cap also retires the second
          clock, since the bar is the cap indicator now and nothing counts down beside it. -->
     <div class="ready" id="ready">
-      <!-- NOTHING TO PARSE. A person reading this is MID-SENTENCE, so anything that has to be
-           worked out is wrong here no matter how accurate it is. This carried a labelled scale
-           with two marks on it — "20s minimum" over a tick, "more accurate" at the far end, a
-           second unlabelled tick at thirty — and reading a scale is a task.
-           The three facts survive without any of it. Can I stop yet: the BUTTON answers that, by
-           being dim and then not, which needs no words at all. How much longer: one short line.
-           Is it getting better: the bar fills and deepens through three colours. -->
-      <div class="ready-track"><div class="ready-fill" id="readyFill"></div></div>
-      <!-- The accuracy ramp, sitting under the bar so the fill's own edge points at where you
-           currently are on it. Mohammad asked for red to green; this is sand to amber to green.
-           Reasons in style.css — red is a claim about the audio that is not true, and 8% of men
-           cannot tell it from green anyway. -->
-      <div class="ready-ramp" aria-hidden="true"></div>
-      <p class="ready-ends" aria-hidden="true"><span>rough</span><span>sharpest</span></p>
-      <!-- ONE NUMBER ON SCREEN AT A TIME, EVER. This line once carried two: "15 seconds to go"
-           on the left and "0:55 left" on the right, counting opposite directions in the same
-           unit, side by side. Two clocks disagreeing is not information, it is a puzzle. -->
-      <!-- Elapsed over total, the way every video player on earth writes it, so nobody has to be
-           told the take is a minute long — they can see it. This is a SCALE, not the second
-           clock that got thrown out: the right-hand number never moves. -->
-      <p class="ready-row"><span class="ready-clock"><b id="elapsed">0:00</b> / <i id="totalTime">1:00</i></span></p>
+      <!-- BACK TO DOTS, and this is a correction rather than a preference.
+           A bar is CONTINUOUS, so reading one means judging a position, which needs a scale,
+           which needs labels — and labels are a task nobody performs mid-sentence. Every version
+           of this screen died at exactly that step. Dots are DISCRETE: you count them, and
+           counting needs nothing written down at all.
+           The deeper reason is that the ladder shape is now CORRECT and it was not before. Dots
+           were thrown out partly on the belief that nothing improved past the floor, which made
+           rungs a promise the product could not keep. That belief came from numbers quoted in a
+           comment that appear in no data file. The real sweep has four measured points and
+           accuracy climbs across every one of them, so these are not decorative rungs — there is
+           exactly one dot per measurement:
+             1 dot   20s   44% of answers within 100 km   (the floor: submit unlocks)
+             2 dots  30s   52%
+             3 dots  45s   56%
+             4 dots  60s   59%
+           The dot you have not earned yet is outlined rather than blank, so there is always
+           something visibly next to go and get. -->
+      <div class="dots" id="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <p class="ready-row">
+        <span class="ready-tier" id="tierWord">keep talking</span>
+        <!-- Elapsed over total, the way every video player writes it, so nobody has to be told
+             the take is a minute long. The right-hand number NEVER MOVES, which is what makes
+             this a scale and not the second countdown that had to be cut for arguing with the
+             first. Derived from MAX_SECONDS so it cannot drift from the cap. -->
+        <span class="ready-clock"><b id="elapsed">0:00</b> / <i id="totalTime">1:00</i></span>
+      </p>
     </div>
     <!-- Two ways out of a take, because there are two reasons to end one. "done" submits what
          you said; "start over" throws it away and begins again, for the fumbled sentence or the
          cough or the wrong language. Without it the only escape was to talk out the full take
          and submit a recording you already knew was spoiled. -->
     <div class="live-actions">
-      <button class="stop-btn" id="stopBtn">done, guess now</button>
+      <button class="stop-btn" id="stopBtn"><span>done, guess now</span><b id="countPill" hidden>20</b></button>
       <button class="restart-btn" id="restartBtn" type="button">
         <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
           <path d="M13.6 8a5.6 5.6 0 1 1-1.64-3.96" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>

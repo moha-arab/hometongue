@@ -80,9 +80,20 @@ const MIN_VOICED_S = 1.5;   // a mic that heard essentially nothing at all
 // are worth more than any other ten in the recording. The meter spends them saying so, at the
 // exact moment someone is deciding whether to stop. Beyond GOOD the gains are real but small
 // (one clip in twenty-seven per step), so BEST only changes the wording, never the pressure.
-const MIN_RECORD_S = 20;   // gate: submit unlocks
-const GOOD_RECORD_S = 30;  // where the answer actually becomes good
-const BEST_RECORD_S = 45;  // best measured, and nothing is enforced here
+// One entry per measurement in data/length-sweep.json, which is why there are four dots and not
+// a number someone liked the look of. `at` is the second it is earned, `word` names the tier.
+const TIERS = [
+  { at: 20, word: 'rough' },     // 44% of answers within 100 km — the floor, submit unlocks
+  { at: 30, word: 'good' },      // 52%
+  { at: 45, word: 'sharp' },     // 56%
+  // The evidence for this one is the 60s row (59%), but 60s is the CAP: a tier set there lights
+  // its dot on the same tick that stopListening() fires, so nobody would ever see it earned. That
+  // is the identical bug the original three-dot meter shipped with — a rung that cannot be
+  // reached — and it is not worth repeating for five seconds of precision that no measurement
+  // could resolve anyway. Derived from the cap so it follows if the cap ever moves.
+  { at: MAX_SECONDS - 5, word: 'sharpest' },
+];
+const MIN_RECORD_S = TIERS[0].at;  // the gate is the first tier, by construction
 
 // the survey red, read from the stylesheet so themes stay in one place
 const MARK = () => window.HT.ink();
@@ -380,18 +391,19 @@ function stopMeter() {
 function startTimer() {
   startedAt = Date.now();
   const stop0 = $('#stopBtn');
-  // The button no longer counts down. It used to read "keep talking… 12", which was a third
-  // clock on a screen that already had two, all of them saying the same thing in different
-  // units. The bar directly above it now carries that sentence, so the button can hold one
-  // label and just be dim until it means something.
-  if (stop0) { stop0.disabled = true; stop0.textContent = 'done, guess now'; }
+  // DISABLE ONLY. Writing textContent here would flatten the button's children — the label span
+  // and the count pill — back into a single text node, so the pill silently stopped existing the
+  // moment a second take started. The label is static markup now; nothing needs to set it.
+  if (stop0) stop0.disabled = true;
   // Reset, or a second recording starts still wearing the first one's badge.
-  const r0 = $('#ready');
-  if (r0) {
-    r0.dataset.state = '';
-    r0.classList.remove('is-enough', 'is-good', 'is-best', 'is-closing');
-    const f0 = $('#readyFill');
-    if (f0) f0.style.width = '0%';
+  const d0 = $('#dots');
+  if (d0) {
+    d0.dataset.earned = '';
+    [...d0.children].forEach((d, i) => { d.classList.remove('on'); d.classList.toggle('next', i === 0); });
+    const w0 = $('#tierWord');
+    if (w0) w0.textContent = 'keep talking';
+    const p0 = $('#countPill');
+    if (p0) { p0.hidden = false; p0.textContent = String(MIN_RECORD_S); }
     const e0 = $('#elapsed');
     if (e0) e0.textContent = '0:00';
     // Derived, so the total on screen can never disagree with the cap that enforces it.
@@ -428,10 +440,18 @@ function startTimer() {
       // what it is waiting for and exactly how long, in the place they are already looking.
       // This is not the third clock that got cut — that one duplicated a countdown sitting
       // beside it. Nothing else on this screen counts down now.
+      // THE BUTTON KEEPS ITS NAME. It briefly BECAME the number, which left a bare "7" sitting
+      // where a control should be — nothing on screen then said what pressing it would do, so the
+      // countdown explained the wait and destroyed the label to do it. The number is a passenger
+      // now: the button always reads "done, guess now", and while it is locked it also carries
+      // the count.
       stop.disabled = s < MIN_RECORD_S;
-      const want = stop.disabled ? String(MIN_RECORD_S - s) : 'done, guess now';
-      if (stop.textContent !== want) stop.textContent = want;
-      stop.classList.toggle('is-counting', stop.disabled);
+      const pill = $('#countPill');
+      if (pill) {
+        pill.hidden = !stop.disabled;
+        const left = String(MIN_RECORD_S - s);
+        if (stop.disabled && pill.textContent !== left) pill.textContent = left;
+      }
     }
     // THE BAR RUNS THE WHOLE MINUTE, with a notch where the submit button unlocks. The measured
     // shape is a curve with a gate in it, not a step: past thirty seconds the median stops
@@ -448,31 +468,18 @@ function startTimer() {
       const txt = `${mm}:${String(ss).padStart(2, '0')}`;
       if (clock.textContent !== txt) clock.textContent = txt;
     }
-    const ready = $('#ready');
-    if (ready) {
-      const fill = $('#readyFill');
-      if (fill) fill.style.width = `${Math.min(100, (s / MAX_SECONDS) * 100)}%`;
-      const enough = s >= MIN_RECORD_S;
-      const good = s >= GOOD_RECORD_S;
-      const best = s >= BEST_RECORD_S;
-      const closing = left <= 3;
-      const n = MIN_RECORD_S - s;
-      // Only touch the DOM when the sentence actually changes, so the tick and the colour settle
-      // once instead of being re-set four times a second.
-      const state = closing ? 'closing' : best ? 'best' : good ? 'good' : enough ? 'enough' : `to-go-${n}`;
-      if (ready.dataset.state !== state) {
-        ready.dataset.state = state;
-        ready.classList.toggle('is-enough', enough);
-        ready.classList.toggle('is-good', good);
-        ready.classList.toggle('is-best', best);
-        ready.classList.toggle('is-closing', closing);
-        // The line between the gate and GOOD is the one that matters most on this screen. It is
-        // read at the exact moment someone is deciding whether to stop, and the ten seconds it
-        // is asking for take the median miss from 317 km to 72 — the biggest gain measured
-        // anywhere in this project. It is allowed to be that direct because the number is that
-        // large. The later lines are not, because their steps are worth about one clip in
-        // twenty-seven each, so they invite and never insist.
-        // (the ramp under the bar says this now, in colour)
+    const dots = $('#dots');
+    if (dots) {
+      const earned = TIERS.filter((t) => s >= t.at).length;
+      if (dots.dataset.earned !== String(earned)) {
+        dots.dataset.earned = String(earned);
+        [...dots.children].forEach((d, i) => {
+          d.classList.toggle('on', i < earned);
+          // The one you are working toward, so the row always points somewhere.
+          d.classList.toggle('next', i === earned);
+        });
+        const w = $('#tierWord');
+        if (w) w.textContent = earned ? TIERS[earned - 1].word : 'keep talking';
       }
     }
     if (s >= MAX_SECONDS) stopListening();

@@ -394,12 +394,14 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .share-btn:active:not(:disabled) { transform: translateY(1px); }
 .share-btn:disabled { opacity: 0.65; cursor: wait; }
 .stop-btn:disabled { background: var(--paper-2); color: var(--grey-2); cursor: default; }
-/* While it is counting itself down it holds a bare number, so it gets the shape of a number:
-   wide enough that 20 and 9 do not resize the button under the cursor, and tabular figures so
-   the digits do not shuffle sideways on the way down. */
-.stop-btn.is-counting {
-  min-width: 92px; font-variant-numeric: tabular-nums;
-  font-size: 17px; letter-spacing: 0.01em;
+/* THE COUNT RIDES ALONG, it does not replace the label. A button that becomes a bare "7" stops
+   saying what it will do at the exact moment someone is deciding whether to wait for it. The pill
+   is tabular and fixed-width so 20 -> 9 does not resize the button under the cursor. */
+.stop-btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; }
+.stop-btn #countPill {
+  min-width: 26px; padding: 2px 6px; border-radius: 999px;
+  background: rgba(0, 0, 0, 0.07); color: inherit;
+  font-size: 12.5px; font-weight: 600; font-variant-numeric: tabular-nums;
 }
 
 /* 44px tall because these are pressed with a thumb, not a mouse. "post score" was 32px, which
@@ -1015,62 +1017,55 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
    means the bar completes exactly when the recording is genuinely good, and then stops asking
    for anything. The cap keeps its own small number on the right, where a limit belongs. */
 .ready { margin: 18px 0 20px; }
-.ready-track {
-  height: 6px; border-radius: 3px; background: var(--rule-soft); overflow: hidden;
-}
-.ready-fill {
-  height: 100%; width: 0; border-radius: 3px;
-  background: var(--grey-2);
-  transition: width 0.32s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.5s ease;
-}
-/* Three shelves carried entirely by colour, which is the one channel that costs a person
-   mid-sentence nothing to read: grey while the take is too thin to send, pale once it can be,
-   full once it is genuinely good, deepest in the best measured range. */
-.ready.is-enough .ready-fill { background: color-mix(in srgb, var(--accent) 45%, var(--grey-2)); }
-.ready.is-good .ready-fill { background: var(--accent); }
-.ready.is-best .ready-fill { background: color-mix(in srgb, var(--accent) 82%, #000); }
 
-/* THE ACCURACY RAMP — asked for as red-to-green, built as sand-to-amber-to-green, and the
-   substitution is deliberate on three counts.
-   RED IS A CLAIM, and not a true one. Red means something has gone wrong. Nothing has: the first
-   twenty seconds are incomplete, not broken, and the recording you can send at twenty scores 44%
-   within 100 km — a working answer, just a rougher one than a longer take. Painting it red says
-   "this is bad" about audio the product will happily accept and answer.
-   RED-ON-GREEN IS THE ONE RAMP that roughly one man in twelve cannot read, and this is going on
-   TikTok. Sand -> amber -> green also travels in LIGHTNESS, not just hue, so it survives being
-   seen in greyscale or by anyone whose eyes work differently.
-   AND IT IS NOT IN THIS PALETTE. Cream, forest green and amber, with amber already meaning "pay
-   attention" on the closing state. A saturated red-green gradient is the single most recognisable
-   piece of dashboard-widget furniture there is, and it would undo the look everywhere else. */
-.ready-ramp {
-  height: 5px; margin-top: 5px; border-radius: 3px;
-  background: linear-gradient(to right,
-    #C9C3B4 0%,
-    var(--amber) 34%,
-    color-mix(in srgb, var(--accent) 70%, var(--amber)) 58%,
-    var(--accent) 100%);
+/* FOUR DOTS, ONE PER MEASUREMENT. Countable rather than positional, which is the whole reason
+   they are back: a bar has to be read against a scale and a scale has to be labelled, and every
+   labelled version of this screen turned out to be a task nobody performs mid-sentence. Nothing
+   here needs reading. You glance, you see two lit and two to go. */
+.dots { display: flex; align-items: center; gap: 9px; }
+.dots i {
+  width: 9px; height: 9px; border-radius: 50%; flex: none;
+  background: var(--rule-soft); border: 1.5px solid transparent;
+  transition: background 0.35s ease, border-color 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1);
 }
-/* Two words, one at each end. A colour ramp with nothing written on it is decoration; these make
-   it a legend, which is a different thing from the scale-with-ticks that got cut — there is
-   nothing to line up and no number to find, just which way is better. */
-.ready-ends {
-  display: flex; justify-content: space-between; margin-top: 5px;
-  font-family: var(--label); font-size: 9px; font-weight: 500;
-  letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey-2);
+.dots i.on { background: var(--accent); transform: scale(1.12); }
+/* The one being worked toward. Outlined rather than blank so the row always points somewhere,
+   and breathing so it reads as live rather than as a fifth state to decode. */
+.dots i.next {
+  background: none; border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  animation: dotNext 1.6s ease-in-out infinite;
+}
+@keyframes dotNext {
+  0%, 100% { border-color: color-mix(in srgb, var(--accent) 30%, transparent); }
+  50% { border-color: color-mix(in srgb, var(--accent) 75%, transparent); }
 }
 
-/* Elapsed over total. The right-hand number NEVER MOVES, which is what makes this a scale and not
-   the second countdown that had to be removed for arguing with the first. */
+.ready-row {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+  margin-top: 11px;
+}
+/* One word for where you are. It names the tier the dots just showed you, so the two agree
+   without either explaining the other. */
+.ready-tier {
+  font-size: 13.5px; color: var(--accent); font-weight: 500;
+}
+.dots[data-earned="0"] ~ .ready-row .ready-tier { color: var(--grey); font-weight: 400; }
+
+/* Elapsed over total. The right-hand number NEVER MOVES, which is what makes this a scale and
+   not the second countdown that had to be removed for arguing with the first. */
 .ready-clock {
   font-family: var(--label); font-size: 12px; color: var(--grey-2);
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: tabular-nums; white-space: nowrap; flex: none;
 }
 .ready-clock b { font-weight: 600; color: var(--black); }
 .ready-clock i { font-style: normal; }
 
-.ready-row { margin-top: 9px; }
 @media (prefers-reduced-motion: reduce) {
-  .ready-fill { transition: width 0.32s linear; }
+  /* The next-dot pulse is the only thing on this screen that loops, so it is the only thing
+     that has to stand down. It keeps the outline, it just stops breathing. */
+  .dots i.next { animation: none; border-color: color-mix(in srgb, var(--accent) 55%, transparent); }
+  .dots i { transition: background 0.35s ease, border-color 0.35s ease; }
+  .dots i.on { transform: none; }
 }
 
 /* the analyzing wait: ~12s median, ~29s p90, so it needs to look alive */
