@@ -45,6 +45,11 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ take_id: t.id, take_key: t.key }),
+      // BOUNDED, like every other request in this app. Without it a stalled connection leaves this
+      // promise pending forever, and app.js awaits it before deciding what to show — so someone on
+      // a bad train connection lands on the analysing card, which has no buttons by design, and
+      // stays there. Reloading repeats it exactly.
+      signal: AbortSignal.timeout(8000),
     }).then(function (r) {
       return r.json().catch(function () { return null; }).then(function (j) { return { status: r.status, json: j }; });
     }).catch(function () { return null; });

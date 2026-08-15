@@ -137,9 +137,28 @@ window.HT.media = function media(audioEl, mountId) {
 
     play() {
       if (mode === 'yt') {
-        if (!yt) return Promise.reject(new Error('player not ready'));
-        yt.playVideo();
-        return Promise.resolve();
+        if (!yt || !ytReady) return Promise.reject(new Error('player not ready'));
+        // RESOLVE WHEN IT IS ACTUALLY PLAYING, not when we asked it to. This returned
+        // Promise.resolve() the instant playVideo() was called, so game.js set playing = true and
+        // showed a pause button — whether or not a single frame arrived. Autoplay policy, data
+        // saver, iOS low-power mode and a stall YouTube does not report as an error all end the
+        // same way: silence, a button that does nothing because playing is already true, and a
+        // listening budget draining against nothing. The round dies with no message at all.
+        //
+        // Four seconds is well past a normal start and short enough that the caller's own error
+        // handling still feels like a response to the tap.
+        return new Promise((resolve, reject) => {
+          let settled = false;
+          const done = (fn, arg) => { if (!settled) { settled = true; fn(arg); } };
+          // Registered through on(), which stores { fn, once } — a bare push would never be
+          // called, because emit() invokes l.fn. Both are once-listeners, so emit clears them; the
+          // settled flag covers the case where the other one fires first.
+          on('play', () => done(resolve), true);
+          on('error', () => done(reject, new Error('yt_error')), true);
+          setTimeout(() => done(reject, new Error('yt_no_start')), 4000);
+          yt.playVideo();
+          if (ytState === 1) done(resolve);
+        });
       }
       return audioEl.play();
     },

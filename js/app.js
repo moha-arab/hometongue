@@ -418,7 +418,7 @@ function stopMeter() {
 // So the take PAUSES. Recorder, meter and clock all stop together, and the away time is added
 // back to startedAt on return so it never counts against the person. Switch apps for five
 // minutes, come back, and you are exactly where you left off.
-let pausedAt = 0;
+let pausedAt = 0, holdTimer = null;
 
 function pauseTake() {
   if (state !== 'listening' || pausedAt) return;
@@ -429,9 +429,29 @@ function pauseTake() {
   // pause() is not universal; where it is missing the clock still freezes and the only cost is
   // some room tone on the tail, which is the old behaviour rather than a new failure.
   try { if (recorder && recorder.state === 'recording' && recorder.pause) recorder.pause(); } catch { /* ignore */ }
+
+  // A PAUSE MUST NOT HOLD THE MICROPHONE FOREVER. Pausing keeps the MediaStream open, so the phone
+  // keeps showing its recording indicator — the orange dot on iOS, a persistent notification on
+  // Android — attributed to this site, for as long as the tab lives. Someone who starts a take,
+  // switches to Instagram and forgets has no idea, and the honest reading of that indicator is
+  // that a website is listening to them. It is not, but they cannot know that.
+  //
+  // Five minutes is well past any real interruption and well short of leaving it on all night.
+  // The take is abandoned rather than submitted: audio recorded across a five-minute absence is
+  // mostly room tone, which this project has measured moving the answer by thousands of km.
+  if (holdTimer) clearTimeout(holdTimer);
+  holdTimer = setTimeout(() => {
+    if (state !== 'listening' || !pausedAt) return;
+    try { if (recorder && recorder.state !== 'inactive') { recorder.onstop = null; recorder.stop(); } } catch { /* ignore */ }
+    stopTimer(); stopMeter(); clearPauseState(); teardownRecording();
+    state = 'idle';
+    show('idleCard');
+    toast('That take was left open for a while, so I let the microphone go. Start again when you are ready.');
+  }, 5 * 60 * 1000);
 }
 
 function resumeTake() {
+  if (holdTimer) clearTimeout(holdTimer), holdTimer = null;
   if (state !== 'listening' || !pausedAt) return;
   startedAt += Date.now() - pausedAt;   // the time away never happened
   pausedAt = 0;
@@ -595,6 +615,7 @@ function stopTimer() {
 // blur handling and the name stayed behind describing something that no longer exists.
 function clearPauseState() {
   pausedAt = 0;
+  if (holdTimer) clearTimeout(holdTimer), holdTimer = null;
 }
 
 // ————— the wait —————
@@ -729,6 +750,16 @@ function restartListening() {
 function stopListening() {
   if (state !== 'listening') return;
   state = 'analyzing';
+  // CAPTURED BEFORE stopMeter(), which sets audioCtx to null. The guard further down reads
+  // audioCtx to decide whether the meter's reading can be trusted — and read it AFTER this
+  // teardown, so it was unconditionally true and micPeak was unconditionally reset to -1. The
+  // dead-microphone branch below could therefore never run, not once.
+  //
+  // What that cost: someone whose mic is muted, covered, or set to the wrong input fell through
+  // to the next check and was told "I could hardly hear any talking — get closer and say a couple
+  // of sentences". So they lean in and speak up, into a microphone that is not recording anything,
+  // and get the same message again. The one message that would have fixed it was unreachable.
+  const meterRan = !!audioCtx && audioCtx.state === 'running';
   stopTimer();
   stopMeter();
   const elapsed = (Date.now() - startedAt) / 1000;
@@ -748,7 +779,7 @@ function stopListening() {
   // value and the guard below reads that as "the mic picked up nothing" — throwing away a
   // perfectly good recording and telling the person their microphone is broken. Only trust the
   // meter when the meter was actually running.
-  if (!audioCtx || audioCtx.state !== 'running') micPeak = -1;
+  if (!meterRan) micPeak = -1;
 
   // Two different failures, two different fixes, so they get two different messages.
   // A dead mic is a settings problem; a quiet room is a "say more" problem.
@@ -805,7 +836,13 @@ function mintTake() {
   const rnd = new Uint8Array(32);
   crypto.getRandomValues(rnd);
   const take = {
-    id: (crypto.randomUUID ? crypto.randomUUID() : 'tk-' + Date.now().toString(16) + Math.random().toString(16).slice(2)),
+    // HEX ONLY, because the server validates against /^[0-9a-f-]{8,40}$/i. The fallback used to
+    // start "tk-", and t and k are not hex — so on any browser without crypto.randomUUID (older
+    // iOS Safari, some in-app webviews) EVERY take was rejected: the id failed validation, the
+    // answer was never stored, the poll never found it, and after the full budget the person was
+    // told it was taking longer than it should. A whole class of device, failing identically.
+    id: (crypto.randomUUID ? crypto.randomUUID()
+      : Date.now().toString(16) + '-' + Math.random().toString(16).slice(2, 10) + '-' + Math.random().toString(16).slice(2, 10)),
     key: btoa(String.fromCharCode(...rnd)),
     ts: Date.now(),
   };
@@ -1832,7 +1869,7 @@ function saveFeedback(correct, actual, actualCity) {
     actual_city: actualCity || '',
     guess_city: last.place || '',
     region: last.region || '',
-    confidence: last.confidence || 0,
+    confidence: last.conf || 0,
     // ONLY WITH CONSENT. api/feedback.js already refuses to store this without it (row.transcript
     // stays null), so nothing was ever kept — but it was still being posted on every single
     // "did I get it?" tap and then thrown away at the other end. Sending words we have promised
@@ -1987,7 +2024,7 @@ function bindUI() {
           guess_city: last.place || '',
           region: last.region || '',
           transcript: last.transcript || '',
-          confidence: last.confidence || 0,
+          confidence: last.conf || 0,
           source: last.source || 'cloud',
           platform: detectPlatform(),
         }),
