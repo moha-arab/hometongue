@@ -9,7 +9,7 @@
 // BUMP THIS ON ANY DEPLOY THAT CHANGES THE SHELL. It sat at v47 through 22 consecutive deploys,
 // and because the install handler only re-runs when THIS FILE changes, the precache still held
 // index.html and app.js from 22 commits ago the whole time.
-const VERSION = 'ht-v48';
+const VERSION = 'ht-v49';
 
 // FILES WHOSE VERSIONS MUST MATCH EACH OTHER. A stale copy of an icon is a cosmetic nuisance; a
 // stale app.js against a fresh index.html is a crash, because the old code looks for elements the
@@ -23,16 +23,27 @@ const VERSION = 'ht-v48';
 // For these paths, slow is better than skewed: wait for the network, and fall back to cache only
 // on a real failure, where everything falls back together.
 const LOCKSTEP = new Set(['/', '/index.html', '/game.html', '/js/app.js', '/js/game.js', '/js/clips.js', '/css/style.css']);
+// WHAT IS PRECACHED, AND WHAT DELIBERATELY IS NOT.
+//
+// The pages and the app scripts are NOT in here, and that is the fix for a problem that has now
+// bitten twice. This version string is maintained by hand, the install handler that fills the
+// precache only re-runs when THIS FILE changes, and app.js has changed eighteen times since the
+// last bump — so the precache reliably holds code from dozens of commits ago. Pair a fresh
+// index.html with a stale app.js and the old code looks for elements the new markup does not have,
+// throws, and reports "something went wrong on our end". That is not a degraded experience, it is
+// a crash, and it only shows up on slow connections, which means phones.
+//
+// Those files are already network-first with no timeout (see LOCKSTEP below), so precaching them
+// bought exactly one thing: an offline copy. And this app cannot work offline — every answer needs
+// the API. So the offline copy was never usable and only ever a way to serve the wrong version.
+//
+// What stays are the things where a stale copy is harmless: icons, the map library, fonts-adjacent
+// assets. Those change rarely and never in lockstep with anything.
 const SHELL = [
-  '/',
-  '/game.html',
-  '/css/style.css',
+  // NOTE the rule: nothing in LOCKSTEP is precached. style.css was in both, which is a
+  // contradiction — declaring that it must never be served stale, then keeping a stale copy of it.
   '/js/theme.js',
-  '/js/media.js',
-  '/js/clips.js',
-  '/js/game.js',
   '/js/world.js',
-  '/js/app.js',
   '/js/places.js',
   '/manifest.webmanifest',
   '/icon-192.png',
@@ -94,7 +105,10 @@ self.addEventListener('fetch', (e) => {
       })
       .catch(() => caches.match(e.request).then((hit) => {
         if (hit) return hit;
-        if (e.request.mode === 'navigate') return caches.match('/');
+        // No stale shell to fall back on any more, and that is deliberate: a page that paints
+        // from a month-old cache and then cannot reach the API is worse than a browser error the
+        // person understands. This app has no offline mode to offer.
+        if (e.request.mode === 'navigate') return Response.error();
         return Response.error();
       })),
   );
