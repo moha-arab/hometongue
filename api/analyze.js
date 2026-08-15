@@ -19,57 +19,21 @@
 // Both cost a call and latency for noise. Do not re-add without re-running tools/eval.
 import { mintToken } from './feedback.js';
 
-// ————— RESUMING A TAKE THE PHONE WALKED AWAY FROM —————
+// A RESULT CACHE WAS BUILT HERE AND TAKEN BACK OUT BEFORE IT EVER STORED ANYTHING.
 //
-// The analysis runs inside this invocation while the caller holds the connection open. When iOS
-// suspends a backgrounded tab the connection dies, and the client's only recovery was to send the
-// whole take again and pay another 12-29 second model call. The work was done; only the delivery
-// failed.
+// The idea was sound: a take whose connection died has already been analysed, so storing the
+// answer under the take's id lets the retry collect it instead of paying for a second model call.
+// What it stored was the whole result object, and the result object contains `transcript` — the
+// person's own words — and evidence lines that quote their vocabulary verbatim.
 //
-// So the answer is stored under the take's own id before it is returned, and a repeat of the same
-// id is served from that store without touching the model. The client keeps one id per recording
-// across every retry, so coming back collects the answer instead of re-earning it.
+// privacy.html says, of every analysis: "Never your recording, never your words, never a city."
+// This would have made that false for every single user, silently, and it would have undone a fix
+// made hours earlier that stopped the transcript leaving the browser without consent.
 //
-// This rests on the invocation surviving the caller hanging up long enough to finish its write,
-// which is usual on this platform but not promised. Every failure here is therefore soft: a
-// missing table, missing env, a dead lookup — all fall through to doing the work, which is
-// exactly today's behaviour. It cannot make anything worse than not having it.
-const TAKE_ID = /^[0-9a-f-]{8,40}$/i;
-
-async function cachedTake(takeId) {
-  const url = process.env.SUPABASE_URL, key = process.env.SUPABASE_SERVICE_KEY;
-  if (!url || !key || !takeId || !TAKE_ID.test(takeId)) return null;
-  try {
-    const r = await fetch(`${url}/rest/v1/takes?select=result&take_id=eq.${encodeURIComponent(takeId)}&limit=1`, {
-      headers: { apikey: key, Authorization: `Bearer ${key}` },
-      signal: AbortSignal.timeout(2500),   // a slow cache must never delay the real path
-    });
-    if (!r.ok) return null;
-    const rows = await r.json().catch(() => null);
-    return rows && rows[0] && rows[0].result ? rows[0].result : null;
-  } catch { return null; }
-}
-
-async function storeTake(takeId, result) {
-  const url = process.env.SUPABASE_URL, key = process.env.SUPABASE_SERVICE_KEY;
-  if (!url || !key || !takeId || !TAKE_ID.test(takeId)) return;
-  try {
-    await fetch(`${url}/rest/v1/takes`, {
-      method: 'POST',
-      headers: {
-        apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json',
-        Prefer: 'resolution=ignore-duplicates,return=minimal',
-      },
-      body: JSON.stringify({ take_id: takeId, result }),
-      signal: AbortSignal.timeout(3000),
-    });
-  } catch { /* the answer still goes back to the caller; only the shortcut is lost */ }
-}
-import { SYSTEM, SCHEMA, MODEL } from './prompt.js';
-// Shared with tools/source-clips.mjs, which vets clips with this same model and prompt and so
-// needs the same rules. See api/verdict.js.
-import { heardSomething, modelChain } from './verdict.js';
-
+// It is a good feature. It needs the storage to hold only what is not their words, or a plain
+// disclosure and a real expiry, and it needs to be decided deliberately rather than at the end of
+// a long night. Doing without it costs a resumed take one more wait, which is a price the person
+// can see and nobody has to be told about afterwards.
 export const config = { maxDuration: 60 };
 
 function readJsonBody(req) {
@@ -416,15 +380,6 @@ export default async function handler(req, res) {
 
   try {
     const body = await readJsonBody(req);
-
-    // ALREADY ANSWERED? A repeat of a take id means the caller lost the reply, not that they want
-    // a second opinion. Served before countAnalysis() and before the model, so a resumed take
-    // spends neither a slot nor a call — it collects an answer that was already paid for.
-    const takeId = typeof body.take_id === 'string' ? body.take_id : '';
-    const already = await cachedTake(takeId);
-    if (already) {
-      return res.end(JSON.stringify({ ok: true, result: already, fb_token: mintToken(), resumed: true }));
-    }
     const typed = (body.text || '').trim();
 
     // A CAP ON HOW BIG ONE REQUEST CAN BE, NOT JUST HOW MANY THERE ARE.
@@ -525,11 +480,6 @@ export default async function handler(req, res) {
     // Audio only: type mode has no sound to hear by definition, and its own card says so.
     if (body.audio && !heardSomething(result)) result.content_led = 'fed';
     await counted;
-    // AWAITED, and for the same measured reason as the counter above: the invocation is frozen
-    // the instant the response is written, so an un-awaited insert never lands. This one matters
-    // more than most, because the caller it is being stored for is precisely the caller whose
-    // connection has already gone away.
-    await storeTake(takeId, result);
     return res.end(JSON.stringify({ ok: true, result, fb_token: mintToken() }));
   } catch (err) {
     const code = err.code || 'server_error';
