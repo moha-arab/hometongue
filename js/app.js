@@ -82,16 +82,25 @@ const MIN_VOICED_S = 1.5;   // a mic that heard essentially nothing at all
 // (one clip in twenty-seven per step), so BEST only changes the wording, never the pressure.
 // One entry per measurement in data/length-sweep.json, which is why there are four dots and not
 // a number someone liked the look of. `at` is the second it is earned, `word` names the tier.
+// EACH LINE POINTS FORWARD, at what the next ten seconds buy, rather than naming the rung you
+// are standing on. "rough / good / sharp" described where you WERE, which is a verdict on the
+// take you already have and gives nobody a reason to keep going.
+//
+// The first one is the loud one because the measurement is loud there. 20s -> 30s is the largest
+// single move anywhere in this data: the median miss falls from 317 km to 72, and the share of
+// answers landing within 100 km goes 44% -> 52%. Every later step is worth roughly one clip in
+// twenty-seven, so those lines invite quietly. The wording tracks the effect size on purpose —
+// "a big jump" where the number is big, "keeps sharpening" where it is small.
 const TIERS = [
-  { at: 20, word: 'rough' },     // 44% of answers within 100 km — the floor, submit unlocks
-  { at: 30, word: 'good' },      // 52%
-  { at: 45, word: 'sharp' },     // 56%
+  { at: 20, word: 'ten more seconds is a big jump' },  // 44% within 100 km — the floor
+  { at: 30, word: 'keep going, it keeps sharpening' }, // 52%
+  { at: 45, word: 'almost the sharpest it gets' },     // 56%
   // The evidence for this one is the 60s row (59%), but 60s is the CAP: a tier set there lights
   // its dot on the same tick that stopListening() fires, so nobody would ever see it earned. That
   // is the identical bug the original three-dot meter shipped with — a rung that cannot be
   // reached — and it is not worth repeating for five seconds of precision that no measurement
   // could resolve anyway. Derived from the cap so it follows if the cap ever moves.
-  { at: MAX_SECONDS - 5, word: 'sharpest' },
+  { at: MAX_SECONDS - 5, word: 'sharpest it gets' },
 ];
 const MIN_RECORD_S = TIERS[0].at;  // the gate is the first tier, by construction
 

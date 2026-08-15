@@ -1049,8 +1049,12 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   0%, 100% { border-color: color-mix(in srgb, var(--accent) 30%, transparent); }
   50% { border-color: color-mix(in srgb, var(--accent) 75%, transparent); }
 }
-.q-label { font-size: 13px; color: var(--accent); font-weight: 500; }
+.q-label { font-size: 13px; color: var(--accent); font-weight: 500; line-height: 1.35; }
 .quality[data-earned="0"] .q-label { color: var(--grey); font-weight: 400; }
+/* One dot earned is the moment worth pressing on, because it is the moment the measurement is
+   loudest: the next ten seconds take the median miss from 317 km to 72. It is the only line here
+   that gets any extra weight, so the emphasis still means something when it appears. */
+.quality[data-earned="1"] .q-label { color: var(--amber-ink); font-weight: 600; }
 
 @media (prefers-reduced-motion: reduce) {
   .q-dots i.next { animation: none; border-color: color-mix(in srgb, var(--accent) 55%, transparent); }
