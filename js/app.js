@@ -384,8 +384,14 @@ function startMeter(stream) {
       // your voice pushes isoglosses out across the map
       const level = sum / data.length / 255;
       if (level > 0.06 && Math.random() < level * 1.5) {
+        // TEST THE RECT, NOT THE OBJECT. While recording, the idle card holding #micBtn is hidden,
+        // and a hidden element's getBoundingClientRect() is all zeros — but still an object, so the
+        // truthiness check passed and every ring fired from (0,0). The centred default this was
+        // written to fall back on could never engage, so for the whole take the contours crawled
+        // out from behind the top-left corner instead of radiating from the middle of the screen.
         const btn = $('#micBtn')?.getBoundingClientRect();
-        field.pulse(btn ? btn.left + btn.width / 2 : undefined, btn ? btn.top + btn.height / 2 : undefined, Math.min(1, level * 3));
+        const live = btn && btn.width > 0 && btn.height > 0;
+        field.pulse(live ? btn.left + btn.width / 2 : undefined, live ? btn.top + btn.height / 2 : undefined, Math.min(1, level * 3));
       }
       rafId = requestAnimationFrame(loop);
     };
@@ -1336,7 +1342,7 @@ function renderResult(v) {
   // wrong answer over their face. Ask for a clean take instead.
   if (v.content_led === 'fed') {
     window._lastResult = v;
-    $('#redoText').textContent = 'Everything I could point to was either something you told me or something I could not hear again on a second listen. That is not a reading, so I would rather give you nothing than make it up. Try once more, thirty seconds or so, without saying your name or where you are from.';
+    $('#redoText').textContent = 'Everything I could point to was something you told me rather than something I heard in your voice. That is not a reading, so I would rather give you nothing than make it up. Try once more, thirty seconds or so, without saying your name or where you are from.';
     show('redoCard');
     flyHome();
     return;

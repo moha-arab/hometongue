@@ -397,8 +397,17 @@ function rescueClip(why) {
 }
 
 function replacementClip() {
-  const used = new Set(deck.map((c) => c.id));
-  const pool = (window.CLIPS[gameType] || []).filter((c) => !used.has(c.id));
+  // DEDUPED BY ANSWER, not just by id — the same rule dealDeck already applies. A deck can hold
+  // several clips from one city, so filtering on id alone let a swap hand back a different
+  // recording of the SAME place already dealt: two rounds of five revealing the identical spot on
+  // the map, which dealDeck's own comment calls out as reading like a bug rather than a
+  // coincidence. Falls back to the id-only pool if pinning to distinct places leaves nothing.
+  const placeOf = (c) => `${c.lat.toFixed(2)},${c.lng.toFixed(2)}`;
+  const usedIds = new Set(deck.map((c) => c.id));
+  const usedPlaces = new Set(deck.map(placeOf));
+  const all = window.CLIPS[gameType] || [];
+  const fresh = all.filter((c) => !usedIds.has(c.id) && !usedPlaces.has(placeOf(c)));
+  const pool = fresh.length ? fresh : all.filter((c) => !usedIds.has(c.id));
   return pool.length ? pool[Math.floor(Math.random() * pool.length)] : deck[round];
 }
 
@@ -719,7 +728,11 @@ async function submitScore() {
 
 async function loadBoard() {
   try {
-    const d = await (await fetch(`/api/scores?game_type=${gameType}`)).json();
+    // CACHE-BUSTED, because this is called immediately after posting a score. The read is served
+    // with s-maxage=30, so the board painted under "Posted! You're #3" was routinely a copy taken
+    // up to thirty seconds earlier — one that does not contain the score just posted. The most
+    // shareable screen in the product contradicting its own toast.
+    const d = await (await fetch(`/api/scores?game_type=${gameType}&t=${Date.now()}`)).json();
     if (!d.ok) return;
     const ol = $('#boardList');
     ol.innerHTML = '';
