@@ -1270,7 +1270,10 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
      44x44 while the drawn circle and the row around it keep exactly the size they have. */
   #backBtn, #fwdBtn { position: relative; }
   #backBtn::after, #fwdBtn::after { content: ''; position: absolute; inset: -5px; }
-  .foot a, .foot-hint a {
+  .foot a, .foot-hint a, .consent a {
     display: inline-block; padding: 12px 4px; margin: -12px 0;
   }
+  /* The bottom-sheet handle was a 16px strip. The whole card is draggable so nobody is stuck,
+     but the one control that LOOKS like the way to open the sheet should be catchable. */
+  .sheet-handle { min-height: 30px; padding: 8px 0; }
 }
