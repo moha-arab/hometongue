@@ -406,101 +406,33 @@ function stopMeter() {
   meterLoop = null; meterStream = null;
 }
 
-// ————— SWITCHING APPS MID-TAKE —————
+// ————— SWITCHING TABS DOES NOT STOP THE RECORDING —————
 //
-// Nothing used to guard this and all four consequences were live at once. A backgrounded tab
-// throttles setInterval to roughly once a minute, so the countdown froze wherever it was —
-// reported stuck at 0:26. requestAnimationFrame stops entirely, so the waveform froze mid-shape
-// and then lurched back to life on return, which reads as the meter reacting to a voice that is
-// not there. The cap at MAX_SECONDS never fired on time, because the tick that enforces it was
-// throttled with everything else.
+// It used to. Backgrounding paused the recorder, the meter and the clock, on the reasoning that
+// audio captured while nobody is present is room tone, and this project has measured padding a
+// take with silence dragging the answer around badly.
 //
-// And the one that actually costs accuracy: MediaRecorder KEEPS RECORDING. A take left in the
-// background quietly fills with room tone, and the eval notes are explicit about what that does —
-// padding real speech with silence moved the pin on 4 of 12 clips, one of them from 0 km to
-// 3185 km. Coming back to a 26-second take that now holds 26 seconds of speech and four minutes
-// of nothing is worse than coming back to no take at all.
+// That reasoning was about accuracy and ignored the person. Mohammad played a clip into the mic,
+// switched tabs, came back — and found the take had quietly stopped. Worse, the waveform was
+// frozen, so there was no way to tell whether it was still hearing anything. A recording that
+// stops without saying so is a worse failure than a slightly padded one: the padded take still
+// produces an answer, and the silent stop produces confusion and a lost take.
 //
-// So the take PAUSES. Recorder, meter and clock all stop together, and the away time is added
-// back to startedAt on return so it never counts against the person. Switch apps for five
-// minutes, come back, and you are exactly where you left off.
-let pausedAt = 0, holdTimer = null;
-
-function pauseTake() {
-  if (state !== 'listening' || pausedAt) return;
-  pausedAt = Date.now();
-  stopTimer();
-  if (rafId) cancelAnimationFrame(rafId), rafId = null;
-  try { if (audioCtx && audioCtx.state === 'running') audioCtx.suspend().catch(() => {}); } catch { /* not fatal */ }
-  // pause() is not universal; where it is missing the clock still freezes and the only cost is
-  // some room tone on the tail, which is the old behaviour rather than a new failure.
-  try { if (recorder && recorder.state === 'recording' && recorder.pause) recorder.pause(); } catch { /* ignore */ }
-
-  // A PAUSE MUST NOT HOLD THE MICROPHONE FOREVER. Pausing keeps the MediaStream open, so the phone
-  // keeps showing its recording indicator — the orange dot on iOS, a persistent notification on
-  // Android — attributed to this site, for as long as the tab lives. Someone who starts a take,
-  // switches to Instagram and forgets has no idea, and the honest reading of that indicator is
-  // that a website is listening to them. It is not, but they cannot know that.
-  //
-  // Five minutes is well past any real interruption and well short of leaving it on all night.
-  // The take is abandoned rather than submitted: audio recorded across a five-minute absence is
-  // mostly room tone, which this project has measured moving the answer by thousands of km.
-  if (holdTimer) clearTimeout(holdTimer);
-  holdTimer = setTimeout(() => {
-    if (state !== 'listening' || !pausedAt) return;
-    try { if (recorder && recorder.state !== 'inactive') { recorder.onstop = null; recorder.stop(); } } catch { /* ignore */ }
-    stopTimer(); stopMeter(); clearPauseState(); teardownRecording();
-    state = 'idle';
-    show('idleCard');
-    toast('That take was left open for a while, so I let the microphone go. Start again when you are ready.');
-  }, 5 * 60 * 1000);
-}
-
-function resumeTake() {
-  if (holdTimer) clearTimeout(holdTimer), holdTimer = null;
-  if (state !== 'listening' || !pausedAt) return;
-  startedAt += Date.now() - pausedAt;   // the time away never happened
-  pausedAt = 0;
-  try { if (recorder && recorder.state === 'paused' && recorder.resume) recorder.resume(); } catch { /* ignore */ }
-  try { if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume().catch(() => {}); } catch { /* ignore */ }
-  if (!rafId && meterLoop) meterLoop();
-  resumeTimer();
-}
-
-// visibilitychange ONLY, which is what this should have been from the start.
+// It also assumed backgrounding means "gone", which is not true. Playing audio from another app,
+// reading something while talking, or checking a message mid-sentence are all normal, and in all
+// of them the microphone should keep doing what it was told to do.
 //
-// A blur/focus pair was added on top of this and has been taken back out. It was there to catch
-// alt-tabbing to another application on Windows, where the tab is never actually hidden — but it
-// was chasing a bug that probably never existed. The report was "clock frozen, waveform still
-// moving", and a throttled tab cannot produce that: requestAnimationFrame STOPS when a tab is
-// hidden, so a frozen tab freezes the waveform too. What does produce exactly that signature is a
-// stray rAF loop left running by test code with the interval cleared, which is what was on that
-// tab at the time. Mine.
+// So nothing is paused now. The browser still freezes requestAnimationFrame while the tab is
+// hidden — that is not ours to change — but because the loop is never CANCELLED, it resumes on its
+// own the moment the tab is visible again, and the waveform simply carries on. The clock is
+// computed from wall time, so it self-corrects on the same tick. The sixty-second cap is enforced
+// by that tick, which means a take that ran long while hidden is stopped immediately on return.
 //
-// It also cost more than it was worth. blur fires on phones for notification banners and the
-// keyboard, none of which mean anyone left, so it needed a desktop-only gate; and blur can fire
-// without its matching focus, so it needed a once-a-second watchdog to stop a pause sticking
-// forever. Two mechanisms guarding a third, for a case worth some room tone at the end of a take.
-//
-// What remains is what production audio and video players actually use, and it covers the case
-// that genuinely happens: backgrounding the app on a phone, which does hide the page and does
-// fire this.
-document.addEventListener('visibilitychange', () => {
-  if (document.hidden) pauseTake(); else resumeTake();
-});
-
-// Safari fires pagehide without visibilitychange in some flows; pageshow is its way back.
-addEventListener('pagehide', () => pauseTake());
-addEventListener('pageshow', () => resumeTake());
+// The cost is real and it is the trade Mohammad chose knowingly: audio recorded while you are away
+// is room tone, and enough of it can pull the answer around.
 
 function startTimer() {
   startedAt = Date.now();
-  // EVERY TAKE STARTS UNPAUSED, whatever happened to the last one. pauseTake() returns early if
-  // pausedAt is already set, so a take that ended while the tab was hidden — navigating away from
-  // a backgrounded recording, or the cap firing after a resume that never came — left a stale
-  // timestamp that made the NEXT recording silently unpausable. Only two of the exit paths cleared
-  // it; this covers all of them, including any added later.
-  pausedAt = 0;
   const stop0 = $('#stopBtn');
   // DISABLE ONLY. Writing textContent here would flatten the button's children — the label span
   // and the count pill — back into a single text node, so the pill silently stopped existing the
@@ -520,33 +452,16 @@ function startTimer() {
     // Derived, so the clock on screen can never disagree with the cap that enforces it.
     $('#timer').textContent = `${Math.floor(MAX_SECONDS / 60)}:${String(MAX_SECONDS % 60).padStart(2, '0')}`;
   }
-  lastTick = 0;
   timerId = setInterval(tick, 250);
 }
 
-// Restart the interval WITHOUT touching startedAt or the UI, for coming back from a paused take.
-function resumeTimer() {
-  lastTick = 0;   // the pause already credited its own time; do not credit it twice
-  if (!timerId) timerId = setInterval(tick, 250);
-}
 
-let lastTick = 0;
 function tick() {
   {
-    // A LAST-RESORT CATCH for a freeze that fired no event we listened for — a lid closing, a
-    // phone locking, a mobile browser that suspends silently. Ticks are scheduled every 250ms, so
-    // a gap of many seconds means this tab was not running, whatever the browser did or did not
-    // tell us, and crediting it back keeps the clock honest about how long the person spoke.
-    //
-    // FIVE SECONDS, not two, and the difference was measured rather than guessed. A backgrounded
-    // tab still ticks, at roughly once a second, and with jitter a 1.2s gap was observed arriving
-    // as 2.2s — which a 2000ms threshold read as a freeze and credited. False credits are worse
-    // than no detector at all: they make the clock under-report real speech, so the dots lag what
-    // was actually said. Nothing legitimate produces a five-second gap; ordinary throttling is
-    // 1/sec and intensive throttling is 1/min, so this fires on the second and never the first.
-    const now = Date.now();
-    if (lastTick && now - lastTick > 5000) startedAt += now - lastTick;
-    lastTick = now;
+    // No gap correction any more. It credited frozen time back to startedAt, which was right when
+    // a hidden tab meant a PAUSED recorder — that time was not audio. Now the recorder keeps
+    // running while hidden, so those seconds are real recorded audio and subtracting them would
+    // make the clock claim less speech than the take actually holds.
     const s = Math.floor((now - startedAt) / 1000);
     // A countdown, not a stopwatch. The cap used to fire with no warning, which read as the
     // app crashing mid-sentence rather than a deliberate limit.
@@ -619,10 +534,7 @@ function stopTimer() {
 // Called wherever a take ends, so no pause state survives into the next one. It used to also
 // clear a once-a-second watchdog, which is where the name came from; the watchdog went with the
 // blur handling and the name stayed behind describing something that no longer exists.
-function clearPauseState() {
-  pausedAt = 0;
-  if (holdTimer) clearTimeout(holdTimer), holdTimer = null;
-}
+
 
 // ————— the wait —————
 // Measured: median 11.8s to a verdict, p90 28.7s. Nothing about that is fixable by sending
@@ -722,7 +634,7 @@ async function startListening() {
   try {
     recorder = new MediaRecorder(mediaStream, mime ? { mimeType: mime } : undefined);
   } catch {
-    stopTimer(); stopMeter(); clearPauseState(); teardownRecording();
+    stopTimer(); stopMeter(); teardownRecording();
     state = 'idle'; show('idleCard');
     toast('Recording failed to start on this browser. Try again, or type instead.');
     return;
@@ -1038,15 +950,9 @@ async function onRecordingReady() {
     // the user did not choose was the one that skipped the rule the whole app is built around,
     // and they got a country-scale guess presented with the same confidence as a real one.
     //
-    // TIME SPENT PAUSED IS NOT SPEECH, and this is measured BEFORE clearPauseState() zeroes the
-    // flag it depends on. A take paused by backgrounding the phone keeps its original startedAt —
-    // only resumeTake() advances it, and an interruption while away never reaches resumeTake. So
-    // wall time here silently included the whole absence: six seconds of talking, three minutes in
-    // another app, and a "189 second" take sailed through the floor and was presented as a
-    // confident city with evidence chips, built on audio this project's own data calls unusable.
-    const away = pausedAt ? Date.now() - pausedAt : 0;
-    const cutShort = (Date.now() - startedAt - away) / 1000;
-    clearPauseState();
+    // Plain wall time is correct again now that nothing pauses: every second between starting and
+    // being interrupted is a second the recorder was running, so all of it is audio in the blob.
+    const cutShort = (Date.now() - startedAt) / 1000;
     if (cutShort < MIN_RECORD_S) {
       toast(`That take was cut short at ${Math.round(cutShort)} seconds. Give it twenty seconds at least, or thirty for a sharper read.`);
       state = 'idle';
