@@ -394,6 +394,13 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .share-btn:active:not(:disabled) { transform: translateY(1px); }
 .share-btn:disabled { opacity: 0.65; cursor: wait; }
 .stop-btn:disabled { background: var(--paper-2); color: var(--grey-2); cursor: default; }
+/* While it is counting itself down it holds a bare number, so it gets the shape of a number:
+   wide enough that 20 and 9 do not resize the button under the cursor, and tabular figures so
+   the digits do not shuffle sideways on the way down. */
+.stop-btn.is-counting {
+  min-width: 92px; font-variant-numeric: tabular-nums;
+  font-size: 17px; letter-spacing: 0.01em;
+}
 
 /* 44px tall because these are pressed with a thumb, not a mouse. "post score" was 32px, which
    is a miss-and-try-again target on a phone — and it is the button that decides whether a run
@@ -1018,29 +1025,50 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 }
 /* Three shelves carried entirely by colour, which is the one channel that costs a person
    mid-sentence nothing to read: grey while the take is too thin to send, pale once it can be,
-   full once it is genuinely good, deepest in the best measured range. The labelled scale and the
-   two tick marks that used to sit above this are gone — a scale is something you work out, and
-   nobody works anything out while they are talking. */
+   full once it is genuinely good, deepest in the best measured range. */
 .ready.is-enough .ready-fill { background: color-mix(in srgb, var(--accent) 45%, var(--grey-2)); }
 .ready.is-good .ready-fill { background: var(--accent); }
 .ready.is-best .ready-fill { background: color-mix(in srgb, var(--accent) 82%, #000); }
 
-.ready-row { margin-top: 10px; }
-.ready-state {
-  font-size: 13.5px; color: var(--grey); font-variant-numeric: tabular-nums;
-  transition: color 0.45s ease;
+/* THE ACCURACY RAMP — asked for as red-to-green, built as sand-to-amber-to-green, and the
+   substitution is deliberate on three counts.
+   RED IS A CLAIM, and not a true one. Red means something has gone wrong. Nothing has: the first
+   twenty seconds are incomplete, not broken, and the recording you can send at twenty scores 44%
+   within 100 km — a working answer, just a rougher one than a longer take. Painting it red says
+   "this is bad" about audio the product will happily accept and answer.
+   RED-ON-GREEN IS THE ONE RAMP that roughly one man in twelve cannot read, and this is going on
+   TikTok. Sand -> amber -> green also travels in LIGHTNESS, not just hue, so it survives being
+   seen in greyscale or by anyone whose eyes work differently.
+   AND IT IS NOT IN THIS PALETTE. Cream, forest green and amber, with amber already meaning "pay
+   attention" on the closing state. A saturated red-green gradient is the single most recognisable
+   piece of dashboard-widget furniture there is, and it would undo the look everywhere else. */
+.ready-ramp {
+  height: 5px; margin-top: 5px; border-radius: 3px;
+  background: linear-gradient(to right,
+    #C9C3B4 0%,
+    var(--amber) 34%,
+    color-mix(in srgb, var(--accent) 70%, var(--amber)) 58%,
+    var(--accent) 100%);
 }
-.ready.is-enough .ready-state { color: var(--accent); font-weight: 500; }
-/* A tick, not an emoji: it inherits the text colour and never renders as someone else's art. */
-.ready.is-enough .ready-state::before {
-  content: ''; display: inline-block; vertical-align: middle;
-  width: 5px; height: 9px; margin: -2px 7px 0 1px;
-  border: solid currentColor; border-width: 0 1.6px 1.6px 0;
-  transform: rotate(45deg);
+/* Two words, one at each end. A colour ramp with nothing written on it is decoration; these make
+   it a legend, which is a different thing from the scale-with-ticks that got cut — there is
+   nothing to line up and no number to find, just which way is better. */
+.ready-ends {
+  display: flex; justify-content: space-between; margin-top: 5px;
+  font-family: var(--label); font-size: 9px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey-2);
 }
-/* The last ten seconds, when the cap finally becomes worth mentioning. */
-.ready.is-closing .ready-state { color: var(--amber-ink); }
 
+/* Elapsed over total. The right-hand number NEVER MOVES, which is what makes this a scale and not
+   the second countdown that had to be removed for arguing with the first. */
+.ready-clock {
+  font-family: var(--label); font-size: 12px; color: var(--grey-2);
+  font-variant-numeric: tabular-nums;
+}
+.ready-clock b { font-weight: 600; color: var(--black); }
+.ready-clock i { font-style: normal; }
+
+.ready-row { margin-top: 9px; }
 @media (prefers-reduced-motion: reduce) {
   .ready-fill { transition: width 0.32s linear; }
 }

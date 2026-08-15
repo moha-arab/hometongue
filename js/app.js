@@ -392,7 +392,11 @@ function startTimer() {
     r0.classList.remove('is-enough', 'is-good', 'is-best', 'is-closing');
     const f0 = $('#readyFill');
     if (f0) f0.style.width = '0%';
-    $('#qLabel').textContent = `${MIN_RECORD_S} seconds to go`;
+    const e0 = $('#elapsed');
+    if (e0) e0.textContent = '0:00';
+    // Derived, so the total on screen can never disagree with the cap that enforces it.
+    const t0 = $('#totalTime');
+    if (t0) t0.textContent = `${Math.floor(MAX_SECONDS / 60)}:${String(MAX_SECONDS % 60).padStart(2, '0')}`;
   }
   timerId = setInterval(() => {
     const s = Math.floor((Date.now() - startedAt) / 1000);
@@ -419,11 +423,15 @@ function startTimer() {
     // first, and that needs measuring against real recordings, not reasoning.
     const stop = $('#stopBtn');
     if (stop) {
-      // Two states, because the measurement only supports two: not enough yet, and enough.
-      // The button unlocks at the floor and then holds one label. It does not nag for more —
-      // the meter's own wording invites it, which is the gentler place for that to live.
+      // THE BUTTON IS ITS OWN EXPLANATION. A disabled control with a fixed label makes a person
+      // wonder whether the app is broken; a disabled control counting down tells them exactly
+      // what it is waiting for and exactly how long, in the place they are already looking.
+      // This is not the third clock that got cut — that one duplicated a countdown sitting
+      // beside it. Nothing else on this screen counts down now.
       stop.disabled = s < MIN_RECORD_S;
-      if (stop.textContent !== 'done, guess now') stop.textContent = 'done, guess now';
+      const want = stop.disabled ? String(MIN_RECORD_S - s) : 'done, guess now';
+      if (stop.textContent !== want) stop.textContent = want;
+      stop.classList.toggle('is-counting', stop.disabled);
     }
     // THE BAR RUNS THE WHOLE MINUTE, with a notch where the submit button unlocks. The measured
     // shape is a curve with a gate in it, not a step: past thirty seconds the median stops
@@ -434,6 +442,12 @@ function startTimer() {
     //
     // Running to the cap also retires the second clock. The bar IS the cap now, so nothing has
     // to count down beside it.
+    const clock = $('#elapsed');
+    if (clock) {
+      const mm = Math.floor(s / 60), ss = s % 60;
+      const txt = `${mm}:${String(ss).padStart(2, '0')}`;
+      if (clock.textContent !== txt) clock.textContent = txt;
+    }
     const ready = $('#ready');
     if (ready) {
       const fill = $('#readyFill');
@@ -458,15 +472,7 @@ function startTimer() {
         // anywhere in this project. It is allowed to be that direct because the number is that
         // large. The later lines are not, because their steps are worth about one clip in
         // twenty-seven each, so they invite and never insist.
-        $('#qLabel').textContent = closing
-          ? 'wrapping up'
-          : best
-            ? 'as sharp as it gets'
-            : good
-              ? 'good, and still improving'
-              : enough
-                ? 'keep going, it gets much sharper'
-                : `${n} second${n === 1 ? '' : 's'} to go`;
+        // (the ramp under the bar says this now, in colour)
       }
     }
     if (s >= MAX_SECONDS) stopListening();
