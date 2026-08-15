@@ -24,6 +24,12 @@ import { SYSTEM, SCHEMA, MODEL } from './prompt.js';
 import { heardSomething, modelChain } from './verdict.js';
 import { createCipheriv, createDecipheriv, randomBytes } from 'node:crypto';
 
+// Lets work outlive the response. Probed on production before anything was built on it: a write
+// scheduled 8s after responding landed, timestamped 8.3s later. Imported defensively so a missing
+// package degrades to answering on the caller's connection rather than to a dead endpoint.
+let waitUntil = null;
+try { ({ waitUntil } = await import('@vercel/functions')); } catch { /* answer inline instead */ }
+
 // ————— COLLECTING A TAKE THE PERSON WALKED AWAY FROM —————
 //
 // The analysis runs inside this invocation while the caller holds the connection open, so when a
@@ -461,14 +467,19 @@ export default async function handler(req, res) {
   if (collectBody && collectBody.take_id && collectBody.take_key && !collectBody.audio && !collectBody.text) {
     const row = await loadTake(collectBody.take_id);
     const kept = row ? openResult(row, collectBody.take_key) : null;
-    if (!kept) {
+    if (!kept || !kept.body) {
+      // 404 means TWO different things to the caller and they need telling apart. Either the work
+      // is still running and there is nothing to hand over yet, or there never was anything. The
+      // client polls on the first and gives up on the second, so it gets `pending` to poll
+      // against — the row simply does not exist until the answer does.
       res.statusCode = 404;
-      return res.end(JSON.stringify({ ok: false, error: 'take_gone' }));
+      return res.end(JSON.stringify({ ok: false, error: 'take_pending' }));
     }
     // Delivered, so it stops being held. Awaited, because this platform freezes the invocation
     // the instant the response is written.
     await dropTake(collectBody.take_id);
-    return res.end(JSON.stringify({ ok: true, result: kept, fb_token: mintToken(), collected: true }));
+    res.statusCode = kept.status || 200;
+    return res.end(JSON.stringify({ ...kept.body, collected: true }));
   }
 
   if (await overDailyCap()) {
@@ -531,27 +542,74 @@ export default async function handler(req, res) {
       return res.end(JSON.stringify({ ok: false, error: 'no_speech', detail: 'No usable speech detected.' }));
     }
 
+    // DECOUPLED FROM THE CALLER, which is the whole point and took three attempts to get right.
+    //
+    // Everything before this was built on an assumption I never checked: that this invocation
+    // keeps running after the caller hangs up, long enough to finish and store the answer. It does
+    // not. So a phone that backgrounded mid-analysis killed the work as well as the connection,
+    // nothing was ever stored, every collect returned 404, and the client fell back to re-sending
+    // the recording — which is precisely the "it takes a long, long time" that kept being
+    // reported. The store was fine. There was simply never anything in it.
+    //
+    // waitUntil is the platform's answer to exactly this, and it was probed on production before
+    // being trusted: a write scheduled 8 seconds after the response landed, timestamped 8.3s
+    // later. So the answer is produced by work that outlives the request, and the caller is set
+    // free immediately instead of being asked to hold a connection open for thirty seconds.
+    //
+    // What the person then experiences is a short poll. Leave, come back a minute later, and the
+    // first poll returns the finished answer — the same as if they had watched the whole time,
+    // which is the actual requirement.
+    if (waitUntil && body.take_id && body.take_key) {
+      const job = produce(parts, !!body.audio)
+        .then((env) => storeTake(body.take_id, sealResult(env, body.take_key)))
+        .catch((err) => storeTake(
+          body.take_id,
+          sealResult({ status: 500, body: { ok: false, error: err?.code || 'server_error' } }, body.take_key),
+        ));
+      waitUntil(job);
+      return res.end(JSON.stringify({ ok: true, pending: true }));
+    }
+
+    // No id, or no waitUntil: answer on this connection exactly as before. Nothing regresses for
+    // a caller that cannot or does not want to collect later.
+    const env = await produce(parts, !!body.audio);
+    res.statusCode = env.status;
+    return res.end(JSON.stringify(env.body));
+  } catch (err) {
+    const code = err.code || 'server_error';
+    res.statusCode = ['audio_too_large', 'audio_too_short', 'no_speech'].includes(code) ? 422
+      : ['busy', 'swamped'].includes(code) ? 429
+        : code === 'out_of_credit' ? 503   // the service is genuinely unavailable, not broken
+          : 500;
+    return res.end(JSON.stringify({ ok: false, error: code }));
+  }
+}
+
+// The answer as a VALUE rather than a response, so the same code can either be awaited on the
+// caller's connection or run on past it under waitUntil.
+async function produce(parts, hasAudio) {
+  // Its own try/catch, because a deferred run has no response to fall through to. A failure here
+  // has to become a stored ANSWER — an envelope saying what went wrong — or someone who walked
+  // away comes back to a poll that never resolves and no explanation at all.
+  try {
     // Started HERE rather than after the answer, so the bookkeeping round trip overlaps the
     // model call instead of being added to the end of every user's wait. It is still awaited
-    // before responding — Vercel freezes the invocation the instant the response is written,
-    // and an un-awaited insert measurably never landed, leaving a cap that counted nothing.
-    // Awaited on the refusal paths too: those spent a model call and the wallet should know.
+    // before returning — the invocation freezes when the response is written, and an un-awaited
+    // insert measurably never landed, leaving a cap that counted nothing.
     const counted = countAnalysis();
 
     const raw = await locate(parts);
     // A silent file once came back as Toronto at 75% with invented phonetic evidence. If the
     // model says there is no speech, believe it rather than rendering a fabricated pin.
     if (raw && raw.has_speech === false) {
-      res.statusCode = 422;
       await counted;
-      return res.end(JSON.stringify({ ok: false, error: 'no_speech', detail: raw.note || 'No speech detected.' }));
+      return { status: 422, body: { ok: false, error: 'no_speech', detail: raw.note || 'No speech detected.' } };
     }
     const result = sane(raw);
     if (!result) {
       // No coordinate now means the model declined, not that the call broke.
-      res.statusCode = 422;
       await counted;
-      return res.end(JSON.stringify({ ok: false, error: 'no_speech', detail: raw?.note || 'Could not place that.' }));
+      return { status: 422, body: { ok: false, error: 'no_speech', detail: raw?.note || 'Could not place that.' } };
     }
 
     // THE SECOND JUDGE WAS REMOVED HERE on 2026-08-12, after being measured properly for the
@@ -580,27 +638,21 @@ export default async function handler(req, res) {
     // it stays.
     //
     // Audio only: type mode has no sound to hear by definition, and its own card says so.
-    if (body.audio && !heardSomething(result)) result.content_led = 'fed';
+    if (hasAudio && !heardSomething(result)) result.content_led = 'fed';
     await counted;
-    // SEALED AND KEPT, so a caller who lost the connection can come back for it. Awaited for the
-    // same measured reason as the counter above — the invocation freezes when the response is
-    // written — and that matters more here than anywhere, because the caller this is being kept
-    // for is precisely the one whose connection has already gone.
-    //
-    // The key came from their browser and is not written down. What lands in the table is
-    // ciphertext this server cannot reopen without being handed the key again.
-    if (body.take_id && body.take_key) await storeTake(body.take_id, sealResult(result, body.take_key));
-    return res.end(JSON.stringify({ ok: true, result, fb_token: mintToken() }));
+    return { status: 200, body: { ok: true, result, fb_token: mintToken() } };
   } catch (err) {
-    const code = err.code || 'server_error';
-    res.statusCode = ['audio_too_large', 'audio_too_short', 'no_speech'].includes(code) ? 422
-      : ['busy', 'swamped'].includes(code) ? 429
-        : code === 'out_of_credit' ? 503   // the service is genuinely unavailable, not broken
-          : 500;
-    return res.end(JSON.stringify({
-      ok: false,
-      error: code,
-      detail: String(err.message || err).slice(0, 300),
-    }));
+    const code = err?.code || 'server_error';
+    return {
+      status: statusForCode(code),
+      body: { ok: false, error: code, detail: String(err?.message || err).slice(0, 300) },
+    };
   }
+}
+
+function statusForCode(code) {
+  return ['audio_too_large', 'audio_too_short', 'no_speech'].includes(code) ? 422
+    : ['busy', 'swamped'].includes(code) ? 429
+      : code === 'out_of_credit' ? 503   // the service is genuinely unavailable, not broken
+        : 500;
 }

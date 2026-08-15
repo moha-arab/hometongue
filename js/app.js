@@ -849,6 +849,35 @@ async function collectTake(id, key) {
   return null;
 }
 
+// WAITING FOR AN ANSWER THAT IS BEING MADE SOMEWHERE ELSE.
+//
+// The server no longer answers on the connection it was asked on. It starts the work, replies
+// "pending" in about a second, and finishes under waitUntil whether or not this page is still
+// listening. So the wait is a poll, and that is what makes leaving harmless: a poll that dies
+// while the phone is in a pocket is just a poll, and the next one gets the finished answer.
+//
+// Slow at first, then patient. The median analysis is ~12s and the p90 is ~29s, so hammering the
+// first ten seconds is pure noise; after that the interval widens. The overall budget is generous
+// because someone who walked away has not stopped wanting their answer.
+async function pollForTake(id, key, onTick) {
+  const started = Date.now();
+  const BUDGET_MS = 4 * 60 * 1000;
+  let wait = 1200;
+  while (Date.now() - started < BUDGET_MS) {
+    await new Promise((r) => setTimeout(r, wait));
+    wait = Math.min(4000, Math.round(wait * 1.25));
+    // A hidden tab is throttled to the point of uselessness and its fetches die anyway. Sitting
+    // still costs nothing and the answer keeps for thirty minutes.
+    if (document.hidden) continue;
+    const got = await collectTake(id, key);
+    if (got && got !== 'gone') return got;
+    if (onTick) onTick(Math.round((Date.now() - started) / 1000));
+  }
+  throw Object.assign(new Error('poll_timeout'), {
+    userMessage: 'That is taking longer than it should. Your answer may still arrive — try again in a moment.',
+  });
+}
+
 // The page-load path: same request, plus the bookkeeping for a take remembered across a reload.
 async function collectPendingTake() {
   const t = pendingTake();
@@ -1011,7 +1040,12 @@ async function analyzeResilient(payload) {
       const onReturn = () => { if (!document.hidden && wentAway) kill.abort(); };
       document.addEventListener('visibilitychange', onReturn);
       try {
-        return await postAnalyze(payload, kill.signal);
+        const first = await postAnalyze(payload, kill.signal);
+        // "pending" means the upload landed and the work is now running somewhere that does not
+        // care whether this page survives. From here the recording has done its job — everything
+        // after is a few hundred bytes at a time, which is what makes walking away safe.
+        if (first && first.pending) return await pollForTake(payload.take_id, payload.take_key);
+        return first;
       } catch (err) {
         document.removeEventListener('visibilitychange', onReturn);
         // The server got the audio and made a judgement about it. Sending it again cannot change
