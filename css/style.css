@@ -1240,9 +1240,13 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
      clearance above the bottom edge, so this fits without pushing anything off screen. */
   #lockBtn { min-height: 44px; }
   /* The scrubber arrows are 34px and cannot simply grow: they sit in a fixed row inside the dock,
-     and making them taller makes the dock taller. Padding with matching negative margin grows the
-     HIT AREA to 44px while the row keeps the height it has now. */
-  #backBtn, #fwdBtn { padding-block: 5px; margin-block: -5px; }
+     and a taller button is a taller dock, which has only 6px of clearance left.
+     Padding was tried first and did nothing — these carry an explicit height: 34px with
+     border-box, so the padding is absorbed inside the 34 rather than added to it. An invisible
+     pseudo-element is the technique that actually works: it extends the button's hit area to
+     44x44 while the drawn circle and the row around it keep exactly the size they have. */
+  #backBtn, #fwdBtn { position: relative; }
+  #backBtn::after, #fwdBtn::after { content: ''; position: absolute; inset: -5px; }
   .foot a, .foot-hint a {
     display: inline-block; padding: 12px 4px; margin: -12px 0;
   }
