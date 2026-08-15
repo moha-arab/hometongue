@@ -196,13 +196,36 @@ body {
 /* The hand-off, on the one screen where someone has just been delighted and is deciding whether
    there is anything else here. Deliberately a quiet link under the two real buttons rather than a
    third button: it is an offer, not a step in the flow. */
-.cross-link {
-  display: block; margin-top: 14px; text-align: center;
-  font-size: 13px; color: var(--grey); text-decoration: none;
+/* THE HAND-OFF AT THE END OF A RESULT. This was a grey sentence, which is the shape of a thing
+   people scroll past on their way to closing the tab. It is a destination now: tinted so it lifts
+   off the cream card, with the game's own icon, a name and a reason.
+   Still below share and go-again, because the answer they came for is the point and this is what
+   comes after it — but it no longer whispers. */
+.next-up {
+  display: flex; align-items: center; gap: 12px;
+  margin-top: 18px; padding: 13px 14px;
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+  border-radius: var(--r);
+  background: var(--accent-soft);
+  text-decoration: none; text-align: left;
+  transition: border-color 0.18s, background 0.18s, transform 0.18s;
 }
-.cross-link b { color: var(--accent); font-weight: 600; }
-.cross-link:hover { color: var(--black); }
-.cross-link:hover b { text-decoration: underline; text-underline-offset: 2px; }
+.next-up:hover {
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--sheet));
+}
+.next-up:active { transform: translateY(1px); }
+.next-up-icon {
+  flex: none; width: 36px; height: 36px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--sheet); color: var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+}
+.next-up-icon svg { width: 18px; height: 18px; }
+.next-up-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.next-up-text b { font-size: 14.5px; font-weight: 600; color: var(--black); }
+.next-up-text i { font-style: normal; font-size: 12.5px; color: var(--grey); line-height: 1.35; }
+.next-up-go { margin-left: auto; color: var(--accent); font-size: 17px; flex: none; }
 
 /* ——— panels ——— */
 .hud {
