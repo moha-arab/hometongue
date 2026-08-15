@@ -785,6 +785,80 @@ function teardownRecording() {
   recorder = null;
 }
 
+// ————— PICKING A TAKE BACK UP —————
+//
+// Submitting starts a 12-29 second call, and nobody watches a phone for that. They go to Messages,
+// or another window, and the tab gets suspended with the answer half-computed. Before this, coming
+// back meant sending the whole recording again and waiting the whole wait again.
+//
+// So every take gets an id and a key, both minted here, both written down BEFORE the audio is sent.
+// The server keeps the answer sealed with that key. Coming back — even to a page that was
+// completely reloaded, with the recording long gone from memory — the id and key are still in
+// localStorage, and a few hundred bytes fetches the finished verdict.
+//
+// The key never leaves this browser except to open something that belongs to it, and it is thrown
+// away the moment the answer is in hand. The server holds bytes it cannot read.
+const PENDING_KEY = 'hometongue_pending_take';
+const PENDING_MAX_AGE_MS = 30 * 60 * 1000;   // matches the server's own window
+
+function mintTake() {
+  const rnd = new Uint8Array(32);
+  crypto.getRandomValues(rnd);
+  const take = {
+    id: (crypto.randomUUID ? crypto.randomUUID() : 'tk-' + Date.now().toString(16) + Math.random().toString(16).slice(2)),
+    key: btoa(String.fromCharCode(...rnd)),
+    ts: Date.now(),
+  };
+  // Written down BEFORE the request goes out. Writing it after would lose exactly the takes this
+  // exists for: the ones where the connection dies before a response ever arrives.
+  try { localStorage.setItem(PENDING_KEY, JSON.stringify(take)); } catch { /* private mode */ }
+  return take;
+}
+
+function pendingTake() {
+  try {
+    const t = JSON.parse(localStorage.getItem(PENDING_KEY) || 'null');
+    if (!t || !t.id || !t.key) return null;
+    if (Date.now() - (t.ts || 0) > PENDING_MAX_AGE_MS) { clearPendingTake(); return null; }
+    return t;
+  } catch { return null; }
+}
+
+function clearPendingTake() {
+  try { localStorage.removeItem(PENDING_KEY); } catch { /* nothing to do */ }
+}
+
+// A few hundred bytes: the id and the key, no audio. This is what makes recovery instant instead
+// of a second full analysis, and what lets it work at all after a reload.
+async function collectPendingTake() {
+  const t = pendingTake();
+  if (!t) return null;
+  try {
+    const r = await fetch('/api/analyze', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ take_id: t.id, take_key: t.key }),
+      signal: AbortSignal.timeout(12_000),
+    });
+    const data = await r.json().catch(() => null);
+    if (r.ok && data && data.ok) { clearPendingTake(); return data; }
+    if (r.status === 404) clearPendingTake();   // expired or never stored; nothing to wait for
+  } catch { /* offline or slow — keep it, but not forever; see the counter below */ }
+  // A TAKE THAT CANNOT BE REACHED MUST STOP ASKING. Network failures leave it pending on purpose,
+  // because the next load may well succeed — but without a limit, one unreachable take makes
+  // every future visit open on the analysing card for as long as the timeout lasts, for an answer
+  // that is never coming. Three goes, then it is let go.
+  try {
+    const t = pendingTake();
+    if (t) {
+      t.tries = (t.tries || 0) + 1;
+      if (t.tries >= 3) clearPendingTake();
+      else localStorage.setItem(PENDING_KEY, JSON.stringify(t));
+    }
+  } catch { /* private mode: nothing was stored, so nothing nags */ }
+  return null;
+}
+
 async function onRecordingReady() {
   if (takeHandled) return;
   takeHandled = true;
@@ -819,7 +893,9 @@ async function onRecordingReady() {
   try {
     const audio = await blobToBase64(blob);
     window._lastAudio = { audio, mime: mimeUsed }; // kept for the consent flywheel
-    const resp = await analyzeResilient({ audio, mime: mimeUsed });
+    const take = mintTake();
+    const resp = await analyzeResilient({ audio, mime: mimeUsed, take_id: take.id, take_key: take.key });
+    clearPendingTake();
     renderResult(normalizeServer(resp));
   } catch (err) {
     // SAY WHICH THING WENT WRONG. The cause is already sitting on err.message — the server's own
@@ -1012,7 +1088,9 @@ function runTextAnalysis(text, typed) {
   }
   show('analyzingCard'); startScan('text');
   state = 'analyzing';
-  analyzeResilient({ text })
+  // One call, one object. Reading it back with pendingTake() would return null in private mode,
+  // where localStorage.setItem throws, and then .key would throw on top of it.
+  analyzeResilient({ text, ...(() => { const t = mintTake(); return { take_id: t.id, take_key: t.key }; })() })
     .then((resp) => renderResult(normalizeServer(resp)))
     .catch((e) => {
       // The old handler took no parameter but read `e`, so any type-mode failure threw a
@@ -1646,6 +1724,32 @@ function bindUI() {
   }
 
   fillCountryPicker();
+
+  // AN ANSWER LEFT WAITING FROM LAST TIME.
+  //
+  // This is the case nothing else could reach. iOS does not just suspend a backgrounded tab, it
+  // eventually evicts it, and coming back reloads the page from nothing — the recording, the
+  // in-flight request and every variable holding them are gone. Retrying was never possible
+  // because there was nothing left to retry with.
+  //
+  // The id and key outlive all of that in localStorage, and the finished verdict is sitting on the
+  // server sealed with that key. So: submit, put the phone in your pocket, come back to a page
+  // that has completely reloaded, and the answer is there.
+  //
+  // Runs behind the analysing card so the wait reads as continuous rather than as the app having
+  // forgotten. If nothing is waiting, the card never shows and this costs one localStorage read.
+  if (pendingTake()) {
+    show('analyzingCard');
+    startScan();
+    const note = $('#scanNote');
+    if (note) note.textContent = 'fetching the answer we already worked out';
+    collectPendingTake().then((data) => {
+      stopScan();
+      if (data) { state = 'idle'; renderResult(normalizeServer(data)); return; }
+      state = 'idle';
+      show('idleCard');
+    }).catch(() => { stopScan(); state = 'idle'; show('idleCard'); });
+  }
 
   $('#micBtn').onclick = startListening;
   $('#stopBtn').onclick = stopListening;

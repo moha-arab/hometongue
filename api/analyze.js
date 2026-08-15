@@ -22,23 +22,97 @@ import { SYSTEM, SCHEMA, MODEL } from './prompt.js';
 // Shared with tools/source-clips.mjs, which vets clips with this same model and prompt and so
 // needs the same rules. See api/verdict.js.
 import { heardSomething, modelChain } from './verdict.js';
+import { createCipheriv, createDecipheriv, randomBytes } from 'node:crypto';
 
-// A RESULT CACHE WAS BUILT HERE AND TAKEN BACK OUT BEFORE IT EVER STORED ANYTHING.
+// ————— COLLECTING A TAKE THE PERSON WALKED AWAY FROM —————
 //
-// The idea was sound: a take whose connection died has already been analysed, so storing the
-// answer under the take's id lets the retry collect it instead of paying for a second model call.
-// What it stored was the whole result object, and the result object contains `transcript` — the
-// person's own words — and evidence lines that quote their vocabulary verbatim.
+// The analysis runs inside this invocation while the caller holds the connection open, so when a
+// phone is backgrounded and the tab is suspended, the answer is computed and then has nowhere to
+// go. The old recovery was to send the whole recording again and pay a second 12-29 second model
+// call for an answer that already existed.
 //
-// privacy.html says, of every analysis: "Never your recording, never your words, never a city."
-// This would have made that false for every single user, silently, and it would have undone a fix
-// made hours earlier that stopped the transcript leaving the browser without consent.
+// So the answer is kept under an id the browser minted, and a later request carrying that id
+// collects it. That is the easy half.
 //
-// It is a good feature. It needs the storage to hold only what is not their words, or a plain
-// disclosure and a real expiry, and it needs to be decided deliberately rather than at the end of
-// a long night. Doing without it costs a resumed take one more wait, which is a price the person
-// can see and nobody has to be told about afterwards.
-export const config = { maxDuration: 60 };
+// THE HARD HALF IS THAT THE ANSWER IS NOT OURS TO KEEP. It contains `transcript` — the person's
+// own words — and evidence lines quoting their vocabulary verbatim, and privacy.html promises of
+// every analysis: "Never your recording, never your words, never a city." An earlier attempt at
+// this feature stored the result in the clear and would have made that false for every user.
+//
+// So it is stored ENCRYPTED, under a key the browser generates and this server never writes down.
+// What sits in the database is ciphertext that cannot be read back from the database alone:
+// collecting requires the caller to present the key again, and that key lives only in the one
+// browser that made the recording. A dump of this table is a pile of noise.
+const TAKE_ID = /^[0-9a-f-]{8,40}$/i;
+const COLLECT_WINDOW_MIN = 30;   // long enough to come back from a conversation, short enough to forget
+
+function sealResult(result, keyB64) {
+  try {
+    const key = Buffer.from(String(keyB64), 'base64');
+    if (key.length !== 32) return null;
+    const iv = randomBytes(12);
+    const c = createCipheriv('aes-256-gcm', key, iv);
+    const ct = Buffer.concat([c.update(JSON.stringify(result), 'utf8'), c.final()]);
+    return { iv: iv.toString('base64'), ct: ct.toString('base64'), tag: c.getAuthTag().toString('base64') };
+  } catch { return null; }
+}
+
+function openResult(row, keyB64) {
+  try {
+    const key = Buffer.from(String(keyB64), 'base64');
+    if (key.length !== 32) return null;
+    const d = createDecipheriv('aes-256-gcm', key, Buffer.from(row.iv, 'base64'));
+    d.setAuthTag(Buffer.from(row.tag, 'base64'));
+    const out = Buffer.concat([d.update(Buffer.from(row.ct, 'base64')), d.final()]);
+    return JSON.parse(out.toString('utf8'));
+  } catch { return null; }   // wrong key, tampered row, or nothing there
+}
+
+// The file already has an SB() further down returning { url, key }; these build their own headers
+// from it rather than declaring a second one.
+const takeHeaders = () => {
+  const { url, key } = SB();
+  return url && key ? { url, H: { apikey: key, Authorization: 'Bearer ' + key } } : null;
+};
+
+async function storeTake(takeId, sealed) {
+  const sb = takeHeaders();
+  if (!sb || !sealed || !TAKE_ID.test(takeId || '')) return;
+  try {
+    await fetch(sb.url + '/rest/v1/takes', {
+      method: 'POST',
+      headers: { ...sb.H, 'Content-Type': 'application/json', Prefer: 'resolution=merge-duplicates,return=minimal' },
+      body: JSON.stringify({ take_id: takeId, iv: sealed.iv, ct: sealed.ct, tag: sealed.tag }),
+      signal: AbortSignal.timeout(3000),
+    });
+  } catch { /* the answer still reaches this caller; only the second chance is lost */ }
+}
+
+async function loadTake(takeId) {
+  const sb = takeHeaders();
+  if (!sb || !TAKE_ID.test(takeId || '')) return null;
+  const since = new Date(Date.now() - COLLECT_WINDOW_MIN * 60_000).toISOString();
+  const q = '/rest/v1/takes?select=iv,ct,tag&take_id=eq.' + encodeURIComponent(takeId)
+    + '&ts=gte.' + since + '&limit=1';
+  try {
+    const r = await fetch(sb.url + q, { headers: sb.H, signal: AbortSignal.timeout(4000) });
+    if (!r.ok) return null;
+    const rows = await r.json().catch(() => null);
+    return rows && rows[0] ? rows[0] : null;
+  } catch { return null; }
+}
+
+async function dropTake(takeId) {
+  const sb = takeHeaders();
+  if (!sb || !TAKE_ID.test(takeId || '')) return;
+  // Collected means delivered. Holding it any longer serves nobody.
+  try {
+    await fetch(sb.url + '/rest/v1/takes?take_id=eq.' + encodeURIComponent(takeId), {
+      method: 'DELETE', headers: sb.H, signal: AbortSignal.timeout(2500),
+    });
+  } catch { /* it expires on its own */ }
+}
+
 
 function readJsonBody(req) {
   if (req.body !== undefined && req.body !== null) {
@@ -373,6 +447,30 @@ export default async function handler(req, res) {
     res.statusCode = 429;
     return res.end(JSON.stringify({ ok: false, error: 'rate_limited', detail: 'Slow down a little — try again in a bit.' }));
   }
+  // COLLECTING AN ANSWER THAT WAS ALREADY PAID FOR.
+  //
+  // Deliberately ABOVE the daily cap. Someone coming back for a verdict this server already
+  // computed is not asking for a new one, and refusing them because the day's budget ran out in
+  // the meantime would be taking something they had already earned. It spends no model call and
+  // no slot; it is a delivery, not an analysis.
+  //
+  // Below the origin and rate-limit gates, which still apply — this is a public endpoint and a
+  // collect is still a request.
+  let collectBody = null;
+  try { collectBody = await readJsonBody(req); } catch { /* handled as a normal parse failure below */ }
+  if (collectBody && collectBody.take_id && collectBody.take_key && !collectBody.audio && !collectBody.text) {
+    const row = await loadTake(collectBody.take_id);
+    const kept = row ? openResult(row, collectBody.take_key) : null;
+    if (!kept) {
+      res.statusCode = 404;
+      return res.end(JSON.stringify({ ok: false, error: 'take_gone' }));
+    }
+    // Delivered, so it stops being held. Awaited, because this platform freezes the invocation
+    // the instant the response is written.
+    await dropTake(collectBody.take_id);
+    return res.end(JSON.stringify({ ok: true, result: kept, fb_token: mintToken(), collected: true }));
+  }
+
   if (await overDailyCap()) {
     res.statusCode = 503;
     return res.end(JSON.stringify({
@@ -383,7 +481,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const body = await readJsonBody(req);
+    const body = collectBody || await readJsonBody(req);
     const typed = (body.text || '').trim();
 
     // A CAP ON HOW BIG ONE REQUEST CAN BE, NOT JUST HOW MANY THERE ARE.
@@ -484,6 +582,14 @@ export default async function handler(req, res) {
     // Audio only: type mode has no sound to hear by definition, and its own card says so.
     if (body.audio && !heardSomething(result)) result.content_led = 'fed';
     await counted;
+    // SEALED AND KEPT, so a caller who lost the connection can come back for it. Awaited for the
+    // same measured reason as the counter above — the invocation freezes when the response is
+    // written — and that matters more here than anywhere, because the caller this is being kept
+    // for is precisely the one whose connection has already gone.
+    //
+    // The key came from their browser and is not written down. What lands in the table is
+    // ciphertext this server cannot reopen without being handed the key again.
+    if (body.take_id && body.take_key) await storeTake(body.take_id, sealResult(result, body.take_key));
     return res.end(JSON.stringify({ ok: true, result, fb_token: mintToken() }));
   } catch (err) {
     const code = err.code || 'server_error';
