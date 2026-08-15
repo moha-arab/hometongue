@@ -6,7 +6,23 @@
 // on activate — leaving it fixed means yesterday's CSS sits in storage forever as the offline
 // fallback. v47: the pre-launch pass — random clip windows pinned, decks restructured to ten,
 // the leaderboard rebuilt, inputs raised to 16px, and the card layout moved off auto margins.
-const VERSION = 'ht-v47';
+// BUMP THIS ON ANY DEPLOY THAT CHANGES THE SHELL. It sat at v47 through 22 consecutive deploys,
+// and because the install handler only re-runs when THIS FILE changes, the precache still held
+// index.html and app.js from 22 commits ago the whole time.
+const VERSION = 'ht-v48';
+
+// FILES WHOSE VERSIONS MUST MATCH EACH OTHER. A stale copy of an icon is a cosmetic nuisance; a
+// stale app.js against a fresh index.html is a crash, because the old code looks for elements the
+// new markup no longer has, gets null, throws, and surfaces as "Something went wrong on our end."
+//
+// That is not hypothetical, it is the shape of the reported iPhone failure. Every request below
+// races a 3.5s timer and falls back to cache independently, so on a slow connection index.html
+// can arrive fresh from the network while app.js times out and comes back 22 commits old. A
+// desktop on wired internet never hits 3.5s and never sees it; a phone on cellular does.
+//
+// For these paths, slow is better than skewed: wait for the network, and fall back to cache only
+// on a real failure, where everything falls back together.
+const LOCKSTEP = new Set(['/', '/index.html', '/game.html', '/js/app.js', '/js/game.js', '/js/clips.js', '/css/style.css']);
 const SHELL = [
   '/',
   '/game.html',
@@ -59,10 +75,14 @@ self.addEventListener('fetch', (e) => {
   // copy that would have painted instantly sits unused the whole time. Racing a short timer keeps
   // network-first semantics (a live connection still wins and still refreshes the cache) and only
   // changes what happens when the network is not answering.
-  const fromNetwork = new Promise((resolve, reject) => {
-    const timer = setTimeout(() => reject(new Error('slow')), 3500);
-    fetch(e.request).then((r) => { clearTimeout(timer); resolve(r); }, (err) => { clearTimeout(timer); reject(err); });
-  });
+  let lockstep = false;
+  try { lockstep = LOCKSTEP.has(new URL(e.request.url).pathname); } catch { /* opaque URL */ }
+  const fromNetwork = lockstep
+    ? fetch(e.request)   // no timer: a slow load beats a mismatched one
+    : new Promise((resolve, reject) => {
+      const timer = setTimeout(() => reject(new Error('slow')), 3500);
+      fetch(e.request).then((r) => { clearTimeout(timer); resolve(r); }, (err) => { clearTimeout(timer); reject(err); });
+    });
   e.respondWith(
     fromNetwork
       .then((res) => {
