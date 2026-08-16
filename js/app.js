@@ -302,6 +302,11 @@ function show(cardId) {
   // running behind the result card. There are seven ways back to idle and only one of them
   // is success.
   if (cardId !== 'analyzingCard') stopScan();
+  // Same reasoning for the resend offer: retracted on EVERY card change, and re-raised by the one
+  // caller entitled to raise it. Otherwise "send it again" survives on the idle card long after
+  // the take it referred to was replaced, and the button lies about which recording it holds.
+  const retry = $('#retryNote');
+  if (retry) retry.hidden = true;
 
   // EVERY CARD OPENS AT ITS TOP.
   //
@@ -995,9 +1000,23 @@ async function onRecordingReady() {
   if (blob.size < 2000) {
     return fallbackOrFail('I didn\'t catch any audio.');
   }
+  let audio;
   try {
-    const audio = await blobToBase64(blob);
-    window._lastAudio = { audio, mime: mimeUsed }; // kept for the consent flywheel
+    audio = await blobToBase64(blob);
+  } catch (err) {
+    const code = err && err.message ? String(err.message).slice(0, 40) : 'unknown';
+    return fallbackOrFail(`Something went wrong on our end. (${code} · ${mimeUsed || 'no mime'})`);
+  }
+  window._lastAudio = { audio, mime: mimeUsed }; // kept for the consent flywheel, and for a resend
+  await runAnalysis(audio, mimeUsed);
+}
+
+// The analysis itself, reached two ways: when a take finishes, and again from "send it again"
+// after a failure that was never about the audio. A FRESH take id each time, because the previous
+// one may already have a stored refusal filed against it and a collect would hand that straight
+// back instead of running the work.
+async function runAnalysis(audio, mimeUsed) {
+  try {
     const take = mintTake();
     const resp = await analyzeResilient({ audio, mime: mimeUsed, take_id: take.id, take_key: take.key });
     clearPendingTake();
@@ -1014,16 +1033,29 @@ async function onRecordingReady() {
     // turns out to be the format, the message will be holding the evidence.
     const why = err && err.userMessage;
     const code = err && err.message ? String(err.message).slice(0, 40) : 'unknown';
-    fallbackOrFail(why || `Something went wrong on our end. (${code} · ${mimeUsed || 'no mime'})`);
+    fallbackOrFail(why || `Something went wrong on our end. (${code} · ${mimeUsed || 'no mime'})`, code);
   }
 }
 
 // There is no offline fallback any more: the Arabic lexicon engine is gone and there are
 // no live captions to salvage, so a failure is just a failure. Say so and let them retry.
-function fallbackOrFail(reason) {
-  toast(`${reason} Try again, or use type mode.`);
+//
+// "Try again" is only appended when trying again MEANS recording again. When the take itself is
+// still good and can simply be resent, the card carries that offer instead, and telling someone
+// to try again in the same breath would send them back to the microphone for no reason.
+function fallbackOrFail(reason, code) {
+  const resend = RESENDABLE.has(code) && !!(window._lastAudio && window._lastAudio.audio);
+  toast(resend ? reason : `${reason} Try again, or use type mode.`);
   state = 'idle';
   show('idleCard');
+  showRetry(resend);
+}
+
+// One place decides whether the offer is on screen, so no path can leave it showing over a take
+// that has already been resent, replaced or thrown away.
+function showRetry(on) {
+  const note = $('#retryNote');
+  if (note) note.hidden = !on;
 }
 
 function blobToBase64(blob) {
@@ -1050,6 +1082,25 @@ const ERRORS = {
   at_capacity: 'HomeTongue has hit its listening limit for today. It resets at midnight UTC.',
   bad_origin: 'That request was blocked as coming from the wrong domain.',
 };
+
+// FAILURES THAT SAY NOTHING ABOUT THE RECORDING, so the recording is kept and offered back.
+//
+// These two were handled identically until now, and they are opposites:
+//   no_speech        the model LISTENED and there was nothing there. Sending the same bytes
+//                    again spends a second call to be told the same thing. Correctly final.
+//   upstream_failed  the model never answered at all. Sending the same bytes again is exactly
+//                    the right move, and it was throwing the take away instead.
+// The cost of getting this wrong is not abstract: a stranger who has just talked for a minute
+// gets asked to do the whole thing again because of a hiccup at Google.
+//
+// The size and length codes stay out for the same reason no_speech does — they are judgements
+// about the audio, and identical bytes fail identically. So do out_of_credit, at_capacity and
+// rate_limited, which are all real but where a resend now cannot succeed either; offering a
+// button that is guaranteed to fail is worse than not offering one.
+const RESENDABLE = new Set([
+  'upstream_failed', 'busy', 'swamped', 'server_error', 'timeout', 'take_lost',
+  'http_500', 'http_502', 'http_503', 'http_504',
+]);
 
 // SWITCHING APPS MID-ANALYSIS MUST NOT LOSE THE TAKE.
 //
@@ -1917,6 +1968,17 @@ function bindUI() {
   }
 
   $('#micBtn').onclick = startListening;
+  // Resend the take that is still in memory. Straight back to the analysing card, because from
+  // the speaker's side this is the same wait they were already in, not a new thing they started.
+  $('#retryBtn').onclick = () => {
+    const last = window._lastAudio;
+    if (!last || !last.audio) return showRetry(false);
+    showRetry(false);
+    state = 'analyzing';
+    show('analyzingCard');
+    startScan();
+    runAnalysis(last.audio, last.mime);
+  };
   $('#stopBtn').onclick = stopListening;
   $('#restartBtn').onclick = restartListening;
   $('#typeModeBtn').onclick = enterTypeMode;

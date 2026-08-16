@@ -90,6 +90,15 @@
          Local vocabulary is deliberately NOT discouraged - a neighbourhood name placed a
          speaker within 40 km of Tripoli, so that is the product working, not cheating. -->
     <p class="length-tip">Your <b>home language</b> reads sharpest. Don't tell it where you're from, let it guess.</p>
+    <!-- Shown ONLY when the last take failed for a reason that has nothing to do with the take:
+         the model did not answer, or was busy. The recording is still in memory (it is kept for
+         the donate flow regardless), so the one thing this must not do is make someone speak for
+         another minute because of a hiccup at Google. A toast cannot carry this, because it
+         disappears after 3.2 seconds and takes the only route back with it. -->
+    <div class="retry-note" id="retryNote" hidden>
+      <p>Nothing wrong with that take. It's still here.</p>
+      <button class="retry-btn" id="retryBtn">send it again</button>
+    </div>
     <div class="idle-foot">
       <button class="link-btn" id="typeModeBtn">no mic? type like you talk</button>
     </div>

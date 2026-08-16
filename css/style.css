@@ -352,6 +352,23 @@ textarea {
 textarea::placeholder { color: var(--grey-2); }
 textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 
+/* The "your take survived" notice on the idle card. Quiet enough not to compete with the mic
+   button above it, solid enough that it does not read as another hint to skip. */
+.retry-note {
+  margin-top: 16px; padding: 13px 15px;
+  background: var(--accent-soft); border: 1px solid var(--accent-line); border-radius: var(--r);
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+}
+.retry-note p { margin: 0; font-family: var(--sans); font-size: 13px; color: var(--black-2); }
+.retry-btn {
+  background: var(--accent); color: #fff; border: none; cursor: pointer;
+  font-family: var(--sans); font-size: 13px; font-weight: 600;
+  padding: 0 16px; border-radius: var(--r-sm);
+  /* 44px is the smallest reliable touch target, same rule the inputs follow. */
+  min-height: 44px; white-space: nowrap;
+}
+.retry-btn:hover { background: color-mix(in srgb, var(--accent) 88%, #000); }
+
 .link-btn {
   background: none; border: none; cursor: pointer; padding: 0;
   color: var(--accent); font-family: var(--sans); font-size: 13px; font-weight: 600;
