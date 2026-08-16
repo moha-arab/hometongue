@@ -91,8 +91,19 @@ const MIN_VOICED_S = 1.5;   // a mic that heard essentially nothing at all
 // answers landing within 100 km goes 44% -> 52%. Every later step is worth roughly one clip in
 // twenty-seven, so those lines invite quietly. The wording tracks the effect size on purpose —
 // "a big jump" where the number is big, "keeps sharpening" where it is small.
+//
+// ONLY THE FIRST RUNG COUNTS DOWN, and it is a live number rather than a written one. "10 more
+// seconds" cannot tell you whether those ten seconds have started, which is the single thing you
+// need to know while you are the one talking. It also left the screen counting for you all the way
+// to twenty — the pill in the button ticks 20, 19, 18 — and then stopping dead at the exact moment
+// the number started to matter. Now the countdown is handed from the pill to this label instead of
+// being dropped.
+//
+// The later rungs stay qualitative on purpose. They have never carried a number, the steps they
+// describe are worth about one clip in twenty-seven, and a second ticking number running beside
+// the clock is the confusion that got the two-timer version scrapped.
 const TIERS = [
-  { at: 20, word: '10 more seconds, much closer guess' },  // 44% within 100 km — the floor
+  { at: 20, word: 'much closer guess', countdown: true },  // 44% within 100 km — the floor
   { at: 30, word: 'keep going, it gets closer' }, // 52%
   { at: 45, word: 'almost as close as it gets' },     // 56%
   // The evidence for this one is the 60s row (59%), but 60s is the CAP: a tier set there lights
@@ -512,6 +523,7 @@ function tick() {
     const q = $('#quality');
     if (q) {
       const earned = TIERS.filter((t) => s >= t.at).length;
+      // The dots only move when a rung is actually crossed, so they stay out of the per-second work.
       if (q.dataset.earned !== String(earned)) {
         q.dataset.earned = String(earned);
         [...$('#dots').children].forEach((d, i) => {
@@ -519,8 +531,22 @@ function tick() {
           // The one you are working toward, so the row always points somewhere.
           d.classList.toggle('next', i === earned);
         });
-        const w = $('#tierWord');
-        if (w) w.textContent = earned ? TIERS[earned - 1].word : 'keep talking';
+      }
+      // The label is computed every tick because one rung's text contains a number that moves.
+      // Written only when the STRING changes, not every 250ms: this runs four times a second and
+      // an unconditional textContent write would relayout the row on every one of them.
+      const w = $('#tierWord');
+      if (w) {
+        const shown = earned ? TIERS[earned - 1] : null;
+        const next = TIERS[earned];
+        let text = 'keep talking';
+        if (shown) {
+          const togo = next ? next.at - s : 0;
+          text = shown.countdown && next
+            ? `${togo} more second${togo === 1 ? '' : 's'}, ${shown.word}`
+            : shown.word;
+        }
+        if (w.textContent !== text) w.textContent = text;
       }
     }
     if (s >= MAX_SECONDS) stopListening();
