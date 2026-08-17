@@ -625,6 +625,12 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .donate-btn.done { background: var(--accent); color: #fff; cursor: default; }
 .donate-btn:disabled:not(.done) { opacity: 0.6; cursor: wait; }
 .fb-row, .fb-fix { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+/* A stop-btn inside a button row is a peer, not the recording screen's big CTA. Its usual
+   22px top margin shoved "play again" out of line with "switch deck", and its 186px min-width
+   (sized for the countdown pill it normally carries) forced the pair to wrap on phones -
+   which is why the two buttons sat stacked and offset instead of side by side. */
+.fb-row .stop-btn { margin-top: 0; min-width: 0; flex: 1 1 auto; }
+.fb-row .fb-btn { flex: 1 1 auto; }
 .fb-fix input[type="text"] { width: 150px; }
 
 /* the leaderboard-entry block on the final card: a labelled unit, not a bare input */
