@@ -998,14 +998,14 @@ async function onRecordingReady() {
   const mimeUsed = (recorder && recorder.mimeType) || recMime || 'audio/webm';
   teardownRecording();
   if (blob.size < 2000) {
-    return fallbackOrFail('I didn\'t catch any audio.');
+    return fallbackOrFail(`I didn't catch any audio. ${RETRY_TAIL}`);
   }
   let audio;
   try {
     audio = await blobToBase64(blob);
   } catch (err) {
     const code = err && err.message ? String(err.message).slice(0, 40) : 'unknown';
-    return fallbackOrFail(`Something went wrong on our end. (${code} · ${mimeUsed || 'no mime'})`);
+    return fallbackOrFail(`Something went wrong on our end. (${code} · ${mimeUsed || 'no mime'}) ${RETRY_TAIL}`);
   }
   window._lastAudio = { audio, mime: mimeUsed }; // kept for the consent flywheel, and for a resend
   await runAnalysis(audio, mimeUsed);
@@ -1033,7 +1033,7 @@ async function runAnalysis(audio, mimeUsed) {
     // turns out to be the format, the message will be holding the evidence.
     const why = err && err.userMessage;
     const code = err && err.message ? String(err.message).slice(0, 40) : 'unknown';
-    fallbackOrFail(why || `Something went wrong on our end. (${code} · ${mimeUsed || 'no mime'})`, code);
+    fallbackOrFail(why || `Something went wrong on our end. (${code} · ${mimeUsed || 'no mime'}) ${RETRY_TAIL}`, code);
   }
 }
 
@@ -1041,11 +1041,15 @@ async function runAnalysis(audio, mimeUsed) {
 // no live captions to salvage, so a failure is just a failure. Say so and let them retry.
 //
 // "Try again" is only appended when trying again MEANS recording again. When the take itself is
-// still good and can simply be resent, the card carries that offer instead, and telling someone
-// to try again in the same breath would send them back to the microphone for no reason.
+// still good and can simply be resent, the card carries that offer instead.
+//
+// The message arrives FINISHED. This used to append "Try again, or use type mode." to whatever it
+// was handed, including the server's own messages, which each already end with their own
+// instruction — so a failed take read "...then try again. Try again, or use type mode." Advice is
+// now written where it is known to be missing (see RETRY_TAIL) instead of stapled on at the end.
 function fallbackOrFail(reason, code) {
   const resend = RESENDABLE.has(code) && !!(window._lastAudio && window._lastAudio.audio);
-  toast(resend ? reason : `${reason} Try again, or use type mode.`);
+  toast(reason);
   state = 'idle';
   show('idleCard');
   showRetry(resend);
@@ -1069,10 +1073,14 @@ function blobToBase64(blob) {
 
 // One place that turns a server error code into something a person can act on.
 const ERRORS = {
-  no_speech: "I couldn't hear any real speech in that. Check the right microphone is selected and this site has permission, then try again.",
+  // Carries its own way out, because this is the message a broken microphone produces and typing
+  // is the only route left for that person.
+  no_speech: "I couldn't hear any real speech in that. Check the right microphone is selected and this site has permission, then try again or type instead.",
   not_configured: 'The server is missing its API key, so nothing can be analyzed. That is a setup problem, not your recording.',
   out_of_credit: 'The analysis account has run out of credit, so nothing can be read right now. Nothing is wrong with your recording.',
-  swamped: 'A lot of people are listening right now. Give it about thirty seconds and press record again. Your voice was fine.',
+  // "press record again" until the resend offer existed, which contradicted the button sitting
+  // underneath it telling them the take they already gave was fine to send back.
+  swamped: 'A lot of people are listening right now. Give it about thirty seconds and try again. Your voice was fine.',
   busy: 'The model is busy right now. Give it a few seconds and try again.',
   upstream_failed: "The model didn't answer. Try again in a moment.",
   audio_too_short: 'That was too short to read anything from. Give me a sentence or two.',
@@ -1101,6 +1109,13 @@ const RESENDABLE = new Set([
   'upstream_failed', 'busy', 'swamped', 'server_error', 'timeout', 'take_lost',
   'http_500', 'http_502', 'http_503', 'http_504',
 ]);
+
+// ADDED BY THE CALLER, not by fallbackOrFail, because only the caller knows whether the message it
+// is passing already says what to do. Every message in ERRORS above ends with its own instruction,
+// and appending this to them on the way out produced the app saying it twice in one breath:
+// "...then try again. Try again, or use type mode." This tail now belongs only to the generic
+// messages written here, which end with a diagnostic code and no advice at all.
+const RETRY_TAIL = 'Try again, or use type mode.';
 
 // SWITCHING APPS MID-ANALYSIS MUST NOT LOSE THE TAKE.
 //
