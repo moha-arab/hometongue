@@ -67,6 +67,15 @@ window.HT.contours = function contours() {
   const ctx = cv.getContext('2d');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let w = 0, h = 0, dpr = 1, t = 0, raf = 0;
+  // EVERYTHING MOVES IN SECONDS, NOT FRAMES. The first version advanced per frame — t += 0.0022,
+  // r += speed, alpha *= 0.972 — which means the whole field ran at literally double speed on a
+  // 120Hz phone. Phones are both the main audience and where the effect was already at its
+  // biggest, so the worst tuning landed on the most important screen. dt caps at 50ms so a
+  // background-tab freeze does not come back as one giant jump.
+  let lastFrame = 0;
+  // Ring geometry scales to the screen. Growth was a fixed pixel rate, so a ring's final size
+  // was ~500px on every device: a modest ripple on a laptop, a full-screen sweep on a phone.
+  let vscale = 1;
   const rings = [];
 
   function resize() {
@@ -77,12 +86,18 @@ window.HT.contours = function contours() {
     h = cv.clientHeight || window.innerHeight;
     cv.width = w * dpr; cv.height = h * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    vscale = Math.max(0.45, Math.min(1, Math.min(w, h) / 800));
+    ink = '';   // repainted below at the next frame; also re-read in case a resize crossed a theme
   }
   window.addEventListener('resize', resize);
   window.addEventListener('load', resize);
-  resize();
 
-  const line = () => getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#2A6B60';
+  // Read once and keep, instead of a getComputedStyle on the root element every frame for the
+  // life of the page. --accent has a single static definition in the stylesheet; nothing retunes
+  // it at runtime, so a cached copy cannot go stale.
+  let ink = '';
+  const line = () => ink || (ink = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#2A6B60');
+  resize();
 
   // three drifting centres, so the field never reads as one bullseye
   const centres = [
@@ -91,8 +106,10 @@ window.HT.contours = function contours() {
     { x: 0.46, y: 0.86, phase: 4.3 },
   ];
 
-  function frame() {
-    t += reduce ? 0 : 0.0022;
+  function frame(now) {
+    const dt = lastFrame ? Math.min(0.05, (now - lastFrame) / 1000) : 1 / 60;
+    lastFrame = now;
+    t += reduce ? 0 : 0.132 * dt;   // the old 0.0022/frame, expressed at 60fps
     ctx.clearRect(0, 0, w, h);
     ctx.strokeStyle = line();
     ctx.lineWidth = 1;
@@ -119,8 +136,9 @@ window.HT.contours = function contours() {
 
     for (let i = rings.length - 1; i >= 0; i--) {
       const g = rings[i];
-      g.r += g.speed;
-      g.alpha *= 0.972;
+      g.r += g.speed * dt;
+      // the old *= 0.972 per frame: 0.972^60 per second, as a continuous decay
+      g.alpha *= Math.exp(-1.703 * dt);
       if (g.alpha < 0.01) { rings.splice(i, 1); continue; }
       ctx.globalAlpha = g.alpha;
       ctx.beginPath();
@@ -133,7 +151,7 @@ window.HT.contours = function contours() {
   }
   raf = requestAnimationFrame(frame);
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) { cancelAnimationFrame(raf); raf = 0; }
+    if (document.hidden) { cancelAnimationFrame(raf); raf = 0; lastFrame = 0; }
     else if (!raf) raf = requestAnimationFrame(frame);
   });
 
@@ -141,8 +159,11 @@ window.HT.contours = function contours() {
     // fire a ring outward from a point (defaults to the centre of the screen)
     pulse(x = w / 2, y = h / 2, strength = 1) {
       if (reduce) return;
-      rings.push({ x, y, r: 6, speed: 1.6 + strength * 2.2, alpha: 0.4 * strength });
-      if (rings.length > 40) rings.shift();
+      // speed is px/SECOND (the old 1.6-3.8 px/frame at 60fps), scaled to the screen so a ring's
+      // final size is a proportion of the viewport rather than a fixed 500px that swallowed
+      // phones whole. The cap came down with it: 40 concurrent rings was a wash, not a texture.
+      rings.push({ x, y, r: 6, speed: (96 + strength * 132) * vscale, alpha: 0.4 * strength });
+      if (rings.length > 24) rings.shift();
     },
   };
 };

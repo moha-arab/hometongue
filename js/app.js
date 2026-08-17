@@ -377,6 +377,7 @@ function startMeter(stream) {
     src.connect(analyser);
     const data = new Uint8Array(analyser.frequencyBinCount);
     const bars = [...document.querySelectorAll('#wave i')];
+    let lastPulseAt = 0;
     micPeak = 0; micFrames = 0; micVoiced = 0;
     const loop = () => {
       analyser.getByteFrequencyData(data);
@@ -400,9 +401,16 @@ function startMeter(stream) {
         const envelope = 1 - (d / half) * 0.35;
         b.style.transform = `scaleY(${0.08 + v * 1.25 * envelope})`;
       });
-      // your voice pushes isoglosses out across the map
+      // your voice pushes isoglosses out across the map.
+      // A STEADY CADENCE, NOT A LOUDNESS-DRIVEN ONE. Loudness used to feed four multipliers at
+      // once — spawn probability, brightness, growth speed, and (through the brightness decay)
+      // lifetime — so the effect ramped far faster than the voice did and saturated into a wash
+      // at ordinary speaking volume. Rate is now fixed at one ring per ~220ms while there is
+      // voice at all, and loudness drives only how strong each ring is. A murmur and a shout
+      // differ in weight, not in how busy the map gets.
       const level = sum / data.length / 255;
-      if (level > 0.06 && Math.random() < level * 1.5) {
+      if (level > 0.06 && performance.now() - lastPulseAt > 220) {
+        lastPulseAt = performance.now();
         // TEST THE RECT, NOT THE OBJECT. While recording, the idle card holding #micBtn is hidden,
         // and a hidden element's getBoundingClientRect() is all zeros — but still an object, so the
         // truthiness check passed and every ring fired from (0,0). The centred default this was

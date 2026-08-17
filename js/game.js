@@ -290,6 +290,7 @@ function nextRound() {
   playing = false;
   lastTickT = 0;
   clipSwaps = 0;
+  stuckSaid = false;
   advanceFrom = -1;
   $('#roundNum').textContent = `Round ${round + 1}/${ROUNDS}`;
   $('#scoreSoFar').textContent = `${total.toLocaleString()} pts`;
@@ -324,7 +325,23 @@ function ensureOffset(clip) {
 }
 
 // A dead clip now reaches the rescue instead of nothing. Registered once, at load.
-media.on('error', () => {
+media.on('error', (info) => {
+  // A late complaint about a clip that is already gone must not kill its replacement. This was
+  // the visible symptom Mohammad reported — "clip no longer available" while a working clip
+  // played — and the first fix for it was an id comparison that an adversarial review proved
+  // INERT: the id is restamped in the same synchronous task as the swap, so a stale error always
+  // arrives wearing the current clip's id. The IFrame API cannot say which video an error belongs
+  // to, so staleness has to be inferred from state that cannot lie:
+  //   playing    — a clip that is audibly playing right now is not "no longer available".
+  //   lastSwapAt — an error inside a few seconds of a swap is the thrown-away clip complaining;
+  //                a genuinely dead replacement still gets rescued through play()'s own
+  //                rejection, which carries the round guard.
+  //   info.id    — kept for the one case it can catch: a YouTube error landing after the round
+  //                moved to a hosted file, where the ids genuinely differ.
+  if (rescuing) return;
+  if (playing) return;
+  if (Date.now() - lastSwapAt < 4000) return;
+  if (info && info.id && deck[round] && deck[round].id !== info.id) return;
   // Only meaningful while a round is on screen; an error after the reveal is not the player's
   // problem to solve.
   if ($('#dock') && !$('#dock').hidden) rescueClip('That clip is no longer available, so I swapped it for you.');
@@ -335,7 +352,11 @@ function playClip() {
   const clip = deck[round];
   if (!media.ready()) {
     toast('Clip is loading, one sec…');
-    media.whenReady(playClip);
+    // Guarded, not raw. preload='auto' means metadata can now arrive AFTER the person has locked
+    // in and moved on, and an unguarded playClip here started the old round's audio under the
+    // reveal, or the next round's before anyone touched it.
+    const waitRound = round;
+    media.whenReady(() => { if (round === waitRound && $('#dock') && !$('#dock').hidden) playClip(); });
     // whenReady is a one-shot 'loadedmetadata' listener, and a file that fails to load never
     // fires it — so without a deadline the round waits forever on that toast. If it has not
     // become playable in six seconds, treat it as broken rather than as slow.
@@ -352,11 +373,19 @@ function playClip() {
   if (media.time() < clip._offset || media.time() >= clip._offset + CLIP_WINDOW_S - 0.3) {
     media.seek(clip._offset);
   }
+  const playRound = round;
   media.play().then(() => {
     playing = true;
     lastTickT = media.time();
   }).catch((e) => {
     playing = false;
+    // A REJECTION IS ONLY NEWS ABOUT THE ROUND THAT ASKED. This promise can settle long after
+    // the tap: the YouTube no-start timer takes four seconds, and locking in leaves it pending
+    // through the reveal and into the next round — where the rescue below would swap a clip
+    // that was never in trouble. AbortError is the same story in miniature: pause()
+    // interrupting a play() that had not started, which is what locking in mid-tap does.
+    if (e && e.name === 'AbortError') return;
+    if (round !== playRound || !$('#dock') || $('#dock').hidden) return;
     if (e && e.name === 'NotAllowedError') {
       toast('Tap ▶ once more to start the sound.');
     } else {
@@ -376,11 +405,13 @@ function playClip() {
 function rescueClip(why) {
   if (rescuing) return;
   if (clipSwaps >= 2) {
-    // A pool this broken is not going to fix itself on a third try.
-    toast('The audio is stuck this round. Lock a guess and carry on.');
+    // A pool this broken is not going to fix itself on a third try. Said once: this branch is
+    // reachable from every further failure in the round, and it used to toast on each of them.
+    if (!stuckSaid) { stuckSaid = true; toast('The audio is stuck this round. Lock a guess and carry on.'); }
     return;
   }
   rescuing = true;
+  lastSwapAt = Date.now();
   clipSwaps += 1;
   playing = false;
   toast(why || 'That clip would not play, so I swapped it for you.');
@@ -512,8 +543,12 @@ media.on('play', () => {
   playing = true;
   lastTickT = media.time();
   updatePlayIcon(); startRaf();
+  // TEST THE RECT, NOT THE OBJECT — same lesson app.js already learned at its own pulse call.
+  // If playback starts while the dock is hidden (boards open over a still-playing clip), the
+  // rect is all zeros and the ring would fire from the top-left corner instead of the button.
   const b = $('#playBtn').getBoundingClientRect();
-  field.pulse(b.left + b.width / 2, b.top + b.height / 2, 1);
+  const live = b.width > 0 && b.height > 0;
+  field.pulse(live ? b.left + b.width / 2 : undefined, live ? b.top + b.height / 2 : undefined, 1);
 });
 media.on('pause', () => { playing = false; updatePlayIcon(); stopRaf(); });
 media.on('ended', () => { playing = false; updatePlayIcon(); stopRaf(); });
@@ -876,6 +911,8 @@ $('#flagNote').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.p
 let boardDeck = null;
 
 let clipSwaps = 0;
+let stuckSaid = false;  // the give-up toast fires once per round, not once per failure
+let lastSwapAt = 0;     // when rescueClip last replaced a clip; late errors inside this window are the old clip
 let rescuing = false;   // guards against a swap storm when several failures fire at once
 let advanceFrom = -1;   // the round the visible reveal belongs to; only that round may advance
 let boardsGen = 0;

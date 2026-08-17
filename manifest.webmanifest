@@ -16,6 +16,6 @@
   ],
   "shortcuts": [
     { "name": "Read my accent", "url": "/", "description": "Talk and let the map find home" },
-    { "name": "Guess the voice", "url": "/game.html", "description": "Hear a clip, pin where it is from" }
+    { "name": "Guess the voice", "url": "/game", "description": "Hear a clip, pin where it is from" }
   ]
 }

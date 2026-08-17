@@ -609,6 +609,17 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .fb-row, .fb-fix { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .fb-fix input[type="text"] { width: 150px; }
 
+/* the leaderboard-entry block on the final card: a labelled unit, not a bare input */
+.nick-block {
+  margin-top: 16px; padding: 13px 15px;
+  background: var(--accent-soft); border: 1px solid var(--accent-line); border-radius: var(--r);
+}
+.nick-block .nick-head {
+  margin: 0 0 9px; font-family: var(--label); font-size: 11px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--accent);
+}
+.nick-block input[type="text"] { flex: 1; min-width: 130px; }
+
 /* ——— map marks ——— */
 .pulse-wrap { position: relative; }
 .pulse-dot { position: absolute; inset: 4px; border-radius: 50%; background: var(--amber); }

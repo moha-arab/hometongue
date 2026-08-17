@@ -9,7 +9,7 @@
 // BUMP THIS ON ANY DEPLOY THAT CHANGES THE SHELL. It sat at v47 through 22 consecutive deploys,
 // and because the install handler only re-runs when THIS FILE changes, the precache still held
 // index.html and app.js from 22 commits ago the whole time.
-const VERSION = 'ht-v49';
+const VERSION = 'ht-v50';   // v50: clean URLs — /game and /privacy exist, /game joins LOCKSTEP
 
 // FILES WHOSE VERSIONS MUST MATCH EACH OTHER. A stale copy of an icon is a cosmetic nuisance; a
 // stale app.js against a fresh index.html is a crash, because the old code looks for elements the
@@ -22,7 +22,10 @@ const VERSION = 'ht-v49';
 //
 // For these paths, slow is better than skewed: wait for the network, and fall back to cache only
 // on a real failure, where everything falls back together.
-const LOCKSTEP = new Set(['/', '/index.html', '/game.html', '/js/app.js', '/js/game.js', '/js/clips.js', '/css/style.css']);
+// '/game' and '/game.html' are BOTH here: cleanUrls serves the page at /game and 308s the old
+// path, but a phone that installed the PWA before the rename still navigates to /game.html
+// until its manifest refreshes, and both spellings must get the same never-stale treatment.
+const LOCKSTEP = new Set(['/', '/index.html', '/game', '/game.html', '/js/app.js', '/js/game.js', '/js/clips.js', '/css/style.css']);
 // WHAT IS PRECACHED, AND WHAT DELIBERATELY IS NOT.
 //
 // The pages and the app scripts are NOT in here, and that is the fix for a problem that has now
@@ -105,10 +108,17 @@ self.addEventListener('fetch', (e) => {
       })
       .catch(() => caches.match(e.request).then((hit) => {
         if (hit) return hit;
+        // A navigation may know the page under its other spelling: cleanUrls serves /game where
+        // the cache may hold /game.html, or the reverse. One address, two keys — check the twin
+        // before giving up, so a URL rename never turns a cached page into a connection error.
+        if (e.request.mode === 'navigate') {
+          const p = url.pathname;
+          const twin = p.endsWith('.html') ? p.replace(/\.html$/, '') : `${p}.html`;
+          return caches.match(twin).then((h2) => h2 || Response.error());
+        }
         // No stale shell to fall back on any more, and that is deliberate: a page that paints
         // from a month-old cache and then cannot reach the API is worse than a browser error the
         // person understands. This app has no offline mode to offer.
-        if (e.request.mode === 'navigate') return Response.error();
         return Response.error();
       })),
   );

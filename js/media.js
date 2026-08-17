@@ -11,12 +11,23 @@ window.HT = window.HT || {};
 
 window.HT.media = function media(audioEl, mountId) {
   const listeners = {};
-  const emit = (name) => {
+  // emit carries an optional payload so 'error' can say WHICH clip died. Without it, a dead
+  // video's complaint arriving a beat late was indistinguishable from the current clip failing,
+  // and the game would throw away a perfectly good replacement on the old clip's error.
+  const emit = (name, info) => {
     const fns = listeners[name] || [];
     listeners[name] = fns.filter((l) => !l.once);
-    fns.forEach((l) => l.fn());
+    fns.forEach((l) => l.fn(info));
   };
   const on = (name, fn, once = false) => { (listeners[name] = listeners[name] || []).push({ fn, once }); };
+  // PER-SOURCE ids, not one shared one. A single curClipId restamped on every load() is useless
+  // as a staleness marker: the restamp happens in the same synchronous task as the deck swap, so
+  // by the time any error event can be DELIVERED the shared id already names the replacement, and
+  // a stale complaint sails through wearing the new clip's id. Splitting by source at least makes
+  // cross-kind staleness detectable — a YouTube error carries the last YT-cued id, which a file
+  // replacement does not share. Same-kind staleness is unknowable here (the IFrame API does not
+  // say which video an error belongs to), so the game layer adds time- and state-based guards.
+  let ytClipId = null, fileClipId = null;
 
   // ————— file playback: thin pass-through to the <audio> element —————
   for (const ev of ['play', 'pause', 'ended', 'timeupdate', 'seeked']) {
@@ -25,7 +36,7 @@ window.HT.media = function media(audioEl, mountId) {
   // A file that 404s or decodes badly fires 'error' and never 'loadedmetadata', so whenReady's
   // one-shot listener waits forever and the round stays on "Clip is loading, one sec…" with no
   // retry and no way out.
-  audioEl.addEventListener('error', () => { if (mode === 'file') emit('error'); });
+  audioEl.addEventListener('error', () => { if (mode === 'file') emit('error', { id: fileClipId }); });
 
   // ————— YouTube —————
   let yt = null, ytReady = false, ytState = -1, ytSeeking = false, pollId = 0, apiPromise = null, playerPromise = null;
@@ -70,7 +81,18 @@ window.HT.media = function media(audioEl, mountId) {
           // burning the listening budget on silence. Clips are other people's uploads, so
           // some of them WILL disappear after launch — this is the difference between a
           // swapped clip and a round that just does nothing.
-          onError: () => { ytReady = false; emit('error'); },
+          //
+          // ytReady MUST SURVIVE THIS. It used to be set false here, and onReady fires exactly
+          // once per player construction — so the FIRST dead video poisoned the player for the
+          // rest of the session: ready() false forever, whenReady() silent forever, and every
+          // later YouTube clip died as "would not load" even though nothing was wrong with it.
+          // 44 of 155 clips stream from YouTube (13 of 22 English, 9 of 13 Hindi-Urdu, all 3
+          // German), so one removed upload could quietly wreck whole decks. The two facts the
+          // old line conflated are separate: the PLAYER is still initialised, only the VIDEO is
+          // bad — and cueing the next video makes the same player work again.
+          // Gated on mode: a YouTube error arriving after the round has moved to a hosted file
+          // is stale by definition and is dropped at the source.
+          onError: () => { if (mode === 'yt') emit('error', { id: ytClipId }); },
           onStateChange: (e) => {
             ytState = e.data;
             const S = window.YT.PlayerState;
@@ -98,13 +120,27 @@ window.HT.media = function media(audioEl, mountId) {
 
   // ————— shared surface —————
   let mode = 'file';
+  // The one pending loadedmetadata callback, held so a new load or a clear can withdraw it.
+  // whenReady used to hand the raw function to addEventListener and forget it, which was safe
+  // only by accident: with preload="none" metadata never arrived unbidden. preload='auto' made
+  // it arrive on every load, so an unwithdrawn listener from round N started round N+1's audio
+  // by itself.
+  let pendingReady = null;
+  function dropPendingReady() {
+    if (pendingReady) { audioEl.removeEventListener('loadedmetadata', pendingReady); pendingReady = null; }
+  }
 
   const api = {
     on,
     kind: () => mode,
 
     async load(clip, windowS) {
+      // A new load orphans any pending "call me when the metadata lands" request. Without this,
+      // preload='auto' turned that listener into a self-starting play: metadata for the NEXT
+      // round's clip arrived spontaneously and fired a playClip nobody asked for.
+      dropPendingReady();
       if (clip.kind === 'yt') {
+        ytClipId = clip.id || null;
         mode = 'yt';
         audioEl.pause();
         audioEl.removeAttribute('src');
@@ -125,9 +161,16 @@ window.HT.media = function media(audioEl, mountId) {
         // per-clip gain stands in for the loudness normalization we can't apply to a stream
         yt.setVolume(typeof clip.gain === 'number' ? clip.gain : 70);
       } else {
+        fileClipId = clip.id || null;
         mode = 'file';
         stopPoll();
         if (yt && ytReady) yt.stopVideo();
+        // The markup says preload="none", which quietly contradicted the caller's "preload now so
+        // play starts instantly": with none, load() runs to a suspend point without fetching, so
+        // ready() stayed false at the first tap and a slow connection could run out playClip's six
+        // second deadline and swap a clip that was merely still downloading. Set here rather than
+        // in the HTML so the behaviour rides with the code that depends on it.
+        audioEl.preload = 'auto';
         audioEl.src = clip.url;
         audioEl.load();
       }
@@ -197,16 +240,20 @@ window.HT.media = function media(audioEl, mountId) {
     },
 
     whenReady(fn) {
-      // ONLY CALL BACK IF IT IS ACTUALLY READY. A dead video resolves this promise with ytReady
-      // false (see onError), and calling fn anyway put playClip straight back into the loop above.
-      // Staying silent is correct: game.js already starts a six second deadline before waiting on
-      // this, and that swaps the clip out. A round that cannot play should end as a swap, not as a
-      // frozen tab.
+      // ONLY CALL BACK IF IT IS ACTUALLY READY. If construction itself never completes (the API
+      // script blocked, the iframe refused), calling fn anyway put playClip straight back into the
+      // loop above and hard-froze the tab. Staying silent is correct: game.js already starts a six
+      // second deadline before waiting on this, and that swaps the clip out. A dead VIDEO no
+      // longer holds ytReady false — that poisoned every later clip — it surfaces through onError
+      // and play()'s rejection instead.
       if (mode === 'yt') { ensurePlayer().then(() => { if (ytReady) fn(); }); return; }
-      audioEl.addEventListener('loadedmetadata', fn, { once: true });
+      dropPendingReady();
+      pendingReady = () => { pendingReady = null; fn(); };
+      audioEl.addEventListener('loadedmetadata', pendingReady, { once: true });
     },
 
     clear() {
+      dropPendingReady();
       if (mode === 'yt' && yt && ytReady) yt.stopVideo();
       stopPoll();
       audioEl.pause();

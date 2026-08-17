@@ -58,7 +58,10 @@ if (!check('dev server boots', up, up ? '' : serverLog.slice(-400))) {
 // ————— every page, and everything every page asks for —————
 // A page that references a file which is not there is invisible to every static check, and is
 // exactly what the service-worker rewrite could have caused.
-const PAGES = ['/', '/game.html', '/privacy.html', '/404.html'];
+// Both spellings of the game page: /game is what every link now says (Vercel cleanUrls in prod,
+// the extension fallback in dev-server.js locally), /game.html is what old bookmarks and the
+// pre-rename PWA manifest still request.
+const PAGES = ['/', '/game', '/game.html', '/privacy', '/privacy.html', '/404.html'];
 const referenced = new Set();
 for (const p of PAGES) {
   const r = await fetch(BASE + p);

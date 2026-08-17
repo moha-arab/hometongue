@@ -59,6 +59,9 @@ http.createServer(async (req, res) => {
   }
 
   let file = path.normalize(path.join(ROOT, url.pathname === '/' ? 'index.html' : url.pathname));
+  // Vercel serves cleanUrls in production — /game is game.html — so the dev server has to speak
+  // the same addresses or every internal link 404s locally and the smoke test lies about prod.
+  if (!path.extname(file) && fs.existsSync(file + '.html')) file += '.html';
   if (!file.startsWith(ROOT) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {
     res.writeHead(404); return res.end('not found');
   }

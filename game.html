@@ -9,7 +9,7 @@
 <meta name="description" content="Hear a real voice, pin where it is from. Real recordings, scored by the kilometre.">
 <meta property="og:title" content="Guess the Voice · HomeTongue">
 <meta property="og:description" content="GeoGuessr for ears. Hear a voice, pin the map.">
-<meta property="og:url" content="https://www.hometongue.me/game.html">
+<meta property="og:url" content="https://www.hometongue.me/game">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://www.hometongue.me/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -33,7 +33,7 @@
   <a class="logo" href="/"><svg viewBox="0 0 64 64" aria-hidden="true"><path fill="#2A6B60" d="M32 3C19.85 3 10 12.85 10 25c0 11.1 8.3 20.2 15.5 27.4L32 59l6.5-6.6C45.7 45.2 54 36.1 54 25 54 12.85 44.15 3 32 3z"/><rect x="18.6" y="21" width="3.6" height="8" rx="1.8" fill="#FCFBF8"/><rect x="24.4" y="18.5" width="3.6" height="13" rx="1.8" fill="#FCFBF8"/><rect x="30.2" y="15.5" width="3.6" height="19" rx="1.8" fill="#B8862F"/><rect x="36" y="18.5" width="3.6" height="13" rx="1.8" fill="#FCFBF8"/><rect x="41.8" y="21" width="3.6" height="8" rx="1.8" fill="#FCFBF8"/></svg><span>Home<i>Tongue</i></span></a>
   <nav class="modes" aria-label="modes">
     <a href="/"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/><line x1="12" y1="18" x2="12" y2="22"/></svg><span>read my accent</span></a>
-    <a href="/game.html" class="active"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16v-4a8 8 0 0 1 16 0v4"/><rect x="2.5" y="13.5" width="4.5" height="7.5" rx="2.25"/><rect x="17" y="13.5" width="4.5" height="7.5" rx="2.25"/></svg><span>guess the voice</span></a>
+    <a href="/game" class="active"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16v-4a8 8 0 0 1 16 0v4"/><rect x="2.5" y="13.5" width="4.5" height="7.5" rx="2.25"/><rect x="17" y="13.5" width="4.5" height="7.5" rx="2.25"/></svg><span>guess the voice</span></a>
   </nav>
 </header>
 
@@ -80,9 +80,18 @@
     <p class="result-kicker">final score</p>
     <h2 class="result-region" id="finalScore"></h2>
     <div class="runners" id="roundList"></div>
-    <div class="fb-fix" id="nickRow">
-      <input type="text" id="nickname" placeholder="nickname for the board" maxlength="20">
-      <button class="fb-btn" id="submitScore">post score</button>
+    <!-- SAY WHAT THE BOX IS FOR. This was a bare input and a "post score" button with no line of
+         context, so finishing a game presented a text field that could have been anything - a
+         search box, a comment, an email capture. Mohammad hit exactly that: "it's not obvious
+         that I'm entering a nickname for the leaderboard." The heading names the destination,
+         the placeholder describes the value, and the button repeats the destination so all
+         three agree about what pressing it does. -->
+    <div class="nick-block" id="nickRow">
+      <p class="nick-head">get on the leaderboard</p>
+      <div class="fb-fix">
+        <input type="text" id="nickname" placeholder="pick a nickname" maxlength="20">
+        <button class="fb-btn" id="submitScore">post to the board</button>
+      </div>
     </div>
     <div class="board" id="board" hidden>
       <div class="board-head">leaderboard</div>
@@ -158,7 +167,7 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
 
-<footer class="foot">credits after each round · <a href="/privacy.html">privacy</a></footer>
+<footer class="foot">credits after each round · <a href="/privacy">privacy</a></footer>
 
 <audio id="clipAudio" preload="none"></audio>
 <!-- YouTube clips stream from YouTube; the frame is parked off-screen because the
