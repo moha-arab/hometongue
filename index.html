@@ -76,7 +76,11 @@
   <!-- IDLE -->
   <section class="card" id="idleCard">
     <div class="card-eyebrow"><span>accent geolocation</span><b>any language</b></div>
-    <h1 class="tagline">Just talk.<br><span class="accent">I'll find where you grew up.</span></h1>
+    <!-- The language instruction IS the headline now. "Just talk." was punchy but it left the
+         any-language claim to a scripts row underneath, which read as clutter and got cut.
+         "any of your languages" does that row's whole job in four words: it tells a bilingual
+         reader the app is not an English thing, without listing anything. -->
+    <h1 class="tagline">Talk in any of your languages.<br><span class="accent">I'll find where you grew up.</span></h1>
     <p class="prompt" id="promptText">Tell me about your day</p>
     <button class="mic-btn" id="micBtn" aria-label="Start talking">
       <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line></svg>
@@ -89,12 +93,12 @@
          saying "my name is Vladislav"), and a stated origin short-circuits the whole guess.
          Local vocabulary is deliberately NOT discouraged - a neighbourhood name placed a
          speaker within 40 km of Tripoli, so that is the product working, not cheating. -->
-    <!-- THE SCRIPTS ARE THE POINT, not decoration. "any language" in the eyebrow is a claim people
-         read past, and everything else they can see is in English: the tagline, the prompt, the
-         button. So an Arabic or Tagalog speaker lands here and reasonably assumes it wants English.
-         Four non-Latin scripts settle that before a word is read, and "anything at all" is there so
-         the row cannot be mistaken for the list of languages that are supported. -->
-    <p class="length-tip"><b>Any language in the world.</b> العربية · Español · 中文 · Yorùbá · anything at all. Yours reads sharpest, and don't tell it where you're from.</p>
+    <!-- One short line, not a paragraph. The tagline now carries the any-language claim, so what
+         remains here are the two facts that measurably change the ANSWER: the home language reads
+         sharpest, and a stated origin short-circuits the whole guess (six of six runs answered
+         Moscow for synthetic US speech saying a Russian name). Those stay even in a decluttering,
+         because losing them costs accuracy, not style. -->
+    <p class="length-tip">Your <b>home language</b> reads sharpest. Don't say where you're from.</p>
     <!-- Shown ONLY when the last take failed for a reason that has nothing to do with the take:
          the model did not answer, or was busy. The recording is still in memory (it is kept for
          the donate flow regardless), so the one thing this must not do is make someone speak for
