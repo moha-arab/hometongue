@@ -6,9 +6,9 @@
 <title>HomeTongue · your accent knows where home is</title>
 <link rel="icon" type="image/svg+xml" href="/assets/logo-mark.svg">
 <meta name="theme-color" content="#F3F1EC">
-<meta name="description" content="Talk for twenty seconds in any language in the world. It places where you grew up on the map, with an honest give-or-take.">
+<meta name="description" content="Talk in your mother tongue for twenty seconds, any language in the world. It places your accent's home on the map, with an honest give-or-take.">
 <meta property="og:title" content="HomeTongue">
-<meta property="og:description" content="Talk in any language in the world. It finds where you grew up.">
+<meta property="og:description" content="Talk in your mother tongue, any language in the world. It hears where home is.">
 <meta property="og:url" content="https://www.hometongue.me/">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://www.hometongue.me/og-image.png">
@@ -76,29 +76,22 @@
   <!-- IDLE -->
   <section class="card" id="idleCard">
     <div class="card-eyebrow"><span>accent geolocation</span><b>any language</b></div>
-    <!-- The language instruction IS the headline now. "Just talk." was punchy but it left the
-         any-language claim to a scripts row underneath, which read as clutter and got cut.
-         "any of your languages" does that row's whole job in four words: it tells a bilingual
-         reader the app is not an English thing, without listing anything. -->
-    <h1 class="tagline">Talk in any of your languages.<br><span class="accent">I'll find where you grew up.</span></h1>
+    <!-- THE WHOLE PITCH IN NINE WORDS, and each one is load-bearing. "Mother tongue" is the
+         incentive to speak the language that reads sharpest, implies any language on earth
+         without listing one, and echoes the app's name. "Home" replaced "where you grew up"
+         because grew-up over-promises for heritage speakers - a Syrian raised in Canada carries
+         a Syrian accent without having grown up there - and it is what the title bar already
+         says: your accent knows where home is. The explanatory line that used to sit under the
+         mic is gone entirely; nobody read it, and the headline now does its work. -->
+    <h1 class="tagline">Talk in your mother tongue.<br><span class="accent">I'll hear where home is.</span></h1>
     <p class="prompt" id="promptText">Tell me about your day</p>
     <button class="mic-btn" id="micBtn" aria-label="Start talking">
       <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line></svg>
     </button>
-    <!-- Two jobs, not four. The length advice that used to live here is now the live meter's
-         job, where it belongs: the counter and the button already say when there is enough,
-         and saying it twice on the idle screen just made this paragraph long enough to skip.
-         What stays is the one instruction that changes the ANSWER rather than the recording:
-         a name is not an accent (six of six runs answered Moscow for synthetic US speech
-         saying "my name is Vladislav"), and a stated origin short-circuits the whole guess.
-         Local vocabulary is deliberately NOT discouraged - a neighbourhood name placed a
-         speaker within 40 km of Tripoli, so that is the product working, not cheating. -->
-    <!-- One short line, not a paragraph. The tagline now carries the any-language claim, so what
-         remains here are the two facts that measurably change the ANSWER: the home language reads
-         sharpest, and a stated origin short-circuits the whole guess (six of six runs answered
-         Moscow for synthetic US speech saying a Russian name). Those stay even in a decluttering,
-         because losing them costs accuracy, not style. -->
-    <p class="length-tip">Your <b>home language</b> reads sharpest. Don't say where you're from.</p>
+    <!-- The don't-say-where-you're-from guard used to live in a line here. It was cut as clutter,
+         knowingly: a stated origin still short-circuits the guess (six of six runs answered
+         Moscow for synthetic US speech saying a Russian name). If demo takes start opening with
+         "so I'm from...", this is the first place to put a word back. -->
     <!-- Shown ONLY when the last take failed for a reason that has nothing to do with the take:
          the model did not answer, or was busy. The recording is still in memory (it is kept for
          the donate flow regardless), so the one thing this must not do is make someone speak for
@@ -255,7 +248,7 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
 
-<footer class="foot">audio never stored unless you donate it · <a href="/privacy" style="color:inherit">privacy</a></footer>
+<footer class="foot">audio never stored unless you donate it · <a href="/privacy" style="color:inherit">privacy</a> · <a href="https://ko-fi.com/zorvint" target="_blank" rel="noopener" style="color:inherit">tip jar</a></footer>
 
 <script src="/vendor/leaflet/leaflet.js"></script>
 <script src="js/theme.js"></script>
