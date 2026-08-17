@@ -452,14 +452,14 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 /* 44px tall because these are pressed with a thumb, not a mouse. "post score" was 32px, which
    is a miss-and-try-again target on a phone — and it is the button that decides whether a run
    reaches the leaderboard at all. */
-.fb-btn, .sample-btn {
+.fb-btn {
   background: var(--sheet); color: var(--black);
   border: 1px solid var(--rule); border-radius: var(--r-sm);
   font-family: var(--sans); font-size: 13px; font-weight: 500;
   padding: 7px 15px; min-height: 44px; cursor: pointer;
   transition: border-color 0.15s, color 0.15s, background 0.15s;
 }
-.fb-btn:hover:not(:disabled), .sample-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+.fb-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
 .fb-btn:disabled { opacity: 0.35; cursor: default; }
 /* the one you pressed stays lit and ticked — a pair of greyed-out buttons gave no clue
    which answer was actually recorded */
@@ -498,8 +498,6 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 }
 .transcript:empty::before { content: '…'; color: var(--grey-2); }
 .live-hint { margin-top: 12px; font-size: 12.5px; color: var(--grey); }
-.samples-label { margin-top: 20px; font-size: 12.5px; color: var(--grey); }
-.samples { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; }
 #typeCard .link-btn { margin-top: 18px; }
 
 /* The analysing sweep: the same 5px track as the listening bar, with a bright segment crossing

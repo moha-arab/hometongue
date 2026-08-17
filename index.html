@@ -6,9 +6,9 @@
 <title>HomeTongue · your accent knows where home is</title>
 <link rel="icon" type="image/svg+xml" href="/assets/logo-mark.svg">
 <meta name="theme-color" content="#F3F1EC">
-<meta name="description" content="Talk for twenty seconds in any language. It places where you grew up on the map.">
+<meta name="description" content="Talk for twenty seconds in any language in the world. It places where you grew up on the map, with an honest give-or-take.">
 <meta property="og:title" content="HomeTongue">
-<meta property="og:description" content="Just talk. It finds where you grew up.">
+<meta property="og:description" content="Talk in any language in the world. It finds where you grew up.">
 <meta property="og:url" content="https://www.hometongue.me/">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://www.hometongue.me/og-image.png">
@@ -89,7 +89,12 @@
          saying "my name is Vladislav"), and a stated origin short-circuits the whole guess.
          Local vocabulary is deliberately NOT discouraged - a neighbourhood name placed a
          speaker within 40 km of Tripoli, so that is the product working, not cheating. -->
-    <p class="length-tip">Your <b>home language</b> reads sharpest. Don't tell it where you're from, let it guess.</p>
+    <!-- THE SCRIPTS ARE THE POINT, not decoration. "any language" in the eyebrow is a claim people
+         read past, and everything else they can see is in English: the tagline, the prompt, the
+         button. So an Arabic or Tagalog speaker lands here and reasonably assumes it wants English.
+         Four non-Latin scripts settle that before a word is read, and "anything at all" is there so
+         the row cannot be mistaken for the list of languages that are supported. -->
+    <p class="length-tip"><b>Any language in the world.</b> العربية · Español · 中文 · Yorùbá · anything at all. Yours reads sharpest, and don't tell it where you're from.</p>
     <!-- Shown ONLY when the last take failed for a reason that has nothing to do with the take:
          the model did not answer, or was busy. The recording is still in memory (it is kept for
          the donate flow regardless), so the one thing this must not do is make someone speak for
@@ -156,8 +161,6 @@
     <p class="prompt-label">Type the way you actually talk. Voice-note energy, not essay energy:</p>
     <textarea id="typeBox" rows="4" maxlength="1200" placeholder="write the way you actually talk…"></textarea>
     <button class="stop-btn" id="analyzeTypedBtn">guess my dialect</button>
-    <p class="samples-label">or try a sample:</p>
-    <div class="samples" id="samples"></div>
     <button class="link-btn" id="backToMicBtn">back to mic</button>
   </section>
 

@@ -1835,17 +1835,6 @@ async function shareResult() {
   }
 }
 
-// Type-mode samples: one believable voice-note per language, dialect markers intact —
-// Egyptian dalwa'ti, Levantine hallaq, Rioplatense che boludo, Austrian Paradeiser,
-// Australian servo. Each should land in its home region, which the sweep verifies.
-const SAMPLES = [
-  { label: 'مصري', text: 'ايه يا عم عامل ايه؟ انا دلوقتي في البيت، مش عايز اعمل حاجة خالص، النهارده تعبان اوي بصراحة.' },
-  { label: 'شامي', text: 'شو أخبارك؟ أنا قاعد بالبيت هلق، زهقان شوي وما عم أعمل شي. بدي روح عالسوق بعدين.' },
-  { label: 'Español', text: 'Che boludo, ¿vos qué hacés? Acá en el laburo, un quilombo bárbaro, después te llamo.' },
-  { label: 'Deutsch', text: 'Servus! I geh heuer im Jänner zum Wirt, dann kauf i no Paradeiser und Erdäpfel.' },
-  { label: 'English', text: "Yeah nah mate, I reckon it's heaps good, gonna head to the servo this arvo." },
-];
-
 
 // The "so where are you actually from?" list. The answer is a point now, so this is only
 // for the feedback record — every country we know, alphabetical.
@@ -1946,14 +1935,6 @@ function bindUI() {
   const handle = $('#sheetHandle');
   if (handle) handle.onclick = () => $('#resultCard').classList.toggle('peek');
 
-  const samplesEl = $('#samples');
-  for (const s of SAMPLES) {
-    const b = document.createElement('button');
-    b.className = 'sample-btn';
-    b.textContent = s.label;
-    b.onclick = () => { $('#typeBox').value = s.text; runTextAnalysis(s.text, true); };
-    samplesEl.appendChild(b);
-  }
 
   fillCountryPicker();
 
