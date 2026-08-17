@@ -352,6 +352,24 @@ textarea {
 textarea::placeholder { color: var(--grey-2); }
 textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 
+/* The tip ask at the end of the result card. Amber rather than the interactive green, because it
+   is a thank-you moment, not a task; the answer above it already earned the colour. */
+.tip-note {
+  margin-top: 14px; padding: 13px 15px;
+  background: color-mix(in srgb, var(--amber) 9%, var(--sheet));
+  border: 1px solid color-mix(in srgb, var(--amber) 30%, transparent);
+  border-radius: var(--r);
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+}
+.tip-note p { margin: 0; font-family: var(--sans); font-size: 13px; color: var(--black-2); flex: 1; min-width: 180px; }
+.tip-btn {
+  background: var(--amber); color: #fff; text-decoration: none;
+  font-family: var(--sans); font-size: 13px; font-weight: 600;
+  padding: 0 16px; border-radius: var(--r-sm);
+  display: inline-flex; align-items: center; min-height: 44px; white-space: nowrap;
+}
+.tip-btn:hover { background: var(--amber-ink); }
+
 /* The "your take survived" notice on the idle card. Quiet enough not to compete with the mic
    button above it, solid enough that it does not read as another hint to skip. */
 .retry-note {
