@@ -26,3 +26,9 @@ supabase/
 # local-only dev server; production runs the api/ functions on Vercel
 dev-server.js
 .env.example
+
+# developer tooling config. Vercel already withholds package.json, vercel.json and dotfiles, but
+# it serves these two, so they have to be named. Checked by hand after the first pass: eslint's
+# config and the editor's launch config were both answering 200 on the product domain.
+eslint.config.js
+.claude/
