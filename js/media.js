@@ -98,14 +98,12 @@ window.HT.media = function media(audioEl, mountId) {
 
   // ————— shared surface —————
   let mode = 'file';
-  let current = null;
 
   const api = {
     on,
     kind: () => mode,
 
     async load(clip, windowS) {
-      current = clip;
       if (clip.kind === 'yt') {
         mode = 'yt';
         audioEl.pause();

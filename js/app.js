@@ -16,7 +16,11 @@ const MAX_SECONDS = 60;
 let map, marker, glow;
 let state = 'idle';
 let mediaStream = null, recorder = null, chunks = [], recMime = '';
-let audioCtx = null, analyser = null, rafId = null, meterLoop = null, meterStream = null;
+// meterLoop and meterStream lived here until the linter pointed out that nothing has read either
+// of them since the tab-pause mechanism was deleted. They were its other half: the loop was stored
+// so it could be restarted on return, and the stream so it could be re-attached. Both were still
+// being written on every take, describing a restart that no longer happens.
+let audioCtx = null, analyser = null, rafId = null;
 let timerId = null, startedAt = 0;
 let micPeak = -1; // loudest rolling level seen this recording; -1 = meter unavailable
 // Peak alone cannot tell speech from a door slam. A single cough clears a peak threshold and
@@ -361,7 +365,6 @@ setInterval(() => {
 
 // ————— waveform + timer —————
 function startMeter(stream) {
-  meterStream = stream;
   try {
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
@@ -411,7 +414,6 @@ function startMeter(stream) {
       }
       rafId = requestAnimationFrame(loop);
     };
-    meterLoop = loop;
     loop();
   } catch { /* no meter, no problem */ }
 }
@@ -419,7 +421,6 @@ function startMeter(stream) {
 function stopMeter() {
   if (rafId) cancelAnimationFrame(rafId), rafId = null;
   if (audioCtx) audioCtx.close().catch(() => {}), audioCtx = null;
-  meterLoop = null; meterStream = null;
 }
 
 // ————— SWITCHING TABS DOES NOT STOP THE RECORDING —————
@@ -857,7 +858,6 @@ async function collectTake(id, key) {
 // first ten seconds is pure noise; after that the interval widens. The overall budget is generous
 // because someone who walked away has not stopped wanting their answer.
 async function pollForTake(id, key, onTick) {
-  const started = Date.now();
   // MEASURED IN TIME SPENT LOOKING, not wall time. Someone who puts the phone down for five
   // minutes must not come back to an expired budget — while they were away, nothing was waiting.
   //
@@ -1144,7 +1144,6 @@ const RETRY_TAIL = 'Try again, or use type mode.';
 // times with a widening gap. Errors the SERVER answered with (no speech, audio too large) are
 // never retried: they will fail identically and re-spend a model call to do it.
 async function analyzeResilient(payload) {
-  /* eslint-disable-next-line no-param-reassign */
   let wentAway = document.hidden;
   const watch = () => { if (document.hidden) wentAway = true; };
   document.addEventListener('visibilitychange', watch);
@@ -1378,8 +1377,10 @@ function renderResult(v) {
   // result happened to be on screen by then — stale verdicts deleting a NEWER result's
   // chips, a stale donate success painting 'donated' over a clip that never uploaded. Any
   // async landing checks its generation first; stale generations touch nothing.
+  // The INCREMENT is the whole mechanism; the async callers each snapshot it themselves. A local
+  // copy was taken here too and never read, because renderResult is entirely synchronous and has
+  // nothing of its own that could land late.
   window._renderGen = (window._renderGen || 0) + 1;
-  const gen = window._renderGen;
   // fresh results peek on phones so the map — the best part of the answer — stays visible
   $('#resultCard').classList.toggle('peek', matchMedia('(max-width: 939px)').matches);
   $('#fbFix').hidden = true;

@@ -164,7 +164,7 @@ function sliceOf(chunk, id, offsetS, lenS) {
 // the last target because a temp file was locked for another few milliseconds. Deleting scratch
 // files is housekeeping; it has no business being able to fail a job.
 function wipe(id) {
-  let files = [];
+  let files;
   try { files = fs.readdirSync(WORK); } catch { return; }
   for (const f of files) {
     if (!f.startsWith(id)) continue;

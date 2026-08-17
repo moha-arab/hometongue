@@ -429,9 +429,6 @@ async function countAnalysis() {
 }
 
 export default async function handler(req, res) {
-  // Vercel kills the function at 60s. The plausibility check below only runs if there is
-  // real time left after the main call, so a slow analysis never turns into a timeout.
-  const t0 = Date.now();
   if (req.method !== 'POST') {
     res.statusCode = 405;
     return res.end(JSON.stringify({ ok: false, error: 'method_not_allowed' }));
