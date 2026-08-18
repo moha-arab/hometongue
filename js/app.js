@@ -1844,6 +1844,19 @@ async function shareResult() {
 }
 
 
+// The verdict's country as an ISO code, for the anonymous scorecard. The place string ends in
+// the country's English name ("Amman, Jordan" -> "Jordan"), and COUNTRIES maps names to codes.
+// Null when the tail is not a known country (a bare region like "the Levant"), which stores the
+// same nothing as before rather than a wrong code.
+function guessCountryCode(place) {
+  const tail = String(place || '').split(',').pop().trim().toLowerCase();
+  if (!tail) return '';
+  for (const code of Object.keys(COUNTRIES)) {
+    if (COUNTRIES[code].en.toLowerCase() === tail) return code;
+  }
+  return '';
+}
+
 // The "so where are you actually from?" list. The answer is a point now, so this is only
 // for the feedback record — every country we know, alphabetical.
 function fillCountryPicker() {
@@ -1892,10 +1905,18 @@ function saveFeedback(correct, actual, actualCity) {
   // guess_code stays for genuine ISO codes only (the old payload sent the place STRING as
   // guess_code and read last.city/last.regionKey, fields the view-model never set — every
   // row landed with null guess and empty region).
+  //
+  // guess_code is DERIVED here, because without it the anonymous scorecard has no guess side at
+  // all: 177 real did-I-get-it answers came back reading "guessed ? -> actually US", which is a
+  // correction dataset missing its left half. The privacy page promises country-level only
+  // without consent, and the verdict's country is exactly that — the place string ends in the
+  // country's English name, which maps back to its ISO code through the same COUNTRIES table
+  // the correction picker is built from.
   const payload = {
     correct,
     actual_code: actual || '',
     actual_city: actualCity || '',
+    guess_code: guessCountryCode(last.place),
     guess_city: last.place || '',
     region: last.region || '',
     confidence: last.conf || 0,
