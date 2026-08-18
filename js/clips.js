@@ -976,76 +976,6 @@ window.CLIPS = {
       }
     },
     {
-      "year": 2022,
-      "id": "yt-LhMvmH_uodE",
-      "kind": "yt",
-      "videoId": "LhMvmH_uodE",
-      "label": "Glasgow, Scotland",
-      "lang": "English",
-      "lat": 55.8642,
-      "lng": -4.2518,
-      "r": 60,
-      "start": 330,
-      "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Glasgow, Scotland, United Kingdom",
-        "offBy": 0,
-        "confidence": 95,
-        "evidence": [
-          "States explicitly 'I'm Glaswegian, aye. I am Glasgow'",
-          "Broad Glaswegian vowels and phonology",
-          "Use of regional slang 'Weegie' and Scottish affirmative 'aye'"
-        ],
-        "title": "When Scottish People Speak English.. | 當蘇格蘭人說英文時...我投降了!!",
-        "author": "Torres Pit托哥"
-      },
-      "evalExclude": true,
-      "source": {
-        "who": "Torres Pit托哥",
-        "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
-        "page": "https://www.youtube.com/watch?v=LhMvmH_uodE",
-        "note": "When Scottish People Speak English.. | 當蘇格蘭人說英文時...我投降了!!"
-      }
-    },
-    {
-      "year": 2018,
-      "id": "yt-DpnUurJvGWs",
-      "kind": "yt",
-      "videoId": "DpnUurJvGWs",
-      "label": "Glasgow, Scotland",
-      "lang": "English",
-      "lat": 55.8642,
-      "lng": -4.2518,
-      "r": 60,
-      "start": 48,
-      "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Glasgow, Scotland, United Kingdom",
-        "offBy": 0,
-        "confidence": 85,
-        "evidence": [
-          "Scottish monophthongal vowels and tapped /r/ sounds",
-          "References to Scottish history/culture and local Scottish slang in background",
-          "Distinct central belt Scottish intonation and rhythm"
-        ],
-        "title": "People Make Glass Gow",
-        "author": "Paul Black"
-      },
-      "evalExclude": true,
-      "source": {
-        "who": "Paul Black",
-        "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
-        "page": "https://www.youtube.com/watch?v=DpnUurJvGWs",
-        "note": "People Make Glass Gow"
-      }
-    },
-    {
       "year": 2011,
       "id": "yt-HylaY5e1awo",
       "kind": "yt",
@@ -1637,27 +1567,6 @@ window.CLIPS = {
       },
       "lufs": -16.4,
       "year": 1946
-    },
-    {
-      "id": "spanish-paniahue-santa-cruz-chile-spanish-chilean",
-      "label": "Paniahue, Chile",
-      "lang": "Spanish (Chilean)",
-      "url": "/clips/spanish/spanish-paniahue-santa-cruz-chile-spanish-chilean.mp3",
-      "lat": -34.63,
-      "lng": -71.36,
-      "r": 200,
-      "size": 959051,
-      "wild": true,
-      "start": 50,
-      "hint": "An earthquake survivor describing the tent city her neighborhood became.",
-      "source": {
-        "who": "Diego Grez / Wikinews, hosted on",
-        "host": "Wikimedia Commons",
-        "license": "CC BY-SA 3.0",
-        "page": "https://commons.wikimedia.org/wiki/File:Interview_with_Juana_Bustamante_(Full).ogv",
-        "note": "trimmed and re-encoded for the game"
-      },
-      "lufs": -16.7
     },
     {
       "id": "spanish-peruvian-spanish-richard-dawkins-biography-rea",

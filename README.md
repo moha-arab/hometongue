@@ -3,7 +3,7 @@
 Your voice is a place. Live at **[hometongue.me](https://www.hometongue.me/)**.
 
 - **🎙 Read My Accent** — talk in any language for at least 20 seconds and it places where you grew up as a point on the map, inside a circle it is honestly confident about.
-- **📍 Guess the Voice** ([game.html](game.html)) — GeoGuessr for ears: hear a real clip, drop a pin. **Eight playable decks, 155 clips**: Arabic (40), World Languages (26), English Accents (22), Spanish (14), French (13), Hindi–Urdu (13), Chinese (12), Portuguese (12). Distance scoring, 5 rounds, nickname leaderboard. Italian and German exist as deck keys but are still being stocked, so they are not dealt.
+- **📍 Guess the Voice** ([game.html](game.html)) — GeoGuessr for ears: hear a real clip, drop a pin. **Eight playable decks, 152 clips**: Arabic (40), World Languages (26), English Accents (20), Spanish (13), French (13), Hindi–Urdu (13), Chinese (12), Portuguese (12). Distance scoring, 5 rounds, nickname leaderboard. Italian and German exist as deck keys but are still being stocked, so they are not dealt.
 
 Works on **every device** — desktop, Android, iPhone — because recording uses MediaRecorder and analysis happens server-side.
 

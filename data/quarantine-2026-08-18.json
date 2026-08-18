@@ -1,0 +1,29 @@
+[
+  {
+    "id": "yt-LhMvmH_uodE",
+    "deck": "accents",
+    "label": "Glasgow, Scotland",
+    "action": "removed",
+    "reason": "players: main speaker is not from Glasgow - street-interview format, multiple voices, says the answer (7 reports each)",
+    "decidedBy": "Mohammad, from in-game flag reports",
+    "date": "2026-08-18"
+  },
+  {
+    "id": "yt-DpnUurJvGWs",
+    "deck": "accents",
+    "label": "Glasgow, Scotland",
+    "action": "removed",
+    "reason": "players: main speaker is not from Glasgow - street-interview format, multiple voices, says the answer (7 reports each)",
+    "decidedBy": "Mohammad, from in-game flag reports",
+    "date": "2026-08-18"
+  },
+  {
+    "id": "spanish-paniahue-santa-cruz-chile-spanish-chilean",
+    "deck": "spanish",
+    "label": "Paniahue, Chile",
+    "action": "removed",
+    "reason": "players: loud music over the voice (4 reports)",
+    "decidedBy": "Mohammad, from in-game flag reports",
+    "date": "2026-08-18"
+  }
+]
