@@ -20,6 +20,7 @@ const { default: analyze } = await import('./api/analyze.js');
 const { default: feedback } = await import('./api/feedback.js');
 const { default: scores } = await import('./api/scores.js');
 const { default: clipReport } = await import('./api/clip-report.js');
+const { default: curate } = await import('./api/curate.js');
 
 const MIME = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript',
@@ -46,6 +47,7 @@ http.createServer(async (req, res) => {
   if (url.pathname === '/api/analyze') return analyze(req, res);
   if (url.pathname === '/api/feedback') return feedback(req, res);
   if (url.pathname === '/api/clip-report') return clipReport(req, res);
+  if (url.pathname === '/api/curate') return curate(req, res);
   if (url.pathname === '/api/scores') return scores(req, res);
 
   // NOTHING DOTTED IS SERVED. This handed out any file under the project root to anyone who
