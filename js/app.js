@@ -127,6 +127,17 @@ const field = window.HT.contours();
 // Country reference data, used only for the feedback picker now that the answer is a
 // point rather than a country code.
 const { COUNTRIES } = window.HT_PLACES;
+// Telemetry is optional by construction: if js/telemetry.js failed to load, every call is a no-op.
+const track = (e, p) => { if (window.HT && window.HT.track) window.HT.track(e, p); };
+// Verdict latency measured in time the person was actually WAITING: polling pauses while the tab
+// is hidden, so a 12s verdict collected after four minutes in another app is not a 240s verdict.
+function waitClock() {
+  const t0 = Date.now();
+  let hidden = 0, hiddenAt = document.hidden ? t0 : 0;
+  const onVis = () => { if (document.hidden) hiddenAt = Date.now(); else if (hiddenAt) { hidden += Date.now() - hiddenAt; hiddenAt = 0; } };
+  document.addEventListener('visibilitychange', onVis);
+  return () => { document.removeEventListener('visibilitychange', onVis); if (hiddenAt) hidden += Date.now() - hiddenAt; return Date.now() - t0 - hidden; };
+}
 
 // ————— map —————
 function initMap() {
@@ -665,6 +676,7 @@ async function startListening() {
   }
   if (state !== 'starting') { mediaStream.getTracks().forEach((t) => t.stop()); mediaStream = null; return; }
   state = 'listening';
+  track('rec_start');
   chunks = [];
   recMime = mime;
   show('liveCard');
@@ -696,6 +708,7 @@ async function startListening() {
 // button ambiguous, because from the outside an instant restart looks identical to nothing
 // having happened. Back to the mic is a real stop, and the next take begins when they choose.
 function restartListening() {
+  track('rec_restart', { s: Math.round((Date.now() - startedAt) / 1000) });
   if (state !== 'listening') return;
   stopTimer();
   stopMeter();
@@ -706,6 +719,7 @@ function restartListening() {
 }
 
 function stopListening() {
+  if (state === 'listening') track('rec_stop', { s: Math.round((Date.now() - startedAt) / 1000) });
   if (state !== 'listening') return;
   state = 'analyzing';
   // CAPTURED BEFORE stopMeter(), which sets audioCtx to null. The guard further down reads
@@ -993,6 +1007,7 @@ async function onRecordingReady() {
     // being interrupted is a second the recorder was running, so all of it is audio in the blob.
     const cutShort = (Date.now() - startedAt) / 1000;
     if (cutShort < MIN_RECORD_S) {
+      track('rec_cut_short', { s: Math.round(cutShort) });
       toast(`That take was cut short at ${Math.round(cutShort)} seconds. Give it twenty seconds at least, or thirty for a sharper read.`);
       state = 'idle';
       teardownRecording();
@@ -1024,10 +1039,13 @@ async function onRecordingReady() {
 // one may already have a stored refusal filed against it and a collect would hand that straight
 // back instead of running the work.
 async function runAnalysis(audio, mimeUsed) {
+  const waited = waitClock();
+  track('analyze_submit', { kind: 'audio', s: Math.round((Date.now() - startedAt) / 1000) });
   try {
     const take = mintTake();
     const resp = await analyzeResilient({ audio, mime: mimeUsed, take_id: take.id, take_key: take.key });
     clearPendingTake();
+    track('analyze_result', { kind: 'audio', ms: waited(), deferred: !!(resp && resp.collected) });
     renderResult(normalizeServer(resp));
   } catch (err) {
     // SAY WHICH THING WENT WRONG. The cause is already sitting on err.message — the server's own
@@ -1041,6 +1059,7 @@ async function runAnalysis(audio, mimeUsed) {
     // turns out to be the format, the message will be holding the evidence.
     const why = err && err.userMessage;
     const code = err && err.message ? String(err.message).slice(0, 40) : 'unknown';
+    track('analyze_fail', { kind: 'audio', code, ms: waited() });
     fallbackOrFail(why || `Something went wrong on our end. (${code} · ${mimeUsed || 'no mime'}) ${RETRY_TAIL}`, code);
   }
 }
@@ -1322,9 +1341,15 @@ function runTextAnalysis(text, typed) {
   state = 'analyzing';
   // One call, one object. Reading it back with pendingTake() would return null in private mode,
   // where localStorage.setItem throws, and then .key would throw on top of it.
+  const waited = waitClock();
+  track('analyze_submit', { kind: 'text', s: 0 });
   analyzeResilient({ text, ...(() => { const t = mintTake(); return { take_id: t.id, take_key: t.key }; })() })
-    .then((resp) => renderResult(normalizeServer(resp)))
+    .then((resp) => {
+      track('analyze_result', { kind: 'text', ms: waited(), deferred: !!(resp && resp.collected) });
+      renderResult(normalizeServer(resp));
+    })
     .catch((e) => {
+      track('analyze_fail', { kind: 'text', code: String((e && e.message) || 'unknown').slice(0, 40), ms: waited() });
       // The old handler took no parameter but read `e`, so any type-mode failure threw a
       // ReferenceError inside the catch: no toast, state never reset, and the user sat on
       // "reading your accent…" forever. Audit catch, fixed with a bound parameter.
@@ -1806,6 +1831,7 @@ function buildShareCanvas(v) {
 }
 
 async function shareResult() {
+  track('share_tap', { how: navigator.share ? 'native' : 'download' });
   const v = window._lastResult;
   const btn = $('#shareBtn');
   if (!v || !v.place) { toast('Nothing to share yet. Do a take first.'); return; }
@@ -1937,6 +1963,7 @@ function saveFeedback(correct, actual, actualCity) {
     : 'Logged. This is exactly how it learns.';
   toast(baseMsg);
 
+  track('feedback', { correct: !!correct });
   fetch('/api/feedback', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -1952,6 +1979,7 @@ function saveFeedback(correct, actual, actualCity) {
 
 // ————— type mode —————
 function enterTypeMode() {
+  track('type_mode');
   state = 'type';
   show('typeCard');
 }
@@ -1985,9 +2013,13 @@ function bindUI() {
     startScan();
     const note = $('#scanNote');
     if (note) note.textContent = 'fetching the answer we already worked out';
+    const pendingSince = (pendingTake() || {}).ts || Date.now();
     collectPendingTake().then((data) => {
       stopScan();
-      if (data) { state = 'idle'; renderResult(normalizeServer(data)); return; }
+      if (data) {
+        track('analyze_result', { kind: window._lastAudio ? 'audio' : 'text', ms: Date.now() - pendingSince, deferred: true });
+        state = 'idle'; renderResult(normalizeServer(data)); return;
+      }
       state = 'idle';
       show('idleCard');
     }).catch(() => { stopScan(); state = 'idle'; show('idleCard'); });
@@ -1997,6 +2029,7 @@ function bindUI() {
   // Resend the take that is still in memory. Straight back to the analysing card, because from
   // the speaker's side this is the same wait they were already in, not a new thing they started.
   $('#retryBtn').onclick = () => {
+    track('resend_tap');
     const last = window._lastAudio;
     if (!last || !last.audio) return showRetry(false);
     showRetry(false);
@@ -2012,6 +2045,11 @@ function bindUI() {
   $('#analyzeTypedBtn').onclick = () => runTextAnalysis($('#typeBox').value, true);
   $('#againBtn').onclick = () => { state = 'idle'; show('idleCard'); flyHome(); };
   $('#shareBtn').onclick = shareResult;
+  // Counted, not intercepted: these stay plain links and the beacon survives the navigation.
+  const nextUp = document.querySelector('.next-up');
+  if (nextUp) nextUp.addEventListener('click', () => track('nextup_tap'));
+  const tipBtn = document.querySelector('.tip-btn');
+  if (tipBtn) tipBtn.addEventListener('click', () => track('tip_tap', { where: 'result' }));
   $('#redoBtn').onclick = () => { state = 'idle'; show('idleCard'); flyHome(); startListening(); };
 
   // A MISTAP MUST BE UNDOABLE.
@@ -2093,6 +2131,7 @@ function bindUI() {
       // someone for a recording nobody received, and they walk away believing their voice is in
       // the pile when it is not.
       const gotClip = j.stored === 'clip+labels';
+      track('donate', { ok: gotClip });
       db.classList.add('done');
       // "correction saved" was the wrong noun. They pressed DONATE; they did not correct
       // anything, and the word sent them looking for a correction they never made. Say the
@@ -2100,6 +2139,7 @@ function bindUI() {
       db.textContent = gotClip ? 'donated ✓ thank you' : "clip didn't upload";
       if (!gotClip) toast('Your correction is saved, but the recording itself did not upload.');
     } catch {
+      track('donate', { ok: false });
       if (gen !== window._renderGen) return;
       db.disabled = false; db.textContent = 'donate this clip';
       toast('The donation didn’t go through. Try the button again.');

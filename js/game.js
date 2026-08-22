@@ -36,6 +36,7 @@ let budgetLeft = LISTEN_BUDGET_S, playing = false, lastTickT = 0;
 const audio = $('#clipAudio');
 const media = window.HT.media(audio, 'ytMount');
 const field = window.HT.contours();
+const track = (e, p) => { if (window.HT && window.HT.track) window.HT.track(e, p); };
 
 // ————— map —————
 function initMap() {
@@ -199,6 +200,7 @@ function setView(v) {
 
 // ————— game flow —————
 function startGame(type) {
+  track('deck_pick', { deck: type });
   const pool = (window.CLIPS && window.CLIPS[type]) || [];
   if (pool.length < MIN_DECK) {
     toast('This mode is still being stocked with clips. Try another one!');
@@ -412,6 +414,7 @@ function rescueClip(why) {
   }
   rescuing = true;
   lastSwapAt = Date.now();
+  track('clip_swap', { deck: gameType, why: /no longer/.test(why || '') ? 'dead' : /would not load/.test(why || '') ? 'load' : 'play' });
   clipSwaps += 1;
   playing = false;
   toast(why || 'That clip would not play, so I swapped it for you.');
@@ -625,6 +628,7 @@ function lockIn() {
   total += pts;
   $('#scoreSoFar').textContent = `${total.toLocaleString()} pts`; // pill reflects the round immediately
   roundLog.push({ id: clip.id, label: clip.label, km, pts });
+  track('round_lock', { deck: gameType, round: round + 1, km: Math.round(km), pts });
 
   const truth = { lat: best.lat, lng: best.lng };
   truthMarker = L.marker(truth, { icon: pinIcon(window.HT.amber()) }).addTo(map);
@@ -718,6 +722,7 @@ function advance() {
 }
 
 function finishGame() {
+  track('game_finish', { deck: gameType, points: total });
   clearRoundLayers();
   map.fitBounds(WORLD);
   $('#finalScore').textContent = `${total.toLocaleString()} / 25,000`;
@@ -747,6 +752,7 @@ async function submitScore() {
       body: JSON.stringify({ nickname, game_type: gameType, points: total, token: gameToken, rounds: roundLog.map((r) => ({ id: r.id, km: r.km, pts: r.pts })) }),
     });
     const d = await resp.json();
+    track('score_post', { deck: gameType, points: total, ok: !!d.ok });
     if (!d.ok) throw new Error(d.error);
     const deckName = (MODES.find((m) => m.key === gameType) || {}).name || gameType;
     toast(`Posted! You're #${d.rank} on ${deckName}.`);
@@ -870,6 +876,7 @@ for (const btn of document.querySelectorAll('#flagChips .flag-chip')) {
     if (!clip) return;
     for (const b of document.querySelectorAll('#flagChips .flag-chip')) b.disabled = true;
     const last = roundLog[roundLog.length - 1] || {};
+    track('clip_flag', { deck: gameType, reason: btn.dataset.reason });
     const ok = await sendClipReport({ clip_id: clip.id, deck: gameType, label: clip.label, reason: btn.dataset.reason, km: last.km });
     if (deck[round] !== clip) return; // the reveal moved on; the report is stored, say nothing
     if (ok) {
@@ -903,6 +910,8 @@ async function sendFlagNote() {
   }
 }
 $('#flagNoteSend').onclick = sendFlagNote;
+const tipBtn = document.querySelector('.tip-btn');
+if (tipBtn) tipBtn.addEventListener('click', () => track('tip_tap', { where: 'final' }));
 $('#flagNote').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); sendFlagNote(); } });
 
 // ————— standing leaderboards —————
@@ -919,6 +928,7 @@ let boardsGen = 0;
 
 async function showBoards(deckKey) {
   boardDeck = deckKey || boardDeck || 'arabic';
+  track('boards_open', { deck: boardDeck });
   if (playing) media.pause(); // jumping to boards mid-round must not leave a voice talking
   const gen = ++boardsGen;    // slow fetch for a previous tab must not paint this one
   setView('boards');

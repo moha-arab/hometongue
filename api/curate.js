@@ -25,10 +25,12 @@ export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'private, no-store');
 
   const q = new URL(req.url, 'http://x').searchParams;
-  const given = String(q.get('k') || '');
-  const want = curateKey();
-  const okKey = given.length === want.length
-    && timingSafeEqual(Buffer.from(given), Buffer.from(want));
+  const given = Buffer.from(String(q.get('k') || ''));
+  const wantStr = curateKey();
+  const want = Buffer.from(wantStr);
+  // byte lengths, not string lengths: a 20-character non-ASCII key passes .length and then makes
+  // timingSafeEqual throw
+  const okKey = given.length === want.length && timingSafeEqual(given, want);
   if (req.method !== 'GET' || !okKey) {
     res.statusCode = 404;
     return res.end('not found');
@@ -65,7 +67,7 @@ export default async function handler(req, res) {
     const verdict = m.correct === true ? '<span class=yes>user said: got it</span>'
       : m.correct === false ? `<span class=no>user said: wrong${m.actual_city || m.actual_code ? ' — actually ' + esc([m.actual_city, m.actual_code].filter(Boolean).join(', ')) : ''}</span>`
         : '<span class=meta>user never answered</span>';
-    const src = `/api/curate?k=${want}&f=${encodeURIComponent(m.clip_path)}`;
+    const src = `/api/curate?k=${wantStr}&f=${encodeURIComponent(m.clip_path)}`;
     return `<section><h2>${i + 1}. ${esc(m.guess_city || '(no guess stored)')}${m.confidence ? ` <span class=conf>${m.confidence}%</span>` : ''}</h2>`
       + `<p class=meta>${esc(String(m.ts).slice(0, 16).replace('T', ' '))} UTC · ${esc(m.platform || '?')} · ${verdict}</p>`
       + `<audio controls preload="none" src="${src}"></audio>`

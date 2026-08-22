@@ -111,6 +111,14 @@ Most clips are files this repo hosts — trimmed, loudness-normalized, no ads. A
 
 Nothing is copied for those: the IFrame API plays a chosen ~20 seconds with the video hidden, and the creator gets the view. Vetting fetches the audio once, judges it, and **deletes it** — verification, not redistribution. `js/media.js` presents one interface over both, so `game.js` never knows which kind it is playing.
 
+## Telemetry
+
+First-party and cookieless. `js/telemetry.js` sends a beacon per meaningful action - `rec_start`, `analyze_result`, `deck_pick`, `score_post`, a `js_error` hook, one `perf` sample per view - to `api/track.js`, which validates against an allowlist of events and per-event props, derives a daily visitor hash from the request without storing the address, reads the country from Vercel's edge header, and inserts one row into the `events` table (`data/events-table.sql`). Every path returns 204: telemetry can never break the site.
+
+`api/stats.js` renders the last 1-30 days as a dashboard: people today and visitor-days (the visitor hash rotates daily by design, so a window sums days rather than counting people), the two funnels (home -> recording -> verdict -> feedback -> donation; game -> deck -> five rounds -> posted score), verdict latency, failure codes, clip swaps and flags, devices, countries, referrers, and the JavaScript errors users actually hit. Gated by a key derived from a server secret, so there is nothing to configure and nothing secret in the repo.
+
+The privacy page describes exactly what is collected, in the same words.
+
 ## Install it
 
 The site is a PWA — "Add to Home Screen" on iOS or Android gives it an icon and a standalone window. No App Store, no wrapper.
