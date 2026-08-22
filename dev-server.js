@@ -20,7 +20,6 @@ const { default: analyze } = await import('./api/analyze.js');
 const { default: feedback } = await import('./api/feedback.js');
 const { default: scores } = await import('./api/scores.js');
 const { default: clipReport } = await import('./api/clip-report.js');
-const { default: curate } = await import('./api/curate.js');
 const { default: track } = await import('./api/track.js');
 const { default: stats } = await import('./api/stats.js');
 
@@ -49,7 +48,6 @@ http.createServer(async (req, res) => {
   if (url.pathname === '/api/analyze') return analyze(req, res);
   if (url.pathname === '/api/feedback') return feedback(req, res);
   if (url.pathname === '/api/clip-report') return clipReport(req, res);
-  if (url.pathname === '/api/curate') return curate(req, res);
   if (url.pathname === '/api/track') return track(req, res);
   if (url.pathname === '/api/stats') return stats(req, res);
   if (url.pathname === '/api/scores') return scores(req, res);
