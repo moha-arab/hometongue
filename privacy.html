@@ -34,10 +34,22 @@
   .muted { color: var(--grey); font-size: 13.5px; }
   h1 + .muted { margin-top: 10px; padding-bottom: 20px; border-bottom: 1px solid var(--rule); }
   main > .muted:last-child { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--rule); font-family: var(--mono); font-size: 11px; }
+  /* The way back, as a button rather than a footnote. The old link sat in 11px mono at the very
+     bottom of a long page; on a phone that is effectively no way back at all. */
+  .back-home {
+    display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px;
+    background: var(--accent); color: #fff; text-decoration: none; border-radius: var(--r-sm);
+    font-family: var(--sans); font-size: 14px; font-weight: 600;
+  }
+  .back-home:hover { filter: brightness(1.12); }
+  .back-home svg { width: 16px; height: 16px; }
+  .back-top { margin-bottom: 22px; }
+  .back-bottom { margin-top: 28px; }
 </style>
 </head>
 <body>
 <main>
+  <a class="back-home back-top" href="/"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9.5 3.5 5 8l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>back to HomeTongue</a>
   <h1>Privacy, in plain words</h1>
   <p class="muted">HomeTongue listens to your accent and guesses where you grew up, in any language. Here's exactly what happens to your voice.</p>
 
@@ -59,7 +71,8 @@
   <p>The game is separate from your voice and never records you. If you post a score, we store the nickname you type, the score, and which clip and distance each round was — that is the leaderboard, and it is public. If you flag a clip as wrong we store which clip, the reason you picked, and any note you type. Pick any nickname you like; we have no way of knowing who you are, and there is no account to delete.</p>
   <p>Most decks stream their clips from YouTube so the original creator keeps the view and the credit. Those are real YouTube embeds, which means YouTube can set its own cookies and see that a video was played, exactly as if you had opened it on youtube.com. YouTube only appears on the game page, never on the page where you record your voice. Two others are on every page, including that one: the map tiles come from CARTO and the fonts from Google, so both see that a browser at your IP address loaded a file. Neither is sent your voice, your words or your result.</p>
 
-  <p class="muted">Last updated August 2026 · <a href="/">back to HomeTongue</a></p>
+  <a class="back-home back-bottom" href="/"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9.5 3.5 5 8l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>back to HomeTongue</a>
+  <p class="muted">Last updated August 2026</p>
 </main>
 <script>
   // installable + instant on repeat visits; harmless if the browser has no support
