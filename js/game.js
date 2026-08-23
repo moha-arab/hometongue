@@ -910,6 +910,8 @@ async function sendFlagNote() {
 }
 $('#flagNoteSend').onclick = sendFlagNote;
 $('#flagQ').onclick = () => { $('#flagChips').hidden = false; $('#flagQ').hidden = true; };
+// the way back out: opened by mistake, or changed your mind - no report is sent
+$('#flagCancel').onclick = () => { $('#flagChips').hidden = true; $('#flagQ').hidden = false; };
 
 // ————— share my score —————
 // The analysis side had a share card from day one; the game did not, and the game is the half
