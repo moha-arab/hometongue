@@ -58,7 +58,7 @@ export default async function handler(req, res) {
   const sessRec = new Set(), sessVerdict = new Set(), sessFeedback = new Set(), sessDonate = new Set(), sessHome = new Set();
   const sessGame = new Set(), sessDeck = new Set(), sessFinish = new Set(), sessPost = new Set();
   const sessText = new Set(), textLatencies = [], gotIt = new Map();
-  let tips = 0, shares = 0, nextups = 0, resends = 0, cutShort = 0, restarts = 0;
+  let tips = 0, shares = 0, gameShares = 0, nextups = 0, resends = 0, cutShort = 0, restarts = 0;
   for (const e of ev) {
     byEvent[e.event] = (byEvent[e.event] || 0) + 1;
     const d = e.ts.slice(5, 10);
@@ -85,7 +85,7 @@ export default async function handler(req, res) {
     if (e.event === 'resend_tap') resends++;
     if (e.event === 'feedback') { sessFeedback.add(e.session); gotIt.set(e.session, !!p.correct); }   // one answer per session, the last one
     if (e.event === 'donate' && p.ok) sessDonate.add(e.session);
-    if (e.event === 'share_tap') shares++;
+    if (e.event === 'share_tap') { if (e.page === 'game') gameShares++; else shares++; }
     if (e.event === 'nextup_tap') nextups++;
     if (e.event === 'tip_tap') tips++;
     if (e.event === 'deck_pick') { sessDeck.add(e.session); decks[p.deck || '?'] = (decks[p.deck || '?'] || 0) + 1; }
@@ -135,7 +135,7 @@ section{background:#FCFBF8;border:1px solid #DEDAD1;border-radius:10px;padding:1
 <h2>Page views per day</h2><section>${dayKeys.map((k) => bar(byDay[k], maxDay, k, ` <small>${visitorsByDay[k].size} people</small>`)).join('') || '<p class=meta>nothing yet</p>'}</section>
 <h2>Read My Accent funnel (sessions)</h2><section>${funnel([['saw the home page', sessHome.size], ['started recording', sessRec.size], ['got a verdict', sessVerdict.size], ['answered did-I-get-it', sessFeedback.size], ['donated the clip', sessDonate.size]])}
 <p class=meta>cut short before 20s: ${cutShort} · start-overs: ${restarts} · resend taps: ${resends} · shares: ${shares} · went to the game: ${nextups} · tip taps: ${tips}</p></section>
-<h2>Guess the Voice funnel (sessions)</h2><section>${funnel([['saw the game page', sessGame.size], ['picked a deck', sessDeck.size], ['finished 5 rounds', sessFinish.size], ['posted a score', sessPost.size]])}</section>
+<h2>Guess the Voice funnel (sessions)</h2><section>${funnel([['saw the game page', sessGame.size], ['picked a deck', sessDeck.size], ['finished 5 rounds', sessFinish.size], ['posted a score', sessPost.size]])}<p class=meta>score cards shared: ${gameShares}</p></section>
 <h2>Decks picked</h2><section>${list(decks)}</section>
 <h2>Verdict failures</h2><section>${list(failCodes)}</section>
 <h2>Clip swaps · flags</h2><section>${list(swaps)}<hr>${list(flags)}</section>

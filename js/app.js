@@ -1439,6 +1439,9 @@ function renderResult(v) {
   // listening to their vowels, which was fixed earlier tonight for exactly this reason.
   const fromAudio = !!window._lastAudio;
   heard.hidden = !v.transcript || !fromAudio;
+  // collapsed on every new result, not just the first paint
+  const heardDetails = heard.querySelector('.heard-details');
+  if (heardDetails) heardDetails.open = false;
   if (v.transcript && fromAudio) $('#heardText').textContent = v.transcript;
   $('#srcBadge').textContent = v.language ? v.language.toLowerCase() : '';
 
@@ -2046,7 +2049,7 @@ function bindUI() {
   $('#againBtn').onclick = () => { state = 'idle'; show('idleCard'); flyHome(); };
   $('#shareBtn').onclick = shareResult;
   // Counted, not intercepted: these stay plain links and the beacon survives the navigation.
-  const nextUp = document.querySelector('.next-up');
+  const nextUp = document.querySelector('.after-pill.next');
   if (nextUp) nextUp.addEventListener('click', () => track('nextup_tap'));
   const tipBtn = document.querySelector('.tip-btn');
   if (tipBtn) tipBtn.addEventListener('click', () => track('tip_tap', { where: 'result' }));

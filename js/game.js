@@ -689,6 +689,9 @@ function lockIn() {
 
 // Credits people can actually read: who recorded it, where it lives, the licence, and a way in.
 function renderSource(src = {}, year) {
+  // collapsed on every reveal, not just the first paint
+  const more = $('#srcMore');
+  if (more) more.open = false;
   const rows = [['#srcWho', src.who], ['#srcHost', src.host], ['#srcYear', year ? String(year) : ''], ['#srcLicense', src.license]];
   for (const [sel, val] of rows) {
     const el = $(sel);
@@ -737,12 +740,16 @@ function finishGame() {
   }
   $('#nickRow').hidden = false;
   $('#board').hidden = true;
-  $('#submitScore').disabled = false;
+  nickGate();
   setView('final');
 }
 
 async function submitScore() {
-  const nickname = $('#nickname').value.trim() || 'anon';
+  const nickname = $('#nickname').value.trim();
+  // The fallback used to be 'anon', and that fallback was then SAVED and prefilled into the box
+  // on every later game, which is how a blank became a name. Nothing posts without a real one
+  // now (the button stays disabled until two characters exist), and only real names are kept.
+  if (nickname.length < 2) { toast('Pick a nickname first.'); $('#nickname').focus(); return; }
   localStorage.setItem('ht_nick', nickname);
   $('#submitScore').disabled = true;
   try {
@@ -849,7 +856,7 @@ function resetClipFlag() {
   flagClip = null;
   $('#flagQ').hidden = false;
   $('#flagThanks').hidden = true;
-  $('#flagChips').hidden = false;
+  $('#flagChips').hidden = true;   // collapsed until the question is tapped
   $('#flagNote').value = '';
   $('#flagNote').hidden = false;
   $('#flagNoteSend').hidden = false;
@@ -910,6 +917,98 @@ async function sendFlagNote() {
   }
 }
 $('#flagNoteSend').onclick = sendFlagNote;
+$('#flagQ').onclick = () => { $('#flagChips').hidden = false; $('#flagQ').hidden = true; };
+
+// ————— share my score —————
+// The analysis side had a share card from day one; the game did not, and the game is the half
+// people actually compete on. Same house style, same share-or-download path as shareResult.
+function buildScoreCanvas() {
+  const W = 1080, H = 1920, M = 96;
+  const SANS = '"Familjen Grotesk", system-ui, sans-serif';
+  const SERIF = '"Instrument Serif", Georgia, serif';
+  const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+  const c = cv.getContext('2d');
+  c.fillStyle = '#F3F1EC'; c.fillRect(0, 0, W, H);
+  const g = c.createRadialGradient(W * 0.5, H * 0.3, 60, W * 0.5, H * 0.3, W * 0.95);
+  g.addColorStop(0, 'rgba(184,134,47,0.11)'); g.addColorStop(1, 'rgba(184,134,47,0)');
+  c.fillStyle = g; c.fillRect(0, 0, W, H);
+  const deckName = (MODES.find((m) => m.key === gameType) || {}).name || gameType;
+  let y = 300;
+  c.fillStyle = '#74766D'; c.font = `500 26px ${SANS}`;
+  c.fillText('GUESS THE VOICE · ' + String(deckName).toUpperCase(), M, y);
+  y += 150;
+  // pinned to one locale: the rest of the card is English, and a de-DE or ar-EG phone would
+  // otherwise draw '18.450 / 25,000' or Arabic-Indic digits against a Latin denominator
+  const totalTxt = total.toLocaleString('en-US');
+  c.fillStyle = '#1B1C19'; c.font = `400 150px ${SERIF}`;
+  c.fillText(totalTxt, M, y);
+  const tw = c.measureText(totalTxt).width;
+  c.fillStyle = '#74766D'; c.font = `500 40px ${SANS}`;
+  c.fillText('/ 25,000', M + tw + 24, y - 8);
+  y += 70;
+  c.fillStyle = '#2A6B60'; c.font = `400 40px ${SANS}`;
+  c.fillText('five voices, five pins', M, y);
+  y += 110;
+  for (const r of roundLog) {
+    c.fillStyle = '#1B1C19'; c.font = `500 34px ${SANS}`;
+    let label = r.label;
+    while (c.measureText(label).width > W - 2 * M - 260 && label.length > 4) label = label.slice(0, -2) + '…';
+    c.fillText(label, M, y);
+    const pts = '+' + r.pts.toLocaleString('en-US');
+    const ink = r.pts === 5000 ? '#B8862F' : '#2A6B60';
+    c.fillStyle = ink; c.font = `700 34px ${SANS}`;
+    c.fillText(pts, W - M - c.measureText(pts).width, y);
+    y += 22;
+    c.fillStyle = '#E9E6DF'; c.fillRect(M, y, W - 2 * M, 8);
+    c.fillStyle = ink; c.fillRect(M, y, Math.round((W - 2 * M) * (r.pts / 5000)), 8);
+    y += 74;
+  }
+  c.fillStyle = '#2A6B60'; c.fillRect(M, H - 260, 64, 6);
+  c.fillStyle = '#1B1C19'; c.font = `700 44px ${SANS}`;
+  c.fillText('HomeTongue', M, H - 190);
+  c.fillStyle = '#74766D'; c.font = `500 30px ${SANS}`;
+  c.fillText('hear a stranger, pin where they are from · hometongue.me/game', M, H - 140);
+  return cv;
+}
+
+async function shareScore() {
+  track('share_tap', { how: navigator.share ? 'native' : 'download' });
+  const btn = $('#shareScoreBtn');
+  if (!roundLog.length) { toast('Finish a game first.'); return; }
+  btn.disabled = true;
+  const original = btn.textContent;
+  btn.textContent = 'making your card…';
+  try {
+    // Fonts must be loaded before the canvas draws or it silently falls back to Times.
+    if (document.fonts && document.fonts.ready) await document.fonts.ready;
+    const blob = await new Promise((res) => buildScoreCanvas().toBlob(res, 'image/png'));
+    if (!blob) throw new Error('no blob');
+    const file = new File([blob], 'hometongue-score.png', { type: 'image/png' });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({ files: [file] });
+      btn.textContent = original;
+    } else {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'hometongue-score.png';
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+      btn.textContent = 'card saved ✓';
+      toast('Card saved to your downloads. Post it anywhere.');
+    }
+  } catch (e) {
+    // AbortError is the share sheet being closed; not a failure worth a toast.
+    if (!e || e.name !== 'AbortError') toast('Could not make the card. Try again in a moment.');
+    btn.textContent = original;
+  } finally {
+    btn.disabled = false;
+  }
+}
+// Guarded like tipBtn: a cached pre-change game.html paired with this script must not throw here
+// and take the deck picker down with it.
+const shareScoreBtn = $('#shareScoreBtn');
+if (shareScoreBtn) shareScoreBtn.onclick = shareScore;
+
 const tipBtn = document.querySelector('.tip-btn');
 if (tipBtn) tipBtn.addEventListener('click', () => track('tip_tap', { where: 'final' }));
 $('#flagNote').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); sendFlagNote(); } });
@@ -991,8 +1090,11 @@ $('#againSame').onclick = () => startGame(gameType);
 $('#switchType').onclick = () => { clearRoundLayers(); map.fitBounds(WORLD); window.HT.setDeck(null); setView('pick'); };
 // one-time cleanup: leaderboard testing during the Aug 8 production sweep saved its test
 // nickname on whatever device ran it; devices carrying it self-clean here
-if (localStorage.getItem('ht_nick') === 'sweep bot') localStorage.removeItem('ht_nick');
+if (['sweep bot', 'anon'].includes(localStorage.getItem('ht_nick'))) localStorage.removeItem('ht_nick');
 $('#nickname').value = localStorage.getItem('ht_nick') || '';
+// post only with a name: the button follows the box
+const nickGate = () => { $('#submitScore').disabled = $('#nickname').value.trim().length < 2; };
+$('#nickname').addEventListener('input', nickGate);
 $('#boardsBtn').onclick = () => showBoards();
 $('#boardsBack').onclick = () => { history.replaceState(null, '', location.pathname); setView('pick'); };
 // The nav tab links here as /game.html#boards, from either page.

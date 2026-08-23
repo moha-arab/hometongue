@@ -1334,3 +1334,55 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
      but the one control that LOOKS like the way to open the sheet should be catchable. */
   .sheet-handle { min-height: 30px; padding: 8px 0; }
 }
+
+/* ——— the quieter reveal and result cards (Aug 2026 declutter) ——— */
+/* one credit line; host, year and licence sit behind a tap */
+.source-line { margin: 0; font-size: 12.5px; color: var(--black-2); line-height: 1.5; }
+.source-line .source-key { color: var(--grey-2); margin-right: 4px; }
+.source-line .source-link { margin: 0 0 0 8px; }
+.source-more { margin-top: 8px; }
+.source-more summary {
+  cursor: pointer; list-style: none; font-family: var(--label); font-size: 10.5px;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--grey-2);
+  /* a 16px text line above the round-advance button is a mis-tap waiting to happen: give the
+     toggle a thumb-sized box without moving the layout around it */
+  display: inline-flex; align-items: center; min-height: 40px; padding: 0 10px; margin: -10px 0 0 -10px;
+}
+.source-more summary::-webkit-details-marker { display: none; }
+.source-more summary::before { content: '+ '; }
+.source-more[open] summary::before { content: '– '; }
+.source-more[open] summary { margin-bottom: 8px; }
+
+/* the flag question is a button now, collapsed by default, and kept clear of "next clip" */
+.clip-flag { margin-top: 18px; }
+button.flag-q { background: none; border: none; cursor: pointer; padding: 6px 0; min-height: 32px; }
+button.flag-q:hover { color: var(--accent); }
+
+/* the transcript opens on tap */
+/* the whole grey panel reads as the control, so the summary carries the panel's padding */
+.heard { padding: 0; }
+.heard-details summary { cursor: pointer; list-style: none; padding: 13px 15px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center; }
+.heard-details p { margin: 0; padding: 0 15px 13px; }
+.heard-details summary::-webkit-details-marker { display: none; }
+.heard-details summary span::after { content: ' · tap to open'; color: var(--grey-2); letter-spacing: 0; text-transform: none; }
+.heard-details[open] summary span::after { content: ''; }
+.heard-details p { margin-top: 10px; }
+
+/* primary actions share one row; the share button loses its solo-button margins inside it */
+.fb-row.actions { margin-top: 22px; }
+.fb-row .share-btn { margin: 0; }
+
+/* the closing row: one muted line, two pills */
+.after { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--rule-soft); }
+.after-line { margin: 0 0 8px; font-size: 12.5px; color: var(--grey); }
+.after-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.after-pill {
+  display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px;
+  border-radius: 999px; text-decoration: none; font-family: var(--sans); font-size: 13px; font-weight: 600;
+}
+.after-pill.next { color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent-line); }
+.after-pill.tip-btn { color: var(--amber-ink); background: color-mix(in srgb, var(--amber) 12%, var(--sheet)); border: 1px solid color-mix(in srgb, var(--amber) 35%, transparent); }
+.after-pill:hover { filter: brightness(0.96); }
+
+/* the game final card: share takes a full line above the play-again pair */
+.share-btn.wide { display: block; width: 100%; margin: 16px 0 0; text-align: center; }

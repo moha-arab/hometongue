@@ -202,9 +202,13 @@
     <!-- Shown when the model's own top evidence was a name rather than a sound. -->
     <p class="name-warn" id="nameWarn" hidden></p>
     <div class="evidence" id="evidence"></div>
+    <!-- Tap to open. The transcript is useful and long, and it sat open between the verdict and
+         the buttons; most people glanced at one line of it and scrolled past the rest. -->
     <div class="heard" id="heard" hidden>
-      <div class="heard-head"><span>what we heard</span></div>
-      <p id="heardText"></p>
+      <details class="heard-details">
+        <summary class="heard-head"><span>what we heard</span></summary>
+        <p id="heardText"></p>
+      </details>
     </div>
     <div class="runners" id="runners"></div>
     <div class="feedback" id="feedback">
@@ -220,38 +224,19 @@
         <button class="fb-btn" id="fbSend">send</button>
       </div>
     </div>
-    <button class="share-btn" id="shareBtn">share your card</button>
-    <button class="stop-btn" id="againBtn">go again</button>
-    <!-- THE ONE MOMENT SOMEONE IS MOST LIKELY TO SAY YES. They have just been placed by a machine
-         and are sitting there deciding whether this was a trick. Turning it around is the whole
-         pitch: it read you, now see if you can read a stranger. Written as a thing to go and do,
-         with the mode's own icon, because a grey sentence at the bottom of a card is something
-         people scroll past on their way to closing the tab.
-         DELIBERATELY SAYS NOTHING ABOUT HOW WELL IT DID. A version of this was built that pulled
-         the radius into the line — "it placed you within 85 km, your turn" — which is a good dare
-         right up until the answer is bad, and then it is the product reading its own worst result
-         aloud on the way out: "it placed you within 3.0k km, your turn." The invitation has to
-         work identically on a 40 km hit and a 3000 km miss, so it does not mention the number. -->
-    <a class="next-up" href="/game">
-      <span class="next-up-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16v-4a8 8 0 0 1 16 0v4"/><rect x="2.5" y="13.5" width="4.5" height="7.5" rx="2.25"/><rect x="17" y="13.5" width="4.5" height="7.5" rx="2.25"/></svg>
-      </span>
-      <span class="next-up-text">
-        <b>Guess the Voice</b>
-        <i>It just placed you. Can you place a stranger?</i>
-      </span>
-      <span class="next-up-go" aria-hidden="true">→</span>
-    </a>
-    <!-- THE MOMENT THE TIP JAR CAN ACTUALLY BE SEEN. In the footer it was two words nobody
-         scrolls to; here it sits at the end of the one screen people actually read to the
-         bottom, right after their verdict. The copy names the true mechanic instead of a vague
-         "support us": every take spends real money on the model call, and this is one student's
-         pocket. Asking AFTER delivering the answer, never before, is the whole tone. -->
-    <!-- "a few cents" was the wrong anchor: naming a tiny number tells people their tip is not
-         needed. Cost stays real but unnumbered, and the ask is about keeping the thing alive. -->
-    <div class="tip-note">
-      <p>I'm a student, and HomeTongue is my passion project. If you enjoyed it, a tip helps it run and grow.</p>
-      <a class="tip-btn" href="https://buymeacoffee.com/zorvint" target="_blank" rel="noopener">leave a tip</a>
+    <div class="fb-row actions">
+      <button class="share-btn" id="shareBtn">share your card</button>
+      <button class="stop-btn" id="againBtn">go again</button>
+    </div>
+    <!-- The closing row: one muted line and two pills. The boxed cross-sell and the tip
+         paragraph each did their job but together they were a wall under the buttons, and
+         the wall is what "cluttered" meant. Same two invitations, a quarter of the height. -->
+    <div class="after">
+      <p class="after-line">HomeTongue is one student's passion project.</p>
+      <div class="after-row">
+        <a class="after-pill next" href="/game">🎧 guess the voice →</a>
+        <a class="after-pill tip-btn" href="https://buymeacoffee.com/zorvint" target="_blank" rel="noopener">☕ leave a tip</a>
+      </div>
     </div>
   </section>
 
