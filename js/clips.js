@@ -777,7 +777,7 @@ window.CLIPS = {
       "r": 60,
       "start": 75,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Kingston, Jamaica",
@@ -795,7 +795,7 @@ window.CLIPS = {
       "source": {
         "who": "Islandvisuals",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=OqIpz_eEaKg",
         "note": "Funny Jamaican Interview ,Flooding in Jamaica,Rosie tutty gran"
       }
@@ -812,7 +812,7 @@ window.CLIPS = {
       "r": 60,
       "start": 61,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Kingston, Jamaica",
@@ -830,7 +830,7 @@ window.CLIPS = {
       "source": {
         "who": "York Pharmacy",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=7lMWf8-Q9jA",
         "note": "Rosie interviewed outside York Pharmacy :Funny Jamaican Interview : Kingston, Jamaica"
       }
@@ -847,7 +847,7 @@ window.CLIPS = {
       "r": 60,
       "start": 30,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Glasgow, Scotland, United Kingdom",
@@ -865,7 +865,7 @@ window.CLIPS = {
       "source": {
         "who": "Guardian News",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=I4k8dR04TzA",
         "note": "Tory MP fails to understand Glaswegian accent of SNP's David Linden"
       }
@@ -882,7 +882,7 @@ window.CLIPS = {
       "r": 60,
       "start": 403,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Kingston, Jamaica",
@@ -900,7 +900,7 @@ window.CLIPS = {
       "source": {
         "who": "The Delaveaus",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=SS9bBuF0w4w",
         "note": "DOWNTOWN KINGSTON MARKET VYBZ | INTERRACIAL FAMILY VLOG | JAMAICAN LIVING IN FRANCE"
       }
@@ -917,7 +917,7 @@ window.CLIPS = {
       "r": 60,
       "start": 166,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Kingston, Jamaica",
@@ -935,7 +935,7 @@ window.CLIPS = {
       "source": {
         "who": "JAMAICAN KIM",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=wt24nLiNa8I",
         "note": "A DAY IN MY LIFE | MARKET TOUR 2021 | PRICE CHECK"
       }
@@ -952,7 +952,7 @@ window.CLIPS = {
       "r": 80,
       "start": 370,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Lagos, Nigeria",
@@ -970,7 +970,7 @@ window.CLIPS = {
       "source": {
         "who": "RakGhana",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=tI8FBKscgQ4",
         "note": "Nigeria is in what PLANET? | Street Quiz Nigeria (Ep. 18) | Funny African Videos |"
       }
@@ -987,7 +987,7 @@ window.CLIPS = {
       "r": 40,
       "start": 186,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Singapore",
@@ -1005,7 +1005,7 @@ window.CLIPS = {
       "source": {
         "who": "Clicknetwork",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=HylaY5e1awo",
         "note": "The Singaporean White Boy - The Shan and Rozz Show: EP7"
       }
@@ -1022,7 +1022,7 @@ window.CLIPS = {
       "r": 40,
       "start": 161,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Singapore",
@@ -1040,7 +1040,7 @@ window.CLIPS = {
       "source": {
         "who": "TheSmartLocal",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=HpTfmxkXU1A",
         "note": "What Do People Think Of Singaporeans With \"Angmoh\" Accents? | Word On The Street"
       }
@@ -1058,7 +1058,7 @@ window.CLIPS = {
       "start": 97,
       "gain": 100,
       "wild": true,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "origin": "you're a third generation Bostonian — Yeah",
         "originConfidence": "stated",
@@ -1086,7 +1086,7 @@ window.CLIPS = {
       "start": 41,
       "gain": 60,
       "wild": true,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "origin": "Bensonhurst, born and raised",
         "originConfidence": "stated",
@@ -1135,7 +1135,7 @@ window.CLIPS = {
       "start": 86,
       "gain": 100,
       "wild": true,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "origin": "I am proud to come from Ghana",
         "originConfidence": "stated",
@@ -1340,7 +1340,7 @@ window.CLIPS = {
       "r": 60,
       "start": 40,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Bogotá, Colombia",
@@ -1358,7 +1358,7 @@ window.CLIPS = {
       "source": {
         "who": "CityTv",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=k1ur2rnVKLs",
         "note": "El hombre del tapabocas | CityTv"
       }
@@ -1375,7 +1375,7 @@ window.CLIPS = {
       "r": 60,
       "start": 33,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Buenos Aires, Argentina",
@@ -1393,7 +1393,7 @@ window.CLIPS = {
       "source": {
         "who": "GLH HaxBall",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=1tdOI0X0phE",
         "note": "Así era el acento porteño en los años '90 en Argentina"
       }
@@ -1410,7 +1410,7 @@ window.CLIPS = {
       "r": 60,
       "start": 122,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Buenos Aires, Argentina",
@@ -1428,7 +1428,7 @@ window.CLIPS = {
       "source": {
         "who": "Sentidos Audiovisuales",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=zcasomU6Ios",
         "note": "\"Mato al chorro, mato al juez\" ENTREVISTA COMPLETA ORIGINAL."
       }
@@ -1445,7 +1445,7 @@ window.CLIPS = {
       "r": 60,
       "start": 50,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Bogotá, Colombia",
@@ -1463,7 +1463,7 @@ window.CLIPS = {
       "source": {
         "who": "New CITYzens",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=CprjAdAO11s",
         "note": "BOGOTA, Colombia l Entrevistas por la calle"
       }
@@ -1662,7 +1662,7 @@ window.CLIPS = {
       "r": 150,
       "start": 153,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.5-flash",
         "heard": "Kinshasa, Democratic Republic of the Congo",
@@ -1681,7 +1681,7 @@ window.CLIPS = {
       "source": {
         "who": "Misterkash -  Le photographe en costume ",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=4jKukUPJdmM",
         "note": "les élèves du congo , c'est honteux mdrr y'a du boulot"
       }
@@ -1698,7 +1698,7 @@ window.CLIPS = {
       "r": 60,
       "start": 40,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Marseille, France",
@@ -1716,7 +1716,7 @@ window.CLIPS = {
       "source": {
         "who": "Makambo ya Mokili Tv Officiel",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=BJH4f6OWF7U",
         "note": "Ils font croire que Macron va interdire l'accent Marseillais"
       }
@@ -1733,7 +1733,7 @@ window.CLIPS = {
       "r": 50,
       "start": 225,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Paris, France",
@@ -1751,7 +1751,7 @@ window.CLIPS = {
       "source": {
         "who": "TITAN - Le média",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=F53zsQIKlrw",
         "note": "Ce que les BELGES pensent des FRANCAIS (Micro-trottoir)"
       }
@@ -1768,7 +1768,7 @@ window.CLIPS = {
       "r": 60,
       "start": 115,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Provence-Alpes-Côte d'Azur, France",
@@ -1786,7 +1786,7 @@ window.CLIPS = {
       "source": {
         "who": "AnonymalTV",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=-NT24O3IfPs",
         "note": "Micro-Trottoir : Municipales 2026"
       }
@@ -1803,7 +1803,7 @@ window.CLIPS = {
       "r": 60,
       "start": 149,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Marseille, France",
@@ -1821,7 +1821,7 @@ window.CLIPS = {
       "source": {
         "who": "Monsieur Alex +",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=0xDjLQpsmUM",
         "note": "Ce que les Marseillais pensent des Parisiens"
       }
@@ -1838,7 +1838,7 @@ window.CLIPS = {
       "r": 70,
       "start": 118,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Abidjan, Côte d'Ivoire",
@@ -1856,7 +1856,7 @@ window.CLIPS = {
       "source": {
         "who": "Inov TV",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=SFh4sdSqR60",
         "note": "MICRO TROTTOIR //ABIDJAN ABOBO #INOV_TV"
       }
@@ -2019,7 +2019,7 @@ window.CLIPS = {
       "r": 100,
       "start": 106,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.5-flash",
         "heard": "Delhi, India",
@@ -2038,7 +2038,7 @@ window.CLIPS = {
       "source": {
         "who": "Jeheranium",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=vogXu3dUXzE",
         "note": "How Much Delhi Knows About India | Independence Day Special 🫡 | Street Interview | Jeheranium"
       }
@@ -2055,7 +2055,7 @@ window.CLIPS = {
       "r": 100,
       "start": 195,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.5-flash",
         "heard": "Delhi, India",
@@ -2074,7 +2074,7 @@ window.CLIPS = {
       "source": {
         "who": "Jeheranium",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=Td9sfMaU7u0",
         "note": "Ladko ko kaisi ladkiyan pasand aati hai |What men want in women Pt 3 | Public Hai Ye Sab Janti Hai"
       }
@@ -2091,7 +2091,7 @@ window.CLIPS = {
       "r": 100,
       "start": 113,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.5-flash",
         "heard": "Delhi, India",
@@ -2110,7 +2110,7 @@ window.CLIPS = {
       "source": {
         "who": "Dr Shaan Shahid (PT)",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=NwY5FscYpKs",
         "note": "LUCKNOW ON LOVE & HEARTBREAK Street Interview Lucknowi Shaan Shahid India Girls & Boys Opinion"
       }
@@ -2127,7 +2127,7 @@ window.CLIPS = {
       "r": 120,
       "start": 64,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.5-flash",
         "heard": "Patna, India",
@@ -2146,7 +2146,7 @@ window.CLIPS = {
       "source": {
         "who": "News4Nation",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=BJHw8b01C24",
         "note": "PM Modi Patna Rally को लेकर सुरक्षा के इंतज़ाम पर Exclusive Interview"
       }
@@ -2163,7 +2163,7 @@ window.CLIPS = {
       "r": 120,
       "start": 60,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.5-flash",
         "heard": "New Delhi, India",
@@ -2182,7 +2182,7 @@ window.CLIPS = {
       "source": {
         "who": "Praveer Tanwar",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=tZV_e58UDFk",
         "note": "Gender Change For A Day | Street Interview | Jaipur | Praveer"
       }
@@ -2199,7 +2199,7 @@ window.CLIPS = {
       "r": 60,
       "start": 99,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Hyderabad, Telangana, India",
@@ -2217,7 +2217,7 @@ window.CLIPS = {
       "source": {
         "who": "BeingIndian",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=520zmm5qVh0",
         "note": "Hyderabad on Being Hyderabadi"
       }
@@ -2296,7 +2296,7 @@ window.CLIPS = {
       "start": 207,
       "gain": 100,
       "year": 2026,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "heard": "Lahore, Pakistan",
         "offBy": 0,
@@ -2312,7 +2312,7 @@ window.CLIPS = {
       "source": {
         "who": "Public Interest Official",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=aFxU2tqQwi0",
         "note": "The Budget Looks People-Friendly, But It Isn't! Lahore Chamber Member Speaks Out | Public Interest"
       }
@@ -2329,7 +2329,7 @@ window.CLIPS = {
       "r": 100,
       "start": 217,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.5-flash",
         "heard": "Karachi, Pakistan",
@@ -2348,7 +2348,7 @@ window.CLIPS = {
       "source": {
         "who": "GTV NETWORK HD",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=zRpMJRph-wk",
         "note": "“Karachi Better Than Paris?” | Sindh To Build A City Better Than Dubai? | Shabbar Zaidi’s Statement"
       }
@@ -2365,7 +2365,7 @@ window.CLIPS = {
       "r": 100,
       "start": 63,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.5-flash",
         "heard": "Lahore, Pakistan",
@@ -2384,7 +2384,7 @@ window.CLIPS = {
       "source": {
         "who": "multimedia network",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=ueueRlk1NtM",
         "note": "گولڈن مین اسٹریٹ پرفارمر کا اصل چہرہ| کتنی کمائی؟ گھر کے حالات اور مکمل کہانی Income, Life Struggles"
       }
@@ -2423,7 +2423,7 @@ window.CLIPS = {
       "r": 140,
       "start": 30,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.5-flash",
         "heard": "Xi'an, China",
@@ -2442,7 +2442,7 @@ window.CLIPS = {
       "source": {
         "who": "可西西",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=-eaOysvmbCI",
         "note": "西安高温七十度街头随访"
       }
@@ -2459,7 +2459,7 @@ window.CLIPS = {
       "r": 100,
       "start": 119,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.5-flash",
         "heard": "Hong Kong, Hong Kong",
@@ -2478,7 +2478,7 @@ window.CLIPS = {
       "source": {
         "who": "你好嘢video",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=FfDtxav-R2A",
         "note": "【好嘢街訪】廣州人一定要識廣州話！"
       }
@@ -2495,7 +2495,7 @@ window.CLIPS = {
       "r": 60,
       "start": 132,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Chengdu, Sichuan, China",
@@ -2513,7 +2513,7 @@ window.CLIPS = {
       "source": {
         "who": "爆笑巴蜀",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=7TPAXwQ6Xig",
         "note": "四川方言：老表拖欠民工工资，跑回家乡充大款，太可笑了！"
       }
@@ -2530,7 +2530,7 @@ window.CLIPS = {
       "r": 60,
       "start": 75,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Beijing, China",
@@ -2548,7 +2548,7 @@ window.CLIPS = {
       "source": {
         "who": "北京360行",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=1iMMUDdCjso",
         "note": "北京街头采访Beijing Street Interview: 行政Administration"
       }
@@ -2565,7 +2565,7 @@ window.CLIPS = {
       "r": 60,
       "start": 204,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Chengdu, Sichuan, China",
@@ -2583,7 +2583,7 @@ window.CLIPS = {
       "source": {
         "who": "口语老炮儿马思瑞 Laoma Chris",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=6yRcJ-BUVDg",
         "note": "【方言挑战】两个老外挑战四川话，哪个瓜娃子学得最像呢？？"
       }
@@ -2742,7 +2742,7 @@ window.CLIPS = {
       "r": 150,
       "start": 169,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.5-flash",
         "heard": "Luanda, Angola",
@@ -2761,7 +2761,7 @@ window.CLIPS = {
       "source": {
         "who": "Olhar Angolano",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=69ZiYIUfCmw",
         "note": "MOMENTOS NAS RUAS DE LUANDA #EP01"
       }
@@ -2778,7 +2778,7 @@ window.CLIPS = {
       "r": 70,
       "start": 147,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Recife, Pernambuco, Brazil",
@@ -2796,7 +2796,7 @@ window.CLIPS = {
       "source": {
         "who": "Renato Bartolomeu",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=KoqtgZTHhzc",
         "note": "Stand up Comedy sobre a Bilola de Brennand (Recife) - por Renato Bartolomeu"
       }
@@ -2813,7 +2813,7 @@ window.CLIPS = {
       "r": 70,
       "start": 58,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Salvador, Bahia, Brazil",
@@ -2831,7 +2831,7 @@ window.CLIPS = {
       "source": {
         "who": "Samir Tayrovitch",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=MY7flvJA4Ds",
         "note": "entrevista basket de rua salvador  bahia"
       }
@@ -2848,7 +2848,7 @@ window.CLIPS = {
       "r": 70,
       "start": 30,
       "gain": 100,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "model": "gemini-3.6-flash",
         "heard": "Salvador, Bahia, Brazil",
@@ -2866,7 +2866,7 @@ window.CLIPS = {
       "source": {
         "who": "Escanio Oficial",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=GqUWj0x6OUc",
         "note": "vídeo engraçado! eles não entenderam nada"
       }
@@ -3050,7 +3050,7 @@ window.CLIPS = {
       "start": 65,
       "gain": 100,
       "year": 2014,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "heard": "Vienna, Austria",
         "offBy": 0,
@@ -3066,7 +3066,7 @@ window.CLIPS = {
       "source": {
         "who": "PLAN B",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=Fzqb0bMb0k0",
         "note": "Mariahilfer Straße: Das denken die Passanten"
       }
@@ -3084,7 +3084,7 @@ window.CLIPS = {
       "start": 56,
       "gain": 100,
       "year": 2016,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "heard": "Zurich, Switzerland",
         "offBy": 0,
@@ -3100,7 +3100,7 @@ window.CLIPS = {
       "source": {
         "who": "Datenschutzbeauftragte Kanton Zürich",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=VJrzKyHO_ww",
         "note": "Lassen sich diese Passanten überwachen? | 3. Rang - Datenschutz und Privacy Video"
       }
@@ -3118,7 +3118,7 @@ window.CLIPS = {
       "start": 43,
       "gain": 100,
       "year": 2013,
-      "hint": "Streamed from YouTube · the creator gets the view.",
+      "hint": "Streamed from YouTube, so the creator gets the view.",
       "gate": {
         "heard": "Leipzig, Germany",
         "offBy": 0,
@@ -3134,7 +3134,7 @@ window.CLIPS = {
       "source": {
         "who": "Leipziger Volkszeitung",
         "host": "YouTube",
-        "license": "Streamed from YouTube — the creator keeps the view",
+        "license": "Streamed from YouTube, so the creator keeps the view",
         "page": "https://www.youtube.com/watch?v=hHWdqgOUkWU",
         "note": "Umfrage: Skandal an Leipziger Uni-Klinik"
       }
