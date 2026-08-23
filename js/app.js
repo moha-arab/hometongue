@@ -1439,9 +1439,11 @@ function renderResult(v) {
   // listening to their vowels, which was fixed earlier tonight for exactly this reason.
   const fromAudio = !!window._lastAudio;
   heard.hidden = !v.transcript || !fromAudio;
-  // collapsed on every new result, not just the first paint
-  const heardDetails = heard.querySelector('.heard-details');
-  if (heardDetails) heardDetails.open = false;
+  // two-line preview on every new result; the button appears only when there is more to show
+  const heardText = $('#heardText'), heardMore = $('#heardMore');
+  heardText.classList.add('clamp');
+  heardMore.textContent = 'show more';
+  requestAnimationFrame(() => { heardMore.hidden = heardText.scrollHeight <= heardText.clientHeight + 2; });
   if (v.transcript && fromAudio) $('#heardText').textContent = v.transcript;
   $('#srcBadge').textContent = v.language ? v.language.toLowerCase() : '';
 
@@ -2048,8 +2050,13 @@ function bindUI() {
   $('#analyzeTypedBtn').onclick = () => runTextAnalysis($('#typeBox').value, true);
   $('#againBtn').onclick = () => { state = 'idle'; show('idleCard'); flyHome(); };
   $('#shareBtn').onclick = shareResult;
+  $('#heardMore').onclick = () => {
+    const t = $('#heardText'), b = $('#heardMore');
+    const open = t.classList.toggle('clamp') === false;
+    b.textContent = open ? 'show less' : 'show more';
+  };
   // Counted, not intercepted: these stay plain links and the beacon survives the navigation.
-  const nextUp = document.querySelector('.after-pill.next');
+  const nextUp = document.querySelector('.after-tile.next');
   if (nextUp) nextUp.addEventListener('click', () => track('nextup_tap'));
   const tipBtn = document.querySelector('.tip-btn');
   if (tipBtn) tipBtn.addEventListener('click', () => track('tip_tap', { where: 'result' }));

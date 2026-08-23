@@ -688,20 +688,12 @@ function lockIn() {
 }
 
 // Credits people can actually read: who recorded it, where it lives, the licence, and a way in.
-function renderSource(src = {}, year) {
-  // collapsed on every reveal, not just the first paint
-  const more = $('#srcMore');
-  if (more) more.open = false;
-  const rows = [['#srcWho', src.who], ['#srcHost', src.host], ['#srcYear', year ? String(year) : ''], ['#srcLicense', src.license]];
-  for (const [sel, val] of rows) {
-    const el = $(sel);
-    el.textContent = val || '—';
-    el.parentElement.hidden = !val;
-  }
-  if (src.note) {
-    $('#srcLicense').textContent = `${src.license || '—'} · ${src.note}`;
-    $('#srcLicense').parentElement.hidden = false;
-  }
+function renderSource(src = {}) {
+  $('#srcWho').textContent = src.who || 'unknown';
+  // the licence, with the curator's note when there is one ("trimmed and re-encoded…")
+  const lic = [src.license, src.note].filter(Boolean).join(' · ');
+  $('#srcLicense').textContent = lic;
+  $('#srcLicenseWrap').hidden = !lic;
   const link = $('#srcLink');
   link.hidden = !src.page;
   if (src.page) link.href = src.page;

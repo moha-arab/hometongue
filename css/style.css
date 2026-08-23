@@ -352,24 +352,6 @@ textarea {
 textarea::placeholder { color: var(--grey-2); }
 textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 
-/* The tip ask at the end of the result card. Amber rather than the interactive green, because it
-   is a thank-you moment, not a task; the answer above it already earned the colour. */
-.tip-note {
-  margin-top: 14px; padding: 13px 15px;
-  background: color-mix(in srgb, var(--amber) 9%, var(--sheet));
-  border: 1px solid color-mix(in srgb, var(--amber) 30%, transparent);
-  border-radius: var(--r);
-  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
-}
-.tip-note p { margin: 0; font-family: var(--sans); font-size: 13px; color: var(--black-2); flex: 1; min-width: 180px; }
-.tip-btn {
-  background: var(--amber); color: #fff; text-decoration: none;
-  font-family: var(--sans); font-size: 13px; font-weight: 600;
-  padding: 0 16px; border-radius: var(--r-sm);
-  display: inline-flex; align-items: center; min-height: 44px; white-space: nowrap;
-}
-.tip-btn:hover { background: var(--amber-ink); }
-
 /* The "your take survived" notice on the idle card. Quiet enough not to compete with the mic
    button above it, solid enough that it does not read as another hint to skip. */
 .retry-note {
@@ -786,10 +768,8 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 .reveal-hint { margin-top: 10px; font-size: 13.5px; color: var(--grey); line-height: 1.55; }
 
 .source-card { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--rule-soft); text-align: left; }
-.source-row { display: flex; gap: 12px; align-items: baseline; margin-bottom: 5px; }
-.source-row:last-of-type { margin-bottom: 0; }
-.source-key { flex: 0 0 66px; color: var(--grey-2); }
-.source-val { flex: 1; font-size: 12.5px; color: var(--black-2); line-height: 1.45; }
+.source-key { color: var(--grey-2); }
+.source-val { font-size: 12.5px; color: var(--black-2); line-height: 1.45; }
 .source-link {
   display: inline-block; margin-top: 10px;
   font-family: var(--label); font-size: 11px; letter-spacing: 0.04em;
@@ -1170,7 +1150,6 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 
 /* ——— flagging a bad clip, on the reveal sheet ——— */
 .clip-flag { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--rule-soft); }
-.flag-q { font-family: var(--label); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--grey); }
 .flag-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
 .flag-chip {
   font-family: var(--sans); font-size: 12.5px; color: var(--grey);
@@ -1336,53 +1315,55 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
 }
 
 /* ——— the quieter reveal and result cards (Aug 2026 declutter) ——— */
-/* one credit line; host, year and licence sit behind a tap */
-.source-line { margin: 0; font-size: 12.5px; color: var(--black-2); line-height: 1.5; }
-.source-line .source-key { color: var(--grey-2); margin-right: 4px; }
-.source-line .source-link { margin: 0 0 0 8px; }
-.source-more { margin-top: 8px; }
-.source-more summary {
-  cursor: pointer; list-style: none; font-family: var(--label); font-size: 10.5px;
-  letter-spacing: .08em; text-transform: uppercase; color: var(--grey-2);
-  /* a 16px text line above the round-advance button is a mis-tap waiting to happen: give the
-     toggle a thumb-sized box without moving the layout around it */
-  display: inline-flex; align-items: center; min-height: 40px; padding: 0 10px; margin: -10px 0 0 -10px;
-}
-.source-more summary::-webkit-details-marker { display: none; }
-.source-more summary::before { content: '+ '; }
-.source-more[open] summary::before { content: '– '; }
-.source-more[open] summary { margin-bottom: 8px; }
 
-/* the flag question is a button now, collapsed by default, and kept clear of "next clip" */
-.clip-flag { margin-top: 18px; }
-button.flag-q { background: none; border: none; cursor: pointer; padding: 6px 0; min-height: 32px; }
-button.flag-q:hover { color: var(--accent); }
 
-/* the transcript opens on tap */
-/* the whole grey panel reads as the control, so the summary carries the panel's padding */
-.heard { padding: 0; }
-.heard-details summary { cursor: pointer; list-style: none; padding: 13px 15px; min-height: 44px; box-sizing: border-box; display: flex; align-items: center; }
-.heard-details p { margin: 0; padding: 0 15px 13px; }
-.heard-details summary::-webkit-details-marker { display: none; }
-.heard-details summary span::after { content: ' · tap to open'; color: var(--grey-2); letter-spacing: 0; text-transform: none; }
-.heard-details[open] summary span::after { content: ''; }
-.heard-details p { margin-top: 10px; }
 
 /* primary actions share one row; the share button loses its solo-button margins inside it */
 .fb-row.actions { margin-top: 22px; }
 .fb-row .share-btn { margin: 0; }
 
-/* the closing row: one muted line, two pills */
-.after { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--rule-soft); }
-.after-line { margin: 0 0 8px; font-size: 12.5px; color: var(--grey); }
-.after-row { display: flex; gap: 8px; flex-wrap: wrap; }
-.after-pill {
-  display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px;
-  border-radius: 999px; text-decoration: none; font-family: var(--sans); font-size: 13px; font-weight: 600;
-}
-.after-pill.next { color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent-line); }
-.after-pill.tip-btn { color: var(--amber-ink); background: color-mix(in srgb, var(--amber) 12%, var(--sheet)); border: 1px solid color-mix(in srgb, var(--amber) 35%, transparent); }
-.after-pill:hover { filter: brightness(0.96); }
 
 /* the game final card: share takes a full line above the play-again pair */
 .share-btn.wide { display: block; width: 100%; margin: 16px 0 0; text-align: center; }
+
+/* ——— visible patterns, no fold-aways (the tap-to-open versions were rejected) ——— */
+/* one visible credit line on the reveal */
+.source-line { margin: 0; font-size: 12.5px; color: var(--black-2); line-height: 1.5; }
+.source-line .source-key { color: var(--grey-2); margin-right: 4px; }
+.source-line .source-sep { color: var(--grey-2); margin: 0 2px; }
+.source-line .source-link { margin: 0 0 0 8px; }
+
+/* the report control looks like a button, and sits clear of "next clip" */
+.clip-flag { margin-top: 18px; }
+.flag-open {
+  display: inline-flex; align-items: center; gap: 7px; min-height: 40px; padding: 0 14px;
+  background: none; border: 1px solid var(--rule); border-radius: 999px; cursor: pointer;
+  font-family: var(--sans); font-size: 12.5px; font-weight: 600; color: var(--grey);
+}
+.flag-open:hover { border-color: var(--accent); color: var(--accent); }
+
+/* the transcript: a two-line preview, and a button that looks like one */
+.heard p.clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.more-btn {
+  margin-top: 8px; padding: 6px 12px; min-height: 34px;
+  background: var(--sheet); border: 1px solid var(--rule); border-radius: var(--r-sm); cursor: pointer;
+  font-family: var(--sans); font-size: 12.5px; font-weight: 600; color: var(--accent);
+}
+.more-btn:hover { border-color: var(--accent); }
+
+/* the closing row: two small labelled tiles, each saying what it is */
+.after { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--rule-soft); display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.after-tile {
+  display: flex; flex-direction: column; gap: 3px; padding: 11px 13px; border-radius: var(--r);
+  text-decoration: none; border: 1px solid var(--rule); background: var(--sheet);
+  /* explicit, because .tip-btn once leaked nowrap/centre/bold into this tile and broke the grid */
+  white-space: normal; align-items: stretch; font-weight: 400; min-height: 0; min-width: 0;
+}
+.after-tile b { font-family: var(--sans); font-size: 13.5px; font-weight: 600; color: var(--black); }
+.after-tile span { font-size: 12px; line-height: 1.35; color: var(--grey); }
+.after-tile.next { border-color: var(--accent-line); }
+.after-tile.next b { color: var(--accent); }
+.after-tile.tip-btn { border-color: color-mix(in srgb, var(--amber) 40%, transparent); background: color-mix(in srgb, var(--amber) 8%, var(--sheet)); }
+.after-tile.tip-btn b { color: var(--amber-ink); }
+.after-tile:hover { filter: brightness(0.98); }
+@media (max-width: 420px) { .after { grid-template-columns: 1fr; } }

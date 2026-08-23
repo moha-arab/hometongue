@@ -204,11 +204,12 @@
     <div class="evidence" id="evidence"></div>
     <!-- Tap to open. The transcript is useful and long, and it sat open between the verdict and
          the buttons; most people glanced at one line of it and scrolled past the rest. -->
+    <!-- Visible, not folded. A two-line preview with a fade says "there is more" by itself, and
+         the control under it is a button that looks like one. No tap-to-open labels anywhere. -->
     <div class="heard" id="heard" hidden>
-      <details class="heard-details">
-        <summary class="heard-head"><span>what we heard</span></summary>
-        <p id="heardText"></p>
-      </details>
+      <div class="heard-head"><span>what we heard</span></div>
+      <p id="heardText" class="clamp"></p>
+      <button class="more-btn" id="heardMore" type="button">show more</button>
     </div>
     <div class="runners" id="runners"></div>
     <div class="feedback" id="feedback">
@@ -232,11 +233,8 @@
          paragraph each did their job but together they were a wall under the buttons, and
          the wall is what "cluttered" meant. Same two invitations, a quarter of the height. -->
     <div class="after">
-      <p class="after-line">HomeTongue is one student's passion project.</p>
-      <div class="after-row">
-        <a class="after-pill next" href="/game">🎧 guess the voice →</a>
-        <a class="after-pill tip-btn" href="https://buymeacoffee.com/zorvint" target="_blank" rel="noopener">☕ leave a tip</a>
-      </div>
+      <a class="after-tile next" href="/game"><b>🎧 Guess the Voice</b><span>Hear a stranger, pin where they're from.</span></a>
+      <a class="after-tile tip-btn" href="https://buymeacoffee.com/zorvint" target="_blank" rel="noopener"><b>☕ Leave a tip</b><span>I'm a student, and HomeTongue is my passion project.</span></a>
     </div>
   </section>
 

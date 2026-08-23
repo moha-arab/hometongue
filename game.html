@@ -108,11 +108,8 @@
          cross-sell made the end of every card a wall; this is the same two invitations in a
          quarter of the height. -->
     <div class="after">
-      <p class="after-line">HomeTongue is one student's passion project.</p>
-      <div class="after-row">
-        <a class="after-pill next" href="/">read my accent →</a>
-        <a class="after-pill tip-btn" href="https://buymeacoffee.com/zorvint" target="_blank" rel="noopener">☕ leave a tip</a>
-      </div>
+      <a class="after-tile next" href="/"><b>🎙 Read My Accent</b><span>Talk in your mother tongue; it hears where home is.</span></a>
+      <a class="after-tile tip-btn" href="https://buymeacoffee.com/zorvint" target="_blank" rel="noopener"><b>☕ Leave a tip</b><span>I'm a student, and HomeTongue is my passion project.</span></a>
     </div>
   </section>
 
@@ -156,14 +153,11 @@
        The who stays visible because it is the human part; host, year and licence live inside
        a details element, still on the reveal (CC BY-SA asks that the licence be shown) but
        not in the way. -->
+  <!-- ONE VISIBLE LINE, nothing folded: who made it, the licence it carries, a way in. Host and
+       year are dropped from the reveal (the archival chip already shows the year when it matters).
+       The licence stays on screen because CC BY-SA asks for it - it is just no longer a table. -->
   <div class="source-card" id="revealSource">
-    <p class="source-line"><span class="source-key">recording</span> <span class="source-val" id="srcWho"></span> <a class="source-link" id="srcLink" target="_blank" rel="noopener noreferrer">open the original</a></p>
-    <details class="source-more" id="srcMore">
-      <summary>credit &amp; licence</summary>
-      <div class="source-row"><span class="source-key">from</span><span class="source-val" id="srcHost"></span></div>
-      <div class="source-row" id="srcYearRow"><span class="source-key">recorded</span><span class="source-val" id="srcYear"></span></div>
-      <div class="source-row"><span class="source-key">licence</span><span class="source-val" id="srcLicense"></span></div>
-    </details>
+    <p class="source-line"><span class="source-key">recording</span> <span class="source-val" id="srcWho"></span><span id="srcLicenseWrap"> <span class="source-sep">·</span> <span class="source-val" id="srcLicense"></span></span> <a class="source-link" id="srcLink" target="_blank" rel="noopener noreferrer">open the original</a></p>
   </div>
   <button class="stop-btn" id="nextBtn">next clip</button>
   <!-- Listener quality control, below the primary action so "next clip" never sinks under
@@ -173,7 +167,7 @@
        reaching for next landed on "hard to hear" instead - Mohammad did it several times. One
        small text link is hard to hit by accident, and hitting it only opens the chips. -->
   <div class="clip-flag" id="clipFlag">
-    <button class="flag-q" id="flagQ" type="button">something off with this clip?</button>
+    <button class="flag-open" id="flagQ" type="button"><span aria-hidden="true">⚑</span> report this clip</button>
     <div class="flag-chips" id="flagChips" hidden>
       <button class="flag-chip" data-reason="audio">hard to hear</button>
       <button class="flag-chip" data-reason="label">doesn't fit the place</button>
