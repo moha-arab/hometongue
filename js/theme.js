@@ -8,7 +8,10 @@ window.HT = window.HT || {};
 // Voyager only has continent labels, and they arrive as every language at once
 // ("AMÉRICA DO SUL;AMÉRICA DEL SUR"), which reads as a rendering bug. Country
 // names start around z4 and those are the ones that actually help you pin.
-const CARTO = 'https://{s}.basemaps.cartocdn.com/rastertiles/{style}/{z}/{x}/{y}{r}.png';
+// Carto began watermarking keyless raster tiles ('API KEY REQUIRED') in Aug 2026. The key is
+// free-tier (5M tiles/month, attribution required) and public by design - it ships to every
+// browser in this URL, so committing it here is no extra exposure.
+const CARTO = 'https://{s}.basemaps.cartocdn.com/rastertiles/{style}/{z}/{x}/{y}{r}.png?key=cb1_29mt_1_e9c766b1187d6c83139198fa';
 const LABEL_ZOOM = 4;
 
 // The world is 256px square at zoom 0 and doubles each level, so below a certain zoom it is
