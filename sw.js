@@ -9,7 +9,7 @@
 // BUMP THIS ON ANY DEPLOY THAT CHANGES THE SHELL. It sat at v47 through 22 consecutive deploys,
 // and because the install handler only re-runs when THIS FILE changes, the precache still held
 // index.html and app.js from 22 commits ago the whole time.
-const VERSION = 'ht-v59';   // v59: tip tile leads the after row. v58: Carto API key on the basemap tiles. v55: tip-tile wording again. v54: dash-free copy sweep. v53: never-mind exit on the report chips. v52: reveal/result/final cards restructured (share-my-score, collapsed flags, after row). v51: telemetry.js joins LOCKSTEP (every page loads it first)
+const VERSION = 'ht-v60';   // v60: session-keyed rate limits, media.js joins LOCKSTEP. v59: tip tile leads the after row. v58: Carto API key on the basemap tiles. v55: tip-tile wording again. v54: dash-free copy sweep. v53: never-mind exit on the report chips. v52: reveal/result/final cards restructured (share-my-score, collapsed flags, after row). v51: telemetry.js joins LOCKSTEP (every page loads it first)
 
 // FILES WHOSE VERSIONS MUST MATCH EACH OTHER. A stale copy of an icon is a cosmetic nuisance; a
 // stale app.js against a fresh index.html is a crash, because the old code looks for elements the
@@ -25,7 +25,9 @@ const VERSION = 'ht-v59';   // v59: tip tile leads the after row. v58: Carto API
 // '/game' and '/game.html' are BOTH here: cleanUrls serves the page at /game and 308s the old
 // path, but a phone that installed the PWA before the rename still navigates to /game.html
 // until its manifest refreshes, and both spellings must get the same never-stale treatment.
-const LOCKSTEP = new Set(['/', '/index.html', '/game', '/game.html', '/js/app.js', '/js/game.js', '/js/clips.js', '/js/telemetry.js', '/css/style.css']);
+// media.js is here because game.js hard-depends on its API and they change together: a stale
+// media.js against a fresh game.js is the same version-skew crash this list exists to prevent.
+const LOCKSTEP = new Set(['/', '/index.html', '/game', '/game.html', '/js/app.js', '/js/game.js', '/js/media.js', '/js/clips.js', '/js/telemetry.js', '/css/style.css']);
 // WHAT IS PRECACHED, AND WHAT DELIBERATELY IS NOT.
 //
 // The pages and the app scripts are NOT in here, and that is the fix for a problem that has now

@@ -747,7 +747,7 @@ async function submitScore() {
   try {
     const resp = await fetch('/api/scores', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'X-HT-Session': (window.HT && window.HT.session) || '' },
       body: JSON.stringify({ nickname, game_type: gameType, points: total, token: gameToken, rounds: roundLog.map((r) => ({ id: r.id, km: r.km, pts: r.pts })) }),
     });
     const d = await resp.json();
@@ -854,13 +854,14 @@ function resetClipFlag() {
   $('#flagNoteSend').hidden = false;
   $('#flagNoteSend').disabled = false;
   for (const b of document.querySelectorAll('#flagChips .flag-chip')) b.disabled = false;
+  $('#flagCancel').disabled = false;
 }
 
 async function sendClipReport(body) {
   try {
     const r = await fetch('/api/clip-report', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'X-HT-Session': (window.HT && window.HT.session) || '' },
       body: JSON.stringify(body),
       // a dangling fetch on flaky mobile once left the send button dead for the whole game
       signal: AbortSignal.timeout(8000),
@@ -874,6 +875,9 @@ for (const btn of document.querySelectorAll('#flagChips .flag-chip')) {
     const clip = deck[round];
     if (!clip) return;
     for (const b of document.querySelectorAll('#flagChips .flag-chip')) b.disabled = true;
+    // The decision is made and the report is in flight: cancelling now would hide the chips,
+    // re-show the question, and then the success path would unhide the thanks line next to it.
+    $('#flagCancel').disabled = true;
     const last = roundLog[roundLog.length - 1] || {};
     track('clip_flag', { deck: gameType, reason: btn.dataset.reason });
     const ok = await sendClipReport({ clip_id: clip.id, deck: gameType, label: clip.label, reason: btn.dataset.reason, km: last.km });
@@ -886,6 +890,7 @@ for (const btn of document.querySelectorAll('#flagChips .flag-chip')) {
     } else {
       toast("Couldn't send that right now.");
       for (const b of document.querySelectorAll('#flagChips .flag-chip')) b.disabled = false;
+      $('#flagCancel').disabled = false;
     }
   };
 }

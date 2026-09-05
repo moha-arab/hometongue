@@ -23,16 +23,40 @@ const AUDIO_MIME = { 'audio/webm': 'webm', 'audio/mp4': 'mp4', 'audio/mpeg': 'mp
 const MAX_CLIP_BYTES = 2.5 * 1024 * 1024;
 const TOKEN_MAX_AGE_MS = 30 * 60 * 1000;
 
-// Per-instance rate limit (serverless instances are ephemeral — this is a speed bump, not a wall)
+// Per-instance rate limit (serverless instances are ephemeral — this is a speed bump, not a wall).
+// Session-keyed with an IP flood backstop, same lesson as api/track.js: a venue is one IP, and
+// 12-per-IP-per-hour capped the whole room's corrections at 12 — the exact rows this project
+// exists to collect. A verdict normally produces one or two posts, so 20 per session per hour is
+// generous for a person and useless for a script. The session id is used as a bucket key in
+// memory only; it is never written to the feedback row.
 const buckets = new Map();
-function rateLimited(ip) {
+function over(key, limit) {
   const now = Date.now();
-  const b = buckets.get(ip) || { count: 0, reset: now + 3600_000 };
+  const b = buckets.get(key) || { count: 0, reset: now + 3600_000 };
   if (now > b.reset) { b.count = 0; b.reset = now + 3600_000; }
   b.count += 1;
-  buckets.set(ip, b);
-  if (buckets.size > 5000) buckets.clear(); // memory guard
-  return b.count > 12;
+  buckets.set(key, b);
+  if (buckets.size > 10000) prune(now); // memory guard
+  return b.count > limit;
+}
+// NEVER buckets.clear(): session keys are client-minted, so a script rotating ids could grow
+// the map to the ceiling on purpose and a clear() would hand it back its whole IP budget —
+// an attacker-triggered amnesty. Expired buckets go first; if the map is somehow still over,
+// the minted kind (session buckets) go; the 'ip:' counters survive anything short of ten
+// thousand distinct real addresses, at which point per-IP limiting is beaten regardless and
+// the daily wallet guard is what's left.
+function prune(now) {
+  for (const [k, v] of buckets) if (now > v.reset) buckets.delete(k);
+  if (buckets.size > 10000) for (const k of [...buckets.keys()]) if (k.startsWith('s:')) buckets.delete(k);
+  if (buckets.size > 10000) buckets.clear();
+}
+const sessionOf = (req) => {
+  const s = String(req.headers['x-ht-session'] || '');
+  return /^[a-z0-9]{4,16}$/i.test(s) ? s : null;
+};
+function rateLimited(ip, session) {
+  if (session) return over('s:' + session, 20) || over('ip:' + ip, 400);
+  return over('ip:' + ip, 40);
 }
 
 function tokenSecret() {
@@ -110,7 +134,7 @@ export default async function handler(req, res) {
   // x-real-ip is platform-set; the leftmost x-forwarded-for entry is client-writable and
   // let a scripted client rotate identities past the limiter (same fix clip-report shipped with)
   const ip = (req.headers['x-real-ip'] || (req.headers['x-forwarded-for'] || '').split(',')[0]).trim() || 'unknown';
-  if (rateLimited(ip)) {
+  if (rateLimited(ip, sessionOf(req))) {
     res.statusCode = 429;
     return res.end(JSON.stringify({ ok: false, error: 'rate_limited' }));
   }

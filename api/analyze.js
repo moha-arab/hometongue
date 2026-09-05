@@ -353,15 +353,41 @@ function sane(r) {
 }
 
 // Per-instance rate limit — a speed bump against credit-burning scripts, not a wall.
+// KEYED ON THE SESSION, with the IP as a loose flood backstop. api/track.js learned this first:
+// a campus or an event venue is ONE public IP, and 30-per-IP-per-hour meant person 31 in the
+// room was refused their FIRST take. The session id is the same throwaway tab-scoped id
+// telemetry uses; it is checked here in memory and never stored with the take. A client too old
+// to send one (pre-v60 cached shell) gets a tighter IP-only budget instead — those clients age
+// out with the next service-worker update. Rotating sessions to dodge the cap just walks into
+// the IP backstop, and rotating IPs walks into the daily wallet guard below.
 const buckets = new Map();
-function rateLimited(ip) {
+function over(key, limit) {
   const now = Date.now();
-  const b = buckets.get(ip) || { count: 0, reset: now + 3600_000 };
+  const b = buckets.get(key) || { count: 0, reset: now + 3600_000 };
   if (now > b.reset) { b.count = 0; b.reset = now + 3600_000; }
   b.count += 1;
-  buckets.set(ip, b);
-  if (buckets.size > 5000) buckets.clear();
-  return b.count > 30;
+  buckets.set(key, b);
+  if (buckets.size > 10000) prune(now);
+  return b.count > limit;
+}
+// NEVER buckets.clear(): session keys are client-minted, so a script rotating ids could grow
+// the map to the ceiling on purpose and a clear() would hand it back its whole IP budget —
+// an attacker-triggered amnesty. Expired buckets go first; if the map is somehow still over,
+// the minted kind (session buckets) go; the 'ip:' counters survive anything short of ten
+// thousand distinct real addresses, at which point per-IP limiting is beaten regardless and
+// the daily wallet guard is what's left.
+function prune(now) {
+  for (const [k, v] of buckets) if (now > v.reset) buckets.delete(k);
+  if (buckets.size > 10000) for (const k of [...buckets.keys()]) if (k.startsWith('s:')) buckets.delete(k);
+  if (buckets.size > 10000) buckets.clear();
+}
+const sessionOf = (req) => {
+  const s = String(req.headers['x-ht-session'] || '');
+  return /^[a-z0-9]{4,16}$/i.test(s) ? s : null;
+};
+function rateLimited(ip, session) {
+  if (session) return over('s:' + session, 15) || over('ip:' + ip, 400);
+  return over('ip:' + ip, 60);
 }
 
 // THE WALLET GUARD. There are no accounts here, so per-IP limits are a speed bump that a
@@ -484,7 +510,7 @@ export default async function handler(req, res) {
   //
   // A collect spends no model call and no cap slot. It is a delivery, and deliveries are not what
   // this limiter exists to stop.
-  if (rateLimited(ip)) {
+  if (rateLimited(ip, sessionOf(req))) {
     res.statusCode = 429;
     return res.end(JSON.stringify({ ok: false, error: 'rate_limited', detail: 'Slow down a little — try again in a bit.' }));
   }

@@ -40,7 +40,7 @@ for (const s of survive) {
     id: `yt-${c.videoId}`, kind: 'yt', videoId: c.videoId, deck: c.deck,
     label: c.label, lang: g.lang, lat: g.lat, lng: g.lng, r: g.r || 100,
     start: c.start, gain: 100, year: c.year || undefined,
-    hint: 'Streamed from YouTube — the creator gets the view.',
+    hint: 'Streamed from YouTube, so the creator gets the view.',
     gate: {
       heard: c.heard, offBy: c.offBy, provenance: c.provenance,
       title: c.title, author: c.channel,

@@ -49,7 +49,7 @@ for (const [deck, list] of Object.entries(CLIPS)) {
     // One house style for the YouTube credit. Forty-one clips used an em dash and three used a
     // middot for the identical sentence.
     if (/^Streamed from YouTube/.test(h)) {
-      const want = 'Streamed from YouTube · the creator gets the view.';
+      const want = 'Streamed from YouTube, so the creator gets the view.';
       if (h !== want) { c.hint = want; changed += 1; }
       continue;
     }

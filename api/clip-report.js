@@ -27,15 +27,33 @@ function readJsonBody(req) {
 }
 
 // Same speed bump as analyze: per-instance, resets hourly, not a wall.
+// Session-keyed with an IP flood backstop, same as feedback/scores: flags are contributed
+// quality data and a venue is one IP — 20-per-IP-per-hour capped a whole room's reports.
+// The session id is a rate-limit key in memory only; the report row never stores it.
 const buckets = new Map();
-function rateLimited(ip) {
+function over(key, limit) {
   const now = Date.now();
-  const b = buckets.get(ip) || { count: 0, reset: now + 3600_000 };
+  const b = buckets.get(key) || { count: 0, reset: now + 3600_000 };
   if (now > b.reset) { b.count = 0; b.reset = now + 3600_000; }
   b.count += 1;
-  buckets.set(ip, b);
-  if (buckets.size > 5000) buckets.clear();
-  return b.count > 20;
+  buckets.set(key, b);
+  if (buckets.size > 10000) prune(now);
+  return b.count > limit;
+}
+// Not clear(): session keys are client-minted, and a full clear would refund the minter's
+// own 'ip:' budget. Expired first, then session buckets; ip counters survive.
+function prune(now) {
+  for (const [k, v] of buckets) if (now > v.reset) buckets.delete(k);
+  if (buckets.size > 10000) for (const k of [...buckets.keys()]) if (k.startsWith('s:')) buckets.delete(k);
+  if (buckets.size > 10000) buckets.clear();
+}
+const sessionOf = (req) => {
+  const s = String(req.headers['x-ht-session'] || '');
+  return /^[a-z0-9]{4,16}$/i.test(s) ? s : null;
+};
+function rateLimited(ip, session) {
+  if (session) return over('s:' + session, 10) || over('ip:' + ip, 200);
+  return over('ip:' + ip, 30);
 }
 
 const clean = (v, n) => (typeof v === 'string' ? v.replace(/\s+/g, ' ').trim().slice(0, n) : '');
@@ -58,7 +76,7 @@ export default async function handler(req, res) {
   // x-real-ip is set by the platform; the leftmost x-forwarded-for entry is client-writable
   // and would let a scripted client rotate identities past the limiter.
   const ip = (req.headers['x-real-ip'] || (req.headers['x-forwarded-for'] || '').split(',')[0]).trim() || 'unknown';
-  if (rateLimited(ip)) {
+  if (rateLimited(ip, sessionOf(req))) {
     res.statusCode = 429;
     return res.end(JSON.stringify({ ok: false, error: 'rate_limited' }));
   }

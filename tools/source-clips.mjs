@@ -562,7 +562,7 @@ for (const t of targets) {
         // that inference is how six Hindi and Chinese clips once landed in World Languages.
         deck: t.deck,
         lat: t.lat, lng: t.lng, r: t.r || 120, start, gain: 100,
-        hint: 'Streamed from YouTube — the creator gets the view.',
+        hint: 'Streamed from YouTube, so the creator gets the view.',
         gate: {
           model: MODEL, heard: g.place, offBy: Math.round(d), confidence: g.confidence,
           evidence: (g.evidence || []).slice(0, 3), title: emb.title, author: emb.author,

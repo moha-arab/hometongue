@@ -40,6 +40,10 @@ window.HT = window.HT || {};
     } catch { /* telemetry never throws into the app */ }
   }
   window.HT.track = track;
+  // Shared with the API calls (analyze/feedback/scores) as an X-HT-Session header. Servers use
+  // it only as an in-memory rate-limit key so one busy venue IP does not starve everyone;
+  // it is never stored with a take, a feedback row, or a score.
+  window.HT.session = session;
 
   track('page_view', {
     w: window.innerWidth,

@@ -45,8 +45,16 @@ function over(key, limit) {
   if (now > b.reset) { b.count = 0; b.reset = now + 60_000; }
   b.count += 1;
   buckets.set(key, b);
-  if (buckets.size > 10000) buckets.clear();
+  if (buckets.size > 10000) prune(now);
   return b.count > limit;
+}
+// Not clear(): session ids arrive from the client, so growing the map to the ceiling is free,
+// and a full clear would refund the sender's own 'ip:' budget. Expired first (a 60s window
+// expires fast), then minted session buckets; the ip counters are the last thing standing.
+function prune(now) {
+  for (const [k, v] of buckets) if (now > v.reset) buckets.delete(k);
+  if (buckets.size > 10000) for (const k of [...buckets.keys()]) if (k.startsWith('s:')) buckets.delete(k);
+  if (buckets.size > 10000) buckets.clear();
 }
 const rateLimited = (ip, session) => over('ip:' + ip, 600) || over('s:' + session, 40);
 

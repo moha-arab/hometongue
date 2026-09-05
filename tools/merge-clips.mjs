@@ -59,7 +59,7 @@ for (const c of accepted) {
     source: {
       who: c.gate?.author || 'YouTube creator',
       host: 'YouTube',
-      license: 'Streamed from YouTube — the creator keeps the view',
+      license: 'Streamed from YouTube, so the creator keeps the view',
       page: `https://www.youtube.com/watch?v=${c.videoId}`,
       note: c.gate?.title || '',
     },

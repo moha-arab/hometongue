@@ -1293,7 +1293,7 @@ async function postAnalyze(payload, extraSignal) {
   try {
     resp = await fetch('/api/analyze', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'X-HT-Session': (window.HT && window.HT.session) || '' },
       body: JSON.stringify(payload),
       signal: ctl.signal,
     });
@@ -1971,7 +1971,7 @@ function saveFeedback(correct, actual, actualCity) {
   track('feedback', { correct: !!correct });
   fetch('/api/feedback', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', 'X-HT-Session': (window.HT && window.HT.session) || '' },
     body: JSON.stringify(payload),
   })
     .then((r) => r.json())
@@ -2116,7 +2116,7 @@ function bindUI() {
       const last = window._lastResult;
       const r = await fetch('/api/feedback', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'X-HT-Session': (window.HT && window.HT.session) || '' },
         body: JSON.stringify({
           consent: true,
           audio: window._lastAudio.audio,
