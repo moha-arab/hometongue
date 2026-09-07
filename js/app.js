@@ -2185,3 +2185,18 @@ bindUI();
     });
   });
 })();
+
+// The one line of social proof on the idle card: a real count, fetched live, hidden on any
+// failure. It speaks only when it has something worth saying — an outage or an empty table
+// leaves the card exactly as it was, never a zero.
+(async () => {
+  const el = document.getElementById('pulseLine');
+  if (!el) return;
+  try {
+    const d = await (await fetch('/api/pulse', { signal: AbortSignal.timeout(6000) })).json();
+    if (d.ok && d.heard >= 500) {
+      el.textContent = d.heard.toLocaleString('en-US') + ' voices heard so far';
+      el.hidden = false;
+    }
+  } catch { /* the card is complete without it */ }
+})();

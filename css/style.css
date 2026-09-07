@@ -1375,3 +1375,8 @@ textarea:focus, input[type="text"]:focus { border-color: var(--accent); }
   text-decoration: underline; text-underline-offset: 3px;
 }
 .flag-cancel:hover { color: var(--accent); }
+
+/* the live count under the mic: quiet, true, and absent rather than zero on a bad day.
+   NOT .pulse - that name is taken by the amber ring animation at line ~632, and this line
+   spent five minutes rendering as one before the collision was caught. */
+.heard-count { font-family: var(--sans); font-size: 12px; color: var(--grey); margin: 10px 0 0; text-align: center; font-variant-numeric: tabular-nums; }
