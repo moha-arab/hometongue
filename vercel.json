@@ -59,5 +59,11 @@
       ]
     }
   ],
-  "cleanUrls": true
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/l/:k",
+      "destination": "/api/listen?k=:k"
+    }
+  ]
 }
