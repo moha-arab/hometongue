@@ -923,7 +923,7 @@ async function pollForTake(id, key, onTick) {
       // poll saw 'pending' forever and the person got a timeout message about the wrong thing.
       if (got.ok) return got;
       throw Object.assign(new Error(got.error || 'server_error'), {
-        userMessage: ERRORS[got.error] || got.detail || '',
+        userMessage: messageFor(got),
       });
     }
     if (onTick) onTick(Math.round(watched / 1000));
@@ -961,7 +961,7 @@ async function collectPendingTake() {
     clearPendingTake();
     if (got.ok) return got;
     throw Object.assign(new Error(got.error || 'server_error'), {
-      userMessage: ERRORS[got.error] || got.detail || '',
+      userMessage: messageFor(got),
     });
   }
 
@@ -1113,7 +1113,9 @@ const ERRORS = {
   audio_too_short: 'That was too short to read anything from. Give me a sentence or two.',
   audio_too_large: 'That recording was too big to send. Try a slightly shorter take.',
   text_too_long: 'That was much longer than needed. A sentence or two is plenty.',
-  rate_limited: 'Slow down a little, try again in a bit.',
+  // Fallback only. The server sends a detail carrying the real number of minutes left, and
+  // messageFor() below prefers it - this is what shows if that detail ever goes missing.
+  rate_limited: 'That is a lot of listening in one hour. Your recording is saved, try again shortly.',
   at_capacity: 'HomeTongue has hit its listening limit for today. It resets at midnight UTC.',
   bad_origin: 'That request was blocked as coming from the wrong domain.',
 };
@@ -1129,12 +1131,29 @@ const ERRORS = {
 // gets asked to do the whole thing again because of a hiccup at Google.
 //
 // The size and length codes stay out for the same reason no_speech does — they are judgements
-// about the audio, and identical bytes fail identically. So do out_of_credit, at_capacity and
-// rate_limited, which are all real but where a resend now cannot succeed either; offering a
-// button that is guaranteed to fail is worse than not offering one.
+// about the audio, and identical bytes fail identically. So do out_of_credit and at_capacity,
+// which are real but where a resend now cannot succeed either; offering a button that is
+// guaranteed to fail is worse than not offering one.
+// ONE CODE IS WORDED BY THE SERVER, not here: rate_limited, because only the server knows how
+// many minutes are left on the window. Everything else keeps its wording in ERRORS, where it can
+// be read and edited as prose instead of being assembled in an API handler.
+const SERVER_WORDED = new Set(['rate_limited']);
+function messageFor(data) {
+  const code = data && data.error;
+  if (SERVER_WORDED.has(code) && data && data.detail) return data.detail;
+  return ERRORS[code] || (data && data.detail) || '';
+}
 const RESENDABLE = new Set([
   'upstream_failed', 'busy', 'swamped', 'server_error', 'timeout', 'take_lost',
   'http_500', 'http_502', 'http_503', 'http_504',
+  // rate_limited used to sit with the final codes on the reasoning that a resend now cannot
+  // succeed either. True, and still the wrong call: the alternative was not 'wait a minute and
+  // press send again', it was THROWING THE RECORDING AWAY and asking a stranger who just spoke
+  // for a minute to do it over. Measured on 46 days: 70 people hit this, 69% of their visits were
+  // finished within five minutes, and 2 of 70 pressed anything at all because no button was
+  // offered. Now the take is kept and the card says how many minutes are left; pressing early is
+  // harmless, it just re-shows an updated wait with the recording still in hand.
+  'rate_limited',
 ]);
 
 // ADDED BY THE CALLER, not by fallbackOrFail, because only the caller knows whether the message it
@@ -1257,7 +1276,7 @@ async function analyzeResilient(payload) {
             // A refusal that was already reached and stored. Re-sending the audio would spend a
             // second call to be told the same thing.
             throw Object.assign(new Error(kept.error || 'server_error'), {
-              userMessage: ERRORS[kept.error] || kept.detail || '',
+              userMessage: messageFor(kept),
             });
           }
         }
@@ -1320,7 +1339,7 @@ async function postAnalyze(payload, extraSignal) {
     // Prefer the map's wording, then the server's own detail string — the server often knows
     // exactly what went wrong (out of credit, too large) and hiding that behind a generic
     // "unreachable" once made a one-line config fix look like a mystery outage.
-    err.userMessage = ERRORS[data && data.error] || (data && data.detail) || '';
+    err.userMessage = messageFor(data);
     throw err;
   }
   return data;
