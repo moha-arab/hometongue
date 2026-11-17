@@ -1004,34 +1004,6 @@ window.CLIPS = {
       }
     },
     {
-      "year": 2026,
-      "id": "yt-_3pnHcYuzOQ",
-      "kind": "yt",
-      "videoId": "_3pnHcYuzOQ",
-      "label": "Brooklyn, New York, USA",
-      "lang": "English",
-      "lat": 40.6015,
-      "lng": -73.993,
-      "r": 110,
-      "start": 41,
-      "gain": 60,
-      "wild": true,
-      "hint": "Streamed from YouTube, so the creator gets the view.",
-      "gate": {
-        "origin": "Bensonhurst, born and raised",
-        "originConfidence": "stated",
-        "quality": "good",
-        "lufs": -11.5
-      },
-      "source": {
-        "who": "News 12",
-        "host": "YouTube",
-        "license": "standard YouTube licence · streamed, never copied",
-        "page": "https://www.youtube.com/watch?v=_3pnHcYuzOQ",
-        "note": "played from 41s, audio only"
-      }
-    },
-    {
       "year": 2020,
       "id": "yt-j1Odp3B7qG4",
       "kind": "yt",

@@ -732,7 +732,11 @@ function finishGame() {
   }
   $('#nickRow').hidden = false;
   $('#board').hidden = true;
-  nickGate();
+  // Re-enable for the new run. submitScore disables the button while a post is in flight and
+  // only re-enables it on failure, so without this a player who posted successfully would
+  // come back to a dead button on their next game. This used to be nickGate(), which reset
+  // the button by re-deriving it from the nickname box; the button no longer depends on that.
+  $('#submitScore').disabled = false;
   setView('final');
 }
 
@@ -759,8 +763,14 @@ async function submitScore() {
   } catch (e) {
     // "score saved locally" was a false claim — nothing persisted the score. Say what is true.
     const msg = e.message === 'not_configured' ? 'Leaderboard isn\'t set up yet, so your score didn\'t post.'
-      : (e.message === 'too_fast' || e.message === 'invalid_token') ? 'Scores only post for a full game, start to finish. Play one through and try again.'
-        : 'Couldn\'t post the score. Try again in a moment.';
+      // too_fast and invalid_token are opposites and must not share a sentence. invalid_token
+      // means there is no real game behind this score. too_fast means there is - the run is
+      // fine, the score is still in memory, and the token ages, so waiting a moment and
+      // pressing again works. The shared message told those people to replay a game they had
+      // just played. One ignored it, pressed a third time, and posted the identical 20,048.
+      : e.message === 'too_fast' ? 'That came in quicker than a full game takes. Your score is safe, wait a few seconds and press post again.'
+        : e.message === 'invalid_token' ? 'Scores only post for a full game, start to finish. Play one through and try again.'
+          : 'Couldn\'t post the score. Try again in a moment.';
     toast(msg);
     $('#submitScore').disabled = false;
   }
@@ -1091,9 +1101,13 @@ $('#switchType').onclick = () => { clearRoundLayers(); map.fitBounds(WORLD); win
 // nickname on whatever device ran it; devices carrying it self-clean here
 if (['sweep bot', 'anon'].includes(localStorage.getItem('ht_nick'))) localStorage.removeItem('ht_nick');
 $('#nickname').value = localStorage.getItem('ht_nick') || '';
-// post only with a name: the button follows the box
-const nickGate = () => { $('#submitScore').disabled = $('#nickname').value.trim().length < 2; };
-$('#nickname').addEventListener('input', nickGate);
+// THE BUTTON IS NEVER DISABLED. It used to grey out until the box held two characters, which
+// meant a first-time player finished a game, pressed the only call to action on the card, and
+// got nothing at all - no message, no focus, no hint that a name was the missing piece. The
+// guidance for exactly that case was already written inside submitScore ('Pick a nickname
+// first.' plus a focus on the box) and was unreachable, because a disabled button cannot be
+// clicked. Measured before this change: 443 games finished, 45 posts attempted. Nine in ten
+// players reached the end and the leaderboard never heard from them.
 $('#boardsBtn').onclick = () => showBoards();
 $('#boardsBack').onclick = () => { history.replaceState(null, '', location.pathname); setView('pick'); };
 // The nav tab links here as /game.html#boards, from either page.
