@@ -422,10 +422,19 @@ function rateLimited(ip, session) {
 // Vercel happens to be running. If the count cannot be read, the analysis proceeds — an
 // outage in the counter must not take the app down.
 //
-// Set DAILY_ANALYSES in the environment to whatever a bad day is allowed to cost. Roughly:
-// one analysis is two model calls, so 20,000 a day is a comfortable viral ceiling and a
-// deliberate, known maximum bill instead of an open tab.
-const DAILY_CAP = Number(process.env.DAILY_ANALYSES || 20000);
+// 2,000, measured rather than guessed. One analysis is ONE model call (MODEL_CHAIN is a
+// fallback, not a committee), and a real call measures at 513 text tokens in, 32 tokens per
+// second of audio, ~477 out and ~934 of thinking: about 1.4 cents, with the thinking being
+// two thirds of it. So this ceiling is a $28 day. Across 99 days of running the busiest day
+// ever was 847 (launch day) and the median is 144, so 2,000 is 2.4x the record and 14x a
+// normal day.
+//
+// THE NUMBER LIVES HERE, not in a dashboard. It sat at 20,000 for months because that was the
+// fallback and nobody had set the variable, and the owner reasonably read "not set in Vercel"
+// as "not 20,000" - which is exactly the confusion config-in-a-dashboard buys you on a project
+// with one environment and one person. The env var still overrides, for the 3am case where the
+// ceiling needs lifting without a commit.
+const DAILY_CAP = Number(process.env.DAILY_ANALYSES || 2000);
 const SB = () => ({ url: process.env.SUPABASE_URL, key: process.env.SUPABASE_SERVICE_KEY });
 
 // Cached per instance for 30 seconds. This used to run on the critical path of EVERY
