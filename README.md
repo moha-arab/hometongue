@@ -2,6 +2,8 @@
 
 Your voice is a place. Live at **[hometongue.me](https://www.hometongue.me/)**.
 
+<img src="og-image.png" alt="HomeTongue — accent geolocation, any language" width="620">
+
 - **🎙 Read My Accent** — talk in any language for at least 20 seconds and it places where you grew up as a point on the map, inside a circle it is honestly confident about.
 - **📍 Guess the Voice** ([game.html](game.html)) — GeoGuessr for ears: hear a real clip, drop a pin. **Eight playable decks, 152 clips**: Arabic (40), World Languages (26), English Accents (20), Spanish (13), French (13), Hindi–Urdu (13), Chinese (12), Portuguese (12). Distance scoring, 5 rounds, nickname leaderboard. Italian and German exist as deck keys but are still being stocked, so they are not dealt.
 
@@ -13,7 +15,7 @@ Works on **every device** — desktop, Android, iPhone — because recording use
 audio → Gemini 3.5 Flash → { lat, lng, radius_km, place, evidence, transcript }
 ```
 
-One call. The model **listens to the recording directly** — there is no transcription step and no speech-to-text service in the middle. `gemini-3.6-flash` sits behind it as an automatic fallback, because the primary will have a bad day: on 2026-08-11 it returned HTTP 500 on six of eight audio requests while text sailed through. The two measure as a tie on accuracy, so the chain is redundancy, not a quality ladder.
+One call. The model **listens to the recording directly** — there is no transcription step and no speech-to-text service in the middle. `gemini-3.6-flash` sits behind it as an automatic fallback (`MODEL_CHAIN` in `api/analyze.js`), because the primary will have a bad day: on 2026-08-11 it returned HTTP 500 on six of eight audio requests while text sailed through. The two measure as a tie on accuracy, so the chain is redundancy, not a quality ladder.
 
 That is the whole architectural argument, and it was measured rather than assumed. The app used to be a cascade: Whisper transcribed the audio, then Claude classified the dialect from the words. It was replaced in August 2026 because **speech-to-text deletes the accent by design.** A transcript uses standard spelling no matter how a word was said, so an Egyptian saying *gamal* and a Levantine saying *jamal* both arrive as جمال. The signal was being thrown away before the reasoning started.
 
@@ -123,6 +125,21 @@ The privacy page describes exactly what is collected, in the same words.
 
 The site is a PWA — "Add to Home Screen" on iOS or Android gives it an icon and a standalone window. No App Store, no wrapper.
 
+## What is where
+
+| path | |
+| --- | --- |
+| `index.html`, `js/app.js` | Read My Accent: record, send, render the verdict and its circle |
+| `game.html`, `js/game.js` | Guess the Voice: dealing, scoring, leaderboard |
+| `js/clips.js` | the clip manifest — every clip's label, coordinates, source and licence |
+| `js/media.js` | one interface over hosted files and YouTube-streamed clips |
+| `api/analyze.js` | the model call, the rate limiters and the daily spend ceiling |
+| `api/prompt.js` | the 2.1 kB prompt and its response schema |
+| `api/track.js` | telemetry ingest and its event allowlist |
+| `tools/` | evaluation, clip sourcing, loudness and leak checking |
+| `data/` | measured results: eval runs, length sweeps, clip provenance |
+| `supabase/schema.sql` | tables for feedback, donated clips and scores |
+
 ## Run locally
 
 ```bash
@@ -156,4 +173,8 @@ After every guess: "did I get it?" — corrections always log, and with the **do
 
 Every clip credits its source, host and licence on the reveal, with a link to the original. Sources are Wikimedia Commons, Wikitongues, Voice of America, the [ARCADE corpus](https://huggingface.co/datasets/riotu-lab/ARCADE-full) (RIOTU Lab) for Arabic, and YouTube for the streamed clips. All licences permit reuse; **no non-commercial clips remain in the project**.
 
-As counted from the manifest: 44 streamed from YouTube and never copied, 40 CC BY 4.0, 24 CC BY-SA 4.0, 23 CC BY-SA 3.0, 13 public domain (including US government work), 5 CC BY 3.0, 5 CC0, 1 CC BY-SA 2.5.
+Counted from the manifest: 42 streamed from YouTube and never copied, 40 CC BY 4.0, 24 CC BY-SA 4.0, 22 CC BY-SA 3.0, 13 public domain (10 plus 3 US government works), 5 CC BY 3.0, 5 CC0, 1 CC BY-SA 2.5. `tools/check-decks.mjs` fails if any clip lacks a licence.
+
+## Licence
+
+Code is [MIT](LICENSE). The clips are not — each is redistributed under its own licence and credited on the reveal screen. See the note at the bottom of [LICENSE](LICENSE).

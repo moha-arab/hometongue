@@ -2,7 +2,7 @@
 //
 // Accepts { audio: <base64>, mime } and returns a point on Earth.
 //
-//   audio -> Gemini 3.6 Flash -> { lat, lng, radius_km, place, evidence, transcript }
+//   audio -> Gemini 3.5 Flash -> { lat, lng, radius_km, place, evidence, transcript }
 //
 // This replaced a cascade (Whisper -> text -> Claude -> country code) on 2026-08-04 after
 // measuring both on 45 labelled Arabic clips and 20 English ones. The cascade scored 58% and
