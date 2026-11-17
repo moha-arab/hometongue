@@ -731,7 +731,12 @@ function finishGame() {
     list.appendChild(row);
   }
   $('#nickRow').hidden = false;
-  $('#board').hidden = true;
+  // SHOW THE BOARD BEFORE ASKING ANYONE TO JOIN IT. This line used to hide the leaderboard
+  // until a score had been posted, so the final card asked a stranger to name themselves and
+  // press a button to join something they could not see. 443 games finished and 45 posts
+  // attempted. Now the board is already on screen with real names on it, and the ask is
+  // 'put yourself on that' rather than 'trust me, there is a list'.
+  loadBoard();
   // Re-enable for the new run. submitScore disables the button while a post is in flight and
   // only re-enables it on failure, so without this a player who posted successfully would
   // come back to a dead button on their next game. This used to be nickGate(), which reset
@@ -759,7 +764,7 @@ async function submitScore() {
     if (!d.ok) throw new Error(d.error);
     const deckName = (MODES.find((m) => m.key === gameType) || {}).name || gameType;
     toast(`Posted! You're #${d.rank} on ${deckName}.`);
-    await loadBoard();
+    await loadBoard(true);
   } catch (e) {
     // "score saved locally" was a false claim — nothing persisted the score. Say what is true.
     const msg = e.message === 'not_configured' ? 'Leaderboard isn\'t set up yet, so your score didn\'t post.'
@@ -776,7 +781,7 @@ async function submitScore() {
   }
 }
 
-async function loadBoard() {
+async function loadBoard(posted = false) {
   try {
     // CACHE-BUSTED, because this is called immediately after posting a score. The read is served
     // with s-maxage=30, so the board painted under "Posted! You're #3" was routinely a copy taken
@@ -791,7 +796,18 @@ async function loadBoard() {
       li.innerHTML = `<span>${escapeHtml(row.nickname)}</span><b>${row.points.toLocaleString()}</b>`;
       ol.appendChild(li);
     }
-    $('#nickRow').hidden = true;
+    // The nickname row only goes away once a score is actually on the board. loadBoard now
+    // also runs before anyone has posted, and hiding the box then would remove the only way in.
+    if (posted) $('#nickRow').hidden = true;
+    // Say so when their run would place. The board is the ten best, so beating the last row
+    // means they belong on it, and that is far more persuasive than a button label.
+    const head = $('#board .board-head');
+    const lowest = d.top.length ? d.top[d.top.length - 1].points : 0;
+    if (head) {
+      head.textContent = (!posted && d.top.length >= 10 && total > lowest)
+        ? `leaderboard — your ${total.toLocaleString()} would make it`
+        : 'leaderboard';
+    }
     $('#board').hidden = false;
   } catch { /* board stays hidden */ }
 }
