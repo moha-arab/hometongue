@@ -976,76 +976,6 @@ window.CLIPS = {
       }
     },
     {
-      "year": 2011,
-      "id": "yt-HylaY5e1awo",
-      "kind": "yt",
-      "videoId": "HylaY5e1awo",
-      "label": "Singapore",
-      "lang": "English",
-      "lat": 1.3521,
-      "lng": 103.8198,
-      "r": 40,
-      "start": 186,
-      "gain": 100,
-      "hint": "Streamed from YouTube, so the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Singapore",
-        "offBy": 0,
-        "confidence": 95,
-        "evidence": [
-          "Distinctive Singaporean English (Singlish) intonation and rhythm",
-          "Syllable-timed prosody characteristic of Singapore and Malaysia",
-          "Speaker explicitly mentions 'Singlish' in the conversation"
-        ],
-        "title": "The Singaporean White Boy - The Shan and Rozz Show: EP7",
-        "author": "Clicknetwork"
-      },
-      "evalExclude": true,
-      "source": {
-        "who": "Clicknetwork",
-        "host": "YouTube",
-        "license": "Streamed from YouTube, so the creator keeps the view",
-        "page": "https://www.youtube.com/watch?v=HylaY5e1awo",
-        "note": "The Singaporean White Boy - The Shan and Rozz Show: EP7"
-      }
-    },
-    {
-      "year": 2017,
-      "id": "yt-HpTfmxkXU1A",
-      "kind": "yt",
-      "videoId": "HpTfmxkXU1A",
-      "label": "Singapore",
-      "lang": "English",
-      "lat": 1.3521,
-      "lng": 103.8198,
-      "r": 40,
-      "start": 161,
-      "gain": 100,
-      "hint": "Streamed from YouTube, so the creator gets the view.",
-      "gate": {
-        "model": "gemini-3.6-flash",
-        "heard": "Singapore",
-        "offBy": 0,
-        "confidence": 95,
-        "evidence": [
-          "Use of local Singlish term 'ang moh' referring to Caucasians",
-          "Explicit discussion of local identity in Singapore",
-          "Syllable-timed rhythm and prosody typical of Singaporean English"
-        ],
-        "title": "What Do People Think Of Singaporeans With \"Angmoh\" Accents? | Word On The Street",
-        "author": "TheSmartLocal"
-      },
-      "evalExclude": true,
-      "source": {
-        "who": "TheSmartLocal",
-        "host": "YouTube",
-        "license": "Streamed from YouTube, so the creator keeps the view",
-        "page": "https://www.youtube.com/watch?v=HpTfmxkXU1A",
-        "note": "What Do People Think Of Singaporeans With \"Angmoh\" Accents? | Word On The Street"
-      }
-    },
-    {
       "year": 2026,
       "id": "yt--djB-PWhdl0",
       "kind": "yt",
@@ -1100,27 +1030,6 @@ window.CLIPS = {
         "page": "https://www.youtube.com/watch?v=_3pnHcYuzOQ",
         "note": "played from 41s, audio only"
       }
-    },
-    {
-      "id": "wild-georgetown-south-carolina-usa-us-south",
-      "label": "Georgetown, South Carolina, USA (US South)",
-      "lang": "English",
-      "url": "/clips/accents/wild-georgetown-south-carolina-usa-us-south.mp3",
-      "lat": 33.3768,
-      "lng": -79.2945,
-      "r": 400,
-      "size": 333366,
-      "wild": true,
-      "hint": "Actor introducing himself off the cuff, 42s",
-      "start": 16,
-      "source": {
-        "who": "Bill Oberst Jr. (Voice intro project",
-        "host": "Wikimedia Commons",
-        "license": "CC BY-SA 4.0",
-        "page": "https://commons.wikimedia.org/wiki/File:Bill_Oberst_Jr_voice.ogg",
-        "note": ""
-      },
-      "lufs": -16.5
     },
     {
       "year": 2020,
@@ -1467,26 +1376,6 @@ window.CLIPS = {
         "page": "https://www.youtube.com/watch?v=CprjAdAO11s",
         "note": "BOGOTA, Colombia l Entrevistas por la calle"
       }
-    },
-    {
-      "id": "spanish-argentine-spanish-reading-about-a-brazilian-to",
-      "label": "Argentina",
-      "lang": "es",
-      "url": "/clips/spanish/spanish-argentine-spanish-reading-about-a-brazilian-to.mp3",
-      "lat": -34.6037,
-      "lng": -58.3816,
-      "r": 250,
-      "size": 1286313,
-      "start": 30,
-      "hint": "A volunteer reading an article aloud · Wikimedia Commons.",
-      "source": {
-        "who": "Eduardo P",
-        "host": "Wikimedia Commons",
-        "license": "CC BY-SA 3.0",
-        "page": "https://commons.wikimedia.org/wiki/File:Es-ar_Andrel%C3%A2ndia.ogg",
-        "note": "trimmed and re-encoded for the game"
-      },
-      "lufs": -16.6
     },
     {
       "id": "spanish-venezuelan-spanish-introduction-to-the-big-ban",

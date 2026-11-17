@@ -9,7 +9,7 @@
 // BUMP THIS ON ANY DEPLOY THAT CHANGES THE SHELL. It sat at v47 through 22 consecutive deploys,
 // and because the install handler only re-runs when THIS FILE changes, the precache still held
 // index.html and app.js from 22 commits ago the whole time.
-const VERSION = 'ht-v63';   // v63: analyze session cap 15 -> 30, and a rate-limited take is kept with the minutes left on the card instead of discarded. v62: voices-heard count removed (his call: didn't look good). v61 added it. v60: session-keyed rate limits, media.js joins LOCKSTEP. v59: tip tile leads the after row. v58: Carto API key on the basemap tiles. v55: tip-tile wording again. v54: dash-free copy sweep. v53: never-mind exit on the report chips. v52: reveal/result/final cards restructured (share-my-score, collapsed flags, after row). v51: telemetry.js joins LOCKSTEP (every page loads it first)
+const VERSION = 'ht-v64';   // v64: four user-reported clips pulled from the decks.   // v63: analyze session cap 15 -> 30, and a rate-limited take is kept with the minutes left on the card instead of discarded. v62: voices-heard count removed (his call: didn't look good). v61 added it. v60: session-keyed rate limits, media.js joins LOCKSTEP. v59: tip tile leads the after row. v58: Carto API key on the basemap tiles. v55: tip-tile wording again. v54: dash-free copy sweep. v53: never-mind exit on the report chips. v52: reveal/result/final cards restructured (share-my-score, collapsed flags, after row). v51: telemetry.js joins LOCKSTEP (every page loads it first)
 
 // FILES WHOSE VERSIONS MUST MATCH EACH OTHER. A stale copy of an icon is a cosmetic nuisance; a
 // stale app.js against a fresh index.html is a crash, because the old code looks for elements the

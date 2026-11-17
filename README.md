@@ -5,7 +5,7 @@ Your voice is a place. Live at **[hometongue.me](https://www.hometongue.me/)**.
 <img src="og-image.png" alt="HomeTongue — accent geolocation, any language" width="620">
 
 - **🎙 Read My Accent** — talk in any language for at least 20 seconds and it places where you grew up as a point on the map, inside a circle it is honestly confident about.
-- **📍 Guess the Voice** ([game.html](game.html)) — GeoGuessr for ears: hear a real clip, drop a pin. **Eight playable decks, 152 clips**: Arabic (40), World Languages (26), English Accents (20), Spanish (13), French (13), Hindi–Urdu (13), Chinese (12), Portuguese (12). Distance scoring, 5 rounds, nickname leaderboard. Italian and German exist as deck keys but are still being stocked, so they are not dealt.
+- **📍 Guess the Voice** ([game.html](game.html)) — GeoGuessr for ears: hear a real clip, drop a pin. **Eight playable decks, 148 clips**: Arabic (40), World Languages (26), English Accents (17), French (13), Hindi–Urdu (13), Spanish (12), Chinese (12), Portuguese (12). Distance scoring, 5 rounds, nickname leaderboard. Italian and German exist as deck keys but are still being stocked, so they are not dealt.
 
 Works on **every device** — desktop, Android, iPhone — because recording uses MediaRecorder and analysis happens server-side.
 
@@ -173,7 +173,7 @@ After every guess: "did I get it?" — corrections always log, and with the **do
 
 Every clip credits its source, host and licence on the reveal, with a link to the original. Sources are Wikimedia Commons, Wikitongues, Voice of America, the [ARCADE corpus](https://huggingface.co/datasets/riotu-lab/ARCADE-full) (RIOTU Lab) for Arabic, and YouTube for the streamed clips. All licences permit reuse; **no non-commercial clips remain in the project**.
 
-Counted from the manifest: 42 streamed from YouTube and never copied, 40 CC BY 4.0, 24 CC BY-SA 4.0, 22 CC BY-SA 3.0, 13 public domain (10 plus 3 US government works), 5 CC BY 3.0, 5 CC0, 1 CC BY-SA 2.5. `tools/check-decks.mjs` fails if any clip lacks a licence.
+Counted from the manifest: 40 streamed from YouTube and never copied, 40 CC BY 4.0, 23 CC BY-SA 4.0, 21 CC BY-SA 3.0, 13 public domain (10 plus 3 US government works), 5 CC BY 3.0, 5 CC0, 1 CC BY-SA 2.5. `tools/check-decks.mjs` fails if any clip lacks a licence.
 
 ## Licence
 
