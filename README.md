@@ -5,7 +5,7 @@ Live at **[hometongue.me](https://www.hometongue.me/)**.
 
 <img src="og-image.png" alt="HomeTongue, accent geolocation in any language" width="620">
 
-15,822 analyses so far, from users in 82 countries, who sent back 1,575 accuracy ratings.
+15,882 analyses so far, from users in 82 countries, who sent back 1,581 accuracy ratings.
 
 - **Read My Accent.** Record at least 20 seconds and get a point on the map, a confidence
   circle around it, and the evidence the model heard.
@@ -26,9 +26,10 @@ One model call that listens to the audio directly. There is no speech-to-text st
 The first version was a cascade: Whisper transcribed the audio and Claude guessed the dialect
 from the text. That loses the signal before reasoning starts, because a transcript uses
 standard spelling no matter how a word was said. An Egyptian saying *gamal* and a Levantine
-saying *jamal* both arrive as جمال. On the same labelled Arabic clips, the cascade placed 58%
-of speakers in the right country and the audio-native call placed 86%, with a 33 km median
-error, so the cascade was replaced.
+saying *jamal* both arrive as جمال. On the same 65 labelled clips (45 Arabic, 20 English), the
+cascade named the right country 58% of the time on Arabic and 50% on English. The audio-native
+call had a 33 km median error: it went from guessing the country to naming the city, so the
+cascade was replaced.
 
 The answer is a point plus a radius, not a country and a percentage. A wide circle in the
 right place is a good answer; a narrow circle in the wrong place is the failure the prompt is
