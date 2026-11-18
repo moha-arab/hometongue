@@ -27,8 +27,8 @@ The first version was a cascade: Whisper transcribed the audio and Claude guesse
 from the text. That loses the signal before reasoning starts, because a transcript uses
 standard spelling no matter how a word was said. An Egyptian saying *gamal* and a Levantine
 saying *jamal* both arrive as جمال. On the same labelled Arabic clips, the cascade placed 58%
-of speakers in the right country and the audio-native call placed 86%, so the cascade was
-replaced.
+of speakers in the right country and the audio-native call placed 86%, with a 33 km median
+error, so the cascade was replaced.
 
 The answer is a point plus a radius, not a country and a percentage. A wide circle in the
 right place is a good answer; a narrow circle in the wrong place is the failure the prompt is
@@ -49,7 +49,7 @@ node tools/eval.mjs                 # all decks
 node tools/eval.mjs arabic accents  # named decks
 ```
 
-Current result on 84 clips: **55 km median error, 60% within 100 km, 74% within 250 km.**
+The current benchmark is a larger, harder set of 84 clips across more decks: **55 km median error, 60% within 100 km, 74% within 250 km.**
 The published state of the art for coordinate-level accent geolocation is a 481 km median,
 on a different corpus.
 

@@ -6,7 +6,8 @@
 //
 // This replaced a cascade (Whisper -> text -> Claude -> country code) on 2026-08-04 after
 // measuring both on the same labelled clips. On the Arabic set the cascade placed 58% of
-// speakers in the right country and this call placed 86%. Speech-to-text deletes the accent
+// speakers in the right country and this call placed 86%, with a 33 km median error across
+// the Arabic and English clips. Speech-to-text deletes the accent
 // by design — standard spelling is used no matter how a word was said — so the transcript was
 // throwing away the entire signal before the reasoning even started. Three separate attempts
 // to recover it downstream (phoneme recogniser on Arabic, on English, prime-as-detector) all
