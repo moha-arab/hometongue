@@ -28,8 +28,8 @@ from the text. That loses the signal before reasoning starts, because a transcri
 standard spelling no matter how a word was said. An Egyptian saying *gamal* and a Levantine
 saying *jamal* both arrive as جمال. On the same 65 labelled clips (45 Arabic, 20 English), the
 cascade named the right country 58% of the time on Arabic and 50% on English. The audio-native
-call had a 33 km median error: it went from guessing the country to naming the city, so the
-cascade was replaced.
+call named the right country 86% of the time on Arabic, with a 33 km median error overall: it
+went from guessing the country to naming the city, so the cascade was replaced.
 
 The answer is a point plus a radius, not a country and a percentage. A wide circle in the
 right place is a good answer; a narrow circle in the wrong place is the failure the prompt is
@@ -108,7 +108,8 @@ Most clips are hosted files. Some stream from YouTube instead: the IFrame API pl
 There are no accounts, so the public API is protected in layers: per-session and per-IP rate
 limits, and a daily analysis ceiling counted in PostgreSQL (Supabase) so every serverless
 instance shares one number. One analysis costs about 1.4 cents, which caps a worst-case day
-at $28.
+at $28. The limiter was verified with a 30,000-request simulation of a client rotating session
+ids to dodge it: it lets through exactly its intended backstop and no more.
 
 ## Telemetry
 
