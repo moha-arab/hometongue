@@ -763,14 +763,11 @@ async function submitScore() {
   } catch (e) {
     // "score saved locally" was a false claim — nothing persisted the score. Say what is true.
     const msg = e.message === 'not_configured' ? 'Leaderboard isn\'t set up yet, so your score didn\'t post.'
-      // too_fast and invalid_token are opposites and must not share a sentence. invalid_token
-      // means there is no real game behind this score. too_fast means there is - the run is
-      // fine, the score is still in memory, and the token ages, so waiting a moment and
-      // pressing again works. The shared message told those people to replay a game they had
-      // just played. One ignored it, pressed a third time, and posted the identical 20,048.
-      : e.message === 'too_fast' ? 'That came in quicker than a full game takes. Your score is safe, wait a few seconds and press post again.'
-        : e.message === 'invalid_token' ? 'Scores only post for a full game, start to finish. Play one through and try again.'
-          : 'Couldn\'t post the score. Try again in a moment.';
+      // There is no too_fast any more: the server dropped its minimum token age, so a score
+      // cannot arrive 'too early'. invalid_token is the one that remains and it means what it
+      // says - no game was started, or the tab has been sitting open for over two hours.
+      : e.message === 'invalid_token' ? 'Scores only post for a full game, start to finish. Play one through and try again.'
+        : 'Couldn\'t post the score. Try again in a moment.';
     toast(msg);
     $('#submitScore').disabled = false;
   }

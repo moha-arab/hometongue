@@ -136,14 +136,19 @@ export default async function handler(req, res) {
     const rounds = Array.isArray(b.rounds) ? b.rounds.slice(0, 5) : [];
     const points = Number.isInteger(b.points) ? b.points : -1;
     const sum = rounds.reduce((s, r) => s + (Number.isInteger(r?.pts) ? r.pts : 0), 0);
-    // Five rounds of pinning cannot physically happen in under ~75 seconds, and a token
-    // older than two hours is a stale tab, not a game. This stops drive-by forged posts and
-    // ten-second fake runs; it does not stop a patient cheater, which is why prize winners
-    // get their round logs eyeballed rather than trusted.
+    // NO MINIMUM AGE. There used to be a 75-second floor on the token, on the theory that five
+    // rounds cannot honestly be played faster than that. It never stopped anyone who mattered -
+    // waiting 75 seconds is free, and the comment that lived here admitted as much - while the
+    // people it did catch were real players finishing quickly, told their run did not count and
+    // to play the whole thing again. The token is still required and still expires, so posting
+    // a score still means starting a game first; it just no longer has to be a slow one.
+    //
+    // Removing the floor also fixes a wrong message: a token older than two hours is a stale
+    // tab, and that case used to answer 'too_fast', which is the opposite of what happened.
     const age = tokenAge(b.token);
-    if (age === null || age < 75_000 || age > 7_200_000) {
+    if (age === null || age > 7_200_000) {
       res.statusCode = 422;
-      return res.end(JSON.stringify({ ok: false, error: age === null ? 'invalid_token' : 'too_fast' }));
+      return res.end(JSON.stringify({ ok: false, error: 'invalid_token' }));
     }
     const valid = gameType && points >= 0 && points <= 25000 && rounds.length === 5
       && rounds.every((r) => Number.isInteger(r?.pts) && r.pts >= 0 && r.pts <= 5000 && Number.isFinite(+r?.km))
