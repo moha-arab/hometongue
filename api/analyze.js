@@ -5,8 +5,8 @@
 //   audio -> Gemini 3.5 Flash -> { lat, lng, radius_km, place, evidence, transcript }
 //
 // This replaced a cascade (Whisper -> text -> Claude -> country code) on 2026-08-04 after
-// measuring both on 45 labelled Arabic clips and 20 English ones. The cascade scored 58% and
-// 50% at country level; this scores a 33 km median error. Speech-to-text deletes the accent
+// measuring both on the same labelled clips. On the Arabic set the cascade placed 58% of
+// speakers in the right country and this call placed 86%. Speech-to-text deletes the accent
 // by design — standard spelling is used no matter how a word was said — so the transcript was
 // throwing away the entire signal before the reasoning even started. Three separate attempts
 // to recover it downstream (phoneme recogniser on Arabic, on English, prime-as-detector) all
@@ -429,11 +429,8 @@ function rateLimited(ip, session) {
 // ever was 847 (launch day) and the median is 144, so 2,000 is 2.4x the record and 14x a
 // normal day.
 //
-// THE NUMBER LIVES HERE, not in a dashboard. It sat at 20,000 for months because that was the
-// fallback and nobody had set the variable, and the owner reasonably read "not set in Vercel"
-// as "not 20,000" - which is exactly the confusion config-in-a-dashboard buys you on a project
-// with one environment and one person. The env var still overrides, for the 3am case where the
-// ceiling needs lifting without a commit.
+// The default lives in code, not in a dashboard, so the real limit is visible in review. The
+// env var still overrides it when the ceiling needs lifting without a commit.
 const DAILY_CAP = Number(process.env.DAILY_ANALYSES || 2000);
 const SB = () => ({ url: process.env.SUPABASE_URL, key: process.env.SUPABASE_SERVICE_KEY });
 
